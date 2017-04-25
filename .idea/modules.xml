@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
       <module fileurl="file://C:\Users\Matthias\IdeaProjects\swp17i\server.iml" filepath="C:\Users\Matthias\IdeaProjects\swp17i\server.iml" />
       <module fileurl="file://$PROJECT_DIR$/swp17i.iml" filepath="$PROJECT_DIR$/swp17i.iml" />
     </modules>
