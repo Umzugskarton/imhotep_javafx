@@ -32,7 +32,7 @@ public class Server {
                 rs = stmt.getResultSet();
             }
 
-            System.out.println(stmt.getMaxRows());
+            System.out.println(stmt.getQueryTimeout());
         }
         catch (SQLException ex){
             // handle any errors
