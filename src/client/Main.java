@@ -20,30 +20,30 @@ public class Main extends Application{
 
         GridPane grid = new GridPane();
         Scene login = new Scene(grid);
-        stage.show();
-        stage.setScene(login);
-        stage.setTitle("Imhotep");
-        stage.setHeight(250);
+        stage.show(); //stage wird angezeigt
+        stage.setScene(login); //hier wird die szene übergeben
+        stage.setTitle("Imhotep"); //title des fensters
+        stage.setHeight(250); //maße des fensters
         stage.setWidth(350);
 
-        Label labelUser = new Label("Benutzername: ");
+        Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
         TextField userName = new TextField();
         userName.setPromptText("Benutzernamen eingeben");
 
-        Label labelPassword = new Label("Passwort: ");
+        Label labelPassword = new Label("Passwort: "); //Label und Textfelder für das Passwort
         PasswordField passwordUser = new PasswordField();
         passwordUser.setPromptText("Passwort eingeben");
 
-        Button loginNow = new Button("Login");
+        Button loginNow = new Button("Login"); //Buttons werden angelegt
         Button registerNow = new Button("Register");
 
-        GridPane.setConstraints(labelUser,0,0);
+        GridPane.setConstraints(labelUser,0,0); //Hier werden die Positionen "angelegt"
         GridPane.setConstraints(userName,1,0);
         GridPane.setConstraints(labelPassword,0,1);
         GridPane.setConstraints(passwordUser,1,1);
         GridPane.setConstraints(loginNow,0,2);
         GridPane.setConstraints(registerNow,1,2);
 
-        grid.getChildren().addAll(labelUser, userName, labelPassword, passwordUser, loginNow, registerNow);
+        grid.getChildren().addAll(labelUser, userName, labelPassword, passwordUser, loginNow, registerNow); //hier werden dem grid die buttons, textfelder und labels übergeben
     }
 }
