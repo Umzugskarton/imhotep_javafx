@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9e8041b-6392-404d-a381-689539f7871d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/codestyles/Default.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/namelist.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/server/Test.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/Main.java" afterPath="$PROJECT_DIR$/Client/src/Main.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/lib/readme" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -42,11 +37,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
               <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readme" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/lib/readme">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="10" lean-forward="true" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -103,6 +108,7 @@
         <option value="$PROJECT_DIR$/src/client/Main.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.java" />
         <option value="$PROJECT_DIR$/Client/src/Main.java" />
+        <option value="$PROJECT_DIR$/Client/lib/readme" />
       </list>
     </option>
   </component>
@@ -641,7 +647,7 @@
       <workItem from="1492082640801" duration="379000" />
       <workItem from="1492100595150" duration="261000" />
       <workItem from="1492524294913" duration="66000" />
-      <workItem from="1493151940635" duration="2132000" />
+      <workItem from="1493151940635" duration="2300000" />
     </task>
     <task id="LOCAL-00001" summary="Keine Ahnung wie wir uns hier Organisieren.&#10;&#10;Aber bitte alle mal in die Main Methode vom Client eintragen!">
       <created>1492072445998</created>
@@ -699,11 +705,25 @@
       <option name="project" value="LOCAL" />
       <updated>1493153573133</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Ordner aufgeräumt">
+      <created>1493154085497</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1493154085497</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Ordner aufgeräumt">
+      <created>1493154161220</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1493154161220</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10106000" />
+    <option name="totallyTimeSpent" value="10274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -755,7 +775,8 @@
     <MESSAGE value="Java-FX Grundstruktur" />
     <MESSAGE value="Login Fenster erstellt" />
     <MESSAGE value="Server als Modul eingetragen und mySQL Treiber eingebunden" />
-    <option name="LAST_COMMIT_MESSAGE" value="Server als Modul eingetragen und mySQL Treiber eingebunden" />
+    <MESSAGE value="Ordner aufgeräumt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ordner aufgeräumt" />
   </component>
   <component name="WindowStateProjectService">
     <state width="329" height="245" key="Git.Branch.Popup" />
@@ -770,14 +791,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/namelist.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1066,6 +1079,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/lib/readme">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="10" lean-forward="true" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="20" />
           <folding />
         </state>
       </provider>
