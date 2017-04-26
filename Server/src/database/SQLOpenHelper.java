@@ -4,6 +4,7 @@ package database;
 public abstract class SQLOpenHelper {
 
     private String dbname;
+    private int test;
     private int dbversion;
     private IDbConnection conn = null;
 
