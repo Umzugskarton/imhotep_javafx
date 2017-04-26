@@ -10,8 +10,8 @@ public class DbConnectionMySQL implements IDbConnection {
 
     public void open(){
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/mytest?" +
-                    "user=root&password=root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/swp17i?" +
+                    "user=swp17i&password=swp17i");
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());

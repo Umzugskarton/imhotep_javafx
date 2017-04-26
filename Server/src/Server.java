@@ -12,8 +12,8 @@ public class Server {
         ResultSet rs = null;
 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/mytest?" +
-                    "user=root&password=root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/swp17i?" +
+                    "user=swp17i&password=swp17i");
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -23,12 +23,12 @@ public class Server {
 
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM mytable");
+            rs = stmt.executeQuery("SELECT * FROM test");
 
             // or alternatively, if you don't know ahead of time that
             // the query will be a SELECT...
 
-            if (stmt.execute("SELECT * FROM mytable")) {
+            if (stmt.execute("SELECT * FROM test")) {
                 rs = stmt.getResultSet();
             }
 

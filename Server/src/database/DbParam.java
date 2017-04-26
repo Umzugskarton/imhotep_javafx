@@ -1,6 +1,5 @@
 package database;
 
-
 public class DbParam {
 
     private IDbConnection connection = null;
