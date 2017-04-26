@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f9e8041b-6392-404d-a381-689539f7871d" name="Default" comment="Datenbank Logik versucht aufzubauen.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/src/database/DbConnection.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/src/database/SQLOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/uml/SWP17I-server.vpp" afterPath="$PROJECT_DIR$/Server/uml/SWP17I-server.vpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Server.java" afterPath="$PROJECT_DIR$/Server/src/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/database/DbConnectionMySQL.java" afterPath="$PROJECT_DIR$/Server/src/database/DbConnectionMySQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/database/DbHelper.java" afterPath="$PROJECT_DIR$/Server/src/database/DbHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/database/DbParam.java" afterPath="$PROJECT_DIR$/Server/src/database/DbParam.java" />
+    <list default="true" id="f9e8041b-6392-404d-a381-689539f7871d" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/bitbucket-repo-properties.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/description.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_mac/git.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_mac/laf.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_mac/path.macros.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bitbucket-cloud-registry.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bitbucket-server-registry.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/databaseSettings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/debugger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/editor.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vcs.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -96,7 +106,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLOpenHelper.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SQLOpenHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/database/SQLOpenHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
@@ -107,6 +117,16 @@
                 <element signature="e#605#606#0" expanded="true" />
                 <element signature="e#639#640#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -147,26 +167,6 @@
                 <element signature="e#392#393#0" expanded="false" />
                 <element signature="e#480#481#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="readme" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Client/lib/readme">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/Server.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="9" column="87" lean-forward="false" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="87" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -264,78 +264,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swp17i" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -813,7 +741,7 @@
       <workItem from="1493151940635" duration="3044000" />
       <workItem from="1493191390758" duration="3770000" />
       <workItem from="1493195624594" duration="229000" />
-      <workItem from="1493195888284" duration="7464000" />
+      <workItem from="1493195888284" duration="8038000" />
     </task>
     <task id="LOCAL-00001" summary="Keine Ahnung wie wir uns hier Organisieren.&#10;&#10;Aber bitte alle mal in die Main Methode vom Client eintragen!">
       <created>1492072445998</created>
@@ -913,11 +841,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493195846296</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Datenbank Logik versucht aufzubauen.">
+      <created>1493203683856</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1493203683856</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22481000" />
+    <option name="totallyTimeSpent" value="23055000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -972,7 +907,8 @@
     <MESSAGE value="Server als Modul eingetragen und mySQL Treiber eingebunden" />
     <MESSAGE value="Ordner aufgeräumt" />
     <MESSAGE value="UML Projekt von Visual Paradigm hinzugefügt" />
-    <option name="LAST_COMMIT_MESSAGE" value="UML Projekt von Visual Paradigm hinzugefügt" />
+    <MESSAGE value="Datenbank Logik versucht aufzubauen." />
+    <option name="LAST_COMMIT_MESSAGE" value="Datenbank Logik versucht aufzubauen." />
   </component>
   <component name="WindowStateProjectService">
     <state width="329" height="245" key="Git.Branch.Popup" />
@@ -987,13 +923,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/swp17i.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="64" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.iml" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
@@ -1075,13 +1004,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.iml" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/namelist.txt" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/javafx/application/Application.java" />
     <entry file="file://$PROJECT_DIR$/Server/Server.iml">
@@ -1211,6 +1133,22 @@
             <element signature="e#605#606#0" expanded="true" />
             <element signature="e#639#640#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
