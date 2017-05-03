@@ -131,22 +131,18 @@ public class UserManager {
             result = stmt.executeQuery();
 
             // Wenn result einen Eintrag hat (also der User existiert)
-            if(this.dbController.countResults(result) == 1) {
-                while(result.next()) {
+            if (this.dbController.countResults(result) == 1) {
+                while (result.next()) {
                     // Neues User-Objekt erstellen
                     User user = new User(
-                            result.getInt("id"),
-                            result.getString("username"),
-                            result.getString("password"),
-                            result.getString("email")
+                        result.getInt("id"),
+                        result.getString("username"),
+                        result.getString("password"),
+                        result.getString("email")
                     );
-
                     // User-Objekt zurückgeben
                     return user;
                 }
-            } else {
-                // Query hatte für Logindaten kein Ergebnis, null-Objekt zurückgeben
-                return null;
             }
         } catch (SQLException se) {
             // TODO Auto-generated catch block
@@ -154,13 +150,17 @@ public class UserManager {
         } finally {
             try {
                 // Statement und ResultSet freigeben
-                if(stmt != null) stmt.close();
-                if(result != null) result.close();
+                if (stmt != null)
+                    stmt.close();
+                if (result != null)
+                    result.close();
             } catch (SQLException se) {
                 // TODO Auto-generated catch block
                 se.printStackTrace();
             }
         }
+        return null;
+    }
 
         /**
          * Erstellt und returned ein User-Objekt mit Datensatz aus Datenbank, wenn ID existiert
@@ -168,7 +168,7 @@ public class UserManager {
          * @param	id	  ID
          * @return 			User-Objekt mit Daten aus der Datenbank oder Null-Objekt, falls kein User mit username gefunden wird
          */
-    public User getUserByUsername(int id) {
+    public User getUserById(int id) {
         PreparedStatement stmt = null;
         ResultSet result = null;
 
@@ -176,7 +176,7 @@ public class UserManager {
             // Query vorbereiten und ausführen
             String query = "SELECT id, username, password, email FROM users WHERE id = ? LIMIT 0,1";
             stmt = this.dbController.getConnection().prepareStatement(query);
-            stmt.setString(1, username);
+            stmt.setString(1, Integer.toString(id));
             result = stmt.executeQuery();
 
             // Wenn result einen Eintrag hat (also der User existiert)
@@ -189,13 +189,9 @@ public class UserManager {
                         result.getString("password"),
                         result.getString("email")
                     );
-
                     // User-Objekt zurückgeben
                     return user;
                 }
-            } else {
-                // Query hatte für Logindaten kein Ergebnis, null-Objekt zurückgeben
-                return null;
             }
         } catch (SQLException se) {
             // TODO Auto-generated catch block
@@ -210,7 +206,6 @@ public class UserManager {
                 se.printStackTrace();
             }
         }
-
         return null;
     }
 

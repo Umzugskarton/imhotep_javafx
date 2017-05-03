@@ -76,7 +76,7 @@ public class ClientAPI {
 			 * User einloggen, Session zum Client zurücksenden
 			 */
 
-            User user = userManager.getUser(username);
+            User user = userManager.getUserByUsername(username);
             System.out.println("Login mit Daten (" + username + ", " + password + ") erfolgreich, User-Objekt:");
             System.out.println("\tID: " + user.getId() + "\n\tUsername: " + user.getUsername() + "\n\tPasswort: " + user.getPasswordHash() + "\n\tE-Mail: " + user.getEmail());
 
