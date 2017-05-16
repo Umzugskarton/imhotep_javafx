@@ -49,7 +49,7 @@ public class ServerListener implements Runnable {
                             // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
                             Platform.runLater(
                                 () -> {
-                                    this.sceneController.getRegistrationPresenter().setResult(message);
+                                    this.sceneController.getRegistrationPresenter().getRegistrationView().updateStatusLabel(message);
                                 }
                             );
                         } else if (command.equals("login")) {
@@ -59,7 +59,7 @@ public class ServerListener implements Runnable {
                             // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
                             Platform.runLater(
                                 () -> {
-                                    this.sceneController.getLoginPresenter().setResult(message);
+                                    this.sceneController.getLoginPresenter().getLoginView().updateStatusLabel(message);;
                                 }
                             );
                         }

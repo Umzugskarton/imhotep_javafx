@@ -4,12 +4,12 @@ import java.sql.*;
 public class DBController {
 
   // JDBC Treiber und URL zur Datenbank
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB = "jdbc:mysql://duemmer.informatik.uni-oldenburg.de:47099/db_test";
+  private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+  private static final String DB = "jdbc:mysql://duemmer.informatik.uni-oldenburg.de:47099/db_test";
 
   //  Datenbank-Daten
-  static final String USERNAME = "safariman";
-  static final String PASSWORD = "blablabla";
+  private static final String USERNAME = "safariman";
+  private static final String PASSWORD = "blablabla";
 
   // DB-Objekt
   private Connection conn = null;
@@ -22,7 +22,6 @@ public class DBController {
     try {
       Class.forName(JDBC_DRIVER);
     } catch (Exception e) {
-      // Handle errors for Class.forName
       e.printStackTrace();
     }
   }

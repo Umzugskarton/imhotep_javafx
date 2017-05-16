@@ -9,6 +9,9 @@ import login.view.LoginViewImpl;
 import socket.ClientSocket;
 
 public class SceneController {
+    private static final int STAGE_WIDTH = 640;
+    private static final int STAGE_HEIGHT = 250;
+
     private Stage stage;
 
     // Socket
@@ -18,9 +21,6 @@ public class SceneController {
     private RegistrationPresenter registrationPresenter;
     private LoginPresenter loginPresenter;
 
-    private final int stageWidth = 640; //maße des fensters
-    private final int stageHeight = 250;
-
     public SceneController(Stage stage){
         this.clientSocket = new ClientSocket(this);
         this.stage = stage;
@@ -28,8 +28,8 @@ public class SceneController {
         this.toLoginScene();
 
         stage.setTitle("Imhotep");
-        stage.setHeight(this.stageHeight);
-        stage.setWidth(this.stageWidth);
+        stage.setHeight(this.STAGE_HEIGHT);
+        stage.setWidth(this.STAGE_WIDTH);
         stage.show();
     }
 
