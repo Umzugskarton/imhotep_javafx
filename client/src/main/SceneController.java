@@ -20,8 +20,8 @@ public class SceneController {
     private final int stageWidth = 350;
     private final int stageHeight = 250;
 
-    public SceneController(Stage stage, ClientSocket clientSocket){
-        this.clientSocket = clientSocket;
+    public SceneController(Stage stage){
+        this.clientSocket = new ClientSocket();;
         this.stage = stage;
         this.loginPresenter = new LoginPresenter(new LoginViewImpl(), new LoginModelImpl(), this);
         stage.setScene(loginPresenter.getLoginView().getLoginScene()); //hier wird die szene übergeben

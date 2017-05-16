@@ -12,7 +12,6 @@ public class Main extends Application{
     }
 
     public void start(Stage stage) {
-        ClientSocket clientSocket = new ClientSocket();
-        SceneController sc = new SceneController(stage, clientSocket);
+        SceneController sc = new SceneController(stage);
     }
 }
