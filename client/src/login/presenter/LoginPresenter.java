@@ -1,6 +1,5 @@
 package login.presenter;
 
-
 import login.model.LoginModelImpl;
 import login.view.LoginView;
 import main.SceneController;

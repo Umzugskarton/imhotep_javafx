@@ -16,10 +16,8 @@ import org.json.simple.JSONObject;
 
 
 public class LoginViewImpl implements LoginView {
-
     public static void main(String[] args){
-
-        launch(args);       //Startet Java-FX-Thread und ruft die "start"-Methode auf
+        launch(args);
     }
 
     private Scene loginScene;

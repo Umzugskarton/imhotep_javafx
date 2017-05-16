@@ -22,6 +22,7 @@ public class Server {
 	private void init() {
 		try {
 				this.serverSocket = new ServerSocket(this.port);
+				System.out.println("[SERVER] Server auf Port " + this.port + " gestartet");
 	    } catch (IOException e) {
 	      System.out.println("[SERVER] Server konnte auf Port " + this.port + " nicht gestartet werden: " + e.getMessage());
 	      System.exit(-1);
@@ -31,7 +32,6 @@ public class Server {
 	public void run() {
 		while (true) {
 	      try {
-	        System.out.println ("[SERVER] Auf Client warten...");
 	        Socket clientSocket = this.serverSocket.accept();
 
 					this.addClient(clientSocket);
@@ -57,7 +57,7 @@ public class Server {
 	}
 
 	public void removeClient(ClientListener clientListener) {
-		System.out.println ("[SERVER] Client (Thread: " + clientListener.getThread().getId() + ") hat die Verbindung beendet");
+		System.out.println ("[SERVER] Thread " + clientListener.getThread().getId() + ": Client hat die Verbindung beendet");
 
 		if(this.connectedClients.contains(clientListener)) {
 			this.connectedClients.remove(clientListener);

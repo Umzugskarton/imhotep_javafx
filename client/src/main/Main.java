@@ -5,12 +5,10 @@ import javafx.stage.Stage;
 import socket.ClientSocket;
 
 public class Main extends Application{
-
     private Stage stage;
 
     public static void main(String[] args){
-
-        launch();       //Startet Java-FX-Thread und ruft die "start"-Methode auf
+        launch();
     }
 
     public void start(Stage stage) {

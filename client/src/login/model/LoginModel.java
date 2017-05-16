@@ -9,5 +9,4 @@ public interface LoginModel {
     void setPassword(String pass);
     String getUsername();
     String getPassword();
-
 }

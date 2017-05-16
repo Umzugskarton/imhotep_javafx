@@ -10,27 +10,25 @@ import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import socket.ClientSocket;
 
-
 public class SceneController {
-
     private Stage stage;
     private RegistrationPresenter registrationPresenter;
     private LoginPresenter loginPresenter;
     private ClientSocket clientSocket;
-  //  private RegistrationPresenter registrationPresenter;
-    private final int stageWidth = 350; //maße des fensters
-    private final int stageHeight = 250;
 
+    // Fenstermaße
+    private final int stageWidth = 350;
+    private final int stageHeight = 250;
 
     public SceneController(Stage stage, ClientSocket clientSocket){
         this.clientSocket = clientSocket;
         this.stage = stage;
-        loginPresenter = new LoginPresenter(new LoginViewImpl(), new LoginModelImpl(), this);
+        this.loginPresenter = new LoginPresenter(new LoginViewImpl(), new LoginModelImpl(), this);
         stage.setScene(loginPresenter.getLoginView().getLoginScene()); //hier wird die szene übergeben
-        stage.setTitle("Imhotep"); //title des fensters
+        stage.setTitle("Imhotep"); // Fenstertitel
         stage.setHeight(stageHeight);
         stage.setWidth(stageWidth);
-        stage.show(); //zeigt das fenster an
+        stage.show();
     }
 
    public ClientSocket getClientSocket(){return this.clientSocket;}
@@ -49,7 +47,4 @@ public class SceneController {
     }
     stage.setScene(loginPresenter.getLoginView().getLoginScene());
   }
-
-
-
 }

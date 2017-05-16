@@ -11,8 +11,6 @@ import javafx.scene.layout.GridPane;
 import json.ClientCommands;
 import org.json.simple.JSONObject;
 import registration.presenter.RegistrationPresenter;
-import registration.view.RegistrationView;
-import main.SceneController;
 
 
 public class RegistrationViewImpl implements RegistrationView {
