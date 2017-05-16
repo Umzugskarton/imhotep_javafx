@@ -11,5 +11,6 @@
     <orderEntry type="library" name="json-simple-1.1.1 (2)" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="server lib" level="project" />
   </component>
 </module>
