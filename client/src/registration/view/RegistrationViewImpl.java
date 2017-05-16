@@ -48,14 +48,10 @@ public class RegistrationViewImpl implements RegistrationView {
         public void handle(ActionEvent event){
           String password1 = passwordField.getText();
           String password2 = passwordField2.getText();
-          String name = nameField.getText();
+          String username = nameField.getText();
           String email = emailField.getText();
-          if(registrationPresenter.validate(password1, password2, name, email) == true) {
-              registrationPresenter.register(nameField.getText(), passwordField.getText(), emailField.getText());
-            } else {
 
-
-          }
+          registrationPresenter.register(username, password1, password2, email);
       }
     });
 

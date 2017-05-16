@@ -2,13 +2,10 @@ package registration.presenter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.event.ActionEvent;
-import javax.naming.directory.InvalidAttributeValueException;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
 import registration.view.*;
-import sun.jvm.hotspot.debugger.AddressException;
 
 public class RegistrationPresenter {
 
@@ -23,9 +20,13 @@ public class RegistrationPresenter {
     view.setRegistrationPresenter(this);
   }
 
-  public void register(String username, String password, String email) {
-    JSONObject registerCommand = ClientCommands.registerCommand(username, password, email);
-    this.sc.getClientSocket().send(registerCommand);
+  public void register(String username, String password1, String password2, String email) {
+    if(validate(password1, password2, username, email)) {
+      JSONObject registerCommand = ClientCommands.registerCommand(username, password1, email);
+      this.sc.getClientSocket().send(registerCommand);
+    } else {
+      this.setResult("Ungültige Eingaben.");
+    }
   }
 
   public void toLoginScene() {
@@ -42,13 +43,10 @@ public class RegistrationPresenter {
 
   public boolean validate(String password1, String password2, String name, String email) {
     Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-    if (password1 != null && password1 == password2 && name != null && email != null && matcher
-        .find() && password1.length() > 8) {
+    if (!password1.isEmpty() && !password2.isEmpty() && !name.isEmpty() && !email.isEmpty() && password1.equals(password2) && matcher.find() && password1.length() > 8) {
       return true;
-    } else {
-      System.out.println("Fehler bei der Eingabe");
-      return false;
     }
+    return false;
   }
 
 }
