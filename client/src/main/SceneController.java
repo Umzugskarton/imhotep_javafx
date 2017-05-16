@@ -9,37 +9,35 @@ import login.view.LoginViewImpl;
 import socket.ClientSocket;
 
 public class SceneController {
-    private static final int STAGE_WIDTH = 640;
-    private static final int STAGE_HEIGHT = 250;
 
-    private Stage stage;
+  private static final int STAGE_WIDTH = 640;
+  private static final int STAGE_HEIGHT = 250;
 
-    // Socket
-    private ClientSocket clientSocket;
+  private Stage stage;
 
-    // Presenter
-    private RegistrationPresenter registrationPresenter;
-    private LoginPresenter loginPresenter;
+  // Socket
+  private ClientSocket clientSocket;
 
-    public SceneController(Stage stage){
-        this.clientSocket = new ClientSocket(this);
-        this.stage = stage;
+  // Presenter
+  private RegistrationPresenter registrationPresenter;
+  private LoginPresenter loginPresenter;
 
-        this.toLoginScene();
+  public SceneController(Stage stage) {
+    this.clientSocket = new ClientSocket(this);
+    this.stage = stage;
+    this.toLoginScene();
+    stage.setTitle("Imhotep");
+    stage.setHeight(STAGE_HEIGHT);
+    stage.setWidth(STAGE_WIDTH);
+    stage.show();
+  }
 
-        stage.setTitle("Imhotep");
-        stage.setHeight(this.STAGE_HEIGHT);
-        stage.setWidth(this.STAGE_WIDTH);
-        stage.show();
+  public void toRegistrationScene() {
+    if (this.registrationPresenter == null) {
+      this.registrationPresenter = new RegistrationPresenter(new RegistrationViewImpl(), this);
     }
-
-    public void toRegistrationScene() {
-      if (this.registrationPresenter == null) {
-        this.registrationPresenter = new RegistrationPresenter(new RegistrationViewImpl(), this);
-      }
-
-      this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
-    }
+    this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
+  }
 
   public void toLoginScene() {
     if (this.loginPresenter == null) {
@@ -50,10 +48,14 @@ public class SceneController {
   }
 
   public ClientSocket getClientSocket() {
-      return this.clientSocket;
+    return this.clientSocket;
   }
 
-  public LoginPresenter getLoginPresenter() { return this.loginPresenter; }
+  public LoginPresenter getLoginPresenter() {
+    return this.loginPresenter;
+  }
 
-  public RegistrationPresenter getRegistrationPresenter() { return this.registrationPresenter; }
+  public RegistrationPresenter getRegistrationPresenter() {
+    return this.registrationPresenter;
+  }
 }

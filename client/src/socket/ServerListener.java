@@ -13,65 +13,71 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class ServerListener implements Runnable {
-    private Socket serverSocket;
-    private SceneController sceneController;
 
-    public ServerListener(Socket serverSocket, SceneController sceneController) {
-        this.serverSocket = serverSocket;
-        this.sceneController = sceneController;
-    }
+  private Socket serverSocket;
+  private SceneController sceneController;
 
-    @Override
-    public void run() {
+  public ServerListener(Socket serverSocket, SceneController sceneController) {
+    this.serverSocket = serverSocket;
+    this.sceneController = sceneController;
+  }
+
+  @Override
+  public void run() {
+    try {
+      System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " gestartet!");
+
+      BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+
+      String receivedMsg = null;
+      while ((receivedMsg = in.readLine()) != null) {
+        System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId()
+            + ": Nachricht vom Server erhalten " + receivedMsg);
+
+        JSONParser parser = new JSONParser();
         try {
-            System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " gestartet!");
-            
-            BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+          Object obj = parser.parse(receivedMsg);
+          JSONObject request = (JSONObject) obj;
 
-            String receivedMsg = null;
-            while ((receivedMsg = in.readLine()) != null)
-            {
-                System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": Nachricht vom Server erhalten " + receivedMsg);
+          if (request.containsKey("command")) {
+            String command = (String) request.get("command");
+            JSONObject response = null;
 
-                JSONParser parser = new JSONParser();
-                try {
-                    Object obj = parser.parse(receivedMsg);
-                    JSONObject request = (JSONObject) obj;
+            if (command.equals("register")) {
+              String message = (String) request.get("message");
 
-                    if(request.containsKey("command")) {
-                        String command = (String) request.get("command");
-                        JSONObject response = null;
+              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
+              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+              Platform.runLater(
+                  () -> {
+                    this.sceneController.getRegistrationPresenter().getRegistrationView()
+                        .updateStatusLabel(message);
+                  }
+              );
+            } else if (command.equals("login")) {
+              String message = (String) request.get("message");
 
-                        if (command.equals("register")) {
-                            String message = (String) request.get("message");
-
-                            // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-                            // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-                            Platform.runLater(
-                                () -> {
-                                    this.sceneController.getRegistrationPresenter().getRegistrationView().updateStatusLabel(message);
-                                }
-                            );
-                        } else if (command.equals("login")) {
-                            String message = (String) request.get("message");
-
-                            // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-                            // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-                            Platform.runLater(
-                                () -> {
-                                    this.sceneController.getLoginPresenter().getLoginView().updateStatusLabel(message);;
-                                }
-                            );
-                        }
-                    }
-                } catch (ParseException pe){
-                    System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": Ungueltige Nachricht erhalten " + receivedMsg + ": " + pe);
-                }
+              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
+              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+              Platform.runLater(
+                  () -> {
+                    this.sceneController.getLoginPresenter().getLoginView()
+                        .updateStatusLabel(message);
+                    ;
+                  }
+              );
             }
-
-            System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " beendet!");
-        } catch (IOException ex) {
-            System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": " + ex.getMessage());
+          }
+        } catch (ParseException pe) {
+          System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId()
+              + ": Ungültige Nachricht erhalten " + receivedMsg + ": " + pe);
         }
+      }
+
+      System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " beendet!");
+    } catch (IOException ex) {
+      System.out.println(
+          "[CLIENT] Serverthread " + Thread.currentThread().getId() + ": " + ex.getMessage());
     }
+  }
 }

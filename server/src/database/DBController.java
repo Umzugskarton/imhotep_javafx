@@ -1,4 +1,5 @@
 package database;
+
 import java.sql.*;
 
 public class DBController {
@@ -43,7 +44,6 @@ public class DBController {
       // TODO Auto-generated catch block
       se.printStackTrace();
     }
-
     return false;
   }
 
@@ -96,7 +96,7 @@ public class DBController {
   /**
    * Zaehlt die Anzahl der Resultate einer Abfrage
    *
-   * @param  result  ResultSet, in dem die Eintraege gezaehlt werden soll
+   * @param result ResultSet, in dem die Eintraege gezaehlt werden soll
    * @return Anzahl der Eintraege in result
    */
   public int countResults(ResultSet result) {
@@ -114,9 +114,9 @@ public class DBController {
   /**
    * Prueft, ob Wert value in Spalte column in Tabelle table existiert
    *
-   * @param  table  Zu Ueberpruefende Tabelle
-   * @param  column Spalte der Tabelle
-   * @param  value  Wert, auf den ueberprueft werden soll
+   * @param table Zu Ueberpruefende Tabelle
+   * @param column Spalte der Tabelle
+   * @param value Wert, auf den ueberprueft werden soll
    * @return true, wenn Eintrag existiert
    */
   public boolean exists(String table, String column, String value) {
@@ -144,7 +144,6 @@ public class DBController {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
     return false;
   }
 

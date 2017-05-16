@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
  * Created by tobia on 16.05.2017.
  */
 public class ClientCommands {
+
   public static JSONObject registerCommand(String username, String password, String email) {
     JSONObject obj = new JSONObject();
 

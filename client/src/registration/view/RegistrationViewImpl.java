@@ -8,16 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import login.presenter.LoginPresenter;
 import registration.presenter.RegistrationPresenter;
 
 
 public class RegistrationViewImpl implements RegistrationView {
+
   private RegistrationPresenter registrationPresenter;
   private Scene registrationScene;
   private Label registrationStatus;
 
-  public RegistrationViewImpl(){
+  public RegistrationViewImpl() {
     buildRegistration();
   }
 
@@ -44,20 +44,20 @@ public class RegistrationViewImpl implements RegistrationView {
     registrationStatus = new Label();
 
     Button register = new Button("Registrieren");
-    register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-        public void handle(ActionEvent event){
-          String password1 = passwordField.getText();
-          String password2 = passwordField2.getText();
-          String username = nameField.getText();
-          String email = emailField.getText();
+    register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        String password1 = passwordField.getText();
+        String password2 = passwordField2.getText();
+        String username = nameField.getText();
+        String email = emailField.getText();
 
-          registrationPresenter.register(username, password1, password2, email);
+        registrationPresenter.register(username, password1, password2, email);
       }
     });
 
     Button login = new Button("Zum Login wechseln");
-    login.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-      public void handle(ActionEvent event){
+    login.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
         registrationPresenter.toLoginScene();
       }
     });
@@ -75,12 +75,12 @@ public class RegistrationViewImpl implements RegistrationView {
     root.add(login, 3, 6);
   }
 
-  public void updateStatusLabel(String result){
+  public void updateStatusLabel(String result) {
     registrationStatus.setText(result);
   }
 
   public Scene getRegistrationScene() {
-      return this.registrationScene;
+    return this.registrationScene;
   }
 
   public void setRegistrationPresenter(RegistrationPresenter registrationPresenter) {

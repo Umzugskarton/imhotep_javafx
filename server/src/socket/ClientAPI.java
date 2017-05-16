@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import user.UserManager;
 
 public class ClientAPI {
+
   private UserManager userManager;
 
   public ClientAPI() {
@@ -13,18 +14,18 @@ public class ClientAPI {
 
   /**
    * Wenn Client eine Login-Anfrage sendet, werden die Logindaten
-   * via validateLogin ueberprueft. Wenn die Daten korrekt sind, wird
+   * via validateLogin überprüft. Wenn die Daten korrekt sind, wird
    * eine Erfolgsnachricht an den Client gesendet.
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @return          JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthaelt
-   * @param  request  JSON-Objekt, das User-Daten fuer Login enthaelt
+   * @param request JSON-Objekt, das User-Daten für Login enthält
+   * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
   public JSONObject login(JSONObject request) {
     JSONObject response = new JSONObject();
 
-    if(request.containsKey("username") && request.containsKey("password")) {
+    if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
 
@@ -32,13 +33,13 @@ public class ClientAPI {
 
       if (isLoginValid) {
         response = ServerCommands.loginCommand("Login erfolgreich!", true);
-      } else{
-        response = ServerCommands.loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+      } else {
+        response = ServerCommands
+            .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
       }
     } else {
       response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
     }
-
     return response;
   }
 
@@ -49,28 +50,31 @@ public class ClientAPI {
    * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @return          JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthaelt
-   * @param  request  JSON-Objekt, das User-Daten fuer Registrierung enthaelt
+   * @param request JSON-Objekt, das User-Daten für Registrierung enthält
+   * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
   public JSONObject register(JSONObject request) {
-      JSONObject response;
+    JSONObject response;
 
-      if(request.containsKey("username") && request.containsKey("password") && request.containsKey("email")) {
-        String username = (String) request.get("username");
-        String password = (String) request.get("password");
-        String email = (String) request.get("email");
+    if (request.containsKey("username") && request.containsKey("password") && request
+        .containsKey("email")) {
+      String username = (String) request.get("username");
+      String password = (String) request.get("password");
+      String email = (String) request.get("email");
 
-        boolean createUser = this.userManager.createUser(username, password, email);
+      boolean createUser = this.userManager.createUser(username, password, email);
 
-        if(createUser) {
-          response = ServerCommands.registerCommand("Registrierung erfolgreich!", true);
-        } else {
-          response = ServerCommands.registerCommand("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits", false);
-        }
+      if (createUser) {
+        response = ServerCommands.registerCommand("Registrierung erfolgreich!", true);
       } else {
-        response = ServerCommands.registerCommand("Registrierung fehlgeschlagen: Ungültige Anfrage", false);
+        response = ServerCommands
+            .registerCommand("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits",
+                false);
       }
-
-      return response;
+    } else {
+      response = ServerCommands
+          .registerCommand("Registrierung fehlgeschlagen: Ungültige Anfrage", false);
+    }
+    return response;
   }
 }
