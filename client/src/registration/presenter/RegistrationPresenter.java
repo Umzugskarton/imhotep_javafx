@@ -1,8 +1,9 @@
 package registration.presenter;
 
+import json.ClientCommands;
 import main.SceneController;
+import org.json.simple.JSONObject;
 import registration.view.RegistrationView;
-
 
 public class RegistrationPresenter {
   private RegistrationView view;
@@ -15,11 +16,10 @@ public class RegistrationPresenter {
   }
 
   public void register(String username, String password, String email) {
-    System.out.println(username);
-    System.out.println(password);
-    System.out.println(email);
-    //Hier das JSON Objekt erzeugen
-    view.updateStatusLabel(""); //Ergebnis des Registers hier einfügen
+    JSONObject registerCommand = ClientCommands.registerCommand(username, password, email);
+    this.sc.getClientSocket().send(registerCommand);
+
+    view.updateStatusLabel("result"); // Ergebnis des Registers hier einfügen
   }
 
   public void toLoginScene(){
