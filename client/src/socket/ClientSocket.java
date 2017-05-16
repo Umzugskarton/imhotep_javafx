@@ -9,10 +9,16 @@ import org.json.simple.JSONObject;
  * Created by fabianrieger on 25.04.17.
  */
 public class ClientSocket {
+    // Server
+    private ServerListener serverListener = null;
     private Socket serverSocket = null;
+
+    // Socketdaten
     private String host = null;
     private int port;
-    private PrintWriter out;
+
+    // Writer
+    private PrintWriter out = null;
 
      public ClientSocket(){
          this.host = "localhost";
@@ -23,9 +29,11 @@ public class ClientSocket {
      private void init() {
          try
          {
-             this.serverSocket = new Socket (this.host, this.port);
+             this.serverSocket = new Socket(this.host, this.port);
              this.out = new PrintWriter(this.serverSocket.getOutputStream(), true);
-             Thread serverThread = new Thread(new ServerListener(serverSocket));
+
+             this.serverListener = new ServerListener(serverSocket);
+             Thread serverThread = new Thread(this.serverListener);
              serverThread.start();
          }
          catch (UnknownHostException ex)

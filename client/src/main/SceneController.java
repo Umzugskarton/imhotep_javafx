@@ -11,6 +11,8 @@ import socket.ClientSocket;
 public class SceneController {
     private Stage stage;
     private ClientSocket clientSocket;
+
+    // Presenter
     private RegistrationPresenter registrationPresenter;
     private LoginPresenter loginPresenter;
 
@@ -20,12 +22,13 @@ public class SceneController {
     public SceneController(Stage stage){
         this.clientSocket = new ClientSocket();
         this.stage = stage;
-        this.loginPresenter = new LoginPresenter(new LoginViewImpl(), this);
-        stage.setScene(this.loginPresenter.getLoginView().getLoginScene()); //hier wird die szene übergeben
-        stage.setTitle("Imhotep"); //title des fensters
+
+        this.toLoginScene();
+
+        stage.setTitle("Imhotep");
         stage.setHeight(this.stageHeight);
         stage.setWidth(this.stageWidth);
-        stage.show(); //zeigt das fenster an
+        stage.show();
     }
 
     public void toRegistrationScene() {
