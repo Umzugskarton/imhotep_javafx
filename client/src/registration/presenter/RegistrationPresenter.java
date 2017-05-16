@@ -1,5 +1,6 @@
 package registration.presenter;
 
+import javafx.event.ActionEvent;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
@@ -32,3 +33,11 @@ public class RegistrationPresenter {
     this.view.updateStatusLabel(message);
   }
 }
+
+  void register(ActionEvent event) {
+    if (view.getPassword().equals(view.getPasswordPass()) && !view.getName().isEmpty() && !view.getEmail().isEmpty()) {
+      if (view.getPassword().length() >= 6) {
+      } else {
+      }
+    }
+  }
