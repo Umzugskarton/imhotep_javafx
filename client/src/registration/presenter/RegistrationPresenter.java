@@ -4,7 +4,8 @@ import javafx.event.ActionEvent;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
-import registration.view.RegistrationView;
+import registration.view.*;
+import javafx.scene.control.PasswordField;
 
 public class RegistrationPresenter {
   private RegistrationView view;
@@ -32,12 +33,14 @@ public class RegistrationPresenter {
   public void setResult(String message) {
     this.view.updateStatusLabel(message);
   }
-}
 
-  void register(ActionEvent event) {
-    if (view.getPassword().equals(view.getPasswordPass()) && !view.getName().isEmpty() && !view.getEmail().isEmpty()) {
-      if (view.getPassword().length() >= 6) {
-      } else {
-      }
+  public boolean validate(String password1, String password2, String name, String email){
+    if(password1 != null && password1 == password2 && name != null && email != null //&& Emailvalidation) {
+      return true;
+    }
+    else{
+      return false;
+      //Exception
     }
   }
+}
