@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import json.ServerCommands;
 import org.json.simple.JSONObject;
 
 public class Server {
 	private int port;
 	private ServerSocket serverSocket = null;
 	private ClientAPI clientAPI = null;
-	private ArrayList<ClientListener> connectedClients = new ArrayList<ClientListener>();
+	private ArrayList<ClientListener> connectedClients = new ArrayList<>();
 	
 	public Server() {
 		this.port = 47096;

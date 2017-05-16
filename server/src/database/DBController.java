@@ -57,15 +57,15 @@ public class DBController {
     try {
       // Wenn Verbindung besteht
       if (this.isConnected()) {
-        // Schlie�en der Verbindung
+        // Schließen der Verbindung
         conn.close();
 
-        // Wenn Schlie�en der Verbindung erfolgreich nicht mehr besteht, true zur�ckgeben
+        // Wenn Schließen der Verbindung erfolgreich nicht mehr besteht, true zurückgeben
         if (!this.isConnected()) {
           return true;
         }
       } else {
-        // Wenn Verbindung schon geschlossen, ebenfalls true zur�ckgeben
+        // Wenn Verbindung schon geschlossen, ebenfalls true zurückgeben
         return true;
       }
     } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class DBController {
     try {
       result.last(); // Zeiger auf den letzten Eintrag setzen
       count = result.getRow(); // Nummer des letzten Eintrags
-      result.beforeFirst(); // Zeiger vor den ersten Eintrag zur�cksetzen
+      result.beforeFirst(); // Zeiger vor den ersten Eintrag zurücksetzen
     } catch (Exception e) {
       return 0;
     }
@@ -124,20 +124,20 @@ public class DBController {
     PreparedStatement stmt = null;
 
     try {
-      // Query ausf�hren
+      // Query ausführen
       stmt = conn
           .prepareStatement("SELECT id FROM " + table + " WHERE LOWER(" + column + ") = LOWER(?)");
       stmt.setString(1, value);
       ResultSet result = stmt.executeQuery();
 
-      // Ergebnisse z�hlen
+      // Ergebnisse zählen
       int rowCount = this.countResults(result);
 
       // Query & Ergebnis freigeben
       result.close();
       stmt.close();
 
-      // Wenn Anzahl gr��er als 0 ist, true zur�ckgeben
+      // Wenn Anzahl größer als 0 ist, true zurückgeben
       if (rowCount > 0) {
         return true;
       }
