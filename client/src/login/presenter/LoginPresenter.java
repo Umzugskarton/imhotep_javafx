@@ -1,8 +1,10 @@
 package login.presenter;
 
 
+import json.ClientCommands;
 import login.view.LoginView;
 import main.SceneController;
+import org.json.simple.JSONObject;
 
 /**
  * Created by mircoskrzipczyk, annkristinklopp on 09.05.17.
@@ -23,7 +25,8 @@ public class LoginPresenter {
     }
 
     public void login(String username, String password){
-
+      JSONObject loginCommand = ClientCommands.loginCommand(username, password);
+      this.sc.getClientSocket().send(loginCommand);
     }
 
     public LoginView getLoginView(){
