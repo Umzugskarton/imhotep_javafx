@@ -25,15 +25,15 @@ public class RegistrationViewImpl implements RegistrationView {
     GridPane root = new GridPane();
     registrationScene = new Scene(root);
 
-    Label name = new Label("Name:");
+    Label name = new Label("Benutzername:");
     TextField nameField = new TextField();
-    nameField.setPromptText("Username eingeben");
+    nameField.setPromptText("Benutzernamen eingeben");
 
-    Label password = new Label("Password:");
+    Label password = new Label("Passwort:");
     PasswordField passwordField = new PasswordField();
     passwordField.setPromptText("Passwort eingeben");
 
-    Label password2 = new Label("Repeat password:");
+    Label password2 = new Label("Passwort wdh.:");
     PasswordField passwordField2 = new PasswordField();
     passwordField2.setPromptText("Passwort wiederholen");
 
@@ -43,7 +43,7 @@ public class RegistrationViewImpl implements RegistrationView {
 
     registrationStatus = new Label();
 
-    Button register = new Button("Register");
+    Button register = new Button("Registrieren");
     register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
         public void handle(ActionEvent event){
           String password1 = passwordField.getText();
@@ -55,7 +55,7 @@ public class RegistrationViewImpl implements RegistrationView {
       }
     });
 
-    Button login = new Button("Back to Login");
+    Button login = new Button("Zum Login wechseln");
     login.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
       public void handle(ActionEvent event){
         registrationPresenter.toLoginScene();

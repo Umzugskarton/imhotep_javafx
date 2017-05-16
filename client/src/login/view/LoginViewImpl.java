@@ -43,7 +43,7 @@ public class LoginViewImpl implements LoginView {
             }
         });
 
-        Button registerNow = new Button("To Register");
+        Button registerNow = new Button("Zur Registrierung wechseln");
         registerNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
                 loginPresenter.toRegisterScene();
