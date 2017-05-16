@@ -75,7 +75,7 @@ public class RegistrationViewImpl implements RegistrationView {
   }
 
   public void updateStatusLabel(String result){
-    registrationStatus.setText("result");
+    registrationStatus.setText(result);
   }
 
   public Scene getRegistrationScene() {

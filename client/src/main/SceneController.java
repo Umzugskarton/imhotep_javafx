@@ -18,7 +18,7 @@ public class SceneController {
     private RegistrationPresenter registrationPresenter;
     private LoginPresenter loginPresenter;
 
-    private final int stageWidth = 350; //maße des fensters
+    private final int stageWidth = 640; //maße des fensters
     private final int stageHeight = 250;
 
     public SceneController(Stage stage){

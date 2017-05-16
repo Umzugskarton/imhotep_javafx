@@ -62,7 +62,7 @@ public class LoginViewImpl implements LoginView {
     }
 
     public void updateStatusLabel(String result){
-        loginStatus.setText("result");
+        loginStatus.setText(result);
     }
 
     public Scene getLoginScene() {
