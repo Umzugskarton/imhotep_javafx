@@ -1,5 +1,7 @@
 package registration.presenter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import json.ClientCommands;
 import main.SceneController;
@@ -34,8 +36,14 @@ public class RegistrationPresenter {
     this.view.updateStatusLabel(message);
   }
 
-  public boolean validate (String password1, String password2, String name, String email){
-    if(password1 != null && password1 == password2 && name != null && email != null //&& Emailvalidation) {
+  public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+      Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+
+  public boolean validate(String password1, String password2, String name, String email){
+    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+    if(password1 != null && password1 == password2 && name != null && email != null  && matcher.find()) {
+
       return true;
     }
     else{
