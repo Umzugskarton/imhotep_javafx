@@ -8,60 +8,71 @@ import java.net.Socket;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
+import sun.net.ConnectionResetException;
 
 public class ClientListener implements Runnable {
+    private Server server = null;
     private Socket clientSocket = null;
     private ClientAPI clientAPI = null;
+    private PrintWriter out = null;
+    private BufferedReader in = null;
 
-    public ClientListener(Socket clientSocket, ClientAPI clientAPI) {
+    public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
+        this.server = server;
         this.clientSocket = clientSocket;
         this.clientAPI = clientAPI;
+
+        try {
+            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException ex) {
+            System.out.println("[SERVER] Fehler: " + ex.getMessage());
+        }
     }
 
     @Override
     public void run() {
         try {
-            System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + " gestartet!");
-
-            PrintWriter out = new PrintWriter(this.clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
             String receivedMsg = null;
-            while ((receivedMsg = in.readLine()) != null)
-            {
-                System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Message erhalten " + receivedMsg);
+            while ((receivedMsg = in.readLine()) != null) {
+                System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Nachricht erhalten " + receivedMsg);
 
                 JSONParser parser = new JSONParser();
-                try{
+                try {
                     Object obj = parser.parse(receivedMsg);
-                    JSONObject jsonObject = (JSONObject) obj;
+                    JSONObject request = (JSONObject) obj;
 
-                    if(jsonObject.containsKey("command")) {
-                        String command = (String) jsonObject.get("command");
+                    if(request.containsKey("command")) {
+                        String command = (String) request.get("command");
                         JSONObject response = null;
 
                         if (command.equals("register")) {
-                            if (jsonObject.containsKey("username") && jsonObject.containsKey("password") && jsonObject.containsKey("email")) {
-                                response = this.clientAPI.register(jsonObject);
-                            }
+                            response = this.clientAPI.register(request);
                         } else if (command.equals("login")) {
-                            if ((jsonObject.containsKey("username") || jsonObject.containsKey("email")) && jsonObject.containsKey("password")) {
-                                response = this.clientAPI.login(jsonObject);
-                            }
+                            response = this.clientAPI.login(request);
                         }
 
-                        out.println(response.toString());
-                    } else {
-                        out.println("fehler: unbekannter befehl");
+                        this.send(response);
                     }
                 } catch (ParseException pe){
-                    System.out.println("Die erhaltene Nachricht ist kein JSON: " + pe);
+                    System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Ungueltige Nachricht erhalten " + receivedMsg + ": " + pe);
                 }
             }
-
-            System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + " beendet!");
         } catch (IOException ex) {
-            System.out.println("[SERVER] Fehler :" + ex.getMessage());
+            System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": " + ex.getMessage());
+        } finally {
+            this.server.removeClient(this);
         }
+    }
+
+    private void send(JSONObject json) {
+        if(this.out != null) {
+            this.out.println(json.toString());
+            this.out.flush();
+        }
+    }
+
+    public Thread getThread() {
+        return Thread.currentThread();
     }
 }

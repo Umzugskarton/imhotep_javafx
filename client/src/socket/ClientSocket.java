@@ -49,7 +49,7 @@ public class ClientSocket {
         try {
             this.serverSocket.close();
         } catch (IOException e) {
-            System.out.println("Konnte connection nicht schließen");
+            System.out.println("Konnte Verbindung nicht schließen");
             e.printStackTrace();
         }
     }

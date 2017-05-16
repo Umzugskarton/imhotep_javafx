@@ -23,12 +23,12 @@ public class ServerListener implements Runnable {
             String receivedMsg = null;
             while ((receivedMsg = in.readLine()) != null)
             {
-                System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": Message vom Server erhalten " + receivedMsg);
+                System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": Nachricht vom Server erhalten " + receivedMsg);
             }
 
             System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " beendet!");
         } catch (IOException ex) {
-            System.out.println("[CLIENT] Fehler: " + ex.getMessage());
+            System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + ": " + ex.getMessage());
         }
     }
 }

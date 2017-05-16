@@ -3,11 +3,13 @@ package socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server {
 	private int port;
-	private ServerSocket socket = null;
+	private ServerSocket serverSocket = null;
 	private ClientAPI clientAPI = null;
+	private ArrayList<ClientListener> connectedClients = new ArrayList<ClientListener>();
 	
 	public Server() {
 		this.port = 47096;
@@ -15,17 +17,11 @@ public class Server {
 		this.init();
 	}
 	
-	public Server(int port) {
-		this.port = port;
-		this.clientAPI = new ClientAPI();
-		this.init();
-	}
-	
 	private void init() {
 		try {
-			this.socket = new ServerSocket(this.port);
+				this.serverSocket = new ServerSocket(this.port);
 	    } catch (IOException e) {
-	      System.out.println("Server konnte nicht gestartet werden: " + e.getMessage());
+	      System.out.println("[SERVER] Server konnte auf Port " + this.port + " nicht gestartet werden: " + e.getMessage());
 	      System.exit(-1);
 	    }
 	}
@@ -34,19 +30,37 @@ public class Server {
 		while (true) {
 	      try {
 	        System.out.println ("[SERVER] Auf Client warten...");
-	        Socket clientSocket = this.socket.accept();
-	        
-	        System.out.println ("[SERVER] Neuer Client");
-	        Thread thread = new Thread(new ClientListener(clientSocket, clientAPI));
-	        thread.start();
-			
-			System.out.println ("[SERVER] Thread fuer neuen Client gestartet");
-	      }
-	      catch (IOException e)
-	      {
+	        Socket clientSocket = this.serverSocket.accept();
+
+					this.addClient(clientSocket);
+	      } catch (IOException e) {
 	        System.out.println("[SERVER] Anfrage auf Port " + this.port + " konnte nicht verarbeitet werden");
 	        System.exit(-1);
 	      }
 	    }
+	}
+
+	public void addClient(Socket clientSocket) {
+		System.out.println ("[SERVER] Ein neuer Client hat sich verbunden");
+
+		ClientListener clientListener = new ClientListener(this, clientSocket, this.clientAPI);
+		Thread thread = new Thread(clientListener);
+		thread.start();
+
+		System.out.println ("[SERVER] Thread " + thread.getId() + " gestartet");
+
+		this.connectedClients.add(clientListener);
+
+		System.out.println ("[SERVER] Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefuegt");
+	}
+
+	public void removeClient(ClientListener clientListener) {
+		System.out.println ("[SERVER] Client (Thread: " + clientListener.getThread().getId() + ") hat die Verbindung beendet");
+
+		if(this.connectedClients.contains(clientListener)) {
+			this.connectedClients.remove(clientListener);
+
+			System.out.println ("[SERVER] Thread " + clientListener.getThread().getId() + " von der Liste der verbundenen Clients entfernt");
+		}
 	}
 }

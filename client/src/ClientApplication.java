@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import json.ClientCommands;
 import socket.ClientSocket;
 import org.json.simple.JSONObject;
 
@@ -20,14 +21,13 @@ public class ClientApplication extends Application {
     public static void main(String[] args) {
         ClientSocket CSocket = new ClientSocket();
 
-        JSONObject obj = new JSONObject();
+        JSONObject registerCommand = ClientCommands
+            .registerCommand("test", "test", "testemail@email.de");
+        CSocket.send(registerCommand);
 
-        obj.put("command", "register");
-        obj.put("username", "testjson2");
-        obj.put("password", "testjson");
-        obj.put("email", "testemail2@json.de");
+        JSONObject loginCommand = ClientCommands.loginCommand("test", "test");
+        CSocket.send(loginCommand);
 
-        CSocket.send(obj);
         launch(args);
         CSocket.close();
     }

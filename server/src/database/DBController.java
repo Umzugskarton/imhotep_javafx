@@ -37,7 +37,7 @@ public class DBController {
       conn = DriverManager.getConnection(DB, USERNAME, PASSWORD);
 
       if (this.isConnected()) {
-        System.out.println("Connected to database");
+        System.out.println("Verbindung zur Datenbank wurde erfolgreich hergestellt");
         return true;
       }
     } catch (SQLException se) {
@@ -49,7 +49,7 @@ public class DBController {
   }
 
   /**
-   * Schließt die Verbindung
+   * Schliesst die Verbindung
    *
    * @return true, wenn die Verbindung geschlossen wurde und nicht mehr besteht
    */
@@ -57,15 +57,15 @@ public class DBController {
     try {
       // Wenn Verbindung besteht
       if (this.isConnected()) {
-        // Schließen der Verbindung
+        // Schlieï¿½en der Verbindung
         conn.close();
 
-        // Wenn Schließen der Verbindung erfolgreich nicht mehr besteht, true zurückgeben
+        // Wenn Schlieï¿½en der Verbindung erfolgreich nicht mehr besteht, true zurï¿½ckgeben
         if (!this.isConnected()) {
           return true;
         }
       } else {
-        // Wenn Verbindung schon geschlossen, ebenfalls true zurückgeben
+        // Wenn Verbindung schon geschlossen, ebenfalls true zurï¿½ckgeben
         return true;
       }
     } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class DBController {
   }
 
   /**
-   * Überprüft, ob die Verbindung zur Datenbank besteht
+   * Ueberprueft, ob die Verbindung zur Datenbank besteht
    *
    * @return true, wenn Verbindung besteht
    */
@@ -95,17 +95,17 @@ public class DBController {
   }
 
   /**
-   * Zählt die Anzahl der Resultate einer Abfrage
+   * Zaehlt die Anzahl der Resultate einer Abfrage
    *
-   * @param  result  ResultSet, in dem die Einträge gezählt werden soll
-   * @return Anzahl der Einträge in result
+   * @param  result  ResultSet, in dem die Eintraege gezaehlt werden soll
+   * @return Anzahl der Eintraege in result
    */
   public int countResults(ResultSet result) {
     int count = 0;
     try {
       result.last(); // Zeiger auf den letzten Eintrag setzen
       count = result.getRow(); // Nummer des letzten Eintrags
-      result.beforeFirst(); // Zeiger vor den ersten Eintrag zurücksetzen
+      result.beforeFirst(); // Zeiger vor den ersten Eintrag zurï¿½cksetzen
     } catch (Exception e) {
       return 0;
     }
@@ -113,31 +113,31 @@ public class DBController {
   }
 
   /**
-   * Prüft, ob Wert value in Spalte column in Tabelle table existiert
+   * Prueft, ob Wert value in Spalte column in Tabelle table existiert
    *
-   * @param  table  Zu überprüfende Tabelle
-   * @param  column  Spalte der Tabelle
-   * @param  value  Wert, auf den überprüft werden soll
+   * @param  table  Zu Ueberpruefende Tabelle
+   * @param  column Spalte der Tabelle
+   * @param  value  Wert, auf den ueberprueft werden soll
    * @return true, wenn Eintrag existiert
    */
   public boolean exists(String table, String column, String value) {
     PreparedStatement stmt = null;
 
     try {
-      // Query ausführen
+      // Query ausfï¿½hren
       stmt = conn
           .prepareStatement("SELECT id FROM " + table + " WHERE LOWER(" + column + ") = LOWER(?)");
       stmt.setString(1, value);
       ResultSet result = stmt.executeQuery();
 
-      // Ergebnisse zählen
+      // Ergebnisse zï¿½hlen
       int rowCount = this.countResults(result);
 
       // Query & Ergebnis freigeben
       result.close();
       stmt.close();
 
-      // Wenn Anzahl größer als 0 ist, true zurückgeben
+      // Wenn Anzahl grï¿½ï¿½er als 0 ist, true zurï¿½ckgeben
       if (rowCount > 0) {
         return true;
       }
@@ -147,66 +147,6 @@ public class DBController {
     }
 
     return false;
-  }
-
-  /**
-   * Führt ausschließlich SELECT Queries durch und gibt ein ResultSet zurück
-   * UNGENUTZT
-   *
-   * @param  query  Datenbank-Query
-   * @return Datensatz als ResultSet aus der Datenbank
-   */
-  public ResultSet executeQuery(String query) {
-    try {
-      Statement stmt = conn
-          .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-      ResultSet result = stmt.executeQuery(query);
-
-      return result;
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-    return null;
-  }
-
-  /**
-   * Führt INSERT, DELETE und UPDATE Queries durch und gibt ein ResultSet zurück
-   * UNGENUTZT
-   *
-   * @param  query  Datenbank-Query
-   * @return ResultSet mit den Daten aus der Datenbank
-   */
-  public int executeUpdate(String query) {
-    try {
-      Statement stmt = conn.createStatement();
-      int result = stmt.executeUpdate(query);
-      stmt.close();
-
-      return result;
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-    return 0;
-  }
-
-  /**
-   * Beendet eine Query und das zugehörige ResultSet
-   * UNGENUTZT
-   *
-   * @param  result  Das von executeQuery zuvor zurückgegebene ResultSet
-   */
-  public void closeQuery(ResultSet result) {
-    try {
-      result.getStatement().close();
-      result.close();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
   /**

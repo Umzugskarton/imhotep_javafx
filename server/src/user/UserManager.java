@@ -23,10 +23,10 @@ public class UserManager {
    * Legt einen neuen User-Eintrag in der Datenbank an, wenn weder Username noch E-Mail vergeben
    * sind
    *
-   * @param password Passwort des Users aus Registrierung
-   * @param  username  Name des Users aus Registrierung
-   * @param  email    E-Mail des Users aus Registrierung
-   * @return true, wenn User erfolgreich angelegt wurde
+   * @param   password  Passwort des Users aus Registrierung
+   * @param   username  Name des Users aus Registrierung
+   * @param   email     E-Mail des Users aus Registrierung
+   * @return  true, wenn User erfolgreich angelegt wurde
    */
   public boolean createUser(String username, String password, String email) {
     // Wenn weder Username noch E-Mail in der Datenbank vorhanden sind
@@ -177,8 +177,7 @@ public class UserManager {
   /**
    * Erstellt und returned ein User-Objekt mit Datensatz aus Datenbank, wenn ID existiert
    *
-   * @return User-Objekt mit Daten aus der Datenbank oder Null-Objekt, falls kein User mit username
-   * gefunden wird
+   * @return User-Objekt mit Daten aus der Datenbank oder Null-Objekt, falls kein User mit username gefunden wird
    * @param  id   ID
    */
   public User getUserById(int id) {
@@ -227,7 +226,7 @@ public class UserManager {
   }
 
   /**
-   * Validiert die Eingaben eines Users f�r Login
+   * Validiert die Eingaben eines Users fuer Login
    *
    * @param  username  Username
    * @param  password  Passwort
@@ -278,7 +277,7 @@ public class UserManager {
 
 
   /**
-   * Pr�ft, ob ein Username bereits in der Datenbank existiert
+   * Prueft, ob ein Username bereits in der Datenbank existiert
    *
    * @return true, wenn Username existiert
    */
@@ -287,7 +286,7 @@ public class UserManager {
   }
 
   /**
-   * Pr�ft, ob eine E-Mail bereits in der Datenbank existiert
+   * Prueft, ob eine E-Mail bereits in der Datenbank existiert
    *
    * @return true, wenn E-Mail existiert
    */
