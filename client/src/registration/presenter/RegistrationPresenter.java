@@ -14,6 +14,8 @@ public class RegistrationPresenter {
 
   private RegistrationView view;
   private SceneController sc;
+  public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+      Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
   public RegistrationPresenter(RegistrationView view, SceneController sc) {
     this.sc = sc;
@@ -38,20 +40,15 @@ public class RegistrationPresenter {
     this.view.updateStatusLabel(message);
   }
 
-  public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-      Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-
   public boolean validate(String password1, String password2, String name, String email) {
     Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-    boolean result = true;
-    try {
-      password1 != null && password1 == password2 && name != null && email != null && matcher.find()
-    } catch (InvalidAttributeValueException e) {
-      System.out.println("Ungültige Eingabe");
-      }
+    if (password1 != null && password1 == password2 && name != null && email != null && matcher
+        .find() && password1.length() > 8) {
+      return true;
+    } else {
+      System.out.println("Fehler bei der Eingabe");
+      return false;
+    }
   }
-
-
 
 }
