@@ -63,8 +63,6 @@ public class UserManager {
           se.printStackTrace();
         }
       }
-    } else {
-      System.out.println("User \"" + username + "\" existiert bereits!");
     }
 
     return false;
@@ -108,8 +106,6 @@ public class UserManager {
           se.printStackTrace();
         }
       }
-    } else {
-      System.out.println("User \"" + username + "\" existiert nicht!");
     }
 
     return false;

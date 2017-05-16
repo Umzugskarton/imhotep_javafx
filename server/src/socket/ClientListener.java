@@ -35,7 +35,7 @@ public class ClientListener implements Runnable {
         try {
             String receivedMsg = null;
             while ((receivedMsg = in.readLine()) != null) {
-                System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Nachricht erhalten " + receivedMsg);
+                System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Nachricht erhalten: " + receivedMsg);
 
                 JSONParser parser = new JSONParser();
                 try {
@@ -67,7 +67,10 @@ public class ClientListener implements Runnable {
 
     private void send(JSONObject json) {
         if(this.out != null) {
-            this.out.println(json.toString());
+            String jsonString = json.toString();
+
+            System.out.println("[SERVER] Thread " + Thread.currentThread().getId() + ": Nachricht gesendet: " + jsonString);
+            this.out.println(jsonString);
             this.out.flush();
         }
     }
