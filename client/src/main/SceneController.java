@@ -10,6 +10,8 @@ import socket.ClientSocket;
 
 public class SceneController {
     private Stage stage;
+
+    // Socket
     private ClientSocket clientSocket;
 
     // Presenter
@@ -20,7 +22,7 @@ public class SceneController {
     private final int stageHeight = 250;
 
     public SceneController(Stage stage){
-        this.clientSocket = new ClientSocket();
+        this.clientSocket = new ClientSocket(this);
         this.stage = stage;
 
         this.toLoginScene();
@@ -50,4 +52,8 @@ public class SceneController {
   public ClientSocket getClientSocket() {
       return this.clientSocket;
   }
+
+  public LoginPresenter getLoginPresenter() { return this.loginPresenter; }
+
+  public RegistrationPresenter getRegistrationPresenter() { return this.registrationPresenter; }
 }

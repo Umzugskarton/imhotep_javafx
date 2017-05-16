@@ -23,13 +23,14 @@ public class LoginPresenter {
     }
 
     public void login(String username, String password){
-        System.out.println(username);
-        System.out.println(password);
-        //Hier das JSON Objekt erzeugen
-      view.updateStatusLabel(""); //Ergebnis des Logins hier einfügen
+
     }
 
     public LoginView getLoginView(){
       return this.view;
+    }
+
+    public void setResult(String message) {
+        this.view.updateStatusLabel(message);
     }
 }

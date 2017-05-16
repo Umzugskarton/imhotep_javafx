@@ -18,8 +18,6 @@ public class RegistrationPresenter {
   public void register(String username, String password, String email) {
     JSONObject registerCommand = ClientCommands.registerCommand(username, password, email);
     this.sc.getClientSocket().send(registerCommand);
-
-    view.updateStatusLabel("result"); // Ergebnis des Registers hier einfügen
   }
 
   public void toLoginScene(){
@@ -30,4 +28,7 @@ public class RegistrationPresenter {
     return this.view;
   }
 
+  public void setResult(String message) {
+    this.view.updateStatusLabel(message);
+  }
 }

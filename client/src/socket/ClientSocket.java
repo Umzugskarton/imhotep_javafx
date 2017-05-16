@@ -4,11 +4,15 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import org.json.simple.JSONObject;
+import main.SceneController;
 
 /**
  * Created by fabianrieger on 25.04.17.
  */
 public class ClientSocket {
+    // SceneController
+    private SceneController sceneController = null;
+
     // Server
     private ServerListener serverListener = null;
     private Socket serverSocket = null;
@@ -20,7 +24,9 @@ public class ClientSocket {
     // Writer
     private PrintWriter out = null;
 
-     public ClientSocket(){
+     public ClientSocket(SceneController sceneController){
+         this.sceneController = sceneController;
+
          this.host = "localhost";
          this.port = 47096;
          this.init();
@@ -32,7 +38,7 @@ public class ClientSocket {
              this.serverSocket = new Socket(this.host, this.port);
              this.out = new PrintWriter(this.serverSocket.getOutputStream(), true);
 
-             this.serverListener = new ServerListener(serverSocket);
+             this.serverListener = new ServerListener(serverSocket, sceneController);
              Thread serverThread = new Thread(this.serverListener);
              serverThread.start();
          }
