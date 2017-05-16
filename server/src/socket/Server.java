@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import json.ServerCommands;
+import org.json.simple.JSONObject;
 
 public class Server {
 	private int port;
@@ -61,6 +63,12 @@ public class Server {
 			this.connectedClients.remove(clientListener);
 
 			System.out.println ("[SERVER] Thread " + clientListener.getThread().getId() + " von der Liste der verbundenen Clients entfernt");
+		}
+	}
+
+	public void sendToAll(JSONObject json) {
+		for (ClientListener clientListener : connectedClients) {
+			clientListener.send(json);
 		}
 	}
 }

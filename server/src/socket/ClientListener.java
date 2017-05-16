@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import json.ServerCommands;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
-import sun.net.ConnectionResetException;
 
 public class ClientListener implements Runnable {
     private Server server = null;
@@ -65,7 +65,7 @@ public class ClientListener implements Runnable {
         }
     }
 
-    private void send(JSONObject json) {
+    public void send(JSONObject json) {
         if(this.out != null) {
             String jsonString = json.toString();
 
