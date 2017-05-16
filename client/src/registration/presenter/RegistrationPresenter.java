@@ -1,45 +1,33 @@
 package registration.presenter;
 
-import registration.view.*;
-import registration.model.*;
 import main.SceneController;
+import registration.view.RegistrationView;
 
 
-public class RegistrationPresenter{
+public class RegistrationPresenter {
   private RegistrationView view;
-  private RegistrationModel model;
   private SceneController sc;
 
-  public RegistrationPresenter(RegistrationViewImpl view, RegistrationModelImpl model, SceneController sc) {
-    this.view = view;
-    this.model = model;
+  public RegistrationPresenter(RegistrationView view, SceneController sc) {
     this.sc = sc;
+    this.view = view;
     view.setRegistrationPresenter(this);
   }
 
-  public void register(String pass) {
-    String result = "Incorrect password";
-
-    if (model.getPassword().equals(pass)) {
-      result = "Correct password";
-    }
-    view.updateStatusLabel(result);
+  public void register(String username, String password, String email) {
+    System.out.println(username);
+    System.out.println(password);
+    System.out.println(email);
+    //Hier das JSON Objekt erzeugen
+    view.updateStatusLabel(""); //Ergebnis des Registers hier einfügen
   }
 
-    public void toLoginScene(){
-      sc.toLoginScene();
-    }
-
-
-  public void register(String username, String password, String passwordRepeat, String userEmail){
-    //   userService.register(username, password, passwordRepeat, userEmail);
+  public void toLoginScene(){
+    sc.toLoginScene();
   }
 
   public RegistrationView getRegistrationView(){
     return this.view;
   }
 
-  public SceneController getSceneController(){
-    return this.sc;
-  }
 }

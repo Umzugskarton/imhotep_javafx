@@ -2,7 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import socket.ClientSocket;
 
 public class Main extends Application{
     private Stage stage;

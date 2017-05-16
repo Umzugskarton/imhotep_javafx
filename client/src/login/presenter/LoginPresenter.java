@@ -1,6 +1,6 @@
 package login.presenter;
 
-import login.model.LoginModelImpl;
+
 import login.view.LoginView;
 import main.SceneController;
 
@@ -12,31 +12,24 @@ public class LoginPresenter {
     private LoginView view;
     private SceneController sc;
 
-    public LoginPresenter(LoginView view, LoginModelImpl loginModel, SceneController sc) {
+    public LoginPresenter(LoginView view, SceneController sc) {
         this.view = view;
         this.sc = sc;
         view.setLoginPresenter(this);
     }
 
-    public void login(String pass) {
-        String result = "Incorrect password";
-        view.updateStatusLabel(result);
-    }
-/*
     public void toRegisterScene(){
       sc.toRegistrationScene();
     }
-    */
 
     public void login(String username, String password){
-     //   userService.login(username, password);
+        System.out.println(username);
+        System.out.println(password);
+        //Hier das JSON Objekt erzeugen
+      view.updateStatusLabel(""); //Ergebnis des Logins hier einfügen
     }
 
     public LoginView getLoginView(){
       return this.view;
-    }
-
-    public SceneController getSceneController(){
-      return this.sc;
     }
 }

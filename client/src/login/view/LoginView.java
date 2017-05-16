@@ -10,6 +10,5 @@ public interface LoginView {
     void buildLogin();
     Scene getLoginScene();
     void setLoginPresenter(LoginPresenter loginPresenter);
-
     void updateStatusLabel(String result);
 }

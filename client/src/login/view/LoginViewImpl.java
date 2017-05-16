@@ -1,7 +1,5 @@
 package login.view;
 
-import static javafx.application.Application.launch;
-import json.ClientCommands;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -11,18 +9,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import login.presenter.LoginPresenter;
-import main.SceneController;
-import org.json.simple.JSONObject;
 
 
 public class LoginViewImpl implements LoginView {
-    public static void main(String[] args){
-        launch(args);
-    }
 
     private Scene loginScene;
     private LoginPresenter loginPresenter;
-    private SceneController sc;
+
     private Label loginStatus;
 
     public LoginViewImpl(){
@@ -30,7 +23,6 @@ public class LoginViewImpl implements LoginView {
     }
 
     public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
-
         GridPane grid = new GridPane();
         loginScene = new Scene(grid);
 
@@ -45,22 +37,18 @@ public class LoginViewImpl implements LoginView {
         loginStatus = new Label();    //gibt an, ob Login erfolgreich war
 
         Button loginNow = new Button("Login"); //Buttons werden angelegt
-
         loginNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
-                JSONObject loginCommand = new ClientCommands().loginCommand(userName.getText(), passwordUser.getText());
-                loginPresenter.getSceneController().getClientSocket().send(loginCommand);
+                loginPresenter.login(userName.getText(), passwordUser.getText());
             }
         });
 
-        Button registerNow = new Button("Register");
-
+        Button registerNow = new Button("To Register");
         registerNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
-                loginPresenter.getSceneController().toRegistrationScene();
+                loginPresenter.toRegisterScene();
             }
         });
-
 
         GridPane.setConstraints(labelUser, 0, 0); //Hier werden die Positionen "angelegt"
         GridPane.setConstraints(userName, 1, 0);
@@ -74,12 +62,10 @@ public class LoginViewImpl implements LoginView {
     }
 
     public void updateStatusLabel(String result){
-
         loginStatus.setText("result");
     }
 
     public Scene getLoginScene() {
-
         return this.loginScene;
     }
 
@@ -87,6 +73,4 @@ public class LoginViewImpl implements LoginView {
     public void setLoginPresenter(LoginPresenter loginPresenter) {
       this.loginPresenter = loginPresenter;
     }
-
-
 }
