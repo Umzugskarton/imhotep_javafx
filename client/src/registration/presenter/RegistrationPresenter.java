@@ -3,13 +3,15 @@ package registration.presenter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
+import javax.naming.directory.InvalidAttributeValueException;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
 import registration.view.*;
-import javafx.scene.control.PasswordField;
+import sun.jvm.hotspot.debugger.AddressException;
 
 public class RegistrationPresenter {
+
   private RegistrationView view;
   private SceneController sc;
 
@@ -24,11 +26,11 @@ public class RegistrationPresenter {
     this.sc.getClientSocket().send(registerCommand);
   }
 
-  public void toLoginScene(){
+  public void toLoginScene() {
     sc.toLoginScene();
   }
 
-  public RegistrationView getRegistrationView(){
+  public RegistrationView getRegistrationView() {
     return this.view;
   }
 
@@ -40,15 +42,16 @@ public class RegistrationPresenter {
       Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 
-  public boolean validate(String password1, String password2, String name, String email){
-    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
-    if(password1 != null && password1 == password2 && name != null && email != null  && matcher.find()) {
-
-      return true;
-    }
-    else{
-      return false;
-      //Exception
-    }
+  public boolean validate(String password1, String password2, String name, String email) {
+    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+    boolean result = true;
+    try {
+      password1 != null && password1 == password2 && name != null && email != null && matcher.find()
+    } catch (InvalidAttributeValueException e) {
+      System.out.println("Ungültige Eingabe");
+      }
   }
+
+
+
 }
