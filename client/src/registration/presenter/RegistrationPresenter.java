@@ -34,7 +34,7 @@ public class RegistrationPresenter {
     this.view.updateStatusLabel(message);
   }
 
-  public boolean validate(String password1, String password2, String name, String email){
+  public boolean validate (String password1, String password2, String name, String email){
     if(password1 != null && password1 == password2 && name != null && email != null //&& Emailvalidation) {
       return true;
     }

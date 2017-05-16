@@ -46,7 +46,11 @@ public class RegistrationViewImpl implements RegistrationView {
     Button register = new Button("Register");
     register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
         public void handle(ActionEvent event){
-          if(registrationPresenter.validate(password, password2, name, email) = true) {
+          String password1 = passwordField.getText();
+          String password2 = passwordField2.getText();
+          String name = nameField.getText();
+          String email = emailField.getText();
+          if(registrationPresenter.validate(password1, password2, name, email) == true) {
               registrationPresenter.register(nameField.getText(), passwordField.getText(), emailField.getText());
             } else {
 
