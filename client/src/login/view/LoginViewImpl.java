@@ -1,5 +1,7 @@
 package login.view;
 
+import static mainmenu.presenter.MainmenuPresenter.*;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -9,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import login.presenter.LoginPresenter;
+import mainmenu.presenter.MainmenuPresenter;
 
 
 public class LoginViewImpl implements LoginView {
@@ -40,6 +43,7 @@ public class LoginViewImpl implements LoginView {
     loginNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         loginPresenter.login(userName.getText(), passwordUser.getText());
+
       }
     });
 
