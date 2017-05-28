@@ -33,6 +33,8 @@ public class LoginPresenter {
     sceneController.toRegistrationScene();
   }
 
+  public void toMainmenuScene() { sceneController.toMainmenuScene(); }
+
   public LoginView getLoginView() {
     return this.view;
   }
