@@ -41,29 +41,26 @@ public class ServerListener implements Runnable {
 
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
-            JSONObject response = null;
 
-            if (command.equals("register")) {
+            if (command.equals("register") && request.containsKey("message")) {
               String message = (String) request.get("message");
 
               // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
               // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
               Platform.runLater(
                   () -> {
-                    this.sceneController.getRegistrationPresenter().getRegistrationView()
-                        .updateStatusLabel(message);
+                    this.sceneController.getRegistrationPresenter().processRegisterResponse(message);
                   }
               );
-            } else if (command.equals("login")) {
+            } else if (command.equals("login") && request.containsKey("message") && request.containsKey("success")) {
               String message = (String) request.get("message");
+              Boolean success = (Boolean) request.get("success");
 
               // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
               // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
               Platform.runLater(
                   () -> {
-                    this.sceneController.getLoginPresenter().getLoginView()
-                        .updateStatusLabel(message);
-                    ;
+                    this.sceneController.getLoginPresenter().processLoginResponse(success, message);
                   }
               );
             }

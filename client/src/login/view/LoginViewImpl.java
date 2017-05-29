@@ -39,9 +39,7 @@ public class LoginViewImpl implements LoginView {
     Button loginNow = new Button("Login"); //Buttons werden angelegt
     loginNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
-        loginPresenter.login(userName.getText(), passwordUser.getText());
-        loginPresenter.toMainmenuScene();
-
+        loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText());
       }
     });
 
@@ -65,8 +63,8 @@ public class LoginViewImpl implements LoginView {
             registerNow); //hier werden dem grid die buttons, textfelder und labels übergeben
   }
 
-  public void updateStatusLabel(String result) {
-    loginStatus.setText(result);
+  public void updateStatusLabel(String text) {
+    loginStatus.setText(text);
   }
 
   public Scene getLoginScene() {

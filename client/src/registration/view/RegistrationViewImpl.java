@@ -51,7 +51,7 @@ public class RegistrationViewImpl implements RegistrationView {
         String username = nameField.getText();
         String email = emailField.getText();
 
-        registrationPresenter.register(username, password1, password2, email);
+        registrationPresenter.sendRegisterRequest(username, password1, password2, email);
       }
     });
 

@@ -20,12 +20,20 @@ public class LoginPresenter {
     view.setLoginPresenter(this);
   }
 
-  public void login(String username, String password) {
+  public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
       this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");
+    }
+  }
+
+  public void processLoginResponse(boolean loginSuccessful, String message) {
+    if(loginSuccessful) {
+      this.toMainmenuScene();
+    } else {
+      this.view.updateStatusLabel(message);
     }
   }
 

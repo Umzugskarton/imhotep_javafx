@@ -8,10 +8,8 @@ import mainmenu.view.MainmenuView;
  */
 public class MainmenuPresenter {
 
-
   private MainmenuView view;
   private SceneController sceneController;
-
 
     public MainmenuPresenter(MainmenuView view, SceneController sc) {
       this.view = view;
@@ -23,5 +21,7 @@ public class MainmenuPresenter {
     return this.view;
   }
 
-  public void toMainmenuScene() { sceneController.toMainmenuScene();}
+  public void toLoginScene() {
+    sceneController.toLoginScene();
+  }
 }
