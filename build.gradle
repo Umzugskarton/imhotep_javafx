@@ -1,7 +1,8 @@
 group 'swp17i'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
@@ -11,4 +12,9 @@ repositories {
     }
 }
 
-dependencies {}
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}

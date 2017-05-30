@@ -3,6 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
@@ -33,4 +34,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
 }

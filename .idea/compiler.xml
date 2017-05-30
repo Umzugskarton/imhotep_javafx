@@ -10,10 +10,6 @@
       <module name="server_test" target="1.8" />
       <module name="swp17_main" target="1.8" />
       <module name="swp17_test" target="1.8" />
-      <module name="swp17i_main" target="1.8" />
-      <module name="swp17i_test" target="1.8" />
-      <module name="test2_main" target="1.8" />
-      <module name="test2_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
