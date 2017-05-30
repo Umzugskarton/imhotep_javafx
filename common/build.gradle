@@ -14,7 +14,9 @@ sourceSets {
 }
 
 repositories {
-    mavenCentral()
+    maven {
+        url "http://uk.maven.org/maven2"
+    }
 }
 
 dependencies {

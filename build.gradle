@@ -6,7 +6,9 @@ apply plugin: 'application'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    maven {
+        url "http://uk.maven.org/maven2"
+    }
 }
 
 dependencies {}
