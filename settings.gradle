@@ -1,0 +1,4 @@
+rootProject.name = 'swp17'
+include "server"
+include "client"
+include "common"
