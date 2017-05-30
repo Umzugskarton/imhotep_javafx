@@ -2,10 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="client" target="1.8" />
-      <module name="common" target="1.8" />
-      <module name="server" target="1.8" />
-      <module name="swp17i" target="1.8" />
+      <module name="client_main" target="1.8" />
+      <module name="client_test" target="1.8" />
+      <module name="common_main" target="1.8" />
+      <module name="common_test" target="1.8" />
+      <module name="server_main" target="1.8" />
+      <module name="server_test" target="1.8" />
+      <module name="swp17i_main" target="1.8" />
+      <module name="swp17i_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
