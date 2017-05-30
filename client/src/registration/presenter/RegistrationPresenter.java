@@ -16,13 +16,17 @@ public class RegistrationPresenter {
     view.setRegistrationPresenter(this);
   }
 
-  public void register(String username, String password1, String password2, String email) {
+  public void sendRegisterRequest(String username, String password1, String password2, String email) {
     if (this.validate(password1, password2, username, email)) {
       JSONObject registerCommand = ClientCommands.registerCommand(username, password1, email);
       this.sceneController.getClientSocket().send(registerCommand);
     } else {
       this.view.updateStatusLabel("Ungültige Eingaben.");
     }
+  }
+
+  public void processRegisterResponse(String message) {
+    this.view.updateStatusLabel(message);
   }
 
   public void toLoginScene() {

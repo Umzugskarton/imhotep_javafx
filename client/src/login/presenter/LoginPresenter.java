@@ -20,7 +20,7 @@ public class LoginPresenter {
     view.setLoginPresenter(this);
   }
 
-  public void login(String username, String password) {
+  public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
@@ -29,9 +29,19 @@ public class LoginPresenter {
     }
   }
 
+  public void processLoginResponse(boolean loginSuccessful, String message) {
+    if(loginSuccessful) {
+      this.toMainmenuScene();
+    } else {
+      this.view.updateStatusLabel(message);
+    }
+  }
+
   public void toRegisterScene() {
     sceneController.toRegistrationScene();
   }
+
+  public void toMainmenuScene() { sceneController.toMainmenuScene(); }
 
   public LoginView getLoginView() {
     return this.view;

@@ -1,5 +1,7 @@
 package main;
 
+import mainmenu.presenter.MainmenuPresenter;
+import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
 
@@ -21,6 +23,7 @@ public class SceneController {
   // Presenter
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
+  private MainmenuPresenter MainmenuPresenter;
 
   public SceneController(Stage stage) {
     this.clientSocket = new ClientSocket(this);
@@ -47,6 +50,14 @@ public class SceneController {
     this.stage.setScene(this.loginPresenter.getLoginView().getLoginScene());
   }
 
+  public void toMainmenuScene() {
+    if (this.MainmenuPresenter == null) {
+      this.MainmenuPresenter = new MainmenuPresenter(new MainmenuViewImpl(), this);
+    }
+
+    this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
+  }
+
   public ClientSocket getClientSocket() {
     return this.clientSocket;
   }
@@ -58,4 +69,6 @@ public class SceneController {
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
   }
+
+
 }
