@@ -1,4 +1,4 @@
-rootProject.name = 'swp17'
+rootProject.name = 'swp17i'
 include "server"
 include "client"
 include "common"
