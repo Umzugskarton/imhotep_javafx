@@ -33,4 +33,5 @@ public class MainmenuPresenter {
   public void removePlayer(String name){
     view.getPlayers().remove(name);
   }
+
 }
