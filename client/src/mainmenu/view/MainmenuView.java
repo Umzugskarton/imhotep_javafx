@@ -15,5 +15,5 @@ public interface MainmenuView {
 
   Scene getMainmenuScene();
 
-  ObservableList<String> getPlayers();
+  void initPlayerList();
 }

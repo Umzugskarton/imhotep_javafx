@@ -17,23 +17,22 @@ import mainmenu.presenter.MainmenuPresenter;
  */
 public class MainmenuViewImpl implements MainmenuView {
 
-  private ObservableList <String> players = FXCollections.observableArrayList();
-
   private Scene mainmenuScene;
   private MainmenuPresenter mainmenuPresenter;
+  private BorderPane pane;
 
   public MainmenuViewImpl() { buildMainmenu(); }
 
   public void buildMainmenu() {
-    BorderPane pane = new BorderPane();
+    pane = new BorderPane();
     mainmenuScene = new Scene(pane);
-    TabPane tabPane = new TabPane();
-    pane.setCenter(tabPane);
+    TabPane tabPane = new TabPane();                                    //TabPane wird erstellt
+    pane.setCenter(tabPane);                                            //TabPane wird auf BorderPane mittig platziert
 
-    Tab chatTab = new Tab();
-    chatTab.setText("Chat");
-    chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip("chat with other players"));
+    Tab chatTab = new Tab();                                            //neuer Tab wird erstellt
+    chatTab.setText("Chat");                                            //Name des Tabs
+    chatTab.setClosable(false);                                         //Tab soll nicht schließbar sein
+    chatTab.setTooltip(new Tooltip("chat with other players"));    //wird angezeigt, wenn Maus sich über dem Tab befindet
 
     Tab gamesTab = new Tab();
     gamesTab.setText("Games");
@@ -50,16 +49,21 @@ public class MainmenuViewImpl implements MainmenuView {
     newGameTab.setClosable(false);
     newGameTab.setTooltip(new Tooltip("create a new game"));
 
+    Tab rulesTab = new Tab();
+    rulesTab.setText("Rules");
+    rulesTab.setClosable(false);
+    rulesTab.setTooltip(new Tooltip("learn the game"));
+
     Tab logoutTab = new Tab();
     logoutTab.setText("Logout");
     logoutTab.setClosable(false);
 
-    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, logoutTab);
-
-    ListView <String> listView = new ListView <String>();
-    listView.setItems(players);
-    pane.setRight(listView);
-    players.add("Test");
+    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, logoutTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
+  }
+    public void initPlayerList(){
+    ListView <String> listView = new ListView<String>();                                //ListView zum Anzeigen der eingeloggten Spieler
+    listView.setItems(mainmenuPresenter.getPlayerList().getPlayers());                  //Liste der eingeloggten Spieler als Item der View setzen
+    pane.setRight(listView);                                                            //ListView rechts auf der BorderPane platzieren
   }
 
   @Override
@@ -67,13 +71,9 @@ public class MainmenuViewImpl implements MainmenuView {
     this.mainmenuPresenter = mainmenuPresenter;
   }
 
-
   public Scene getMainmenuScene() {
     return this.mainmenuScene;
   }
 
-  public ObservableList<String> getPlayers(){
-    return this.players;
-  }
 }
 
