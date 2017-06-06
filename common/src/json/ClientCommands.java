@@ -27,4 +27,20 @@ public class ClientCommands {
 
     return obj;
   }
+
+  public static JSONObject userlistCommand() {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "userlist");
+
+    return obj;
+  }
+
+  public static JSONObject logoutCommand() {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "logout");
+
+    return obj;
+  }
 }

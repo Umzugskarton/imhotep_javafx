@@ -42,6 +42,8 @@ public class SceneController {
     this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
   }
 
+
+
   public void toLoginScene() {
     if (this.loginPresenter == null) {
       this.loginPresenter = new LoginPresenter(new LoginViewImpl(), this);
@@ -65,6 +67,7 @@ public class SceneController {
   public LoginPresenter getLoginPresenter() {
     return this.loginPresenter;
   }
+  public MainmenuPresenter getMainmenuPresenter() {return this.MainmenuPresenter;}
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;

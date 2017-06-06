@@ -12,7 +12,7 @@ public interface MainmenuView {
 
   void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter);
 
-
-
   Scene getMainmenuScene();
+
+  void updateUserlist(String result);
 }

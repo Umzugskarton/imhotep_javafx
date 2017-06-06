@@ -9,6 +9,7 @@ import json.ServerCommands;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
+import user.User;
 
 public class ClientListener implements Runnable {
 
@@ -17,6 +18,7 @@ public class ClientListener implements Runnable {
   private ClientAPI clientAPI = null;
   private PrintWriter out = null;
   private BufferedReader in = null;
+  private User user;
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -53,6 +55,12 @@ public class ClientListener implements Runnable {
               response = this.clientAPI.register(request);
             } else if (command.equals("login")) {
               response = this.clientAPI.login(request);
+              if ((boolean)response.get("success")){
+                this.user = this.clientAPI.getUser((String) request.get("username"));
+                this.server.sendToAll(this.clientAPI.getUserlist());
+              }
+            } else if(command.equals("userlist")){
+              response = this.clientAPI.getUserlist();
             }
 
             this.send(response);
@@ -66,6 +74,10 @@ public class ClientListener implements Runnable {
       System.out
           .println("[SERVER] Thread " + Thread.currentThread().getId() + ": " + ex.getMessage());
     } finally {
+    if (this.user != null){
+      this.clientAPI.logout(user);
+      this.server.sendToAll(clientAPI.getUserlist());
+    }
       this.server.removeClient(this);
     }
   }
