@@ -1,6 +1,7 @@
 package json;
 
 import java.util.ArrayList;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -28,7 +29,7 @@ public class ServerCommands {
     return obj;
   }
 
-  public static JSONObject userlistCommand(String users) {
+  public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();
 
     obj.put("command", "userlist");

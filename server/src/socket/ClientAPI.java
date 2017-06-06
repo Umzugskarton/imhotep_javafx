@@ -2,6 +2,7 @@ package socket;
 
 import java.util.ArrayList;
 import json.ServerCommands;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import user.*;
 
@@ -107,19 +108,16 @@ public class ClientAPI {
   /**
    * Erstellt eine Liste der Usernames der eingeloggten User
    * und verpackt dies in eine userlistCommand.
-   *
+   * 
    * @return JSON-Object ServerCommands.userlistCommand(users), JSON-Object, das
    * die Liste der eingeloggten User enthält
    */
 
   public JSONObject getUserlist(){
-    String users = "";
+    JSONArray users= new JSONArray();
     for(int i = 0 ; i < userList.size(); i++){
       if (i+1 < userList.size()) {
-        users += this.userList.get(i).getUsername() + ",";
-      }
-      else{
-        users += this.userList.get(i).getUsername();
+        users.add(this.userList.get(i).getUsername());
       }
     }
     return ServerCommands.userlistCommand(users);
