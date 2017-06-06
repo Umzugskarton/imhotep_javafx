@@ -50,17 +50,22 @@ public class ClientListener implements Runnable {
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
             JSONObject response = null;
-
-            if (command.equals("register")) {
-              response = this.clientAPI.register(request);
-            } else if (command.equals("login")) {
-              response = this.clientAPI.login(request);
-              if ((boolean)response.get("success")){
-                this.user = this.clientAPI.getUser((String) request.get("username"));
-                this.server.sendToAll(this.server.getLoggedUsers());
-              }
-            } else if(command.equals("userlist")){
-              response = this.server.getLoggedUsers();
+            switch(command){
+              case "register":
+                response = this.clientAPI.register(request);
+                break;
+              case "login":
+                response = this.clientAPI.login(request);
+                if ((boolean)response.get("success")){
+                  this.user = this.clientAPI.getUser((String) request.get("username"));
+                  this.server.sendToAll(this.server.getLoggedUsers());
+                }
+                break;
+              case "userlist":
+                response = this.server.getLoggedUsers();
+                break;
+                case "logout":
+                  this.user=null;
             }
             this.send(response);
           }

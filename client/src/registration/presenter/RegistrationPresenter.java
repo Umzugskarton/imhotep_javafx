@@ -50,9 +50,6 @@ public class RegistrationPresenter {
       if (username.isEmpty()) {
         msg += "Bitte einen Benutzernamen eingeben. \n";
       }
-      if (username.isEmpty()) {
-        msg += "Bitte einen Benutzernamen eingeben. \n";
-      }
       if (email.isEmpty()) {
         msg += "Bitte eine E-mail Adresse eingeben. \n";
       }
