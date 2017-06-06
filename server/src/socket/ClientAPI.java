@@ -9,11 +9,9 @@ import user.*;
 public class ClientAPI {
 
   private UserManager userManager;
-  private ArrayList<User> userList; // Überlegung: Als static im Clientlistener?
 
   public ClientAPI() {
     this.userManager = new UserManager();
-    this.userList = new ArrayList<>();
   }
 
   /**
@@ -89,37 +87,6 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  public User getUser(String username){
-    User user = this.userManager.getUserByUsername(username);
-    this.userList.add(this.userList.size(), user);
-    return user;
-  }
+  public User getUser(String username){return  this.userManager.getUserByUsername(username);}
 
-  /**
-   * Sobald der Logout ausgeführt wird, wird der auszuloggende
-   * User aus der UserList gelöscht
-   *
-   * @param user User, der den auszuloggenden User enthält
-   */
-  public void logout(User user){
-    this.userList.remove(user);
-  }
-
-  /**
-   * Erstellt eine Liste der Usernames der eingeloggten User
-   * und verpackt dies in eine userlistCommand.
-   * 
-   * @return JSON-Object ServerCommands.userlistCommand(users), JSON-Object, das
-   * die Liste der eingeloggten User enthält
-   */
-
-  public JSONObject getUserlist(){
-    JSONArray users= new JSONArray();
-    for(int i = 0 ; i < userList.size(); i++){
-      if (i+1 < userList.size()) {
-        users.add(this.userList.get(i).getUsername());
-      }
-    }
-    return ServerCommands.userlistCommand(users);
-  }
 }

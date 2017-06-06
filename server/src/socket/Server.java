@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import json.ServerCommands;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Server {
@@ -76,5 +78,16 @@ public class Server {
     for (ClientListener clientListener : connectedClients) {
       clientListener.send(json);
     }
+  }
+
+  public JSONObject getLoggedUsers(){
+    JSONArray users= new JSONArray();
+    for (ClientListener client:connectedClients)
+    {
+      if (client.isLoggedIn()){
+        users.add(client.getUser().getUsername());
+      }
+    }
+    return ServerCommands.userlistCommand(users);
   }
 }

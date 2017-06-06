@@ -8,6 +8,7 @@ import java.net.Socket;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import main.SceneController;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -64,14 +65,19 @@ public class ServerListener implements Runnable {
                   }
               );
             }else if (command.equals("userlist") && request.containsKey("users")) {
-              String message = (String) request.get("users");
-
+              JSONArray msg = (JSONArray) request.get("users");
+              String users="";
+              for (Object item:msg){
+                users += item.toString() +"\n";
+              }
+              //Workaround: Zusätzlicher String da dieser für die Lamda-Expression final sein muss.
+              String fin = users;
               // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
               // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
               Platform.runLater(
                   () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
-                     this.sceneController.getMainmenuPresenter().processUserlist(message);
+                     this.sceneController.getMainmenuPresenter().processUserlist(fin);
                     }
                   }
               );

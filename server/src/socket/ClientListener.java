@@ -18,7 +18,7 @@ public class ClientListener implements Runnable {
   private ClientAPI clientAPI = null;
   private PrintWriter out = null;
   private BufferedReader in = null;
-  private User user;
+  private User user =null;
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -57,12 +57,11 @@ public class ClientListener implements Runnable {
               response = this.clientAPI.login(request);
               if ((boolean)response.get("success")){
                 this.user = this.clientAPI.getUser((String) request.get("username"));
-                this.server.sendToAll(this.clientAPI.getUserlist());
+                this.server.sendToAll(this.server.getLoggedUsers());
               }
             } else if(command.equals("userlist")){
-              response = this.clientAPI.getUserlist();
+              response = this.server.getLoggedUsers();
             }
-
             this.send(response);
           }
         } catch (ParseException pe) {
@@ -74,9 +73,9 @@ public class ClientListener implements Runnable {
       System.out
           .println("[SERVER] Thread " + Thread.currentThread().getId() + ": " + ex.getMessage());
     } finally {
-    if (this.user != null){
-      this.clientAPI.logout(user);
-      this.server.sendToAll(clientAPI.getUserlist());
+    if (this.isLoggedIn()){
+      this.user= null;
+      this.server.sendToAll(server.getLoggedUsers());
     }
       this.server.removeClient(this);
     }
@@ -93,6 +92,12 @@ public class ClientListener implements Runnable {
       this.out.flush();
     }
   }
+
+  public boolean isLoggedIn(){
+      return this.user != null;
+  }
+
+  public User getUser(){return this.user;}
 
   public Thread getThread() {
     return Thread.currentThread();

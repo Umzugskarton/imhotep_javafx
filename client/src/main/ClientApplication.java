@@ -25,7 +25,6 @@ public class ClientApplication extends Application {
 
   @Override
   public void stop() {
-    this.sceneController.getClientSocket().send(ClientCommands.logoutCommand());
     this.clientSocket.close();
   }
 }
