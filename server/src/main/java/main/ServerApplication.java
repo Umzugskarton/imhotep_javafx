@@ -1,3 +1,5 @@
+package main;
+
 import socket.Server;
 
 public class ServerApplication {
