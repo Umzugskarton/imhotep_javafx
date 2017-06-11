@@ -121,14 +121,14 @@ public class DBController {
    * @param value Wert, auf den ueberprueft werden soll
    * @return true, wenn Eintrag existiert
    */
-  public boolean exists(String table, String column, String value) {
+  public boolean exists(String table, String column, Object value) {
     PreparedStatement stmt = null;
 
     try {
       // Query ausführen
       stmt = conn
           .prepareStatement("SELECT id FROM " + table + " WHERE LOWER(" + column + ") = LOWER(?)");
-      stmt.setString(1, value);
+      stmt.setObject(1, value);
       ResultSet result = stmt.executeQuery();
 
       // Ergebnisse zählen
