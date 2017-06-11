@@ -9,9 +9,6 @@ import main.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by fabianrieger on 25.04.17.
- */
 public class ClientSocket {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());

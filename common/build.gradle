@@ -6,17 +6,6 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-        resources {
-            srcDirs = ['resources']
-        }
-    }
-}
-
 repositories {
     maven {
         url "http://uk.maven.org/maven2"

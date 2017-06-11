@@ -13,9 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import mainmenu.presenter.MainmenuPresenter;
 
-/**
- * Created by mirco, kristin on 28.05.2017.
- */
 public class MainmenuViewImpl implements MainmenuView {
 
   private Scene mainmenuScene;
