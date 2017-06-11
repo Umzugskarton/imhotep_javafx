@@ -4,8 +4,12 @@ import java.sql.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import database.DBController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserManager {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // Datenbankcontroller
   private DBController dbController;
@@ -46,12 +50,11 @@ public class UserManager {
 
         // Wenn User erfolgreich angelegt wurde, true zur�ckgeben
         if (result == 1) {
-          System.out.println("User \"" + username + "\" wurde erfolgreich angelegt.");
+          log.info("User \"" + username + "\" wurde erfolgreich angelegt");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement freigeben
@@ -59,8 +62,7 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -88,14 +90,13 @@ public class UserManager {
         stmt.setObject(1, value);
         result = stmt.executeUpdate();
 
-        // Wenn User erfolgreich gelöscht wurde, true zur�ckgeben
+        // Wenn User erfolgreich gelöscht wurde, true zurückgeben
         if (result == 1) {
-          System.out.println("User \"" + value.toString() + "\" (" + identifier.getColumnName() + ") wurde erfolgreich gelöscht.");
+          log.info("User \"" + value.toString() + "\" (" + identifier.getColumnName() + ") wurde erfolgreich gelöscht");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Löschen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement und ResultSet freigeben
@@ -103,10 +104,11 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Löschen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
         }
       }
+    } else {
+      log.warn("User (" + identifier.getColumnName() + ": '" + value + "') konnte nicht gelöscht werden, da er nicht existiert");
     }
 
     return false;
@@ -127,13 +129,13 @@ public class UserManager {
     if (this.userExists(UserIdentifier.ID, id)) {
       // Wenn das zu ändernde Objekt eine Spalte ist die nicht geändert werden darf, abbrechen
       if(!identifier.isChangeable()) {
-        System.out.println(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da diese Spalte nicht geändert werden darf.");
+        log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da diese Spalte nicht geändert werden darf.");
         return false;
       }
 
       // Wenn das zu ändernde Objekt die Email ist, prüfen ob diese noch nicht vergeben ist
       if(identifier.equals(UserIdentifier.EMAIL) && userExists(UserIdentifier.EMAIL, value)) {
-        System.out.println(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
+        log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
         return false;
       }
       
@@ -155,12 +157,11 @@ public class UserManager {
 
         // Wenn Wert erfolgreich geändert wurde, true zurückgeben
         if (result == 1) {
-          System.out.println(identifier.getColumnName() + " von User \"" + id + "\" wurde erfolgreich geändert.");
+          log.info(identifier.getColumnName() + " von User \"" + id + "\" wurde erfolgreich geändert.");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Ändern der Daten eines Users in der Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement und ResultSet freigeben
@@ -168,8 +169,7 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Ändern der Daten eines Users in der Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -213,8 +213,7 @@ public class UserManager {
           }
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Abfragen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement und ResultSet freigeben
@@ -225,12 +224,11 @@ public class UserManager {
             result.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Abfragen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     } else {
-      System.out.println("Es konnte kein User-Objekt erstellt werden, da der gesuchte User nicht existiert.");
+      log.warn("Es konnte kein User-Objekt erstellt werden, da der gesuchte User nicht existiert");
     }
     return null;
   }
@@ -265,8 +263,7 @@ public class UserManager {
         return true;
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Bei der Validierung von Logindaten ist ein Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -277,8 +274,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Freigeben des Statements zur Validierung von Logindaten ist ein Fehler aufgetreten", se);
       }
     }
 
@@ -298,7 +294,7 @@ public class UserManager {
     if(identifier.isUnique()) {
       return this.dbController.exists("users", identifier.getColumnName(), value);
     } else {
-      System.out.println("Es konnte nicht überprüft werden, ob der User existiert, da die Spalte " + identifier.getColumnName() + " nicht einzigartig ist.");
+      log.warn("Es konnte nicht überprüft werden, ob der User existiert, da die Spalte " + identifier.getColumnName() + " nicht einzigartig ist");
       return false;
     }
   }
