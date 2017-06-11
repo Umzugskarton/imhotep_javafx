@@ -3,13 +3,18 @@ package socket;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import org.json.simple.JSONObject;
 import main.SceneController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by fabianrieger on 25.04.17.
  */
 public class ClientSocket {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // SceneController
   private SceneController sceneController = null;
@@ -40,29 +45,31 @@ public class ClientSocket {
       Thread serverThread = new Thread(this.serverListener);
       serverThread.start();
     } catch (UnknownHostException ex) {
-      System.out.println(
+      log.error(
           "UnknownHostException bei Verbindung zu Host bei Host: " + this.host + " und Port: "
-              + this.port + " Fehler:" + ex.getMessage());
+              + this.port, ex);
       System.exit(-1);
     } catch (IOException ex) {
-      System.out.println(
-          "IOException bei Verbindung zu Host bei Host: " + this.host + " und Port: " + this.port
-              + " Fehler:" + ex.getMessage());
+      log.error(
+          "IOException bei Verbindung zu Host bei Host: " + this.host + " und Port: " + this.port, ex);
       System.exit(-1);
     }
   }
 
   public void send(JSONObject json) {
-    this.out.println(json.toString());
+    String jsonString = json.toString();
+
+    this.out.println(jsonString);
     this.out.flush();
+
+    log.info("Nachricht gesendet: " + jsonString);
   }
 
   public void close() {
     try {
       this.serverSocket.close();
     } catch (IOException e) {
-      System.out.println("Konnte Verbindung nicht schließen");
-      e.printStackTrace();
+      log.error("Konnte Verbindung nicht schließen", e);
     }
   }
 }

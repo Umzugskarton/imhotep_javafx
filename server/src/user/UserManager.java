@@ -1,11 +1,15 @@
 package user;
-import java.sql.*;
 
+import java.sql.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import database.DBController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserManager {
+
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // Datenbankcontroller
   private DBController dbController;
@@ -46,12 +50,11 @@ public class UserManager {
 
         // Wenn User erfolgreich angelegt wurde, true zur�ckgeben
         if (result == 1) {
-          System.out.println("User \"" + username + "\" wurde erfolgreich angelegt.");
+          log.info("User \"" + username + "\" wurde erfolgreich angelegt.");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement freigeben
@@ -59,8 +62,7 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -89,12 +91,11 @@ public class UserManager {
 
         // Wenn User erfolgreich geloescht wurde, true zur�ckgeben
         if (result == 1) {
-          System.out.println("User \"" + username + "\" wurde erfolgreich geloescht.");
+          log.info("User \"" + username + "\" wurde erfolgreich geloescht.");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Löschen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement und ResultSet freigeben
@@ -102,8 +103,7 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Löschen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -151,8 +151,7 @@ public class UserManager {
         }
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Beim Überprüfen ob ein Benutzer existiert (byUsername) ist ein Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -163,8 +162,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Freigeben des Statements zum Überprüfen ob ein Benutzer existiert (byUsername) ist ein Fehler aufgetreten", se);
       }
     }
     return null;
@@ -202,8 +200,7 @@ public class UserManager {
         }
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Beim Überprüfen ob ein Benutzer existiert (byId) ist ein Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -214,8 +211,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Freigeben des Statements zum Überprüfen ob ein Benutzer existiert (byId) ist ein Fehler aufgetreten", se);
       }
     }
     return null;
@@ -251,8 +247,7 @@ public class UserManager {
         return true;
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Bei der Validierung von Logindaten ist ein Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -263,8 +258,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Freigeben des Statements zur Validierung von Logindaten ist ein Fehler aufgetreten", se);
       }
     }
 
