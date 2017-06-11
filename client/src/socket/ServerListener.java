@@ -65,20 +65,15 @@ public class ServerListener implements Runnable {
                     this.sceneController.getLoginPresenter().processLoginResponse(success, message);
                   }
               );
-            }else if (command.equals("userlist") && request.containsKey("users")) {
-              JSONArray msg = (JSONArray) request.get("users");
-              String users="";
-              for (Object item:msg){
-                users += item.toString() +"\n";
-              }
-              //Workaround: Zusätzlicher String da dieser für die Lamda-Expression final sein muss.
-              String fin = users;
+            } else if (command.equals("userlist") && request.containsKey("users")) {
+              JSONArray userArray = (JSONArray) request.get("users");
+
               // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
               // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
               Platform.runLater(
                   () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
-                     this.sceneController.getMainmenuPresenter().processUserlist(fin);
+                     this.sceneController.getMainmenuPresenter().updateUserlist(userArray);
                     }
                   }
               );

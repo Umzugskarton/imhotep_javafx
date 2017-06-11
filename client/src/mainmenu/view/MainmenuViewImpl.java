@@ -80,12 +80,5 @@ public class MainmenuViewImpl implements MainmenuView {
   public Scene getMainmenuScene() {
     return this.mainmenuScene;
   }
-
-  public void updateUserlist(String result) {
-    System.out.println(result);
-    this.userList.setText(result);
-  }
-
-
 }
 

@@ -15,7 +15,5 @@ public interface MainmenuView {
 
   Scene getMainmenuScene();
 
-  void updateUserlist(String result);
-
   void initPlayerList();
 }

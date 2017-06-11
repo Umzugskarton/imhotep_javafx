@@ -87,6 +87,6 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  public User getUser(String username){return  this.userManager.getUserByUsername(username);}
+  public User getUser(String username){ return this.userManager.getUser(UserIdentifier.USERNAME, username); }
 
 }

@@ -5,6 +5,7 @@ import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import mainmenu.view.MainmenuViewImpl;
@@ -27,23 +28,20 @@ public class MainmenuPresenter {
       this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
     }
 
-  public void processUserlist(String message) {
-      this.view.updateUserlist(message);
-  }
   public MainmenuView getMainmenuView() {
     return this.view;
   }
 
+  public void updateUserlist(JSONArray userArray) {
+      playerList.getPlayers().clear();
+
+      for(Object user : userArray) {
+        playerList.getPlayers().add(user.toString());
+      }
+  }
+
   public void toLoginScene() {
     sceneController.toLoginScene();
-  }
-
-  public void addPlayer(String name){
-      playerList.getPlayers().add(name);
-  }
-
-  public void removePlayer(String name){
-    playerList.getPlayers().remove(name);
   }
 
   public PlayerList getPlayerList(){

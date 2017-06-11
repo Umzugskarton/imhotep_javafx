@@ -22,7 +22,7 @@ public class ClientListener implements Runnable {
   private ClientAPI clientAPI = null;
   private PrintWriter out = null;
   private BufferedReader in = null;
-  private User user =null;
+  private User user = null;
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -57,17 +57,19 @@ public class ClientListener implements Runnable {
                 response = this.clientAPI.register(request);
                 break;
               case "login":
+
                 response = this.clientAPI.login(request);
-                if ((boolean)response.get("success")){
+                if ((boolean)response.get("success")) {
                   this.user = this.clientAPI.getUser((String) request.get("username"));
-                  this.server.sendToAll(this.server.getLoggedUsers());
+                  this.server.sendToLoggedIn(this.server.getLoggedUsers());
                 }
+
                 break;
               case "userlist":
                 response = this.server.getLoggedUsers();
                 break;
-                case "logout":
-                  this.user=null;
+              case "logout":
+                this.user=null;
             }
 
             this.send(response);
@@ -79,10 +81,11 @@ public class ClientListener implements Runnable {
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
-    if (this.isLoggedIn()){
-      this.user= null;
-      this.server.sendToAll(server.getLoggedUsers());
-    }
+      if (this.isLoggedIn()){
+        this.user = null;
+        this.server.sendToAll(server.getLoggedUsers());
+      }
+
       this.server.removeClient(this);
     }
   }
@@ -102,7 +105,7 @@ public class ClientListener implements Runnable {
       return this.user != null;
   }
 
-  public User getUser(){return this.user;}
+  public User getUser(){ return this.user; }
 
   public Thread getThread() {
     return Thread.currentThread();

@@ -83,6 +83,14 @@ public class Server {
     }
   }
 
+  public void sendToLoggedIn(JSONObject json) {
+    for (ClientListener clientListener : connectedClients) {
+      if(clientListener.isLoggedIn()) {
+        clientListener.send(json);
+      }
+    }
+  }
+
   public JSONObject getLoggedUsers(){
     JSONArray users= new JSONArray();
     for (ClientListener client:connectedClients)
