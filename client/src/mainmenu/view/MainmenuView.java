@@ -1,5 +1,6 @@
 package mainmenu.view;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import mainmenu.presenter.MainmenuPresenter;
 
@@ -15,4 +16,6 @@ public interface MainmenuView {
   Scene getMainmenuScene();
 
   void updateUserlist(String result);
+
+  void initPlayerList();
 }

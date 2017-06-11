@@ -6,9 +6,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 import json.ServerCommands;
 import org.json.simple.JSONArray;
+
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Server {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   private int port;
   private ServerSocket serverSocket = null;
@@ -24,11 +29,10 @@ public class Server {
   private void init() {
     try {
       this.serverSocket = new ServerSocket(this.port);
-      System.out.println("[SERVER] Server auf Port " + this.port + " gestartet");
+      log.info("Server auf Port " + this.port + " gestartet");
     } catch (IOException e) {
-      System.out.println(
-          "[SERVER] Server konnte auf Port " + this.port + " nicht gestartet werden: " + e
-              .getMessage());
+      log.error(
+          "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
       System.exit(-1);
     }
   }
@@ -40,36 +44,35 @@ public class Server {
 
         this.addClient(clientSocket);
       } catch (IOException e) {
-        System.out
-            .println("[SERVER] Anfrage auf Port " + this.port + " konnte nicht verarbeitet werden");
+        log.error("Anfrage auf Port " + this.port + " konnte nicht verarbeitet werden", e);
         System.exit(-1);
       }
     }
   }
 
   public void addClient(Socket clientSocket) {
-    System.out.println("[SERVER] Ein neuer Client hat sich verbunden");
+    log.info("Ein neuer Client hat sich verbunden");
 
     ClientListener clientListener = new ClientListener(this, clientSocket, this.clientAPI);
     Thread thread = new Thread(clientListener);
     thread.start();
 
-    System.out.println("[SERVER] Thread " + thread.getId() + " gestartet");
+    log.info("Thread " + thread.getId() + " gestartet");
 
     this.connectedClients.add(clientListener);
 
-    System.out.println(
-        "[SERVER] Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
+    log.info(
+        "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
   }
 
   public void removeClient(ClientListener clientListener) {
-    System.out.println("[SERVER] Thread " + clientListener.getThread().getId()
+    log.info("Thread " + clientListener.getThread().getId()
         + ": Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);
 
-      System.out.println("[SERVER] Thread " + clientListener.getThread().getId()
+      log.info("Thread " + clientListener.getThread().getId()
           + " von der Liste der verbundenen Clients entfernt");
     }
   }

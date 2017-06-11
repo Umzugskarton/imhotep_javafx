@@ -3,17 +3,19 @@ package socket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import main.SceneController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServerListener implements Runnable {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   private Socket serverSocket;
   private SceneController sceneController;
@@ -26,14 +28,13 @@ public class ServerListener implements Runnable {
   @Override
   public void run() {
     try {
-      System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " gestartet!");
+      log.info("Serverthread gestartet!");
 
       BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
 
       String receivedMsg = null;
       while ((receivedMsg = in.readLine()) != null) {
-        System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId()
-            + ": Nachricht vom Server erhalten " + receivedMsg);
+        log.info("Nachricht erhalten: " + receivedMsg);
 
         JSONParser parser = new JSONParser();
         try {
@@ -84,15 +85,13 @@ public class ServerListener implements Runnable {
             }
           }
         } catch (ParseException pe) {
-          System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId()
-              + ": Ungültige Nachricht erhalten " + receivedMsg + ": " + pe);
+          log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
         }
       }
 
-      System.out.println("[CLIENT] Serverthread " + Thread.currentThread().getId() + " beendet!");
+      log.info("Serverthread " + Thread.currentThread().getId() + " beendet!");
     } catch (IOException ex) {
-      System.out.println(
-          "[CLIENT] Serverthread " + Thread.currentThread().getId() + ": " + ex.getMessage());
+      log.error("Ein Fehler ist aufgetreten", ex);
     }
   }
 }

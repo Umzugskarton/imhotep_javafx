@@ -4,8 +4,12 @@ import java.sql.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import database.DBController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserManager {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // Datenbankcontroller
   private DBController dbController;
@@ -30,7 +34,7 @@ public class UserManager {
    */
   public boolean createUser(String username, String password, String email) {
     // Wenn weder Username noch E-Mail in der Datenbank vorhanden sind
-    if (!this.usernameExists(username) && !this.emailExists(email)) {
+    if (!this.userExists(UserIdentifier.USERNAME, username) && !this.userExists(UserIdentifier.EMAIL, email)) {
       // Passwort hashen
       String hashedPassword = DigestUtils.md5Hex(password);
       PreparedStatement stmt = null;
@@ -46,12 +50,11 @@ public class UserManager {
 
         // Wenn User erfolgreich angelegt wurde, true zur�ckgeben
         if (result == 1) {
-          System.out.println("User \"" + username + "\" wurde erfolgreich angelegt.");
+          log.info("User \"" + username + "\" wurde erfolgreich angelegt");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement freigeben
@@ -59,8 +62,7 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Anlegen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -69,32 +71,32 @@ public class UserManager {
   }
 
   /**
-   * Loescht einen User-Eintrag aus der Datenbank
+   * Löscht einen User-Eintrag aus der Datenbank
    *
-   * @param  username  Username des Users, der geloescht werden soll
-   * @return true, wenn User geloescht wurde
+   * @param   identifier  Ein einzigartiger Identifier (z.B. UserIdentifier.ID), anhand dessen der User ermittelt wird
+   * @param   value       Wert des Identifiers
+   * @return  true, wenn User gelöscht wurde
    */
-  public boolean deleteUser(String username) {
-    // Wenn Username in der Datenbank existiert
-    if (this.usernameExists(username)) {
+  public boolean deleteUser(UserIdentifier identifier, Object value) {
+    // Wenn User in der Datenbank existiert
+    if (this.userExists(identifier, value)) {
       PreparedStatement stmt = null;
       int result = 0;
 
       try {
-        // User aus der Datenbank l�schen
-        String query = "DELETE FROM users WHERE username = ?";
+        // User aus der Datenbank löschen
+        String query = "DELETE FROM users WHERE " + identifier.getColumnName() + " = ?";
         stmt = this.dbController.getConnection().prepareStatement(query);
-        stmt.setString(1, username);
+        stmt.setObject(1, value);
         result = stmt.executeUpdate();
 
-        // Wenn User erfolgreich geloescht wurde, true zur�ckgeben
+        // Wenn User erfolgreich gelöscht wurde, true zurückgeben
         if (result == 1) {
-          System.out.println("User \"" + username + "\" wurde erfolgreich geloescht.");
+          log.info("User \"" + value.toString() + "\" (" + identifier.getColumnName() + ") wurde erfolgreich gelöscht");
           return true;
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Löschen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
       } finally {
         try {
           // Statement und ResultSet freigeben
@@ -102,8 +104,72 @@ public class UserManager {
             stmt.close();
           }
         } catch (SQLException se) {
-          // TODO Auto-generated catch block
-          se.printStackTrace();
+          log.error("Beim Freigeben des Statements zum Löschen eines Users in die Datenbank ist ein Fehler aufgetreten", se);
+        }
+      }
+    } else {
+      log.warn("User (" + identifier.getColumnName() + ": '" + value + "') konnte nicht gelöscht werden, da er nicht existiert");
+    }
+
+    return false;
+  }
+
+  /**
+   * Ändert Email oder Passwort eines Users in der Datenbank
+   *
+   * @param  user         User-Objekt des Users, dessen Passwort geändert werden soll
+   * @param  identifier   Ein änderbarer Identifier (z.B. UserIdentifier.EMAIL), d.h. die Spalte die geändert werden soll
+   * @param  value        Der neue Wert der Spalte
+   * @return true, wenn User gelöscht wurde
+   */
+  public boolean changeUser(User user, UserIdentifier identifier, Object value) {
+    // Wenn Username in der Datenbank existiert
+    int id = user.getId();
+
+    if (this.userExists(UserIdentifier.ID, id)) {
+      // Wenn das zu ändernde Objekt eine Spalte ist die nicht geändert werden darf, abbrechen
+      if(!identifier.isChangeable()) {
+        log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da diese Spalte nicht geändert werden darf.");
+        return false;
+      }
+
+      // Wenn das zu ändernde Objekt die Email ist, prüfen ob diese noch nicht vergeben ist
+      if(identifier.equals(UserIdentifier.EMAIL) && userExists(UserIdentifier.EMAIL, value)) {
+        log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
+        return false;
+      }
+      
+      // Wenn das zu ändernde Objekt das Passwort ist, hashen
+      if(identifier.equals(UserIdentifier.PASSWORD)) {
+        value = DigestUtils.md5Hex((String) value);
+      }
+
+      PreparedStatement stmt = null;
+      int result = 0;
+
+      try {
+        // Wert in der Datenbank ändern
+        String query = "UPDATE users SET " + identifier.getColumnName() + " = ? WHERE id = ?";
+        stmt = this.dbController.getConnection().prepareStatement(query);
+        stmt.setObject(1, value);
+        stmt.setInt(2, id);
+        result = stmt.executeUpdate();
+
+        // Wenn Wert erfolgreich geändert wurde, true zurückgeben
+        if (result == 1) {
+          log.info(identifier.getColumnName() + " von User \"" + id + "\" wurde erfolgreich geändert.");
+          return true;
+        }
+      } catch (SQLException se) {
+        log.error("Beim Ändern der Daten eines Users in der Datenbank ist ein Fehler aufgetreten", se);
+      } finally {
+        try {
+          // Statement und ResultSet freigeben
+          if (stmt != null) {
+            stmt.close();
+          }
+        } catch (SQLException se) {
+          log.error("Beim Freigeben des Statements zum Ändern der Daten eines Users in der Datenbank ist ein Fehler aufgetreten", se);
         }
       }
     }
@@ -112,117 +178,63 @@ public class UserManager {
   }
 
   /**
-   * Aktualisiert einen User-Eintrag in der Datenbank
-   */
-  public boolean updateUser() {
-    return true;
-  }
-
-  /**
    * Erstellt und returned ein User-Objekt mit Datensatz aus Datenbank, wenn Username existiert
    *
+   * @param  identifier  Ein einzigartiger Identifier (z.B. UserIdentifier.ID), anhand dessen der User ermittelt wird
+   * @param  value       Wert des Identifiers
    * @return User-Objekt mit Daten aus der Datenbank oder Null-Objekt, falls kein User mit username
    * gefunden wird
-   * @param  username  Username
    */
-  public User getUserByUsername(String username) {
-    PreparedStatement stmt = null;
-    ResultSet result = null;
+  public User getUser(UserIdentifier identifier, Object value) {
+    // Zunächst überprüfen ob der User überhaupt mit diesem identifier ermittelt werden kann
+    if(userExists(identifier, value)) {
+      PreparedStatement stmt = null;
+      ResultSet result = null;
 
-    try {
-      // Query vorbereiten und ausf�hren
-      String query = "SELECT id, username, password, email FROM users WHERE username = ? LIMIT 0,1";
-      stmt = this.dbController.getConnection().prepareStatement(query);
-      stmt.setString(1, username);
-      result = stmt.executeQuery();
-
-      // Wenn result einen Eintrag hat (also der User existiert)
-      if (this.dbController.countResults(result) == 1) {
-        while (result.next()) {
-          // Neues User-Objekt erstellen
-          User user = new User(
-              result.getInt("id"),
-              result.getString("username"),
-              result.getString("password"),
-              result.getString("email")
-          );
-          // User-Objekt zur�ckgeben
-          return user;
-        }
-      }
-    } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
-    } finally {
       try {
-        // Statement und ResultSet freigeben
-        if (stmt != null) {
-          stmt.close();
-        }
-        if (result != null) {
-          result.close();
+        // Query vorbereiten und ausführen
+        String query = "SELECT id, username, password, email FROM users WHERE " + identifier.getColumnName() + " = ? LIMIT 0,1";
+        stmt = this.dbController.getConnection().prepareStatement(query);
+        stmt.setObject(1, value);
+        result = stmt.executeQuery();
+
+        // Wenn result einen Eintrag hat (also der User existiert)
+        if (this.dbController.countResults(result) == 1) {
+          while (result.next()) {
+            // Neues User-Objekt erstellen
+            User user = new User(
+                    result.getInt("id"),
+                    result.getString("username"),
+                    result.getString("password"),
+                    result.getString("email")
+            );
+            // User-Objekt zurückgeben
+            return user;
+          }
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Abfragen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
+      } finally {
+        try {
+          // Statement und ResultSet freigeben
+          if (stmt != null) {
+            stmt.close();
+          }
+          if (result != null) {
+            result.close();
+          }
+        } catch (SQLException se) {
+          log.error("Beim Freigeben des Statements zum Abfragen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
+        }
       }
+    } else {
+      log.warn("Es konnte kein User-Objekt erstellt werden, da der gesuchte User nicht existiert");
     }
     return null;
   }
 
   /**
-   * Erstellt und returned ein User-Objekt mit Datensatz aus Datenbank, wenn ID existiert
-   *
-   * @return User-Objekt mit Daten aus der Datenbank oder Null-Objekt, falls kein User mit username gefunden wird
-   * @param  id   ID
-   */
-  public User getUserById(int id) {
-    PreparedStatement stmt = null;
-    ResultSet result = null;
-
-    try {
-      // Query vorbereiten und ausf�hren
-      String query = "SELECT id, username, password, email FROM users WHERE id = ? LIMIT 0,1";
-      stmt = this.dbController.getConnection().prepareStatement(query);
-      stmt.setString(1, Integer.toString(id));
-      result = stmt.executeQuery();
-
-      // Wenn result einen Eintrag hat (also der User existiert)
-      if (this.dbController.countResults(result) == 1) {
-        while (result.next()) {
-          // Neues User-Objekt erstellen
-          User user = new User(
-              result.getInt("id"),
-              result.getString("username"),
-              result.getString("password"),
-              result.getString("email")
-          );
-          // User-Objekt zur�ckgeben
-          return user;
-        }
-      }
-    } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
-    } finally {
-      try {
-        // Statement und ResultSet freigeben
-        if (stmt != null) {
-          stmt.close();
-        }
-        if (result != null) {
-          result.close();
-        }
-      } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Validiert die Eingaben eines Users fuer Login
+   * Validiert die Eingaben eines Users für Login
    *
    * @param  username  Username
    * @param  password  Passwort
@@ -236,23 +248,22 @@ public class UserManager {
     ResultSet result = null;
 
     try {
-      // Pr�fen, ob Username und gehashtes PW in Datenbank existieren
+      // Prüfen, ob Username und gehashtes PW in Datenbank existieren
       String query = "SELECT id, username, password, email FROM users WHERE username = ? AND password = ? LIMIT 0,1";
       stmt = this.dbController.getConnection().prepareStatement(query);
       stmt.setString(1, username);
       stmt.setString(2, hashedPassword);
       result = stmt.executeQuery();
 
-      // Anzahl Eintr�ge mit username und gehashtem Passwort
+      // Anzahl Einträge mit username und gehashtem Passwort
       int rowCount = this.dbController.countResults(result);
 
-      // Wenn result einen Eintrag hat, also Logindaten stimmen, true zur�ckgeben, sonst false
+      // Wenn result einen Eintrag hat, also Daten stimmen, true zurückgeben, sonst false
       if (rowCount == 1) {
         return true;
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Bei der Validierung von Logindaten ist ein Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -263,8 +274,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        // TODO Auto-generated catch block
-        se.printStackTrace();
+        log.error("Beim Freigeben des Statements zur Validierung von Logindaten ist ein Fehler aufgetreten", se);
       }
     }
 
@@ -273,20 +283,19 @@ public class UserManager {
 
 
   /**
-   * Prueft, ob ein Username bereits in der Datenbank existiert
+   * Prueft, ob ein User bereits in der Datenbank existiert
    *
-   * @return true, wenn Username existiert
+   * @param   identifier  Ein einzigartiger Identifier (z.B. UserIdentifier.ID), anhand dessen der User ermittelt wird
+   * @param   value       Wert des Identifiers
+   * @return  true, wenn User existiert
    */
-  private boolean usernameExists(String username) {
-    return this.dbController.exists("users", "username", username);
-  }
-
-  /**
-   * Prueft, ob eine E-Mail bereits in der Datenbank existiert
-   *
-   * @return true, wenn E-Mail existiert
-   */
-  private boolean emailExists(String email) {
-    return this.dbController.exists("users", "email", email);
+  private boolean userExists(UserIdentifier identifier, Object value) {
+    // Prüfen, ob der Identifier einzigartig ist (d.h. so dass z.B. nicht über das Passwort die Existenz eines Users überprüft wird)
+    if(identifier.isUnique()) {
+      return this.dbController.exists("users", identifier.getColumnName(), value);
+    } else {
+      log.warn("Es konnte nicht überprüft werden, ob der User existiert, da die Spalte " + identifier.getColumnName() + " nicht einzigartig ist");
+      return false;
+    }
   }
 }

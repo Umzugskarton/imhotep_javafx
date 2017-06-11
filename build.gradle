@@ -1,0 +1,20 @@
+group 'swp17i'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url "http://uk.maven.org/maven2"
+    }
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}

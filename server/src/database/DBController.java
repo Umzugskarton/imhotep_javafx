@@ -1,8 +1,13 @@
 package database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
 public class DBController {
+
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // JDBC Treiber und URL zur Datenbank
   private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -23,7 +28,7 @@ public class DBController {
     try {
       Class.forName(JDBC_DRIVER);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Beim Festlegen des Datenbanktreibers ist ein Fehler aufgetreten", e);
     }
   }
 
@@ -37,12 +42,11 @@ public class DBController {
       conn = DriverManager.getConnection(DB, USERNAME, PASSWORD);
 
       if (this.isConnected()) {
-        System.out.println("Verbindung zur Datenbank wurde erfolgreich hergestellt");
+        log.info("Verbindung zur Datenbank wurde erfolgreich hergestellt");
         return true;
       }
     } catch (SQLException se) {
-      // TODO Auto-generated catch block
-      se.printStackTrace();
+      log.error("Beim Öffnen der Verbindung zur Datenbank ist ein Fehler aufgetreten", se);
     }
     return false;
   }
@@ -68,8 +72,7 @@ public class DBController {
         return true;
       }
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      log.error("Beim Schließen der Verbindung zur Datenbank ist ein Fehler aufgetreten", e);
     }
 
     return false; // Verbindung konnte nicht geschlossen werden
@@ -86,8 +89,7 @@ public class DBController {
         return true;
       }
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      log.error("Es konnte nicht überprüft werden, ob eine Verbindung zur Datenbank besteht", e);
     }
 
     return false;
@@ -119,14 +121,14 @@ public class DBController {
    * @param value Wert, auf den ueberprueft werden soll
    * @return true, wenn Eintrag existiert
    */
-  public boolean exists(String table, String column, String value) {
+  public boolean exists(String table, String column, Object value) {
     PreparedStatement stmt = null;
 
     try {
       // Query ausführen
       stmt = conn
           .prepareStatement("SELECT id FROM " + table + " WHERE LOWER(" + column + ") = LOWER(?)");
-      stmt.setString(1, value);
+      stmt.setObject(1, value);
       ResultSet result = stmt.executeQuery();
 
       // Ergebnisse zählen
@@ -141,8 +143,7 @@ public class DBController {
         return true;
       }
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      log.error("Es konnte nicht überorüft werden, ob ein Datensatz existiert", e);
     }
     return false;
   }
