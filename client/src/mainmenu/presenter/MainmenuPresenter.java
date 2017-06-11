@@ -1,9 +1,12 @@
 package mainmenu.presenter;
 
+import json.ClientCommands;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
+import org.json.simple.JSONObject;
+
 import mainmenu.view.MainmenuViewImpl;
 
 /**
@@ -21,8 +24,12 @@ public class MainmenuPresenter {
       view.setMainmenuPresenter(this);
       this.playerList = new PlayerListImpl();   //Reihenfolge wichtig, sonst NullPointerException!
       view.initPlayerList();
+      this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
     }
 
+  public void processUserlist(String message) {
+      this.view.updateUserlist(message);
+  }
   public MainmenuView getMainmenuView() {
     return this.view;
   }

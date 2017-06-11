@@ -4,6 +4,7 @@ package mainmenu.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -19,11 +20,16 @@ public class MainmenuViewImpl implements MainmenuView {
 
   private Scene mainmenuScene;
   private MainmenuPresenter mainmenuPresenter;
+  private Label userList;
   private BorderPane pane;
 
   public MainmenuViewImpl() { buildMainmenu(); }
 
   public void buildMainmenu() {
+    GridPane grid = new GridPane();
+    mainmenuScene = new Scene(grid);
+    userList = new Label();
+    grid.add(userList, 3, 5);
     pane = new BorderPane();
     mainmenuScene = new Scene(pane);
     TabPane tabPane = new TabPane();                                    //TabPane wird erstellt
@@ -74,6 +80,12 @@ public class MainmenuViewImpl implements MainmenuView {
   public Scene getMainmenuScene() {
     return this.mainmenuScene;
   }
+
+  public void updateUserlist(String result) {
+    System.out.println(result);
+    this.userList.setText(result);
+  }
+
 
 }
 

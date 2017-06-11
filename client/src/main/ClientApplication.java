@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import json.ClientCommands;
 import socket.ClientSocket;
 
 public class ClientApplication extends Application {

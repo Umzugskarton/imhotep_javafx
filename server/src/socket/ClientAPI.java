@@ -1,8 +1,10 @@
 package socket;
 
+import java.util.ArrayList;
 import json.ServerCommands;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import user.UserManager;
+import user.*;
 
 public class ClientAPI {
 
@@ -77,4 +79,14 @@ public class ClientAPI {
     }
     return response;
   }
+  /**
+   * Ist der Login() erfolgreich, so wird ein Userelement über
+   * dern Usernamen initiert und der Userliste hinzugefügt.
+   * Der Clientlistener speichert den User.
+   *
+   * @param username String, der Username des einzuloggenden Users enthält
+   * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
+   */
+  public User getUser(String username){return  this.userManager.getUserByUsername(username);}
+
 }

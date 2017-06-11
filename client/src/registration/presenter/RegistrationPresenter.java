@@ -20,8 +20,6 @@ public class RegistrationPresenter {
     if (this.validate(password1, password2, username, email)) {
       JSONObject registerCommand = ClientCommands.registerCommand(username, password1, email);
       this.sceneController.getClientSocket().send(registerCommand);
-    } else {
-      this.view.updateStatusLabel("Ungültige Eingaben.");
     }
   }
 
@@ -38,10 +36,31 @@ public class RegistrationPresenter {
   }
 
   private boolean validate(String password1, String password2, String username, String email) {
+    String msg = "";
     if (!password1.isEmpty() && !password2.isEmpty() && !username.isEmpty() && !email.isEmpty()
         && password1.equals(password2) && password1.length() >= 8) {
       return true;
+    }else {
+      if (password1.isEmpty()) {
+        msg += "Bitte ein Passwort eingeben. \n";
+      }
+      if (password2.isEmpty()) {
+        msg += "Bitte das Passwort wiederholen. \n";
+      }
+      if (username.isEmpty()) {
+        msg += "Bitte einen Benutzernamen eingeben. \n";
+      }
+      if (email.isEmpty()) {
+        msg += "Bitte eine E-mail Adresse eingeben. \n";
+      }
+      if (!password1.equals(password2)) {
+        msg += "Die Passwörter stimmen nicht überein. \n";
+      }
+      if ( password1.length() < 8) {
+        msg += "Das Passwort muss mindestens 8 Zeichen besitzen. \n";
+      }
     }
+    this.view.updateStatusLabel(msg);
     return false;
   }
 }

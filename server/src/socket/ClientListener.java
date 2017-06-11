@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
+import json.ServerCommands;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import user.User;
 
 public class ClientListener implements Runnable {
 
@@ -21,6 +22,7 @@ public class ClientListener implements Runnable {
   private ClientAPI clientAPI = null;
   private PrintWriter out = null;
   private BufferedReader in = null;
+  private User user =null;
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -50,11 +52,22 @@ public class ClientListener implements Runnable {
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
             JSONObject response = null;
-
-            if (command.equals("register")) {
-              response = this.clientAPI.register(request);
-            } else if (command.equals("login")) {
-              response = this.clientAPI.login(request);
+            switch(command){
+              case "register":
+                response = this.clientAPI.register(request);
+                break;
+              case "login":
+                response = this.clientAPI.login(request);
+                if ((boolean)response.get("success")){
+                  this.user = this.clientAPI.getUser((String) request.get("username"));
+                  this.server.sendToAll(this.server.getLoggedUsers());
+                }
+                break;
+              case "userlist":
+                response = this.server.getLoggedUsers();
+                break;
+                case "logout":
+                  this.user=null;
             }
 
             this.send(response);
@@ -66,6 +79,10 @@ public class ClientListener implements Runnable {
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
+    if (this.isLoggedIn()){
+      this.user= null;
+      this.server.sendToAll(server.getLoggedUsers());
+    }
       this.server.removeClient(this);
     }
   }
@@ -80,6 +97,12 @@ public class ClientListener implements Runnable {
       this.out.flush();
     }
   }
+
+  public boolean isLoggedIn(){
+      return this.user != null;
+  }
+
+  public User getUser(){return this.user;}
 
   public Thread getThread() {
     return Thread.currentThread();
