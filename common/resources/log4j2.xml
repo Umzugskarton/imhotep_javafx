@@ -5,10 +5,10 @@
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%blue{%t}] %l%n%style{%-5p}{black} %highlight{%m%n}%style{%throwable}{Red}" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%blue{%t}] %l%n%style{%-5p}{black} %highlight{%m{nolookups}%n}%style{%throwable}{Red}" />
         </Console>
         <File name="LogFile" fileName="${filename}" immediateFlush="true" append="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %l - %m%n%throwable"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %l - %m{nolookups}%n%throwable"/>
         </File>
     </Appenders>
     <Loggers>
