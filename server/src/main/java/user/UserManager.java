@@ -261,9 +261,15 @@ public class UserManager {
         result.next();
         String passwordFromDB = result.getString("password");
 
-        // Überoprüfen, ob das gegebene Passwort mit dem gehashten übereinstimmt
-        if (BCrypt.checkpw(password, passwordFromDB)) {
-          return true;
+        // Überprüfen, ob das gegebene Passwort mit dem gehashten übereinstimmt
+        try {
+          if (BCrypt.checkpw(password, passwordFromDB)) {
+            return true;
+          } else {
+            log.debug("Passwort inkorrekt");
+          }
+        } catch (IllegalArgumentException e) {
+          log.error("Beim Vergleich der Passwörter ist ein Fehler aufgetreten", e);
         }
       }
     } catch (SQLException se) {
@@ -287,7 +293,7 @@ public class UserManager {
 
 
   /**
-   * Prueft, ob ein User bereits in der Datenbank existiert
+   * Prüft, ob ein User bereits in der Datenbank existiert
    *
    * @param   identifier  Ein einzigartiger Identifier (z.B. UserIdentifier.ID), anhand dessen der User ermittelt wird
    * @param   value       Wert des Identifiers
