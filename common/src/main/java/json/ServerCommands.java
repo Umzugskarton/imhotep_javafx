@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-/**
- * Created by tobia on 16.05.2017.
- */
 public class ServerCommands {
 
   public static JSONObject registerCommand(String message, boolean success) {

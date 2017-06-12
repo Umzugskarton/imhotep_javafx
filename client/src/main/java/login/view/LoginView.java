@@ -3,9 +3,6 @@ package login.view;
 import javafx.scene.Scene;
 import login.presenter.LoginPresenter;
 
-/**
- * Created by mircoskrzipczyk, annkristinklopp on 09.05.17.
- */
 public interface LoginView {
 
   void buildLogin();

@@ -10,9 +10,6 @@ import org.json.simple.JSONObject;
 
 import mainmenu.view.MainmenuViewImpl;
 
-/**
- * Created by mirco, kristin on 28.05.2017.
- */
 public class MainmenuPresenter {
 
   private MainmenuView view;

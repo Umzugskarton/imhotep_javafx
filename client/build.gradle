@@ -9,14 +9,6 @@ sourceCompatibility = 1.8
 
 mainClassName = "main.ClientApplication"
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-    }
-}
-
 repositories {
     maven {
         url "http://uk.maven.org/maven2"
