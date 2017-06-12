@@ -1,9 +1,8 @@
 package user;
 import java.sql.*;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import database.DBController;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class UserManager {
     // Wenn weder Username noch E-Mail in der Datenbank vorhanden sind
     if (!this.userExists(UserIdentifier.USERNAME, username) && !this.userExists(UserIdentifier.EMAIL, email)) {
       // Passwort hashen
-      String hashedPassword = DigestUtils.md5Hex(password);
+      String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
       PreparedStatement stmt = null;
 
       try {
@@ -81,7 +80,7 @@ public class UserManager {
     // Wenn User in der Datenbank existiert
     if (this.userExists(identifier, value)) {
       PreparedStatement stmt = null;
-      int result = 0;
+      int result;
 
       try {
         // User aus der Datenbank löschen
@@ -141,11 +140,17 @@ public class UserManager {
       
       // Wenn das zu ändernde Objekt das Passwort ist, hashen
       if(identifier.equals(UserIdentifier.PASSWORD)) {
-        value = DigestUtils.md5Hex((String) value);
+        // Wenn der Wert ein String ist
+        if (value instanceof String) {
+          value = BCrypt.hashpw((String) value, BCrypt.gensalt());
+        } else {
+          log.warn("Das Passwort des Users mit der ID " + id + " konnte nicht geändert werden, da das bereitgestellte Passwort kein String ist.");
+          return false;
+        }
       }
 
       PreparedStatement stmt = null;
-      int result = 0;
+      int result;
 
       try {
         // Wert in der Datenbank ändern
@@ -200,17 +205,14 @@ public class UserManager {
 
         // Wenn result einen Eintrag hat (also der User existiert)
         if (this.dbController.countResults(result) == 1) {
-          while (result.next()) {
-            // Neues User-Objekt erstellen
-            User user = new User(
-                    result.getInt("id"),
-                    result.getString("username"),
-                    result.getString("password"),
-                    result.getString("email")
-            );
-            // User-Objekt zurückgeben
-            return user;
-          }
+          result.next();
+
+          return new User(
+                  result.getInt("id"),
+                  result.getString("username"),
+                  result.getString("password"),
+                  result.getString("email")
+          );
         }
       } catch (SQLException se) {
         log.error("Beim Abfragen eines Users aus der Datenbank ist ein Fehler aufgetreten", se);
@@ -241,29 +243,31 @@ public class UserManager {
    * @return true, wenn Logindaten korrekt sind
    */
   public boolean validateLogin(String username, String password) {
-    // Passwort hashen
-    String hashedPassword = DigestUtils.md5Hex(password);
-
     PreparedStatement stmt = null;
     ResultSet result = null;
 
     try {
-      // Prüfen, ob Username und gehashtes PW in Datenbank existieren
-      String query = "SELECT id, username, password, email FROM users WHERE username = ? AND password = ? LIMIT 0,1";
+      // Prüfen, ob Username in Datenbank existieren
+      String query = "SELECT id, username, password, email FROM users WHERE username = ? LIMIT 0,1";
       stmt = this.dbController.getConnection().prepareStatement(query);
       stmt.setString(1, username);
-      stmt.setString(2, hashedPassword);
       result = stmt.executeQuery();
 
-      // Anzahl Einträge mit username und gehashtem Passwort
+      // Anzahl Einträge mit übereinstimmendem Benutzernamen
       int rowCount = this.dbController.countResults(result);
 
-      // Wenn result einen Eintrag hat, also Daten stimmen, true zurückgeben, sonst false
-      if (rowCount == 1) {
-        return true;
+      // Wenn result einen Eintrag hat (also der User existiert)
+      if (this.dbController.countResults(result) == 1) {
+        result.next();
+        String passwordFromDB = result.getString("password");
+
+        // Überoprüfen, ob das gegebene Passwort mit dem gehashten übereinstimmt
+        if (BCrypt.checkpw(password, passwordFromDB)) {
+          return true;
+        }
       }
     } catch (SQLException se) {
-      log.error("Bei der Validierung von Logindaten ist ein Fehler aufgetreten", se);
+      log.error("Bei der Validierung von Logindaten ist ein SQL-Fehler aufgetreten", se);
     } finally {
       try {
         // Statement und ResultSet freigeben
@@ -274,7 +278,7 @@ public class UserManager {
           result.close();
         }
       } catch (SQLException se) {
-        log.error("Beim Freigeben des Statements zur Validierung von Logindaten ist ein Fehler aufgetreten", se);
+        log.error("Beim Freigeben des Statements zur Validierung von Logindaten ist ein SQL-Fehler aufgetreten", se);
       }
     }
 
