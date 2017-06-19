@@ -47,7 +47,6 @@ public class ChatViewImpl implements ChatView {
 
         }
 
-
         public void updateChatHistory(String text) {
 
             //Methode zu Updaten des Chatverlaufes fehlt
