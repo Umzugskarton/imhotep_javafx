@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 public interface ChatView {
 
     public void buildChat();
+
     public void updateChatHistory();
+
     public Scene getChatScene();
+
     public void setChatPresenter();
 }
