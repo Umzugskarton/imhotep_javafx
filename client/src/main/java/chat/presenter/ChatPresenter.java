@@ -31,6 +31,6 @@ public class ChatPresenter {
     }
 
     public void updateChat(String user, String msg){
-        this.chatView.getMsgFld().setText(user+": " + msg);
+        this.chatView.getMsgFld().appendText(user + ": " + msg + "\n");
     }
 }

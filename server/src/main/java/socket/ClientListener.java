@@ -70,11 +70,13 @@ public class ClientListener implements Runnable {
                 break;
               case "chat":
                 this.server.sendToLoggedIn(request);
+                break;
               case "logout":
-                this.user=null;
+                this.user = null;
+                break;
             }
 
-            this.send(response);
+            if(response != null) this.send(response);
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
