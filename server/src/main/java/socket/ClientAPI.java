@@ -79,6 +79,18 @@ public class ClientAPI {
     }
     return response;
   }
+
+  public JSONObject chat(JSONObject request, User user) {
+    JSONObject response = new JSONObject();
+
+    if (request.containsKey("message") && user != null) {
+      String message = (String) request.get("message");
+
+      response = ServerCommands.chatCommand(user.getUsername(), message);
+    }
+    return response;
+  }
+
   /**
    * Ist der Login() erfolgreich, so wird ein Userelement über
    * dern Usernamen initiert und der Userliste hinzugefügt.

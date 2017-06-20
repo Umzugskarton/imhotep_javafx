@@ -26,10 +26,10 @@ public class ServerCommands {
     return obj;
   }
 
-  public static JSONObject chatCommand(String msg , String user) {
+  public static JSONObject chatCommand(String user , String msg) {
     JSONObject obj = new JSONObject();
 
-    obj.put("command", "updateChat");
+    obj.put("command", "chat");
     obj.put("user", user);
     obj.put("message", msg);
 

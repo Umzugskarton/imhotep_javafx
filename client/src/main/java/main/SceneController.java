@@ -27,7 +27,6 @@ public class SceneController {
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
   private ChatPresenter chatPresenter;
-  private String user = null;
 
   public SceneController(Stage stage) {
     this.clientSocket = new ClientSocket(this);
@@ -76,9 +75,7 @@ public class SceneController {
   public ClientSocket getClientSocket() {
     return this.clientSocket;
   }
-  public  void  setUsername(String usr){this.user = usr;}
 
-  public  String getUsername(){return this.user;}
   public LoginPresenter getLoginPresenter() {
     return this.loginPresenter;
   }

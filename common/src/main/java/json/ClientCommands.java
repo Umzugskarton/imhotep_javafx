@@ -28,11 +28,10 @@ public class ClientCommands {
     return obj;
   }
 
-  public static JSONObject chatCommand( String user, String msg ) {
+  public static JSONObject chatCommand( String msg ) {
     JSONObject obj = new JSONObject();
 
     obj.put("command", "chat");
-    obj.put("user", user);
     obj.put("message", msg);
 
     return obj;

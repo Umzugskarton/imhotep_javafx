@@ -26,7 +26,7 @@ public class ChatPresenter {
     }
 
     public void sendMsg(String text){
-        JSONObject chatCommand = ClientCommands.chatCommand(this.sceneController.getUsername(), text);
+        JSONObject chatCommand = ClientCommands.chatCommand(text);
         this.sceneController.getClientSocket().send(chatCommand);
     }
 
