@@ -3,12 +3,10 @@ package mainmenu.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import mainmenu.presenter.MainmenuPresenter;
@@ -57,11 +55,20 @@ public class MainmenuViewImpl implements MainmenuView {
     rulesTab.setClosable(false);
     rulesTab.setTooltip(new Tooltip("learn the game"));
 
-    Tab logoutTab = new Tab();
-    logoutTab.setText("Logout");
-    logoutTab.setClosable(false);
+    Button logoutButton = new Button("Logout");
+    logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        mainmenuPresenter.toLoginScene();
+        mainmenuPresenter.logout();
+      }
+    });
 
-    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, logoutTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
+    Tab emptyTab = new Tab();
+    emptyTab.setText("");
+    emptyTab.setClosable(false);
+    emptyTab.setGraphic(logoutButton);
+
+    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, emptyTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
   }
     public void initPlayerList(){
     ListView <String> listView = new ListView<String>();                                //ListView zum Anzeigen der eingeloggten Spieler

@@ -45,4 +45,9 @@ public class MainmenuPresenter {
     return this.playerList;
   }
 
+  public void logout(){
+    JSONObject logoutCommand = ClientCommands.logoutCommand();
+    this.sceneController.getClientSocket().send(logoutCommand);
+  }
+
 }
