@@ -47,7 +47,7 @@ public class MainmenuViewImpl implements MainmenuView {
     //neuer Tab wird erstellt
     chatTab.setText("Chat");                                            //Name des Tabs
     chatTab.setClosable(false);//Tab soll nicht schließbar sein
-    chatTab.setTooltip(new Tooltip("chat with other players"));    //wird angezeigt, wenn Maus sich über dem Tab befindet
+    chatTab.setTooltip(new Tooltip("chat with other players"));//wird angezeigt, wenn Maus sich über dem Tab befindet
     chatTab.setContent(button);
 
     Tab gamesTab = new Tab();
@@ -70,11 +70,11 @@ public class MainmenuViewImpl implements MainmenuView {
     rulesTab.setClosable(false);
     rulesTab.setTooltip(new Tooltip("learn the game"));
 
-    Tab logoutTab = new Tab();
-    logoutTab.setText("Logout");
-    logoutTab.setClosable(false);
+    Tab emptyTab = new Tab();
+    emptyTab.setText("");
+    emptyTab.setClosable(false);
 
-    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, logoutTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
+    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, emptyTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
   }
     public void initPlayerList(){
     ListView <String> listView = new ListView<String>();                                //ListView zum Anzeigen der eingeloggten Spieler
