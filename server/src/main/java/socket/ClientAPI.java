@@ -21,23 +21,26 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request JSON-Objekt, das User-Daten für Login enthält
+   * @param request JSON-Objekt, das User-Daten für Login enthält;
+   * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject login(JSONObject request) {
+  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
     JSONObject response = new JSONObject();
-
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
+      if (loggedUsers.get("users").toString().contains(username)) {
+        response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
+      } else{
+        boolean isLoginValid = this.userManager.validateLogin(username, password);
 
-      boolean isLoginValid = this.userManager.validateLogin(username, password);
-
-      if (isLoginValid) {
-        response = ServerCommands.loginCommand("Login erfolgreich!", true);
-      } else {
-        response = ServerCommands
-            .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+        if (isLoginValid) {
+          response = ServerCommands.loginCommand("Login erfolgreich!", true);
+        } else {
+          response = ServerCommands
+                  .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+        }
       }
     } else {
       response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
