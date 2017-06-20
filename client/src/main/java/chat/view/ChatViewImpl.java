@@ -18,7 +18,6 @@ public class ChatViewImpl implements ChatView {
 
 
     private Scene chatScene;
-    private ChatPresenter;
     private ChatPresenter chatPresenter;
     public TextArea msgFld; //nachrichtenverlauf
     public TextField message;
@@ -39,7 +38,8 @@ public class ChatViewImpl implements ChatView {
         Button buttonPressed = new Button("Senden");
         buttonPressed.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                updateChatHistory(message.getText());
+                updateChatHistory();
+                updateChatHistory();
                 //Senden an den Server fehlt noch
             }
         });
@@ -59,7 +59,7 @@ public class ChatViewImpl implements ChatView {
     public void onClickSend() {
 
         msg = message.getText();
-        System.out.println(name + " : " + msg);
+        System.out.println(" : " + msg);
         message.setText("");
         message.requestFocus();
 
@@ -73,7 +73,7 @@ public class ChatViewImpl implements ChatView {
     }
 
 
-    public void updateChatHistory(String text) {
+    public void updateChatHistory() {
 
         //Methode zu Updaten des Chatverlaufes fehlt
     }
@@ -87,4 +87,4 @@ public class ChatViewImpl implements ChatView {
         this.chatPresenter = chatPresenter;
     }
 }
-}
+

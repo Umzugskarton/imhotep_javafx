@@ -1,5 +1,6 @@
 package chat.view;
 
+import chat.presenter.ChatPresenter;
 import javafx.scene.Scene;
 
 /**
@@ -13,5 +14,5 @@ public interface ChatView {
 
     public Scene getChatScene();
 
-    public void setChatPresenter();
+    public void setChatPresenter(ChatPresenter chatPresenter);
 }
