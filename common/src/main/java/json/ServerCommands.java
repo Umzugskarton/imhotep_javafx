@@ -26,6 +26,17 @@ public class ServerCommands {
     return obj;
   }
 
+  public static JSONObject chatCommand(String msg , String user) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "updateChat");
+    obj.put("user", user);
+    obj.put("message", msg);
+
+    return obj;
+  }
+
+
   public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();
 

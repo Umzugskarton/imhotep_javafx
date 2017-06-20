@@ -20,6 +20,7 @@ public class MainmenuPresenter {
       this.view = view;
       this.sceneController = sc;
       view.setMainmenuPresenter(this);
+
       this.playerList = new PlayerListImpl();   //Reihenfolge wichtig, sonst NullPointerException!
       view.initPlayerList();
       this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
@@ -39,6 +40,9 @@ public class MainmenuPresenter {
 
   public void toLoginScene() {
     sceneController.toLoginScene();
+  }
+  public void toChatScene() {
+    sceneController.toChatScene();
   }
 
   public PlayerList getPlayerList(){

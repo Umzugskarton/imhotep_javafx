@@ -16,10 +16,8 @@ import java.io.IOException;
 
 public class ChatViewImpl implements ChatView {
 
-
     private Scene chatScene;
-    private ChatPresenter;
-    private ChatPresenter chatPresenter;
+    public ChatPresenter chatPresenter;
     public TextArea msgFld; //nachrichtenverlauf
     public TextField message;
     private String msg; // zu sendene Nachricht
@@ -35,12 +33,12 @@ public class ChatViewImpl implements ChatView {
         TextField message = new TextField();
         ScrollPane scrollPane1 = new ScrollPane();
         TextArea msgFld = new TextArea();
+        this.msgFld = msgFld;
         message.setPromptText("Nachricht eingeben");
         Button buttonPressed = new Button("Senden");
         buttonPressed.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                updateChatHistory(message.getText());
-                //Senden an den Server fehlt noch
+                chatPresenter.sendMsg(message.getText());
             }
         });
 
@@ -57,11 +55,11 @@ public class ChatViewImpl implements ChatView {
     }
 
     public void onClickSend() {
-
+/*
         msg = message.getText();
-        System.out.println(name + " : " + msg);
+        System.out.println("name" + " : " + msg);
         message.setText("");
-        message.requestFocus();
+        message.requestFocus();*/
 
 
     }
@@ -71,20 +69,20 @@ public class ChatViewImpl implements ChatView {
             onClickSend();
         }
     }
+    public void setChatPresenter(ChatPresenter chatPresenter) {
+        this.chatPresenter = chatPresenter;
+    }
 
 
-    public void updateChatHistory(String text) {
-
-        //Methode zu Updaten des Chatverlaufes fehlt
+    public TextArea getMsgFld(){
+        return this.msgFld;
     }
 
     public Scene getChatScene() {
         return this.chatScene;
     }
 
-    @Override
-    public void setChatPresenter(ChatPresenter chatPresenter) {
-        this.chatPresenter = chatPresenter;
-    }
+
 }
-}
+
+

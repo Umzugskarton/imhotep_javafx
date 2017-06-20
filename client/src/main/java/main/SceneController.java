@@ -1,5 +1,7 @@
 package main;
 
+import chat.presenter.ChatPresenter;
+import chat.view.ChatViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
@@ -24,6 +26,8 @@ public class SceneController {
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
+  private ChatPresenter chatPresenter;
+  private String user = null;
 
   public SceneController(Stage stage) {
     this.clientSocket = new ClientSocket(this);
@@ -60,14 +64,26 @@ public class SceneController {
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
   }
 
+  public void toChatScene() {
+    if (this.chatPresenter == null) {
+      this.chatPresenter = new ChatPresenter(new ChatViewImpl(), this);
+
+    }
+
+    this.stage.setScene(this.chatPresenter.getChatView().getChatScene());
+  }
+
   public ClientSocket getClientSocket() {
     return this.clientSocket;
   }
+  public  void  setUsername(String usr){this.user = usr;}
 
+  public  String getUsername(){return this.user;}
   public LoginPresenter getLoginPresenter() {
     return this.loginPresenter;
   }
   public MainmenuPresenter getMainmenuPresenter() {return this.MainmenuPresenter;}
+  public ChatPresenter getChatPresenter() {return this.chatPresenter;}
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;

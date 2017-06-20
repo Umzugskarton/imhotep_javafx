@@ -6,28 +6,31 @@ package chat.presenter;
 
 import json.ClientCommands;
 import chat.view.ChatView;
+import chat.view.ChatViewImpl;
 import main.SceneController;
 import org.json.simple.JSONObject;
 
 public class ChatPresenter {
-    String name; // Username
-    private String msg; // zu sendene Nachricht
-    private String rMsg; //erhaltene Nachricht
-    private ChatView view;
     private SceneController sceneController;
+    private ChatView chatView;
 
     public ChatPresenter(ChatView view, SceneController sc) {
-        this.view = view;
+        this.chatView = view;
         this.sceneController = sc;
-        view.setChatPresenter(this);
+        this.chatView = new ChatViewImpl();
+        chatView.setChatPresenter(this);
     }
 
+    public ChatView getChatView(){
+        return this.chatView;
+    }
 
+    public void sendMsg(String text){
+        JSONObject chatCommand = ClientCommands.chatCommand(this.sceneController.getUsername(), text);
+        this.sceneController.getClientSocket().send(chatCommand);
+    }
 
-
-
-    public void _receive() {
-
-
+    public void updateChat(String user, String msg){
+        this.chatView.getMsgFld().setText(user+": " + msg);
     }
 }

@@ -68,6 +68,8 @@ public class ClientListener implements Runnable {
               case "userlist":
                 response = this.server.getLoggedUsers();
                 break;
+              case "chat":
+                this.server.sendToLoggedIn(request);
               case "logout":
                 this.user=null;
             }

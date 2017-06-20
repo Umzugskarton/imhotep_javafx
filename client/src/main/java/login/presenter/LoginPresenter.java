@@ -21,6 +21,7 @@ public class LoginPresenter {
     if (this.validate(username, password)) {
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
+      this.sceneController.setUsername(username);
     } else {
       this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");
     }
@@ -30,6 +31,7 @@ public class LoginPresenter {
     if(loginSuccessful) {
       this.toMainmenuScene();
     } else {
+      this.sceneController.setUsername(null);
       this.view.updateStatusLabel(message);
     }
   }

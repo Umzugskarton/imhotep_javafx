@@ -15,7 +15,6 @@ public class ClientSocket {
 
   // SceneController
   private SceneController sceneController = null;
-
   // Server
   private ServerListener serverListener = null;
   private Socket serverSocket = null;

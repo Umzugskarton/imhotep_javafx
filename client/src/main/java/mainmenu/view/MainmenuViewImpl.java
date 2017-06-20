@@ -1,17 +1,22 @@
 package mainmenu.view;
 
 
+import chat.view.ChatViewImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import mainmenu.presenter.MainmenuPresenter;
+
+import java.awt.*;
+
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -32,10 +37,18 @@ public class MainmenuViewImpl implements MainmenuView {
     TabPane tabPane = new TabPane();                                    //TabPane wird erstellt
     pane.setCenter(tabPane);                                            //TabPane wird auf BorderPane mittig platziert
 
-    Tab chatTab = new Tab();                                            //neuer Tab wird erstellt
+    Tab chatTab = new Tab();
+    Button button = new Button("Senden");
+    button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        mainmenuPresenter.toChatScene();
+      } // Workaround weil ich nicht weiß wie man eine Scene in einen Tab laden kann
+    });
+    //neuer Tab wird erstellt
     chatTab.setText("Chat");                                            //Name des Tabs
-    chatTab.setClosable(false);                                         //Tab soll nicht schließbar sein
+    chatTab.setClosable(false);//Tab soll nicht schließbar sein
     chatTab.setTooltip(new Tooltip("chat with other players"));    //wird angezeigt, wenn Maus sich über dem Tab befindet
+    chatTab.setContent(button);
 
     Tab gamesTab = new Tab();
     gamesTab.setText("Games");

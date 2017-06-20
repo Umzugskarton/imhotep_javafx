@@ -60,6 +60,7 @@ public class ServerListener implements Runnable {
 
               // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
               // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+
               Platform.runLater(
                   () -> {
                     this.sceneController.getLoginPresenter().processLoginResponse(success, message);
@@ -76,6 +77,18 @@ public class ServerListener implements Runnable {
                      this.sceneController.getMainmenuPresenter().updateUserlist(userArray);
                     }
                   }
+              );
+            } else if (command.equals("chat") && request.containsKey("message")) {
+              String message = (String) request.get("message");
+              String user = (String) request.get("user");
+              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
+              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+              Platform.runLater(
+                      () -> {
+                        if (this.sceneController.getChatPresenter() != null) {
+                          this.sceneController.getChatPresenter().updateChat(user, message);
+                        }
+                      }
               );
             }
           }
