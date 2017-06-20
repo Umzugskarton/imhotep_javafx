@@ -19,8 +19,6 @@ public class ChatViewImpl implements ChatView {
     private Scene chatScene;
     public ChatPresenter chatPresenter;
     public TextArea msgFld; //nachrichtenverlauf
-    public TextField message;
-    private String msg; // zu sendene Nachricht
 
 
     public ChatViewImpl() {
@@ -40,6 +38,7 @@ public class ChatViewImpl implements ChatView {
             public void handle(ActionEvent event) {
                 chatPresenter.sendMsg(message.getText());
             }
+
         });
 
 
