@@ -91,5 +91,14 @@ public class ClientAPI {
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
   public User getUser(String username){ return this.userManager.getUser(UserIdentifier.USERNAME, username); }
+  /**
+   * Erhält der ServerListener ein Logoutbefehl vom Clientthread
+   * so wird ein dieser im Clientlistener entfernt und
+   * ein hier erstelltes logout Command zurückgeschickt.
+   *
+   * @return das logout command das für den Client den
+   *          Erfolg des Ausloggens bestätigt
+   */
+  public JSONObject logout(){return  ServerCommands.logoutCommand(true); }
 
 }

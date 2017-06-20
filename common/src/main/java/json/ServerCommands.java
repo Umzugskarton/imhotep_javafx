@@ -26,6 +26,15 @@ public class ServerCommands {
     return obj;
   }
 
+  public static JSONObject logoutCommand(boolean success) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "login");
+    obj.put("success", success);
+
+    return obj;
+  }
+
   public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();
 
