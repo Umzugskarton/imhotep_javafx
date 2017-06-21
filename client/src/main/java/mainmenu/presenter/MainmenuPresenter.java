@@ -1,5 +1,6 @@
 package mainmenu.presenter;
 
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import json.ClientCommands;
@@ -11,6 +12,9 @@ import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainmenuPresenter {
 
@@ -38,12 +42,67 @@ public class MainmenuPresenter {
     }
 
     public void updateUserlist(JSONArray userArray) {
+        // Im Chat informieren wer gejoined/leaved ist
+        boolean notifyInChat = true;
+        if(playerList.getPlayers().isEmpty())
+            notifyInChat = false;
+
+        if(notifyInChat) {
+            List<String> list = playerList.getPlayers();
+            List<String> joinedList = new ArrayList<>();
+            List<String> leftList = new ArrayList<>();
+
+            for (Object user : userArray) {
+                joinedList.add(user.toString());
+                leftList.add(user.toString());
+            }
+
+            joinedList.removeAll(list);
+            list.removeAll(leftList);
+
+            for (String username : list) {
+                this.addChatMessage(username + " hat den Chat verlassen");
+            }
+
+            for (String username : joinedList) {
+                this.addChatMessage(username + " hat den Chat betreten");
+            }
+        }
+
+        // Userliste leeren und neu füllen
         playerList.getPlayers().clear();
 
         for (Object user : userArray) {
             playerList.getPlayers().add(user.toString());
         }
     }
+
+    /*public void updateUserlist(JSONArray userArray) {
+        List<String> list = playerList.getPlayers();
+        List<String> joinedList = new ArrayList<>();
+        List<String> leftList = new ArrayList<>();
+
+        for (Object user : userArray) {
+            joinedList.add(user.toString());
+            leftList.add(user.toString());
+        }
+
+        joinedList.removeAll(list);
+
+        for (String username : joinedList) {
+            System.out.println(username);
+            playerList.getPlayers().add(username);
+            this.addChatMessage(username + " hat den Chat betreten");
+        }
+
+        list.removeAll(leftList);
+
+        for (String username : list) {
+            System.out.println(username);
+            playerList.getPlayers().remove(username);
+            this.addChatMessage(username + " hat den Chat verlassen");
+        }
+    }*/
 
     public void sendChatMsg(String text) {
         if (!text.isEmpty()) {
