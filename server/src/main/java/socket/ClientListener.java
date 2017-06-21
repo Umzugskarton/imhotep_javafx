@@ -72,9 +72,10 @@ public class ClientListener implements Runnable {
                 this.server.sendToLoggedIn(chatMessage);
                 break;
               case "whisper":
-                if(this.server.isUserLoggedIn((String) request.get("to"))) {
+                String receiverUsername = this.server.getLoggedInUsername((String) request.get("to"));
+                if(receiverUsername != null) {
                   chatMessage = this.clientAPI.whisper(request, this.user);
-                  this.server.sendTo(chatMessage, (String) request.get("to"));
+                  this.server.sendTo(chatMessage, receiverUsername);
                 } else {
                   response = ServerCommands.userNotFoundError((String) request.get("to"));
                 }

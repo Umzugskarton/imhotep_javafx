@@ -118,15 +118,15 @@ public class Server {
     return ServerCommands.userlistCommand(users);
   }
 
-  public boolean isUserLoggedIn(String username){
+  public String getLoggedInUsername(String username){
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()){
         if(client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
-          return true;
+          return client.getUser().getUsername();
         }
       }
     }
 
-    return false;
+    return null;
   }
 }
