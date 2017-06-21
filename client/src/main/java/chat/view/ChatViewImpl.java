@@ -2,86 +2,74 @@ package chat.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import chat.presenter.ChatPresenter;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextFlow;
+import mainmenu.presenter.MainmenuPresenter;
 
-import java.io.IOException;
+public class ChatViewImpl extends GridPane implements ChatView {
 
-public class ChatViewImpl implements ChatView {
+    private MainmenuPresenter mainmenuPresenter;
+    private TextFlow chatText; //nachrichtenverlauf
 
-    private Scene chatScene;
-    public ChatPresenter chatPresenter;
-    public TextArea msgFld; //nachrichtenverlauf
+    public ChatViewImpl(MainmenuPresenter mainmenuPresenter) {
+        this.mainmenuPresenter = mainmenuPresenter;
 
+        GridPane root = this;
+        root.setHgap(5);
+        root.setVgap(5);
+        root.setPadding(new Insets(5));
 
-    public ChatViewImpl() {
-        buildChat();
-    }
+        TextField messageInput = new TextField();
+        messageInput.setPromptText("Nachricht eingeben");
 
-    public void buildChat() {
-        GridPane root = new GridPane();
-        chatScene = new Scene(root);
-        TextField message = new TextField();
-        ScrollPane scrollPane1 = new ScrollPane();
-        TextArea msgFld = new TextArea();
-        this.msgFld = msgFld;
-        message.setPromptText("Nachricht eingeben");
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
+
+        TextFlow chatText = new TextFlow();
+        this.chatText = chatText;
+        this.chatText.setPadding(new Insets(5));
+
+        scrollPane.setContent(chatText);
+
         Button buttonPressed = new Button("Senden");
         buttonPressed.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                chatPresenter.sendMsg(message.getText());
+                mainmenuPresenter.sendChatMsg(messageInput.getText());
+                messageInput.clear();
             }
-
         });
 
+        ColumnConstraints column = new ColumnConstraints();
+        column.setFillWidth(true);
+        column.setHgrow(Priority.ALWAYS);
+        root.getColumnConstraints().add(column);
 
-        //Positionen
+        column = new ColumnConstraints();
+        column.setFillWidth(false);
+        column.setHgrow(Priority.NEVER);
+        root.getColumnConstraints().add(column);
 
-        root.setPrefSize(300, 300);
-        ColumnConstraints column3 = new ColumnConstraints(30); // Breite der dritten
-        ColumnConstraints column1 = new ColumnConstraints(100); // Breite der ersten Spalte
-        root.add(message, 2, 1);
-        root.add(msgFld, 3, 1);
-        root.add(buttonPressed, 1, 3);
+        RowConstraints row = new RowConstraints();
+        row.setFillHeight(true);
+        row.setVgrow(Priority.ALWAYS);
+        root.getRowConstraints().add(row);
 
+        row = new RowConstraints();
+        row.setFillHeight(false);
+        row.setVgrow(Priority.NEVER);
+        root.getRowConstraints().add(row);
+
+        root.add(scrollPane, 0, 0, 2, 1);
+        root.add(messageInput, 0, 1);
+        root.add(buttonPressed, 1, 1);
     }
 
-    public void onClickSend() {
-/*
-        msg = message.getText();
-        System.out.println("name" + " : " + msg);
-        message.setText("");
-        message.requestFocus();*/
-
-
+    public TextFlow getChatText() {
+        return this.chatText;
     }
-
-    public void buttonPressed(KeyEvent e) {
-        if (e.getCode().toString().equals("ENTER")) {
-            onClickSend();
-        }
-    }
-    public void setChatPresenter(ChatPresenter chatPresenter) {
-        this.chatPresenter = chatPresenter;
-    }
-
-
-    public TextArea getMsgFld(){
-        return this.msgFld;
-    }
-
-    public Scene getChatScene() {
-        return this.chatScene;
-    }
-
-
 }
-
-
