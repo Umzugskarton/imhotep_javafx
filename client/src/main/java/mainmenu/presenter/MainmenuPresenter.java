@@ -1,18 +1,13 @@
 package mainmenu.presenter;
 
 import chat.presenter.ChatPresenter;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import json.ClientCommands;
 import main.SceneController;
-import chat.view.ChatView;
-import chat.view.ChatViewImpl;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

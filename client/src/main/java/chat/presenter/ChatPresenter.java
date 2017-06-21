@@ -7,19 +7,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import json.ClientCommands;
 import main.SceneController;
-import mainmenu.model.PlayerList;
-import mainmenu.model.PlayerListImpl;
-import mainmenu.presenter.MainmenuPresenter;
-import mainmenu.view.MainmenuView;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by tobia on 21.06.2017.
- */
 public class ChatPresenter {
     private ChatView view;
     private SceneController sceneController;
