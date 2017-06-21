@@ -29,7 +29,7 @@ public class LoginPresenter {
     public void processLoginResponse(boolean loginSuccessful, String message) {
         if (loginSuccessful) {
             this.toMainmenuScene();
-            sceneController.getMainmenuPresenter().getChatPresenter().addMessage("Du hast dich erfolgreich eingeloggt! Willkommen!");
+            sceneController.getMainmenuPresenter().getChatPresenter().addInfoMessage("Du hast dich erfolgreich eingeloggt! Willkommen!");
         } else {
             this.view.updateStatusLabel(message);
         }

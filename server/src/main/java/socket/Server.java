@@ -110,12 +110,23 @@ public class Server {
 
   public JSONObject getLoggedUsers(){
     JSONArray users= new JSONArray();
-    for (ClientListener client:connectedClients)
-    {
+    for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()){
         users.add(client.getUser().getUsername());
       }
     }
     return ServerCommands.userlistCommand(users);
+  }
+
+  public String getLoggedInUsername(String username){
+    for (ClientListener client : connectedClients) {
+      if (client.isLoggedIn()){
+        if(client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
+          return client.getUser().getUsername();
+        }
+      }
+    }
+
+    return null;
   }
 }

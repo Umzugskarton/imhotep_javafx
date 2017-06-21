@@ -40,7 +40,7 @@ public class ClientListener implements Runnable {
   @Override
   public void run() {
     try {
-      String receivedMsg = null;
+      String receivedMsg;
       while ((receivedMsg = in.readLine()) != null) {
         log.info("Nachricht erhalten: "+ receivedMsg);
 
@@ -72,8 +72,13 @@ public class ClientListener implements Runnable {
                 this.server.sendToLoggedIn(chatMessage);
                 break;
               case "whisper":
-                chatMessage = this.clientAPI.whisper(request, this.user);
-                this.server.sendTo(chatMessage, (String) request.get("to"));
+                String receiverUsername = this.server.getLoggedInUsername((String) request.get("to"));
+                if(receiverUsername != null) {
+                  chatMessage = this.clientAPI.whisper(request, this.user);
+                  this.server.sendTo(chatMessage, receiverUsername);
+                } else {
+                  response = ServerCommands.userNotFoundError((String) request.get("to"));
+                }
                 break;
               case "logout":
                 this.user = null;
