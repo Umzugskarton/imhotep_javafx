@@ -83,6 +83,23 @@ public class Server {
     }
   }
 
+  public boolean sendTo(JSONObject json, String to) {
+    boolean found = false;
+    ClientListener toClient = null;
+    for (ClientListener clientListener : connectedClients) {
+      if (clientListener.getUser().getUsername().equals(to)){
+        toClient = clientListener;
+        break;
+      }
+    }
+    if (toClient != null){
+      found = true;
+      toClient.send(json);
+    }
+
+    return found;
+  }
+
   public void sendToLoggedIn(JSONObject json) {
     for (ClientListener clientListener : connectedClients) {
       if(clientListener.isLoggedIn()) {

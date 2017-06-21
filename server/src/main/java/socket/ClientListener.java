@@ -57,7 +57,6 @@ public class ClientListener implements Runnable {
                 response = this.clientAPI.register(request);
                 break;
               case "login":
-
                 response = this.clientAPI.login(request);
                 if ((boolean)response.get("success")) {
                   this.user = this.clientAPI.getUser((String) request.get("username"));
@@ -71,6 +70,10 @@ public class ClientListener implements Runnable {
               case "chat":
                 JSONObject chatMessage = this.clientAPI.chat(request, this.user);
                 this.server.sendToLoggedIn(chatMessage);
+                break;
+              case "whisper":
+                chatMessage = this.clientAPI.whisper(request, this.user);
+                this.server.sendTo(chatMessage, (String) request.get("to"));
                 break;
               case "logout":
                 this.user = null;
