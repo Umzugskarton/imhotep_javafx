@@ -72,6 +72,9 @@ public class ClientListener implements Runnable {
                 JSONObject chatMessage = this.clientAPI.chat(request, this.user);
                 this.server.sendToLoggedIn(chatMessage);
                 break;
+              case "whisper":
+                chatMessage = this.clientAPI.whisper(request, this.user);
+                this.server.sendTo(chatMessage, (String) request.get("to"));
               case "logout":
                 this.user = null;
                 break;

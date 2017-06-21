@@ -91,6 +91,17 @@ public class ClientAPI {
     return response;
   }
 
+  public JSONObject whisper(JSONObject request, User user) {
+    JSONObject response = new JSONObject();
+
+    if (request.containsKey("message") && request.containsKey("to") && user != null ) {
+      String message = (String) request.get("message");
+
+      response = ServerCommands.whisperCommand(user.getUsername(), message);
+    }
+    return response;
+  }
+
   /**
    * Ist der Login() erfolgreich, so wird ein Userelement über
    * dern Usernamen initiert und der Userliste hinzugefügt.

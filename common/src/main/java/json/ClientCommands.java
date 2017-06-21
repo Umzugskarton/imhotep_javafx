@@ -37,6 +37,16 @@ public class ClientCommands {
     return obj;
   }
 
+  public static JSONObject whisperCommand( String to, String msg ) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "whisper");
+    obj.put("to", to);
+    obj.put("message", msg);
+
+    return obj;
+  }
+
   public static JSONObject userlistCommand() {
     JSONObject obj = new JSONObject();
 

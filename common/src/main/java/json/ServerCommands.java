@@ -36,6 +36,26 @@ public class ServerCommands {
     return obj;
   }
 
+  public static JSONObject whisperCommand(String from, String msg) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "whisper");
+    obj.put("from", from);
+    obj.put("message", msg);
+
+    return obj;
+  }
+
+  public static JSONObject userNotFoundError(String user) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "error");
+    obj.put("user", user);
+    obj.put("message", "Nicht gefunden!");
+
+    return obj;
+  }
+
 
   public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();

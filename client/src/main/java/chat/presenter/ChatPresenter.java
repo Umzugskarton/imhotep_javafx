@@ -21,7 +21,17 @@ public class ChatPresenter {
 
     public void sendChatMsg(String text) {
         if (!text.isEmpty()) {
-            JSONObject chatCommand = ClientCommands.chatCommand(text);
+            JSONObject chatCommand;
+            if(text.contains("/w")){
+                String[] temp;
+                temp = text.split( "/w ", 2);
+                temp =  temp[1].split(" ", 2);
+                String to = temp[0];
+                text = temp[1];
+                chatCommand = ClientCommands.whisperCommand(to, text);
+            }else {
+                chatCommand = ClientCommands.chatCommand(text);
+            }
             this.sceneController.getClientSocket().send(chatCommand);
         }
     }
@@ -30,6 +40,16 @@ public class ChatPresenter {
         Text userText = new Text(user + ": ");
         userText.setStyle("-fx-font-weight: bold");
         Text messageText = new Text(msg + "\n");
+
+        this.view.getChatText().getChildren().addAll(userText, messageText);
+    }
+
+    public void addWhisper(String from , String msg) {
+        Text userText = new Text("[" + from + "]: ");
+        userText.setStyle("-fx-font-weight: bold");
+        userText.setStyle("-fx-font-color: #8A2BE2");
+        Text messageText = new Text(msg + "\n");
+        messageText.setStyle("-fx-font-color: #8A2BE2");
 
         this.view.getChatText().getChildren().addAll(userText, messageText);
     }
