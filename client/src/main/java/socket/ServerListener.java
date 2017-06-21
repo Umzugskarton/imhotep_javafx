@@ -87,7 +87,7 @@ public class ServerListener implements Runnable {
                             Platform.runLater(
                                     () -> {
                                         if (this.sceneController.getMainmenuPresenter() != null) {
-                                            this.sceneController.getMainmenuPresenter().addChatMessage(user, message);
+                                            this.sceneController.getMainmenuPresenter().getChatPresenter().addChatMessage(user, message);
                                         }
                                     }
                             );

@@ -1,5 +1,6 @@
 package main;
 
+import chat.presenter.ChatPresenter;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;

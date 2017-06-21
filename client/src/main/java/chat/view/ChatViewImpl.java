@@ -1,5 +1,6 @@
 package chat.view;
 
+import chat.presenter.ChatPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,11 +13,11 @@ import mainmenu.presenter.MainmenuPresenter;
 
 public class ChatViewImpl extends GridPane implements ChatView {
 
-    private MainmenuPresenter mainmenuPresenter;
+    private ChatPresenter chatPresenter;
     private TextFlow chatText; //nachrichtenverlauf
 
-    public ChatViewImpl(MainmenuPresenter mainmenuPresenter) {
-        this.mainmenuPresenter = mainmenuPresenter;
+    public ChatViewImpl(ChatPresenter chatPresenter) {
+        this.chatPresenter = chatPresenter;
 
         GridPane root = this;
         root.setHgap(5);
@@ -39,7 +40,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
         Button buttonPressed = new Button("Senden");
         buttonPressed.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                mainmenuPresenter.sendChatMsg(messageInput.getText());
+                chatPresenter.sendChatMsg(messageInput.getText());
                 messageInput.clear();
             }
         });

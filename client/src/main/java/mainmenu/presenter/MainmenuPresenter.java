@@ -1,5 +1,6 @@
 package mainmenu.presenter;
 
+import chat.presenter.ChatPresenter;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -21,7 +22,7 @@ public class MainmenuPresenter {
     private MainmenuView view;
     private SceneController sceneController;
     private PlayerList playerList;
-    private ChatView chatView;
+    private ChatPresenter chatPresenter;
 
     public MainmenuPresenter(MainmenuView view, SceneController sc) {
         this.view = view;
@@ -31,8 +32,8 @@ public class MainmenuPresenter {
         this.playerList = new PlayerListImpl();   //Reihenfolge wichtig, sonst NullPointerException!
         view.initPlayerList();
 
-        this.chatView = new ChatViewImpl(this);
-        view.initChat(chatView);
+        this.chatPresenter = new ChatPresenter(this.sceneController);
+        view.initChat(this.chatPresenter.getChatView());
 
         this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
     }
@@ -61,11 +62,11 @@ public class MainmenuPresenter {
             list.removeAll(leftList);
 
             for (String username : list) {
-                this.addChatMessage(username + " hat den Chat verlassen");
+                this.chatPresenter.addMessage("- " + username + " hat den Chat verlassen", Color.RED);
             }
 
             for (String username : joinedList) {
-                this.addChatMessage(username + " hat den Chat betreten");
+                this.chatPresenter.addMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
             }
         }
 
@@ -77,56 +78,6 @@ public class MainmenuPresenter {
         }
     }
 
-    /*public void updateUserlist(JSONArray userArray) {
-        List<String> list = playerList.getPlayers();
-        List<String> joinedList = new ArrayList<>();
-        List<String> leftList = new ArrayList<>();
-
-        for (Object user : userArray) {
-            joinedList.add(user.toString());
-            leftList.add(user.toString());
-        }
-
-        joinedList.removeAll(list);
-
-        for (String username : joinedList) {
-            System.out.println(username);
-            playerList.getPlayers().add(username);
-            this.addChatMessage(username + " hat den Chat betreten");
-        }
-
-        list.removeAll(leftList);
-
-        for (String username : list) {
-            System.out.println(username);
-            playerList.getPlayers().remove(username);
-            this.addChatMessage(username + " hat den Chat verlassen");
-        }
-    }*/
-
-    public void sendChatMsg(String text) {
-        if (!text.isEmpty()) {
-            JSONObject chatCommand = ClientCommands.chatCommand(text);
-            this.sceneController.getClientSocket().send(chatCommand);
-        }
-    }
-
-    public void addChatMessage(String user, String msg) {
-        Text userText = new Text(user + ": ");
-        userText.setStyle("-fx-font-weight: bold");
-        Text messageText = new Text(msg + "\n");
-
-        this.chatView.getChatText().getChildren().addAll(userText, messageText);
-    }
-
-    public void addChatMessage(String msg) {
-        Text text = new Text(msg + "\n");
-        text.setFill(Color.GRAY);
-        text.setStyle("-fx-font-style: italic;");
-
-        this.chatView.getChatText().getChildren().add(text);
-    }
-
     public void toLoginScene() {
         sceneController.toLoginScene();
     }
@@ -134,4 +85,6 @@ public class MainmenuPresenter {
     public PlayerList getPlayerList() {
         return this.playerList;
     }
+
+    public ChatPresenter getChatPresenter() { return this.chatPresenter; }
 }
