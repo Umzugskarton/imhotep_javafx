@@ -26,7 +26,7 @@ public class ChatPresenter {
         JSONObject chatCommand = null;
 
         if(text.startsWith("/w") || text.startsWith("@")) {
-            Pattern whisperPattern = Pattern.compile("(\\/w |@)(.+) (.+)");
+            Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");
             Matcher whisperMatcher = whisperPattern.matcher(text);
             if (whisperMatcher.find()) {
                 String receiver = whisperMatcher.group(2);
