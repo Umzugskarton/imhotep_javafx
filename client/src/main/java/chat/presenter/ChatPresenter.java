@@ -39,6 +39,8 @@ public class ChatPresenter {
             }
         } else if(!text.isEmpty()) {
             chatCommand = ClientCommands.chatCommand(text);
+        } else if(text.isEmpty()) {
+            addMessage("Bitte gib eine Nachricht ein, um zu chatten");
         }
 
         if (chatCommand != null) this.sceneController.getClientSocket().send(chatCommand);

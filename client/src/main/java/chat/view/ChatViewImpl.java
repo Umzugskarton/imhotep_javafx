@@ -7,6 +7,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
 
@@ -28,9 +30,6 @@ public class ChatViewImpl extends GridPane implements ChatView {
         root.setVgap(5);
         root.setPadding(new Insets(5));
 
-        this.messageInput = new TextField();
-        this.messageInput.setPromptText("Nachricht eingeben");
-
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
@@ -41,11 +40,23 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
         scrollPane.setContent(chatText);
 
-        Button buttonPressed = new Button("Senden");
-        buttonPressed.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        Button sendButton = new Button("Senden");
+        sendButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 chatPresenter.sendChatMsg(messageInput.getText());
                 messageInput.clear();
+            }
+        });
+
+        this.messageInput = new TextField();
+        this.messageInput.setPromptText("Nachricht eingeben");
+        this.messageInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER)  {
+                    if(!messageInput.getText().isEmpty())
+                        sendButton.fire();
+                }
             }
         });
 
@@ -71,7 +82,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
         root.add(scrollPane, 0, 0, 2, 1);
         root.add(messageInput, 0, 1);
-        root.add(buttonPressed, 1, 1);
+        root.add(sendButton, 1, 1);
     }
 
     public TextFlow getChatText() {
