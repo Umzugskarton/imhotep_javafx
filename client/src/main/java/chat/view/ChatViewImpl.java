@@ -9,7 +9,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
-import mainmenu.presenter.MainmenuPresenter;
 
 public class ChatViewImpl extends GridPane implements ChatView {
 
@@ -19,6 +18,10 @@ public class ChatViewImpl extends GridPane implements ChatView {
     public ChatViewImpl(ChatPresenter chatPresenter) {
         this.chatPresenter = chatPresenter;
 
+        buildChat();
+    }
+
+    public void buildChat() {
         GridPane root = this;
         root.setHgap(5);
         root.setVgap(5);
