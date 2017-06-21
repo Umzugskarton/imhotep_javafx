@@ -99,7 +99,7 @@ public class ServerListener implements Runnable {
                             Platform.runLater(
                                     () -> {
                                         if (this.sceneController.getMainmenuPresenter() != null) {
-                                            this.sceneController.getMainmenuPresenter().getChatPresenter().addWhisper(user, message);
+                                            this.sceneController.getMainmenuPresenter().getChatPresenter().addWhisper(user, message, true);
                                         }
                                     }
                             );

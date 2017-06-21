@@ -13,6 +13,7 @@ import javafx.scene.text.TextFlow;
 public class ChatViewImpl extends GridPane implements ChatView {
 
     private ChatPresenter chatPresenter;
+    private TextField messageInput;
     private TextFlow chatText; //nachrichtenverlauf
 
     public ChatViewImpl(ChatPresenter chatPresenter) {
@@ -27,8 +28,8 @@ public class ChatViewImpl extends GridPane implements ChatView {
         root.setVgap(5);
         root.setPadding(new Insets(5));
 
-        TextField messageInput = new TextField();
-        messageInput.setPromptText("Nachricht eingeben");
+        this.messageInput = new TextField();
+        this.messageInput.setPromptText("Nachricht eingeben");
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
@@ -75,5 +76,9 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
     public TextFlow getChatText() {
         return this.chatText;
+    }
+
+    public TextField getMessageInput() {
+        return this.messageInput;
     }
 }

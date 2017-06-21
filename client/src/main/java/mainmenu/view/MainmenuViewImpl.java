@@ -2,9 +2,11 @@ package mainmenu.view;
 
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import mainmenu.presenter.MainmenuPresenter;
@@ -68,6 +70,19 @@ public class MainmenuViewImpl implements MainmenuView {
         ListView<String> listView = new ListView<>();                                //ListView zum Anzeigen der eingeloggten Spieler
         listView.setItems(mainmenuPresenter.getPlayerList().getPlayers());                  //Liste der eingeloggten Spieler als Item der View setzen
         pane.setRight(listView);                                                            //ListView rechts auf der BorderPane platzieren
+
+        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                    String selectedUser = listView.getSelectionModel().getSelectedItem();
+                    TextField messageInput = mainmenuPresenter.getChatPresenter().getChatView().getMessageInput();
+                    messageInput.setText("@" + selectedUser + " ");
+                    messageInput.requestFocus();
+                    messageInput.end();
+                }
+            }
+        });
     }
 
     public void initChat(ChatView chatView) {

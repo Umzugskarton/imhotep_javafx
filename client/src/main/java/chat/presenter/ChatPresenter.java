@@ -9,6 +9,9 @@ import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ChatPresenter {
     private ChatView view;
     private SceneController sceneController;
@@ -20,21 +23,25 @@ public class ChatPresenter {
     }
 
     public void sendChatMsg(String text) {
-        if (!text.isEmpty()) {
-            JSONObject chatCommand;
-            if(text.contains("/w")){
-                String[] temp;
-                temp = text.split( "/w ", 2);
-                temp =  temp[1].split(" ", 2);
-                String to = temp[0];
-                text = temp[1];
-                chatCommand = ClientCommands.whisperCommand(to, text);
-                addWhisper("To: " + to , text);
-            }else {
-                chatCommand = ClientCommands.chatCommand(text);
+        JSONObject chatCommand = null;
+
+        if(text.startsWith("/w") || text.startsWith("@")) {
+            Pattern whisperPattern = Pattern.compile("(\\/w |@)(.+) (.+)");
+            Matcher whisperMatcher = whisperPattern.matcher(text);
+            if (whisperMatcher.find()) {
+                String receiver = whisperMatcher.group(2);
+                String message = whisperMatcher.group(3);
+
+                chatCommand = ClientCommands.whisperCommand(receiver, message);
+                addWhisper(receiver, message, false);
+            } else {
+                addMessage("Invalide Whisper-Syntax: /w <Benutzername> <Nachricht>");
             }
-            this.sceneController.getClientSocket().send(chatCommand);
+        } else if(!text.isEmpty()) {
+            chatCommand = ClientCommands.chatCommand(text);
         }
+
+        if (chatCommand != null) this.sceneController.getClientSocket().send(chatCommand);
     }
 
     public void addChatMessage(String user, String msg) {
@@ -45,13 +52,20 @@ public class ChatPresenter {
         this.view.getChatText().getChildren().addAll(userText, messageText);
     }
 
-    public void addWhisper(String from , String msg) {
-        Text userText = new Text("[" + from + "]: ");
+    public void addWhisper(String user, String msg, boolean isClientReceiver) {
+        String recipientText = "From";
+        Color color = Color.web("#8A2BE2");
+
+        if(!isClientReceiver) {
+            recipientText = "To";
+            color = Color.web("#9c31ff");
+        }
+
+        Text userText = new Text(recipientText + " @" + user + ": ");
         userText.setStyle("-fx-font-weight: bold");
-        Color c = Color.web("#8A2BE2");
-        userText.setFill(c);
+        userText.setFill(color);
         Text messageText = new Text(msg + "\n");
-        messageText.setFill(c);
+        messageText.setFill(color);
 
         this.view.getChatText().getChildren().addAll(userText, messageText);
     }
