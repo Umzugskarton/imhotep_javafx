@@ -40,10 +40,10 @@ public class MainmenuPresenter {
     public void updateUserlist(JSONArray userArray) {
         // Im Chat informieren wer gejoined/leaved ist
         boolean notifyInChat = true;
-        if(playerList.getPlayers().isEmpty())
+        if (playerList.getPlayers().isEmpty())
             notifyInChat = false;
 
-        if(notifyInChat) {
+        if (notifyInChat) {
             List<String> list = playerList.getPlayers();
             List<String> joinedList = new ArrayList<>();
             List<String> leftList = new ArrayList<>();
@@ -57,11 +57,11 @@ public class MainmenuPresenter {
             list.removeAll(leftList);
 
             for (String username : list) {
-                this.chatPresenter.addMessage("- " + username + " hat den Chat verlassen", Color.RED);
+                this.chatPresenter.addInfoMessage("- " + username + " hat den Chat verlassen", Color.RED);
             }
 
             for (String username : joinedList) {
-                this.chatPresenter.addMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
+                this.chatPresenter.addInfoMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
             }
         }
 
@@ -81,5 +81,7 @@ public class MainmenuPresenter {
         return this.playerList;
     }
 
-    public ChatPresenter getChatPresenter() { return this.chatPresenter; }
+    public ChatPresenter getChatPresenter() {
+        return this.chatPresenter;
+    }
 }

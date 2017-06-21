@@ -25,7 +25,7 @@ public class ChatPresenter {
     public void sendChatMsg(String text) {
         JSONObject chatCommand = null;
 
-        if(text.startsWith("/w") || text.startsWith("@")) {
+        if (text.startsWith("/w") || text.startsWith("@")) {
             Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");
             Matcher whisperMatcher = whisperPattern.matcher(text);
             if (whisperMatcher.find()) {
@@ -35,12 +35,12 @@ public class ChatPresenter {
                 chatCommand = ClientCommands.whisperCommand(receiver, message);
                 addWhisper(receiver, message, false);
             } else {
-                addMessage("Invalide Whisper-Syntax: /w <Benutzername> <Nachricht>");
+                addInfoMessage("Invalide Whisper-Syntax: /w <Benutzername> <Nachricht>");
             }
-        } else if(!text.isEmpty()) {
+        } else if (!text.isEmpty()) {
             chatCommand = ClientCommands.chatCommand(text);
-        } else if(text.isEmpty()) {
-            addMessage("Bitte gib eine Nachricht ein, um zu chatten");
+        } else if (text.isEmpty()) {
+            addInfoMessage("Bitte gib eine Nachricht ein, um zu chatten");
         }
 
         if (chatCommand != null) this.sceneController.getClientSocket().send(chatCommand);
@@ -58,7 +58,7 @@ public class ChatPresenter {
         String recipientText = "From";
         Color color = Color.web("#8A2BE2");
 
-        if(!isClientReceiver) {
+        if (!isClientReceiver) {
             recipientText = "To";
             color = Color.web("#9c31ff");
         }
@@ -72,7 +72,7 @@ public class ChatPresenter {
         this.view.getChatText().getChildren().addAll(userText, messageText);
     }
 
-    public void addMessage(String msg, Color color) {
+    public void addInfoMessage(String msg, Color color) {
         Text text = new Text(msg.toUpperCase() + "\n");
         text.setFill(color);
         text.setFont(new Font(null, 10));
@@ -80,9 +80,11 @@ public class ChatPresenter {
         this.view.getChatText().getChildren().add(text);
     }
 
-    public void addMessage(String msg) {
-        addMessage(msg, Color.GRAY);
+    public void addInfoMessage(String msg) {
+        addInfoMessage(msg, Color.GRAY);
     }
 
-    public ChatView getChatView() { return this.view; }
+    public ChatView getChatView() {
+        return this.view;
+    }
 }
