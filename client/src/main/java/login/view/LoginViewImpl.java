@@ -2,12 +2,15 @@ package login.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import login.presenter.LoginPresenter;
 
 
@@ -24,6 +27,10 @@ public class LoginViewImpl implements LoginView {
 
   public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
     GridPane grid = new GridPane();
+    grid.setAlignment(Pos.CENTER);
+    grid.setPadding(new Insets(5));
+    grid.setHgap(5);
+    grid.setVgap(5);
     loginScene = new Scene(grid);
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
@@ -35,6 +42,7 @@ public class LoginViewImpl implements LoginView {
     passwordUser.setPromptText("Passwort eingeben");
 
     loginStatus = new Label();    //gibt an, ob Login erfolgreich war
+    loginStatus.setTextFill(Color.RED);
 
     Button loginNow = new Button("Login"); //Buttons werden angelegt
     loginNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -54,7 +62,7 @@ public class LoginViewImpl implements LoginView {
     GridPane.setConstraints(userName, 1, 0);
     GridPane.setConstraints(labelPassword, 0, 1);
     GridPane.setConstraints(passwordUser, 1, 1);
-    GridPane.setConstraints(loginStatus, 1, 2);
+    GridPane.setConstraints(loginStatus, 0, 2, 2, 1);
     GridPane.setConstraints(loginNow, 0, 3);
     GridPane.setConstraints(registerNow, 1, 3);
 

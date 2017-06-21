@@ -62,7 +62,7 @@ public class MainmenuPresenter {
 
     public void addChatMessage(String msg) {
         Text text = new Text(msg + "\n");
-        text.setFill(Color.CORNFLOWERBLUE);
+        text.setFill(Color.GRAY);
         text.setStyle("-fx-font-style: italic;");
 
         this.chatView.getChatText().getChildren().add(text);

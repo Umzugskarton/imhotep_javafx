@@ -18,6 +18,7 @@ public class LoginPresenter {
 
     public void sendLoginRequest(String username, String password) {
         if (this.validate(username, password)) {
+            this.view.updateStatusLabel("");
             JSONObject loginCommand = ClientCommands.loginCommand(username, password);
             this.sceneController.getClientSocket().send(loginCommand);
         } else {

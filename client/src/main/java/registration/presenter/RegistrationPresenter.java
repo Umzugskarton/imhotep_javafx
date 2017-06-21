@@ -18,6 +18,7 @@ public class RegistrationPresenter {
 
   public void sendRegisterRequest(String username, String password1, String password2, String email) {
     if (this.validate(password1, password2, username, email)) {
+      this.view.updateStatusLabel("");
       JSONObject registerCommand = ClientCommands.registerCommand(username, password1, email);
       this.sceneController.getClientSocket().send(registerCommand);
     }

@@ -12,8 +12,8 @@ import socket.ClientSocket;
 
 public class SceneController {
 
-    private static final int STAGE_WIDTH = 640;
-    private static final int STAGE_HEIGHT = 250;
+    private static final int STAGE_WIDTH = 720;
+    private static final int STAGE_HEIGHT = 480;
 
     private Stage stage;
 

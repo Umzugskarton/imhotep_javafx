@@ -2,12 +2,15 @@ package registration.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import registration.presenter.RegistrationPresenter;
 
 
@@ -23,6 +26,10 @@ public class RegistrationViewImpl implements RegistrationView {
 
   public void buildRegistration() {
     GridPane root = new GridPane();
+    root.setAlignment(Pos.CENTER);
+    root.setPadding(new Insets(5));
+    root.setHgap(5);
+    root.setVgap(5);
     registrationScene = new Scene(root);
 
     Label name = new Label("Benutzername:");
@@ -42,6 +49,7 @@ public class RegistrationViewImpl implements RegistrationView {
     emailField.setPromptText("E-Mail eingeben");
 
     registrationStatus = new Label();
+    registrationStatus.setTextFill(Color.RED);
 
     Button register = new Button("Registrieren");
     register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
