@@ -29,6 +29,7 @@ public class ChatPresenter {
                 String to = temp[0];
                 text = temp[1];
                 chatCommand = ClientCommands.whisperCommand(to, text);
+                addWhisper("To: " + to , text);
             }else {
                 chatCommand = ClientCommands.chatCommand(text);
             }
@@ -47,9 +48,10 @@ public class ChatPresenter {
     public void addWhisper(String from , String msg) {
         Text userText = new Text("[" + from + "]: ");
         userText.setStyle("-fx-font-weight: bold");
-        userText.setStyle("-fx-font-color: #8A2BE2");
+        Color c = Color.web("#8A2BE2");
+        userText.setFill(c);
         Text messageText = new Text(msg + "\n");
-        messageText.setStyle("-fx-font-color: #8A2BE2");
+        messageText.setFill(c);
 
         this.view.getChatText().getChildren().addAll(userText, messageText);
     }

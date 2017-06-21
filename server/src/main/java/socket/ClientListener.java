@@ -57,7 +57,6 @@ public class ClientListener implements Runnable {
                 response = this.clientAPI.register(request);
                 break;
               case "login":
-
                 response = this.clientAPI.login(request);
                 if ((boolean)response.get("success")) {
                   this.user = this.clientAPI.getUser((String) request.get("username"));
