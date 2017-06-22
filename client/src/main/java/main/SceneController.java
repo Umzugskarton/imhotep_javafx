@@ -1,5 +1,6 @@
 package main;
 
+import javafx.stage.StageStyle;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
@@ -28,7 +29,10 @@ public class SceneController {
     public SceneController(Stage stage) {
         this.clientSocket = new ClientSocket(this);
         this.stage = stage;
+        this.getLoginPresenter().getLoginView().getLoginScene().getStylesheets().add(this.getClass()
+                .getResource("style.css").toExternalForm());
         this.toLoginScene();
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Imhotep");
         stage.setHeight(STAGE_HEIGHT);
         stage.setWidth(STAGE_WIDTH);

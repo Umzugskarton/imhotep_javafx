@@ -32,6 +32,7 @@ public class LoginViewImpl implements LoginView {
     grid.setHgap(5);
     grid.setVgap(5);
     loginScene = new Scene(grid);
+    loginScene.getStylesheets().add("/main/style.css");
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
     TextField userName = new TextField();
