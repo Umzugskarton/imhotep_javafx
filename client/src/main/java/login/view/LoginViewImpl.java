@@ -41,6 +41,7 @@ public class LoginViewImpl implements LoginView {
 
     grid.setClip(rect);
     loginScene = new Scene(grid);
+    loginScene.setFill(Color.TRANSPARENT);
    // loginScene.getStylesheets().add("style.css");
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
