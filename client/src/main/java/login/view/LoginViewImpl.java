@@ -31,8 +31,7 @@ public class LoginViewImpl implements LoginView {
   }
 
   public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
-    // Add stack to HBox in top region
-  BorderPane main = new BorderPane();
+    BorderPane main = new BorderPane();
     main.setId("loginroot");
     GridPane grid = new GridPane();
     grid.setAlignment(Pos.CENTER);

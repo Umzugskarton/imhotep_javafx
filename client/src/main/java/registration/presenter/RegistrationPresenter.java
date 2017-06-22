@@ -35,6 +35,9 @@ public class RegistrationPresenter {
   public RegistrationView getRegistrationView() {
     return this.view;
   }
+  public SceneController getSceneController() {
+    return this.sceneController;
+  }
 
   private boolean validate(String password1, String password2, String username, String email) {
     String msg = "";

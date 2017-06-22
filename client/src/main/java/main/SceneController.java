@@ -44,6 +44,7 @@ public class SceneController {
             this.registrationPresenter = new RegistrationPresenter(new RegistrationViewImpl(), this);
         }
         this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
+        this.stage.getScene().getStylesheets().add("style.css");
     }
 
     public void toLoginScene() {
@@ -52,6 +53,7 @@ public class SceneController {
         }
 
         this.stage.setScene(this.loginPresenter.getLoginView().getLoginScene());
+        this.stage.getScene().getStylesheets().add("style.css");
     }
 
     public void toMainmenuScene() {
@@ -60,6 +62,7 @@ public class SceneController {
         }
 
         this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
+        this.stage.getScene().getStylesheets().add("style.css");
     }
 
     public ClientSocket getClientSocket() {

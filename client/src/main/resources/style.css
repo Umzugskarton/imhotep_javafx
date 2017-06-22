@@ -2,18 +2,12 @@
     -fx-text-fill: #f4c933;
     -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     -fx-border-radius: 0;
-
     -fx-font-weight: bold;
 
 }
 
-.grid .button{
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
 
-.grid {
 
-}
 #loginroot{
     -fx-background-image: url("imhotep.png");
     -fx-background-repeat: stretch;
@@ -21,7 +15,14 @@
     -fx-border-width:5;
 }
 
-#nav{
+#regroot{
+    -fx-background-image: url("imhotep.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+}
+
+.nav{
     -webkit-fx-padding: 5 5 5 5;
     -moz-fx-padding: 5 5 5 5;
     -ms-fx-padding: 5 5 5 5;
