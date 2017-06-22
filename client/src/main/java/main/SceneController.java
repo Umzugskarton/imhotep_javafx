@@ -29,8 +29,6 @@ public class SceneController {
     public SceneController(Stage stage) {
         this.clientSocket = new ClientSocket(this);
         this.stage = stage;
-        this.getLoginPresenter().getLoginView().getLoginScene().getStylesheets().add(this.getClass()
-                .getResource("style.css").toExternalForm());
         this.toLoginScene();
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Imhotep");

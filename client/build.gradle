@@ -9,11 +9,14 @@ sourceCompatibility = 1.8
 
 mainClassName = "main.ClientApplication"
 
+
 repositories {
     maven {
         url "http://uk.maven.org/maven2"
     }
 }
+
+
 
 dependencies {
     compile project(":common")
@@ -31,4 +34,26 @@ idea {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.eriwen:gradle-css-plugin:1.11.0'
+    }
+}
+
+// Invoke the plugin
+apply plugin: 'css'
+
+css.source {
+    dev {
+        css {
+            srcDir "main"
+            include "*.css"
+            exclude "*.min.css"
+        }
+    }
 }
