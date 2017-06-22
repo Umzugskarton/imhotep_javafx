@@ -36,13 +36,3 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.eriwen:gradle-css-plugin:1.11.0'
-    }
-}
-
-}

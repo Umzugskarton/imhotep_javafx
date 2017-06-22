@@ -36,8 +36,8 @@ public class LoginViewImpl implements LoginView {
     grid.borderProperty();
 
     Rectangle rect = new Rectangle(720,480);
-    rect.setArcHeight(60.0);
-    rect.setArcWidth(60.0);
+    rect.setArcHeight(40.0);
+    rect.setArcWidth(40.0);
 
     grid.setClip(rect);
     loginScene = new Scene(grid);
