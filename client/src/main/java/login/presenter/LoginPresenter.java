@@ -46,6 +46,9 @@ public class LoginPresenter {
     public LoginView getLoginView() {
         return this.view;
     }
+    public SceneController getSceneController() {
+        return this.sceneController;
+    }
 
     private boolean validate(String username, String password) {
         return !password.isEmpty() && !username.isEmpty();

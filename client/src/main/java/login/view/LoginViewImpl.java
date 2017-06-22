@@ -9,9 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import login.presenter.LoginPresenter;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 
@@ -27,20 +31,30 @@ public class LoginViewImpl implements LoginView {
   }
 
   public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
+    // Add stack to HBox in top region
+  BorderPane main = new BorderPane();
+    main.setId("loginroot");
     GridPane grid = new GridPane();
-    grid.setId("loginroot");
     grid.setAlignment(Pos.CENTER);
     grid.setPadding(new Insets(5));
     grid.setHgap(5);
     grid.setVgap(5);
-    grid.borderProperty();
+
+
+
+    HBox nav = new HBox();
+    nav.setId("nav");
+    nav.setSpacing(10);
+    nav.setAlignment(Pos.CENTER_RIGHT);
+    nav.setPadding(new Insets(15, 12, 15, 12));
+    main.setTop(nav);
+    main.setCenter(grid);
 
     Rectangle rect = new Rectangle(720,480);
-    rect.setArcHeight(40.0);
-    rect.setArcWidth(40.0);
-
-    grid.setClip(rect);
-    loginScene = new Scene(grid);
+    rect.setArcHeight(30.0);
+    rect.setArcWidth(30.0);
+    main.setClip(rect);
+    loginScene = new Scene(main);
     loginScene.setFill(Color.TRANSPARENT);
    // loginScene.getStylesheets().add("style.css");
 
@@ -70,6 +84,36 @@ public class LoginViewImpl implements LoginView {
       }
     });
 
+   Button close = new Button("x");
+    close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        System.exit(0);
+      }
+    });
+
+    Button min =  new Button("_");
+    min.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        loginPresenter.getSceneController().getStage().setIconified(true);
+      }
+    });
+
+    final Delta dragDelta = new Delta();
+    nav.setOnMousePressed(new EventHandler<MouseEvent>() {
+      @Override public void handle(MouseEvent mouseEvent) {
+        // record a delta distance for the drag and drop operation.
+        dragDelta.x =  loginPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+        dragDelta.y =  loginPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+      }
+    });
+    nav.setOnMouseDragged(new EventHandler<MouseEvent>() {
+      @Override public void handle(MouseEvent mouseEvent) {
+        loginPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
+        loginPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
+      }
+    });
+
+
     GridPane.setConstraints(labelUser, 0, 0); //Hier werden die Positionen "angelegt"
     GridPane.setConstraints(userName, 1, 0);
     GridPane.setConstraints(labelPassword, 0, 1);
@@ -78,6 +122,8 @@ public class LoginViewImpl implements LoginView {
     GridPane.setConstraints(loginNow, 0, 3);
     GridPane.setConstraints(registerNow, 1, 3);
 
+
+    nav.getChildren().addAll(min,close);
     grid.getChildren()
         .addAll(labelUser, userName, labelPassword, passwordUser, loginStatus, loginNow,
             registerNow); //hier werden dem grid die buttons, textfelder und labels übergeben
@@ -90,6 +136,7 @@ public class LoginViewImpl implements LoginView {
   public Scene getLoginScene() {
     return this.loginScene;
   }
+  class Delta { double x, y; }
 
   @Override
   public void setLoginPresenter(LoginPresenter loginPresenter) {

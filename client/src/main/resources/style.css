@@ -15,10 +15,10 @@
     -fx-border-width:5;
 }
 
-#ROOTNODE {
-    -fx-background-radius: 1;
-    -fx-background-image: url("imhotep.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-radius: 1;
+#nav{
+    -webkit-fx-padding: 5 5 5 5;
+    -moz-fx-padding: 5 5 5 5;
+    -ms-fx-padding: 5 5 5 5;
+    -o-fx-padding: 5 5 5 5;
+    fx-padding: 5 5 5 5;;
 }

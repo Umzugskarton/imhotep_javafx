@@ -74,6 +74,10 @@ public class SceneController {
         return this.MainmenuPresenter;
     }
 
+    public  Stage getStage() {
+        return this.stage;
+    }
+
     public RegistrationPresenter getRegistrationPresenter() {
         return this.registrationPresenter;
     }
