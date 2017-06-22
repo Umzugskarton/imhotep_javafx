@@ -27,11 +27,15 @@ public class LoginViewImpl implements LoginView {
 
   public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
     GridPane grid = new GridPane();
+    grid.setId("loginroot");
     grid.setAlignment(Pos.CENTER);
     grid.setPadding(new Insets(5));
     grid.setHgap(5);
     grid.setVgap(5);
+
+
     loginScene = new Scene(grid);
+   // loginScene.getStylesheets().add("style.css");
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
     TextField userName = new TextField();
