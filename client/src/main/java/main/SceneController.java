@@ -11,6 +11,7 @@ import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import socket.ClientSocket;
 
+
 public class SceneController {
 
     private static final int STAGE_WIDTH = 720;

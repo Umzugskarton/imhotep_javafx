@@ -5,13 +5,20 @@
     -fx-padding: 3 6 6 6;
 }
 
-.root{
-    -fx-border-radius: 10 10 0 0;
-    -fx-background-radius: 10 10 0 0;
-}
+.grid {
 
+}
 #loginroot{
-    -fx-background-image: url("small.png");
+    -fx-background-image: url("imhotep.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 720 480;
+    -fx-border-width:5;
+}
+
+#ROOTNODE {
+    -fx-background-radius: 1;
+    -fx-background-image: url("imhotep.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-radius: 1;
 }

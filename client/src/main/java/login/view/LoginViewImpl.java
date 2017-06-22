@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import login.presenter.LoginPresenter;
+import javafx.scene.shape.Rectangle;
 
 
 public class LoginViewImpl implements LoginView {
@@ -32,14 +33,20 @@ public class LoginViewImpl implements LoginView {
     grid.setPadding(new Insets(5));
     grid.setHgap(5);
     grid.setVgap(5);
+    grid.borderProperty();
 
+    Rectangle rect = new Rectangle(720,480);
+    rect.setArcHeight(60.0);
+    rect.setArcWidth(60.0);
 
+    grid.setClip(rect);
     loginScene = new Scene(grid);
    // loginScene.getStylesheets().add("style.css");
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
     TextField userName = new TextField();
     userName.setPromptText("Benutzernamen eingeben");
+
 
     Label labelPassword = new Label("Passwort: "); //Label und Textfelder für das Passwort
     PasswordField passwordUser = new PasswordField();

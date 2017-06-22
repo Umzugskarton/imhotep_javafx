@@ -45,15 +45,4 @@ buildscript {
     }
 }
 
-// Invoke the plugin
-apply plugin: 'css'
-
-css.source {
-    dev {
-        css {
-            srcDir "main"
-            include "*.css"
-            exclude "*.min.css"
-        }
-    }
 }
