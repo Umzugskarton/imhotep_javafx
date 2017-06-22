@@ -1,8 +1,14 @@
 .button{
-    -fx-text-fill: rgb(49, 89, 23);
-    -fx-border-color: rgb(49, 89, 23);
-    -fx-border-radius: 5;
-    -fx-padding: 3 6 6 6;
+    -fx-text-fill: #f4c933;
+    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    -fx-border-radius: 0;
+
+    -fx-font-weight: bold;
+
+}
+
+.grid .button{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .grid {

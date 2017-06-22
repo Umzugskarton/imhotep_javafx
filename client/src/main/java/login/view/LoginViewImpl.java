@@ -46,7 +46,7 @@ public class LoginViewImpl implements LoginView {
     nav.setId("nav");
     nav.setSpacing(10);
     nav.setAlignment(Pos.CENTER_RIGHT);
-    nav.setPadding(new Insets(15, 12, 15, 12));
+    nav.setPadding(new Insets(15, 15, 15, 12));
     main.setTop(nav);
     main.setCenter(grid);
 
@@ -97,6 +97,9 @@ public class LoginViewImpl implements LoginView {
         loginPresenter.getSceneController().getStage().setIconified(true);
       }
     });
+
+    min.setMinWidth(20);
+    close.setMinWidth(20);
 
     final Delta dragDelta = new Delta();
     nav.setOnMousePressed(new EventHandler<MouseEvent>() {
