@@ -40,7 +40,6 @@ public class LoginViewImpl implements LoginView {
     grid.setVgap(5);
 
 
-
     HBox nav = new HBox();
     nav.setId("nav");
     nav.setSpacing(10);

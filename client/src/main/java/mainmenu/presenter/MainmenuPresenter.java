@@ -80,6 +80,9 @@ public class MainmenuPresenter {
     public PlayerList getPlayerList() {
         return this.playerList;
     }
+    public SceneController getSceneController() {
+        return this.sceneController;
+    }
 
     public ChatPresenter getChatPresenter() {
         return this.chatPresenter;

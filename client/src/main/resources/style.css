@@ -22,6 +22,25 @@
     -fx-border-width:5;
 }
 
+#menuroot{
+    -fx-background-image: url("chat.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+    -fx-padding: 5 15 15 15;
+}
+
+.tab{
+    -fx-border-radius: 0;
+    -fx-background-image: url("button.png");
+    -fx-background-size: stretch;
+    -fx-border-insets: 5;
+    -fx-border-color: burlywood;
+}
+
+.tab-pane{
+}
+
 .nav{
     -webkit-fx-padding: 5 5 5 5;
     -moz-fx-padding: 5 5 5 5;
