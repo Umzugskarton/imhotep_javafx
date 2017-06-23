@@ -32,13 +32,27 @@
 
 .tab{
     -fx-border-radius: 0;
-    -fx-background-image: url("button.png");
+    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     -fx-background-size: stretch;
-    -fx-border-insets: 5;
-    -fx-border-color: burlywood;
+    -fx-background-insets: 0 1 0 1,0,0;
+
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label{
+    -fx-text-fill: #f4c933;
 }
 
 .tab-pane{
+    -fx-tab-min-width:60px;
 }
 
 .nav{
@@ -47,4 +61,8 @@
     -ms-fx-padding: 5 5 5 5;
     -o-fx-padding: 5 5 5 5;
     fx-padding: 5 5 5 5;;
+}
+
+#msg{
+    -fx-opacity: 0.5;
 }

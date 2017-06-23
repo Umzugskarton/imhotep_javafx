@@ -37,6 +37,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
         TextFlow chatText = new TextFlow();
         this.chatText = chatText;
         this.chatText.setPadding(new Insets(5));
+        this.chatText.setId("#msg");
 
         scrollPane.setContent(chatText);
 
