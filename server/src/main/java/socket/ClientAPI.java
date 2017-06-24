@@ -1,17 +1,17 @@
 package socket;
 
-import java.util.ArrayList;
+import database.userdata.DBUserDataSource;
 import json.ServerCommands;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import user.*;
+import user.User;
+import user.UserIdentifier;
 
 public class ClientAPI {
+    
+  private DBUserDataSource dbUserDataSource;
 
-  private UserManager userManager;
-
-  public ClientAPI() {
-    this.userManager = new UserManager();
+  private ClientAPI() {
+    this.dbUserDataSource = new DBUserDataSource();
   }
 
   /**
@@ -25,15 +25,15 @@ public class ClientAPI {
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
-    JSONObject response = new JSONObject();
+  private JSONObject login(JSONObject request, JSONObject loggedUsers) {
+    JSONObject response;
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
       if (loggedUsers.get("users").toString().contains(username)) {
         response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
       } else{
-        boolean isLoginValid = this.userManager.validateLogin(username, password);
+        boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
 
         if (isLoginValid) {
           response = ServerCommands.loginCommand("Login erfolgreich!", true);
@@ -58,7 +58,7 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Registrierung enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject register(JSONObject request) {
+  private JSONObject register(JSONObject request) {
     JSONObject response;
 
     if (request.containsKey("username") && request.containsKey("password") && request
@@ -67,7 +67,7 @@ public class ClientAPI {
       String password = (String) request.get("password");
       String email = (String) request.get("email");
 
-      boolean createUser = this.userManager.createUser(username, password, email);
+      boolean createUser = this.dbUserDataSource.createUser(username, password, email);
 
       if (createUser) {
         response = ServerCommands.registerCommand("Registrierung erfolgreich!", true);
@@ -90,6 +90,6 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  public User getUser(String username){ return this.userManager.getUser(UserIdentifier.USERNAME, username); }
+  private User getUser(String username){ return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username); }
 
 }
