@@ -7,10 +7,10 @@ import user.User;
 import user.UserIdentifier;
 
 public class ClientAPI {
-    
+
   private DBUserDataSource dbUserDataSource;
 
-  private ClientAPI() {
+  public ClientAPI() {
     this.dbUserDataSource = new DBUserDataSource();
   }
 
@@ -25,7 +25,7 @@ public class ClientAPI {
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  private JSONObject login(JSONObject request, JSONObject loggedUsers) {
+  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
     JSONObject response;
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
@@ -58,7 +58,7 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Registrierung enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  private JSONObject register(JSONObject request) {
+  public JSONObject register(JSONObject request) {
     JSONObject response;
 
     if (request.containsKey("username") && request.containsKey("password") && request
@@ -90,6 +90,6 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  private User getUser(String username){ return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username); }
+  public User getUser(String username){ return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username); }
 
 }
