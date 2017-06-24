@@ -16,7 +16,6 @@ public class DBUserDataSource {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
     private DBUserHelper dbUserHelper;
-    private Connection conn;
 
     private String[] columns = {
             DBUserHelper.COLUMN_ID,
