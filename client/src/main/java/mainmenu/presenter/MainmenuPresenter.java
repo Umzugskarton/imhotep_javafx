@@ -1,6 +1,7 @@
 package mainmenu.presenter;
 
 import chat.presenter.ChatPresenter;
+import profile.presenter.ProfilePresenter;
 import javafx.scene.paint.Color;
 import json.ClientCommands;
 import main.SceneController;
@@ -8,6 +9,7 @@ import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class MainmenuPresenter {
     private SceneController sceneController;
     private PlayerList playerList;
     private ChatPresenter chatPresenter;
+    private ProfilePresenter profilePresenter;
 
     public MainmenuPresenter(MainmenuView view, SceneController sc) {
         this.view = view;
@@ -29,6 +32,9 @@ public class MainmenuPresenter {
 
         this.chatPresenter = new ChatPresenter(this.sceneController);
         view.initChat(this.chatPresenter.getChatView());
+
+        this.profilePresenter = new ProfilePresenter(this.sceneController);
+        view.initProfile(this.profilePresenter.getProfileView());
 
         this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
     }
@@ -84,4 +90,5 @@ public class MainmenuPresenter {
     public ChatPresenter getChatPresenter() {
         return this.chatPresenter;
     }
+    public ProfilePresenter getProfilePresenter() { return this.profilePresenter; }
 }

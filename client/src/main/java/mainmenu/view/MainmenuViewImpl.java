@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import mainmenu.presenter.MainmenuPresenter;
+import profile.view.ProfileView;
+import profile.view.ProfileViewImpl;
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -18,6 +20,7 @@ public class MainmenuViewImpl implements MainmenuView {
     private Label userList;
     private BorderPane pane;
     private Tab chatTab;
+    private Tab profileTab;
 
     public MainmenuViewImpl() {
         buildMainmenu();
@@ -44,10 +47,11 @@ public class MainmenuViewImpl implements MainmenuView {
         gamesTab.setClosable(false);
         gamesTab.setTooltip(new Tooltip("find open games"));
 
-        Tab profileTab = new Tab();
+        profileTab = new Tab();
         profileTab.setText("Profile");
         profileTab.setClosable(false);
         profileTab.setTooltip(new Tooltip("edit your profile"));
+        profileTab.setContent(null);
 
         Tab newGameTab = new Tab();
         newGameTab.setText("Create Game");
@@ -88,6 +92,8 @@ public class MainmenuViewImpl implements MainmenuView {
     public void initChat(ChatView chatView) {
         this.chatTab.setContent((ChatViewImpl) chatView);
     }
+
+    public void initProfile(ProfileView profileView) { this.profileTab.setContent((ProfileViewImpl) profileView); }
 
     @Override
     public void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter) {
