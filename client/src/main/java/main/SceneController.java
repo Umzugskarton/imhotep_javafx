@@ -25,6 +25,9 @@ public class SceneController {
     private LoginPresenter loginPresenter;
     private MainmenuPresenter MainmenuPresenter;
 
+    // Username
+    private String username;
+
     public SceneController(Stage stage) {
         this.clientSocket = new ClientSocket(this);
         this.stage = stage;
@@ -72,5 +75,13 @@ public class SceneController {
 
     public RegistrationPresenter getRegistrationPresenter() {
         return this.registrationPresenter;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }

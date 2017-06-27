@@ -17,12 +17,13 @@ public class ServerCommands {
         return obj;
     }
 
-    public static JSONObject loginCommand(String message, boolean success) {
+    public static JSONObject loginCommand(String message, boolean success, String username) {
         JSONObject obj = new JSONObject();
 
         obj.put("command", "login");
         obj.put("success", success);
         obj.put("message", message);
+        obj.put("username", username);
 
         return obj;
     }

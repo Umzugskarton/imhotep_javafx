@@ -34,13 +34,13 @@ public class ClientAPI {
       boolean isLoginValid = this.userManager.validateLogin(username, password);
 
       if (isLoginValid) {
-        response = ServerCommands.loginCommand("Login erfolgreich!", true);
+        response = ServerCommands.loginCommand("Login erfolgreich!", true, username);
       } else {
         response = ServerCommands
-            .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+            .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false, null);
       }
     } else {
-      response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
+      response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false, null);
     }
     return response;
   }

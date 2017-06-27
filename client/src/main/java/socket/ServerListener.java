@@ -55,9 +55,12 @@ public class ServerListener implements Runnable {
                                         this.sceneController.getRegistrationPresenter().processRegisterResponse(message);
                                     }
                             );
-                        } else if (command.equals("login") && request.containsKey("message") && request.containsKey("success")) {
+                        } else if (command.equals("login") && request.containsKey("message") && request.containsKey("success") && request.containsKey("username")) {
                             String message = (String) request.get("message");
                             Boolean success = (Boolean) request.get("success");
+                            String username = (String) request.get("username");
+
+                            this.sceneController.setUsername(username);
 
                             // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
                             // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread

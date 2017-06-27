@@ -18,7 +18,7 @@ import javafx.scene.text.TextFlow;
  */
 public class ProfileViewImpl extends GridPane implements ProfileView {
     private ProfilePresenter profilePresenter;
-    private Label username;
+    private Label usernameLabel;
 
     public ProfileViewImpl(ProfilePresenter profilePresenter) {
         this.profilePresenter = profilePresenter;
@@ -32,7 +32,7 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         grid.setVgap(5);
         grid.setPadding(new Insets(5));
 
-        Label username = new Label (getUsername());
+        this.usernameLabel = new Label();
 
         Button changeColorButton = new Button("Farbe ändern");
         changeColorButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -40,18 +40,12 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
 
             }
         });
-
-        grid.add(username, 0, 0);
+        grid.add(usernameLabel, 0, 1);
         grid.add(changeColorButton, 1, 1);
-
-
-
-
     }
 
-    public String getUsername() {
-        return "test";
+    public Label getUsernameLabel() {
+        return this.usernameLabel;
     }
-
 
 }
