@@ -3,14 +3,10 @@ package mainmenu.view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import mainmenu.presenter.MainmenuPresenter;
 
 public class MainmenuViewImpl implements MainmenuView {
@@ -32,6 +28,19 @@ public class MainmenuViewImpl implements MainmenuView {
     TabPane tabPane = new TabPane();                                    //TabPane wird erstellt
     pane.setCenter(tabPane);                                            //TabPane wird auf BorderPane mittig platziert
 
+    HBox menu = new HBox();
+    Button profile = new Button("Profile");
+    Button rules = new Button("Rules");
+    Button logout = new Button("Logout");
+    logout.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        mainmenuPresenter.toLoginScene();
+        mainmenuPresenter.logout();
+      }
+    });
+    menu.getChildren().addAll(profile, rules, logout);
+    pane.setTop(menu);
+
     Tab chatTab = new Tab();                                            //neuer Tab wird erstellt
     chatTab.setText("Chat");                                            //Name des Tabs
     chatTab.setClosable(false);                                         //Tab soll nicht schließbar sein
@@ -42,31 +51,13 @@ public class MainmenuViewImpl implements MainmenuView {
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip("find open games"));
 
-    Tab profileTab = new Tab();
-    profileTab.setText("Profile");
-    profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip("edit your profile"));
+    Tab scoresTab = new Tab();
+    scoresTab.setText("Highscores");
+    scoresTab.setClosable(false);
 
-    Tab newGameTab = new Tab();
-    newGameTab.setText("Create Game");
-    newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip("create a new game"));
 
-    Tab rulesTab = new Tab();
-    rulesTab.setText("Rules");
-    rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip("learn the game"));
 
-    Button logoutButton = new Button("Logout");
-    logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-      public void handle(ActionEvent event) {
-        mainmenuPresenter.toLoginScene();
-        mainmenuPresenter.logout();
-      }
-    });
-    profileTab.setContent(logoutButton);
-
-    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
+    tabPane.getTabs().addAll(chatTab, gamesTab, scoresTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
   }
     public void initPlayerList(){
     ListView<String> listView = new ListView<String>();                                //ListView zum Anzeigen der eingeloggten Spieler
