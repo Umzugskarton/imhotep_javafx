@@ -3,7 +3,12 @@ package mainmenu.view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -16,7 +21,9 @@ public class MainmenuViewImpl implements MainmenuView {
   private Label userList;
   private BorderPane pane;
 
-  public MainmenuViewImpl() { buildMainmenu(); }
+  public MainmenuViewImpl() {
+    buildMainmenu();
+  }
 
   public void buildMainmenu() {
     GridPane grid = new GridPane();
@@ -25,8 +32,8 @@ public class MainmenuViewImpl implements MainmenuView {
     grid.add(userList, 3, 5);
     pane = new BorderPane();
     mainmenuScene = new Scene(pane);
-    TabPane tabPane = new TabPane();                                    //TabPane wird erstellt
-    pane.setCenter(tabPane);                                            //TabPane wird auf BorderPane mittig platziert
+    TabPane tabPane = new TabPane();
+    pane.setCenter(tabPane);
 
     HBox menu = new HBox();
     Button profile = new Button("Profile");
@@ -41,10 +48,10 @@ public class MainmenuViewImpl implements MainmenuView {
     menu.getChildren().addAll(profile, rules, logout);
     pane.setTop(menu);
 
-    Tab chatTab = new Tab();                                            //neuer Tab wird erstellt
-    chatTab.setText("Chat");                                            //Name des Tabs
-    chatTab.setClosable(false);                                         //Tab soll nicht schließbar sein
-    chatTab.setTooltip(new Tooltip("chat with other players"));    //wird angezeigt, wenn Maus sich über dem Tab befindet
+    Tab chatTab = new Tab();
+    chatTab.setText("Chat");
+    chatTab.setClosable(false);
+    chatTab.setTooltip(new Tooltip("chat with other players"));
 
     Tab gamesTab = new Tab();
     gamesTab.setText("Games");
@@ -55,14 +62,13 @@ public class MainmenuViewImpl implements MainmenuView {
     scoresTab.setText("Highscores");
     scoresTab.setClosable(false);
 
-
-
-    tabPane.getTabs().addAll(chatTab, gamesTab, scoresTab);     //Tabs werden der TabPane der Reihe nach hinzugefügt
+    tabPane.getTabs().addAll(chatTab, gamesTab, scoresTab);
   }
-    public void initPlayerList(){
-    ListView<String> listView = new ListView<String>();                                //ListView zum Anzeigen der eingeloggten Spieler
-    listView.setItems(mainmenuPresenter.getPlayerList().getPlayers());                  //Liste der eingeloggten Spieler als Item der View setzen
-    pane.setRight(listView);                                                            //ListView rechts auf der BorderPane platzieren
+
+  public void initPlayerList() {
+    ListView<String> listView = new ListView<String>();
+    listView.setItems(mainmenuPresenter.getPlayerList().getPlayers());
+    pane.setRight(listView);
   }
 
   @Override
