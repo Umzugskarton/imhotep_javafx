@@ -1,6 +1,8 @@
 package mainmenu.presenter;
 
 import chat.presenter.ChatPresenter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.paint.Color;
 import json.ClientCommands;
 import main.SceneController;
@@ -9,9 +11,6 @@ import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainmenuPresenter {
 
