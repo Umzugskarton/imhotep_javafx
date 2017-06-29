@@ -1,5 +1,7 @@
 package mainmenu.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import javafx.event.ActionEvent;
@@ -8,10 +10,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -34,11 +38,24 @@ public class MainmenuViewImpl implements MainmenuView {
     this.main = new BorderPane();
     main.setId("menuroot");
     GridPane grid = new GridPane();
+    mainmenuScene = new Scene(grid);
     userList = new Label();
     grid.add(userList, 3, 5);
     TabPane tabPane = new TabPane();
     main.setCenter(tabPane);
 
+    HBox menu = new HBox();
+    Button profile = new Button("Profile");
+    Button rules = new Button("Rules");
+    Button logout = new Button("Logout");
+    logout.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+      public void handle(ActionEvent event) {
+        mainmenuPresenter.toLoginScene();
+        mainmenuPresenter.logout();
+      }
+    });
+    menu.getChildren().addAll(profile, rules, logout);
+    main.setTop(menu);
     HBox nav = new HBox();
     nav.setId("nav");
     nav.setSpacing(10);
@@ -65,24 +82,15 @@ public class MainmenuViewImpl implements MainmenuView {
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip("find open games"));
 
-    Tab profileTab = new Tab();
-    profileTab.setText("Profile");
-    profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip("edit your profile"));
+    Tab scoresTab = new Tab();
+    scoresTab.setText("Highscores");
+    scoresTab.setClosable(false);
 
+    tabPane.getTabs().addAll(chatTab, gamesTab, scoresTab);
     Tab newGameTab = new Tab();
     newGameTab.setText("Create Game");
     newGameTab.setClosable(false);
     newGameTab.setTooltip(new Tooltip("create a new game"));
-
-    Tab rulesTab = new Tab();
-    rulesTab.setText("Rules");
-    rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip("learn the game"));
-
-    Tab emptyTab = new Tab();
-    emptyTab.setText("");
-    emptyTab.setClosable(false);
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -124,7 +132,7 @@ public class MainmenuViewImpl implements MainmenuView {
 
     nav.getChildren().addAll(min, close);
     //Tabs werden der TabPane der Reihe nach hinzugefügt
-    tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab, emptyTab);
+    tabPane.getTabs().addAll(chatTab, gamesTab, newGameTab, emptyTab);
   }
 
   public void initPlayerList() {

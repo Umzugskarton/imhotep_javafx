@@ -25,6 +25,15 @@ public class ServerCommands {
     return obj;
   }
 
+  public static JSONObject logoutCommand(boolean success) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "login");
+    obj.put("success", success);
+
+    return obj;
+  }
+
   public static JSONObject chatCommand(String user, String msg) {
     JSONObject obj = new JSONObject();
 

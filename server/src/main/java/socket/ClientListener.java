@@ -70,6 +70,7 @@ public class ClientListener implements Runnable {
                 break;
               case "logout":
                 this.user=null;
+                response = this.clientAPI.logout();
             }
 
             this.send(response);

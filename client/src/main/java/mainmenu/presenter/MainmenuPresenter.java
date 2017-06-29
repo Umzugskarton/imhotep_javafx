@@ -8,6 +8,7 @@ import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,11 @@ public class MainmenuPresenter {
 
   public PlayerList getPlayerList() {
     return this.playerList;
+  }
+
+  public void logout(){
+    JSONObject logoutCommand = ClientCommands.logoutCommand();
+    this.sceneController.getClientSocket().send(logoutCommand);
   }
 
   public SceneController getSceneController() {
