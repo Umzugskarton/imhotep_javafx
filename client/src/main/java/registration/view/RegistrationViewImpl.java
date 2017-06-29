@@ -15,8 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
-import login.view.LoginViewImpl;
 import registration.presenter.RegistrationPresenter;
+import general.Delta;
 
 
 public class RegistrationViewImpl implements RegistrationView {
@@ -149,11 +149,6 @@ public class RegistrationViewImpl implements RegistrationView {
 
   public Scene getRegistrationScene() {
     return this.registrationScene;
-  }
-
-  class Delta {
-
-    double x, y;
   }
 
   public void setRegistrationPresenter(RegistrationPresenter registrationPresenter) {

@@ -12,11 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import login.presenter.LoginPresenter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import general.Delta;
 
 
 public class LoginViewImpl implements LoginView {
@@ -53,7 +53,6 @@ public class LoginViewImpl implements LoginView {
     main.setClip(rect);
     loginScene = new Scene(main);
     loginScene.setFill(Color.TRANSPARENT);
-    // loginScene.getStylesheets().add("style.css");
 
     Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
     TextField userName = new TextField();
@@ -139,10 +138,6 @@ public class LoginViewImpl implements LoginView {
     return this.loginScene;
   }
 
-  class Delta {
-
-    double x, y;
-  }
 
   @Override
   public void setLoginPresenter(LoginPresenter loginPresenter) {

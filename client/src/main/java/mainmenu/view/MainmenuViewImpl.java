@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mainmenu.presenter.MainmenuPresenter;
+import general.Delta;
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -155,11 +156,6 @@ public class MainmenuViewImpl implements MainmenuView {
   @Override
   public void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter) {
     this.mainmenuPresenter = mainmenuPresenter;
-  }
-
-  class Delta {
-
-    double x, y;
   }
 
   public Scene getMainmenuScene() {
