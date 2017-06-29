@@ -1,14 +1,13 @@
 package main;
 
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import login.presenter.LoginPresenter;
+import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
-
-import javafx.stage.Stage;
-import login.presenter.LoginPresenter;
-import login.view.LoginViewImpl;
 import socket.ClientSocket;
 
 

@@ -1,11 +1,11 @@
 package socket;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import org.json.simple.JSONObject;
 import main.SceneController;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,5 +1,6 @@
 package login.view;
 
+import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,11 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import login.presenter.LoginPresenter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import general.Delta;
-
+import login.presenter.LoginPresenter;
 
 public class LoginViewImpl implements LoginView {
 

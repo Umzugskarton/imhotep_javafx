@@ -2,15 +2,14 @@ package chat.presenter;
 
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ChatPresenter {
 

@@ -3,7 +3,7 @@ package registration.presenter;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONObject;
-import registration.view.*;
+import registration.view.RegistrationView;
 
 public class RegistrationPresenter {
 

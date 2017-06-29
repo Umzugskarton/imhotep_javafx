@@ -1,10 +1,10 @@
 package socket;
 
-import java.util.ArrayList;
 import json.ServerCommands;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import user.*;
+import user.User;
+import user.UserIdentifier;
+import user.UserManager;
 
 public class ClientAPI {
 

@@ -1,5 +1,6 @@
 package registration.view;
 
+import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import registration.presenter.RegistrationPresenter;
-import general.Delta;
 
 
 public class RegistrationViewImpl implements RegistrationView {
