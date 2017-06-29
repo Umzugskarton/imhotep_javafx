@@ -38,7 +38,7 @@ public class RegistrationViewImpl implements RegistrationView {
     grid.setHgap(5);
     grid.setVgap(5);
 
-    Rectangle rect = new Rectangle(720,480);
+    Rectangle rect = new Rectangle(720, 480);
     rect.setArcHeight(30.0);
     rect.setArcWidth(30.0);
     main.setClip(rect);
@@ -50,7 +50,6 @@ public class RegistrationViewImpl implements RegistrationView {
     nav.setPadding(new Insets(15, 15, 15, 12));
     main.setTop(nav);
     main.setCenter(grid);
-
 
     registrationScene = new Scene(main);
     registrationScene.setFill(Color.TRANSPARENT);
@@ -93,7 +92,7 @@ public class RegistrationViewImpl implements RegistrationView {
       }
     });
 
-    Button min =  new Button("_");
+    Button min = new Button("_");
     min.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         registrationPresenter.getSceneController().getStage().setIconified(true);
@@ -111,20 +110,26 @@ public class RegistrationViewImpl implements RegistrationView {
 
     final Delta dragDelta = new Delta();
     nav.setOnMousePressed(new EventHandler<MouseEvent>() {
-      @Override public void handle(MouseEvent mouseEvent) {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
         // record a delta distance for the drag and drop operation.
-        dragDelta.x =  registrationPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
-        dragDelta.y =  registrationPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+        dragDelta.x =
+            registrationPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+        dragDelta.y =
+            registrationPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
       }
     });
     nav.setOnMouseDragged(new EventHandler<MouseEvent>() {
-      @Override public void handle(MouseEvent mouseEvent) {
-        registrationPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
-        registrationPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        registrationPresenter.getSceneController().getStage()
+            .setX(mouseEvent.getScreenX() + dragDelta.x);
+        registrationPresenter.getSceneController().getStage()
+            .setY(mouseEvent.getScreenY() + dragDelta.y);
       }
     });
 
-    nav.getChildren().addAll(min,close);
+    nav.getChildren().addAll(min, close);
     grid.add(name, 2, 1);
     grid.add(nameField, 3, 1);
     grid.add(password, 2, 2);
@@ -145,7 +150,11 @@ public class RegistrationViewImpl implements RegistrationView {
   public Scene getRegistrationScene() {
     return this.registrationScene;
   }
-  class Delta { double x, y; }
+
+  class Delta {
+
+    double x, y;
+  }
 
   public void setRegistrationPresenter(RegistrationPresenter registrationPresenter) {
     this.registrationPresenter = registrationPresenter;

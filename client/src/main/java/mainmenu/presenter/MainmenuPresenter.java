@@ -14,77 +14,80 @@ import java.util.List;
 
 public class MainmenuPresenter {
 
-    private MainmenuView view;
-    private SceneController sceneController;
-    private PlayerList playerList;
-    private ChatPresenter chatPresenter;
+  private MainmenuView view;
+  private SceneController sceneController;
+  private PlayerList playerList;
+  private ChatPresenter chatPresenter;
 
-    public MainmenuPresenter(MainmenuView view, SceneController sc) {
-        this.view = view;
-        this.sceneController = sc;
-        view.setMainmenuPresenter(this);
+  public MainmenuPresenter(MainmenuView view, SceneController sc) {
+    this.view = view;
+    this.sceneController = sc;
+    view.setMainmenuPresenter(this);
 
-        this.playerList = new PlayerListImpl();   //Reihenfolge wichtig, sonst NullPointerException!
-        view.initPlayerList();
+    //Reihenfolge wichtig, sonst NullPointerException!
+    this.playerList = new PlayerListImpl();
+    view.initPlayerList();
 
-        this.chatPresenter = new ChatPresenter(this.sceneController);
-        view.initChat(this.chatPresenter.getChatView());
+    this.chatPresenter = new ChatPresenter(this.sceneController);
+    view.initChat(this.chatPresenter.getChatView());
 
-        this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
+    this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
+  }
+
+  public MainmenuView getMainmenuView() {
+    return this.view;
+  }
+
+  public void updateUserlist(JSONArray userArray) {
+    // Im Chat informieren wer gejoined/leaved ist
+    boolean notifyInChat = true;
+    if (playerList.getPlayers().isEmpty()) {
+      notifyInChat = false;
     }
 
-    public MainmenuView getMainmenuView() {
-        return this.view;
+    if (notifyInChat) {
+      List<String> list = playerList.getPlayers();
+      List<String> joinedList = new ArrayList<>();
+      List<String> leftList = new ArrayList<>();
+
+      for (Object user : userArray) {
+        joinedList.add(user.toString());
+        leftList.add(user.toString());
+      }
+
+      joinedList.removeAll(list);
+      list.removeAll(leftList);
+
+      for (String username : list) {
+        this.chatPresenter.addInfoMessage("- " + username + " hat den Chat verlassen", Color.RED);
+      }
+
+      for (String username : joinedList) {
+        this.chatPresenter.addInfoMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
+      }
     }
 
-    public void updateUserlist(JSONArray userArray) {
-        // Im Chat informieren wer gejoined/leaved ist
-        boolean notifyInChat = true;
-        if (playerList.getPlayers().isEmpty())
-            notifyInChat = false;
+    // Userliste leeren und neu füllen
+    playerList.getPlayers().clear();
 
-        if (notifyInChat) {
-            List<String> list = playerList.getPlayers();
-            List<String> joinedList = new ArrayList<>();
-            List<String> leftList = new ArrayList<>();
-
-            for (Object user : userArray) {
-                joinedList.add(user.toString());
-                leftList.add(user.toString());
-            }
-
-            joinedList.removeAll(list);
-            list.removeAll(leftList);
-
-            for (String username : list) {
-                this.chatPresenter.addInfoMessage("- " + username + " hat den Chat verlassen", Color.RED);
-            }
-
-            for (String username : joinedList) {
-                this.chatPresenter.addInfoMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
-            }
-        }
-
-        // Userliste leeren und neu füllen
-        playerList.getPlayers().clear();
-
-        for (Object user : userArray) {
-            playerList.getPlayers().add(user.toString());
-        }
+    for (Object user : userArray) {
+      playerList.getPlayers().add(user.toString());
     }
+  }
 
-    public void toLoginScene() {
-        sceneController.toLoginScene();
-    }
+  public void toLoginScene() {
+    sceneController.toLoginScene();
+  }
 
-    public PlayerList getPlayerList() {
-        return this.playerList;
-    }
-    public SceneController getSceneController() {
-        return this.sceneController;
-    }
+  public PlayerList getPlayerList() {
+    return this.playerList;
+  }
 
-    public ChatPresenter getChatPresenter() {
-        return this.chatPresenter;
-    }
+  public SceneController getSceneController() {
+    return this.sceneController;
+  }
+
+  public ChatPresenter getChatPresenter() {
+    return this.chatPresenter;
+  }
 }
