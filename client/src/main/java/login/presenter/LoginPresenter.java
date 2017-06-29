@@ -1,6 +1,5 @@
 package login.presenter;
 
-
 import json.ClientCommands;
 import login.view.LoginView;
 import main.SceneController;
@@ -19,6 +18,7 @@ public class LoginPresenter {
 
   public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
+      this.view.updateStatusLabel("");
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
@@ -27,8 +27,10 @@ public class LoginPresenter {
   }
 
   public void processLoginResponse(boolean loginSuccessful, String message) {
-    if(loginSuccessful) {
+    if (loginSuccessful) {
       this.toMainmenuScene();
+      sceneController.getMainmenuPresenter().getChatPresenter()
+          .addInfoMessage("Du hast dich erfolgreich eingeloggt! Willkommen!");
     } else {
       this.view.updateStatusLabel(message);
     }
@@ -38,16 +40,19 @@ public class LoginPresenter {
     sceneController.toRegistrationScene();
   }
 
-  public void toMainmenuScene() { sceneController.toMainmenuScene(); }
+  private void toMainmenuScene() {
+    sceneController.toMainmenuScene();
+  }
 
   public LoginView getLoginView() {
     return this.view;
   }
 
+  public SceneController getSceneController() {
+    return this.sceneController;
+  }
+
   private boolean validate(String username, String password) {
-    if (!password.isEmpty() && !username.isEmpty()) {
-      return true;
-    }
-    return false;
+    return !password.isEmpty() && !username.isEmpty();
   }
 }

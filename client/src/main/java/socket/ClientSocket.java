@@ -1,11 +1,11 @@
 package socket;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import org.json.simple.JSONObject;
 import main.SceneController;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +15,6 @@ public class ClientSocket {
 
   // SceneController
   private SceneController sceneController = null;
-
   // Server
   private ServerListener serverListener = null;
   private Socket serverSocket = null;
@@ -47,8 +46,8 @@ public class ClientSocket {
               + this.port, ex);
       System.exit(-1);
     } catch (IOException ex) {
-      log.error(
-          "IOException bei Verbindung zu Host bei Host: " + this.host + " und Port: " + this.port, ex);
+      log.error("IOException bei Verbindung zu Host bei Host: " + this.host
+          + " und Port: " + this.port, ex);
       System.exit(-1);
     }
   }

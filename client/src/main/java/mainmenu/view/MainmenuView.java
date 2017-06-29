@@ -1,6 +1,6 @@
 package mainmenu.view;
 
-import javafx.collections.ObservableList;
+import chat.view.ChatView;
 import javafx.scene.Scene;
 import mainmenu.presenter.MainmenuPresenter;
 
@@ -11,6 +11,8 @@ public interface MainmenuView {
   void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter);
 
   Scene getMainmenuScene();
+
+  void initChat(ChatView chatView);
 
   void initPlayerList();
 }

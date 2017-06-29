@@ -1,7 +1,9 @@
 package user;
-import java.sql.*;
 
 import database.DBController;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,7 +139,7 @@ public class UserManager {
         log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
         return false;
       }
-      
+
       // Wenn das zu ändernde Objekt das Passwort ist, hashen
       if(identifier.equals(UserIdentifier.PASSWORD)) {
         // Wenn der Wert ein String ist
@@ -208,10 +210,10 @@ public class UserManager {
           result.next();
 
           return new User(
-                  result.getInt("id"),
-                  result.getString("username"),
-                  result.getString("password"),
-                  result.getString("email")
+              result.getInt("id"),
+              result.getString("username"),
+              result.getString("password"),
+              result.getString("email")
           );
         }
       } catch (SQLException se) {
