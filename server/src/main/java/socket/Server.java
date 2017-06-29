@@ -87,12 +87,12 @@ public class Server {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
-      if (clientListener.getUser().getUsername().equals(to)){
+      if (clientListener.getUser().getUsername().equals(to)) {
         toClient = clientListener;
         break;
       }
     }
-    if (toClient != null){
+    if (toClient != null) {
       found = true;
       toClient.send(json);
     }
@@ -102,26 +102,26 @@ public class Server {
 
   public void sendToLoggedIn(JSONObject json) {
     for (ClientListener clientListener : connectedClients) {
-      if(clientListener.isLoggedIn()) {
+      if (clientListener.isLoggedIn()) {
         clientListener.send(json);
       }
     }
   }
 
-  public JSONObject getLoggedUsers(){
-    JSONArray users= new JSONArray();
+  public JSONObject getLoggedUsers() {
+    JSONArray users = new JSONArray();
     for (ClientListener client : connectedClients) {
-      if (client.isLoggedIn()){
+      if (client.isLoggedIn()) {
         users.add(client.getUser().getUsername());
       }
     }
     return ServerCommands.userlistCommand(users);
   }
 
-  public String getLoggedInUsername(String username){
+  public String getLoggedInUsername(String username) {
     for (ClientListener client : connectedClients) {
-      if (client.isLoggedIn()){
-        if(client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
+      if (client.isLoggedIn()) {
+        if (client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
           return client.getUser().getUsername();
         }
       }

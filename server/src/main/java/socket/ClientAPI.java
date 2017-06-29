@@ -94,7 +94,7 @@ public class ClientAPI {
   public JSONObject whisper(JSONObject request, User user) {
     JSONObject response = new JSONObject();
 
-    if (request.containsKey("message") && request.containsKey("to") && user != null ) {
+    if (request.containsKey("message") && request.containsKey("to") && user != null) {
       String message = (String) request.get("message");
 
       response = ServerCommands.whisperCommand(user.getUsername(), message);
@@ -110,6 +110,8 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  public User getUser(String username){ return this.userManager.getUser(UserIdentifier.USERNAME, username); }
+  public User getUser(String username) {
+    return this.userManager.getUser(UserIdentifier.USERNAME, username);
+  }
 
 }

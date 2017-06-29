@@ -46,8 +46,8 @@ public class ClientSocket {
               + this.port, ex);
       System.exit(-1);
     } catch (IOException ex) {
-      log.error(
-          "IOException bei Verbindung zu Host bei Host: " + this.host + " und Port: " + this.port, ex);
+      log.error("IOException bei Verbindung zu Host bei Host: " + this.host
+          + " und Port: " + this.port, ex);
       System.exit(-1);
     }
   }

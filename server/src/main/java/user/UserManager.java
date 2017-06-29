@@ -137,7 +137,7 @@ public class UserManager {
         log.warn(identifier.getColumnName() + " des Users mit der ID " + id + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
         return false;
       }
-      
+
       // Wenn das zu ändernde Objekt das Passwort ist, hashen
       if(identifier.equals(UserIdentifier.PASSWORD)) {
         // Wenn der Wert ein String ist
@@ -208,10 +208,10 @@ public class UserManager {
           result.next();
 
           return new User(
-                  result.getInt("id"),
-                  result.getString("username"),
-                  result.getString("password"),
-                  result.getString("email")
+              result.getInt("id"),
+              result.getString("username"),
+              result.getString("password"),
+              result.getString("email")
           );
         }
       } catch (SQLException se) {

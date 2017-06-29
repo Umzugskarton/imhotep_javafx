@@ -2,9 +2,6 @@ package json;
 
 import org.json.simple.JSONObject;
 
-/**
- * Created by tobia on 16.05.2017.
- */
 public class ClientCommands {
 
   public static JSONObject registerCommand(String username, String password, String email) {
@@ -28,7 +25,7 @@ public class ClientCommands {
     return obj;
   }
 
-  public static JSONObject chatCommand( String msg ) {
+  public static JSONObject chatCommand(String msg) {
     JSONObject obj = new JSONObject();
 
     obj.put("command", "chat");
@@ -37,7 +34,7 @@ public class ClientCommands {
     return obj;
   }
 
-  public static JSONObject whisperCommand( String to, String msg ) {
+  public static JSONObject whisperCommand(String to, String msg) {
     JSONObject obj = new JSONObject();
 
     obj.put("command", "whisper");

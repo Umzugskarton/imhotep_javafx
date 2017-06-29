@@ -4,9 +4,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.TextFlow;
 
 public interface ChatView {
-    void buildChat();
 
-    TextFlow getChatText();
+  void buildChat();
 
-    TextField getMessageInput();
+  TextFlow getChatText();
+
+  TextField getMessageInput();
 }

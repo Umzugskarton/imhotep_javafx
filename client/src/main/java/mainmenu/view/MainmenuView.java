@@ -6,13 +6,13 @@ import mainmenu.presenter.MainmenuPresenter;
 
 public interface MainmenuView {
 
-    void buildMainmenu();
+  void buildMainmenu();
 
-    void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter);
+  void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter);
 
-    Scene getMainmenuScene();
+  Scene getMainmenuScene();
 
-    void initChat(ChatView chatView);
+  void initChat(ChatView chatView);
 
-    void initPlayerList();
+  void initPlayerList();
 }

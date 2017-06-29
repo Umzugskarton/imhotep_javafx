@@ -42,7 +42,7 @@ public class ClientListener implements Runnable {
     try {
       String receivedMsg;
       while ((receivedMsg = in.readLine()) != null) {
-        log.info("Nachricht erhalten: "+ receivedMsg);
+        log.info("Nachricht erhalten: " + receivedMsg);
 
         JSONParser parser = new JSONParser();
         try {
@@ -52,13 +52,13 @@ public class ClientListener implements Runnable {
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
             JSONObject response = null;
-            switch(command){
+            switch (command) {
               case "register":
                 response = this.clientAPI.register(request);
                 break;
               case "login":
                 response = this.clientAPI.login(request);
-                if ((boolean)response.get("success")) {
+                if ((boolean) response.get("success")) {
                   this.user = this.clientAPI.getUser((String) request.get("username"));
                   this.server.sendToLoggedIn(this.server.getLoggedUsers());
                 }
@@ -72,8 +72,9 @@ public class ClientListener implements Runnable {
                 this.server.sendToLoggedIn(chatMessage);
                 break;
               case "whisper":
-                String receiverUsername = this.server.getLoggedInUsername((String) request.get("to"));
-                if(receiverUsername != null) {
+                String receiverUsername = this.server
+                    .getLoggedInUsername((String) request.get("to"));
+                if (receiverUsername != null) {
                   chatMessage = this.clientAPI.whisper(request, this.user);
                   this.server.sendTo(chatMessage, receiverUsername);
                 } else {
@@ -84,8 +85,9 @@ public class ClientListener implements Runnable {
                 this.user = null;
                 break;
             }
-
-            if(response != null) this.send(response);
+            if (response != null) {
+              this.send(response);
+            }
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
@@ -94,7 +96,7 @@ public class ClientListener implements Runnable {
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
-      if (this.isLoggedIn()){
+      if (this.isLoggedIn()) {
         this.user = null;
         this.server.sendToAll(server.getLoggedUsers());
       }
@@ -114,11 +116,13 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public boolean isLoggedIn(){
-      return this.user != null;
+  public boolean isLoggedIn() {
+    return this.user != null;
   }
 
-  public User getUser(){ return this.user; }
+  public User getUser() {
+    return this.user;
+  }
 
   public Thread getThread() {
     return Thread.currentThread();
