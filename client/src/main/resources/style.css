@@ -66,3 +66,12 @@
 #msg{
     -fx-opacity: 0.5;
 }
+
+#logout-button{
+    -fx-background-image:  url('logout.png');
+    -fx-background-size: 20px 20px;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

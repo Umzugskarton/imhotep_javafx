@@ -65,7 +65,8 @@ public class MainmenuViewImpl implements MainmenuView {
     chatTab.setTooltip(new Tooltip("chat with other players"));
     chatTab.setContent(null);
 
-    Button logoutButton = new Button("Logout");
+    Button logoutButton = new Button();
+    logoutButton.setId("logout-button");
     logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         mainmenuPresenter.toLoginScene();
@@ -82,7 +83,6 @@ public class MainmenuViewImpl implements MainmenuView {
     profileTab.setText("Profile");
     profileTab.setClosable(false);
     profileTab.setTooltip(new Tooltip("edit your profile"));
-    profileTab.setContent(logoutButton);
 
     Tab newGameTab = new Tab();
     newGameTab.setText("Create Game");
@@ -132,7 +132,7 @@ public class MainmenuViewImpl implements MainmenuView {
       }
     });
 
-    nav.getChildren().addAll(min, close);
+    nav.getChildren().addAll(logoutButton,min, close);
     //Tabs werden der TabPane der Reihe nach hinzugefügt
     tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab);
   }
