@@ -21,26 +21,23 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request JSON-Objekt, das User-Daten für Login enthält;
-   * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
+   * @param request JSON-Objekt, das User-Daten für Login enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
+  public JSONObject login(JSONObject request) {
     JSONObject response = new JSONObject();
+
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
-      if (loggedUsers.get("users").toString().contains(username)) {
-        response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
-      } else{
-        boolean isLoginValid = this.userManager.validateLogin(username, password);
 
-        if (isLoginValid) {
-          response = ServerCommands.loginCommand("Login erfolgreich!", true);
-        } else {
-          response = ServerCommands
-                  .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
-        }
+      boolean isLoginValid = this.userManager.validateLogin(username, password);
+
+      if (isLoginValid) {
+        response = ServerCommands.loginCommand("Login erfolgreich!", true);
+      } else {
+        response = ServerCommands
+            .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
       }
     } else {
       response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
@@ -116,15 +113,5 @@ public class ClientAPI {
   public User getUser(String username) {
     return this.userManager.getUser(UserIdentifier.USERNAME, username);
   }
-
-  /**
-   * Erhält der ServerListener ein Logoutbefehl vom Clientthread
-   * so wird ein dieser im Clientlistener entfernt und
-   * ein hier erstelltes logout Command zurückgeschickt.
-   *
-   * @return das logout command das für den Client den
-   *          Erfolg des Ausloggens bestätigt
-   */
-  public JSONObject logout(){return  ServerCommands.logoutCommand(true); }
 
 }
