@@ -52,6 +52,9 @@ public class ClientListener implements Runnable {
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
             JSONObject response = null;
+            if (!(command.equals("register") || command.equals("login")) && this.user==null) {
+              return;
+            }
             switch (command) {
               case "register":
                 response = this.clientAPI.register(request);
