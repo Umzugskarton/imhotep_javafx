@@ -23,7 +23,7 @@ public class LoginPresenter {
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
-        this.view.updateStatusLabel(TextBundle.getString("passwordmustnotbeempty"));
+        this.view.updateStatusLabel(TextBundle.getString("passwordMustNotBeEmpty"));
     }
   }
 
@@ -31,7 +31,7 @@ public class LoginPresenter {
     if (loginSuccessful) {
       this.toMainmenuScene();
       sceneController.getMainmenuPresenter().getChatPresenter()
-          .addInfoMessage(TextBundle.getString("successfullogin"));
+          .addInfoMessage(TextBundle.getString("successfulLogin"));
     } else {
       this.view.updateStatusLabel(message);
     }
