@@ -24,7 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mainmenu.presenter.MainmenuPresenter;
 
-
 public class MainmenuViewImpl implements MainmenuView {
 
   private Scene mainmenuScene;
@@ -38,7 +37,6 @@ public class MainmenuViewImpl implements MainmenuView {
   }
 
   public void buildMainmenu() {
-
     this.main = new BorderPane();
     main.setId("menuroot");
     GridPane grid = new GridPane();
@@ -65,7 +63,7 @@ public class MainmenuViewImpl implements MainmenuView {
     chatTab = new Tab();
     chatTab.setText("Chat");
     chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip(TextBundle.getString("chatTab")));
+    chatTab.setTooltip(new Tooltip(TextBundle.getString("chatTabTooltip")));
     chatTab.setContent(null);
 
     Button logoutButton = new Button();
@@ -80,22 +78,22 @@ public class MainmenuViewImpl implements MainmenuView {
     Tab gamesTab = new Tab();
     gamesTab.setText("Games");
     gamesTab.setClosable(false);
-    gamesTab.setTooltip(new Tooltip(TextBundle.getString("gameTab")));
+    gamesTab.setTooltip(new Tooltip(TextBundle.getString("gameTabTooltip")));
 
     Tab profileTab = new Tab();
     profileTab.setText("Profile");
     profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip(TextBundle.getString("profileTab")));
+    profileTab.setTooltip(new Tooltip(TextBundle.getString("profileTabTooltip")));
 
     Tab newGameTab = new Tab();
     newGameTab.setText("Create Game");
     newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip(TextBundle.getString("newGameTab")));
+    newGameTab.setTooltip(new Tooltip(TextBundle.getString("newGameTabTooltip")));
 
     Tab rulesTab = new Tab();
     rulesTab.setText("Rules");
     rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip(TextBundle.getString("rulesTab")));
+    rulesTab.setTooltip(new Tooltip(TextBundle.getString("rulesTabTooltip")));
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
