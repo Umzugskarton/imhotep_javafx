@@ -1,9 +1,10 @@
 package mainmenu.view;
 
+import static general.TextBundle.getString;
+
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import general.Delta;
-import general.TextBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -61,9 +62,9 @@ public class MainmenuViewImpl implements MainmenuView {
     mainmenuScene.setFill(Color.TRANSPARENT);
 
     chatTab = new Tab();
-    chatTab.setText("Chat");
+    chatTab.setText(getString("Chat"));
     chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip(TextBundle.getString("chatTabTooltip")));
+    chatTab.setTooltip(new Tooltip(getString("chatTabTooltip")));
     chatTab.setContent(null);
 
     Button logoutButton = new Button();
@@ -76,24 +77,24 @@ public class MainmenuViewImpl implements MainmenuView {
     });
 
     Tab gamesTab = new Tab();
-    gamesTab.setText("Games");
+    gamesTab.setText(getString("Games"));
     gamesTab.setClosable(false);
-    gamesTab.setTooltip(new Tooltip(TextBundle.getString("gameTabTooltip")));
+    gamesTab.setTooltip(new Tooltip(getString("gameTabTooltip")));
 
     Tab profileTab = new Tab();
-    profileTab.setText("Profile");
+    profileTab.setText(getString("Profile"));
     profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip(TextBundle.getString("profileTabTooltip")));
+    profileTab.setTooltip(new Tooltip(getString("profileTabTooltip")));
 
     Tab newGameTab = new Tab();
-    newGameTab.setText("Create Game");
+    newGameTab.setText(getString("CreateGame"));
     newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip(TextBundle.getString("newGameTabTooltip")));
+    newGameTab.setTooltip(new Tooltip(getString("newGameTabTooltip")));
 
     Tab rulesTab = new Tab();
-    rulesTab.setText("Rules");
+    rulesTab.setText(getString("Rules"));
     rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip(TextBundle.getString("rulesTabTooltip")));
+    rulesTab.setTooltip(new Tooltip(getString("rulesTabTooltip")));
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
