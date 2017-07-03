@@ -3,6 +3,7 @@ package mainmenu.view;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import general.Delta;
+import general.TextBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mainmenu.presenter.MainmenuPresenter;
 
+
 public class MainmenuViewImpl implements MainmenuView {
 
   private Scene mainmenuScene;
@@ -36,6 +38,7 @@ public class MainmenuViewImpl implements MainmenuView {
   }
 
   public void buildMainmenu() {
+
     this.main = new BorderPane();
     main.setId("menuroot");
     GridPane grid = new GridPane();
@@ -62,7 +65,7 @@ public class MainmenuViewImpl implements MainmenuView {
     chatTab = new Tab();
     chatTab.setText("Chat");
     chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip("chat with other players"));
+    chatTab.setTooltip(new Tooltip(TextBundle.getString("chatTab")));
     chatTab.setContent(null);
 
     Button logoutButton = new Button();
@@ -77,22 +80,22 @@ public class MainmenuViewImpl implements MainmenuView {
     Tab gamesTab = new Tab();
     gamesTab.setText("Games");
     gamesTab.setClosable(false);
-    gamesTab.setTooltip(new Tooltip("find open games"));
+    gamesTab.setTooltip(new Tooltip(TextBundle.getString("gameTab")));
 
     Tab profileTab = new Tab();
     profileTab.setText("Profile");
     profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip("edit your profile"));
+    profileTab.setTooltip(new Tooltip(TextBundle.getString("profileTab")));
 
     Tab newGameTab = new Tab();
     newGameTab.setText("Create Game");
     newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip("create a new game"));
+    newGameTab.setTooltip(new Tooltip(TextBundle.getString("newGameTab")));
 
     Tab rulesTab = new Tab();
     rulesTab.setText("Rules");
     rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip("learn the game"));
+    rulesTab.setTooltip(new Tooltip(TextBundle.getString("rulesTab")));
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
