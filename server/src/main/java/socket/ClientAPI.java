@@ -23,7 +23,6 @@ public class ClientAPI {
    *
    * @param request JSON-Objekt, das User-Daten für Login enthält;
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
-   * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
   public JSONObject login(JSONObject request, JSONObject loggedUsers) {
     JSONObject response;
@@ -32,7 +31,7 @@ public class ClientAPI {
       String password = (String) request.get("password");
       if (loggedUsers.get("users").toString().contains(username)) {
         response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
-      } else{
+      } else {
         boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
 
         if (isLoginValid) {
@@ -82,6 +81,29 @@ public class ClientAPI {
     }
     return response;
   }
+
+  public JSONObject chat(JSONObject request, User user) {
+    JSONObject response = new JSONObject();
+
+    if (request.containsKey("message") && user != null) {
+      String message = (String) request.get("message");
+
+      response = ServerCommands.chatCommand(user.getUsername(), message);
+    }
+    return response;
+  }
+
+  public JSONObject whisper(JSONObject request, User user) {
+    JSONObject response = new JSONObject();
+
+    if (request.containsKey("message") && request.containsKey("to") && user != null) {
+      String message = (String) request.get("message");
+
+      response = ServerCommands.whisperCommand(user.getUsername(), message);
+    }
+    return response;
+  }
+
   /**
    * Ist der Login() erfolgreich, so wird ein Userelement über
    * dern Usernamen initiert und der Userliste hinzugefügt.
@@ -90,6 +112,8 @@ public class ClientAPI {
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
-  public User getUser(String username){ return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username); }
+  public User getUser(String username) {
+    return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username);
+  }
 
 }

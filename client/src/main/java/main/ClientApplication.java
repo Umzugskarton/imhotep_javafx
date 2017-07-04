@@ -2,12 +2,10 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import json.ClientCommands;
 import socket.ClientSocket;
 
 public class ClientApplication extends Application {
 
-  private Stage stage;
   private SceneController sceneController;
 
   // Socket, um bei Beenden des Clients Verbindung zu beenden

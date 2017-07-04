@@ -1,19 +1,20 @@
 package main;
 
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import login.presenter.LoginPresenter;
+import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
-
-import javafx.stage.Stage;
-import login.presenter.LoginPresenter;
-import login.view.LoginViewImpl;
 import socket.ClientSocket;
+
 
 public class SceneController {
 
-  private static final int STAGE_WIDTH = 640;
-  private static final int STAGE_HEIGHT = 250;
+  private static final int STAGE_WIDTH = 720;
+  private static final int STAGE_HEIGHT = 480;
 
   private Stage stage;
 
@@ -29,9 +30,11 @@ public class SceneController {
     this.clientSocket = new ClientSocket(this);
     this.stage = stage;
     this.toLoginScene();
+    stage.initStyle(StageStyle.TRANSPARENT);
     stage.setTitle("Imhotep");
     stage.setHeight(STAGE_HEIGHT);
     stage.setWidth(STAGE_WIDTH);
+    stage.getScene().getStylesheets().add("style.css");
     stage.show();
   }
 
@@ -40,9 +43,8 @@ public class SceneController {
       this.registrationPresenter = new RegistrationPresenter(new RegistrationViewImpl(), this);
     }
     this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
+    this.stage.getScene().getStylesheets().add("style.css");
   }
-
-
 
   public void toLoginScene() {
     if (this.loginPresenter == null) {
@@ -50,6 +52,7 @@ public class SceneController {
     }
 
     this.stage.setScene(this.loginPresenter.getLoginView().getLoginScene());
+    this.stage.getScene().getStylesheets().add("style.css");
   }
 
   public void toMainmenuScene() {
@@ -58,6 +61,7 @@ public class SceneController {
     }
 
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
+    this.stage.getScene().getStylesheets().add("style.css");
   }
 
   public ClientSocket getClientSocket() {
@@ -67,11 +71,16 @@ public class SceneController {
   public LoginPresenter getLoginPresenter() {
     return this.loginPresenter;
   }
-  public MainmenuPresenter getMainmenuPresenter() {return this.MainmenuPresenter;}
+
+  public MainmenuPresenter getMainmenuPresenter() {
+    return this.MainmenuPresenter;
+  }
+
+  public Stage getStage() {
+    return this.stage;
+  }
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
   }
-
-
 }

@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import json.ServerCommands;
 import org.json.simple.JSONArray;
-
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,22 +82,50 @@ public class Server {
     }
   }
 
+  public boolean sendTo(JSONObject json, String to) {
+    boolean found = false;
+    ClientListener toClient = null;
+    for (ClientListener clientListener : connectedClients) {
+      if (clientListener.getUser().getUsername().equals(to)) {
+        toClient = clientListener;
+        break;
+      }
+    }
+    if (toClient != null) {
+      found = true;
+      toClient.send(json);
+    }
+
+    return found;
+  }
+
   public void sendToLoggedIn(JSONObject json) {
     for (ClientListener clientListener : connectedClients) {
-      if(clientListener.isLoggedIn()) {
+      if (clientListener.isLoggedIn()) {
         clientListener.send(json);
       }
     }
   }
 
-  public JSONObject getLoggedUsers(){
-    JSONArray users= new JSONArray();
-    for (ClientListener client:connectedClients)
-    {
-      if (client.isLoggedIn()){
+  public JSONObject getLoggedUsers() {
+    JSONArray users = new JSONArray();
+    for (ClientListener client : connectedClients) {
+      if (client.isLoggedIn()) {
         users.add(client.getUser().getUsername());
       }
     }
     return ServerCommands.userlistCommand(users);
+  }
+
+  public String getLoggedInUsername(String username) {
+    for (ClientListener client : connectedClients) {
+      if (client.isLoggedIn()) {
+        if (client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
+          return client.getUser().getUsername();
+        }
+      }
+    }
+
+    return null;
   }
 }

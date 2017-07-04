@@ -1,20 +1,22 @@
-group 'swp17i'
-version '1.0-SNAPSHOT'
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
 
-apply plugin: 'java'
-apply plugin: 'idea'
+    sourceCompatibility = 1.8
 
-sourceCompatibility = 1.8
-
-repositories {
-    maven {
-        url "http://uk.maven.org/maven2"
+    repositories {
+        //http://search.maven.org
+        mavenCentral()
     }
-}
 
-idea {
-    module {
-        downloadJavadoc = false
-        downloadSources = false
+    dependencies {
+        compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    }
+
+    idea {
+        module {
+            downloadJavadoc = false
+            downloadSources = false
+        }
     }
 }

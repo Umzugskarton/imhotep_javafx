@@ -1,0 +1,77 @@
+.button{
+    -fx-text-fill: #f4c933;
+    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    -fx-border-radius: 0;
+    -fx-font-weight: bold;
+
+}
+
+
+
+#loginroot{
+    -fx-background-image: url("imhotep.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+}
+
+#regroot{
+    -fx-background-image: url("imhotep.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+}
+
+#menuroot{
+    -fx-background-image: url("chat.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+    -fx-padding: 5 15 15 15;
+}
+
+.tab{
+    -fx-border-radius: 0;
+    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    -fx-background-size: stretch;
+    -fx-background-insets: 0 1 0 1,0,0;
+
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label{
+    -fx-text-fill: #f4c933;
+}
+
+.tab-pane{
+    -fx-tab-min-width:60px;
+}
+
+.nav{
+    -webkit-fx-padding: 5 5 5 5;
+    -moz-fx-padding: 5 5 5 5;
+    -ms-fx-padding: 5 5 5 5;
+    -o-fx-padding: 5 5 5 5;
+    fx-padding: 5 5 5 5;;
+}
+
+#msg{
+    -fx-opacity: 0.5;
+}
+
+#logout-button{
+    -fx-background-image:  url('logout.png');
+    -fx-background-size: 20px 20px;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
