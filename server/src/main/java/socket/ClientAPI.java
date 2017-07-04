@@ -2,6 +2,7 @@ package socket;
 
 import database.userdata.DBUserDataSource;
 import json.ServerCommands;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
@@ -29,7 +30,7 @@ public class ClientAPI {
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
-      if (loggedUsers.get("users").toString().contains(username)) {
+      if (((JSONArray)loggedUsers.get("users")).contains(username)) {
         response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
       } else {
         boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
