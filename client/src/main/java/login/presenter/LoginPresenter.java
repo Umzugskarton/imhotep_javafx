@@ -1,5 +1,6 @@
 package login.presenter;
 
+
 import json.ClientCommands;
 import login.view.LoginView;
 import main.SceneController;
@@ -25,6 +26,7 @@ public class LoginPresenter {
       this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");
     }
   }
+
 
   public void processLoginResponse(boolean loginSuccessful, String message) {
     if (loginSuccessful) {

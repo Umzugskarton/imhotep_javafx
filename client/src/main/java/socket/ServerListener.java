@@ -1,12 +1,13 @@
 package socket;
 
+import com.google.common.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import javafx.application.Platform;
 import main.SceneController;
-import org.json.simple.JSONArray;
+import main.events.EventFactory;
+import main.events.voidEvent;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -19,10 +20,12 @@ public class ServerListener implements Runnable {
 
   private Socket serverSocket;
   private SceneController sceneController;
+  private EventBus eventBus;
 
-  public ServerListener(Socket serverSocket, SceneController sceneController) {
+  public ServerListener(Socket serverSocket, SceneController sceneController, EventBus eventBus) {
     this.serverSocket = serverSocket;
     this.sceneController = sceneController;
+    this.eventBus = eventBus;
   }
 
   @Override
@@ -40,87 +43,10 @@ public class ServerListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
+            EventFactory eventFactory = new EventFactory();
+            voidEvent event = eventFactory.getEvent(request);
+            this.eventBus.post(event);
 
-          if (request.containsKey("command")) {
-            String command = (String) request.get("command");
-
-            if (command.equals("register") && request.containsKey("message")) {
-              String message = (String) request.get("message");
-
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-              Platform.runLater(
-                  () -> {
-                    this.sceneController.getRegistrationPresenter()
-                        .processRegisterResponse(message);
-                  }
-              );
-            } else if (command.equals("login") && request.containsKey("message") && request
-                .containsKey("success")) {
-              String message = (String) request.get("message");
-              Boolean success = (Boolean) request.get("success");
-
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-
-              Platform.runLater(
-                  () -> {
-                    this.sceneController.getLoginPresenter().processLoginResponse(success, message);
-                  }
-              );
-            } else if (command.equals("userlist") && request.containsKey("users")) {
-              JSONArray userArray = (JSONArray) request.get("users");
-
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-              Platform.runLater(
-                  () -> {
-                    if (this.sceneController.getMainmenuPresenter() != null) {
-                      this.sceneController.getMainmenuPresenter().updateUserlist(userArray);
-                    }
-                  }
-              );
-            } else if (command.equals("chat") && request.containsKey("message")) {
-              String message = (String) request.get("message");
-              String user = (String) request.get("user");
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-              Platform.runLater(
-                  () -> {
-                    if (this.sceneController.getMainmenuPresenter() != null) {
-                      this.sceneController.getMainmenuPresenter().getChatPresenter()
-                          .addChatMessage(user, message);
-                    }
-                  }
-              );
-            } else if (command.equals("chatInfo") && request.containsKey("message")) {
-              String message = (String) request.get("message");
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-              Platform.runLater(
-                  () -> {
-                    if (this.sceneController.getMainmenuPresenter() != null) {
-                      this.sceneController.getMainmenuPresenter().getChatPresenter()
-                          .addInfoMessage(message);
-                    }
-                  }
-              );
-            } else if (command.equals("whisper") && request.containsKey("message") && request
-                .containsKey("from")) {
-              String message = (String) request.get("message");
-              String user = (String) request.get("from");
-              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-              Platform.runLater(
-                  () -> {
-                    if (this.sceneController.getMainmenuPresenter() != null) {
-                      this.sceneController.getMainmenuPresenter().getChatPresenter()
-                          .addWhisper(user, message, true);
-                    }
-                  }
-              );
-            }
-          }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
         }
