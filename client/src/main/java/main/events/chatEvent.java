@@ -1,7 +1,6 @@
 package main.events;
 
 import org.json.simple.JSONObject;
-
 import java.util.Date;
 
 public class chatEvent implements voidEvent {

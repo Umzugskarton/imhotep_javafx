@@ -1,12 +1,8 @@
 package main.events;
 
 import org.json.simple.JSONObject;
-
 import java.util.Date;
 
-/**
- * Created by fabianrieger on 26.07.17.
- */
 public class loginEvent implements voidEvent{
     private boolean success;
     private String msg;

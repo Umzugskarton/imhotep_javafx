@@ -2,7 +2,6 @@ package main.events;
 
 
 import org.json.simple.JSONObject;
-
 import java.util.Date;
 
 public class logoutEvent implements voidEvent{

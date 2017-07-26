@@ -1,20 +1,10 @@
 package main.events;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.awt.*;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by fabianrieger on 26.07.17.
- */
 public class EventFactory {
     private JSONObject j;
-
     private HashMap<String, voidEvent> Dict = new HashMap<>();
 
     public EventFactory(){
@@ -40,5 +30,4 @@ public class EventFactory {
             return null;
         }
     }
-
 }
