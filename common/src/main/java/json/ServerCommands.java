@@ -63,6 +63,26 @@ public class ServerCommands {
     return obj;
   }
 
+  public  static JSONObject joinCommand(String msg, boolean success){
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "join");
+    obj.put("success", success);
+    obj.put("message", msg);
+
+    return obj;
+  }
+
+  public  static JSONObject createCommand(String msg, boolean success, int id){
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "create");
+    obj.put("success", success);
+    obj.put("lobbyid", id);
+    obj.put("message", msg);
+
+    return obj;
+  }
 
   public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();

@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import json.ServerCommands;
+import lobby.Lobby;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ public class Server {
   private ServerSocket serverSocket = null;
   private ClientAPI clientAPI = null;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
+  private ArrayList<Lobby> openLobby = new ArrayList<>();
 
   public Server() {
     this.port = 47096;
@@ -62,6 +64,14 @@ public class Server {
 
     log.info(
         "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
+  }
+
+  public JSONObject addLobby(Lobby lobby){
+    log.info("Eine neue Lobby wurde erstellt");
+    this.openLobby.add(lobby);
+
+    JSONObject j = ServerCommands.createCommand("Lobby Erfolgreich erstellt!", true, openLobby.size()-1);
+    return j;
   }
 
   public void removeClient(ClientListener clientListener) {

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import json.ServerCommands;
+import lobby.Lobby;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
@@ -81,6 +82,10 @@ public class ClientListener implements Runnable {
                   response = ServerCommands.userNotFoundError((String) request.get("to"));
                 }
                 break;
+              case "create":
+                    Lobby lobby = this.clientAPI.createLobby(request, this.user);
+                    response = this.server.addLobby(lobby);
+                    break;
               case "logout":
                 this.user = null;
                 break;

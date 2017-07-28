@@ -1,6 +1,7 @@
 package socket;
 
 import json.ServerCommands;
+import lobby.Lobby;
 import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
@@ -116,6 +117,18 @@ public class ClientAPI {
    */
   public User getUser(String username) {
     return this.userManager.getUser(UserIdentifier.USERNAME, username);
+  }
+
+  public Lobby createLobby(JSONObject j, User user){
+    String name = (String) j.get("name");
+    int size = (int)(long)j.get("size");
+    Lobby lobby = new Lobby(size, user, name);
+
+    if(j.containsKey("password")){
+      lobby.setPassword((String) j.get("password"));
+    }
+
+    return lobby;
   }
 
 }

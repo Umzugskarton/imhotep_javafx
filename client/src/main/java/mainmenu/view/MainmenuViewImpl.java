@@ -2,6 +2,8 @@ package mainmenu.view;
 
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
+import create.view.CreateView;
+import create.view.CreateViewImpl;
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +32,7 @@ public class MainmenuViewImpl implements MainmenuView {
   private Label userList;
   private BorderPane main;
   private Tab chatTab;
+  private Tab newGameTab;
 
   public MainmenuViewImpl() {
     buildMainmenu();
@@ -83,8 +86,7 @@ public class MainmenuViewImpl implements MainmenuView {
     profileTab.setText("Profile");
     profileTab.setClosable(false);
     profileTab.setTooltip(new Tooltip("edit your profile"));
-
-    Tab newGameTab = new Tab();
+    newGameTab =new Tab();
     newGameTab.setText("Create Game");
     newGameTab.setClosable(false);
     newGameTab.setTooltip(new Tooltip("create a new game"));
@@ -162,6 +164,13 @@ public class MainmenuViewImpl implements MainmenuView {
   public void initChat(ChatView chatView) {
     this.chatTab.setContent((ChatViewImpl) chatView);
   }
+
+
+  public void initCreate(CreateView createView) {
+    this.newGameTab.setContent((CreateViewImpl) createView);
+  }
+
+
 
   @Override
   public void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter) {

@@ -34,6 +34,19 @@ public class ClientCommands {
     return obj;
   }
 
+  public static JSONObject createCommand(String name, int size, String psw) {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "create");
+    obj.put("name", name);
+    obj.put("size", size);
+    if (psw!=null){
+      obj.put("password", psw);
+    }
+
+    return obj;
+  }
+
   public static JSONObject whisperCommand(String to, String msg) {
     JSONObject obj = new JSONObject();
 
