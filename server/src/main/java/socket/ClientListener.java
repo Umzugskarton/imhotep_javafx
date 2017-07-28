@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import json.ServerCommands;
+import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import socket.commands.CommandFactory;
 import user.User;
 
 public class ClientListener implements Runnable {
@@ -51,6 +52,11 @@ public class ClientListener implements Runnable {
 
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
+            CommandFactory commandFactory = new CommandFactory(this, request);
+            command c = commandFactory.getCommand(command);
+            Invoker invoker = new Invoker(c);
+            invoker.call();
+            /*
             JSONObject response = null;
             switch (command) {
               case "register":
@@ -62,7 +68,6 @@ public class ClientListener implements Runnable {
                   this.user = this.clientAPI.getUser((String) request.get("username"));
                   this.server.sendToLoggedIn(this.server.getLoggedUsers());
                 }
-
                 break;
               case "userlist":
                 response = this.server.getLoggedUsers();
@@ -88,6 +93,7 @@ public class ClientListener implements Runnable {
             if (response != null) {
               this.send(response);
             }
+            */
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
@@ -123,8 +129,15 @@ public class ClientListener implements Runnable {
   public User getUser() {
     return this.user;
   }
+  public void setUser(User user){
+    this.user=user;
+  }
 
   public Thread getThread() {
     return Thread.currentThread();
   }
+
+  public ClientAPI getClientAPI(){return this.clientAPI;}
+
+  public Server getServer(){return this.server;}
 }
