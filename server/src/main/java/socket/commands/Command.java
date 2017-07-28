@@ -1,5 +1,5 @@
 package socket.commands;
 
-public interface command {
+public interface Command {
     void exec();
 }

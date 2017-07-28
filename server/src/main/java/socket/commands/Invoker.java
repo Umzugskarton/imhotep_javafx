@@ -2,9 +2,9 @@ package socket.commands;
 
 
 public class Invoker {
-    private command command;
+    private Command command;
 
-    public  Invoker(command c){
+    public  Invoker(Command c){
         this.command = c;
     }
 

@@ -3,7 +3,7 @@ package socket.commands;
 import org.json.simple.JSONObject;
 import socket.ClientListener;
 
-public class logoutCommand implements command {
+public class logoutCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
 

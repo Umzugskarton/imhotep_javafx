@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
 
-public class registerCommand implements command{
+public class registerCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
     private ClientAPI clientAPI;

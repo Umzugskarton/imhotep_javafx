@@ -6,7 +6,7 @@ import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
-public class whisperCommand implements command {
+public class whisperCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
     private Server server;

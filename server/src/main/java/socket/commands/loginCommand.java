@@ -8,7 +8,7 @@ import socket.Server;
 /**
  * Created by fabianrieger on 27.07.17.
  */
-public class loginCommand implements command {
+public class loginCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
     private Server server;
@@ -21,7 +21,7 @@ public class loginCommand implements command {
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec(){
-        JSONObject response = this.clientListener.getClientAPI().login(request, this.clientListener.getServer().getLoggedUsers());
+        JSONObject response = this.clientListener.getClientAPI().login(request, this.server.getLoggedUsers());
         if ((boolean) response.get("success")) {
             this.clientListener.setUser(this.clientAPI.getUser((String) request.get("username")));
             this.server.sendToLoggedIn(this.server.getLoggedUsers());

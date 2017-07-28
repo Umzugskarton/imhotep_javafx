@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class CommandFactory {
 
 
-    private HashMap<String, command> Dict = new HashMap<>();
+    private HashMap<String, Command> Dict = new HashMap<>();
 
     public CommandFactory(ClientListener clientListener, JSONObject j){
         Dict.put("register", new registerCommand(clientListener, j));
@@ -20,8 +20,7 @@ public class CommandFactory {
         Dict.put("chat", new chatCommand(clientListener, j));
     }
 
-    public command getCommand(String c){
-            command e = Dict.get(c);
-            return e;
+    public Command getCommand(String c){
+            return Dict.get(c);
     }
 }

@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
 
-public class userlistCommand implements command {
+public class userlistCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
     private ClientAPI clientAPI;

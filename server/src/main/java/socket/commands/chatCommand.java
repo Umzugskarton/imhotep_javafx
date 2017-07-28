@@ -5,7 +5,7 @@ import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
-public class chatCommand implements command {
+public class chatCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
     private Server server;

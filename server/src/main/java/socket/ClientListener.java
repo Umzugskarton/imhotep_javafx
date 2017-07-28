@@ -53,47 +53,9 @@ public class ClientListener implements Runnable {
           if (request.containsKey("command")) {
             String command = (String) request.get("command");
             CommandFactory commandFactory = new CommandFactory(this, request);
-            command c = commandFactory.getCommand(command);
+            Command c = commandFactory.getCommand(command);
             Invoker invoker = new Invoker(c);
             invoker.call();
-            /*
-            JSONObject response = null;
-            switch (command) {
-              case "register":
-                response = this.clientAPI.register(request);
-                break;
-              case "login":
-                response = this.clientAPI.login(request, this.server.getLoggedUsers());
-                if ((boolean) response.get("success")) {
-                  this.user = this.clientAPI.getUser((String) request.get("username"));
-                  this.server.sendToLoggedIn(this.server.getLoggedUsers());
-                }
-                break;
-              case "userlist":
-                response = this.server.getLoggedUsers();
-                break;
-              case "chat":
-                JSONObject chatMessage = this.clientAPI.chat(request, this.user);
-                this.server.sendToLoggedIn(chatMessage);
-                break;
-              case "whisper":
-                String receiverUsername = this.server
-                    .getLoggedInUsername((String) request.get("to"));
-                if (receiverUsername != null) {
-                  chatMessage = this.clientAPI.whisper(request, this.user);
-                  this.server.sendTo(chatMessage, receiverUsername);
-                } else {
-                  response = ServerCommands.userNotFoundError((String) request.get("to"));
-                }
-                break;
-              case "logout":
-                this.user = null;
-                break;
-            }
-            if (response != null) {
-              this.send(response);
-            }
-            */
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
