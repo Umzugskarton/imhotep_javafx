@@ -4,6 +4,8 @@ import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import create.view.CreateView;
 import create.view.CreateViewImpl;
+import games.view.GamesView;
+import games.view.GamesViewImpl;
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +35,7 @@ public class MainmenuViewImpl implements MainmenuView {
   private BorderPane main;
   private Tab chatTab;
   private Tab newGameTab;
+  private Tab gamesTab;
 
   public MainmenuViewImpl() {
     buildMainmenu();
@@ -77,7 +80,7 @@ public class MainmenuViewImpl implements MainmenuView {
       }
     });
 
-    Tab gamesTab = new Tab();
+    gamesTab = new Tab();
     gamesTab.setText("Games");
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip("find open games"));
@@ -169,7 +172,9 @@ public class MainmenuViewImpl implements MainmenuView {
   public void initCreate(CreateView createView) {
     this.newGameTab.setContent((CreateViewImpl) createView);
   }
-
+  public void initGames(GamesView gamesView){
+    this.gamesTab.setContent((GamesViewImpl) gamesView);
+  }
 
 
   @Override

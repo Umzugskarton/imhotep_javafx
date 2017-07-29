@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import create.presenter.CreatePresenter;
+import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
 import json.ClientCommands;
 import main.SceneController;
@@ -21,6 +22,7 @@ public class MainmenuPresenter {
   private PlayerList playerList;
   private ChatPresenter chatPresenter;
   private CreatePresenter createPresenter;
+  private GamesPresenter gamesPresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -33,10 +35,14 @@ public class MainmenuPresenter {
 
     this.chatPresenter = new ChatPresenter(this.sceneController);
     view.initChat(this.chatPresenter.getChatView());
+    this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
 
     this.createPresenter = new CreatePresenter(this.sceneController);
     view.initCreate(this.createPresenter.getCreateView());
-    this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
+
+    this.gamesPresenter = new GamesPresenter(this.sceneController);
+    view.initGames(this.gamesPresenter.getGamesView());
+    this.sceneController.getClientSocket().send(ClientCommands.lobbylistCommand());
   }
 
   public MainmenuView getMainmenuView() {
@@ -99,5 +105,8 @@ public class MainmenuPresenter {
 
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
+  }
+  public GamesPresenter getGamesPresenter() {
+    return this.gamesPresenter;
   }
 }

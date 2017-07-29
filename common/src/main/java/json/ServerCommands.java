@@ -84,6 +84,15 @@ public class ServerCommands {
     return obj;
   }
 
+  public static JSONObject lobbylistCommand(JSONArray lobbies){
+    JSONObject obj= new JSONObject();
+
+    obj.put("command", "lobbylist");
+    obj.put("lobbies", lobbies);
+
+    return obj;
+  }
+
   public static JSONObject userlistCommand(JSONArray users) {
     JSONObject obj = new JSONObject();
 

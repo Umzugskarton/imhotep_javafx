@@ -117,6 +117,21 @@ public class Server {
     }
   }
 
+  public JSONObject getLobbies(){
+    JSONArray lobbies = new JSONArray();
+    for (Lobby lobby: openLobby) {
+      JSONObject tempLobby= new JSONObject();
+      tempLobby.put("name", lobby.getName());
+      tempLobby.put("lobbyid", openLobby.indexOf(lobby));
+      tempLobby.put("size", lobby.getSize());
+      tempLobby.put("usercount", lobby.getUserCount());
+      tempLobby.put("haspw", lobby.hasPW());
+      lobbies.add(tempLobby);
+    }
+    return ServerCommands.lobbylistCommand(lobbies);
+  }
+
+
   public JSONObject getLoggedUsers() {
     JSONArray users = new JSONArray();
     for (ClientListener client : connectedClients) {

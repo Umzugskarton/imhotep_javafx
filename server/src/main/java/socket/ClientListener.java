@@ -68,6 +68,9 @@ public class ClientListener implements Runnable {
               case "userlist":
                 response = this.server.getLoggedUsers();
                 break;
+              case "lobbylist":
+                response = this.server.getLobbies();
+                break;
               case "chat":
                 JSONObject chatMessage = this.clientAPI.chat(request, this.user);
                 this.server.sendToLoggedIn(chatMessage);
@@ -85,6 +88,7 @@ public class ClientListener implements Runnable {
               case "create":
                     Lobby lobby = this.clientAPI.createLobby(request, this.user);
                     response = this.server.addLobby(lobby);
+                    this.server.sendToLoggedIn(this.server.getLobbies());
                     break;
               case "logout":
                 this.user = null;

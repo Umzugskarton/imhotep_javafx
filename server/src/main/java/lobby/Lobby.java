@@ -16,6 +16,8 @@ public class Lobby {
         this.lobby = new User[size];
         this.lobby[0] = host;
         this.password=null;
+        this.name=name;
+        this.size = size;
     }
 
     public void setPassword(String psw){
@@ -46,6 +48,23 @@ public class Lobby {
             return response;
     }
 
+    public boolean hasPW(){
+        return this.password!=null;
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
+    public int getUserCount(){
+        int users=0;
+        for (int i = 0; i < lobby.length; i++) {
+            if (lobby[i] != null) {
+                users++;
+            }
+        }
+        return users;
+    }
 
     public void leave(User user){
         for (int i = 0; i < lobby.length ; i++){

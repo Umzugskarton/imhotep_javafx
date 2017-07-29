@@ -65,6 +65,14 @@ public class ClientCommands {
     return obj;
   }
 
+  public static JSONObject lobbylistCommand() {
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "lobbylist");
+
+    return obj;
+  }
+
   public static JSONObject logoutCommand() {
     JSONObject obj = new JSONObject();
 

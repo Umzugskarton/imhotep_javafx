@@ -80,6 +80,18 @@ public class ServerListener implements Runnable {
                     }
                   }
               );
+            }else if (command.equals("lobbylist") && request.containsKey("lobbies")) {
+              JSONArray lobbiesArray = (JSONArray) request.get("lobbies");
+
+              // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
+              // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+              Platform.runLater(
+                  () -> {
+                    if (this.sceneController.getMainmenuPresenter() != null) {
+                      this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(lobbiesArray);
+                    }
+                  }
+              );
             } else if (command.equals("chat") && request.containsKey("message")) {
               String message = (String) request.get("message");
               String user = (String) request.get("user");
