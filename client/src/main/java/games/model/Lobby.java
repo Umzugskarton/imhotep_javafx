@@ -1,6 +1,5 @@
 package games.model;
 
-
 public class Lobby {
     private int id;
     private String name;

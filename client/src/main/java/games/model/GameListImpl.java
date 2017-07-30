@@ -2,8 +2,6 @@ package games.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.json.simple.JSONArray;
-
 
 public class GameListImpl implements GameList {
     private ObservableList<Lobby> games;
