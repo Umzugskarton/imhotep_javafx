@@ -35,14 +35,14 @@ public class Lobby {
                 for (int i = 0; i < lobby.length; i++) {
                     if (lobby[i] == null) {
                         lobby[i] = user;
-                        response = ServerCommands.joinCommand(" ", true);
+                        response = ServerCommands.joinCommand("Erfolgreich beigetreten!", true);
                         return response;
                     }
                 }
+            }
                 this.vacancy = false;
                 response = ServerCommands.joinCommand("Die Lobby ist voll.", false);
                 return response;
-            }
         }
             response = ServerCommands.joinCommand("Das Passwort ist falsch.", false);
             return response;

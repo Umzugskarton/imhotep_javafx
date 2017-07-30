@@ -121,7 +121,7 @@ public class ClientAPI {
 
   public Lobby createLobby(JSONObject j, User user){
     String name = (String) j.get("name");
-    int size = (int)(long)j.get("size");
+    int size = Integer.parseInt(j.get("size").toString());
     Lobby lobby = new Lobby(size, user, name);
 
     if(j.containsKey("password")){
