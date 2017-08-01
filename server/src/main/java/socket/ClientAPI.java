@@ -124,7 +124,7 @@ public class ClientAPI {
     int size = Integer.parseInt(j.get("size").toString());
     Lobby lobby = new Lobby(size, user, name);
 
-    if(j.containsKey("password")){
+    if(j.containsKey("password") && j.get("password")==""){
       lobby.setPassword((String) j.get("password"));
     }
 

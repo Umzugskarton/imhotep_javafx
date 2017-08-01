@@ -6,6 +6,7 @@ import games.model.GameListImpl;
 import games.model.Lobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
+import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,20 +32,27 @@ public class GamesPresenter {
 
     public void updateLobbylist(JSONArray gamesArray){
         gamesList.getGames().clear();
-        JSONParser parser = new JSONParser();
-
+        int size;
+        int id;
+        int usercount;
+        String name;
+        boolean haspw;
         for (Object game : gamesArray){
             JSONObject gameLobby = (JSONObject) game;
-            int size = (int)(long)gameLobby.get("size");
-            int id = (int)(long)gameLobby.get("lobbyid");
-            int usercount = (int)(long) gameLobby.get("usercount");
-            String name = (String) gameLobby.get("name");
-            boolean haspw = (boolean) gameLobby.get("haspw");
-            Lobby tempLobby= new Lobby(id, size, name, haspw, usercount);
-            gamesList.getGames().add(tempLobby);
+            size = (int)(long)gameLobby.get("size");
+            id = (int)(long)gameLobby.get("lobbyid");
+            usercount = (int)(long) gameLobby.get("usercount");
+            name = (String) gameLobby.get("name");
+            haspw = (boolean) gameLobby.get("haspw");
+            gamesList.getGames().add(new Lobby(id, size, name, haspw, usercount));
         }
 
 
+    }
+
+    public void joinLobby(int id, String pw){
+            JSONObject join = ClientCommands.joinCommand(id, pw);
+            sc.getClientSocket().send(join);
     }
 
     public GameList getGameList() {

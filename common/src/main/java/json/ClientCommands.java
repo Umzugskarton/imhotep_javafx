@@ -40,7 +40,7 @@ public class ClientCommands {
     obj.put("command", "create");
     obj.put("name", name);
     obj.put("size", size);
-    if (psw!=null){
+    if (!psw.equals("")){
       obj.put("password", psw);
     }
 
@@ -61,6 +61,18 @@ public class ClientCommands {
     JSONObject obj = new JSONObject();
 
     obj.put("command", "userlist");
+
+    return obj;
+  }
+
+  public static  JSONObject joinCommand(int id, String pw){
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "joinLobby");
+    obj.put("lobbyid", id);
+    if (pw!=null){
+      obj.put("password", pw);
+    }
 
     return obj;
   }
