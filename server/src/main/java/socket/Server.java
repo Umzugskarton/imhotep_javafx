@@ -117,6 +117,9 @@ public class Server {
     }
   }
 
+  public Lobby getLobbybyID(int id){
+    return this.openLobby.get(id);
+  }
   public JSONObject getLobbies(){
     JSONArray lobbies = new JSONArray();
     for (Lobby lobby: openLobby) {

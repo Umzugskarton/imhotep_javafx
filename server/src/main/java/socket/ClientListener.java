@@ -24,6 +24,7 @@ public class ClientListener implements Runnable {
   private PrintWriter out = null;
   private BufferedReader in = null;
   private User user = null;
+  private Lobby lobby = null;
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -90,6 +91,27 @@ public class ClientListener implements Runnable {
                     response = this.server.addLobby(lobby);
                     this.server.sendToLoggedIn(this.server.getLobbies());
                     break;
+              case"joinLobby":
+                if (request.containsKey("lobbyid")) {
+                  lobby = this.server.getLobbybyID((int) (long) request.get("lobbyid"));
+                  if (lobby.hasPW()){
+                    if (request.containsKey("password")) {
+                      response = lobby.joinPW(this.user,(String)request.get("password"));
+                      this.lobby = lobby;
+                      if ((boolean)response.get("success")) {
+                        this.server.sendToLoggedIn(this.server.getLobbies());
+                      }
+                    }
+                  }
+                  else {
+                    response = lobby.join(this.user);
+                    this.lobby = lobby;
+                    if ((boolean)response.get("success")) {
+                      this.server.sendToLoggedIn(this.server.getLobbies());
+                    }
+                  }
+                }
+                break;
               case "logout":
                 this.user = null;
                 break;

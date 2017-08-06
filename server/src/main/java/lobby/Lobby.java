@@ -28,24 +28,29 @@ public class Lobby {
         return this.name;
     }
 
-    public JSONObject join(User user, String password){
+    public JSONObject joinPW(User user, String password){
         JSONObject response;
         if (password.equals(this.password)) {
-            if (!vacancy) {
-                for (int i = 0; i < lobby.length; i++) {
-                    if (lobby[i] == null) {
-                        lobby[i] = user;
-                        response = ServerCommands.joinCommand("Erfolgreich beigetreten!", true);
-                        return response;
-                    }
-                }
-            }
-                this.vacancy = false;
-                response = ServerCommands.joinCommand("Die Lobby ist voll.", false);
-                return response;
+           return join(user);
         }
             response = ServerCommands.joinCommand("Das Passwort ist falsch.", false);
             return response;
+    }
+
+    public JSONObject join(User user){
+        JSONObject response;
+        if (vacancy) {
+            for (int i = 0; i < lobby.length; i++) {
+                if (lobby[i] == null) {
+                    lobby[i] = user;
+                    response = ServerCommands.joinCommand("Erfolgreich beigetreten!", true);
+                    return response;
+                }
+            }
+        }
+        this.vacancy = false;
+        response = ServerCommands.joinCommand("Die Lobby ist voll.", false);
+        return response;
     }
 
     public boolean hasPW(){
