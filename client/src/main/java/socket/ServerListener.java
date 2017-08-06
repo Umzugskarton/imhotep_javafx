@@ -132,6 +132,23 @@ public class ServerListener implements Runnable {
                   }
               );
             }
+            else if (command.equals("join") && request.containsKey("message") && request.containsKey("success")){
+                Boolean val = (boolean) request.get("success");
+                // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
+                // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+                Platform.runLater(
+                        () -> {
+
+                            if (this.sceneController.getMainmenuPresenter() != null) {
+                                if(val){
+
+                                }else{
+                                    this.sceneController.getMainmenuPresenter().getMainmenuView().openModal((String)request.get("message"));
+                                }
+                            }
+                        }
+                );
+            }
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);

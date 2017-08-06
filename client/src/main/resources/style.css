@@ -83,3 +83,10 @@
     /*....*/
     -fx-padding: 1; /* 0.083333em; */
 }
+
+.dialog {
+    -fx-background-image: url("imhotep.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 720 480;
+    -fx-border-width:5;
+}

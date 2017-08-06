@@ -23,8 +23,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mainmenu.presenter.MainmenuPresenter;
 
 public class MainmenuViewImpl implements MainmenuView {
@@ -176,6 +180,20 @@ public class MainmenuViewImpl implements MainmenuView {
     this.gamesTab.setContent((GamesViewImpl) gamesView);
   }
 
+  public void openModal(String msg){
+    final Stage dialog = new Stage();
+    dialog.initModality(Modality.APPLICATION_MODAL);
+    VBox dialogVbox = new VBox(20);
+    dialogVbox.getStylesheets().add("style.css");
+    dialogVbox.getStyleClass().add("dialog");
+    Label info= new Label(msg);
+    Button confirm = new Button("OK");
+    confirm.addEventHandler(ActionEvent.ACTION , event -> dialog.close());
+    dialogVbox.getChildren().addAll(new Text("Message:"),info, confirm);
+    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+    dialog.setScene(dialogScene);
+    dialog.show();
+  }
 
   @Override
   public void setMainmenuPresenter(MainmenuPresenter mainmenuPresenter) {

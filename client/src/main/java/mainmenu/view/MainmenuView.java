@@ -19,4 +19,5 @@ public interface MainmenuView {
   void initGames(GamesView gamesView);
 
   void initPlayerList();
+  void openModal(String msg);
 }

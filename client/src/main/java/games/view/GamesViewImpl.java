@@ -49,8 +49,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
         joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
         Callback<TableColumn<Lobby, String>, TableCell<Lobby, String>> cellFactory
-                = //
-                new Callback<TableColumn<Lobby, String>, TableCell<Lobby, String>>() {
+                = new Callback<TableColumn<Lobby, String>, TableCell<Lobby, String>>() {
                     @Override
                     public TableCell call(final TableColumn<Lobby, String> param) {
                         final TableCell<Lobby, String> cell = new TableCell<Lobby, String>() {
@@ -97,7 +96,6 @@ public class GamesViewImpl extends GridPane implements GamesView {
                 }
         });
 
-
         table.getColumns().addAll(idCol, firstNameCol, lastNameCol, joinCol);
 
         root.add(table ,0, 1);
@@ -108,12 +106,14 @@ public class GamesViewImpl extends GridPane implements GamesView {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 VBox dialogVbox = new VBox(20);
+                dialogVbox.getStyleClass().add("dialog");
                 TextField password= new TextField();
                 password.setPromptText("Passwort");
                 Button sendPW = new Button("Senden");
                 sendPW.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         gamesPresenter.joinLobby(selectedLobby.getId(), password.getText());
+                        dialog.close();
                     }
                 });
                 dialogVbox.getChildren().addAll(new Text("Enter Password:"), password, sendPW);
