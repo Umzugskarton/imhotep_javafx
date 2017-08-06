@@ -14,9 +14,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.TextFlow;
 
-/**
- * Created by fabianrieger on 28.07.17.
- */
+
 public class CreateViewImpl extends GridPane implements CreateView {
     private CreatePresenter createPresenter;
 
@@ -27,29 +25,26 @@ public class CreateViewImpl extends GridPane implements CreateView {
 
     public void buildCreate() {
         GridPane root = this;
-        root.setHgap(5);
-        root.setVgap(5);
-        root.setPadding(new Insets(5));
+        root.setHgap(2);
+        root.setVgap(2);
+        root.setPadding(new Insets(2));
 
-        Label labelUser = new Label("name: "); //Label und Textfelder für den Benutzer
+        Label labelUser = new Label("Name: ");
         TextField lobbyName = new TextField();
         lobbyName.setPromptText("Lobbynamen eingeben");
 
-        Label labelSize = new Label("Größe: "); //Label und Textfelder für das Passwort
+        Label labelSize = new Label("Größe: ");
         TextField lobbySize = new TextField();
         lobbySize.setPromptText("Spieleranzahl eingeben");
 
-        Label labelPassword = new Label("Passwort: "); //Label und Textfelder für das Passwort
+        Label labelPassword = new Label("Passwort: ");
         PasswordField passwordUser = new PasswordField();
         passwordUser.setPromptText("Passwort eingeben");
 
 
         Button sendButton = new Button("Senden");
-        sendButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                createPresenter.createLobby(lobbyName.getText(), Integer.parseInt(lobbySize.getText()), passwordUser.getText());
-            }
-        });
+        sendButton.addEventHandler(ActionEvent.ACTION, e ->
+                createPresenter.createLobby(lobbyName.getText(), Integer.parseInt(lobbySize.getText()), passwordUser.getText()));
 
 
         ColumnConstraints column = new ColumnConstraints();

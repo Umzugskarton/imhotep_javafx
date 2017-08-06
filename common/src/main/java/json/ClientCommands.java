@@ -70,7 +70,7 @@ public class ClientCommands {
 
     obj.put("command", "joinLobby");
     obj.put("lobbyid", id);
-    if (pw!=null){
+    if (pw != null && !pw.isEmpty()) {
       obj.put("password", pw);
     }
 

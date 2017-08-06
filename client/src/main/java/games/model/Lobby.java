@@ -14,7 +14,7 @@ public class Lobby {
         this.size=size;
         this.name=name;
         this.usercount=usercount;
-        belegung= usercount + " / " + size;
+        this.belegung= (usercount + " / " + size);
     }
 
     public int getId(){return this.id;}
@@ -22,4 +22,8 @@ public class Lobby {
     public int getSize(){return this.size;}
     public boolean hasPW(){return this.hasPW;}
     public int getUsercount(){return this.usercount;}
+    public String getBelegung(){return this.belegung;}
+    public void setBelegung(int usercount){
+        this.belegung= (usercount + " / " + size);
+    }
 }
