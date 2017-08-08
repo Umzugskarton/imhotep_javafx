@@ -2,6 +2,8 @@ package main;
 
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lobby.presenter.LobbyPresenter;
+import lobby.view.LobbyViewImpl;
 import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
@@ -25,6 +27,7 @@ public class SceneController {
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
+  private LobbyPresenter LobbyPresenter;
 
   public SceneController(Stage stage) {
     this.clientSocket = new ClientSocket(this);
@@ -64,12 +67,24 @@ public class SceneController {
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
+  public void toLobbyScene(){
+    if (this.LobbyPresenter == null){
+      this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
+    }
+
+    this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
+    this.stage.getScene().getStylesheets().add("style.css");
+  }
+
   public ClientSocket getClientSocket() {
     return this.clientSocket;
   }
 
   public LoginPresenter getLoginPresenter() {
     return this.loginPresenter;
+  }
+  public LobbyPresenter getLobbyPresenter() {
+    return this.LobbyPresenter;
   }
 
   public MainmenuPresenter getMainmenuPresenter() {

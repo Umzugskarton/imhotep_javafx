@@ -2,6 +2,7 @@ package games.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lobby.model.Lobby;
 
 public class GameListImpl implements GameList {
     private ObservableList<Lobby> games;

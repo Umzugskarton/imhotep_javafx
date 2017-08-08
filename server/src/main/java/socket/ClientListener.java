@@ -92,22 +92,23 @@ public class ClientListener implements Runnable {
                     this.server.sendToLoggedIn(this.server.getLobbies());
                     break;
               case"joinLobby":
-                if (request.containsKey("lobbyid")) {
-                  lobby = this.server.getLobbybyID((int) (long) request.get("lobbyid"));
-                  if (lobby.hasPW()){
-                    if (request.containsKey("password")) {
-                      response = lobby.joinPW(this.user,(String)request.get("password"));
+                if (this.lobby ==null) {
+                  if (request.containsKey("lobbyid")) {
+                    lobby = this.server.getLobbybyID((int) (long) request.get("lobbyid"));
+                    if (lobby.hasPW()) {
+                      if (request.containsKey("password")) {
+                        response = lobby.joinPW(this.user, (String) request.get("password"));
+                        this.lobby = lobby;
+                        if ((boolean) response.get("success")) {
+                          this.server.sendToLoggedIn(this.server.getLobbies());
+                        }
+                      }
+                    } else {
+                      response = lobby.join(this.user);
                       this.lobby = lobby;
-                      if ((boolean)response.get("success")) {
+                      if ((boolean) response.get("success")) {
                         this.server.sendToLoggedIn(this.server.getLobbies());
                       }
-                    }
-                  }
-                  else {
-                    response = lobby.join(this.user);
-                    this.lobby = lobby;
-                    if ((boolean)response.get("success")) {
-                      this.server.sendToLoggedIn(this.server.getLobbies());
                     }
                   }
                 }

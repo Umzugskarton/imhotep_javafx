@@ -3,14 +3,13 @@ package games.presenter;
 
 import games.model.GameList;
 import games.model.GameListImpl;
-import games.model.Lobby;
+import lobby.model.Lobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
 import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 public class GamesPresenter {
     SceneController sc;

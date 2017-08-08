@@ -1,4 +1,9 @@
-package games.model;
+package lobby.model;
+
+import javafx.collections.ObservableList;
+import org.json.simple.JSONArray;
+
+import java.util.ArrayList;
 
 public class Lobby {
     private int id;
@@ -7,6 +12,7 @@ public class Lobby {
     private boolean hasPW;
     private int usercount;
     private String belegung;
+    private ObservableList<String> users;
 
     public Lobby(int id, int size, String name, boolean hasPW, int usercount){
         this.id=id;
@@ -25,5 +31,16 @@ public class Lobby {
     public String getBelegung(){return this.belegung;}
     public void setBelegung(int usercount){
         this.belegung= (usercount + " / " + size);
+    }
+
+    public void updateUsers(JSONArray users){
+        this.users.clear();
+        for (Object user: users){
+            this.users.add((String) user);
+        }
+    }
+
+    public ObservableList getUsers(){
+        return this.users;
     }
 }

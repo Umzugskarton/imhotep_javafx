@@ -141,7 +141,8 @@ public class ServerListener implements Runnable {
 
                             if (this.sceneController.getMainmenuPresenter() != null) {
                                 if(val){
-
+                                    this.sceneController.toLobbyScene();
+                                    this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames();
                                 }else{
                                     this.sceneController.getMainmenuPresenter().getMainmenuView().openModal((String)request.get("message"));
                                 }

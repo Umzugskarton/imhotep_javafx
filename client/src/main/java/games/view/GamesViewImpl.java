@@ -1,6 +1,6 @@
 package games.view;
 
-import games.model.Lobby;
+import lobby.model.Lobby;
 import games.presenter.GamesPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
