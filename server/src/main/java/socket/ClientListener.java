@@ -88,8 +88,19 @@ public class ClientListener implements Runnable {
                 break;
               case "create":
                     Lobby lobby = this.clientAPI.createLobby(request, this.user);
+                    this.lobby = lobby;
                     response = this.server.addLobby(lobby);
-                    this.server.sendToLoggedIn(this.server.getLobbies());
+                if ((boolean) response.get("success")) {
+                  this.server.sendToLoggedIn(this.server.getLobbies());
+                  User[] users = lobby.getUsers();
+                  JSONObject lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
+                          lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
+                  for (User user : users) {
+                    if (user != null) {
+                      this.server.sendTo(lobbyInfo, user.getUsername());
+                    }
+                  }
+                }
                     break;
               case"joinLobby":
                 if (this.lobby ==null) {
@@ -101,6 +112,14 @@ public class ClientListener implements Runnable {
                         this.lobby = lobby;
                         if ((boolean) response.get("success")) {
                           this.server.sendToLoggedIn(this.server.getLobbies());
+                          User[] users = lobby.getUsers();
+                          JSONObject lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
+                                  lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
+                          for (User user : users) {
+                            if (user != null) {
+                              this.server.sendTo(lobbyInfo, user.getUsername());
+                            }
+                          }
                         }
                       }
                     } else {

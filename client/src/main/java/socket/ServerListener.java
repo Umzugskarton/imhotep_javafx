@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import javafx.application.Platform;
+import lobby.model.Lobby;
 import main.SceneController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -131,8 +132,7 @@ public class ServerListener implements Runnable {
                     }
                   }
               );
-            }
-            else if (command.equals("join") && request.containsKey("message") && request.containsKey("success")){
+            }else if ((command.equals("join") || command.equals("create")) && request.containsKey("message") && request.containsKey("success")){
                 Boolean val = (boolean) request.get("success");
                 // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
                 // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
@@ -146,6 +146,21 @@ public class ServerListener implements Runnable {
                                 }else{
                                     this.sceneController.getMainmenuPresenter().getMainmenuView().openModal((String)request.get("message"));
                                 }
+                            }
+                        }
+                );
+            }else if ((command.equals("lobbyInfo")) && request.containsKey("ready") && request.containsKey("host") &&
+                    request.containsKey("colors") && request.containsKey("lobbyid") && request.containsKey("users")){
+               Platform.runLater(
+                        () -> {
+
+                            if (this.sceneController.getLobbyPresenter() != null) {
+                                    Lobby temp = this.sceneController.getLobbyPresenter().getLobby();
+                                    temp.setColors((JSONArray) request.get("colors"));
+                                    temp.setHost((String) request.get("host"));
+                                    temp.setReady((JSONArray) request.get("ready"));
+                                    temp.setUsers((JSONArray) request.get("users"));
+                                    temp.setLobbyID((int) request.get("lobbyid"));
                             }
                         }
                 );

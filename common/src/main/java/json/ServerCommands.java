@@ -84,6 +84,19 @@ public class ServerCommands {
     return obj;
   }
 
+  public  static JSONObject lobbyInfoCommand(int id , JSONArray users, String host, JSONArray ready, JSONArray colors){
+    JSONObject obj = new JSONObject();
+
+    obj.put("command", "lobbyInfo");
+    obj.put("lobbyid", id);
+    obj.put("users", users);
+    obj.put("host", host);
+    obj.put("ready", ready);
+    obj.put("colors", colors);
+
+    return obj;
+  }
+
   public static JSONObject lobbylistCommand(JSONArray lobbies){
     JSONObject obj= new JSONObject();
 

@@ -13,6 +13,8 @@ public class LobbyPresenter {
     public LobbyPresenter (LobbyView lobbyView, SceneController sc){
         this.sc= sc;
         this.lobbyView = lobbyView;
+        lobbyView.setLobbyPresenter(this);
+
     }
 
     public Lobby getLobby(){

@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lobby.presenter.LobbyPresenter;
+import main.SceneController;
 
 
 public class LobbyViewImpl implements LobbyView{
@@ -66,7 +67,7 @@ public class LobbyViewImpl implements LobbyView{
         Button min = new Button("_");
         min.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                lobbyPresenter.getSceneController().getStage().setIconified(true);
+                SceneController test = lobbyPresenter.getSceneController();
             }
         });
 

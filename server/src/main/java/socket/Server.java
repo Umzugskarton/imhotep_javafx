@@ -69,6 +69,7 @@ public class Server {
   public JSONObject addLobby(Lobby lobby){
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
+    lobby.setLobbyID(openLobby.size()-1);
 
     JSONObject j = ServerCommands.createCommand("Lobby Erfolgreich erstellt!", true, openLobby.size()-1);
     return j;
@@ -118,14 +119,20 @@ public class Server {
   }
 
   public Lobby getLobbybyID(int id){
-    return this.openLobby.get(id);
+    for(Lobby lobby : openLobby) {
+      if(lobby.getLobbyID() == id) {
+        return lobby;
+      }
+    }
+    return null;
   }
+
   public JSONObject getLobbies(){
     JSONArray lobbies = new JSONArray();
     for (Lobby lobby: openLobby) {
       JSONObject tempLobby= new JSONObject();
       tempLobby.put("name", lobby.getName());
-      tempLobby.put("lobbyid", openLobby.indexOf(lobby));
+      tempLobby.put("lobbyid", lobby.getLobbyID());
       tempLobby.put("size", lobby.getSize());
       tempLobby.put("usercount", lobby.getUserCount());
       tempLobby.put("haspw", lobby.hasPW());
