@@ -132,36 +132,23 @@ public class ServerListener implements Runnable {
                     }
                   }
               );
-            }else if ((command.equals("join") || command.equals("create")) && request.containsKey("message") && request.containsKey("success")){
-                Boolean val = (boolean) request.get("success");
-                // Workaround: JavaFX Elemente können außerhalb der Applikation normalerweise nicht verändert werden
-                // http://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
-                Platform.runLater(
-                        () -> {
-
-                            if (this.sceneController.getMainmenuPresenter() != null) {
-                                if(val){
-                                    this.sceneController.toLobbyScene();
-                                    this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames();
-                                }else{
-                                    this.sceneController.getMainmenuPresenter().getMainmenuView().openModal((String)request.get("message"));
-                                }
-                            }
-                        }
-                );
-            }else if ((command.equals("lobbyInfo")) && request.containsKey("ready") && request.containsKey("host") &&
+            }else if (command.equals("lobbyInfo") && request.containsKey("ready") && request.containsKey("host") &&
                     request.containsKey("colors") && request.containsKey("lobbyid") && request.containsKey("users")){
                Platform.runLater(
                         () -> {
-
-                            if (this.sceneController.getLobbyPresenter() != null) {
-                                    Lobby temp = this.sceneController.getLobbyPresenter().getLobby();
+                                if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
+                                    if (this.sceneController.getLobbyPresenter() == null) {
+                                        this.sceneController.toLobbyScene();
+                                    }
+                                    Lobby temp = this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames().get(
+                                            (int)(long) request.get("lobbyid"));
                                     temp.setColors((JSONArray) request.get("colors"));
                                     temp.setHost((String) request.get("host"));
                                     temp.setReady((JSONArray) request.get("ready"));
                                     temp.setUsers((JSONArray) request.get("users"));
-                                    temp.setLobbyID((int) request.get("lobbyid"));
-                            }
+                                    temp.setLobbyID((int)(long) request.get("lobbyid"));
+                                    this.sceneController.getLobbyPresenter().setLobby(temp);
+                                }
                         }
                 );
             }

@@ -20,6 +20,10 @@ public class LobbyPresenter {
     public Lobby getLobby(){
         return this.lobby;
     }
+    public void setLobby(Lobby lobby){
+        this.lobby = lobby;
+        lobbyView.initLobbyInfo();
+    }
 
     public LobbyView getLobbyView(){
         return this.lobbyView;

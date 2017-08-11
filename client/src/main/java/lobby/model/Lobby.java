@@ -1,5 +1,6 @@
 package lobby.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 
@@ -21,6 +22,7 @@ public class Lobby {
         this.hasPW=hasPW;
         this.size=size;
         this.name=name;
+        this.users=  FXCollections.observableArrayList();
         this.ready = new boolean[size];
         this.colors= new String[size];
         for (int s =0 ; s<= size-1; s++ ){
@@ -29,6 +31,7 @@ public class Lobby {
         this.usercount=usercount;
         this.belegung= (usercount + " / " + size);
     }
+
 
     public void setHost(String host){
         this.host = host;

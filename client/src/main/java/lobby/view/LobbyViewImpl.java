@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
+import lobby.model.Lobby;
 
 
 public class LobbyViewImpl implements LobbyView{
@@ -45,7 +46,7 @@ public class LobbyViewImpl implements LobbyView{
         nav.setAlignment(Pos.CENTER_RIGHT);
         nav.setPadding(new Insets(15, 15, 15, 12));
         main.setTop(nav);
-        main.setCenter(grid);
+        main.setBottom(grid);
 
         Rectangle rect = new Rectangle(720, 480);
         rect.setArcHeight(30.0);
@@ -98,10 +99,14 @@ public class LobbyViewImpl implements LobbyView{
         nav.getChildren().addAll(min, close);
     }
 
-    public void initUserList() {
+    public void initLobbyInfo() {
+        Lobby ourLobby = this.lobbyPresenter.getLobby();
         ListView<String> listView = new ListView<>();
-        listView.setItems(lobbyPresenter.getLobby().getUsers());
-        main.setRight(listView);
+        listView.setItems(ourLobby.getUsers());
+        listView.setPrefWidth(300);
+        listView.setMaxHeight(120);
+        listView.setPrefHeight(120);
+        main.setLeft(listView);
 
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -127,7 +132,7 @@ public class LobbyViewImpl implements LobbyView{
         Label info= new Label(msg);
         Button confirm = new Button("OK");
         confirm.addEventHandler(ActionEvent.ACTION , event -> dialog.close());
-        dialogVbox.getChildren().addAll(new Text("Message:"),info, confirm);
+        dialogVbox.getChildren().addAll(new Text(" "),info, confirm);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();

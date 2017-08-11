@@ -109,24 +109,20 @@ public class ClientListener implements Runnable {
                     if (lobby.hasPW()) {
                       if (request.containsKey("password")) {
                         response = lobby.joinPW(this.user, (String) request.get("password"));
-                        this.lobby = lobby;
-                        if ((boolean) response.get("success")) {
-                          this.server.sendToLoggedIn(this.server.getLobbies());
-                          User[] users = lobby.getUsers();
-                          JSONObject lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
-                                  lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
-                          for (User user : users) {
-                            if (user != null) {
-                              this.server.sendTo(lobbyInfo, user.getUsername());
-                            }
-                          }
-                        }
                       }
-                    } else {
+                    }else {
                       response = lobby.join(this.user);
+                    }
+                    if ((boolean) response.get("success")) {
                       this.lobby = lobby;
-                      if ((boolean) response.get("success")) {
-                        this.server.sendToLoggedIn(this.server.getLobbies());
+                      this.server.sendToLoggedIn(this.server.getLobbies());
+                      User[] users = lobby.getUsers();
+                      JSONObject lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
+                              lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
+                      for (User user : users) {
+                        if (user != null) {
+                          this.server.sendTo(lobbyInfo, user.getUsername());
+                        }
                       }
                     }
                   }
@@ -148,6 +144,18 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
+        if (this.lobby != null){
+          this.lobby.leave(this.user);
+          User[] users = lobby.getUsers();
+          JSONObject lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
+                  lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
+          for (User user : users) {
+            if (user != null) {
+              this.server.sendTo(lobbyInfo, user.getUsername());
+            }
+          }
+          this.lobby = null;
+        }
         this.user = null;
         this.server.sendToAll(server.getLoggedUsers());
       }
