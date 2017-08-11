@@ -19,7 +19,7 @@ public class Lobby {
         this.ready= new boolean[size];
         this.colors= new String[size];
         for (int s =0 ; s<= size-1; s++ ){
-            colors[s]="#fff";
+            colors[s]="#0000ff";
         }
         this.lobby = new User[size];
         this.lobby[0] = host;

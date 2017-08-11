@@ -142,10 +142,8 @@ public class ServerListener implements Runnable {
                                     }
                                     Lobby temp = this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames().get(
                                             (int)(long) request.get("lobbyid"));
-                                    temp.setColors((JSONArray) request.get("colors"));
                                     temp.setHost((String) request.get("host"));
-                                    temp.setReady((JSONArray) request.get("ready"));
-                                    temp.setUsers((JSONArray) request.get("users"));
+                                    temp.setUsers((JSONArray) request.get("users"), (JSONArray) request.get("ready"), (JSONArray) request.get("colors"));
                                     temp.setLobbyID((int)(long) request.get("lobbyid"));
                                     this.sceneController.getLobbyPresenter().setLobby(temp);
                                 }

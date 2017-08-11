@@ -2,6 +2,7 @@ package lobby.presenter;
 
 
 import lobby.model.Lobby;
+import lobby.model.LobbyUser;
 import lobby.view.LobbyView;
 import main.SceneController;
 

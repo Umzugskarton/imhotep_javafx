@@ -125,7 +125,6 @@ public class GamesViewImpl extends GridPane implements GamesView {
     public void initGameList(){
         //Liste der erstellter Spiele
         table.setItems(this.gamesPresenter.getGameList().getGames());
-
     }
 
 }

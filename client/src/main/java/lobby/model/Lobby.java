@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 
+import java.util.Iterator;
+
 
 public class Lobby {
     private int id;
@@ -13,7 +15,7 @@ public class Lobby {
     private boolean hasPW;
     private int usercount;
     private String belegung;
-    private ObservableList<String> users;
+    private ObservableList<LobbyUser> users;
     private String[] colors;
     private boolean[] ready;
 
@@ -41,10 +43,15 @@ public class Lobby {
         this.id= id;
     }
 
-    public void setUsers(JSONArray newUsers){
+    public void setUsers(JSONArray newUsers, JSONArray ready, JSONArray color){
         users.clear();
-        for (Object user : newUsers){
-            users.add((String) user);
+        LobbyUser newUser;
+        Iterator i1 = newUsers.iterator();
+        Iterator i2 = ready.iterator();
+        Iterator i3 = color.iterator();
+        while(i1.hasNext() && i2.hasNext() && i3.hasNext()) {
+            newUser = new LobbyUser((String)i1.next(),(String)i3.next(),(boolean)i2.next());
+            users.add(newUser);
         }
     }
 
@@ -56,13 +63,6 @@ public class Lobby {
     public String getBelegung(){return this.belegung;}
     public void setBelegung(int usercount){
         this.belegung= (usercount + " / " + size);
-    }
-
-    public void updateUsers(JSONArray users){
-        this.users.clear();
-        for (Object user: users){
-            this.users.add((String) user);
-        }
     }
 
     public void  setColors(JSONArray newColors){
@@ -82,7 +82,7 @@ public class Lobby {
         }
     }
 
-    public ObservableList getUsers(){
+    public ObservableList<LobbyUser> getUsers(){
         return this.users;
     }
 }

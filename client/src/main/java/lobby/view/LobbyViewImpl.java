@@ -7,6 +7,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -17,15 +20,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import lobby.model.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
-import lobby.model.Lobby;
-
 
 public class LobbyViewImpl implements LobbyView{
     private Scene LobbyScene;
     private LobbyPresenter lobbyPresenter;
     private Label userList;
+    private TableView<LobbyUser> table =  new TableView();
     private BorderPane main;
     private TextField messageField;
 
@@ -97,29 +101,92 @@ public class LobbyViewImpl implements LobbyView{
         });
 
         nav.getChildren().addAll(min, close);
+
+        TableColumn firstNameCol = new TableColumn("Username");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("username"));
+        TableColumn lastNameCol = new TableColumn("Color");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
+
+        Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
+                = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            @Override
+            public TableCell call(final TableColumn<LobbyUser, String> param) {
+                final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
+                            HBox hbox = new HBox();
+                            Rectangle color = new Rectangle();
+                            color.setHeight(15);
+                            color.setWidth(15);
+                            hbox.setSpacing(5);
+                            color.setFill(Color.web(lobbyUser.getColor()));
+                            color.setOnMouseClicked(event -> {
+                                System.out.println(lobbyUser.getColor());
+                            });
+                            hbox.getChildren().add(color);
+                            setGraphic(hbox);
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        lastNameCol.setCellFactory(cellFactory);
+
+
+        TableColumn joinCol = new TableColumn("Bereit");
+        joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+        Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory2
+                = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            @Override
+            public TableCell call(final TableColumn<LobbyUser, String> param) {
+                final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
+                            HBox hbox = new HBox();
+                            ImageView img = new ImageView();
+                            img.setFitHeight(15);
+                            img.setFitWidth(10);
+                            hbox.setSpacing(5);
+                            img.setImage(new Image("ank.png"));
+                            if (lobbyUser.isReady()){
+                                hbox.getChildren().add(img);
+                                setGraphic(hbox);
+                            } else{
+                                setGraphic(null);
+                            }
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        joinCol.setCellFactory(cellFactory2);
+
+
+        table.getColumns().addAll(firstNameCol, lastNameCol, joinCol);
+        table.setMaxHeight(180);
+        table.setPrefHeight(180);
+        main.setLeft(table);
     }
 
     public void initLobbyInfo() {
-        Lobby ourLobby = this.lobbyPresenter.getLobby();
-        ListView<String> listView = new ListView<>();
-        listView.setItems(ourLobby.getUsers());
-        listView.setPrefWidth(300);
-        listView.setMaxHeight(120);
-        listView.setPrefHeight(120);
-        main.setLeft(listView);
-
-        listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
-                    String selectedUser = listView.getSelectionModel().getSelectedItem();
-                    TextField messageInput = messageField;
-                    messageInput.setText("@" + selectedUser + " ");
-                    messageInput.requestFocus();
-                    messageInput.end();
-                }
-            }
-        });
+       table.setItems(this.lobbyPresenter.getLobby().getUsers());
     }
 
 

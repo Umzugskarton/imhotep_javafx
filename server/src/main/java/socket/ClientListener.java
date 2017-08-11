@@ -87,7 +87,7 @@ public class ClientListener implements Runnable {
                 }
                 break;
               case "create":
-                    Lobby lobby = this.clientAPI.createLobby(request, this.user);
+                Lobby lobby = this.clientAPI.createLobby(request, this.user);
                     this.lobby = lobby;
                     response = this.server.addLobby(lobby);
                 if ((boolean) response.get("success")) {
@@ -101,7 +101,7 @@ public class ClientListener implements Runnable {
                     }
                   }
                 }
-                    break;
+                break;
               case"joinLobby":
                 if (this.lobby ==null) {
                   if (request.containsKey("lobbyid")) {
