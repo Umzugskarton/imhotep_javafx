@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     compile project(":common")
-
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }

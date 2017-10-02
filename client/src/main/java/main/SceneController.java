@@ -1,5 +1,6 @@
 package main;
 
+import com.google.common.eventbus.EventBus;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.presenter.LoginPresenter;
@@ -25,9 +26,12 @@ public class SceneController {
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
+  private EventBus eventBus;
 
   public SceneController(Stage stage) {
-    this.clientSocket = new ClientSocket(this);
+    this.eventBus = new EventBus();
+    this.eventBus.register(new EventListener(this));
+    this.clientSocket = new ClientSocket(this, eventBus);
     this.stage = stage;
     this.toLoginScene();
     stage.initStyle(StageStyle.TRANSPARENT);
