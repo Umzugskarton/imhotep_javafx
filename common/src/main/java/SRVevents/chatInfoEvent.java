@@ -1,18 +1,19 @@
-package main.events;
+package SRVevents;
 
 import org.json.simple.JSONObject;
 import java.util.Date;
 
 
-public class registerEvent implements voidEvent {
+public class chatInfoEvent implements voidEvent{
     private Date date;
     private String msg;
 
-    public registerEvent(){
+    public chatInfoEvent(){
         this.date = new Date();
+        this.msg=msg;
     }
 
-    public String getMsg(){
+    public String getMsg() {
         return this.msg;
     }
 
@@ -22,7 +23,7 @@ public class registerEvent implements voidEvent {
 
     public void init(JSONObject j){
         if (j.containsKey("message")){
-            this.msg=(String) j.get("message");
+            this.msg= (String) j.get("message");
         }else{
             this.msg= "Ein Fehler ist aufgetreten";
         }

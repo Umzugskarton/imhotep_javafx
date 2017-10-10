@@ -1,16 +1,16 @@
-package main.events;
+package SRVevents;
+
 
 import org.json.simple.JSONObject;
 import java.util.Date;
 
-public class loginEvent implements voidEvent{
+public class logoutEvent implements voidEvent{
     private boolean success;
     private String msg;
     private Date date;
 
-    public loginEvent(){
+    public logoutEvent(){
         this.date = new Date();
-
     }
 
     public String getMsg(){
@@ -26,13 +26,8 @@ public class loginEvent implements voidEvent{
     }
 
     public void init(JSONObject j){
-        if (j.containsKey("message") && j.containsKey("success")){
-            this.msg =(String) j.get("message");
-            this.success= (boolean) j.get("success");
-        }else{
-            this.success= false;
-            this.msg= "Ein Fehler ist aufgetreten";
-
+        if (j.containsKey("success")) {
+            this.success = (boolean) j.get("success");
         }
     }
 }

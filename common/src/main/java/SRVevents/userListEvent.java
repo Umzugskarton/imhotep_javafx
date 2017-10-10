@@ -1,4 +1,4 @@
-package main.events;
+package SRVevents;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

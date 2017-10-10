@@ -1,4 +1,4 @@
-package main.events;
+package SRVevents;
 
 import org.json.simple.JSONObject;
 import java.util.Date;
