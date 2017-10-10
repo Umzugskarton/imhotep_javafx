@@ -21,14 +21,5 @@ public class userListEvent implements voidEvent{
         return this.date;
     }
 
-    public void init(JSONObject j){
-        JSONArray userList = null;
-        if ( j.containsKey("users")){
-            userList = (JSONArray) j.get("users");
-        }
-        else{
-            userList= new JSONArray();
-        }
-        this.userList=userList;
-    }
+
 }

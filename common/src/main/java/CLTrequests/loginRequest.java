@@ -2,11 +2,13 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class loginRequest {
+public class loginRequest implements Request{
     private String command = "login";
     private Date date;
     private String username;
     private String pw;
+
+    public loginRequest(){}
 
     public loginRequest(String username, String password){
         this.username = username;

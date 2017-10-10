@@ -25,9 +25,5 @@ public class logoutEvent implements voidEvent{
         return date;
     }
 
-    public void init(JSONObject j){
-        if (j.containsKey("success")) {
-            this.success = (boolean) j.get("success");
-        }
-    }
+
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created on 10.10.2017.
  */
-public class userlistRequest {
+public class userlistRequest implements Request{
     private String command = "userlist";
     private Date date;
 

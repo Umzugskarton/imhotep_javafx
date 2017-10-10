@@ -24,13 +24,4 @@ public class chatEvent implements voidEvent {
         return this.date;
     }
 
-    public void init(JSONObject j) {
-        if (j.containsKey("user") && j.containsKey("message")){
-            this.msg = (String) j.get("message");
-            this.user = (String) j.get("user");
-        }else{
-            this.user="SYSTEM";
-            this.msg= "Ein Fehler ist aufgetreten";
-        }
-    }
 }

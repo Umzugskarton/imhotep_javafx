@@ -5,11 +5,15 @@ import java.util.Date;
 /**
  * Created on 10.10.2017.
  */
-public class whisperRequest {
+public class whisperRequest implements Request{
     String command ="whisper";
     private Date date;
     private String to;
     private String msg;
+
+    public whisperRequest(){
+
+    }
 
     public whisperRequest(String to, String msg){
         this.to = to;

@@ -13,6 +13,14 @@ public class loginEvent implements voidEvent{
 
     }
 
+    public void setSuccess(boolean success){
+        this.success = success;
+    }
+
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
+
     public String getMsg(){
         return this.msg;
     }
@@ -25,14 +33,4 @@ public class loginEvent implements voidEvent{
         return date;
     }
 
-    public void init(JSONObject j){
-        if (j.containsKey("message") && j.containsKey("success")){
-            this.msg =(String) j.get("message");
-            this.success= (boolean) j.get("success");
-        }else{
-            this.success= false;
-            this.msg= "Ein Fehler ist aufgetreten";
-
-        }
-    }
 }

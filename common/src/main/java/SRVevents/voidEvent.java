@@ -8,5 +8,4 @@ public interface voidEvent {
      String msg = null;
 
     Date getDate();
-    void init(JSONObject j);
 }

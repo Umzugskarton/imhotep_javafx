@@ -20,11 +20,5 @@ public class registerEvent implements voidEvent {
         return this.date;
     }
 
-    public void init(JSONObject j){
-        if (j.containsKey("message")){
-            this.msg=(String) j.get("message");
-        }else{
-            this.msg= "Ein Fehler ist aufgetreten";
-        }
-    }
+
 }

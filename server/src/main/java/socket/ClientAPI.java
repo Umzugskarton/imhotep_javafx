@@ -1,6 +1,7 @@
 package socket;
 
-import json.ServerCommands;
+import SRVevents.loginEvent;
+import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
@@ -9,6 +10,7 @@ import user.UserManager;
 public class ClientAPI {
 
   private UserManager userManager;
+  private Gson gson = new Gson();
 
   public ClientAPI() {
     this.userManager = new UserManager();
@@ -24,28 +26,33 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Login enthält;
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    */
-  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
-    JSONObject response = new JSONObject();
-
+  public String login(JSONObject request, JSONObject loggedUsers) {
+    String response;
+    loginEvent re = new loginEvent();
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
+
       if (loggedUsers.get("users").toString().contains(username)) {
-        response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
+        re.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
+        re.setSuccess(false);
       } else {
         boolean isLoginValid = this.userManager.validateLogin(username, password);
 
         if (isLoginValid) {
-          response = ServerCommands.loginCommand("Login erfolgreich!", true);
+          re.setMsg("Login erfolgreich!");
+          re.setSuccess(true);
         } else {
-          response = ServerCommands
-                  .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+          re.setMsg("Login fehlgeschlagen: Username oder Passwort inkorrekt");
+          re.setSuccess(false);
         }
       }
     }
     else{
-      response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
+      re.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
+      re.setSuccess(false);
     }
+    response = gson.toJson(re);
     return response;
   }
 

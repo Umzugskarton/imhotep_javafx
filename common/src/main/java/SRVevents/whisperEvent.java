@@ -24,15 +24,4 @@ public class whisperEvent implements voidEvent{
         return this.date;
     }
 
-    public void init(JSONObject j){
-        if (j.containsKey("message") && j.containsKey("from")) {
-            String msg = (String) j.get("message");
-            String from = (String) j.get("from");
-            this.msg = msg;
-            this.from = from;
-        }else{
-            this.from = "SYSTEM";
-            this.msg = "Ein Fehler ist aufgetreten ";
-        }
-    }
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created on 10.10.2017.
  */
-public class logoutRequest {
+public class logoutRequest implements Request {
     private String command = "logout";
     private Date date;
 

@@ -5,12 +5,16 @@ import java.util.Date;
 /**
  * Created on 10.10.2017.
  */
-public class registerRequest {
-    private String command = "login";
+public class registerRequest implements Request {
+    private String command = "register";
     private Date date;
     private String username;
     private String pw;
     private String email;
+
+    public registerRequest(){
+
+    }
 
     public registerRequest(String username, String password, String email){
         this.username = username;

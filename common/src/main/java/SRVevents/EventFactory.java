@@ -23,11 +23,12 @@ public class EventFactory {
         if (j.containsKey("command")){
            command = (String) j.get("command");
            voidEvent e = Dict.get(command);
-           e.init(j);
            return e;
         }
         else{
             return null;
         }
     }
+
+
 }

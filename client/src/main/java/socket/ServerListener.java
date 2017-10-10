@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+
+import com.google.gson.Gson;
 import main.SceneController;
 import SRVevents.EventFactory;
 import SRVevents.voidEvent;
@@ -42,9 +44,11 @@ public class ServerListener implements Runnable {
         JSONParser parser = new JSONParser();
         try {
           Object obj = parser.parse(receivedMsg);
-          JSONObject request = (JSONObject) obj;
+          JSONObject re = (JSONObject) obj;
+          String request = re.toString();
             EventFactory eventFactory = new EventFactory();
-            voidEvent event = eventFactory.getEvent(request);
+            Gson gson = new Gson();
+            voidEvent event = gson.fromJson(request, eventFactory.getEvent(re).getClass());
             this.eventBus.post(event);
 
         } catch (ParseException pe) {
