@@ -18,7 +18,7 @@ public class chatCommand implements Command {
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec(){
-        JSONObject chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
+        String chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
         this.server.sendToLoggedIn(chatMessage);
     }
 }

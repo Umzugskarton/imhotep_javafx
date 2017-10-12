@@ -66,20 +66,20 @@ public class ClientListener implements Runnable {
     } finally {
       if (this.isLoggedIn()) {
         this.user = null;
-        this.server.sendToAll(server.getLoggedUsers());
+        //this.server.sendToAll(server.getLoggedUsers());
+        userlistCommand c = new userlistCommand(this );
       }
 
       this.server.removeClient(this);
     }
   }
 
-  public void send(JSONObject json) {
+  public void send(String json) {
     if (this.out != null) {
-      String jsonString = json.toString();
 
       log.info(
-          "Nachricht gesendet: " + jsonString);
-      this.out.println(jsonString);
+          "Nachricht gesendet: " + json);
+      this.out.println(json);
       this.out.flush();
     }
   }

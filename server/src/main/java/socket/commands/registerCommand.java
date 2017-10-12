@@ -17,7 +17,7 @@ public class registerCommand implements Command {
     }
 
     public void exec(){
-        JSONObject response = this.clientAPI.register(this.request);
+        String response = this.clientAPI.register(this.request);
         if (response != null) {
             this.clientListener.send(response);
         }

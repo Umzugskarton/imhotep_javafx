@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import json.ServerCommands;
+
+import SRVevents.userListEvent;
+import com.google.gson.Gson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -76,13 +78,13 @@ public class Server {
     }
   }
 
-  public void sendToAll(JSONObject json) {
+  public void sendToAll(String json) {
     for (ClientListener clientListener : connectedClients) {
       clientListener.send(json);
     }
   }
 
-  public boolean sendTo(JSONObject json, String to) {
+  public boolean sendTo(String json, String to) {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
@@ -99,7 +101,7 @@ public class Server {
     return found;
   }
 
-  public void sendToLoggedIn(JSONObject json) {
+  public void sendToLoggedIn(String json) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
         clientListener.send(json);
@@ -107,14 +109,14 @@ public class Server {
     }
   }
 
-  public JSONObject getLoggedUsers() {
+  public JSONArray getLoggedUsers() {
     JSONArray users = new JSONArray();
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {
         users.add(client.getUser().getUsername());
       }
     }
-    return ServerCommands.userlistCommand(users);
+    return users;
   }
 
   public String getLoggedInUsername(String username) {

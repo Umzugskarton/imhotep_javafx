@@ -5,9 +5,7 @@ import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
-/**
- * Created by fabianrieger on 27.07.17.
- */
+
 public class loginCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;

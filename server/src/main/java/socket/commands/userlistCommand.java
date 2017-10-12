@@ -15,7 +15,7 @@ public class userlistCommand implements Command {
         this.clientAPI = clientListener.getClientAPI();
     }
     public void exec(){
-        JSONObject response = this.clientListener.getServer().getLoggedUsers();
+        String response = this.clientListener.getServer().getLoggedUsers();
         if (response != null) {
             this.clientListener.send(response);
         }
