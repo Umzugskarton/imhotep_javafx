@@ -1,6 +1,6 @@
 package socket;
 
-import SRVevents.loginEvent;
+import SRVevents.*;
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import user.User;
@@ -28,31 +28,31 @@ public class ClientAPI {
    */
   public String login(JSONObject request, JSONObject loggedUsers) {
     String response;
-    loginEvent re = new loginEvent();
+    loginEvent event = new loginEvent();
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
 
       if (loggedUsers.get("users").toString().contains(username)) {
-        re.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
-        re.setSuccess(false);
+        event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
+        event.setSuccess(false);
       } else {
         boolean isLoginValid = this.userManager.validateLogin(username, password);
 
         if (isLoginValid) {
-          re.setMsg("Login erfolgreich!");
-          re.setSuccess(true);
+          event.setMsg("Login erfolgreich!");
+          event.setSuccess(true);
         } else {
-          re.setMsg("Login fehlgeschlagen: Username oder Passwort inkorrekt");
-          re.setSuccess(false);
+          event.setMsg("Login fehlgeschlagen: Username oder Passwort inkorrekt");
+          event.setSuccess(false);
         }
       }
     }
     else{
-      re.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
-      re.setSuccess(false);
+      event.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
+      event.setSuccess(false);
     }
-    response = gson.toJson(re);
+    response = gson.toJson(event);
     return response;
   }
 
@@ -66,8 +66,9 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Registrierung enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject register(JSONObject request) {
-    JSONObject response;
+  public String register(JSONObject request) {
+    String response;
+    registerEvent event = new registerEvent();
 
     if (request.containsKey("username") && request.containsKey("password") && request
         .containsKey("email")) {
@@ -78,38 +79,42 @@ public class ClientAPI {
       boolean createUser = this.userManager.createUser(username, password, email);
 
       if (createUser) {
-        response = ServerCommands.registerCommand("Registrierung erfolgreich!", true);
+        event.setMsg("Registrierung erfolgreich!");
+        event.setSuccess(createUser);
       } else {
-        response = ServerCommands
-            .registerCommand("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits",
-                false);
+        event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
+        event.setSuccess(createUser);
       }
     } else {
-      response = ServerCommands
-          .registerCommand("Registrierung fehlgeschlagen: Ungültige Anfrage", false);
+      event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
+      event.setSuccess(false);
     }
+    response = gson.toJson(event);
     return response;
   }
 
-  public JSONObject chat(JSONObject request, User user) {
-    JSONObject response = new JSONObject();
+  public String chat(JSONObject request, User user) {
+    String response;
+    chatEvent event = new chatEvent();
 
     if (request.containsKey("message") && user != null) {
-      String message = (String) request.get("message");
+      event.setMsg((String) request.get("message"));
+      event.setUser(user.getUsername());
 
-      response = ServerCommands.chatCommand(user.getUsername(), message);
     }
+    response = gson.toJson(event);
     return response;
   }
 
-  public JSONObject whisper(JSONObject request, User user) {
-    JSONObject response = new JSONObject();
+  public String whisper(JSONObject request, User user) {
+    String response= null;
+    whisperEvent event = new whisperEvent();
 
     if (request.containsKey("message") && request.containsKey("to") && user != null) {
-      String message = (String) request.get("message");
-
-      response = ServerCommands.whisperCommand(user.getUsername(), message);
+      event.setMsg((String) request.get("message"));
+      event.setFrom(user.getUsername());
     }
+    response = gson.toJson(event);
     return response;
   }
 
