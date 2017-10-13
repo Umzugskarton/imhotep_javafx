@@ -15,7 +15,7 @@ public class CommandFactory {
     public CommandFactory(ClientListener clientListener, Request j){
         Dict.put("register", new registerCommand(clientListener, (registerRequest)j));
         Dict.put("login", new loginCommand(clientListener, (loginRequest) j));
-        Dict.put("logout", new logoutCommand(clientListener, (logoutRequest) j));
+        Dict.put("logout", new logoutCommand(clientListener));
         Dict.put("userlist", new userlistCommand(clientListener));
         Dict.put("whisper", new whisperCommand(clientListener, (whisperRequest) j));
         Dict.put("chat", new chatCommand(clientListener, (chatRequest)j));

@@ -7,9 +7,8 @@ public class logoutCommand implements Command {
     private JSONObject request;
     private ClientListener clientListener;
 
-    public logoutCommand(ClientListener clientListener, JSONObject request){
+    public logoutCommand(ClientListener clientListener){
         this.clientListener=clientListener;
-        this.request =request;
     }
 
     public void exec(){

@@ -25,6 +25,8 @@ public class whisperRequest implements Request{
         return this.command;
     }
 
+    public String getTo(){return this.to;}
+
     public String getRecipient(){
         return this.to;
     }

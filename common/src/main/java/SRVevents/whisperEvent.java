@@ -16,6 +16,8 @@ public class whisperEvent implements voidEvent{
     public void setFrom(String username) {this.from = username;}
     public void setMsg(String msg){this.msg = msg;}
 
+    public String getTo(){return this.to;}
+
     public String getFrom(){
         return this.from;
     }
