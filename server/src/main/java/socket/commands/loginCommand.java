@@ -1,29 +1,30 @@
 package socket.commands;
 
+import CLTrequests.Request;
+import CLTrequests.loginRequest;
 import SRVevents.loginEvent;
-import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
 
 public class loginCommand implements Command {
-    private JSONObject request;
+    private loginRequest request;
     private ClientListener clientListener;
     private Server server;
     private ClientAPI clientAPI;
 
-    public loginCommand(ClientListener clientListener, JSONObject request){
+    public loginCommand(ClientListener clientListener, loginRequest request){
         this.clientListener=clientListener;
-        this.request =request;
+        this.request =  request;
         this.server=clientListener.getServer();
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec(){
         loginEvent response = this.clientListener.getClientAPI().login(request, this.server.getLoggedUsers().getUserList());
         if (response.getSuccess()) {
-            this.clientListener.setUser(this.clientAPI.getUser((String) request.get("username")));
-            this.server.sendToLoggedIn(this.server.getLoggedUsers().getUserList());
+            this.clientListener.setUser(this.clientAPI.getUser(request.getUsername()));
+            this.server.sendToLoggedIn(this.server.getLoggedUsers());
         }
         if (response != null) {
             this.clientListener.send(response);

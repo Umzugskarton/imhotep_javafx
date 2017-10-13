@@ -1,7 +1,7 @@
 package socket;
 
+import CLTrequests.loginRequest;
 import SRVevents.*;
-import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class ClientAPI {
 
   private UserManager userManager;
-  private Gson gson = new Gson();
 
   public ClientAPI() {
     this.userManager = new UserManager();
@@ -28,12 +27,11 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Login enthält;
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    */
-  public loginEvent login(JSONObject request, ArrayList<String> loggedUsers) {
+  public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
     loginEvent event = new loginEvent();
-    if (request.containsKey("username") && request.containsKey("password")) {
-      String username = (String) request.get("username");
-      String password = (String) request.get("password");
-
+    String username = request.getUsername();
+    String password = request.getPassword();
+    if (username != null  && password != null) {
       if (loggedUsers.contains(username)) {
         event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
         event.setSuccess(false);
@@ -66,8 +64,7 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Registrierung enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public String register(JSONObject request) {
-    String response;
+  public registerEvent register(JSONObject request) {
     registerEvent event = new registerEvent();
 
     if (request.containsKey("username") && request.containsKey("password") && request
@@ -89,12 +86,10 @@ public class ClientAPI {
       event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
       event.setSuccess(false);
     }
-    response = gson.toJson(event);
-    return response;
+    return event;
   }
 
-  public String chat(JSONObject request, User user) {
-    String response;
+  public chatEvent chat(JSONObject request, User user) {
     chatEvent event = new chatEvent();
 
     if (request.containsKey("message") && user != null) {
@@ -102,20 +97,18 @@ public class ClientAPI {
       event.setUser(user.getUsername());
 
     }
-    response = gson.toJson(event);
-    return response;
+    return event;
   }
 
-  public String whisper(JSONObject request, User user) {
-    String response= null;
+  public whisperEvent whisper(JSONObject request, User user) {
+
     whisperEvent event = new whisperEvent();
 
     if (request.containsKey("message") && request.containsKey("to") && user != null) {
       event.setMsg((String) request.get("message"));
       event.setFrom(user.getUsername());
     }
-    response = gson.toJson(event);
-    return response;
+    return event;
   }
 
   /**

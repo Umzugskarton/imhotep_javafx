@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 import java.util.HashMap;
 
 public class EventFactory {
-    private JSONObject j;
     private HashMap<String, voidEvent> Dict = new HashMap<>();
 
     public EventFactory(){
@@ -17,17 +16,8 @@ public class EventFactory {
         Dict.put("chatInfo", new chatInfoEvent());
     }
 
-    public voidEvent getEvent(JSONObject j){
-        String command;
-        this.j = j;
-        if (j.containsKey("command")){
-           command = (String) j.get("command");
-           voidEvent e = Dict.get(command);
-           return e;
-        }
-        else{
-            return null;
-        }
+    public voidEvent getEvent(String command){
+           return Dict.get(command);
     }
 
 

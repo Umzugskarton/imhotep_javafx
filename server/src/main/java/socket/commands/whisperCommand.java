@@ -1,6 +1,7 @@
 package socket.commands;
 
-import json.ServerCommands;
+import SRVevents.userNotFoundError;
+import SRVevents.voidEvent;
 import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
@@ -19,14 +20,15 @@ public class whisperCommand implements Command {
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec() {
-        String response = null;
+        voidEvent response = null;
         String receiverUsername = this.server
                 .getLoggedInUsername((String) request.get("to"));
         if (receiverUsername != null) {
-            String chatMessage = this.clientAPI.whisper(request, this.clientListener.getUser());
-            this.server.sendTo(chatMessage, receiverUsername);
+            this.server.sendTo(this.clientAPI.whisper(request, this.clientListener.getUser()), receiverUsername);
         } else {
-            response = ServerCommands.userNotFoundError((String) request.get("to"));
+            userNotFoundError error = new userNotFoundError();
+            error.setMsg((String) request.get("to"));
+            response = error;
         }
 
         if (response != null) {

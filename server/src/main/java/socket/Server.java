@@ -6,9 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import SRVevents.userListEvent;
-import com.google.gson.Gson;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import SRVevents.voidEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +18,6 @@ public class Server {
   private ServerSocket serverSocket = null;
   private ClientAPI clientAPI = null;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
-  private Gson gson = new Gson();
 
   public Server() {
     this.port = 47096;
@@ -79,13 +76,13 @@ public class Server {
     }
   }
 
-  public void sendToAll(String json) {
+  public void sendToAll(voidEvent json) {
     for (ClientListener clientListener : connectedClients) {
       clientListener.send(json);
     }
   }
 
-  public boolean sendTo(String json, String to) {
+  public boolean sendTo(voidEvent json, String to) {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
@@ -102,10 +99,10 @@ public class Server {
     return found;
   }
 
-  public void sendToLoggedIn(String json) {
+  public void sendToLoggedIn(voidEvent event) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
-        clientListener.send(json);
+        clientListener.send(event);
       }
     }
   }

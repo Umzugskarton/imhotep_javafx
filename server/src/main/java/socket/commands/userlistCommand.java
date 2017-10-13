@@ -1,21 +1,20 @@
 package socket.commands;
 
+import SRVevents.userListEvent;
 import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
 
 public class userlistCommand implements Command {
-    private JSONObject request;
     private ClientListener clientListener;
-    private ClientAPI clientAPI;
 
-    public userlistCommand(ClientListener clientListener, JSONObject request){
+
+    public userlistCommand(ClientListener clientListener){
         this.clientListener=clientListener;
-        this.request =request;
-        this.clientAPI = clientListener.getClientAPI();
+
     }
     public void exec(){
-        String response = this.clientListener.getServer().getLoggedUsers();
+        userListEvent response = this.clientListener.getServer().getLoggedUsers();
         if (response != null) {
             this.clientListener.send(response);
         }

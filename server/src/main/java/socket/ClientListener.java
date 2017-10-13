@@ -5,6 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
+import SRVevents.EventFactory;
+import SRVevents.voidEvent;
+import com.google.gson.Gson;
+import com.sun.org.apache.regexp.internal.RE;
 import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -24,6 +31,7 @@ public class ClientListener implements Runnable {
   private PrintWriter out = null;
   private BufferedReader in = null;
   private User user = null;
+  private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -51,8 +59,10 @@ public class ClientListener implements Runnable {
           JSONObject request = (JSONObject) obj;
 
           if (request.containsKey("command")) {
+            RequestFactory ev = new RequestFactory();
             String command = (String) request.get("command");
-            CommandFactory commandFactory = new CommandFactory(this, request);
+            Request re = ev.getRequest(command);
+            CommandFactory commandFactory = new CommandFactory(this, gson.fromJson(request.toJSONString(), re.getClass()));
             Command c = commandFactory.getCommand(command);
             Invoker invoker = new Invoker(c);
             invoker.call();
@@ -73,9 +83,10 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public void send(String json) {
+  public void send(voidEvent event) {
     if (this.out != null) {
-
+      Gson gson = new Gson();
+      String json = gson.toJson(event);
       log.info(
           "Nachricht gesendet: " + json);
       this.out.println(json);

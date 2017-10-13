@@ -1,7 +1,8 @@
 package socket.commands;
 
 
-import org.json.simple.JSONObject;
+import CLTrequests.Request;
+import CLTrequests.*;
 import socket.ClientListener;
 
 import java.util.HashMap;
@@ -11,13 +12,13 @@ public class CommandFactory {
 
     private HashMap<String, Command> Dict = new HashMap<>();
 
-    public CommandFactory(ClientListener clientListener, JSONObject j){
-        Dict.put("register", new registerCommand(clientListener, j));
-        Dict.put("login", new loginCommand(clientListener, j));
-        Dict.put("logout", new logoutCommand(clientListener, j));
-        Dict.put("userlist", new userlistCommand(clientListener, j));
-        Dict.put("whisper", new whisperCommand(clientListener, j));
-        Dict.put("chat", new chatCommand(clientListener, j));
+    public CommandFactory(ClientListener clientListener, Request j){
+        Dict.put("register", new registerCommand(clientListener, (registerRequest)j));
+        Dict.put("login", new loginCommand(clientListener, (loginRequest) j));
+        Dict.put("logout", new logoutCommand(clientListener, (logoutRequest) j));
+        Dict.put("userlist", new userlistCommand(clientListener));
+        Dict.put("whisper", new whisperCommand(clientListener, (whisperRequest) j));
+        Dict.put("chat", new chatCommand(clientListener, (chatRequest)j));
     }
 
     public Command getCommand(String c){

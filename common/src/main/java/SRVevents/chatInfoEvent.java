@@ -1,6 +1,5 @@
 package SRVevents;
 
-import org.json.simple.JSONObject;
 import java.util.Date;
 
 
@@ -10,9 +9,9 @@ public class chatInfoEvent implements voidEvent{
 
     public chatInfoEvent(){
         this.date = new Date();
-        this.msg=msg;
     }
 
+    public void setMsg(String msg){this.msg = msg;}
     public String getMsg() {
         return this.msg;
     }
