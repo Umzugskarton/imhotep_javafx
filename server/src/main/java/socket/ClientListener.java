@@ -76,7 +76,7 @@ public class ClientListener implements Runnable {
     } finally {
       if (this.isLoggedIn()) {
         this.user = null;
-        //this.server.sendToAll(server.getLoggedUsers()); Todo
+        this.server.sendToAll(server.getLoggedUsers());
       }
 
       this.server.removeClient(this);

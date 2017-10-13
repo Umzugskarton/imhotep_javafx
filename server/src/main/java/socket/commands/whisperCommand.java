@@ -1,5 +1,6 @@
 package socket.commands;
 
+import CLTrequests.Request;
 import CLTrequests.whisperRequest;
 import SRVevents.userNotFoundError;
 import SRVevents.voidEvent;
@@ -9,18 +10,20 @@ import socket.ClientListener;
 import socket.Server;
 
 public class whisperCommand implements Command {
+    private Request bare;
     private whisperRequest request;
     private ClientListener clientListener;
     private Server server;
     private ClientAPI clientAPI;
 
-    public whisperCommand(ClientListener clientListener, whisperRequest request){
+    public whisperCommand(ClientListener clientListener, Request bare){
         this.clientListener=clientListener;
-        this.request =request;
+        this.bare = bare;
         this.server=clientListener.getServer();
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec() {
+        this.request =(whisperRequest) this.bare;
         voidEvent response = null;
         String receiverUsername = this.server
                 .getLoggedInUsername(request.getTo());

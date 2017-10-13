@@ -1,16 +1,15 @@
 package mainmenu.presenter;
 
+import CLTrequests.*;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
-import json.ClientCommands;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class MainmenuPresenter {
 
@@ -31,14 +30,14 @@ public class MainmenuPresenter {
     this.chatPresenter = new ChatPresenter(this.sceneController);
     view.initChat(this.chatPresenter.getChatView());
 
-    this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
+    this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
   public MainmenuView getMainmenuView() {
     return this.view;
   }
 
-  public void updateUserlist(JSONArray userArray) {
+  public void updateUserlist(ArrayList<String> userArray) {
     // Im Chat informieren wer gejoined/leaved ist
     boolean notifyInChat = true;
     if (playerList.getPlayers().isEmpty()) {
@@ -84,8 +83,7 @@ public class MainmenuPresenter {
   }
 
   public void logout(){
-    JSONObject logoutCommand = ClientCommands.logoutCommand();
-    this.sceneController.getClientSocket().send(logoutCommand);
+    this.sceneController.getClientSocket().send(new logoutRequest());
   }
 
   public SceneController getSceneController() {

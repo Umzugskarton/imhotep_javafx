@@ -1,10 +1,9 @@
 package login.presenter;
 
 
-import json.ClientCommands;
+import CLTrequests.loginRequest;
 import login.view.LoginView;
 import main.SceneController;
-import org.json.simple.JSONObject;
 
 public class LoginPresenter {
 
@@ -20,7 +19,7 @@ public class LoginPresenter {
   public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       this.view.updateStatusLabel("");
-      JSONObject loginCommand = ClientCommands.loginCommand(username, password);
+      loginRequest loginCommand = new loginRequest(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
       this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");

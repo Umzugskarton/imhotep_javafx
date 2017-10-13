@@ -45,11 +45,14 @@ public class ServerListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject re = (JSONObject) obj;
-          String request = re.toString();
+          if (re.containsKey("command")) {
+            String command = (String) re.get("command");
+            String request = re.toJSONString();
             EventFactory eventFactory = new EventFactory();
             Gson gson = new Gson();
-            voidEvent event = gson.fromJson(request, eventFactory.getEvent(re).getClass());
+            voidEvent event = gson.fromJson(request, eventFactory.getEvent(command).getClass());
             this.eventBus.post(event);
+          }
 
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
