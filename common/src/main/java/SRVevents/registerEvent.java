@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 public class registerEvent implements voidEvent {
+    private String event = "register";
     private Date date;
     private String msg;
     private boolean validate;

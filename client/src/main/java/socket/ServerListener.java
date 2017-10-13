@@ -45,8 +45,8 @@ public class ServerListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject re = (JSONObject) obj;
-          if (re.containsKey("command")) {
-            String command = (String) re.get("command");
+          if (re.containsKey("event")) {
+            String command = (String) re.get("event");
             String request = re.toJSONString();
             EventFactory eventFactory = new EventFactory();
             Gson gson = new Gson();

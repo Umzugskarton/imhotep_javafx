@@ -4,6 +4,7 @@ import java.util.Date;
 
 
 public class chatInfoEvent implements voidEvent{
+    private String event = "chatInfo";
     private Date date;
     private String msg;
 

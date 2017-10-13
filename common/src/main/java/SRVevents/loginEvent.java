@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import java.util.Date;
 
 public class loginEvent implements voidEvent{
+    private String event = "login";
     private boolean success;
     private String msg;
     private Date date;

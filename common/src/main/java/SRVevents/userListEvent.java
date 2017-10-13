@@ -8,6 +8,7 @@ import java.util.Date;
 
 
 public class userListEvent implements voidEvent{
+    private String event = "userlist";
     private Date date;
     private ArrayList<String> userList;
 
