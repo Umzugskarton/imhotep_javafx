@@ -1,6 +1,8 @@
 package mainmenu.view;
 
 import chat.view.ChatView;
+import create.view.CreateView;
+import games.view.GamesView;
 import javafx.scene.Scene;
 import mainmenu.presenter.MainmenuPresenter;
 
@@ -13,6 +15,9 @@ public interface MainmenuView {
   Scene getMainmenuScene();
 
   void initChat(ChatView chatView);
+  void initCreate(CreateView createView);
+  void initGames(GamesView gamesView);
 
   void initPlayerList();
+  void openModal(String msg);
 }
