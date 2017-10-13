@@ -3,7 +3,7 @@ package CLTrequests;
 import java.util.Date;
 
 public class loginRequest implements Request{
-    private String command = "login";
+    private String request = "login";
     private Date date;
     private String username;
     private String pw;
@@ -16,8 +16,8 @@ public class loginRequest implements Request{
         this.date = new Date();
     }
 
-    public String getCommand(){
-        return this.command;
+    public String getRequest(){
+        return this.request;
     }
 
     public String getUsername(){

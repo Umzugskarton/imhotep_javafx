@@ -10,19 +10,21 @@ import socket.Server;
 
 public class chatCommand implements Command {
     private chatRequest request;
-    private Request bare;
     private ClientListener clientListener;
     private Server server;
     private ClientAPI clientAPI;
 
-    public chatCommand(ClientListener clientListener, Request bare){
+    public chatCommand(ClientListener clientListener){
         this.clientListener=clientListener;
-        this.bare = bare;
         this.server=clientListener.getServer();
         this.clientAPI=clientListener.getClientAPI();
     }
+
+    public void put(Request r){
+        this.request =(chatRequest) r;
+    }
+
     public void exec(){
-        this.request =(chatRequest) this.bare;
         chatEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
         this.server.sendToLoggedIn(chatMessage);
     }

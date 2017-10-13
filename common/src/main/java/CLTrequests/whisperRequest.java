@@ -6,7 +6,7 @@ import java.util.Date;
  * Created on 10.10.2017.
  */
 public class whisperRequest implements Request{
-    String command ="whisper";
+    String request ="whisper";
     private Date date;
     private String to;
     private String msg;
@@ -21,8 +21,8 @@ public class whisperRequest implements Request{
         this.date = new Date();
     }
 
-    public String getCommand(){
-        return this.command;
+    public String getRequest(){
+        return this.request;
     }
 
     public String getTo(){return this.to;}

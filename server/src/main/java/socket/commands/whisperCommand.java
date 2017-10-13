@@ -10,20 +10,21 @@ import socket.ClientListener;
 import socket.Server;
 
 public class whisperCommand implements Command {
-    private Request bare;
     private whisperRequest request;
     private ClientListener clientListener;
     private Server server;
     private ClientAPI clientAPI;
 
-    public whisperCommand(ClientListener clientListener, Request bare){
+    public whisperCommand(ClientListener clientListener){
         this.clientListener=clientListener;
-        this.bare = bare;
         this.server=clientListener.getServer();
         this.clientAPI=clientListener.getClientAPI();
     }
+
+    public void put(Request r){
+        this.request =(whisperRequest) r;
+    }
     public void exec() {
-        this.request =(whisperRequest) this.bare;
         voidEvent response = null;
         String receiverUsername = this.server
                 .getLoggedInUsername(request.getTo());

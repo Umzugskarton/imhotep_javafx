@@ -4,7 +4,7 @@ package CLTrequests;
 import java.util.Date;
 
 public class chatRequest implements Request {
-    private String command = "chat";
+    private String request = "chat";
     private Date date;
     private String msg;
 
@@ -20,8 +20,8 @@ public class chatRequest implements Request {
         return this.msg;
     }
 
-    public String getCommand(){
-        return this.command;
+    public String getRequest(){
+        return this.request;
     }
 
     public Date getDate(){

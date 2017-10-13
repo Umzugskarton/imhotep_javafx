@@ -2,7 +2,6 @@ package socket.commands;
 
 
 import CLTrequests.Request;
-import CLTrequests.*;
 import socket.ClientListener;
 
 import java.util.HashMap;
@@ -12,16 +11,18 @@ public class CommandFactory {
 
     private HashMap<String, Command> Dict = new HashMap<>();
 
-    public CommandFactory(ClientListener clientListener, Request bare){
-        Dict.put("register", new registerCommand(clientListener, bare));
-        Dict.put("login", new loginCommand(clientListener, bare));
+    public CommandFactory(ClientListener clientListener){
+        Dict.put("register", new registerCommand(clientListener));
+        Dict.put("login", new loginCommand(clientListener));
         Dict.put("logout", new logoutCommand(clientListener));
         Dict.put("userlist", new userlistCommand(clientListener));
-        Dict.put("whisper", new whisperCommand(clientListener, bare));
-        Dict.put("chat", new chatCommand(clientListener, bare));
+        Dict.put("whisper", new whisperCommand(clientListener));
+        Dict.put("chat", new chatCommand(clientListener));
     }
 
-    public Command getCommand(String c){
-            return Dict.get(c);
+    public Command getCommand(Request request){
+        Command c = Dict.get(request.getRequest());
+        c.put(request);
+        return c;
     }
 }

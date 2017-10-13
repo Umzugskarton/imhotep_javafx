@@ -6,7 +6,7 @@ import java.util.Date;
  * Created on 10.10.2017.
  */
 public class registerRequest implements Request {
-    private String command = "register";
+    private String request = "register";
     private Date date;
     private String username;
     private String pw;
@@ -23,8 +23,8 @@ public class registerRequest implements Request {
         this.date = new Date();
     }
 
-    public String getCommand(){
-        return this.command;
+    public String getRequest(){
+        return this.request;
     }
 
     public String getUsername(){

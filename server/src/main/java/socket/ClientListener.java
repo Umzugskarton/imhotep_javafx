@@ -58,12 +58,12 @@ public class ClientListener implements Runnable {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
 
-          if (request.containsKey("command")) {
+          if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
-            String command = (String) request.get("command");
+            String command = (String) request.get("request");
             Request re = ev.getRequest(command);
-            CommandFactory commandFactory = new CommandFactory(this, gson.fromJson(request.toJSONString(), re.getClass()));
-            Command c = commandFactory.getCommand(command);
+            CommandFactory commandFactory = new CommandFactory(this);
+            Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
           }
