@@ -118,4 +118,17 @@ public class ClientAPI {
     return this.userManager.getUser(UserIdentifier.USERNAME, username);
   }
 
+
+
+  public Lobby createLobby(JSONObject j, User user){
+    String name = (String) j.get("name");
+    int size = Integer.parseInt(j.get("size").toString());
+    Lobby lobby = new Lobby(size, user, name);
+
+    if(j.containsKey("password") && !j.get("password").toString().isEmpty()){
+      lobby.setPassword((String) j.get("password"));
+    }
+
+    return lobby;
+  }
 }

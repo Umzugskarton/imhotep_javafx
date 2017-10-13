@@ -9,6 +9,8 @@ import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
+import  lobby.presenter.LobbyPresenter;
+import  lobby.view.LobbyViewImpl;
 import socket.ClientSocket;
 
 
@@ -27,6 +29,8 @@ public class SceneController {
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
   private EventBus eventBus;
+  private LobbyPresenter LobbyPresenter;
+
 
   public SceneController(Stage stage) {
     this.eventBus = new EventBus();
@@ -68,8 +72,21 @@ public class SceneController {
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
+  public void toLobbyScene(){
+    if (this.LobbyPresenter == null){
+      this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
+    }
+
+    this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
+    this.stage.getScene().getStylesheets().add("style.css");
+  }
+
   public ClientSocket getClientSocket() {
     return this.clientSocket;
+  }
+
+  public LobbyPresenter getLobbyPresenter() {
+    return this.LobbyPresenter;
   }
 
   public LoginPresenter getLoginPresenter() {

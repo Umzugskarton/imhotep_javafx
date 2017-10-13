@@ -8,10 +8,9 @@ import java.net.Socket;
 
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
-import SRVevents.EventFactory;
 import SRVevents.voidEvent;
 import com.google.gson.Gson;
-import com.sun.org.apache.regexp.internal.RE;
+import lobby.Lobby;
 import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -31,6 +30,7 @@ public class ClientListener implements Runnable {
   private PrintWriter out = null;
   private BufferedReader in = null;
   private User user = null;
+  private Lobby lobby = null;
   private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {

@@ -4,6 +4,9 @@ import CLTrequests.*;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
+
+import create.presenter.CreatePresenter;
+import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
 import main.SceneController;
 import mainmenu.model.PlayerList;
@@ -17,6 +20,8 @@ public class MainmenuPresenter {
   private SceneController sceneController;
   private PlayerList playerList;
   private ChatPresenter chatPresenter;
+  private CreatePresenter createPresenter;
+  private GamesPresenter gamesPresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -30,6 +35,13 @@ public class MainmenuPresenter {
     this.chatPresenter = new ChatPresenter(this.sceneController);
     view.initChat(this.chatPresenter.getChatView());
 
+    this.sceneController.getClientSocket().send(new userlistRequest());
+
+    this.createPresenter = new CreatePresenter(this.sceneController);
+    view.initCreate(this.createPresenter.getCreateView());
+
+    this.gamesPresenter = new GamesPresenter(this.sceneController);
+    view.initGames(this.gamesPresenter.getGamesView());
     this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
