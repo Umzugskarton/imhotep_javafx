@@ -19,11 +19,11 @@ public class whisperCommand implements Command {
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec() {
-        JSONObject response = null;
+        String response = null;
         String receiverUsername = this.server
                 .getLoggedInUsername((String) request.get("to"));
         if (receiverUsername != null) {
-            JSONObject chatMessage = this.clientAPI.whisper(request, this.clientListener.getUser());
+            String chatMessage = this.clientAPI.whisper(request, this.clientListener.getUser());
             this.server.sendTo(chatMessage, receiverUsername);
         } else {
             response = ServerCommands.userNotFoundError((String) request.get("to"));

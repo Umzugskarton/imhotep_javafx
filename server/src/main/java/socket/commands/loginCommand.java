@@ -1,5 +1,6 @@
 package socket.commands;
 
+import SRVevents.loginEvent;
 import org.json.simple.JSONObject;
 import socket.ClientAPI;
 import socket.ClientListener;
@@ -19,10 +20,10 @@ public class loginCommand implements Command {
         this.clientAPI=clientListener.getClientAPI();
     }
     public void exec(){
-        JSONObject response = this.clientListener.getClientAPI().login(request, this.server.getLoggedUsers());
-        if ((boolean) response.get("success")) {
+        loginEvent response = this.clientListener.getClientAPI().login(request, this.server.getLoggedUsers().getUserList());
+        if (response.getSuccess()) {
             this.clientListener.setUser(this.clientAPI.getUser((String) request.get("username")));
-            this.server.sendToLoggedIn(this.server.getLoggedUsers());
+            this.server.sendToLoggedIn(this.server.getLoggedUsers().getUserList());
         }
         if (response != null) {
             this.clientListener.send(response);

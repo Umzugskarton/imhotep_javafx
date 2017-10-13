@@ -7,6 +7,8 @@ import user.User;
 import user.UserIdentifier;
 import user.UserManager;
 
+import java.util.ArrayList;
+
 public class ClientAPI {
 
   private UserManager userManager;
@@ -26,14 +28,13 @@ public class ClientAPI {
    * @param request JSON-Objekt, das User-Daten für Login enthält;
    * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
    */
-  public String login(JSONObject request, JSONObject loggedUsers) {
-    String response;
+  public loginEvent login(JSONObject request, ArrayList<String> loggedUsers) {
     loginEvent event = new loginEvent();
     if (request.containsKey("username") && request.containsKey("password")) {
       String username = (String) request.get("username");
       String password = (String) request.get("password");
 
-      if (loggedUsers.get("users").toString().contains(username)) {
+      if (loggedUsers.contains(username)) {
         event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
         event.setSuccess(false);
       } else {
@@ -52,8 +53,7 @@ public class ClientAPI {
       event.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
       event.setSuccess(false);
     }
-    response = gson.toJson(event);
-    return response;
+    return event;
   }
 
   /**

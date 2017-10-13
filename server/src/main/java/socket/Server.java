@@ -20,6 +20,7 @@ public class Server {
   private ServerSocket serverSocket = null;
   private ClientAPI clientAPI = null;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
+  private Gson gson = new Gson();
 
   public Server() {
     this.port = 47096;
@@ -109,14 +110,16 @@ public class Server {
     }
   }
 
-  public JSONArray getLoggedUsers() {
-    JSONArray users = new JSONArray();
+  public userListEvent getLoggedUsers() {
+    userListEvent  event = new userListEvent();
+    ArrayList<String> users = new ArrayList<>();
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {
         users.add(client.getUser().getUsername());
       }
     }
-    return users;
+    event.setUserList(users);
+    return event;
   }
 
   public String getLoggedInUsername(String username) {
