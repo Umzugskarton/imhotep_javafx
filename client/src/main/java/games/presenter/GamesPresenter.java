@@ -4,11 +4,10 @@ package games.presenter;
 import CLTrequests.joinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
-import lobby.model.Lobby;
+import lobby.model.CLTLobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
 import main.SceneController;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class GamesPresenter {
             usercount = (int)(long) gameLobby.get("usercount");
             name = (String) gameLobby.get("name");
             haspw = (boolean) gameLobby.get("haspw");
-            gamesList.getGames().add(new Lobby(id, size, name, haspw, usercount));
+            gamesList.getGames().add(new CLTLobby(id, size, name, haspw, usercount));
         }
 
 

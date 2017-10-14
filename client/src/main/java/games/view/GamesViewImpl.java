@@ -1,6 +1,6 @@
 package games.view;
 
-import lobby.model.Lobby;
+import lobby.model.CLTLobby;
 import games.presenter.GamesPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +24,7 @@ import javafx.util.Callback;
 
 public class GamesViewImpl extends GridPane implements GamesView {
     private GamesPresenter gamesPresenter;
-    private TableView<Lobby> table = new TableView();
+    private TableView<CLTLobby> table = new TableView();
     private int click = 0;
 
     public GamesViewImpl(GamesPresenter gamesPresenter) {
@@ -38,21 +38,21 @@ public class GamesViewImpl extends GridPane implements GamesView {
         root.setVgap(5);
         root.setPadding(new Insets(5));
 
-        TableColumn firstNameCol = new TableColumn("Lobby Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Lobby, String>("name"));
+        TableColumn firstNameCol = new TableColumn("CLTLobby Name");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<CLTLobby, String>("name"));
         TableColumn lastNameCol = new TableColumn("Belegung");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Lobby, String>("belegung"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<CLTLobby, String>("belegung"));
         TableColumn idCol = new TableColumn("id");
         idCol.setCellValueFactory(
-                new PropertyValueFactory<Lobby, String>("id"));
+                new PropertyValueFactory<CLTLobby, String>("id"));
         TableColumn joinCol = new TableColumn(" ");
         joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
-        Callback<TableColumn<Lobby, String>, TableCell<Lobby, String>> cellFactory
-                = new Callback<TableColumn<Lobby, String>, TableCell<Lobby, String>>() {
+        Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>> cellFactory
+                = new Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>>() {
                     @Override
-                    public TableCell call(final TableColumn<Lobby, String> param) {
-                        final TableCell<Lobby, String> cell = new TableCell<Lobby, String>() {
+                    public TableCell call(final TableColumn<CLTLobby, String> param) {
+                        final TableCell<CLTLobby, String> cell = new TableCell<CLTLobby, String>() {
                             final Button btn = new Button("Join");
                             @Override
                             public void updateItem(String item, boolean empty) {
@@ -61,19 +61,19 @@ public class GamesViewImpl extends GridPane implements GamesView {
                                     setGraphic(null);
                                     setText(null);
                                 } else {
-                                    Lobby lobby = getTableView().getItems().get(getIndex());
+                                    CLTLobby CLTLobby = getTableView().getItems().get(getIndex());
                                     HBox hbox = new HBox();
                                     ImageView img = new ImageView();
                                     img.setFitHeight(20);
                                     img.setFitWidth(15);
                                     hbox.setSpacing(5);
                                     img.setImage(new Image("ank.png"));
-                                    if (lobby.hasPW()){
+                                    if (CLTLobby.hasPW()){
                                         hbox.getChildren().addAll(btn, img);
-                                        btn.setOnAction(event -> popup(lobby));
+                                        btn.setOnAction(event -> popup(CLTLobby));
                                         setGraphic(hbox);
                                     } else{
-                                        btn.setOnAction(event -> gamesPresenter.joinLobby(lobby.getId(), null));
+                                        btn.setOnAction(event -> gamesPresenter.joinLobby(CLTLobby.getId(), null));
                                         setGraphic(btn);
                                     }
                                     setText(null);
@@ -87,7 +87,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
 
         table.setOnMouseClicked( click ->{
                 if (click.getClickCount() == 2 && table.getSelectionModel().getSelectedItem() != null) {
-                    Lobby selectedLobby = table.getSelectionModel().getSelectedItem();
+                    CLTLobby selectedLobby = table.getSelectionModel().getSelectedItem();
                     if (selectedLobby.hasPW()){
                       popup(selectedLobby);
                     }else {
@@ -101,7 +101,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
         root.add(table ,0, 1);
     }
 
-    public void popup(Lobby selectedLobby){
+    public void popup(CLTLobby selectedCLTLobby){
                 // Popup mit Passworteingabe
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
@@ -112,7 +112,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
                 Button sendPW = new Button("Senden");
                 sendPW.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        gamesPresenter.joinLobby(selectedLobby.getId(), password.getText());
+                        gamesPresenter.joinLobby(selectedCLTLobby.getId(), password.getText());
                         dialog.close();
                     }
                 });

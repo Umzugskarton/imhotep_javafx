@@ -4,10 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Lobby {
+public class CLTLobby {
     private int LobbyID;
     private String name;
     private String host;
@@ -20,12 +21,13 @@ public class Lobby {
     private boolean[] ready;
 
 
-    public Lobby(int id, int size, String name, boolean hasPW, int usercount){
+    public CLTLobby(int id, int size, String name, boolean hasPW, int usercount, ArrayList<LobbyUser> lobbyUsers){
         this.LobbyID=id;
         this.hasPW=hasPW;
         this.size=size;
         this.name=name;
         this.users=  FXCollections.observableArrayList();
+        users.addAll(lobbyUsers);
         this.ready = new boolean[size];
         this.colors= new String[size];
         for (int s =0 ; s<= size-1; s++ ){

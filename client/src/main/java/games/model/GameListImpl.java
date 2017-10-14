@@ -2,16 +2,16 @@ package games.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lobby.model.Lobby;
+import lobby.model.CLTLobby;
 
 public class GameListImpl implements GameList {
-    private ObservableList<Lobby> games;
+    private ObservableList<CLTLobby> games;
 
     public GameListImpl() {
         games = FXCollections.observableArrayList();  //Liste zum Speichern der Lobbies
     }
 
-    public ObservableList<Lobby> getGames() {
+    public ObservableList<CLTLobby> getGames() {
         return this.games;
     }
 }

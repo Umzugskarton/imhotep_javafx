@@ -123,7 +123,8 @@ public class Server {
   }
 
   public lobbylistEvent getLobbies(){
-    lobbylistEvent
+    lobbylistEvent lobbies = new lobbylistEvent();
+    ArrayList<String> ltString = new ArrayList<>();
     for (Lobby lobby: openLobby) {
       JSONObject tempLobby= new JSONObject();
       tempLobby.put("name", lobby.getName());
@@ -133,7 +134,7 @@ public class Server {
       tempLobby.put("haspw", lobby.hasPW());
       lobbies.add(tempLobby);
     }
-    return ServerCommands.lobbylistCommand(lobbies);
+    return lobbies;
   }
 
 

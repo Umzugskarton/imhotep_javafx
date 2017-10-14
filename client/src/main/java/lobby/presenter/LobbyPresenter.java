@@ -1,15 +1,14 @@
 package lobby.presenter;
 
 
-import lobby.model.Lobby;
-import lobby.model.LobbyUser;
+import lobby.model.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;
 
 public class LobbyPresenter {
     private SceneController sc;
     private LobbyView lobbyView;
-    private Lobby lobby;
+    private CLTLobby CLTLobby;
 
     public LobbyPresenter (LobbyView lobbyView, SceneController sc){
         this.sc= sc;
@@ -18,11 +17,11 @@ public class LobbyPresenter {
 
     }
 
-    public Lobby getLobby(){
-        return this.lobby;
+    public CLTLobby getCLTLobby(){
+        return this.CLTLobby;
     }
-    public void setLobby(Lobby lobby){
-        this.lobby = lobby;
+    public void setCLTLobby(CLTLobby CLTLobby){
+        this.CLTLobby = CLTLobby;
         lobbyView.initLobbyInfo();
     }
 

@@ -12,11 +12,11 @@ public class lobbyInfoEvent implements voidEvent {
     private String[] users;
     private boolean host;
     private boolean[] ready;
-    private Color[] colors;
+    private String[] colors;
 
     public lobbyInfoEvent(){}
 
-    public lobbyInfoEvent(int lobbyId, String[] users, boolean host, boolean[] ready, Color[] colors){
+    public lobbyInfoEvent(int lobbyId, String[] users, boolean host, boolean[] ready, String[] colors){
         this.lobbyId= lobbyId;
         this.users = users;
         this.host = host;
@@ -32,11 +32,11 @@ public class lobbyInfoEvent implements voidEvent {
         return ready;
     }
 
-    public Color[] getColors() {
+    public String[] getColors() {
         return colors;
     }
 
-    public void setColors(Color[] colors) {
+    public void setColors(String[] colors) {
         this.colors = colors;
     }
 

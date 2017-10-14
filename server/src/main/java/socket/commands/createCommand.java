@@ -34,16 +34,12 @@ public class createCommand implements Command {
         createEvent response = this.clientListener.getServer().addLobby(lobby);
         if (response.getSuccess()) {
             this.clientListener.getServer().sendToLoggedIn(this.clientListener.getServer().getLobbies());
-            User[] users = lobby.getUsers();
-            lobbyInfoEvent lobbyInfo = ServerCommands.lobbyInfoCommand(lobby.getLobbyID(),
-                    lobby.getUsersJSONArray(), lobby.getUsers()[0].getUsername(), lobby.getReadyJSONArray(), lobby.getColorsJSONArray());
 
+            lobbyInfoEvent lobbyInfo =new lobbyInfoEvent(lobby.getLobbyID(),
+                    lobby.getUsersStringArray(), true, lobby.getReady(), lobby.getColors());
 
-            for (User user : users) {
-                if (user != null ) {
-                    this.server.sendTo(lobbyInfo, user.getUsername());
-                }
-            }
+            this.clientListener.getServer().sendTo(lobbyInfo,this.clientListener.getUser().getUsername());
+
         }
     }
 }
