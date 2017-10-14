@@ -1,4 +1,4 @@
-package lobby.model;
+package commonLobby;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

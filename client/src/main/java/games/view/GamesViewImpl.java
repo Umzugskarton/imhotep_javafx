@@ -1,6 +1,6 @@
 package games.view;
 
-import lobby.model.CLTLobby;
+import commonLobby.CLTLobby;
 import games.presenter.GamesPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

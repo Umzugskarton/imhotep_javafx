@@ -1,6 +1,5 @@
 package SRVevents;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,11 +11,11 @@ public class lobbyInfoEvent implements voidEvent {
     private String[] users;
     private boolean host;
     private boolean[] ready;
-    private String[] colors;
+    private ArrayList<String> colors;
 
     public lobbyInfoEvent(){}
 
-    public lobbyInfoEvent(int lobbyId, String[] users, boolean host, boolean[] ready, String[] colors){
+    public lobbyInfoEvent(int lobbyId, String[] users, boolean host, boolean[] ready, ArrayList<String> colors){
         this.lobbyId= lobbyId;
         this.users = users;
         this.host = host;
@@ -32,11 +31,11 @@ public class lobbyInfoEvent implements voidEvent {
         return ready;
     }
 
-    public String[] getColors() {
+    public ArrayList<String> getColors() {
         return colors;
     }
 
-    public void setColors(String[] colors) {
+    public void setColors(ArrayList<String> colors) {
         this.colors = colors;
     }
 

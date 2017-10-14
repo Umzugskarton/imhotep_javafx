@@ -4,7 +4,7 @@ package games.presenter;
 import CLTrequests.joinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
-import lobby.model.CLTLobby;
+import commonLobby.CLTLobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
 import main.SceneController;
@@ -44,7 +44,7 @@ public class GamesPresenter {
             usercount = (int)(long) gameLobby.get("usercount");
             name = (String) gameLobby.get("name");
             haspw = (boolean) gameLobby.get("haspw");
-            gamesList.getGames().add(new CLTLobby(id, size, name, haspw, usercount));
+            gamesList.getGames().add();
         }
 
 

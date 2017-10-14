@@ -9,10 +9,13 @@ import SRVevents.createEvent;
 import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
 import SRVevents.voidEvent;
+import commonLobby.CLTLobby;
+import commonLobby.LobbyUser;
 import lobby.Lobby;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import user.User;
 
 public class Server {
 
@@ -124,15 +127,22 @@ public class Server {
 
   public lobbylistEvent getLobbies(){
     lobbylistEvent lobbies = new lobbylistEvent();
-    ArrayList<String> ltString = new ArrayList<>();
+    ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
     for (Lobby lobby: openLobby) {
-      JSONObject tempLobby= new JSONObject();
-      tempLobby.put("name", lobby.getName());
-      tempLobby.put("lobbyid", lobby.getLobbyID());
-      tempLobby.put("size", lobby.getSize());
-      tempLobby.put("usercount", lobby.getUserCount());
-      tempLobby.put("haspw", lobby.hasPW());
-      lobbies.add(tempLobby);
+      ArrayList<LobbyUser> users = new ArrayList<>();
+      int i=0;
+      for(User user : lobby.getUsers()){
+          users.add(new LobbyUser(user.getUsername(),lobby.getColors().get(i), lobby.getReady()[i]));
+          i++;
+      }
+      CLTLobby tempLobby= new CLTLobby(lobby.getLobbyID(),
+              lobby.getSize(),
+              lobby.getName(),
+              lobby.hasPW(),
+              lobby.getUserCount(),
+              users
+              );
+      CLTLobbies.add(tempLobby);
     }
     return lobbies;
   }

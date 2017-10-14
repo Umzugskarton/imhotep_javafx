@@ -1,11 +1,11 @@
-package lobby.model;
+package commonLobby;
 
 public class LobbyUser {
     private String username;
     private String color;
     private boolean ready;
 
-    LobbyUser(String username , String color, boolean ready){
+    public LobbyUser(String username , String color, boolean ready){
         this.username=username;
         this.color= color;
         this.ready=ready;

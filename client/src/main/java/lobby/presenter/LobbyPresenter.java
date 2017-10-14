@@ -1,7 +1,7 @@
 package lobby.presenter;
 
 
-import lobby.model.CLTLobby;
+import commonLobby.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;
 

@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import lobby.model.LobbyUser;
+import commonLobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 

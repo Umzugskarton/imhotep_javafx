@@ -4,6 +4,11 @@ import SRVevents.joinEvent;
 import org.json.simple.JSONArray;
 import user.User;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Lobby {
     String name;
     private int LobbyID;
@@ -12,19 +17,18 @@ public class Lobby {
     private String password;
     private int size;
     boolean vacancy = true;
-    String[] colors;
+    private ArrayList<String> colors;
+
 
     public Lobby(int size, User host, String name){
         this.ready= new boolean[size];
-        this.colors= new String[size];
-        for (int s =0 ; s<= size-1; s++ ){
-            colors[s]="#0000ff";
-        }
+
         this.lobby = new User[size];
         this.lobby[0] = host;
         this.password=null;
         this.name=name;
         this.size = size;
+        generateColors();
     }
 
     public void setPassword(String psw){
@@ -60,13 +64,7 @@ public class Lobby {
         return this.ready;
     }
 
-    public JSONArray getReadyJSONArray(){
-        JSONArray j = new JSONArray();
-        for (boolean r : this.ready){
-            j.add(r);
-        }
-        return j;
-    }
+
 
     public boolean hasPW(){
         return this.password!=null;
@@ -76,11 +74,11 @@ public class Lobby {
         return this.size;
     }
 
-    public String[] getColors(){
+    public ArrayList<String> getColors(){
         return this.colors;
     }
 
-    public void  setColors(String[] newColors){
+    public void  setColors(ArrayList newColors){
         this.colors = newColors;
     }
 
@@ -116,6 +114,22 @@ public class Lobby {
             }
         }
         return users;
+    }
+
+    public void generateColors() {
+        int anzahl = 256 /size;
+        for (int i = 0; i < size; i++) {
+            int  area = size * (i+1);
+
+            int red = ThreadLocalRandom.current().nextInt(area - anzahl, area);
+            int green = ThreadLocalRandom.current().nextInt(area - anzahl, area);
+            int blue = ThreadLocalRandom.current().nextInt(area - anzahl, area);
+            red = (red + 255) / 2;
+            green = (green + 255) / 2;
+            blue = (blue + 255) / 2;
+            Color color = new Color(red, green, blue);
+            colors.add(color.toString());
+        }
     }
 
     public void leave(User user){

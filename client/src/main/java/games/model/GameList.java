@@ -1,7 +1,7 @@
 package games.model;
 
 import javafx.collections.ObservableList;
-import lobby.model.CLTLobby;
+import commonLobby.CLTLobby;
 
 public interface GameList {
     ObservableList<CLTLobby> getGames();
