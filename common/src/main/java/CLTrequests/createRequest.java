@@ -5,28 +5,31 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class joinRequest implements Request{
-    private String request = "register";
+public class createRequest implements Request {
+    private String request = "create";
     private Date date;
-    private int id;
+    private String name;
+    private int size;
     private String pw;
 
-    public joinRequest(){
+    public createRequest(){
 
     }
 
-    public joinRequest(int id, String password){
-        this.id = id;
+    public createRequest(String name,int size, String password){
+        this.size = size;
         this.pw = password;
+        this.name = name;
         this.date = new Date();
     }
 
+    public String getName(){return this.name;}
     public String getRequest(){
         return this.request;
     }
 
-    public int getId(){
-        return this.id;
+    public int getSize(){
+        return this.size;
     }
 
     public String getPassword(){
@@ -36,5 +39,4 @@ public class joinRequest implements Request{
     public Date getDate(){
         return this.date;
     }
-
 }

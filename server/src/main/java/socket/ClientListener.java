@@ -94,6 +94,10 @@ public class ClientListener implements Runnable {
     }
   }
 
+  public void setLobby(Lobby lobby){
+    this.lobby= lobby;
+  }
+
   public boolean isLoggedIn() {
     return this.user != null;
   }

@@ -1,8 +1,7 @@
 package lobby;
 
-import json.ServerCommands;
+import SRVevents.joinEvent;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import user.User;
 
 public class Lobby {
@@ -36,29 +35,25 @@ public class Lobby {
         return this.name;
     }
 
-    public JSONObject joinPW(User user, String password){
-        JSONObject response;
+    public joinEvent joinPW(User user, String password){
         if (password.equals(this.password)) {
            return join(user);
         }
-            response = ServerCommands.joinCommand("Das Passwort ist falsch.", false);
-            return response;
+
+            return new joinEvent("Das Passwort ist falsch.", false);
     }
 
-    public JSONObject join(User user){
-        JSONObject response;
+    public joinEvent join(User user){
         if (vacancy) {
             for (int i = 0; i < lobby.length; i++) {
                 if (lobby[i] == null) {
                     lobby[i] = user;
-                    response = ServerCommands.joinCommand("Erfolgreich beigetreten!", true);
-                    return response;
+                    return new joinEvent("Erfolgreich beigetreten!", true);
                 }
             }
         }
         this.vacancy = false;
-        response = ServerCommands.joinCommand("Die Lobby ist voll.", false);
-        return response;
+        return new joinEvent("Die Lobby ist voll.", false);
     }
 
     public boolean[] getReady(){
@@ -85,20 +80,8 @@ public class Lobby {
         return this.colors;
     }
 
-    public void  setColors(JSONArray newColors){
-        int i = 0;
-        for (Object color: newColors ){
-            this.colors[i] = (String)color;
-            i++;
-        }
-    }
-
-    public JSONArray getColorsJSONArray(){
-        JSONArray j = new JSONArray();
-        for (String color : this.colors){
-            j.add(color);
-        }
-        return j;
+    public void  setColors(String[] newColors){
+        this.colors = newColors;
     }
 
     public void setLobbyID(int id){
@@ -113,11 +96,13 @@ public class Lobby {
         return this.lobby;
     }
 
-    public JSONArray getUsersJSONArray(){
-        JSONArray j = new JSONArray();
+    public String[] getUsersStringArray(){
+        String[] j = new String[this.lobby.length];
+        int i = 0;
         for(User user : this.lobby) {
             if (user!=null) {
-                j.add(user.getUsername());
+                j[i] = user.getUsername();
+                i++;
             }
         }
         return j;

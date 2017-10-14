@@ -1,15 +1,17 @@
 package games.presenter;
 
 
+import CLTrequests.joinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
 import lobby.model.Lobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
-import json.ClientCommands;
 import main.SceneController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
 
 public class GamesPresenter {
     SceneController sc;
@@ -29,7 +31,7 @@ public class GamesPresenter {
         return this.view;
     }
 
-    public void updateLobbylist(JSONArray gamesArray){
+    public void updateLobbylist(ArrayList gamesArray){
         gamesList.getGames().clear();
         int size;
         int id;
@@ -50,7 +52,7 @@ public class GamesPresenter {
     }
 
     public void joinLobby(int id, String pw){
-            JSONObject join = ClientCommands.joinCommand(id, pw);
+            joinRequest join = new joinRequest(id, pw);
             sc.getClientSocket().send(join);
     }
 

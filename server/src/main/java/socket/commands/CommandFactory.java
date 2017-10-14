@@ -18,6 +18,7 @@ public class CommandFactory {
         Dict.put("userlist", new userlistCommand(clientListener));
         Dict.put("whisper", new whisperCommand(clientListener));
         Dict.put("chat", new chatCommand(clientListener));
+        Dict.put("create", new createCommand(clientListener));
     }
 
     public Command getCommand(Request request){

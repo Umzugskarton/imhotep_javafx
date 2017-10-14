@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 
 public class Lobby {
-    private int id;
+    private int LobbyID;
     private String name;
     private String host;
     private int size;
@@ -19,8 +19,9 @@ public class Lobby {
     private String[] colors;
     private boolean[] ready;
 
+
     public Lobby(int id, int size, String name, boolean hasPW, int usercount){
-        this.id=id;
+        this.LobbyID=id;
         this.hasPW=hasPW;
         this.size=size;
         this.name=name;
@@ -40,7 +41,7 @@ public class Lobby {
     }
 
     public void setLobbyID(int id){
-        this.id= id;
+        this.LobbyID= id;
     }
 
     public void setUsers(JSONArray newUsers, JSONArray ready, JSONArray color){
@@ -55,7 +56,7 @@ public class Lobby {
         }
     }
 
-    public int getId(){return this.id;}
+    public int getId(){return this.LobbyID;}
     public String getName(){return this.name;}
     public int getSize(){return this.size;}
     public boolean hasPW(){return this.hasPW;}

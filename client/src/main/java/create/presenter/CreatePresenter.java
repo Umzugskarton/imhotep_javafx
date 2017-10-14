@@ -1,10 +1,10 @@
 package create.presenter;
 
+import CLTrequests.createRequest;
 import create.view.CreateView;
 import create.view.CreateViewImpl;
-import json.ClientCommands;
 import main.SceneController;
-import org.json.simple.JSONObject;
+
 
 /**
  * Created by fabianrieger on 28.07.17.
@@ -21,7 +21,7 @@ public class CreatePresenter {
     }
 
     public void createLobby(String name, int size, String pass){
-        JSONObject j = ClientCommands.createCommand(name, size, pass);
+        createRequest j = new createRequest(name, size, pass);
         this.sceneController.getClientSocket().send(j);
     }
 

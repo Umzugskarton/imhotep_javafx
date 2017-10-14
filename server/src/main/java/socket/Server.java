@@ -5,8 +5,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import SRVevents.createEvent;
+import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
 import SRVevents.voidEvent;
+import lobby.Lobby;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +22,7 @@ public class Server {
   private ServerSocket serverSocket = null;
   private ClientAPI clientAPI = null;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
+  private ArrayList<Lobby> openLobby = new ArrayList<>();
 
   public Server() {
     this.port = 47096;
@@ -99,12 +104,12 @@ public class Server {
     return found;
   }
 
-  public JSONObject addLobby(Lobby lobby){
+  public createEvent addLobby(Lobby lobby){
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
     lobby.setLobbyID(openLobby.size()-1);
 
-    JSONObject j = ServerCommands.createCommand("Lobby Erfolgreich erstellt!", true, openLobby.size()-1);
+    createEvent j = new createEvent( true, openLobby.size()-1,"Lobby Erfolgreich erstellt!");
     return j;
   }
 
@@ -117,8 +122,8 @@ public class Server {
     return null;
   }
 
-  public JSONObject getLobbies(){
-    JSONArray lobbies = new JSONArray();
+  public lobbylistEvent getLobbies(){
+    lobbylistEvent
     for (Lobby lobby: openLobby) {
       JSONObject tempLobby= new JSONObject();
       tempLobby.put("name", lobby.getName());

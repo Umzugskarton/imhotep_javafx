@@ -2,6 +2,7 @@ package socket;
 
 import CLTrequests.*;
 import SRVevents.*;
+import lobby.Lobby;
 import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
@@ -120,13 +121,13 @@ public class ClientAPI {
 
 
 
-  public Lobby createLobby(JSONObject j, User user){
-    String name = (String) j.get("name");
-    int size = Integer.parseInt(j.get("size").toString());
+  public Lobby createLobby(createRequest request, User user){
+    String name =  request.getName();
+    int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
 
-    if(j.containsKey("password") && !j.get("password").toString().isEmpty()){
-      lobby.setPassword((String) j.get("password"));
+    if(request.getPassword() != null){
+      lobby.setPassword( request.getPassword());
     }
 
     return lobby;
