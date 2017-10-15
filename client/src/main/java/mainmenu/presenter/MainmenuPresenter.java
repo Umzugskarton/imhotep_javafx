@@ -105,4 +105,7 @@ public class MainmenuPresenter {
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
   }
+  public GamesPresenter getGamesPresenter() {
+    return this.gamesPresenter;
+  }
 }

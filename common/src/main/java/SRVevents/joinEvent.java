@@ -6,7 +6,7 @@ import java.util.Date;
  * Created on 13.10.2017.
  */
 public class joinEvent implements Event {
-    private String request = "join";
+    private String event = "join";
     private Date date;
     private String msg;
     private boolean success;
@@ -21,8 +21,8 @@ public class joinEvent implements Event {
         this.date = new Date();
     }
 
-    public String getRequest(){
-        return this.request;
+    public String getEvent() {
+        return event;
     }
 
     public String getMsg(){

@@ -1,5 +1,7 @@
 package SRVevents;
 
+import commonLobby.LobbyUser;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,25 +9,30 @@ import java.util.Date;
  * Created on 13.10.2017.
  */
 public class lobbyInfoEvent implements Event {
+    private String event = "lobbyInfo";
     private int lobbyId;
-    private String[] users;
-    private boolean host;
+    private ArrayList<LobbyUser> users;
+    private boolean ishost;
+    private String host;
     private boolean[] ready;
     private ArrayList<String> colors;
 
     public lobbyInfoEvent(){}
 
-    public lobbyInfoEvent(int lobbyId, String[] users, boolean host, boolean[] ready, ArrayList<String> colors){
+    public lobbyInfoEvent(int lobbyId, ArrayList<LobbyUser> users, boolean ishost, String host, boolean[] ready, ArrayList<String> colors){
         this.lobbyId= lobbyId;
         this.users = users;
+        this.ishost = ishost;
         this.host = host;
         this.ready= ready;
         this.colors= colors;
     }
 
     public boolean isHost() {
-        return host;
+        return this.ishost;
     }
+
+    public String getHost(){return this.host;}
 
     public boolean[] getReady() {
         return ready;
@@ -39,7 +46,7 @@ public class lobbyInfoEvent implements Event {
         this.colors = colors;
     }
 
-    public void setUsers(String[] users) {
+    public void setUsers(ArrayList<LobbyUser> users) {
         this.users = users;
     }
 
@@ -47,15 +54,19 @@ public class lobbyInfoEvent implements Event {
         this.lobbyId = lobbyId;
     }
 
-    public String[] getUsers() {
+    public ArrayList getUsers() {
         return users;
+    }
+
+    public String getEvent() {
+        return event;
     }
 
     public int getLobbyId() {
         return lobbyId;
     }
 
-    public void setHost(boolean host) {
+    public void setHost(String host) {
         this.host = host;
     }
 

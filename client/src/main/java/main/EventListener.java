@@ -3,6 +3,8 @@ package main;
 import javafx.application.Platform;
 import com.google.common.eventbus.Subscribe;
 import SRVevents.*;
+import commonLobby.*;
+import org.json.simple.JSONArray;
 
 
 public class EventListener {
@@ -68,17 +70,41 @@ public class EventListener {
 
     @Subscribe
     public void joinEventListener(joinEvent e){
-
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter() != null) {
+                        this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(e.getLobbies());
+                    }
+                }
+        );
     }
 
     @Subscribe
-    public void lobbylistListener(lobbylistEvent e){
-
+    public void lobbylistEventListener(lobbylistEvent e){
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter() != null) {
+                        this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(e.getLobbies());
+                    }
+                }
+        );
     }
 
     @Subscribe
-    public void lobbyInfoListener(lobbyInfoEvent e){
-
+    public void lobbyInfoEventListener(lobbyInfoEvent e){
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
+                        if (this.sceneController.getLobbyPresenter() == null) {
+                            this.sceneController.toLobbyScene();
+                        }
+                        CLTLobby temp = this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames().get(e.getLobbyId());
+                        temp.setHost(e.getHost());
+                        temp.setUsers(e.getUsers(), e.getReady(), e.getColors());
+                        this.sceneController.getLobbyPresenter().setLobby(temp);
+                    }
+                }
+        );
     }
 
     @Subscribe

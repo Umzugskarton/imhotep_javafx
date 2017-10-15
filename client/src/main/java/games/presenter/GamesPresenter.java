@@ -32,22 +32,7 @@ public class GamesPresenter {
 
     public void updateLobbylist(ArrayList gamesArray){
         gamesList.getGames().clear();
-        int size;
-        int id;
-        int usercount;
-        String name;
-        boolean haspw;
-        for (Object game : gamesArray){
-            JSONObject gameLobby = (JSONObject) game;
-            size = (int)(long)gameLobby.get("size");
-            id = (int)(long)gameLobby.get("lobbyid");
-            usercount = (int)(long) gameLobby.get("usercount");
-            name = (String) gameLobby.get("name");
-            haspw = (boolean) gameLobby.get("haspw");
-            gamesList.getGames().add(); // todo
-        }
-
-
+        gamesList.getGames().addAll(gamesArray);
     }
 
     public void joinLobby(int id, String pw){

@@ -46,16 +46,11 @@ public class CLTLobby {
         this.LobbyID= id;
     }
 
-    public void setUsers(JSONArray newUsers, JSONArray ready, JSONArray color){
+    public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, String[] colors){
         users.clear();
-        LobbyUser newUser;
-        Iterator i1 = newUsers.iterator();
-        Iterator i2 = ready.iterator();
-        Iterator i3 = color.iterator();
-        while(i1.hasNext() && i2.hasNext() && i3.hasNext()) {
-            newUser = new LobbyUser((String)i1.next(),(String)i3.next(),(boolean)i2.next());
-            users.add(newUser);
-        }
+        users.addAll(newUsers);
+        this.colors= colors;
+        this.ready = ready;
     }
 
     public int getId(){return this.LobbyID;}

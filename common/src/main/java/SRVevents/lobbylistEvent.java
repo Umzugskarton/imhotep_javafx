@@ -7,7 +7,7 @@ import java.util.Date;
  * Created on 13.10.2017.
  */
 public class lobbylistEvent implements Event {
-    private String request = "lobbylist";
+    private String event = "lobbylist";
     private Date date;
     private ArrayList<String> lobbies;
 
@@ -20,11 +20,11 @@ public class lobbylistEvent implements Event {
         this.date = new Date();
     }
 
-    public String getRequest(){
-        return this.request;
+    public String getEvent(){
+        return this.event;
     }
 
-    public ArrayList<String> getMsg(){
+    public ArrayList<String> getLobbies(){
         return this.lobbies;
     }
 
