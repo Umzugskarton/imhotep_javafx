@@ -8,7 +8,7 @@ import java.net.Socket;
 
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
-import SRVevents.voidEvent;
+import SRVevents.Event;
 import com.google.gson.Gson;
 import lobby.Lobby;
 import socket.commands.*;
@@ -83,7 +83,7 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public void send(voidEvent event) {
+  public void send(Event event) {
     if (this.out != null) {
       Gson gson = new Gson();
       String json = gson.toJson(event);
@@ -105,6 +105,11 @@ public class ClientListener implements Runnable {
   public User getUser() {
     return this.user;
   }
+
+  public Lobby getLobby() {
+    return lobby;
+  }
+
   public void setUser(User user){
     this.user=user;
   }

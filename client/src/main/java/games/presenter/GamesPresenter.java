@@ -44,7 +44,7 @@ public class GamesPresenter {
             usercount = (int)(long) gameLobby.get("usercount");
             name = (String) gameLobby.get("name");
             haspw = (boolean) gameLobby.get("haspw");
-            gamesList.getGames().add();
+            gamesList.getGames().add(); // todo
         }
 
 

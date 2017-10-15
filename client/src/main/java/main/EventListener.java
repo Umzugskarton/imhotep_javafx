@@ -67,6 +67,21 @@ public class EventListener {
     }
 
     @Subscribe
+    public void joinEventListener(joinEvent e){
+
+    }
+
+    @Subscribe
+    public void lobbylistListener(lobbylistEvent e){
+
+    }
+
+    @Subscribe
+    public void lobbyInfoListener(lobbyInfoEvent e){
+
+    }
+
+    @Subscribe
     public void whisperEventListener(whisperEvent e) {
         Platform.runLater(
                 () -> {

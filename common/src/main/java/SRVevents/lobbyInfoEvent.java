@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class lobbyInfoEvent implements voidEvent {
+public class lobbyInfoEvent implements Event {
     private int lobbyId;
     private String[] users;
     private boolean host;

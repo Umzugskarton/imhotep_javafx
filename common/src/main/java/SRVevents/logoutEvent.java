@@ -1,10 +1,9 @@
 package SRVevents;
 
 
-import org.json.simple.JSONObject;
 import java.util.Date;
 
-public class logoutEvent implements voidEvent{
+public class logoutEvent implements Event {
     private String event = "logout";
     private boolean success;
     private String msg;

@@ -3,8 +3,7 @@ package socket.commands;
 import CLTrequests.Request;
 import CLTrequests.whisperRequest;
 import SRVevents.userNotFoundError;
-import SRVevents.voidEvent;
-import org.json.simple.JSONObject;
+import SRVevents.Event;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
@@ -25,7 +24,7 @@ public class whisperCommand implements Command {
         this.request =(whisperRequest) r;
     }
     public void exec() {
-        voidEvent response = null;
+        Event response = null;
         String receiverUsername = this.server
                 .getLoggedInUsername(request.getTo());
         if (receiverUsername != null) {

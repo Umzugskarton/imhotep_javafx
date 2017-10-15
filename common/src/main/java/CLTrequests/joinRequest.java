@@ -6,7 +6,7 @@ import java.util.Date;
  * Created on 13.10.2017.
  */
 public class joinRequest implements Request{
-    private String request = "register";
+    private String request = "join";
     private Date date;
     private int id;
     private String pw;

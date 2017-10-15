@@ -2,7 +2,7 @@ package SRVevents;
 
 import java.util.Date;
 
-public class whisperEvent implements voidEvent{
+public class whisperEvent implements Event {
     private String event = "whisper";
     private String from;
     private String msg;

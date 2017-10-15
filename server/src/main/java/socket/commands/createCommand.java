@@ -20,6 +20,7 @@ public class createCommand implements Command {
 
     public createCommand(ClientListener clientListener){
         this.clientListener= clientListener;
+        this.clientAPI = clientListener.getClientAPI();
     }
 
     @Override

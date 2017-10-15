@@ -2,7 +2,7 @@ package SRVevents;
 
 import java.util.Date;
 
-public class chatEvent implements voidEvent {
+public class chatEvent implements Event {
     private String event = "chat";
     private Date date;
     private String user;

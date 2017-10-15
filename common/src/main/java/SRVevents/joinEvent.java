@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class joinEvent {
+public class joinEvent implements Event {
     private String request = "join";
     private Date date;
     private String msg;

@@ -1,10 +1,9 @@
 package SRVevents;
 
-import org.json.simple.JSONObject;
 import java.util.Date;
 
 
-public class registerEvent implements voidEvent {
+public class registerEvent implements Event {
     private String event = "register";
     private Date date;
     private String msg;

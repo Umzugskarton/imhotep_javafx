@@ -2,7 +2,7 @@ package SRVevents;
 
 import java.util.Date;
 
-public class userNotFoundError implements voidEvent{
+public class userNotFoundError implements Event {
         private String event = "userNotFoundError";
         private Date date;
         private String msg;

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class createEvent implements voidEvent {
+public class createEvent implements Event {
     private String event = "create";
     private int id;
     private String msg;

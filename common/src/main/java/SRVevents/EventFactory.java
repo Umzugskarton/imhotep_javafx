@@ -1,10 +1,9 @@
 package SRVevents;
 
-import org.json.simple.JSONObject;
 import java.util.HashMap;
 
 public class EventFactory {
-    private HashMap<String, voidEvent> Dict = new HashMap<>();
+    private HashMap<String, Event> Dict = new HashMap<>();
 
     public EventFactory(){
         Dict.put("register", new registerEvent());
@@ -14,9 +13,13 @@ public class EventFactory {
         Dict.put("whisper", new whisperEvent());
         Dict.put("chat", new chatEvent());
         Dict.put("chatInfo", new chatInfoEvent());
+        Dict.put("lobbylist", new lobbylistEvent());
+        Dict.put("lobbyInfo", new lobbyInfoEvent());
+        Dict.put("join", new joinEvent());
+        Dict.put("join", new createEvent());
     }
 
-    public voidEvent getEvent(String command){
+    public Event getEvent(String command){
            return Dict.get(command);
     }
 

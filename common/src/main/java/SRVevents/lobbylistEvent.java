@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class lobbylistEvent implements voidEvent{
+public class lobbylistEvent implements Event {
     private String request = "lobbylist";
     private Date date;
     private ArrayList<String> lobbies;

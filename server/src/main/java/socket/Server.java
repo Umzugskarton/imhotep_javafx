@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import SRVevents.createEvent;
 import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
-import SRVevents.voidEvent;
+import SRVevents.Event;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import lobby.Lobby;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import user.User;
@@ -84,13 +83,13 @@ public class Server {
     }
   }
 
-  public void sendToAll(voidEvent json) {
+  public void sendToAll(Event json) {
     for (ClientListener clientListener : connectedClients) {
       clientListener.send(json);
     }
   }
 
-  public boolean sendTo(voidEvent json, String to) {
+  public boolean sendTo(Event json, String to) {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
@@ -149,7 +148,7 @@ public class Server {
 
 
 
-  public void sendToLoggedIn(voidEvent event) {
+  public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
         clientListener.send(event);

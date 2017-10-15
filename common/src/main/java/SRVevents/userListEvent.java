@@ -1,13 +1,10 @@
 package SRVevents;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class userListEvent implements voidEvent{
+public class userListEvent implements Event {
     private String event = "userlist";
     private Date date;
     private ArrayList<String> userList;

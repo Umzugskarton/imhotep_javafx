@@ -9,7 +9,7 @@ import java.net.Socket;
 import com.google.gson.Gson;
 import main.SceneController;
 import SRVevents.EventFactory;
-import SRVevents.voidEvent;
+import SRVevents.Event;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -50,7 +50,7 @@ public class ServerListener implements Runnable {
             String request = re.toJSONString();
             EventFactory eventFactory = new EventFactory();
             Gson gson = new Gson();
-            voidEvent event = gson.fromJson(request, eventFactory.getEvent(command).getClass());
+            Event event = gson.fromJson(request, eventFactory.getEvent(command).getClass());
             this.eventBus.post(event);
           }
 
