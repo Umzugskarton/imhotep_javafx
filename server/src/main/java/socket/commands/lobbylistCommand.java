@@ -23,7 +23,7 @@ public class lobbylistCommand implements Command {
     }
 
     public void exec(){
-        lobbylistEvent response= this.clientListener.getServer().getLobbies();
+        lobbylistEvent response= this.clientListener.getServer().getLobbies(clientListener.getUser());
         if (response != null) {
             this.clientListener.send(response);
         }

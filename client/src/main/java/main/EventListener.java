@@ -72,8 +72,8 @@ public class EventListener {
     public void joinEventListener(joinEvent e){
         Platform.runLater(
                 () -> {
-                    if (this.sceneController.getMainmenuPresenter() != null) {
-                        this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(e.getLobbies());
+                    if (e.getSuccess()) {
+                        this.sceneController.toLobbyScene();
                     }
                 }
         );
@@ -84,6 +84,9 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
+                        if (e.getLobbies() == null) {
+                            System.out.println("IS");
+                        }
                         this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(e.getLobbies());
                     }
                 }
@@ -98,10 +101,8 @@ public class EventListener {
                         if (this.sceneController.getLobbyPresenter() == null) {
                             this.sceneController.toLobbyScene();
                         }
-                        CLTLobby temp = this.sceneController.getMainmenuPresenter().getGamesPresenter().getGameList().getGames().get(e.getLobbyId());
-                        temp.setHost(e.getHost());
-                        temp.setUsers(e.getUsers(), e.getReady(), e.getColors());
-                        this.sceneController.getLobbyPresenter().setLobby(temp);
+                        CLTLobby temp = e.getLobby();
+                        this.sceneController.getLobbyPresenter().setCLTLobby(temp);
                     }
                 }
         );

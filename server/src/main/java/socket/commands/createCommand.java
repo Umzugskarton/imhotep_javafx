@@ -34,7 +34,7 @@ public class createCommand implements Command {
         clientListener.setLobby(lobby);
         createEvent response = this.clientListener.getServer().addLobby(lobby);
         if (response.getSuccess()) {
-            lobbylistEvent lobbyList = this.clientListener.getServer().getLobbies();
+            lobbylistEvent lobbyList = this.clientListener.getServer().getLobbies(clientListener.getUser());
             this.clientListener.getServer().sendToLoggedIn(lobbyList);
         }
     }

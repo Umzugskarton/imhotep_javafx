@@ -124,25 +124,26 @@ public class Server {
     return null;
   }
 
-  public lobbylistEvent getLobbies(){
+  public lobbylistEvent getLobbies(User user){
     lobbylistEvent lobbies = new lobbylistEvent();
     ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
     for (Lobby lobby: openLobby) {
-      ArrayList<LobbyUser> users = new ArrayList<>();
-      int i=0;
-      for(User user : lobby.getUsers()){
-          users.add(new LobbyUser(user.getUsername(),lobby.getColors().get(i), lobby.getReady()[i]));
-          i++;
-      }
-      CLTLobby tempLobby= new CLTLobby(lobby.getLobbyID(),
-              lobby.getSize(),
+
+      CLTLobby tempLobby= new CLTLobby(
+              lobby.getLobbyID(),
               lobby.getName(),
+              lobby.getLobbyUserArrayList(),
               lobby.hasPW(),
-              lobby.getUserCount(),
-              users
+              lobby.getSize(),
+              lobby.isHost(user),
+              lobby.getHostName(),
+              lobby.getReady(),
+              lobby.getColors()
               );
       CLTLobbies.add(tempLobby);
     }
+
+    lobbies.setLobbies(CLTLobbies);
     return lobbies;
   }
 

@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
+import CLTrequests.createRequest;
 import SRVevents.Event;
 import com.google.gson.Gson;
 import lobby.Lobby;

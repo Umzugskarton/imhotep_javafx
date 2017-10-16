@@ -7,6 +7,7 @@ import games.model.GameListImpl;
 import commonLobby.CLTLobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
+import javafx.collections.ObservableList;
 import main.SceneController;
 import org.json.simple.JSONObject;
 
@@ -30,7 +31,7 @@ public class GamesPresenter {
         return this.view;
     }
 
-    public void updateLobbylist(ArrayList gamesArray){
+    public void updateLobbylist(ObservableList gamesArray){
         gamesList.getGames().clear();
         gamesList.getGames().addAll(gamesArray);
     }
@@ -43,6 +44,5 @@ public class GamesPresenter {
     public GameList getGameList() {
         return this.gamesList;
     }
-
 
 }

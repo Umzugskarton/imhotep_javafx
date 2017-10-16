@@ -9,32 +9,31 @@ import java.util.Iterator;
 
 
 public class CLTLobby {
-    private int LobbyID;
+    private int lobbyID;
     private String name;
     private String host;
+    private boolean ishost;
     private int size;
     private boolean hasPW;
     private int usercount;
     private String belegung;
     private ObservableList<LobbyUser> users;
-    private String[] colors;
+    private ArrayList<String> colors;
     private boolean[] ready;
 
 
-    public CLTLobby(int id, int size, String name, boolean hasPW, int usercount, ArrayList<LobbyUser> lobbyUsers){
-        this.LobbyID=id;
-        this.hasPW=hasPW;
-        this.size=size;
-        this.name=name;
-        this.users=  FXCollections.observableArrayList();
-        users.addAll(lobbyUsers);
-        this.ready = new boolean[size];
-        this.colors= new String[size];
-        for (int s =0 ; s<= size-1; s++ ){
-            colors[s]="#fff";
-        }
-        this.usercount=usercount;
-        this.belegung= (usercount + " / " + size);
+    public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size, boolean ishost, String host, boolean[] ready, ArrayList<String> colors){
+        this.lobbyID= lobbyID;
+        this.name = name;
+        this.users = FXCollections.observableArrayList();
+        this.users.addAll(users);
+        this.hasPW = hasPW;
+        this.size = size;
+        this.usercount = users.size();
+        this.ishost = ishost;
+        this.host = host;
+        this.ready= ready;
+        this.colors= colors;
     }
 
 
@@ -43,42 +42,67 @@ public class CLTLobby {
     }
 
     public void setLobbyID(int id){
-        this.LobbyID= id;
+        this.lobbyID= id;
     }
 
-    public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, String[] colors){
+    public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, ArrayList<String> colors){
         users.clear();
         users.addAll(newUsers);
         this.colors= colors;
         this.ready = ready;
     }
 
-    public int getId(){return this.LobbyID;}
+
     public String getName(){return this.name;}
+
     public int getSize(){return this.size;}
+
     public boolean hasPW(){return this.hasPW;}
+
     public int getUsercount(){return this.usercount;}
+
     public String getBelegung(){return this.belegung;}
+
     public void setBelegung(int usercount){
         this.belegung= (usercount + " / " + size);
     }
 
-    public void  setColors(JSONArray newColors){
-        int i = 0;
-        for (Object color: newColors ){
-            this.colors[i] = (String)color;
-            i++;
-        }
+    public boolean isHost() {
+        return this.ishost;
+    }
+
+    public String getHost(){return this.host;}
+
+    public boolean[] getReady() {
+        return ready;
+    }
+
+    public ArrayList<String> getColors() {
+        return colors;
+    }
+
+    public void setColors(ArrayList<String> colors) {
+        this.colors = colors;
+    }
+
+    public void setUsers(ArrayList<LobbyUser> users) {
+        this.users.addAll(users);
+    }
+
+    public void setLobbyId(int lobbyId) {
+        this.lobbyID = lobbyId;
     }
 
 
-    public void  setReady(JSONArray ready){
-        int i = 0;
-        for (Object r: ready){
-            this.ready[i] = (boolean)r;
-            i++;
-        }
+    public int getLobbyId() {
+        return lobbyID;
     }
+
+
+    public void setReady(boolean[] ready) {
+        this.ready = ready;
+    }
+
 
     public ObservableList<LobbyUser> getUsers(){
         return this.users;

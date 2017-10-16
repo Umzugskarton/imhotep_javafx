@@ -1,5 +1,9 @@
 package SRVevents;
 
+import commonLobby.CLTLobby;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,14 +13,9 @@ import java.util.Date;
 public class lobbylistEvent implements Event {
     private String event = "lobbylist";
     private Date date;
-    private ArrayList<String> lobbies;
+    private ObservableList<CLTLobby> lobbies = FXCollections.observableArrayList();
 
     public lobbylistEvent(){
-
-    }
-
-    public lobbylistEvent(ArrayList<String> lobbies){
-        this.lobbies = lobbies;
         this.date = new Date();
     }
 
@@ -24,7 +23,11 @@ public class lobbylistEvent implements Event {
         return this.event;
     }
 
-    public ArrayList<String> getLobbies(){
+    public void setLobbies(ArrayList<CLTLobby> lobbies){
+        this.lobbies.addAll(lobbies);
+    }
+
+    public ObservableList<CLTLobby> getLobbies(){
         return this.lobbies;
     }
 

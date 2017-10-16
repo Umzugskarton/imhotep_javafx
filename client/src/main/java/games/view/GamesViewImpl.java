@@ -73,7 +73,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
                                         btn.setOnAction(event -> popup(CLTLobby));
                                         setGraphic(hbox);
                                     } else{
-                                        btn.setOnAction(event -> gamesPresenter.joinLobby(CLTLobby.getId(), null));
+                                        btn.setOnAction(event -> gamesPresenter.joinLobby(CLTLobby.getLobbyId(), null));
                                         setGraphic(btn);
                                     }
                                     setText(null);
@@ -91,7 +91,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
                     if (selectedLobby.hasPW()){
                       popup(selectedLobby);
                     }else {
-                        gamesPresenter.joinLobby(selectedLobby.getId(), null);
+                        gamesPresenter.joinLobby(selectedLobby.getLobbyId(), null);
                     }
                 }
         });
@@ -112,7 +112,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
                 Button sendPW = new Button("Senden");
                 sendPW.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        gamesPresenter.joinLobby(selectedCLTLobby.getId(), password.getText());
+                        gamesPresenter.joinLobby(selectedCLTLobby.getLobbyId(), password.getText());
                         dialog.close();
                     }
                 });

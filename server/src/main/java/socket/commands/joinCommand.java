@@ -4,6 +4,7 @@ import CLTrequests.Request;
 import CLTrequests.joinRequest;
 import SRVevents.joinEvent;
 import SRVevents.lobbyInfoEvent;
+import commonLobby.CLTLobby;
 import lobby.Lobby;
 import socket.ClientListener;
 import socket.Server;
@@ -44,9 +45,10 @@ public class joinCommand implements Command {
             }
             if (response.getSuccess()) {
                 this.clientListener.setLobby(lobby);
-                this.clientListener.getServer().sendToLoggedIn(this.server.getLobbies());
+                this.clientListener.getServer().sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
                 User[] users = lobby.getUsers();
-                lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(lobby.getLobbyID(), lobby.getUsersStringArray(), lobby.hasPW(),lobby.getReady(), lobby.getColors());
+                CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(),  lobby.getName(), lobby.getLobbyUserArrayList(),lobby.hasPW(), lobby.getSize(), lobby.isHost(user), lobby.getHostName(),lobby.getReady(), lobby.getColors());
+                lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
                 for (User tempUser : users) {
                     if (tempUser != null) {
                         this.server.sendTo(lobbyInfo, tempUser.getUsername());
