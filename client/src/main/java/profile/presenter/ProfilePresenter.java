@@ -14,7 +14,6 @@ public class ProfilePresenter {
     public ProfilePresenter(SceneController sc) {
         this.sceneController = sc;
         this.view = new ProfileViewImpl(this);
-        updateUsernameLabel();
     }
 
     void changeColor() {
@@ -23,8 +22,8 @@ public class ProfilePresenter {
 
     public ProfileView getProfileView() { return this.view; }
 
-    public void updateUsernameLabel() {
-        String username = this.sceneController.getUsername();
+    public void updateUsernameLabel(String username) {
+       // Username holen
 
         this.view.getUsernameLabel().setText("Username: " + username);
     }

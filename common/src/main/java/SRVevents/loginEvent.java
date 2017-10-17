@@ -7,6 +7,7 @@ public class loginEvent implements Event {
     private boolean success;
     private String msg;
     private Date date;
+    private String username;
 
     public loginEvent(){
         this.date = new Date();
@@ -21,6 +22,8 @@ public class loginEvent implements Event {
         this.msg = msg;
     }
 
+    public void setUsername(String username) { this.username = username; }
+
     public String getMsg(){
         return this.msg;
     }
@@ -33,4 +36,7 @@ public class loginEvent implements Event {
         return date;
     }
 
+    public String getUsername() {
+        return username;
+    }
 }

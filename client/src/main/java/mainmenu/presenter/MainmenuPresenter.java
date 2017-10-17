@@ -13,6 +13,7 @@ import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
 import org.json.simple.JSONArray;
+import profile.presenter.ProfilePresenter;
 
 public class MainmenuPresenter {
 
@@ -22,6 +23,7 @@ public class MainmenuPresenter {
   private ChatPresenter chatPresenter;
   private CreatePresenter createPresenter;
   private GamesPresenter gamesPresenter;
+  private ProfilePresenter profilePresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -40,6 +42,10 @@ public class MainmenuPresenter {
 
     this.gamesPresenter = new GamesPresenter(this.sceneController);
     view.initGames(this.gamesPresenter.getGamesView());
+
+    this.profilePresenter = new ProfilePresenter(this.sceneController);
+    view.initProfile(this.profilePresenter.getProfileView());
+
     this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
@@ -99,11 +105,11 @@ public class MainmenuPresenter {
   public SceneController getSceneController() {
     return this.sceneController;
   }
-
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
   }
   public GamesPresenter getGamesPresenter() {
     return this.gamesPresenter;
   }
+  public ProfilePresenter getProfilePresenter() { return this.profilePresenter; }
 }

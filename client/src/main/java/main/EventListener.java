@@ -19,6 +19,7 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
+                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateUsernameLabel(e.getUsername());
                 }
         );
     }
