@@ -13,7 +13,7 @@ import java.util.Date;
 public class lobbylistEvent implements Event {
     private String event = "lobbylist";
     private Date date;
-    private ObservableList<CLTLobby> lobbies = FXCollections.observableArrayList();
+    private ArrayList<CLTLobby> lobbies = new ArrayList<>();
 
     public lobbylistEvent(){
         this.date = new Date();
@@ -27,7 +27,7 @@ public class lobbylistEvent implements Event {
         this.lobbies.addAll(lobbies);
     }
 
-    public ObservableList<CLTLobby> getLobbies(){
+    public ArrayList<CLTLobby> getLobbies(){
         return this.lobbies;
     }
 

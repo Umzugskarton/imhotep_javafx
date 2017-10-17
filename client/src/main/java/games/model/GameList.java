@@ -5,4 +5,5 @@ import commonLobby.CLTLobby;
 
 public interface GameList {
     ObservableList<CLTLobby> getGames();
+
 }

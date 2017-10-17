@@ -143,7 +143,7 @@ public class Lobby {
     public void generateColors() {
         int anzahl = 256 /this.size;
         for (int i = 0; i < this.size; i++) {
-            int  area = (this.size * (i+1)) % 255;
+            int  area = (anzahl * (i+1)) % 255;
 
             int red = ThreadLocalRandom.current().nextInt(area - anzahl, area);
             int green = ThreadLocalRandom.current().nextInt(area - anzahl, area);
@@ -151,8 +151,9 @@ public class Lobby {
             red = (red + 255) / 2;
             green = (green + 255) / 2;
             blue = (blue + 255) / 2;
-            Color color = new Color(red, green, blue);
-            this.colors.add(color.toString());
+
+            String hex = String.format("#%02x%02x%02x", red, green, blue);
+            this.colors.add(hex);
         }
     }
 

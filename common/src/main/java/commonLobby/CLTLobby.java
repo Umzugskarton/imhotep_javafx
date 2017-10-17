@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,7 +18,7 @@ public class CLTLobby {
     private boolean hasPW;
     private int usercount;
     private String belegung;
-    private ObservableList<LobbyUser> users;
+    private ArrayList<LobbyUser> users;
     private ArrayList<String> colors;
     private boolean[] ready;
 
@@ -25,8 +26,7 @@ public class CLTLobby {
     public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size, boolean ishost, String host, boolean[] ready, ArrayList<String> colors){
         this.lobbyID= lobbyID;
         this.name = name;
-        this.users = FXCollections.observableArrayList();
-        this.users.addAll(users);
+        this.users = users;
         this.hasPW = hasPW;
         this.size = size;
         this.usercount = users.size();
@@ -104,7 +104,9 @@ public class CLTLobby {
     }
 
 
-    public ObservableList<LobbyUser> getUsers(){
-        return this.users;
+    public ObservableList<LobbyUser> getObservableUsers(){
+        ObservableList<LobbyUser> x = FXCollections.observableArrayList();
+        x.addAll(this.users);
+        return x;
     }
 }

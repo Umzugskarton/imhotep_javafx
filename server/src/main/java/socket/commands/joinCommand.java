@@ -34,7 +34,6 @@ public class joinCommand implements Command {
         if (clientListener.getLobby() == null) {
             User user = this.clientListener.getUser();
             Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getId());
-            lobby.join(this.clientListener.getUser());
             joinEvent response;
             clientListener.setLobby(lobby);
             if (lobby.hasPW()) {

@@ -84,10 +84,18 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
-                        if (e.getLobbies() == null) {
-                            System.out.println("IS");
-                        }
                         this.sceneController.getMainmenuPresenter().getGamesPresenter().updateLobbylist(e.getLobbies());
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void createEventListener(createEvent e){
+        Platform.runLater(
+                () -> {
+                    if (e.getSuccess()) {
+                        this.sceneController.toLobbyScene();
                     }
                 }
         );

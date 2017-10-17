@@ -186,7 +186,7 @@ public class LobbyViewImpl implements LobbyView{
     }
 
     public void initLobbyInfo() {
-       table.setItems(this.lobbyPresenter.getCLTLobby().getUsers());
+       table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
     }
 
 

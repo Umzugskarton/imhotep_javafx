@@ -1,5 +1,6 @@
 package main;
 
+import CLTrequests.lobbylistRequest;
 import com.google.common.eventbus.EventBus;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -68,6 +69,7 @@ public class SceneController {
       this.MainmenuPresenter = new MainmenuPresenter(new MainmenuViewImpl(), this);
     }
 
+    this.clientSocket.send(new lobbylistRequest());
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }
