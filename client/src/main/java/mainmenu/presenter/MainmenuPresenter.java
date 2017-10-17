@@ -35,8 +35,6 @@ public class MainmenuPresenter {
     this.chatPresenter = new ChatPresenter(this.sceneController);
     view.initChat(this.chatPresenter.getChatView());
 
-    this.sceneController.getClientSocket().send(new userlistRequest());
-
     this.createPresenter = new CreatePresenter(this.sceneController);
     view.initCreate(this.createPresenter.getCreateView());
 
