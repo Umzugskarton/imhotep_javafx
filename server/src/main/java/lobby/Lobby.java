@@ -141,29 +141,10 @@ public class Lobby {
     }
 
     public void generateColors() {
-        int red = ThreadLocalRandom.current().nextInt(0 , 255);
-        int green = ThreadLocalRandom.current().nextInt(0, 255);
-        int blue = ThreadLocalRandom.current().nextInt(0,255);
-
-        for (int i = 0; i < this.size; i++) {
-            if (i != 0){
-                if (i ==1){
-                    red = 255 - red;
-                    green = 255 - green ;
-                    blue = 255 - blue ;
-                }
-                else if (i % 2 == 0 ) {
-                    red = 255 - red  + ( red / (i));
-                    green = 255 - green + ( green / (i));
-                    blue = 255 - blue + ( blue / (i));
-                }else{
-                    red = 255 - red  - ( red / (i));
-                    green = 255 - green - ( green / (i));
-                    blue = 255 - blue - ( blue / (i));
-                }
-            }
-
-            String hex = String.format("#%02x%02x%02x", red, green, blue);
+        float interval = 360 / (this.size);
+        for (float x = 0; x < 360; x += interval) {
+            Color c = Color.getHSBColor(x / 360, 1, 1);
+            String hex = String.format("#%02x%02x%02x", (c.getRed()+255)/2, (c.getGreen()+255)/2, (c.getBlue()+255)/2);
             this.colors.add(hex);
         }
     }
