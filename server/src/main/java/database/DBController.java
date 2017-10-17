@@ -146,7 +146,7 @@ public class DBController {
         return true;
       }
     } catch (SQLException e) {
-      log.error("Es konnte nicht überorüft werden, ob ein Datensatz existiert", e);
+      log.error("Es konnte nicht überprüft werden, ob ein Datensatz existiert", e);
     }
     return false;
   }

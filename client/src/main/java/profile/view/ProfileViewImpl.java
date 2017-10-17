@@ -19,6 +19,8 @@ import javafx.scene.text.TextFlow;
 public class ProfileViewImpl extends GridPane implements ProfileView {
     private ProfilePresenter profilePresenter;
     private Label usernameLabel;
+    private Label emailLabel;
+    private TextField emailInput;
 
     public ProfileViewImpl(ProfilePresenter profilePresenter) {
         this.profilePresenter = profilePresenter;
@@ -33,19 +35,27 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         grid.setPadding(new Insets(5));
 
         this.usernameLabel = new Label();
+        this.emailLabel = new Label();
+        this.emailInput = new TextField();
 
-        Button changeColorButton = new Button("Farbe ändern");
+        Button changeColorButton = new Button("E-Mail ändern");
         changeColorButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-
+                emailInput.setVisible(true);
             }
         });
-        grid.add(usernameLabel, 0, 1);
-        grid.add(changeColorButton, 1, 1);
+        grid.add(usernameLabel, 1, 1);
+        grid.add(emailLabel, 1, 2);
+        grid.add(changeColorButton, 2, 2);
+        grid.add(emailInput, 1,3);
+
+        emailInput.setVisible(false);
     }
 
     public Label getUsernameLabel() {
         return this.usernameLabel;
     }
+    public Label getEmailLabel() {return this.emailLabel; }
+    public TextField getEmailInputField() { return this.emailInput; }
 
 }

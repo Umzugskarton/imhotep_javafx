@@ -32,6 +32,7 @@ public class loginCommand implements Command {
             User user = this.clientAPI.getUser(request.getUsername());
             this.clientListener.setUser(user);
             response.setUsername(user.getUsername());
+            response.setEmail(user.getEmail());
             this.server.sendToLoggedIn(this.server.getLoggedUsers());
         }
         if (response != null) {

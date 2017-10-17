@@ -9,5 +9,6 @@ public interface ProfileView {
     void buildProfile();
 
     Label getUsernameLabel();
+    Label getEmailLabel();
 
 }

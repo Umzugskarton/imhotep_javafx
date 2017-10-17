@@ -20,6 +20,7 @@ public class EventListener {
                 () -> {
                     this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
                     this.sceneController.getMainmenuPresenter().getProfilePresenter().updateUsernameLabel(e.getUsername());
+                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getEmail());
                 }
         );
     }

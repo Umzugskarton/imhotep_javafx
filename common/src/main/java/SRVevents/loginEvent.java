@@ -8,6 +8,7 @@ public class loginEvent implements Event {
     private String msg;
     private Date date;
     private String username;
+    private String email;
 
     public loginEvent(){
         this.date = new Date();
@@ -24,6 +25,8 @@ public class loginEvent implements Event {
 
     public void setUsername(String username) { this.username = username; }
 
+    public void setEmail (String email) { this.email = email; }
+
     public String getMsg(){
         return this.msg;
     }
@@ -39,4 +42,6 @@ public class loginEvent implements Event {
     public String getUsername() {
         return username;
     }
+
+    public String getEmail() { return email; }
 }

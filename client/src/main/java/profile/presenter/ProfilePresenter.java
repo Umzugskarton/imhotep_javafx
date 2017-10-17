@@ -24,8 +24,11 @@ public class ProfilePresenter {
 
     public void updateUsernameLabel(String username) {
        // Username holen
-
         this.view.getUsernameLabel().setText("Username: " + username);
+    }
+
+    public void updateEmailLabel(String email) {
+        this.view.getEmailLabel().setText("Email: " + email);
     }
 
 }
