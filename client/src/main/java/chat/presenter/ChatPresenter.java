@@ -37,7 +37,7 @@ public class ChatPresenter {
         chatCommand = ClientCommands.whisperCommand(receiver, message);
         addWhisper(receiver, message, false);
       } else {
-        addInfoMessage("Invalide Whisper-Syntax: /w <Benutzername> <Nachricht>");
+        addInfoMessage(getString("InvalidWhisperSyntax"));
       }
     } else if (!text.isEmpty()) {
       chatCommand = ClientCommands.chatCommand(text);
