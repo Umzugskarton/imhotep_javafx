@@ -11,4 +11,6 @@ public interface ProfileView {
     Label getUsernameLabel();
     Label getEmailLabel();
 
+    void updateStatusLabel(String result);
+
 }

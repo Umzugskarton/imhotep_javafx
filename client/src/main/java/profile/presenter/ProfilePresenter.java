@@ -26,9 +26,25 @@ public class ProfilePresenter {
        // Username holen
         this.view.getUsernameLabel().setText("Username: " + username);
     }
-
     public void updateEmailLabel(String email) {
         this.view.getEmailLabel().setText("Email: " + email);
+    }
+
+    public void sendChangeRequest(String email){
+        if(this.validate(email)){
+            this.view.updateStatusLabel("");
+        }
+    }
+
+    private boolean validate(String email) {
+        String msg = "";
+        if(!email.isEmpty()) {
+            return true;
+        } else {
+            msg += "Bitte ein Passwort eingeben. \n";
+        }
+        this.view.updateStatusLabel(msg);
+        return false;
     }
 
 }
