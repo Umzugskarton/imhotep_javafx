@@ -1,5 +1,6 @@
 package profile.presenter;
 
+import CLTrequests.changeEmailRequest;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
@@ -33,6 +34,8 @@ public class ProfilePresenter {
     public void sendChangeRequest(String email){
         if(this.validate(email)){
             this.view.updateStatusLabel("");
+            changeEmailRequest changeEmailCommand = new changeEmailRequest(email);
+            this.sceneController.getClientSocket().send(changeEmailCommand);
         }
     }
 
@@ -41,7 +44,7 @@ public class ProfilePresenter {
         if(!email.isEmpty()) {
             return true;
         } else {
-            msg += "Bitte ein Passwort eingeben. \n";
+            msg += "Bitte eine E-Mail eingeben. \n";
         }
         this.view.updateStatusLabel(msg);
         return false;

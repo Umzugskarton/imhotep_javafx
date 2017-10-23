@@ -88,6 +88,28 @@ public class ClientAPI {
     return event;
   }
 
+  public changeEmailEvent changeEmail(changeEmailRequest request, User user) {
+    changeEmailEvent event = new changeEmailEvent();
+    String newEmail = request.getEmail();
+    if(newEmail != null) {
+
+      boolean changeEmail = this.userManager.changeUser(user, UserIdentifier.EMAIL, newEmail);
+      if(changeEmail) {
+        event.setMsg("E-Mail wurde erfolgreich geändert");
+        event.setSucess(changeEmail);
+      } else {
+        event.setMsg("Fehlschlag!");
+        event.setSucess(changeEmail);
+
+      }
+
+    } else {
+      event.setMsg("E-Mail konnte nicht geändert werden!");
+      event.setSucess(false);
+    }
+    return event;
+  }
+
   public chatEvent chat(chatRequest request, User user) {
     chatEvent event = new chatEvent();
     if (request.getMsg() != null && user != null) {

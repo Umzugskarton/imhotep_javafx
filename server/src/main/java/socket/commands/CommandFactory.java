@@ -21,6 +21,7 @@ public class CommandFactory {
         Dict.put("create", new createCommand(clientListener));
         Dict.put("join", new joinCommand(clientListener));
         Dict.put("lobbylist", new lobbylistCommand(clientListener));
+        Dict.put("changeEmail", new changeEmailCommand(clientListener));
     }
 
     public Command getCommand(Request request){
