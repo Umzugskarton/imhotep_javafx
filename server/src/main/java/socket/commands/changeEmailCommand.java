@@ -14,7 +14,6 @@ public class changeEmailCommand implements Command {
     private changeEmailRequest request;
     private ClientListener clientListener;
     private ClientAPI clientAPI;
-    private Server server;
 
     public changeEmailCommand(ClientListener clientListener) {
         this.clientListener = clientListener;
@@ -25,6 +24,6 @@ public class changeEmailCommand implements Command {
 
     public void exec() {
         changeEmailEvent response = this.clientAPI.changeEmail(this.request, this.clientListener.getUser());
-        this.server.sendToLoggedIn(response);
+        this.clientListener.send(response);
     }
 }
