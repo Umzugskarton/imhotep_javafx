@@ -1,5 +1,7 @@
 package login.view;
 
+import static general.TextBundle.getString;
+
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,25 +55,25 @@ public class LoginViewImpl implements LoginView {
     loginScene = new Scene(main);
     loginScene.setFill(Color.TRANSPARENT);
 
-    Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
+    Label labelUser = new Label(getString("username") + " ");
     TextField userName = new TextField();
-    userName.setPromptText("Benutzernamen eingeben");
+    userName.setPromptText(getString("enterUsername"));
 
-    Label labelPassword = new Label("Passwort: "); //Label und Textfelder für das Passwort
+    Label labelPassword = new Label(getString("password" + " ")); //Label und Textfelder für das Passwort
     PasswordField passwordUser = new PasswordField();
-    passwordUser.setPromptText("Passwort eingeben");
+    passwordUser.setPromptText(getString("enterPassword"));
 
     loginStatus = new Label();    //gibt an, ob Login erfolgreich war
     loginStatus.setTextFill(Color.RED);
 
-    Button loginNow = new Button("Login"); //Buttons werden angelegt
+    Button loginNow = new Button(getString("login")); //Buttons werden angelegt
     loginNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText());
       }
     });
 
-    Button registerNow = new Button("Zur Registrierung wechseln");
+    Button registerNow = new Button(getString("goToRegister"));
     registerNow.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         loginPresenter.toRegisterScene();

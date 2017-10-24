@@ -1,5 +1,7 @@
 package login.presenter;
 
+import static general.TextBundle.getString;
+
 import json.ClientCommands;
 import login.view.LoginView;
 import main.SceneController;
@@ -22,7 +24,7 @@ public class LoginPresenter {
       JSONObject loginCommand = ClientCommands.loginCommand(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
-      this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");
+        this.view.updateStatusLabel(getString("passwordUsernameMustNotBeEmpty"));
     }
   }
 
@@ -30,7 +32,7 @@ public class LoginPresenter {
     if (loginSuccessful) {
       this.toMainmenuScene();
       sceneController.getMainmenuPresenter().getChatPresenter()
-          .addInfoMessage("Du hast dich erfolgreich eingeloggt! Willkommen!");
+          .addInfoMessage(getString("successfulLogin"));
     } else {
       this.view.updateStatusLabel(message);
     }

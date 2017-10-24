@@ -1,5 +1,7 @@
 package chat.view;
 
+import static general.TextBundle.getString;
+
 import chat.presenter.ChatPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,7 +46,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
     scrollPane.setContent(chatText);
 
-    Button sendButton = new Button("Senden");
+    Button sendButton = new Button(getString("Send"));
     sendButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         chatPresenter.sendChatMsg(messageInput.getText());
@@ -53,7 +55,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
     });
 
     this.messageInput = new TextField();
-    this.messageInput.setPromptText("Nachricht eingeben");
+    this.messageInput.setPromptText(getString("EnterMessage"));
     this.messageInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent keyEvent) {
