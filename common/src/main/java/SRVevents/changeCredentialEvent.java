@@ -10,15 +10,18 @@ public class changeCredentialEvent implements Event {
     private Date date;
     private String msg;
     private boolean validate;
-    private String email;
+    private String credential;
+    private Integer type;
 
     public changeCredentialEvent() { this.date = new Date(); }
     public void setMsg(String msg) { this.msg = msg; }
     public void setSuccess(boolean validate) { this.validate = validate; }
-    public void setEmail(String email) { this.email = email; }
+    public void setCredential(String credential) { this.credential = credential; }
+    public void setType(Integer type) { this.type = type; }
     public String getMsg() { return this.msg; }
     public Date getDate() { return this.date; }
     public boolean getSuccess() { return this.validate; }
-    public String getEmail() { return this.email; }
+    public String getCredential() { return this.credential; }
+    public Integer getType() { return this.type; }
 
 }

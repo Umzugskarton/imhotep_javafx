@@ -35,12 +35,19 @@ public class ProfilePresenter {
         this.view.getEmailLabel().setText("Email: " + email);
     }
 
-    public void sendChangeRequest(String email){
-        if(this.validate(email)){
+    public void sendChangeRequest(String credential, Integer type){
+        if(type == 1) {
+            if(this.validate(credential)){
+                this.view.updateStatusLabel("");
+                changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
+                this.sceneController.getClientSocket().send(changeCredentialsCommand);
+            }
+        } else {
             this.view.updateStatusLabel("");
-            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(email);
+            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
             this.sceneController.getClientSocket().send(changeCredentialsCommand);
         }
+
     }
 
     private boolean validate(String email) {

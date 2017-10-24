@@ -89,19 +89,30 @@ public class ClientAPI {
 
   public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
     changeCredentialEvent event = new changeCredentialEvent();
-    String newEmail = request.getEmail();
-    String newPassword = "";
-    if(newEmail != null) {
-      boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newEmail);
-      if(changeCredential) {
-        event.setMsg("E-Mail wurde erfolgreich geändert");
-        event.setSuccess(changeCredential);
+    String newCred = request.getCredential();
+    Integer type = request.getType();
+    if(newCred != null) {
+      if(type == 1) {
+        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newCred);
+        if(changeCredential) {
+          event.setMsg("E-Mail wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("E-Mail wurde nicht geändert!");
+          event.setSuccess(changeCredential);
+        }
       } else {
-        event.setMsg("E-Mail wurde nicht geändert!");
-        event.setSuccess(changeCredential);
+        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.PASSWORD, newCred);
+        if(changeCredential) {
+          event.setMsg("Passwort wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Passwort wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }
       }
     } else {
-      event.setMsg("E-Mail konnte nicht geändert werden!");
+      event.setMsg("Fehler aufgetreten");
       event.setSuccess(false);
     }
     /*if(newPassword != null && newEmail == null) {

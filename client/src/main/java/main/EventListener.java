@@ -19,8 +19,10 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
-                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateUsernameLabel(e.getUsername());
-                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getEmail());
+                    if(e.getSuccess()) {
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter().updateUsernameLabel(e.getUsername());
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getEmail());
+                    }
                 }
         );
     }
@@ -39,7 +41,9 @@ public class EventListener {
     public void changeCredentialEventListener(changeCredentialEvent e) {
         Platform.runLater(
                 () -> {
-                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getEmail());
+                    if(e.getType() == 1) {
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getCredential());
+                    }
                     this.sceneController.getMainmenuPresenter().getProfilePresenter().processChangeResponse(e.getSuccess(), e.getMsg());
                     //this.sceneController.getMainmenuPresenter()
                     //this.sceneController.toRegistrationScene();

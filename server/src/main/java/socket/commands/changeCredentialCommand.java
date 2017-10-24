@@ -24,7 +24,8 @@ public class changeCredentialCommand implements Command {
 
     public void exec() {
         changeCredentialEvent response = this.clientAPI.changeCredential(this.request, this.clientListener.getUser());
-        response.setEmail(request.getEmail());
+        response.setCredential(request.getCredential());
+        response.setType(request.getType());
         this.clientListener.send(response);
     }
 }
