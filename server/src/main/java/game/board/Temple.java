@@ -1,5 +1,7 @@
 package game.board;
 
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 
 public class Temple extends Site
@@ -7,21 +9,23 @@ public class Temple extends Site
 
   private ArrayList<Player> temple;
 
-  // TODO
   @Override
   public ArrayList<Player> getStones() {
-    return null;
+    return temple;
   }
 
-  // TODO
   @Override
   public int[] getPoints() {
-    return new int[0];
+    int[] points = new int[5];
+    int size = min(temple.size(), 5);
+    for (int i = 0; i < size; i++) {
+      points[temple.get(temple.size()-i).ordinal()]++;
+    }
+    return points;
   }
 
-  // TODO
   @Override
   public void addStones(ArrayList<Player> stones) {
-
+    temple.addAll(stones);
   }
 }

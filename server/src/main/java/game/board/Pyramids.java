@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Pyramids extends Site
                       implements StoneSite {
   private ArrayList<Player> pyramid;
-  private int[] positionValues;
-  private int standardValue;
+  private int[] positionValues = {2,1,3,2,4,3,2,1,3,2,3,1,3,4};
+  private int standardValue = 1;
 
   public int[] getPositionValues() {
     return positionValues;
@@ -25,10 +25,19 @@ public class Pyramids extends Site
     return pyramid;
   }
 
-  // TODO
   @Override
   public int[] getPoints() {
-    return new int[0];
+    int[] points = new int[5];
+    int i = 0;
+    for (Player p : pyramid) {
+      if (i < positionValues.length) {
+        points[p.ordinal()] += positionValues[p.ordinal()];
+      } else {
+        points[p.ordinal()] += standardValue;
+      }
+      i++;
+    }
+    return points;
   }
 
   // TODO
