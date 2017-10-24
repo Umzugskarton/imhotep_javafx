@@ -36,6 +36,18 @@ public class EventListener {
     }
 
     @Subscribe
+    public void changeCredentialEventListener(changeCredentialEvent e) {
+        Platform.runLater(
+                () -> {
+                    this.sceneController.getMainmenuPresenter().getProfilePresenter().updateEmailLabel(e.getEmail());
+                    this.sceneController.getMainmenuPresenter().getProfilePresenter().processChangeResponse(e.getSuccess(), e.getMsg());
+                    //this.sceneController.getMainmenuPresenter()
+                    //this.sceneController.toRegistrationScene();
+                }
+        );
+    }
+
+    @Subscribe
     public void userListEventListener(userListEvent e) {
         Platform.runLater(
                 () -> {

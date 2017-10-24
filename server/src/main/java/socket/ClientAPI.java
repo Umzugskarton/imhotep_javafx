@@ -3,7 +3,6 @@ package socket;
 import CLTrequests.*;
 import SRVevents.*;
 import lobby.Lobby;
-import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
 import user.UserManager;
@@ -88,25 +87,36 @@ public class ClientAPI {
     return event;
   }
 
-  public changeEmailEvent changeEmail(changeEmailRequest request, User user) {
-    changeEmailEvent event = new changeEmailEvent();
+  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
+    changeCredentialEvent event = new changeCredentialEvent();
     String newEmail = request.getEmail();
+    String newPassword = "";
     if(newEmail != null) {
-
-      boolean changeEmail = this.userManager.changeUser(user, UserIdentifier.EMAIL, newEmail);
-      if(changeEmail) {
+      boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newEmail);
+      if(changeCredential) {
         event.setMsg("E-Mail wurde erfolgreich geändert");
-        event.setSucess(changeEmail);
+        event.setSuccess(changeCredential);
       } else {
-        event.setMsg("Fehlschlag!");
-        event.setSucess(changeEmail);
-
+        event.setMsg("E-Mail wurde nicht geändert!");
+        event.setSuccess(changeCredential);
       }
-
     } else {
       event.setMsg("E-Mail konnte nicht geändert werden!");
-      event.setSucess(false);
+      event.setSuccess(false);
     }
+    /*if(newPassword != null && newEmail == null) {
+      boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.PASSWORD, newPassword);
+      if(changeCredential) {
+        event.setMsg("Passwort wurde erfolgreich geändert");
+        event.setSuccess(changeCredential);
+      } else {
+        event.setMsg("Passwort wurde nicht geändert");
+        event.setSuccess(changeCredential);
+      }
+    } else {
+      event.setMsg("Passwort konnte nicht geändert werden!");
+      event.setSuccess(false);
+    }*/
     return event;
   }
 

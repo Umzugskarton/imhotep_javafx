@@ -1,6 +1,6 @@
 package profile.presenter;
 
-import CLTrequests.changeEmailRequest;
+import CLTrequests.changeCredentialRequest;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
@@ -17,8 +17,12 @@ public class ProfilePresenter {
         this.view = new ProfileViewImpl(this);
     }
 
-    void changeColor() {
-
+    public void processChangeResponse(boolean validate, String msg) {
+        if(validate) {
+            this.view.updateStatusLabel(msg);
+        } else {
+            this.view.updateStatusLabel("Etwas lief schief.");
+        }
     }
 
     public ProfileView getProfileView() { return this.view; }
@@ -34,8 +38,8 @@ public class ProfilePresenter {
     public void sendChangeRequest(String email){
         if(this.validate(email)){
             this.view.updateStatusLabel("");
-            changeEmailRequest changeEmailCommand = new changeEmailRequest(email);
-            this.sceneController.getClientSocket().send(changeEmailCommand);
+            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(email);
+            this.sceneController.getClientSocket().send(changeCredentialsCommand);
         }
     }
 

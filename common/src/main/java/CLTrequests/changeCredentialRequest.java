@@ -5,17 +5,17 @@ import java.util.Date;
 /**
  * Created by Slothan/Dennis Lindt on 23.10.2017.
  */
-public class changeEmailRequest implements Request {
-    private String request = "changeEmail";
+public class changeCredentialRequest implements Request {
+    private String request = "changeCredential";
     private Date date;
     private String email;
     private String username;
 
 
-    public changeEmailRequest () {
+    public changeCredentialRequest() {
     }
 
-    public changeEmailRequest(String email) {
+    public changeCredentialRequest(String email) {
         this.email = email;
     }
     public String getRequest() { return this.request; }
