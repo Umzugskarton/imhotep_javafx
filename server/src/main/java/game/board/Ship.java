@@ -28,4 +28,10 @@ public class Ship {
   public ArrayList<Player> getStones() {
     return stones;
   }
+
+  public boolean addStone(Player stone, int position) {
+    if (stones.get(position) != null || stones.get(position) != Player.NOPLAYER) return false;
+    stones.add(position, stone);
+    return true;
+  }
 }

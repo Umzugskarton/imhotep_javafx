@@ -23,4 +23,10 @@ public class BurialChamber extends Site
   public void addStones(ArrayList<Player> stones) {
 
   }
+
+  public boolean dockShip(Ship ship) {
+    if (this.getDockedShip() != null) return false;
+    addStones(ship.getStones());
+    return true;
+  }
 }

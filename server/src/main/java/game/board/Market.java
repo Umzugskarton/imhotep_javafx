@@ -16,4 +16,10 @@ public class Market extends Site {
   public ArrayList<Card> getCards() {
     return market;
   }
+
+  // TODO
+  @Override
+  public boolean dockShip(Ship ship) {
+    return false;
+  }
 }

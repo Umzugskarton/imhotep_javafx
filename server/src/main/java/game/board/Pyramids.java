@@ -40,9 +40,15 @@ public class Pyramids extends Site
     return points;
   }
 
-  // TODO
   @Override
   public void addStones(ArrayList<Player> stones) {
+    this.pyramid.addAll(stones);
+  }
 
+  @Override
+  public boolean dockShip(Ship ship) {
+    if (this.getDockedShip() != null) return false;
+    addStones(ship.getStones());
+    return true;
   }
 }

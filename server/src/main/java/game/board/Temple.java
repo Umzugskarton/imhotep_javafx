@@ -28,4 +28,11 @@ public class Temple extends Site
   public void addStones(ArrayList<Player> stones) {
     temple.addAll(stones);
   }
+
+  @Override
+  boolean dockShip(Ship ship) {
+    if (this.getDockedShip() != null) return false;
+    temple.addAll(ship.getStones());
+    return true;
+  }
 }
