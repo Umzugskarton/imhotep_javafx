@@ -51,6 +51,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
       public void handle(ActionEvent event) {
         chatPresenter.sendChatMsg(messageInput.getText());
         messageInput.clear();
+        messageInput.requestFocus();
       }
     });
 
