@@ -2,13 +2,10 @@ package lobby;
 
 import SRVevents.joinEvent;
 import commonLobby.LobbyUser;
-import org.json.simple.JSONArray;
 import user.User;
-
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Lobby {
     String name;
@@ -16,6 +13,7 @@ public class Lobby {
     private User[] lobby;
     private boolean[] ready;
     private String password;
+    private boolean show;
     private int size;
     boolean vacancy = true;
     private ArrayList<String> colors = new ArrayList<>();
@@ -28,6 +26,7 @@ public class Lobby {
         this.password=null;
         this.name=name;
         this.size = size;
+        this.show = true;
         generateColors();
     }
 
@@ -149,6 +148,13 @@ public class Lobby {
         }
     }
 
+    public void show(boolean show){
+        this.show = show;
+    }
+
+    public boolean isVisible(){
+        return show;
+    }
     public void leave(User user){
         for (int i = 0; i < lobby.length ; i++){
             if (lobby[i] == user){

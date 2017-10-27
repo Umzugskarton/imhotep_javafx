@@ -128,19 +128,20 @@ public class Server {
     lobbylistEvent lobbies = new lobbylistEvent();
     ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
     for (Lobby lobby: openLobby) {
-
-      CLTLobby tempLobby= new CLTLobby(
-              lobby.getLobbyID(),
-              lobby.getName(),
-              lobby.getLobbyUserArrayList(),
-              lobby.hasPW(),
-              lobby.getSize(),
-              lobby.isHost(user),
-              lobby.getHostName(),
-              lobby.getReady(),
-              lobby.getColors()
-              );
-      CLTLobbies.add(tempLobby);
+      if(lobby.isVisible()) {
+        CLTLobby tempLobby = new CLTLobby(
+                lobby.getLobbyID(),
+                lobby.getName(),
+                lobby.getLobbyUserArrayList(),
+                lobby.hasPW(),
+                lobby.getSize(),
+                lobby.isHost(user),
+                lobby.getHostName(),
+                lobby.getReady(),
+                lobby.getColors()
+        );
+        CLTLobbies.add(tempLobby);
+      }
     }
 
     lobbies.setLobbies(CLTLobbies);
