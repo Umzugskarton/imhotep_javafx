@@ -37,12 +37,12 @@ public class ChatPresenter {
         chatCommand = ClientCommands.whisperCommand(receiver, message);
         addWhisper(receiver, message, false);
       } else {
-        addInfoMessage(getString("InvalidWhisperSyntax"));
+        addInfoMessage(getString("invalidWhisperSyntax"));
       }
     } else if (!text.isEmpty()) {
       chatCommand = ClientCommands.chatCommand(text);
     } else if (text.isEmpty()) {
-      addInfoMessage(getString("EnterMessageToChat"));
+      addInfoMessage(getString("enterMessageToChat"));
     }
 
     if (chatCommand != null) {
@@ -59,11 +59,11 @@ public class ChatPresenter {
   }
 
   public void addWhisper(String user, String msg, boolean isClientReceiver) {
-    String recipientText = getString("From");
+    String recipientText = getString("from");
     Color color = Color.web("#8A2BE2");
 
     if (!isClientReceiver) {
-      recipientText = getString("To");
+      recipientText = getString("to");
       color = Color.web("#9c31ff");
     }
 
