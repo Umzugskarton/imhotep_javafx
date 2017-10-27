@@ -86,6 +86,7 @@ public class MainmenuPresenter {
   public void logout(){
     JSONObject logoutCommand = ClientCommands.logoutCommand();
     this.sceneController.getClientSocket().send(logoutCommand);
+    this.chatPresenter.getChatView().getChatText().getChildren().clear();
   }
 
   public SceneController getSceneController() {
