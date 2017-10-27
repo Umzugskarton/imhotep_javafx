@@ -62,7 +62,7 @@ public class MainmenuViewImpl implements MainmenuView {
     mainmenuScene.setFill(Color.TRANSPARENT);
 
     chatTab = new Tab();
-    chatTab.setText(getString("Chat"));
+    chatTab.setText(getString("chat"));
     chatTab.setClosable(false);
     chatTab.setTooltip(new Tooltip(getString("chatTabTooltip")));
     chatTab.setContent(null);
@@ -77,22 +77,22 @@ public class MainmenuViewImpl implements MainmenuView {
     });
 
     Tab gamesTab = new Tab();
-    gamesTab.setText(getString("Games"));
+    gamesTab.setText(getString("games"));
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip(getString("gameTabTooltip")));
 
     Tab profileTab = new Tab();
-    profileTab.setText(getString("Profile"));
+    profileTab.setText(getString("profile"));
     profileTab.setClosable(false);
     profileTab.setTooltip(new Tooltip(getString("profileTabTooltip")));
 
     Tab newGameTab = new Tab();
-    newGameTab.setText(getString("CreateGame"));
+    newGameTab.setText(getString("createGame"));
     newGameTab.setClosable(false);
     newGameTab.setTooltip(new Tooltip(getString("newGameTabTooltip")));
 
     Tab rulesTab = new Tab();
-    rulesTab.setText(getString("Rules"));
+    rulesTab.setText(getString("rules"));
     rulesTab.setClosable(false);
     rulesTab.setTooltip(new Tooltip(getString("rulesTabTooltip")));
 

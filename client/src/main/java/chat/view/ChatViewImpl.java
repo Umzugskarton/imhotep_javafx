@@ -46,7 +46,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
     scrollPane.setContent(chatText);
 
-    Button sendButton = new Button(getString("Send"));
+    Button sendButton = new Button(getString("send"));
     sendButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         chatPresenter.sendChatMsg(messageInput.getText());
@@ -56,7 +56,7 @@ public class ChatViewImpl extends GridPane implements ChatView {
     });
 
     this.messageInput = new TextField();
-    this.messageInput.setPromptText(getString("EnterMessage"));
+    this.messageInput.setPromptText(getString("enterMessage"));
     this.messageInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent keyEvent) {

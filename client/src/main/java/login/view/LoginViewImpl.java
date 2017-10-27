@@ -59,7 +59,7 @@ public class LoginViewImpl implements LoginView {
     TextField userName = new TextField();
     userName.setPromptText(getString("enterUsername"));
 
-    Label labelPassword = new Label(getString("password" + " ")); //Label und Textfelder für das Passwort
+    Label labelPassword = new Label(getString("password") + " ");
     PasswordField passwordUser = new PasswordField();
     passwordUser.setPromptText(getString("enterPassword"));
 
