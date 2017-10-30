@@ -1,13 +1,14 @@
 package GameEvents;
 
 
+import GameObjects.Boat;
 import SRVevents.Event;
 
 import java.util.Date;
 
 public class gameInfoEvent implements Event{
     private String event = "gameInfo";
-    private int[][] cboats;
+    private Boat[] cboats;
     private int round;
     private boolean[][] storages;
     private String[] order;
@@ -17,7 +18,7 @@ public class gameInfoEvent implements Event{
         this.date = new Date();
     }
 
-    public void setCboats(int[][] cboats) {
+    public void setCboats(Boat[] cboats) {
         this.cboats = cboats;
     }
 
@@ -29,7 +30,7 @@ public class gameInfoEvent implements Event{
         return round;
     }
 
-    public int[][] getCboats() {
+    public Boat[] getCboats() {
         return cboats;
     }
 
