@@ -101,7 +101,8 @@ public class ClientAPI {
           event.setMsg("E-Mail wurde nicht geändert!");
           event.setSuccess(changeCredential);
         }
-      } else {
+      }
+      if(type == 2) {
         boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.PASSWORD, newCred);
         if(changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
@@ -110,6 +111,17 @@ public class ClientAPI {
           event.setMsg("Passwort wurde nicht geändert");
           event.setSuccess(changeCredential);
         }
+      }
+      if(type == 3) {
+        /*boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.USERNAME, newCred);
+        if(changeCredential) {
+          event.setMsg("Username wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Username wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }*/
+        event.setMsg("Username hätte geändert werden können");
       }
     } else {
       event.setMsg("Fehler aufgetreten");

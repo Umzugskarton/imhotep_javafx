@@ -42,7 +42,13 @@ public class ProfilePresenter {
                 changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
                 this.sceneController.getClientSocket().send(changeCredentialsCommand);
             }
-        } else {
+        }
+        if(type == 2) {
+            this.view.updateStatusLabel("");
+            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
+            this.sceneController.getClientSocket().send(changeCredentialsCommand);
+        }
+        if(type == 3) {
             this.view.updateStatusLabel("");
             changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
             this.sceneController.getClientSocket().send(changeCredentialsCommand);

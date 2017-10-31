@@ -19,8 +19,8 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
     private Label emailLabel;
     private Label newLabel;
     private Label repeatPWLabel;
+    private TextField usernameInput;
     private TextField emailInput;
-    private Label passwordLabel;
     private PasswordField passwordInput;
     private PasswordField passwordInput2;
     private Button confirm;
@@ -45,18 +45,34 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         this.emailLabel = new Label();
         this.newLabel= new Label();
         this.repeatPWLabel = new Label("Passwort wiederholen: ");
+        this.usernameInput = new TextField();
         this.emailInput = new TextField();
-        this.passwordLabel = new Label("Passwort: ");
         this.passwordInput = new PasswordField();
         this.passwordInput2 = new PasswordField();
         this.userFeedback = new Label();
         this.confirm = new Button("Bestätigen");
+
+        Button changeUsernameButton = new Button("Username ändern");
+        changeUsernameButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                emailInput.setVisible(false);
+                passwordInput.setVisible(false);
+                passwordInput2.setVisible(false);
+                repeatPWLabel.setVisible(false);
+                newLabel.setText("Neuer Username: ");
+                newLabel.setVisible(true);
+                usernameInput.setVisible(true);
+                credType = 3;
+                confirm.setVisible(true);
+            }
+        });
 
         Button changeEmailButton = new Button("E-Mail ändern");
         changeEmailButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 passwordInput.setVisible(false);
                 passwordInput2.setVisible(false);
+                usernameInput.setVisible(false);
                 repeatPWLabel.setVisible(false);
                 newLabel.setText("Neue E-Mail: ");
                 newLabel.setVisible(true);
@@ -70,6 +86,7 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         changePasswordButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 emailInput.setVisible(false);
+                usernameInput.setVisible(false);
                 newLabel.setText("Neues Passwort: ");
                 newLabel.setVisible(true);
                 repeatPWLabel.setVisible(true);
@@ -86,7 +103,8 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
                 if(credType == 1) {
                     String email = emailInput.getText();
                     profilePresenter.sendChangeRequest(email, credType);
-                } else {
+                }
+                if(credType == 2) {
                     String password = passwordInput.getText();
                     String confirmPassword = passwordInput2.getText();
                     if(password.length() < 8) {
@@ -98,6 +116,10 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
                             userFeedback.setText("Passwort stimmt nicht überein!");
                         }
                     }
+                }
+                if(credType == 3) {
+                    String username = usernameInput.getText();
+                    profilePresenter.sendChangeRequest(username, credType);
                 }
                 passwordInput.setText("");
                 passwordInput2.setText("");
@@ -112,10 +134,12 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         grid.add(repeatPWLabel, 1,5);
         grid.add(userFeedback, 1, 7);
         //Inputs
+        grid.add(usernameInput, 2,4);
         grid.add(emailInput, 2,4);
         grid.add(passwordInput,2,4);
         grid.add(passwordInput2,2,5);
         //Buttons
+        //grid.add(changeUsernameButton, 1,3);
         grid.add(changeEmailButton, 1, 3);
         grid.add(changePasswordButton,2,3);
         grid.add(confirm, 1, 8);
@@ -125,6 +149,7 @@ public class ProfileViewImpl extends GridPane implements ProfileView {
         //Eingabe-Felder sind anfangs unsichtbar
         newLabel.setVisible(false);
         repeatPWLabel.setVisible(false);
+        usernameInput.setVisible(false);
         emailInput.setVisible(false);
         passwordInput.setVisible(false);
         passwordInput2.setVisible(false);
