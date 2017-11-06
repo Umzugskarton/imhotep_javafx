@@ -3,7 +3,6 @@ package socket;
 import CLTrequests.*;
 import SRVevents.*;
 import lobby.Lobby;
-import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
 import user.UserManager;
@@ -85,6 +84,62 @@ public class ClientAPI {
       event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
       event.setSuccess(false);
     }
+    return event;
+  }
+
+  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
+    changeCredentialEvent event = new changeCredentialEvent();
+    String newCred = request.getCredential();
+    Integer type = request.getType();
+    if(newCred != null) {
+      if(type == 1) {
+        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newCred);
+        if(changeCredential) {
+          event.setMsg("E-Mail wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("E-Mail wurde nicht geändert!");
+          event.setSuccess(changeCredential);
+        }
+      }
+      if(type == 2) {
+        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.PASSWORD, newCred);
+        if(changeCredential) {
+          event.setMsg("Passwort wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Passwort wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }
+      }
+      if(type == 3) {
+        /*boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.USERNAME, newCred);
+        if(changeCredential) {
+          event.setMsg("Username wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Username wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }*/
+        event.setMsg("Username hätte geändert werden können");
+      }
+    } else {
+      event.setMsg("Fehler aufgetreten");
+      event.setSuccess(false);
+    }
+    /*if(newPassword != null && newEmail == null) {
+      boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.PASSWORD, newPassword);
+      if(changeCredential) {
+        event.setMsg("Passwort wurde erfolgreich geändert");
+        event.setSuccess(changeCredential);
+      } else {
+        event.setMsg("Passwort wurde nicht geändert");
+        event.setSuccess(changeCredential);
+      }
+    } else {
+      event.setMsg("Passwort konnte nicht geändert werden!");
+      event.setSuccess(false);
+    }*/
     return event;
   }
 

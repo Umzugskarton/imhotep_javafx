@@ -8,6 +8,7 @@ import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
+import profile.presenter.ProfilePresenter;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
 import  lobby.presenter.LobbyPresenter;
@@ -31,6 +32,7 @@ public class SceneController {
   private MainmenuPresenter MainmenuPresenter;
   private EventBus eventBus;
   private LobbyPresenter LobbyPresenter;
+  private ProfilePresenter profilePresenter;
 
 
   public SceneController(Stage stage) {
@@ -106,4 +108,6 @@ public class SceneController {
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
   }
+
+  public ProfilePresenter getProfilePresenter() { return this.profilePresenter; }
 }

@@ -17,6 +17,7 @@ public class EventFactory {
         Dict.put("lobbyInfo", new lobbyInfoEvent());
         Dict.put("join", new joinEvent());
         Dict.put("create", new createEvent());
+        Dict.put("changeCredential", new changeCredentialEvent());
     }
 
     public Event getEvent(String command){

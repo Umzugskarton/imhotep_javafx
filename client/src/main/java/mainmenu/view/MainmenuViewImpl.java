@@ -30,6 +30,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mainmenu.presenter.MainmenuPresenter;
+import profile.view.ProfileView;
+import profile.view.ProfileViewImpl;
+import sun.java2d.cmm.Profile;
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -40,6 +43,7 @@ public class MainmenuViewImpl implements MainmenuView {
   private Tab chatTab;
   private Tab newGameTab;
   private Tab gamesTab;
+  private Tab profileTab;
 
   public MainmenuViewImpl() {
     buildMainmenu();
@@ -89,10 +93,11 @@ public class MainmenuViewImpl implements MainmenuView {
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip("find open games"));
 
-    Tab profileTab = new Tab();
+    profileTab = new Tab();
     profileTab.setText("Profile");
     profileTab.setClosable(false);
     profileTab.setTooltip(new Tooltip("edit your profile"));
+
     newGameTab =new Tab();
     newGameTab.setText("Create Game");
     newGameTab.setClosable(false);
@@ -171,14 +176,14 @@ public class MainmenuViewImpl implements MainmenuView {
   public void initChat(ChatView chatView) {
     this.chatTab.setContent((ChatViewImpl) chatView);
   }
-
-
   public void initCreate(CreateView createView) {
     this.newGameTab.setContent((CreateViewImpl) createView);
   }
   public void initGames(GamesView gamesView){
     this.gamesTab.setContent((GamesViewImpl) gamesView);
   }
+  public void initProfile(ProfileView profileView) { this.profileTab.setContent((ProfileViewImpl) profileView);}
+
 
   public void openModal(String msg){
     final Stage dialog = new Stage();

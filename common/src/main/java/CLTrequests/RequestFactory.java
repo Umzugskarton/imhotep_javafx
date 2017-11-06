@@ -1,8 +1,5 @@
 package CLTrequests;
 
-import CLTrequests.*;
-import org.json.simple.JSONObject;
-
 import java.util.HashMap;
 
 /**
@@ -21,6 +18,7 @@ public class RequestFactory {
         Dict.put("create", new createRequest());
         Dict.put("whisper", new whisperRequest());
         Dict.put("chat", new chatRequest());
+        Dict.put("changeCredential", new changeCredentialRequest());
     }
 
     public Request getRequest(String j){

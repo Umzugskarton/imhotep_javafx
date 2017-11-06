@@ -6,6 +6,7 @@ import SRVevents.loginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
+import user.User;
 
 
 public class loginCommand implements Command {
@@ -28,7 +29,10 @@ public class loginCommand implements Command {
     public void exec(){
         loginEvent response = this.clientListener.getClientAPI().login(request, this.server.getLoggedUsers().getUserList());
         if (response.getSuccess()) {
-            this.clientListener.setUser(this.clientAPI.getUser(request.getUsername()));
+            User user = this.clientAPI.getUser(request.getUsername());
+            this.clientListener.setUser(user);
+            response.setUsername(user.getUsername());
+            response.setEmail(user.getEmail());
             this.server.sendToLoggedIn(this.server.getLoggedUsers());
         }
             this.clientListener.send(response);
