@@ -2,13 +2,9 @@ package lobby;
 
 import SRVevents.joinEvent;
 import commonLobby.LobbyUser;
-import org.json.simple.JSONArray;
-import user.User;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import user.User;
 
 public class Lobby {
 

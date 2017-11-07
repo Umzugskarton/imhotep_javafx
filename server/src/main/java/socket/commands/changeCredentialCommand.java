@@ -5,7 +5,6 @@ import CLTrequests.changeCredentialRequest;
 import SRVevents.changeCredentialEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
-import user.User;
 
 public class changeCredentialCommand implements Command {
 

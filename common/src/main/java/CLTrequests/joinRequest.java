@@ -2,39 +2,37 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created on 13.10.2017.
- */
-public class joinRequest implements Request{
-    private String request = "join";
-    private Date date;
-    private int id;
-    private String pw;
+public class joinRequest implements Request {
 
-    public joinRequest(){
+  private String request = "join";
+  private Date date;
+  private int id;
+  private String pw;
 
-    }
+  public joinRequest() {
 
-    public joinRequest(int id, String password){
-        this.id = id;
-        this.pw = password;
-        this.date = new Date();
-    }
+  }
 
-    public String getRequest(){
-        return this.request;
-    }
+  public joinRequest(int id, String password) {
+    this.id = id;
+    this.pw = password;
+    this.date = new Date();
+  }
 
-    public int getId(){
-        return this.id;
-    }
+  public String getRequest() {
+    return this.request;
+  }
 
-    public String getPassword(){
-        return this.pw;
-    }
+  public int getId() {
+    return this.id;
+  }
 
-    public Date getDate(){
-        return this.date;
-    }
+  public String getPassword() {
+    return this.pw;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 
 }

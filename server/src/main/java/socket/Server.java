@@ -1,5 +1,9 @@
 package socket;
 
+import SRVevents.Event;
+import SRVevents.createEvent;
+import SRVevents.lobbylistEvent;
+import SRVevents.userListEvent;
 import commonLobby.CLTLobby;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,10 +12,6 @@ import java.util.ArrayList;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import SRVevents.createEvent;
-import SRVevents.lobbylistEvent;
-import SRVevents.userListEvent;
-import SRVevents.Event;
 import user.User;
 
 public class Server {

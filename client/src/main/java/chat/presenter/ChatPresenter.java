@@ -14,7 +14,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.SceneController;
 
-
 public class ChatPresenter {
 
   private ChatView view;

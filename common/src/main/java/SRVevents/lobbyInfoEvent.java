@@ -1,9 +1,6 @@
 package SRVevents;
 
 import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class lobbyInfoEvent implements Event {

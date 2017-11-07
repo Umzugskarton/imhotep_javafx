@@ -1,12 +1,11 @@
 package socket;
 
 import com.google.common.eventbus.EventBus;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-
-import com.google.gson.Gson;
 import main.SceneController;
 import SRVevents.EventFactory;
 import SRVevents.Event;

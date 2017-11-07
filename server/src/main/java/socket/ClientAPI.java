@@ -119,8 +119,9 @@ public class ClientAPI {
         }
       }
       if (type == 3) {
-        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.USERNAME, newCred);
-        if(changeCredential) {
+        boolean changeCredential = this.userManager
+            .changeUser(user, UserIdentifier.USERNAME, newCred);
+        if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
         } else {

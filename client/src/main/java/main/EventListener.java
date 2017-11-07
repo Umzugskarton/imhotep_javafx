@@ -15,7 +15,6 @@ import com.google.common.eventbus.Subscribe;
 import commonLobby.CLTLobby;
 import javafx.application.Platform;
 
-
 public class EventListener {
 
   private SceneController sceneController;

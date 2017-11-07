@@ -15,7 +15,6 @@ import lobby.presenter.LobbyPresenter;
 import lobby.view.LobbyViewImpl;
 import socket.ClientSocket;
 
-
 public class SceneController {
 
   private static final int STAGE_WIDTH = 720;

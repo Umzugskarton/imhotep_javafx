@@ -35,7 +35,6 @@ public class GamesPresenter {
     for (CLTLobby lobby : gamesArray) {
       gamesList.getGames().add(lobby);
     }
-
   }
 
   public void joinLobby(int id, String pw) {

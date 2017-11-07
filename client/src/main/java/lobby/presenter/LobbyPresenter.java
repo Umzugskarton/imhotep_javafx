@@ -1,6 +1,5 @@
 package lobby.presenter;
 
-
 import commonLobby.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;

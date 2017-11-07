@@ -9,7 +9,6 @@ import CLTrequests.Request;
 import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
 import main.SceneController;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

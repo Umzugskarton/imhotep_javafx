@@ -46,6 +46,10 @@ public class ClientListener implements Runnable {
     }
   }
 
+  public ClientAPI getClientAPI() {
+    return clientAPI;
+  }
+
   @Override
   public void run() {
     try {
@@ -57,7 +61,7 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-        //make sure only logged in users can execute commands
+          //make sure only logged in users can execute commands
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");

@@ -1,6 +1,5 @@
 package lobby.view;
 
-
 import javafx.scene.Scene;
 import lobby.presenter.LobbyPresenter;
 

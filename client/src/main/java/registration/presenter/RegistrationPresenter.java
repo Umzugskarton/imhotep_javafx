@@ -2,7 +2,6 @@ package registration.presenter;
 
 import CLTrequests.registerRequest;
 import main.SceneController;
-import org.json.simple.JSONObject;
 import registration.view.RegistrationView;
 
 public class RegistrationPresenter {

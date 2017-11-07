@@ -21,11 +21,10 @@ public class ChatViewImpl extends GridPane implements ChatView {
 
   private ChatPresenter chatPresenter;
   private TextField messageInput;
-  private TextFlow chatText; //nachrichtenverlauf
+  private TextFlow chatText;
 
   public ChatViewImpl(ChatPresenter chatPresenter) {
     this.chatPresenter = chatPresenter;
-
     buildChat();
   }
 
