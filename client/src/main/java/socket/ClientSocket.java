@@ -36,7 +36,7 @@ public class ClientSocket {
   // Gson caster
   private Gson gson = new Gson();
 
-  public ClientSocket(SceneController sceneController , EventBus eventBus) {
+  public ClientSocket(SceneController sceneController, EventBus eventBus) {
     this.sceneController = sceneController;
     this.eventBus = eventBus;
     this.host = "localhost";

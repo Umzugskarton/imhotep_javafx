@@ -27,7 +27,7 @@ public class LoginViewImpl implements LoginView {
     buildLogin();
   }
 
-  public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
+  public void buildLogin() {
     BorderPane main = new BorderPane();
     main.setId("loginroot");
     GridPane grid = new GridPane();
@@ -74,22 +74,22 @@ public class LoginViewImpl implements LoginView {
 
     Button min = new Button("_");
     min.addEventHandler(ActionEvent.ACTION, e ->
-            loginPresenter.getSceneController().getStage().setIconified(true));
+        loginPresenter.getSceneController().getStage().setIconified(true));
 
     min.setMinWidth(20);
     close.setMinWidth(20);
 
     final Delta dragDelta = new Delta();
-    nav.setOnMousePressed(mouseEvent-> {
-        dragDelta.x =
-            loginPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
-        dragDelta.y =
-            loginPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+    nav.setOnMousePressed(mouseEvent -> {
+      dragDelta.x =
+          loginPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+      dragDelta.y =
+          loginPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
     });
     nav.setOnMouseDragged(mouseEvent -> {
-        loginPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
-        loginPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
-      });
+      loginPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
+      loginPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
+    });
 
     //Hier werden die Positionen "angelegt"
     GridPane.setConstraints(labelUser, 0, 0);

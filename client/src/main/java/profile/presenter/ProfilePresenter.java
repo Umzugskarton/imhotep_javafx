@@ -5,66 +5,69 @@ import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
 
-/**
- * Created by Slothan/Dennis Lindt on 25.06.2017.
- */
 public class ProfilePresenter {
-    private ProfileView view;
-    private SceneController sceneController;
 
-    public ProfilePresenter(SceneController sc) {
-        this.sceneController = sc;
-        this.view = new ProfileViewImpl(this);
+  private ProfileView view;
+  private SceneController sceneController;
+
+  public ProfilePresenter(SceneController sc) {
+    this.sceneController = sc;
+    this.view = new ProfileViewImpl(this);
+  }
+
+  public void processChangeResponse(boolean validate, String msg) {
+    if (validate) {
+      this.view.updateStatusLabel(msg);
+    } else {
+      this.view.updateStatusLabel("Etwas lief schief.");
+    }
+  }
+
+  public ProfileView getProfileView() {
+    return this.view;
+  }
+
+  public void updateUsernameLabel(String username) {
+    this.view.getUsernameLabel().setText("Username: " + username);
+  }
+
+  public void updateEmailLabel(String email) {
+    this.view.getEmailLabel().setText("Email: " + email);
+  }
+
+  public void sendChangeRequest(String credential, Integer type) {
+    if (type == 1) {
+      if (this.validate(credential)) {
+        this.view.updateStatusLabel("");
+        changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+            type);
+        this.sceneController.getClientSocket().send(changeCredentialsCommand);
+      }
+    }
+    if (type == 2) {
+      this.view.updateStatusLabel("");
+      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+          type);
+      this.sceneController.getClientSocket().send(changeCredentialsCommand);
+    }
+    if (type == 3) {
+      this.view.updateStatusLabel("");
+      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+          type);
+      this.sceneController.getClientSocket().send(changeCredentialsCommand);
     }
 
-    public void processChangeResponse(boolean validate, String msg) {
-        if(validate) {
-            this.view.updateStatusLabel(msg);
-        } else {
-            this.view.updateStatusLabel("Etwas lief schief.");
-        }
-    }
+  }
 
-    public ProfileView getProfileView() { return this.view; }
-
-    public void updateUsernameLabel(String username) {
-       // Username holen
-        this.view.getUsernameLabel().setText("Username: " + username);
+  private boolean validate(String email) {
+    String msg = "";
+    if (!email.isEmpty()) {
+      return true;
+    } else {
+      msg += "Bitte eine E-Mail eingeben. \n";
     }
-    public void updateEmailLabel(String email) {
-        this.view.getEmailLabel().setText("Email: " + email);
-    }
-
-    public void sendChangeRequest(String credential, Integer type){
-        if(type == 1) {
-            if(this.validate(credential)){
-                this.view.updateStatusLabel("");
-                changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
-                this.sceneController.getClientSocket().send(changeCredentialsCommand);
-            }
-        }
-        if(type == 2) {
-            this.view.updateStatusLabel("");
-            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
-            this.sceneController.getClientSocket().send(changeCredentialsCommand);
-        }
-        if(type == 3) {
-            this.view.updateStatusLabel("");
-            changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential, type);
-            this.sceneController.getClientSocket().send(changeCredentialsCommand);
-        }
-
-    }
-
-    private boolean validate(String email) {
-        String msg = "";
-        if(!email.isEmpty()) {
-            return true;
-        } else {
-            msg += "Bitte eine E-Mail eingeben. \n";
-        }
-        this.view.updateStatusLabel(msg);
-        return false;
-    }
+    this.view.updateStatusLabel(msg);
+    return false;
+  }
 
 }

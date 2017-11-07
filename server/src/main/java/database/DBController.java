@@ -24,8 +24,7 @@ public class DBController {
   private Connection conn = null;
 
   /**
-   * Erstellt ein neues Datenbankcontroller-Objekt
-   * Setzt Datenbank-Treiber
+   * Erstellt ein neues Datenbankcontroller-Objekt und Setzt Datenbank-Treiber
    */
   public DBController() {
     try {
@@ -43,7 +42,6 @@ public class DBController {
   public boolean connect() {
     try {
       conn = DriverManager.getConnection(DB, USERNAME, PASSWORD);
-
       if (this.isConnected()) {
         log.info("Verbindung zur Datenbank wurde erfolgreich hergestellt");
         return true;
@@ -61,28 +59,23 @@ public class DBController {
    */
   public boolean disconnect() {
     try {
-      // Wenn Verbindung besteht
       if (this.isConnected()) {
-        // Schließen der Verbindung
         conn.close();
-
-        // Wenn Schließen der Verbindung erfolgreich nicht mehr besteht, true zurückgeben
         if (!this.isConnected()) {
           return true;
         }
       } else {
-        // Wenn Verbindung schon geschlossen, ebenfalls true zurückgeben
         return true;
       }
     } catch (SQLException e) {
       log.error("Beim Schließen der Verbindung zur Datenbank ist ein Fehler aufgetreten", e);
     }
 
-    return false; // Verbindung konnte nicht geschlossen werden
+    return false;
   }
 
   /**
-   * Ueberprueft, ob die Verbindung zur Datenbank besteht
+   * Überprueft, ob die Verbindung zur Datenbank besteht
    *
    * @return true, wenn Verbindung besteht
    */
@@ -99,10 +92,10 @@ public class DBController {
   }
 
   /**
-   * Zaehlt die Anzahl der Resultate einer Abfrage
+   * Zählt die Anzahl der Resultate einer Abfrage
    *
-   * @param result ResultSet, in dem die Eintraege gezaehlt werden soll
-   * @return Anzahl der Eintraege in result
+   * @param result ResultSet, in dem die Einträge gezählt werden sollen
+   * @return Anzahl der Einträge in result
    */
   public int countResults(ResultSet result) {
     int count = 0;
@@ -117,11 +110,11 @@ public class DBController {
   }
 
   /**
-   * Prueft, ob Wert value in Spalte column in Tabelle table existiert
+   * Prüft, ob Wert value in Spalte column in Tabelle table existiert
    *
-   * @param table Zu Ueberpruefende Tabelle
+   * @param table Zu Überprüfende Tabelle
    * @param column Spalte der Tabelle
-   * @param value Wert, auf den ueberprueft werden soll
+   * @param value Wert, auf den überprüft werden soll
    * @return true, wenn Eintrag existiert
    */
   public boolean exists(String table, String column, Object value) {
@@ -134,14 +127,11 @@ public class DBController {
       stmt.setObject(1, value);
       ResultSet result = stmt.executeQuery();
 
-      // Ergebnisse zählen
       int rowCount = this.countResults(result);
 
-      // Query & Ergebnis freigeben
       result.close();
       stmt.close();
 
-      // Wenn Anzahl größer als 0 ist, true zurückgeben
       if (rowCount > 0) {
         return true;
       }

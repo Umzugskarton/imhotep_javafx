@@ -1,24 +1,23 @@
 package socket;
 
+import com.google.gson.Gson;
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import CLTrequests.Request;
-import CLTrequests.RequestFactory;
-import CLTrequests.createRequest;
-import SRVevents.Event;
-import com.google.gson.Gson;
 import lobby.Lobby;
-import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import socket.commands.Command;
 import socket.commands.CommandFactory;
+import socket.commands.Invoker;
+import SRVevents.Event;
 import user.User;
 
 public class ClientListener implements Runnable {
@@ -32,7 +31,7 @@ public class ClientListener implements Runnable {
   private BufferedReader in = null;
   private User user = null;
   private Lobby lobby = null;
-  private Gson gson= new Gson();
+  private Gson gson = new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -64,7 +63,8 @@ public class ClientListener implements Runnable {
             String command = (String) request.get("request");
             Request re = ev.getRequest(command);
             CommandFactory commandFactory = new CommandFactory(this);
-            Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
+            Command c = commandFactory
+                .getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
           }
@@ -95,8 +95,8 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public void setLobby(Lobby lobby){
-    this.lobby= lobby;
+  public void setLobby(Lobby lobby) {
+    this.lobby = lobby;
   }
 
   public boolean isLoggedIn() {
@@ -111,15 +111,19 @@ public class ClientListener implements Runnable {
     return lobby;
   }
 
-  public void setUser(User user){
-    this.user=user;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Thread getThread() {
     return Thread.currentThread();
   }
 
-  public ClientAPI getClientAPI(){return this.clientAPI;}
+  public ClientAPI getClientAPI() {
+    return this.clientAPI;
+  }
 
-  public Server getServer(){return this.server;}
+  public Server getServer() {
+    return this.server;
+  }
 }

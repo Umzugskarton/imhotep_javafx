@@ -98,18 +98,23 @@ public class MainmenuPresenter {
     return this.playerList;
   }
 
-  public void logout(){
+  public void logout() {
     this.sceneController.getClientSocket().send(new logoutRequest());
   }
 
   public SceneController getSceneController() {
     return this.sceneController;
   }
+
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
   }
+
   public GamesPresenter getGamesPresenter() {
     return this.gamesPresenter;
   }
-  public ProfilePresenter getProfilePresenter() { return this.profilePresenter; }
+
+  public ProfilePresenter getProfilePresenter() {
+    return this.profilePresenter;
+  }
 }

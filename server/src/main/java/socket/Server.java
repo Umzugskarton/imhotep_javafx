@@ -1,19 +1,17 @@
 package socket;
 
+import commonLobby.CLTLobby;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import lobby.Lobby;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import SRVevents.createEvent;
 import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
 import SRVevents.Event;
-import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
-import lobby.Lobby;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import user.User;
 
 public class Server {
@@ -106,47 +104,46 @@ public class Server {
     return found;
   }
 
-  public createEvent addLobby(Lobby lobby){
+  public createEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size()-1);
+    lobby.setLobbyID(openLobby.size() - 1);
 
-    createEvent j = new createEvent( true, openLobby.size()-1,"Lobby Erfolgreich erstellt!");
+    createEvent j = new createEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
     return j;
   }
 
-  public Lobby getLobbybyID(int id){
-    for(Lobby lobby : openLobby) {
-      if(lobby.getLobbyID() == id) {
+  public Lobby getLobbybyID(int id) {
+    for (Lobby lobby : openLobby) {
+      if (lobby.getLobbyID() == id) {
         return lobby;
       }
     }
     return null;
   }
 
-  public lobbylistEvent getLobbies(User user){
+  public lobbylistEvent getLobbies(User user) {
     lobbylistEvent lobbies = new lobbylistEvent();
     ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
-    for (Lobby lobby: openLobby) {
+    for (Lobby lobby : openLobby) {
 
-      CLTLobby tempLobby= new CLTLobby(
-              lobby.getLobbyID(),
-              lobby.getName(),
-              lobby.getLobbyUserArrayList(),
-              lobby.hasPW(),
-              lobby.getSize(),
-              lobby.isHost(user),
-              lobby.getHostName(),
-              lobby.getReady(),
-              lobby.getColors()
-              );
+      CLTLobby tempLobby = new CLTLobby(
+          lobby.getLobbyID(),
+          lobby.getName(),
+          lobby.getLobbyUserArrayList(),
+          lobby.hasPW(),
+          lobby.getSize(),
+          lobby.isHost(user),
+          lobby.getHostName(),
+          lobby.getReady(),
+          lobby.getColors()
+      );
       CLTLobbies.add(tempLobby);
     }
 
     lobbies.setLobbies(CLTLobbies);
     return lobbies;
   }
-
 
 
   public void sendToLoggedIn(Event event) {
@@ -158,7 +155,7 @@ public class Server {
   }
 
   public userListEvent getLoggedUsers() {
-    userListEvent  event = new userListEvent();
+    userListEvent event = new userListEvent();
     ArrayList<String> users = new ArrayList<>();
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {
@@ -177,7 +174,6 @@ public class Server {
         }
       }
     }
-
     return null;
   }
 }

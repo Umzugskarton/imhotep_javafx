@@ -16,10 +16,14 @@ public interface MainmenuView {
   Scene getMainmenuScene();
 
   void initChat(ChatView chatView);
+
   void initCreate(CreateView createView);
+
   void initGames(GamesView gamesView);
+
   void initProfile(ProfileView profileView);
 
   void initPlayerList();
+
   void openModal(String msg);
 }
