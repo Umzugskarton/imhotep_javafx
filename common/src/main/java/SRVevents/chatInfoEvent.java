@@ -2,17 +2,19 @@ package SRVevents;
 
 import java.util.Date;
 
-
 public class chatInfoEvent implements Event {
     private String event = "chatInfo";
     private Date date;
     private String msg;
 
-    public chatInfoEvent(){
+    public chatInfoEvent() {
         this.date = new Date();
     }
 
-    public void setMsg(String msg){this.msg = msg;}
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public String getMsg() {
         return this.msg;
     }

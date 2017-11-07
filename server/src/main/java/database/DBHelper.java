@@ -25,7 +25,7 @@ public abstract class DBHelper {
     private final String db = jdbcUrlPrefix + dbUrl + dbPort + dbTable;
 
     //  DB-Daten
-    private final String usernam = "safariman";
+    private final String username = "safariman";
     private final String password = "blablabla";
 
     public DBHelper(){
@@ -51,7 +51,7 @@ public abstract class DBHelper {
 
     public Connection getConnection(){
         try {
-            this.conn = DriverManager.getConnection(db, usernam, password);
+            this.conn = DriverManager.getConnection(db, username, password);
             if (this.onConnection()) {
                 log.info("Verbindung zur DB wurde erfolgreich hergestellt");
                 return this.conn;

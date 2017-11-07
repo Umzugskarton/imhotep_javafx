@@ -12,31 +12,34 @@ public class createRequest implements Request {
     private int size;
     private String pw;
 
-    public createRequest(){
+    public createRequest() {
 
     }
 
-    public createRequest(String name,int size, String password){
+    public createRequest(String name, int size, String password) {
         this.size = size;
         this.pw = password;
         this.name = name;
         this.date = new Date();
     }
 
-    public String getName(){return this.name;}
-    public String getRequest(){
+    public String getName() {
+        return this.name;
+    }
+
+    public String getRequest() {
         return this.request;
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.size;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.pw;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 }

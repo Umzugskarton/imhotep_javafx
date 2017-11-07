@@ -9,15 +9,15 @@ public class logoutEvent implements Event {
     private String msg;
     private Date date;
 
-    public logoutEvent(){
+    public logoutEvent() {
         this.date = new Date();
     }
 
-    public String getMsg(){
+    public String getMsg() {
         return this.msg;
     }
 
-    public boolean getSuccess(){
+    public boolean getSuccess() {
         return this.success;
     }
 

@@ -9,15 +9,15 @@ public class userListEvent implements Event {
     private Date date;
     private ArrayList<String> userList;
 
-    public userListEvent(){
-      this.date= new Date();
+    public userListEvent() {
+        this.date = new Date();
     }
 
-    public void setUserList(ArrayList<String> userList){
+    public void setUserList(ArrayList<String> userList) {
         this.userList = userList;
     }
 
-    public ArrayList<String> getUserList(){
+    public ArrayList<String> getUserList() {
         return this.userList;
     }
 

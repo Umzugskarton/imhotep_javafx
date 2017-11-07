@@ -6,7 +6,7 @@ import SRVevents.Event;
 
 import java.util.Date;
 
-public class gameInfoEvent implements Event{
+public class gameInfoEvent implements Event {
     private String event = "gameInfo";
     private Boat[] cboats;
     private int round;
@@ -14,7 +14,7 @@ public class gameInfoEvent implements Event{
     private String[] order;
     private Date date;
 
-    public gameInfoEvent(){
+    public gameInfoEvent() {
         this.date = new Date();
     }
 
@@ -54,7 +54,7 @@ public class gameInfoEvent implements Event{
         this.storages = storages;
     }
 
-    public Date getDate(){
-     return this.date;
+    public Date getDate() {
+        return this.date;
     }
 }

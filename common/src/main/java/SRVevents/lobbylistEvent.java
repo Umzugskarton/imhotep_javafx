@@ -7,31 +7,28 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created on 13.10.2017.
- */
 public class lobbylistEvent implements Event {
     private String event = "lobbylist";
     private Date date;
     private ArrayList<CLTLobby> lobbies = new ArrayList<>();
 
-    public lobbylistEvent(){
+    public lobbylistEvent() {
         this.date = new Date();
     }
 
-    public String getEvent(){
+    public String getEvent() {
         return this.event;
     }
 
-    public void setLobbies(ArrayList<CLTLobby> lobbies){
+    public void setLobbies(ArrayList<CLTLobby> lobbies) {
         this.lobbies.addAll(lobbies);
     }
 
-    public ArrayList<CLTLobby> getLobbies(){
+    public ArrayList<CLTLobby> getLobbies() {
         return this.lobbies;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 

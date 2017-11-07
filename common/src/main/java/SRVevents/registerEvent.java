@@ -9,18 +9,19 @@ public class registerEvent implements Event {
     private String msg;
     private boolean validate;
 
-    public registerEvent(){
+    public registerEvent() {
         this.date = new Date();
     }
 
-    public void setMsg(String msg){
-        this.msg=msg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public void setSuccess(boolean validate){
+    public void setSuccess(boolean validate) {
         this.validate = validate;
     }
-    public String getMsg(){
+
+    public String getMsg() {
         return this.msg;
     }
 

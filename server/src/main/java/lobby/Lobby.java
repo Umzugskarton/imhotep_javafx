@@ -41,6 +41,14 @@ public class Lobby {
         this.game = new Game(this, cl);
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
     public String getHostName(){
         return this.lobby[0].getUsername();
     }

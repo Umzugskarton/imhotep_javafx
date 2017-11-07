@@ -19,7 +19,7 @@ public class Temple extends Site
     int[] points = new int[5];
     int size = min(temple.size(), 5);
     for (int i = 0; i < size; i++) {
-      points[temple.get(temple.size()-i).getPlayer().getPlayerNumber()]++;
+      points[temple.get(temple.size()-i).getPlayer().getPlayerId()]++;
     }
     return points;
   }

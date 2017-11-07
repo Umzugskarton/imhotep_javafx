@@ -8,23 +8,23 @@ public class chatRequest implements Request {
     private Date date;
     private String msg;
 
-    public chatRequest(){
+    public chatRequest() {
     }
 
-    public chatRequest(String msg){
+    public chatRequest(String msg) {
         this.msg = msg;
         this.date = new Date();
     }
 
-    public String getMsg(){
+    public String getMsg() {
         return this.msg;
     }
 
-    public String getRequest(){
+    public String getRequest() {
         return this.request;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 }

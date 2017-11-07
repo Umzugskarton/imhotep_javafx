@@ -2,40 +2,39 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created on 10.10.2017.
- */
-public class whisperRequest implements Request{
-    String request ="whisper";
+public class whisperRequest implements Request {
+    String request = "whisper";
     private Date date;
     private String to;
     private String msg;
 
-    public whisperRequest(){
+    public whisperRequest() {
 
     }
 
-    public whisperRequest(String to, String msg){
+    public whisperRequest(String to, String msg) {
         this.to = to;
         this.msg = msg;
         this.date = new Date();
     }
 
-    public String getRequest(){
+    public String getRequest() {
         return this.request;
     }
 
-    public String getTo(){return this.to;}
-
-    public String getRecipient(){
+    public String getTo() {
         return this.to;
     }
 
-    public String getMsg(){
+    public String getRecipient() {
+        return this.to;
+    }
+
+    public String getMsg() {
         return this.msg;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 }

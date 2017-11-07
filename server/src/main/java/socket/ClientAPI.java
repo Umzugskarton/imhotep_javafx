@@ -3,19 +3,18 @@ package socket;
 import CLTrequests.*;
 import SRVevents.*;
 import lobby.Lobby;
-import org.json.simple.JSONObject;
 import user.User;
 import user.UserIdentifier;
-import user.UserManager;
+import database.userdata.DBUserDataSource;
 
 import java.util.ArrayList;
 
 public class ClientAPI {
 
-  private UserManager userManager;
+  private DBUserDataSource dbUserDataSource;
 
   public ClientAPI() {
-    this.userManager = new UserManager();
+    this.dbUserDataSource = new DBUserDataSource();
   }
 
   /**
@@ -37,7 +36,7 @@ public class ClientAPI {
         event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
         event.setSuccess(false);
       } else {
-        boolean isLoginValid = this.userManager.validateLogin(username, password);
+        boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
 
         if (isLoginValid) {
           event.setMsg("Login erfolgreich!");
@@ -56,7 +55,7 @@ public class ClientAPI {
   }
 
   /**
-   * Wenn Client eine Registrierungs-Anfrage sendet, versucht der UserManager
+   * Wenn Client eine Registrierungs-Anfrage sendet, versucht der dbUserDataSource
    * einen neuen Benutzer anzulegen. Wenn die Erstellung erfolgreich war, wird
    * eine Erfolgsnachricht an den Client gesendet.
    * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
@@ -72,7 +71,7 @@ public class ClientAPI {
     String email = request.getEmail();
     if (username != null && password != null && email != null) {
 
-      boolean createUser = this.userManager.createUser(username, password, email);
+      boolean createUser = this.dbUserDataSource.createUser(username, password, email);
 
       if (createUser) {
         event.setMsg("Registrierung erfolgreich!");
@@ -116,7 +115,7 @@ public class ClientAPI {
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
   public User getUser(String username) {
-    return this.userManager.getUser(UserIdentifier.USERNAME, username);
+    return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username);
   }
 
 

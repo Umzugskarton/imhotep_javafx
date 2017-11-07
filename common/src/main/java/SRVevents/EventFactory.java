@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class EventFactory {
     private HashMap<String, Event> Dict = new HashMap<>();
 
-    public EventFactory(){
+    public EventFactory() {
         Dict.put("register", new registerEvent());
         Dict.put("login", new loginEvent());
         Dict.put("logout", new logoutEvent());
@@ -19,8 +19,8 @@ public class EventFactory {
         Dict.put("create", new createEvent());
     }
 
-    public Event getEvent(String command){
-           return Dict.get(command);
+    public Event getEvent(String command) {
+        return Dict.get(command);
     }
 
 

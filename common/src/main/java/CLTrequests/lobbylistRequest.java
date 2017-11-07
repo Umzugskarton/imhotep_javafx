@@ -2,9 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created on 13.10.2017.
- */
+
 public class lobbylistRequest implements Request{
     private String request = "lobbylist";
     private Date date;

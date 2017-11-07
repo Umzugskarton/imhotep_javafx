@@ -2,9 +2,6 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created on 10.10.2017.
- */
 public class registerRequest implements Request {
     private String request = "register";
     private Date date;
@@ -12,34 +9,34 @@ public class registerRequest implements Request {
     private String pw;
     private String email;
 
-    public registerRequest(){
+    public registerRequest() {
 
     }
 
-    public registerRequest(String username, String password, String email){
+    public registerRequest(String username, String password, String email) {
         this.username = username;
         this.pw = password;
         this.email = email;
         this.date = new Date();
     }
 
-    public String getRequest(){
+    public String getRequest() {
         return this.request;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.pw;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 }

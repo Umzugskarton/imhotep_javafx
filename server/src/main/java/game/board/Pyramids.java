@@ -33,9 +33,9 @@ public class Pyramids extends Site
     int i = 0;
     for (Stone s : pyramid) {
       if (i < positionValues.length) {
-        points[s.getPlayer().getPlayerNumber()] += positionValues[i++];
+        points[s.getPlayer().getPlayerId()] += positionValues[i++];
       } else {
-        points[s.getPlayer().getPlayerNumber()] += standardValue;
+        points[s.getPlayer().getPlayerId()] += standardValue;
       }
     }
     return points;

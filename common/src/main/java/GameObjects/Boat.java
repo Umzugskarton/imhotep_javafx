@@ -5,7 +5,7 @@ public class Boat {
     private Stone[] spaces;
     private boolean available;
 
-    public Boat(int spaces){
+    public Boat(int spaces) {
         this.spaces = new Stone[spaces];
     }
 
@@ -25,7 +25,7 @@ public class Boat {
         this.spaces = spaces;
     }
 
-    public void setSpaceNr(int nr, Stone stone){
+    public void setSpaceNr(int nr, Stone stone) {
         this.spaces[nr] = stone;
     }
 }

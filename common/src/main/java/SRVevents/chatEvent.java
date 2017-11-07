@@ -8,22 +8,27 @@ public class chatEvent implements Event {
     private String user;
     private String msg;
 
-    public chatEvent(){
-     this.date= new Date();
+    public chatEvent() {
+        this.date = new Date();
     }
 
-    public void setUser(String username) {this.user = username;}
-    public void setMsg(String msg){this.msg = msg;}
+    public void setUser(String username) {
+        this.user = username;
+    }
 
-    public String getUser(){
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getUser() {
         return this.user;
     }
 
-    public String getMsg(){
+    public String getMsg() {
         return this.msg;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 

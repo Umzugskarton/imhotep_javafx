@@ -2,6 +2,7 @@ package GameEvents;
 
 import GameObjects.Bauwerke.Pyramid;
 import SRVevents.Event;
+
 import java.util.Date;
 
 
@@ -10,12 +11,12 @@ public class pyramidEvent implements Event {
     private Pyramid pyramid;
     private Date date;
 
-    public pyramidEvent(Pyramid pyramid){
-        this.pyramid=pyramid;
+    public pyramidEvent(Pyramid pyramid) {
+        this.pyramid = pyramid;
     }
 
 
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 

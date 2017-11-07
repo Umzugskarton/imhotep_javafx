@@ -1,6 +1,6 @@
 package SRVevents;
 
-import org.json.simple.JSONObject;
+
 import java.util.Date;
 
 public interface Event {
