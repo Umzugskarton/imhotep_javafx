@@ -2,19 +2,14 @@ package games.presenter;
 
 
 import CLTrequests.joinRequest;
-import commonLobby.LobbyUser;
 import games.model.GameList;
 import games.model.GameListImpl;
 import commonLobby.CLTLobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import main.SceneController;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class GamesPresenter {
     SceneController sc;

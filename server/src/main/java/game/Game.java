@@ -1,6 +1,7 @@
 package game;
 
 import GameEvents.gameInfoEvent;
+import GameMoves.Move;
 import GameObjects.Bauwerke.Pyramid;
 import GameObjects.Boat;
 import SRVevents.Event;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import user.User;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
@@ -22,6 +24,8 @@ public class Game implements Runnable {
     private int round;
     private Pyramid pyramid;
     private ClientListener clientListener;
+    private Move move= null;
+    private Event event = null;
 
     public Game(Lobby lobby, ClientListener clientListener) {
         this.lobby = lobby;
@@ -53,15 +57,15 @@ public class Game implements Runnable {
         }
     }
 
-    public void sendAllGameinfo() {
+    public void sendAll(Event event) {
         for (Player player : this.order) {
-            sendGameInfoTo(player.getUser());
+            sendTo(player.getUser(), event);
         }
     }
 
 
-    public void sendGameInfoTo(User user) {
-        this.clientListener.getServer().sendTo(getGameinfo(), user.getUsername());
+    public void sendTo(User user, Event event) {
+        this.clientListener.getServer().sendTo(event, user.getUsername());
     }
 
     public gameInfoEvent getGameinfo() {
@@ -89,22 +93,45 @@ public class Game implements Runnable {
     public void run() {
         for (int i = 0; i <= 6; i++) {
             this.round = i;
-            // allGameInfoEvent event = new allGameInfoEvent Allen Players senden Wer Dran , Reihenfolge? , Steine, punkte , Boote
-            while (true) {
-                try {
-                    sendAndwait(new userListEvent());
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
+            sendAll(getGameinfo());
+            while (!AllshipsDocked())
+                for (int player = 0; player <= this.order.length; player++) {
+                //Todo:notify player in charge
+                    try {
+                        waitforMove(player);
+                    } catch (InterruptedException e) {
+                        log.error(e.getMessage());
+                    }
+                    if (this.move != null){
+                        executeMove();
+                    }
+                    //Todo:update alle Player über Spielzug
                 }
-                break;
-            }
         }
     }
 
-    public synchronized void sendAndwait(Event event) throws InterruptedException {
-        this.wait(30);
+    private boolean executeMove(){
+        //Todo: Move executen und vorher checken welcher Move gemacht wurde oder auslagern evtl. mit Factory
+        return true;
     }
 
+    private boolean AllshipsDocked() {
+        int haven= 0;
+        for (Boat boat: this.cboats){
+            haven++;
+        }
+            return haven>0;
+    }
+
+    public synchronized void waitforMove(int p) throws InterruptedException {
+        log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p]);
+        this.wait(32000);
+    }
+
+    public synchronized void makeMove(Move move) {
+        this.move = move;
+        this.notify();
+    }
 
     public int getGameID() {
         return gameID;
