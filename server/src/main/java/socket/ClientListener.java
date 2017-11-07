@@ -46,6 +46,10 @@ public class ClientListener implements Runnable {
     }
   }
 
+  public Server getServer() {
+    return server;
+  }
+
   public ClientAPI getClientAPI() {
     return clientAPI;
   }
