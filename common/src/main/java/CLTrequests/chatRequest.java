@@ -1,30 +1,30 @@
 package CLTrequests;
 
-
 import java.util.Date;
 
 public class chatRequest implements Request {
-    private String request = "chat";
-    private Date date;
-    private String msg;
 
-    public chatRequest(){
-    }
+  private String request = "chat";
+  private Date date;
+  private String msg;
 
-    public chatRequest(String msg){
-        this.msg = msg;
-        this.date = new Date();
-    }
+  public chatRequest() {
+  }
 
-    public String getMsg(){
-        return this.msg;
-    }
+  public chatRequest(String msg) {
+    this.msg = msg;
+    this.date = new Date();
+  }
 
-    public String getRequest(){
-        return this.request;
-    }
+  public String getMsg() {
+    return this.msg;
+  }
 
-    public Date getDate(){
-        return this.date;
-    }
+  public String getRequest() {
+    return this.request;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 }

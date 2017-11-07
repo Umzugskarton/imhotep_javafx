@@ -1,6 +1,5 @@
 package SRVevents;
 
-
 import java.util.Date;
 
 public class logoutEvent implements Event {

@@ -2,22 +2,20 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created on 10.10.2017.
- */
-public class userlistRequest implements Request{
-    private String request = "userlist";
-    private Date date;
+public class userlistRequest implements Request {
 
-    public userlistRequest(){
-        this.date = new Date();
-    }
+  private String request = "userlist";
+  private Date date;
 
-    public String getRequest(){
-        return this.request;
-    }
+  public userlistRequest() {
+    this.date = new Date();
+  }
 
-    public Date getDate(){
-        return this.date;
-    }
+  public String getRequest() {
+    return this.request;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 }
