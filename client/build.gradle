@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     compile project(":common")
+    testCompile 'junit:junit:4.11'
     compile group: 'com.google.guava', name: 'guava', version: '22.0'
     compile 'com.google.code.gson:gson:2.8.2'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
