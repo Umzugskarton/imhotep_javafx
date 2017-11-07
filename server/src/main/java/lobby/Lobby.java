@@ -2,6 +2,8 @@ package lobby;
 
 import SRVevents.joinEvent;
 import commonLobby.LobbyUser;
+import game.Game;
+import socket.ClientListener;
 import user.User;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Lobby {
     private int size;
     boolean vacancy = true;
     private ArrayList<String> colors = new ArrayList<>();
+    private Game game;
 
 
     public Lobby(int size, User host, String name){
@@ -32,6 +35,10 @@ public class Lobby {
 
     public boolean isHost(User user){
         return user == lobby[0];
+    }
+
+    public void startGame(ClientListener cl){
+        this.game = new Game(this, cl);
     }
 
     public String getHostName(){
