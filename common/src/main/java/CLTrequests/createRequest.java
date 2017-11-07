@@ -27,7 +27,7 @@ public class createRequest implements Request {
         return this.name;
     }
 
-    public String getRequest() {
+    public String getType() {
         return this.request;
     }
 

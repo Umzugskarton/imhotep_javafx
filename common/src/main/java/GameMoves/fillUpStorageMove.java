@@ -8,7 +8,7 @@ public class fillUpStorageMove implements  Move{
 
     }
     @Override
-    public String getRequest() {
+    public String getType() {
         return null;
     }
 

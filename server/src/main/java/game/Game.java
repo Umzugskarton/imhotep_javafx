@@ -1,6 +1,7 @@
 package game;
 
 import GameEvents.gameInfoEvent;
+import GameEvents.turnEvent;
 import GameMoves.Move;
 import GameObjects.Bauwerke.Pyramid;
 import GameObjects.Boat;
@@ -24,7 +25,7 @@ public class Game implements Runnable {
     private int round;
     private Pyramid pyramid;
     private ClientListener clientListener;
-    private Move move= null;
+    private Move move = null;
     private Event event = null;
 
     public Game(Lobby lobby, ClientListener clientListener) {
@@ -96,39 +97,49 @@ public class Game implements Runnable {
             sendAll(getGameinfo());
             while (!AllshipsDocked())
                 for (int player = 0; player <= this.order.length; player++) {
-                //Todo:notify player in charge
+                    switchPlayer(player);
                     try {
                         waitforMove(player);
                     } catch (InterruptedException e) {
                         log.error(e.getMessage());
                     }
-                    if (this.move != null){
+                    if (this.move != null) {
                         executeMove();
+                    }
+
+                    if (AllshipsDocked()) {
+                        break;
                     }
                     //Todo:update alle Player über Spielzug
                 }
         }
     }
 
-    private boolean executeMove(){
-        //Todo: Move executen und vorher checken welcher Move gemacht wurde oder auslagern evtl. mit Factory
+    private void switchPlayer(int player) {
+        for (Player p : this.order) {
+            sendTo(p.getUser(), new turnEvent(p == this.order[player]));
+        }
+    }
+
+    private boolean executeMove() {
+
         return true;
     }
 
     private boolean AllshipsDocked() {
-        int haven= 0;
-        for (Boat boat: this.cboats){
+        int haven = 0;
+        for (Boat boat : this.cboats) {
             haven++;
         }
-            return haven>0;
+        return haven > 0;
     }
 
-    public synchronized void waitforMove(int p) throws InterruptedException {
+    synchronized void waitforMove(int p) throws InterruptedException {
         log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p]);
         this.wait(32000);
     }
 
-    public synchronized void makeMove(Move move) {
+    public synchronized void setMove(Move move) {
         this.move = move;
         this.notify();
     }

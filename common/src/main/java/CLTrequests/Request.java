@@ -7,5 +7,5 @@ public interface Request {
 
     Date getDate();
 
-    String getRequest();
+    String getType();
 }

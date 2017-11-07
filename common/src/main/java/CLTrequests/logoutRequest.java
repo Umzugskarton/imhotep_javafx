@@ -10,7 +10,7 @@ public class logoutRequest implements Request {
         this.date = new Date();
     }
 
-    public String getRequest() {
+    public String getType() {
         return this.request;
     }
 
