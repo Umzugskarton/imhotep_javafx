@@ -1,7 +1,16 @@
 package socket;
 
-import CLTrequests.*;
-import SRVevents.*;
+import CLTrequests.changeCredentialRequest;
+import CLTrequests.chatRequest;
+import CLTrequests.createRequest;
+import CLTrequests.loginRequest;
+import CLTrequests.registerRequest;
+import CLTrequests.whisperRequest;
+import SRVevents.changeCredentialEvent;
+import SRVevents.chatEvent;
+import SRVevents.loginEvent;
+import SRVevents.registerEvent;
+import SRVevents.whisperEvent;
 import lobby.Lobby;
 import user.User;
 import user.UserIdentifier;
@@ -131,7 +140,6 @@ public class ClientAPI {
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
-
     }
     return event;
   }

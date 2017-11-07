@@ -1,5 +1,7 @@
 package mainmenu.view;
 
+import static general.TextBundle.getString;
+
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import create.view.CreateView;
@@ -73,9 +75,9 @@ public class MainmenuViewImpl implements MainmenuView {
     mainmenuScene.setFill(Color.TRANSPARENT);
 
     chatTab = new Tab();
-    chatTab.setText("Chat");
+    chatTab.setText(getString("chat"));
     chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip("chat with other players"));
+    chatTab.setTooltip(new Tooltip(getString("chatTabTooltip")));
     chatTab.setContent(null);
 
     Button logoutButton = new Button();
@@ -88,24 +90,24 @@ public class MainmenuViewImpl implements MainmenuView {
     });
 
     gamesTab = new Tab();
-    gamesTab.setText("Games");
+    gamesTab.setText(getString("games"));
     gamesTab.setClosable(false);
-    gamesTab.setTooltip(new Tooltip("find open games"));
+    gamesTab.setTooltip(new Tooltip(getString("gameTabTooltip")));
 
     profileTab = new Tab();
-    profileTab.setText("Profile");
+    profileTab.setText(getString("profile"));
     profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip("edit your profile"));
+    profileTab.setTooltip(new Tooltip(getString("profileTabTooltip")));
 
     newGameTab = new Tab();
-    newGameTab.setText("Create Game");
+    newGameTab.setText(getString("createGame"));
     newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip("create a new game"));
+    newGameTab.setTooltip(new Tooltip(getString("newGameTabTooltip")));
 
     Tab rulesTab = new Tab();
-    rulesTab.setText("Rules");
+    rulesTab.setText(getString("rules"));
     rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip("learn the game"));
+    rulesTab.setTooltip(new Tooltip(getString("rulesTabTooltip")));
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {

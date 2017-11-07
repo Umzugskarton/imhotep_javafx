@@ -1,6 +1,7 @@
 package mainmenu.presenter;
 
-import CLTrequests.*;
+import CLTrequests.logoutRequest;
+import CLTrequests.userlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,6 @@ import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
-import org.json.simple.JSONArray;
 import profile.presenter.ProfilePresenter;
 
 public class MainmenuPresenter {
@@ -100,6 +100,7 @@ public class MainmenuPresenter {
 
   public void logout() {
     this.sceneController.getClientSocket().send(new logoutRequest());
+    this.chatPresenter.getChatView().getChatText().getChildren().clear();
   }
 
   public SceneController getSceneController() {

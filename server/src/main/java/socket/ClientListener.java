@@ -57,7 +57,7 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-
+        //make sure only logged in users can execute commands
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");
@@ -117,13 +117,5 @@ public class ClientListener implements Runnable {
 
   public Thread getThread() {
     return Thread.currentThread();
-  }
-
-  public ClientAPI getClientAPI() {
-    return this.clientAPI;
-  }
-
-  public Server getServer() {
-    return this.server;
   }
 }

@@ -1,6 +1,10 @@
 package chat.presenter;
 
-import CLTrequests.*;
+import static general.TextBundle.getString;
+
+import CLTrequests.Request;
+import CLTrequests.chatRequest;
+import CLTrequests.whisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import java.util.regex.Matcher;
@@ -35,12 +39,12 @@ public class ChatPresenter {
         chatCommand = new whisperRequest(receiver, message);
         addWhisper(receiver, message, false);
       } else {
-        addInfoMessage("Invalide Whisper-Syntax: /w <Benutzername> <Nachricht>");
+        addInfoMessage(getString("invalidWhisperSyntax"));
       }
     } else if (!text.isEmpty()) {
       chatCommand = new chatRequest(text);
     } else if (text.isEmpty()) {
-      addInfoMessage("Bitte gib eine Nachricht ein, um zu chatten");
+      addInfoMessage(getString("enterMessageToChat"));
     }
 
     if (chatCommand != null) {
@@ -57,11 +61,11 @@ public class ChatPresenter {
   }
 
   public void addWhisper(String user, String msg, boolean isClientReceiver) {
-    String recipientText = "From";
+    String recipientText = getString("from");
     Color color = Color.web("#8A2BE2");
 
     if (!isClientReceiver) {
-      recipientText = "To";
+      recipientText = getString("to");
       color = Color.web("#9c31ff");
     }
 
