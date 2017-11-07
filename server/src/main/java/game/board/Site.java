@@ -1,13 +1,12 @@
 package game.board;
 
-public abstract class Site {
+abstract class Site {
   private Ship dockedShip = null;
 
   abstract boolean dockShip(Ship ship);
 
-  public Ship getDockedShip() {
+  Ship getDockedShip() {
     return dockedShip;
   }
-
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BurialChamber extends Site
                            implements StoneSite {
 
-  private ArrayList<Player>[] burialChamber;
+  private ArrayList<Stone> burialChamber;
 
   // TODO
   @Override
@@ -13,14 +13,13 @@ public class BurialChamber extends Site
     return new int[0];
   }
 
-  // TODO
   @Override
-  public ArrayList<Player> getStones() {
-    return null;
+  public ArrayList<Stone> getStones() {
+    return burialChamber;
   }
 
   @Override
-  public void addStones(ArrayList<Player> stones) {
+  public void addStones(ArrayList<Stone> stones) {
 
   }
 

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Pyramids extends Site
                       implements StoneSite {
-  private ArrayList<Player> pyramid;
+  private ArrayList<Stone> pyramid;
+  private final int players;
   private int[] positionValues = {2,1,3,2,4,3,2,1,3,2,3,1,3,4};
   private int standardValue = 1;
 
@@ -16,32 +17,32 @@ public class Pyramids extends Site
     return standardValue;
   }
 
-  public Pyramids(int standardValue) {
+  public Pyramids(int players, int standardValue) {
+    this.players = players;
     this.standardValue = standardValue;
   }
 
   @Override
-  public ArrayList<Player> getStones() {
+  public ArrayList<Stone> getStones() {
     return pyramid;
   }
 
   @Override
   public int[] getPoints() {
-    int[] points = new int[5];
+    int[] points = new int[players];
     int i = 0;
-    for (Player p : pyramid) {
+    for (Stone s : pyramid) {
       if (i < positionValues.length) {
-        points[p.ordinal()] += positionValues[p.ordinal()];
+        points[s.getPlayer().getPlayerNumber()] += positionValues[i++];
       } else {
-        points[p.ordinal()] += standardValue;
+        points[s.getPlayer().getPlayerNumber()] += standardValue;
       }
-      i++;
     }
     return points;
   }
 
   @Override
-  public void addStones(ArrayList<Player> stones) {
+  public void addStones(ArrayList<Stone> stones) {
     this.pyramid.addAll(stones);
   }
 

@@ -8,7 +8,7 @@ import java.util.Collections;
 public class Obelisks extends Site
                       implements StoneSite {
 
-  private ArrayList<Player> obelisks;
+  private ArrayList<Stone> obelisks;
   private int playerCount;
 
   public Obelisks(int playerCount) {
@@ -16,7 +16,7 @@ public class Obelisks extends Site
   }
 
   @Override
-  public ArrayList<Player> getStones() {
+  public ArrayList<Stone> getStones() {
     return obelisks;
   }
 
@@ -29,10 +29,12 @@ public class Obelisks extends Site
   public int[] getPoints() {
     int[] points = new int[5];
     Integer[] stonesPerPlayer = new Integer[4];
+    /*
     stonesPerPlayer[0] = Collections.frequency(obelisks, Player.PLAYER1);
     stonesPerPlayer[1] = Collections.frequency(obelisks, Player.PLAYER2);
     stonesPerPlayer[2] = Collections.frequency(obelisks, Player.PLAYER3);
     stonesPerPlayer[3] = Collections.frequency(obelisks, Player.PLAYER4);
+    */
     Integer[] players = new Integer[4];
     players[0] = stonesPerPlayer[0];
     players[1] = stonesPerPlayer[1];
@@ -69,7 +71,7 @@ public class Obelisks extends Site
 
 
   @Override
-  public void addStones(ArrayList<Player> stones) {
+  public void addStones(ArrayList<Stone> stones) {
     this.obelisks.addAll(stones);
   }
 

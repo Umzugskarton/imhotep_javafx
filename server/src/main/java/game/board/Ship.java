@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Ship {
   private int size;
   private int minimumStones;
-  private ArrayList<Player> stones;
+  private ArrayList<Stone> stones;
   private boolean docked;
 
   public Ship(int size) {
@@ -25,12 +25,12 @@ public class Ship {
     return minimumStones;
   }
 
-  public ArrayList<Player> getStones() {
+  public ArrayList<Stone> getStones() {
     return stones;
   }
 
-  public boolean addStone(Player stone, int position) {
-    if (stones.get(position) != null || stones.get(position) != Player.NOPLAYER) return false;
+  public boolean addStone(Stone stone, int position) {
+    if (position > size || (stones.size() > position && stones.get(position) != null)) return false;
     stones.add(position, stone);
     return true;
   }

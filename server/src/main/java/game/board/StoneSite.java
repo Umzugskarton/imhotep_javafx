@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public interface StoneSite {
 
   /**
-   * Returns an array containing each player's points. Note that PLAYER1's points are at index 1,
-   * not at index 0. If applicable, index 0 contains the amount of points NOPLAYER gets. Otherwise,
-   * it contains a 0.
+   * Returns an array containing each player's points, with the first Player's points
+   * at index 0, the second Player's points at 1 etc.
    * @return an array containing each player's points for the StoneSite
    */
   int[] getPoints();
@@ -16,7 +15,7 @@ public interface StoneSite {
    *
    * @param stones the stones to add to the StoneSite
    */
-  void addStones (ArrayList<Player> stones);
+  void addStones (ArrayList<Stone> stones);
 
-  ArrayList<Player> getStones();
+  ArrayList<Stone> getStones();
 }

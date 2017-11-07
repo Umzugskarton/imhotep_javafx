@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Temple extends Site
                     implements StoneSite {
 
-  private ArrayList<Player> temple;
+  private ArrayList<Stone> temple;
 
   @Override
-  public ArrayList<Player> getStones() {
+  public ArrayList<Stone> getStones() {
     return temple;
   }
 
@@ -19,13 +19,13 @@ public class Temple extends Site
     int[] points = new int[5];
     int size = min(temple.size(), 5);
     for (int i = 0; i < size; i++) {
-      points[temple.get(temple.size()-i).ordinal()]++;
+      points[temple.get(temple.size()-i).getPlayer().getPlayerNumber()]++;
     }
     return points;
   }
 
   @Override
-  public void addStones(ArrayList<Player> stones) {
+  public void addStones(ArrayList<Stone> stones) {
     temple.addAll(stones);
   }
 
