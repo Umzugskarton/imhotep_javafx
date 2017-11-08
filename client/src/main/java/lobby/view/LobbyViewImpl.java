@@ -33,6 +33,7 @@ public class LobbyViewImpl implements LobbyView {
   private TableView<LobbyUser> table = new TableView();
   private BorderPane main;
   private TextField messageField;
+  private String username;
 
   public LobbyViewImpl() {
     buildLobby();
@@ -128,7 +129,15 @@ public class LobbyViewImpl implements LobbyView {
               hbox.setSpacing(5);
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
-                System.out.println(lobbyUser.getColor());
+                if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+
+                  color.setFill(Color.web("#ffffff"));
+                  System.out.println(lobbyUser.getColor());
+                } else {
+                  System.out.println(getLobbyPresenter().getUsername());
+                  System.out.println(lobbyUser.getUsername());
+                }
+
               });
               hbox.getChildren().add(color);
               setGraphic(hbox);
@@ -188,6 +197,10 @@ public class LobbyViewImpl implements LobbyView {
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
 
+  /*public void changeLobbyInfo() {
+
+    table.setItems(this.lobbyPresenter.getCLTLobby().setColors());
+  }*/
 
   public void openModal(String msg) {
     final Stage dialog = new Stage();
@@ -208,7 +221,11 @@ public class LobbyViewImpl implements LobbyView {
     this.lobbyPresenter = lobbyPresenter;
   }
 
+  public LobbyPresenter getLobbyPresenter() { return lobbyPresenter; }
+
   public Scene getLobbyScene() {
     return this.LobbyScene;
   }
+
+  public void setUsername(String username) { this.username = username; }
 }

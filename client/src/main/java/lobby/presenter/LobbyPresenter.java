@@ -9,6 +9,7 @@ public class LobbyPresenter {
   private SceneController sc;
   private LobbyView lobbyView;
   private CLTLobby CLTLobby;
+  private String username;
 
   public LobbyPresenter(LobbyView lobbyView, SceneController sc) {
     this.sc = sc;
@@ -23,6 +24,7 @@ public class LobbyPresenter {
 
   public void setCLTLobby(CLTLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
+    setUsername(this.sc.getMainmenuPresenter().getUsername());
     lobbyView.initLobbyInfo();
   }
 
@@ -33,4 +35,8 @@ public class LobbyPresenter {
   public SceneController getSceneController() {
     return this.sc;
   }
+
+  public void setUsername(String username){ this.username = username; }
+
+  public String getUsername() { return this.username; }
 }

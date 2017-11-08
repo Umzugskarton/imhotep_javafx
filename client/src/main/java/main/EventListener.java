@@ -33,6 +33,7 @@ public class EventListener {
                 .updateUsernameLabel(e.getUsername());
             this.sceneController.getMainmenuPresenter().getProfilePresenter()
                 .updateEmailLabel(e.getEmail());
+            this.sceneController.getMainmenuPresenter().setUsername(e.getUsername());
           }
         }
     );
