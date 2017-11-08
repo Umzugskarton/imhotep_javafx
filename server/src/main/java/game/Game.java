@@ -124,7 +124,7 @@ public class Game implements Runnable {
   }
 
   private boolean executeMove() {
-
+    move.getType()
     return true;
   }
 

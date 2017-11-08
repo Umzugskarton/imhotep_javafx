@@ -2,15 +2,15 @@ package game.GameProcedures;
 
 
 
-import GameMoves.fillUpStorageMove;
+import GameMoves.Move;
 import game.Game;
 
-public class fillUpStorage {
-  private fillUpStorageMove move;
+public class fillUpStorage implements Procedure {
+  private Move move;
   private Game game;
   private int playerId;
 
-  fillUpStorage(fillUpStorageMove move, Game game, int playerId){
+  fillUpStorage(Move move, Game game, int playerId){
     this.game = game;
     this.move = move;
   }

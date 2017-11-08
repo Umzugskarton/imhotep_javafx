@@ -4,7 +4,7 @@ package game.GameProcedures;
 import GameMoves.loadUpBoatMove;
 import game.Game;
 
-public class loadUpBoat {
+public class loadUpBoat implements Procedure {
   private loadUpBoatMove move;
   private Game game;
   private int playerId;
