@@ -10,7 +10,7 @@ public class gameInfoEvent implements Event {
     private String event = "gameInfo";
     private Boat[] cboats;
     private int round;
-    private boolean[][] storages;
+    private boolean[] storages;
     private String[] order;
     private Date date;
 
@@ -22,7 +22,7 @@ public class gameInfoEvent implements Event {
         this.cboats = cboats;
     }
 
-    public boolean[][] getStorages() {
+    public boolean[] getStorages() {
         return storages;
     }
 
@@ -50,7 +50,7 @@ public class gameInfoEvent implements Event {
         this.round = round;
     }
 
-    public void setStorages(boolean[][] storages) {
+    public void setStorages(boolean[] storages) {
         this.storages = storages;
     }
 

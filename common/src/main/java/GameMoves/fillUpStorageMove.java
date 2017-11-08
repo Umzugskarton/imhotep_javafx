@@ -3,17 +3,20 @@ package GameMoves;
 
 import java.util.Date;
 
-public class fillUpStorageMove implements  Move{
-    public fillUpStorageMove(){
+public class fillUpStorageMove implements Move {
+  private String move = "fillUpStorage";
 
-    }
-    @Override
-    public String getType() {
-        return null;
-    }
+  public fillUpStorageMove() {
 
-    @Override
-    public Date getDate() {
-        return null;
-    }
+  }
+
+  @Override
+  public String getType() {
+    return move;
+  }
+
+  @Override
+  public Date getDate() {
+    return null;
+  }
 }
