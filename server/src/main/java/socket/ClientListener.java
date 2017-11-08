@@ -32,7 +32,7 @@ public class ClientListener implements Runnable {
   private BufferedReader in = null;
   private User user = null;
   private Lobby lobby = null;
-  private Gson gson= new Gson();
+  private Gson gson = new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -89,14 +89,14 @@ public class ClientListener implements Runnable {
       Gson gson = new Gson();
       String json = gson.toJson(event);
       log.info(
-          "Nachricht gesendet: " + json);
+              "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();
     }
   }
 
-  public void setLobby(Lobby lobby){
-    this.lobby= lobby;
+  public void setLobby(Lobby lobby) {
+    this.lobby = lobby;
   }
 
   public boolean isLoggedIn() {
@@ -111,15 +111,19 @@ public class ClientListener implements Runnable {
     return lobby;
   }
 
-  public void setUser(User user){
-    this.user=user;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Thread getThread() {
     return Thread.currentThread();
   }
 
-  public ClientAPI getClientAPI(){return this.clientAPI;}
+  public ClientAPI getClientAPI() {
+    return this.clientAPI;
+  }
 
-  public Server getServer(){return this.server;}
+  public Server getServer() {
+    return this.server;
+  }
 }

@@ -24,14 +24,14 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request JSON-Objekt, das User-Daten für Login enthält;
-   * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
+   * @param request     JSON-Objekt, das User-Daten für Login enthält;
+   * @param loggedUsers JSON-Objekt, Liste eingeloggter User
    */
   public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
     loginEvent event = new loginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
-    if (username != null  && password != null) {
+    if (username != null && password != null) {
       if (loggedUsers.contains(username)) {
         event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
         event.setSuccess(false);
@@ -46,8 +46,7 @@ public class ClientAPI {
           event.setSuccess(false);
         }
       }
-    }
-    else{
+    } else {
       event.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
       event.setSuccess(false);
     }
@@ -67,7 +66,7 @@ public class ClientAPI {
   public registerEvent register(registerRequest request) {
     registerEvent event = new registerEvent();
     String username = request.getUsername();
-    String password =  request.getPassword();
+    String password = request.getPassword();
     String email = request.getEmail();
     if (username != null && password != null && email != null) {
 
@@ -119,14 +118,13 @@ public class ClientAPI {
   }
 
 
-
-  public Lobby createLobby(createRequest request, User user){
-    String name =  request.getName();
+  public Lobby createLobby(createRequest request, User user) {
+    String name = request.getName();
     int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
 
-    if(request.getPassword() != null){
-      lobby.setPassword( request.getPassword());
+    if (request.getPassword() != null) {
+      lobby.setPassword(request.getPassword());
     }
 
     return lobby;

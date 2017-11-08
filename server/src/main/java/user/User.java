@@ -9,10 +9,10 @@ public class User {
   /**
    * Erstellt ein neues User-Objekt
    *
-   * @param  id           ID des Users
-   * @param  username     Name des Users
-   * @param  passwordHash Gehashtes Passwort des Users
-   * @param  email        E-Mail des Users
+   * @param id           ID des Users
+   * @param username     Name des Users
+   * @param passwordHash Gehashtes Passwort des Users
+   * @param email        E-Mail des Users
    */
   public User(int id, String username, String passwordHash, String email) {
     this.id = id;

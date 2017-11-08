@@ -38,7 +38,7 @@ public class Server {
       log.info("Server auf Port " + this.port + " gestartet");
     } catch (IOException e) {
       log.error(
-          "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
+              "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
       System.exit(-1);
     }
   }
@@ -68,18 +68,18 @@ public class Server {
     this.connectedClients.add(clientListener);
 
     log.info(
-        "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
+            "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
   }
 
   public void removeClient(ClientListener clientListener) {
     log.info("Thread " + clientListener.getThread().getId()
-        + ": Client hat die Verbindung beendet");
+            + ": Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);
 
       log.info("Thread " + clientListener.getThread().getId()
-          + " von der Liste der verbundenen Clients entfernt");
+              + " von der Liste der verbundenen Clients entfernt");
     }
   }
 
@@ -106,29 +106,29 @@ public class Server {
     return found;
   }
 
-  public createEvent addLobby(Lobby lobby){
+  public createEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size()-1);
+    lobby.setLobbyID(openLobby.size() - 1);
 
-    createEvent j = new createEvent( true, openLobby.size()-1,"Lobby Erfolgreich erstellt!");
+    createEvent j = new createEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
     return j;
   }
 
-  public Lobby getLobbybyID(int id){
-    for(Lobby lobby : openLobby) {
-      if(lobby.getLobbyID() == id) {
+  public Lobby getLobbybyID(int id) {
+    for (Lobby lobby : openLobby) {
+      if (lobby.getLobbyID() == id) {
         return lobby;
       }
     }
     return null;
   }
 
-  public lobbylistEvent getLobbies(User user){
+  public lobbylistEvent getLobbies(User user) {
     lobbylistEvent lobbies = new lobbylistEvent();
     ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
-    for (Lobby lobby: openLobby) {
-      if(lobby.isVisible()) {
+    for (Lobby lobby : openLobby) {
+      if (lobby.isVisible()) {
         CLTLobby tempLobby = new CLTLobby(
                 lobby.getLobbyID(),
                 lobby.getName(),
@@ -149,7 +149,6 @@ public class Server {
   }
 
 
-
   public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
@@ -159,7 +158,7 @@ public class Server {
   }
 
   public userListEvent getLoggedUsers() {
-    userListEvent  event = new userListEvent();
+    userListEvent event = new userListEvent();
     ArrayList<String> users = new ArrayList<>();
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {

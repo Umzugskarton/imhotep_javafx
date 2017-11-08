@@ -35,7 +35,7 @@ public class Game implements Runnable {
     lobby.show(false);
     this.cboats = new Boat[lobby.getSize()];
     order = new Player[lobby.getSize()];
-    storages = new boolean[lobby.getSize()*5];
+    storages = new boolean[lobby.getSize() * 5];
     setGame();
     this.pyramid = new Pyramid();
     setStartCards();
@@ -92,7 +92,7 @@ public class Game implements Runnable {
 
   @Override
   public void run() {
-    for (int i = 0; i <= 6; i++) {
+    for (int i = 1; i <= 6; i++) {
       this.round = i;
       sendAll(getGameinfo());
       while (!AllshipsDocked())
@@ -150,14 +150,14 @@ public class Game implements Runnable {
     this.notify();
   }
 
-  public void addStonesToStorage(int playerId){
-    int set=0;
-    for (int i = ((playerId)*5)-1; i<= i+5; i++){
-      if (!storages[i]){
-        storages[i]=true;
+  public void addStonesToStorage(int playerId) {
+    int set = 0;
+    for (int i = ((playerId +1 ) * 5) ; i <= i + 5; i++) {
+      if (!storages[i]) {
+        storages[i] = true;
         set++;
       }
-      if (set ==3){
+      if (set == 3) {
         break;
       }
     }
