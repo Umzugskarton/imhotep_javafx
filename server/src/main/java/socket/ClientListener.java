@@ -9,6 +9,7 @@ import java.net.Socket;
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
 import CLTrequests.createRequest;
+import GameMoves.MoveFactory;
 import SRVevents.Event;
 import com.google.gson.Gson;
 import lobby.Lobby;
@@ -67,6 +68,11 @@ public class ClientListener implements Runnable {
             Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
+          } else if (request.containsKey("move")) {
+            MoveFactory mf = new MoveFactory();
+            if (this.lobby != null && !this.lobby.isVisible()) {
+              lobby.getGame().setNextmove(mf.getMove((String) request.get("move")));
+            }
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);

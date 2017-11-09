@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import user.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
@@ -25,19 +27,21 @@ public class Game implements Runnable {
   private int round;
   private Pyramid pyramid;
   private ClientListener clientListener;
-  private Move move = null;
+  private Move Nextmove = null;
+  private List<Move> oldMoves;
   private Event event = null;
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
     this.gameID = this.lobby.getLobbyID();
     this.clientListener = clientListener;
+    oldMoves = new ArrayList<>();
     lobby.show(false);
-    this.cboats = new Boat[lobby.getSize()];
+    cboats = new Boat[lobby.getSize()];
     order = new Player[lobby.getSize()];
     storages = new boolean[lobby.getSize() * 5];
     setGame();
-    this.pyramid = new Pyramid();
+    pyramid = new Pyramid();
     setStartCards();
     sendAll(getGameinfo());
     run();
@@ -101,7 +105,7 @@ public class Game implements Runnable {
 
           waitforMove(player);
 
-          if (this.move != null) {
+          if (this.Nextmove != null) {
             int tryed = 0;
             while (!executeMove() && tryed < 2) {
               waitforMove(player);
@@ -124,7 +128,7 @@ public class Game implements Runnable {
   }
 
   private boolean executeMove() {
-    move.getType()
+    Nextmove.getType()
     return true;
   }
 
@@ -145,8 +149,8 @@ public class Game implements Runnable {
     }
   }
 
-  public synchronized void setMove(Move move) {
-    this.move = move;
+  public synchronized void setNextmove(Move nextmove) {
+    this.Nextmove = nextmove;
     this.notify();
   }
 
@@ -154,7 +158,7 @@ public class Game implements Runnable {
     int set = 0;
     for (int i = ((playerId +1 ) * 5) ; i <= i + 5; i++) {
       if (!storages[i]) {
-        storages[i] = true;
+        storages[i] =  true;
         set++;
       }
       if (set == 3) {

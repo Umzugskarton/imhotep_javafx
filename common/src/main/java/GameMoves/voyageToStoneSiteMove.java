@@ -8,6 +8,8 @@ public class voyageToStoneSiteMove implements Move{
   private int shipId;
   private int stonesite;
 
+  public voyageToStoneSiteMove(){}
+
   public voyageToStoneSiteMove(int shipId, int stonesite){
     this.shipId = shipId;
     this.stonesite =stonesite;

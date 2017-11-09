@@ -7,7 +7,11 @@ public class loadUpBoatMove implements Move{
   private int shipId;
   private int position;
 
-  loadUpBoatMove(int shipId, int position){
+  public loadUpBoatMove(){
+
+  }
+
+  public loadUpBoatMove(int shipId, int position){
     this.shipId = shipId;
     this.position = position;
   }
