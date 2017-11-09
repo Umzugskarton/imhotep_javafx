@@ -17,7 +17,5 @@ public interface StoneSite {
    */
   void addStones (ArrayList<Stone> stones);
 
-  void dockShip();
-
   ArrayList<Stone> getStones();
 }
