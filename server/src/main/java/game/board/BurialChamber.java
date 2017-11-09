@@ -3,56 +3,44 @@ package game.board;
 import java.util.ArrayList;
 
 public class BurialChamber extends Site
-                           implements StoneSite {
+    implements StoneSite {
 
   private ArrayList<Stone> burialChamber;
 
   // TODO
-  //Ansatz: Iterieren über alle Elemente, gucken ob ein Element des selben Spielers daneben
-  //liegt, mitzählen wie viele andere daneben lagen. Bei Treffer Zähler und ArrayList an
-  //addPlayerStone übergeben, die dann bei kleinem Zähler (neuer Stein gehört zu ner bekannten Gruppe)
-  //die Anzahl der Steine der aktuellen Gruppe erhöht, sonst eine neue Gruppe (neues Element der AL)
-  //beginnt.
-  //Funktioniert im Moment nicht und kann vermutlich grundsätzlich nicht funktionieren. Hässlich ists
-  //auf jeden Fall.
+  //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
+  //Summieren der Punkte verbesserungsbedürftig; wichtiger: Funktioniert das Prinzip?
   @Override
   public int[] getPoints() {
-    ArrayList<ArrayList<Integer>> players = new ArrayList<>();
-    players.add(new ArrayList<>());
-    players.add(new ArrayList<>());
-    players.add(new ArrayList<>());
-    players.add(new ArrayList<>());
-    int[] sinceLast = new int[4];
+    boolean[] checked = new boolean[burialChamber.size()];
+    int[] points = new int[4];
     for (int i = 0; i < burialChamber.size(); i++) {
-      int currentPlayer = burialChamber.get(i).getPlayer().getPlayerId();
-      int position = i%3;
-      boolean helper = false;
-      if (position < 2) {
-        if (burialChamber.get(i+1).getPlayer().getPlayerId()==currentPlayer) {
-          addPlayerStone(sinceLast[currentPlayer], players.get(currentPlayer));
-          sinceLast[currentPlayer] = 0;
-        } else {
-          helper = true;
-        }
-        if (burialChamber.get(i+3).getPlayer().getPlayerId()==currentPlayer) {
-          addPlayerStone(sinceLast[currentPlayer], players.get(currentPlayer));
-          sinceLast[currentPlayer] = 0;
-        } else {
-          if (helper) {
-            sinceLast[currentPlayer]++;
-          }
-        }
-      } else if (position==2) {
-        if (burialChamber.get(i+3).getPlayer().getPlayerId()==currentPlayer) {
-          addPlayerStone(sinceLast[currentPlayer], players.get(currentPlayer));
-          sinceLast[currentPlayer] = 0;
-        } else {
-          sinceLast[currentPlayer]++;
-        }
+      int playerId = burialChamber.get(i).getPlayer().getPlayerId();
+      int size = getFieldSize(i, playerId, checked);
+      if (size==1) {
+        points[playerId]+=1;
+      } else if (size==2) {
+        points[playerId]+=3;
+      } else if (size==3) {
+        points[playerId]+=6;
       }
-
     }
-    return new int[0];
+    return points;
+  }
+
+  private int getFieldSize(int position, int playerId, boolean[] checked) {
+    if (position >= burialChamber.size()
+        || burialChamber.get(position).getPlayer().getPlayerId() != playerId
+        || checked[position]) {
+      return 0;
+    }
+    checked[position] = true;
+    int number = 1;
+    if (position % 3 == 0 || position % 3 == 1) {
+      number += getFieldSize(position + 1, playerId, checked);
+    }
+    number += getFieldSize(position + 3, playerId, checked);
+    return number;
   }
 
   private void addPlayerStone(int sinceLast, ArrayList<Integer> stones) {
@@ -74,7 +62,9 @@ public class BurialChamber extends Site
   }
 
   public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) return false;
+    if (this.getDockedShip() != null) {
+      return false;
+    }
     addStones(ship.getStones());
     return true;
   }
