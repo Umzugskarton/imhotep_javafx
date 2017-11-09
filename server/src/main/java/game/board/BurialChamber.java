@@ -1,95 +1,54 @@
 package game.board;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BurialChamber extends Site
-        implements StoneSite {
+    implements StoneSite {
 
-
-  private ArrayList<Stone>[] burialChamber;
-
-  private int playerSize;
-
-  public BurialChamber(int playerSize) {
-    burialChamber = new ArrayList[3];
-    this.playerSize = playerSize;
-  }
+  private ArrayList<Stone> burialChamber;
 
   // TODO
+  //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
+  //Summieren der Punkte verbesserungsbedürftig; wichtiger: Funktioniert das Prinzip?
   @Override
   public int[] getPoints() {
-    ArrayList<Integer>[] pointC = new ArrayList[playerSize];
-    boolean[][] visited = new boolean[3][burialChamber[0].size()];
-    for (int pl = 0; pl < playerSize; pl++){
-      for (int i = 0; i < burialChamber[0].size(); i++){
-        for (int list = 0; list < 3; list++){
-          if (burialChamber[list].get(i).getPlayer().getPlayerId() == pl){
-            if (list != 0 ){
-              if (burialChamber[list].get(i-1).getPlayer().getPlayerId() == pl){
-                int lastC = pointC[pl].get(pointC[pl].size()-2);
-                pointC[pl].set(pointC[pl].size()-2, lastC +1);
-              }
-              else{
-                pointC[pl].add(1);
-              }
-            }
-          }
-        }
+    boolean[] checked = new boolean[burialChamber.size()];
+    int[] points = new int[4];
+    for (int i = 0; i < burialChamber.size(); i++) {
+      int playerId = burialChamber.get(i).getPlayer().getPlayerId();
+      int size = getFieldSize(i, playerId, checked);
+      if (size==1) {
+        points[playerId]+=1;
+      } else if (size==2) {
+        points[playerId]+=3;
+      } else if (size==3) {
+        points[playerId]+=6;
       }
     }
+    return points;
+  }
 
-    int[] points = new int[playerSize];
-    ArrayList<Integer>[][] placed = new ArrayList[playerSize][3];
-    //Durch jede Liste iterieren der Burial chamber
-    for (int Blist = 0; Blist < 3; Blist++ ){
-      // Durch jedes Element der Liste iterieren
-      for (int i = 0; i < burialChamber[Blist].size(); i++){
-        if (burialChamber[Blist].get(i) != null) {
-          /* für jeden Spieler werden die Indizes in dem placed ArrayList Array
-              gespeichert auf dem er in dieser Teilliste der Burial chamber einen stein liegen hat
-           */
-          if (placed[burialChamber[Blist].get(i).getPlayer().getPlayerId()][Blist].get(i-1) != null){
-            placed[burialChamber[Blist].get(i).getPlayer().getPlayerId()][Blist].add(i);
-          }
-
-        }
-      }
+  private int getFieldSize(int position, int playerId, boolean[] checked) {
+    if (position >= burialChamber.size()
+        || burialChamber.get(position).getPlayer().getPlayerId() != playerId
+        || checked[position]) {
+      return 0;
     }
-    // Berechnung der Punkte
-    for (int i = 0; i < placed.length; i++){
-      for(int j = 0; j < placed[i].length; j++){
-        for (int k = 0; k < placed[i][j].size(); k++) {
-          int adjacentTo = placed[i][j].get(k);
-        }
-      }
+    checked[position] = true;
+    int number = 1;
+    if (position % 3 == 0 || position % 3 == 1) {
+      number += getFieldSize(position + 1, playerId, checked);
     }
+    number += getFieldSize(position + 3, playerId, checked);
+    return number;
+  }
 
-  /*
-  Bsp. Burial Chamber Punkteberechnung : {0,1,2} SpielerId´s
-                     _______________________
-    burialChamber[0]:|0| |0| |1| |1| |2| |2|
-    burialChamber[1]:|1| |0| |0| |1| |1| |2|
-    burialChamber[2]:|2| |0| |1| |2| |2| |1|
-                     –––––––––––––––––––—---
-
-    placed[player][List]:
-
-     Player 0 : List 0 = {0,1}
-                List 1 = {1,2}
-                List 2 = {1}
-
-     Player 1 : List 0 = {2,3}
-                List 1 = {0,3,4}
-                List 2 = {2,5}
-     ...etc.
-
-
-
-
-
-   */
-    return new int[0];
+  private void addPlayerStone(int sinceLast, ArrayList<Integer> stones) {
+    if (sinceLast > 2) {
+      stones.add(1);
+    } else {
+      stones.add(stones.remove(stones.size())); //is this real life
+    }
   }
 
   @Override
@@ -103,7 +62,9 @@ public class BurialChamber extends Site
   }
 
   public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) return false;
+    if (this.getDockedShip() != null) {
+      return false;
+    }
     addStones(ship.getStones());
     return true;
   }
