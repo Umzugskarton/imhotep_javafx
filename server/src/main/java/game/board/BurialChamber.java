@@ -19,6 +19,26 @@ public class BurialChamber extends Site
   // TODO
   @Override
   public int[] getPoints() {
+    ArrayList<Integer>[] pointC = new ArrayList[playerSize];
+    boolean[][] visited = new boolean[3][burialChamber[0].size()];
+    for (int pl = 0; pl < playerSize; pl++){
+      for (int i = 0; i < burialChamber[0].size(); i++){
+        for (int list = 0; list < 3; list++){
+          if (burialChamber[list].get(i).getPlayer().getPlayerId() == pl){
+            if (list != 0 ){
+              if (burialChamber[list].get(i-1).getPlayer().getPlayerId() == pl){
+                int lastC = pointC[pl].get(pointC[pl].size()-2);
+                pointC[pl].set(pointC[pl].size()-2, lastC +1);
+              }
+              else{
+                pointC[pl].add(1);
+              }
+            }
+          }
+        }
+      }
+    }
+
     int[] points = new int[playerSize];
     ArrayList<Integer>[][] placed = new ArrayList[playerSize][3];
     //Durch jede Liste iterieren der Burial chamber
@@ -29,14 +49,19 @@ public class BurialChamber extends Site
           /* für jeden Spieler werden die Indizes in dem placed ArrayList Array
               gespeichert auf dem er in dieser Teilliste der Burial chamber einen stein liegen hat
            */
-          placed[burialChamber[Blist].get(i).getPlayer().getPlayerId()][Blist].add(i);
+          if (placed[burialChamber[Blist].get(i).getPlayer().getPlayerId()][Blist].get(i-1) != null){
+            placed[burialChamber[Blist].get(i).getPlayer().getPlayerId()][Blist].add(i);
+          }
+
         }
       }
     }
     // Berechnung der Punkte
     for (int i = 0; i < placed.length; i++){
       for(int j = 0; j < placed[i].length; j++){
-
+        for (int k = 0; k < placed[i][j].size(); k++) {
+          int adjacentTo = placed[i][j].get(k);
+        }
       }
     }
 
@@ -58,6 +83,9 @@ public class BurialChamber extends Site
                 List 1 = {0,3,4}
                 List 2 = {2,5}
      ...etc.
+
+
+
 
 
    */
