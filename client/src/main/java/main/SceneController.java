@@ -1,15 +1,19 @@
 package main;
 
+import CLTrequests.lobbylistRequest;
+import com.google.common.eventbus.EventBus;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
+import profile.presenter.ProfilePresenter;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
+import lobby.presenter.LobbyPresenter;
+import lobby.view.LobbyViewImpl;
 import socket.ClientSocket;
-
 
 public class SceneController {
 
@@ -25,9 +29,15 @@ public class SceneController {
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
+  private EventBus eventBus;
+  private LobbyPresenter LobbyPresenter;
+  private ProfilePresenter profilePresenter;
+
 
   public SceneController(Stage stage) {
-    this.clientSocket = new ClientSocket(this);
+    this.eventBus = new EventBus();
+    this.eventBus.register(new EventListener(this));
+    this.clientSocket = new ClientSocket(this, eventBus);
     this.stage = stage;
     this.toLoginScene();
     stage.initStyle(StageStyle.TRANSPARENT);
@@ -60,12 +70,26 @@ public class SceneController {
       this.MainmenuPresenter = new MainmenuPresenter(new MainmenuViewImpl(), this);
     }
 
+    this.clientSocket.send(new lobbylistRequest());
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
+    this.stage.getScene().getStylesheets().add("style.css");
+  }
+
+  public void toLobbyScene() {
+    if (this.LobbyPresenter == null) {
+      this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
+    }
+
+    this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
   public ClientSocket getClientSocket() {
     return this.clientSocket;
+  }
+
+  public LobbyPresenter getLobbyPresenter() {
+    return this.LobbyPresenter;
   }
 
   public LoginPresenter getLoginPresenter() {
@@ -82,5 +106,9 @@ public class SceneController {
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
+  }
+
+  public ProfilePresenter getProfilePresenter() {
+    return this.profilePresenter;
   }
 }

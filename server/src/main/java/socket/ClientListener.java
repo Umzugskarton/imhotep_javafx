@@ -1,16 +1,23 @@
 package socket;
 
+import com.google.gson.Gson;
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import json.ServerCommands;
+import lobby.Lobby;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import socket.commands.Command;
+import socket.commands.CommandFactory;
+import socket.commands.Invoker;
+import SRVevents.Event;
 import user.User;
 
 public class ClientListener implements Runnable {
@@ -23,6 +30,8 @@ public class ClientListener implements Runnable {
   private PrintWriter out = null;
   private BufferedReader in = null;
   private User user = null;
+  private Lobby lobby = null;
+  private Gson gson = new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -37,6 +46,14 @@ public class ClientListener implements Runnable {
     }
   }
 
+  public Server getServer() {
+    return server;
+  }
+
+  public ClientAPI getClientAPI() {
+    return clientAPI;
+  }
+
   @Override
   public void run() {
     try {
@@ -48,49 +65,16 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-
-          if (request.containsKey("command")) {
-            String command = (String) request.get("command");
-            JSONObject response = null;
-            if (!(command.equals("register") || command.equals("login")) && this.user==null) {
-              return;
-            }
-            switch (command) {
-              case "register":
-                response = this.clientAPI.register(request);
-                break;
-              case "login":
-                response = this.clientAPI.login(request, this.server.getLoggedUsers());
-                if ((boolean) response.get("success")) {
-                  this.user = this.clientAPI.getUser((String) request.get("username"));
-                  this.server.sendToLoggedIn(this.server.getLoggedUsers());
-                }
-
-                break;
-              case "userlist":
-                response = this.server.getLoggedUsers();
-                break;
-              case "chat":
-                JSONObject chatMessage = this.clientAPI.chat(request, this.user);
-                this.server.sendToLoggedIn(chatMessage);
-                break;
-              case "whisper":
-                String receiverUsername = this.server
-                    .getLoggedInUsername((String) request.get("to"));
-                if (receiverUsername != null) {
-                  chatMessage = this.clientAPI.whisper(request, this.user);
-                  this.server.sendTo(chatMessage, receiverUsername);
-                } else {
-                  response = ServerCommands.userNotFoundError((String) request.get("to"));
-                }
-                break;
-              case "logout":
-                this.user = null;
-                break;
-            }
-            if (response != null) {
-              this.send(response);
-            }
+          //make sure only logged in users can execute commands
+          if (request.containsKey("request")) {
+            RequestFactory ev = new RequestFactory();
+            String command = (String) request.get("request");
+            Request re = ev.getRequest(command);
+            CommandFactory commandFactory = new CommandFactory(this);
+            Command c = commandFactory
+                .getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
+            Invoker invoker = new Invoker(c);
+            invoker.call();
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
@@ -108,15 +92,19 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public void send(JSONObject json) {
+  public void send(Event event) {
     if (this.out != null) {
-      String jsonString = json.toString();
-
+      Gson gson = new Gson();
+      String json = gson.toJson(event);
       log.info(
-          "Nachricht gesendet: " + jsonString);
-      this.out.println(jsonString);
+          "Nachricht gesendet: " + json);
+      this.out.println(json);
       this.out.flush();
     }
+  }
+
+  public void setLobby(Lobby lobby) {
+    this.lobby = lobby;
   }
 
   public boolean isLoggedIn() {
@@ -125,6 +113,14 @@ public class ClientListener implements Runnable {
 
   public User getUser() {
     return this.user;
+  }
+
+  public Lobby getLobby() {
+    return lobby;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Thread getThread() {

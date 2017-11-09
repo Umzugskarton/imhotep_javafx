@@ -4,6 +4,10 @@ import static general.TextBundle.getString;
 
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
+import create.view.CreateView;
+import create.view.CreateViewImpl;
+import games.view.GamesView;
+import games.view.GamesViewImpl;
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,9 +25,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mainmenu.presenter.MainmenuPresenter;
+import profile.view.ProfileView;
+import profile.view.ProfileViewImpl;
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -32,6 +42,9 @@ public class MainmenuViewImpl implements MainmenuView {
   private Label userList;
   private BorderPane main;
   private Tab chatTab;
+  private Tab newGameTab;
+  private Tab gamesTab;
+  private Tab profileTab;
 
   public MainmenuViewImpl() {
     buildMainmenu();
@@ -76,17 +89,17 @@ public class MainmenuViewImpl implements MainmenuView {
       }
     });
 
-    Tab gamesTab = new Tab();
+    gamesTab = new Tab();
     gamesTab.setText(getString("games"));
     gamesTab.setClosable(false);
     gamesTab.setTooltip(new Tooltip(getString("gameTabTooltip")));
 
-    Tab profileTab = new Tab();
+    profileTab = new Tab();
     profileTab.setText(getString("profile"));
     profileTab.setClosable(false);
     profileTab.setTooltip(new Tooltip(getString("profileTabTooltip")));
 
-    Tab newGameTab = new Tab();
+    newGameTab = new Tab();
     newGameTab.setText(getString("createGame"));
     newGameTab.setClosable(false);
     newGameTab.setTooltip(new Tooltip(getString("newGameTabTooltip")));
@@ -134,7 +147,7 @@ public class MainmenuViewImpl implements MainmenuView {
       }
     });
 
-    nav.getChildren().addAll(logoutButton,min, close);
+    nav.getChildren().addAll(logoutButton, min, close);
     //Tabs werden der TabPane der Reihe nach hinzugefügt
     tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab);
   }
@@ -163,6 +176,34 @@ public class MainmenuViewImpl implements MainmenuView {
 
   public void initChat(ChatView chatView) {
     this.chatTab.setContent((ChatViewImpl) chatView);
+  }
+
+  public void initCreate(CreateView createView) {
+    this.newGameTab.setContent((CreateViewImpl) createView);
+  }
+
+  public void initGames(GamesView gamesView) {
+    this.gamesTab.setContent((GamesViewImpl) gamesView);
+  }
+
+  public void initProfile(ProfileView profileView) {
+    this.profileTab.setContent((ProfileViewImpl) profileView);
+  }
+
+
+  public void openModal(String msg) {
+    final Stage dialog = new Stage();
+    dialog.initModality(Modality.APPLICATION_MODAL);
+    VBox dialogVbox = new VBox(20);
+    dialogVbox.getStylesheets().add("style.css");
+    dialogVbox.getStyleClass().add("dialog");
+    Label info = new Label(msg);
+    Button confirm = new Button("OK");
+    confirm.addEventHandler(ActionEvent.ACTION, event -> dialog.close());
+    dialogVbox.getChildren().addAll(new Text("Message:"), info, confirm);
+    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+    dialog.setScene(dialogScene);
+    dialog.show();
   }
 
   @Override

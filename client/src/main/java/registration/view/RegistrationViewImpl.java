@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import registration.presenter.RegistrationPresenter;
 
-
 public class RegistrationViewImpl implements RegistrationView {
 
   private RegistrationPresenter registrationPresenter;

@@ -1,8 +1,7 @@
 package registration.presenter;
 
-import json.ClientCommands;
+import CLTrequests.registerRequest;
 import main.SceneController;
-import org.json.simple.JSONObject;
 import registration.view.RegistrationView;
 
 public class RegistrationPresenter {
@@ -20,7 +19,7 @@ public class RegistrationPresenter {
       String email) {
     if (this.validate(password1, password2, username, email)) {
       this.view.updateStatusLabel("");
-      JSONObject registerCommand = ClientCommands.registerCommand(username, password1, email);
+      registerRequest registerCommand = new registerRequest(username, password1, email);
       this.sceneController.getClientSocket().send(registerCommand);
     }
   }

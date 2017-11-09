@@ -1,120 +1,180 @@
 package socket;
 
-import database.userdata.DBUserDataSource;
-import json.ServerCommands;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import CLTrequests.changeCredentialRequest;
+import CLTrequests.chatRequest;
+import CLTrequests.createRequest;
+import CLTrequests.loginRequest;
+import CLTrequests.registerRequest;
+import CLTrequests.whisperRequest;
+import SRVevents.changeCredentialEvent;
+import SRVevents.chatEvent;
+import SRVevents.loginEvent;
+import SRVevents.registerEvent;
+import SRVevents.whisperEvent;
+import lobby.Lobby;
 import user.User;
 import user.UserIdentifier;
+import user.UserManager;
+
+import java.util.ArrayList;
 
 public class ClientAPI {
 
-  private DBUserDataSource dbUserDataSource;
+  private UserManager userManager;
 
   public ClientAPI() {
-    this.dbUserDataSource = new DBUserDataSource();
+    this.userManager = new UserManager();
   }
 
   /**
-   * Wenn Client eine Login-Anfrage sendet, werden die Logindaten
-   * via validateLogin überprüft. Wenn die Daten korrekt sind, wird
-   * eine Erfolgsnachricht an den Client gesendet.
-   * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
-   * Client gesendet.
+   * Wenn Client eine Login-Anfrage sendet, werden die Logindaten via validateLogin überprüft. Wenn
+   * die Daten korrekt sind, wird eine Erfolgsnachricht an den Client gesendet. Wenn Logindaten
+   * inkorrekt sind, wird eine Fehlermeldung an den Client gesendet.
    *
    * @param request JSON-Objekt, das User-Daten für Login enthält;
-   * @param loggedUsers  JSON-Objekt, Liste eingeloggter User
+   * @param loggedUsers JSON-Objekt, Liste eingeloggter User
    */
-  public JSONObject login(JSONObject request, JSONObject loggedUsers) {
-    JSONObject response;
-    if (request.containsKey("username") && request.containsKey("password")) {
-      String username = (String) request.get("username");
-      String password = (String) request.get("password");
-      if (((JSONArray)loggedUsers.get("users")).contains(username)) {
-        response = ServerCommands.loginCommand("Login fehlgeschlagen: Bereits eingeloggt!", false);
+  public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
+    loginEvent event = new loginEvent();
+    String username = request.getUsername();
+    String password = request.getPassword();
+    if (username != null && password != null) {
+      if (loggedUsers.contains(username)) {
+        event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
+        event.setSuccess(false);
       } else {
-        boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
+        boolean isLoginValid = this.userManager.validateLogin(username, password);
 
         if (isLoginValid) {
-          response = ServerCommands.loginCommand("Login erfolgreich!", true);
+          event.setMsg("Login erfolgreich!");
+          event.setSuccess(true);
         } else {
-          response = ServerCommands
-                  .loginCommand("Login fehlgeschlagen: Username oder Passwort inkorrekt", false);
+          event.setMsg("Login fehlgeschlagen: Username oder Passwort inkorrekt");
+          event.setSuccess(false);
         }
       }
     } else {
-      response = ServerCommands.loginCommand("Login fehlgeschlagen: Ungültige Anfrage", false);
+      event.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
+      event.setSuccess(false);
     }
-    return response;
+    return event;
   }
 
   /**
-   * Wenn Client eine Registrierungs-Anfrage sendet, versucht der UserManager
-   * einen neuen Benutzer anzulegen. Wenn die Erstellung erfolgreich war, wird
-   * eine Erfolgsnachricht an den Client gesendet.
-   * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
-   * Client gesendet.
+   * Wenn Client eine Registrierungs-Anfrage sendet, versucht der UserManager einen neuen Benutzer
+   * anzulegen. Wenn die Erstellung erfolgreich war, wird eine Erfolgsnachricht an den Client
+   * gesendet. Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den Client
+   * gesendet.
    *
    * @param request JSON-Objekt, das User-Daten für Registrierung enthält
    * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public JSONObject register(JSONObject request) {
-    JSONObject response;
+  public registerEvent register(registerRequest request) {
+    registerEvent event = new registerEvent();
+    String username = request.getUsername();
+    String password = request.getPassword();
+    String email = request.getEmail();
+    if (username != null && password != null && email != null) {
 
-    if (request.containsKey("username") && request.containsKey("password") && request
-        .containsKey("email")) {
-      String username = (String) request.get("username");
-      String password = (String) request.get("password");
-      String email = (String) request.get("email");
-
-      boolean createUser = this.dbUserDataSource.createUser(username, password, email);
+      boolean createUser = this.userManager.createUser(username, password, email);
 
       if (createUser) {
-        response = ServerCommands.registerCommand("Registrierung erfolgreich!", true);
+        event.setMsg("Registrierung erfolgreich!");
+        event.setSuccess(createUser);
       } else {
-        response = ServerCommands
-            .registerCommand("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits",
-                false);
+        event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
+        event.setSuccess(createUser);
       }
     } else {
-      response = ServerCommands
-          .registerCommand("Registrierung fehlgeschlagen: Ungültige Anfrage", false);
+      event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
+      event.setSuccess(false);
     }
-    return response;
+    return event;
   }
 
-  public JSONObject chat(JSONObject request, User user) {
-    JSONObject response = new JSONObject();
-
-    if (request.containsKey("message") && user != null) {
-      String message = (String) request.get("message");
-
-      response = ServerCommands.chatCommand(user.getUsername(), message);
+  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
+    changeCredentialEvent event = new changeCredentialEvent();
+    String newCred = request.getCredential();
+    Integer type = request.getType();
+    if (newCred != null) {
+      if (type == 1) {
+        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newCred);
+        if (changeCredential) {
+          event.setMsg("E-Mail wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("E-Mail wurde nicht geändert!");
+          event.setSuccess(changeCredential);
+        }
+      }
+      if (type == 2) {
+        boolean changeCredential = this.userManager
+            .changeUser(user, UserIdentifier.PASSWORD, newCred);
+        if (changeCredential) {
+          event.setMsg("Passwort wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Passwort wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }
+      }
+      if (type == 3) {
+        boolean changeCredential = this.userManager
+            .changeUser(user, UserIdentifier.USERNAME, newCred);
+        if (changeCredential) {
+          event.setMsg("Username wurde erfolgreich geändert");
+          event.setSuccess(changeCredential);
+        } else {
+          event.setMsg("Username wurde nicht geändert");
+          event.setSuccess(changeCredential);
+        }
+      }
+    } else {
+      event.setMsg("Fehler aufgetreten");
+      event.setSuccess(false);
     }
-    return response;
+    return event;
   }
 
-  public JSONObject whisper(JSONObject request, User user) {
-    JSONObject response = new JSONObject();
-
-    if (request.containsKey("message") && request.containsKey("to") && user != null) {
-      String message = (String) request.get("message");
-
-      response = ServerCommands.whisperCommand(user.getUsername(), message);
+  public chatEvent chat(chatRequest request, User user) {
+    chatEvent event = new chatEvent();
+    if (request.getMsg() != null && user != null) {
+      event.setMsg(request.getMsg());
+      event.setUser(user.getUsername());
     }
-    return response;
+    return event;
+  }
+
+  public whisperEvent whisper(whisperRequest request, User user) {
+    whisperEvent event = new whisperEvent();
+    if (request.getMsg() != null && request.getTo() != null && user != null) {
+      event.setMsg(request.getMsg());
+      event.setFrom(user.getUsername());
+    }
+    return event;
   }
 
   /**
-   * Ist der Login() erfolgreich, so wird ein Userelement über
-   * dern Usernamen initiert und der Userliste hinzugefügt.
-   * Der Clientlistener speichert den User.
+   * Ist der Login() erfolgreich, so wird ein Userelement über dern Usernamen initiert und der
+   * Userliste hinzugefügt. Der Clientlistener speichert den User.
    *
    * @param username String, der Username des einzuloggenden Users enthält
    * @return user enthält den User der eingeloggt wurde und gibt diesen an den Clientlistener Thread
    */
   public User getUser(String username) {
-    return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username);
+    return this.userManager.getUser(UserIdentifier.USERNAME, username);
   }
 
+
+  public Lobby createLobby(createRequest request, User user) {
+    String name = request.getName();
+    int size = request.getSize();
+    Lobby lobby = new Lobby(size, user, name);
+
+    if (request.getPassword() != null) {
+      lobby.setPassword(request.getPassword());
+    }
+
+    return lobby;
+  }
 }

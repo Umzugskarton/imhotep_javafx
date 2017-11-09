@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import CLTrequests.Request;
+import com.google.common.eventbus.EventBus;
+import com.google.gson.Gson;
 import main.SceneController;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +29,15 @@ public class ClientSocket {
   // Writer
   private PrintWriter out = null;
 
-  public ClientSocket(SceneController sceneController) {
+  // Eventbus
+  private EventBus eventBus;
+
+  // Gson caster
+  private Gson gson = new Gson();
+
+  public ClientSocket(SceneController sceneController, EventBus eventBus) {
     this.sceneController = sceneController;
+    this.eventBus = eventBus;
     this.host = "localhost";
     this.port = 47096;
     this.init();
@@ -37,7 +47,7 @@ public class ClientSocket {
     try {
       this.serverSocket = new Socket(this.host, this.port);
       this.out = new PrintWriter(this.serverSocket.getOutputStream(), true);
-      this.serverListener = new ServerListener(serverSocket, sceneController);
+      this.serverListener = new ServerListener(serverSocket, sceneController, eventBus);
       Thread serverThread = new Thread(this.serverListener);
       serverThread.start();
     } catch (UnknownHostException ex) {
@@ -52,8 +62,8 @@ public class ClientSocket {
     }
   }
 
-  public void send(JSONObject json) {
-    String jsonString = json.toString();
+  public void send(Request json) {
+    String jsonString = gson.toJson(json);
 
     this.out.println(jsonString);
     this.out.flush();

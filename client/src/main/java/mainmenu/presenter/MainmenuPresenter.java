@@ -1,16 +1,19 @@
 package mainmenu.presenter;
 
+import CLTrequests.logoutRequest;
+import CLTrequests.userlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
+
+import create.presenter.CreatePresenter;
+import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
-import json.ClientCommands;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import profile.presenter.ProfilePresenter;
 
 public class MainmenuPresenter {
 
@@ -18,6 +21,9 @@ public class MainmenuPresenter {
   private SceneController sceneController;
   private PlayerList playerList;
   private ChatPresenter chatPresenter;
+  private CreatePresenter createPresenter;
+  private GamesPresenter gamesPresenter;
+  private ProfilePresenter profilePresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -31,14 +37,23 @@ public class MainmenuPresenter {
     this.chatPresenter = new ChatPresenter(this.sceneController);
     view.initChat(this.chatPresenter.getChatView());
 
-    this.sceneController.getClientSocket().send(ClientCommands.userlistCommand());
+    this.createPresenter = new CreatePresenter(this.sceneController);
+    view.initCreate(this.createPresenter.getCreateView());
+
+    this.gamesPresenter = new GamesPresenter(this.sceneController);
+    view.initGames(this.gamesPresenter.getGamesView());
+
+    this.profilePresenter = new ProfilePresenter(this.sceneController);
+    view.initProfile(this.profilePresenter.getProfileView());
+
+    this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
   public MainmenuView getMainmenuView() {
     return this.view;
   }
 
-  public void updateUserlist(JSONArray userArray) {
+  public void updateUserlist(ArrayList<String> userArray) {
     // Im Chat informieren wer gejoined/leaved ist
     boolean notifyInChat = true;
     if (playerList.getPlayers().isEmpty()) {
@@ -83,9 +98,8 @@ public class MainmenuPresenter {
     return this.playerList;
   }
 
-  public void logout(){
-    JSONObject logoutCommand = ClientCommands.logoutCommand();
-    this.sceneController.getClientSocket().send(logoutCommand);
+  public void logout() {
+    this.sceneController.getClientSocket().send(new logoutRequest());
     this.chatPresenter.getChatView().getChatText().getChildren().clear();
   }
 
@@ -95,5 +109,13 @@ public class MainmenuPresenter {
 
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
+  }
+
+  public GamesPresenter getGamesPresenter() {
+    return this.gamesPresenter;
+  }
+
+  public ProfilePresenter getProfilePresenter() {
+    return this.profilePresenter;
   }
 }

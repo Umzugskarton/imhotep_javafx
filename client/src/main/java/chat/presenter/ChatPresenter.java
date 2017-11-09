@@ -2,6 +2,9 @@ package chat.presenter;
 
 import static general.TextBundle.getString;
 
+import CLTrequests.Request;
+import CLTrequests.chatRequest;
+import CLTrequests.whisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import java.util.regex.Matcher;
@@ -9,9 +12,7 @@ import java.util.regex.Pattern;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import json.ClientCommands;
 import main.SceneController;
-import org.json.simple.JSONObject;
 
 public class ChatPresenter {
 
@@ -25,7 +26,7 @@ public class ChatPresenter {
   }
 
   public void sendChatMsg(String text) {
-    JSONObject chatCommand = null;
+    Request chatCommand = null;
 
     if (text.startsWith("/w") || text.startsWith("@")) {
       Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");
@@ -34,13 +35,13 @@ public class ChatPresenter {
         String receiver = whisperMatcher.group(2);
         String message = whisperMatcher.group(3);
 
-        chatCommand = ClientCommands.whisperCommand(receiver, message);
+        chatCommand = new whisperRequest(receiver, message);
         addWhisper(receiver, message, false);
       } else {
         addInfoMessage(getString("invalidWhisperSyntax"));
       }
     } else if (!text.isEmpty()) {
-      chatCommand = ClientCommands.chatCommand(text);
+      chatCommand = new chatRequest(text);
     } else if (text.isEmpty()) {
       addInfoMessage(getString("enterMessageToChat"));
     }
