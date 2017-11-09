@@ -1,12 +1,18 @@
 package lobby.view;
 
+import commonLobby.LobbyUser;
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,7 +27,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import commonLobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 
@@ -111,8 +116,8 @@ public class LobbyViewImpl implements LobbyView {
     Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
         = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
-      public TableCell call(final TableColumn<LobbyUser, String> param) {
-        final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
+      public TableCell<LobbyUser,String> call(final TableColumn<LobbyUser, String> param) {
+        return new TableCell<LobbyUser, String>() {
           @Override
           public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -136,7 +141,6 @@ public class LobbyViewImpl implements LobbyView {
             }
           }
         };
-        return cell;
       }
     };
     lastNameCol.setCellFactory(cellFactory);

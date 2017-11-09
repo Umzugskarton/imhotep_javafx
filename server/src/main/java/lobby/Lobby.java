@@ -82,7 +82,7 @@ public class Lobby {
     return this.colors;
   }
 
-  public void setColors(ArrayList newColors) {
+  public void setColors(ArrayList<String> newColors) {
     this.colors = newColors;
   }
 
