@@ -1,20 +1,20 @@
 package game;
 
-
 import user.User;
 
 public class Player {
-  private int playerId;
+
+  private int id;
   private int points = 0;
   private User user;
 
   public Player(User user, int id) {
     this.user = user;
-    this.playerId = id;
+    this.id = id;
   }
 
-  public int getPlayerId() {
-    return playerId;
+  public int getId() {
+    return id;
   }
 
   public User getUser() {

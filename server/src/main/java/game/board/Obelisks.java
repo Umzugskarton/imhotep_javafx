@@ -6,13 +6,12 @@ import java.util.Collections;
 
 
 public class Obelisks extends Site
-                      implements StoneSite {
+    implements StoneSite {
 
-  private ArrayList<Stone> obelisks;
-  private int playerCount;
+  private ArrayList<Stone> obelisks = new ArrayList<>();
 
   public Obelisks(int playerCount) {
-    this.playerCount = playerCount;
+    super(playerCount);
   }
 
   @Override
@@ -41,33 +40,51 @@ public class Obelisks extends Site
     players[2] = stonesPerPlayer[2];
     players[3] = stonesPerPlayer[3];
     Arrays.sort(stonesPerPlayer, Collections.reverseOrder());
-    for (int i=0; i<4; i++){
-      if (players[i] == 0){
-        points[i+1] = 0;
+    for (int i = 0; i < 4; i++) {
+      if (players[i] == 0) {
+        points[i + 1] = 0;
         break;
       }
-      switch(playerCount){
+      switch (playerCount) {
         case 2:
-          if (players[i] == stonesPerPlayer[0]) points[i+1] = 10;
-          if (players[i] == stonesPerPlayer[1]) points[i+1] = 1;
+          if (players[i] == stonesPerPlayer[0]) {
+            points[i + 1] = 10;
+          }
+          if (players[i] == stonesPerPlayer[1]) {
+            points[i + 1] = 1;
+          }
           break;
         case 3:
-          if (players[i] == stonesPerPlayer[0]) points[i+1] = 12;
-          if (players[i] == stonesPerPlayer[1]) points[i+1] = 6;
-          if (players[i] == stonesPerPlayer[2]) points[i+1] = 1;
+          if (players[i] == stonesPerPlayer[0]) {
+            points[i + 1] = 12;
+          }
+          if (players[i] == stonesPerPlayer[1]) {
+            points[i + 1] = 6;
+          }
+          if (players[i] == stonesPerPlayer[2]) {
+            points[i + 1] = 1;
+          }
           break;
         case 4:
-          if (players[i] == stonesPerPlayer[0]) points[i+1] = 15;
-          if (players[i] == stonesPerPlayer[1]) points[i+1] = 10;
-          if (players[i] == stonesPerPlayer[2]) points[i+1] = 5;
-          if (players[i] == stonesPerPlayer[3]) points[i+1] = 1;
+          if (players[i] == stonesPerPlayer[0]) {
+            points[i + 1] = 15;
+          }
+          if (players[i] == stonesPerPlayer[1]) {
+            points[i + 1] = 10;
+          }
+          if (players[i] == stonesPerPlayer[2]) {
+            points[i + 1] = 5;
+          }
+          if (players[i] == stonesPerPlayer[3]) {
+            points[i + 1] = 1;
+          }
           break;
         default:
           break;
       }
     }
     return points;
-    }
+  }
 
 
   @Override
@@ -77,7 +94,9 @@ public class Obelisks extends Site
 
   @Override
   public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) return false;
+    if (this.getDockedShip() != null) {
+      return false;
+    }
     addStones(ship.getStones());
     return true;
   }

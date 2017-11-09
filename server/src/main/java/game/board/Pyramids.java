@@ -3,10 +3,10 @@ package game.board;
 import java.util.ArrayList;
 
 public class Pyramids extends Site
-                      implements StoneSite {
-  private ArrayList<Stone> pyramid;
-  private final int players;
-  private int[] positionValues = {2,1,3,2,4,3,2,1,3,2,3,1,3,4};
+    implements StoneSite {
+
+  private ArrayList<Stone> pyramid = new ArrayList<>();
+  private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
   private int standardValue = 1;
 
   public int[] getPositionValues() {
@@ -17,9 +17,13 @@ public class Pyramids extends Site
     return standardValue;
   }
 
-  public Pyramids(int players, int standardValue) {
-    this.players = players;
+  public Pyramids(int playerCount, int standardValue) {
+    super(playerCount);
     this.standardValue = standardValue;
+  }
+
+  public Pyramids(int playerCount) {
+    super(playerCount);
   }
 
   @Override
@@ -29,13 +33,13 @@ public class Pyramids extends Site
 
   @Override
   public int[] getPoints() {
-    int[] points = new int[players];
+    int[] points = new int[playerCount];
     int i = 0;
     for (Stone s : pyramid) {
       if (i < positionValues.length) {
-        points[s.getPlayer().getPlayerId()] += positionValues[i++];
+        points[s.getPlayer().getId()] += positionValues[i++];
       } else {
-        points[s.getPlayer().getPlayerId()] += standardValue;
+        points[s.getPlayer().getId()] += standardValue;
       }
     }
     return points;
@@ -48,7 +52,9 @@ public class Pyramids extends Site
 
   @Override
   public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) return false;
+    if (this.getDockedShip() != null) {
+      return false;
+    }
     addStones(ship.getStones());
     return true;
   }
