@@ -26,16 +26,13 @@ public class Obelisks extends Site
   // müssen wir später testen
   @Override
   public int[] getPoints() {
-    int[] points = new int[4];
-    Integer[] stonesPerPlayer = new Integer[4];
+    int[] points = new int[this.playerCount];
+    Integer[] stonesPerPlayer = new Integer[this.playerCount];
     for(Stone stone : obelisks){
       stonesPerPlayer[stone.getPlayer().getId()]++;
     }
-    Integer[] players = new Integer[4];
-    players[0] = stonesPerPlayer[0];
-    players[1] = stonesPerPlayer[1];
-    players[2] = stonesPerPlayer[2];
-    players[3] = stonesPerPlayer[3];
+    //nur shallow copy, sollte aber funktionieren da nur die Position wichtig ist, Inhalt bleibt
+    Integer[] players = stonesPerPlayer.clone();
     Arrays.sort(stonesPerPlayer, Collections.reverseOrder());
     for (int i = 0; i < players.length; i++) {
       if (players[i] == 0) {
