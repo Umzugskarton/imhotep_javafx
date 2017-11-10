@@ -64,9 +64,27 @@ public class Obelisks extends Site
         points[playerRank[i].getPlayer()] = pointsPerRank[i];
       }
     }
+    for(int i = 0; i < playerCount - 1; i++){
+      int equalTo = checkSameAmount(i, playerRank, playerCount);
+      int sum = points[playerRank[i].getPlayer()];
+      for(int j = 1; j <= equalTo; j++){
+        sum += points[playerRank[i + j].getPlayer()];
+      }
+      for(int j = 0; j <= equalTo; j++){
+        points[playerRank[i + j].getPlayer()] = sum / (equalTo + 1);
+      }
+    }
     return points;
   }
 
+  private int checkSameAmount(int player, ObeliskHelper[] playerRank, int playerCount) {
+    if(player < playerCount - 1 && playerRank[player].getStones() == playerRank[player + 1].getStones()){
+      int number = 1;
+      number += checkSameAmount(player + 1, playerRank, playerCount);
+      return number;
+    }
+    return 0;
+  }
 
   @Override
   public void addStones(ArrayList<Stone> stones) {
