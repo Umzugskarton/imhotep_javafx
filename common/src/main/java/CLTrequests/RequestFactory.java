@@ -17,6 +17,7 @@ public class RequestFactory {
     Dict.put("whisper", new whisperRequest());
     Dict.put("chat", new chatRequest());
     Dict.put("changeCredential", new changeCredentialRequest());
+    Dict.put("changeColor", new changeColorRequest());
   }
 
   public Request getRequest(String j) {

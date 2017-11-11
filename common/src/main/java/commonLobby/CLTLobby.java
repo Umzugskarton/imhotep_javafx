@@ -115,4 +115,10 @@ public class CLTLobby {
     x.addAll(this.users);
     return x;
   }
+
+  public ObservableList<LobbyUser> getObservableColors() {
+    ObservableList<LobbyUser> y = FXCollections.observableArrayList();
+    y.addAll(this.users);
+    return y;
+  }
 }

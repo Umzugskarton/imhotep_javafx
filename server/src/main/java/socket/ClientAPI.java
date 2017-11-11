@@ -1,16 +1,7 @@
 package socket;
 
-import CLTrequests.changeCredentialRequest;
-import CLTrequests.chatRequest;
-import CLTrequests.createRequest;
-import CLTrequests.loginRequest;
-import CLTrequests.registerRequest;
-import CLTrequests.whisperRequest;
-import SRVevents.changeCredentialEvent;
-import SRVevents.chatEvent;
-import SRVevents.loginEvent;
-import SRVevents.registerEvent;
-import SRVevents.whisperEvent;
+import CLTrequests.*;
+import SRVevents.*;
 import lobby.Lobby;
 import user.User;
 import user.UserIdentifier;
@@ -134,6 +125,14 @@ public class ClientAPI {
       event.setSuccess(false);
     }
     return event;
+  }
+
+  public changeColorEvent changeColor(changeColorRequest request) {
+    changeColorEvent event = new changeColorEvent();
+
+
+
+    return null;
   }
 
   public chatEvent chat(chatRequest request, User user) {

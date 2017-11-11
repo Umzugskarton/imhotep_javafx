@@ -19,6 +19,7 @@ public class EventFactory {
     Dict.put("join", new joinEvent());
     Dict.put("create", new createEvent());
     Dict.put("changeCredential", new changeCredentialEvent());
+    Dict.put("changeColor", new changeColorEvent());
   }
 
   public Event getEvent(String command) {

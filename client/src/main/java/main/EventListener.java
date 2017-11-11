@@ -1,16 +1,6 @@
 package main;
 
-import SRVevents.changeCredentialEvent;
-import SRVevents.chatEvent;
-import SRVevents.chatInfoEvent;
-import SRVevents.createEvent;
-import SRVevents.joinEvent;
-import SRVevents.lobbyInfoEvent;
-import SRVevents.lobbylistEvent;
-import SRVevents.loginEvent;
-import SRVevents.registerEvent;
-import SRVevents.userListEvent;
-import SRVevents.whisperEvent;
+import SRVevents.*;
 import com.google.common.eventbus.Subscribe;
 import commonLobby.CLTLobby;
 import javafx.application.Platform;
@@ -63,6 +53,15 @@ public class EventListener {
           //this.sceneController.toRegistrationScene();
         }
     );
+  }
+
+  @Subscribe
+  public void changeColor(changeColorEvent e) {
+      Platform.runLater(
+              () -> {
+
+              }
+      );
   }
 
   @Subscribe
