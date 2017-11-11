@@ -19,10 +19,10 @@ public class Temple extends Site
   @Override
   public int[] getPoints() {
 
-    int[] points = new int[5];
-    int size = Math.min(temple.size(), 5);
+    int[] points = new int[this.playerCount];
+    int size = Math.min(temple.size(), this.playerCount<3?4:5);
     for (int i = 0; i < size; i++) {
-      points[temple.get(temple.size() - i).getPlayer().getId()]++;
+      points[temple.get(temple.size() - 1 - i).getPlayer().getId()]++;
     }
     return points;
   }
@@ -37,7 +37,7 @@ public class Temple extends Site
     if (this.getDockedShip() != null) {
       return false;
     }
-    temple.addAll(ship.getStones());
+    addStones(ship.getStones());
     return true;
   }
 }

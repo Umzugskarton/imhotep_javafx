@@ -8,7 +8,7 @@ public class Market extends Site {
     super(playerCount);
   }
 
-  private ArrayList<Card> market;
+  private ArrayList<Card> market = new ArrayList<>();
 
   public void replaceCards(ArrayList<Card> cards) {
     this.market = cards;
