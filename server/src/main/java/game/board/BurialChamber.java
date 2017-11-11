@@ -55,7 +55,7 @@ public class BurialChamber extends Site
 
   @Override
   public void addStones(ArrayList<Stone> stones) {
-
+    this.burialChamber.addAll(stones);
   }
 
   public boolean dockShip(Ship ship) {
