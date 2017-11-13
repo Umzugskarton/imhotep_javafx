@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BurialChamber extends Site
     implements StoneSite {
 
-  private ArrayList<Stone> burialChamber;
+  private ArrayList<Stone> burialChamber = new ArrayList<>();
 
   // TODO
   //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
