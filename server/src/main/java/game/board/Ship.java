@@ -1,15 +1,14 @@
 package game.board;
 
-import java.util.ArrayList;
-
 public class Ship {
   private int size;
   private int minimumStones;
-  private ArrayList<Stone> stones;
+  private Stone[] stones;
   private boolean docked;
 
   public Ship(int size) {
     this.size = size;
+    stones = new Stone[size];
     this.minimumStones = Math.max(size-1, 1);
   }
 
@@ -25,13 +24,13 @@ public class Ship {
     return minimumStones;
   }
 
-  public ArrayList<Stone> getStones() {
+  public Stone[] getStones() {
     return stones;
   }
 
   public boolean addStone(Stone stone, int position) {
-    if (position > size || (stones.size() > position && stones.get(position) != null)) return false;
-    stones.add(position, stone);
+    if (position > size || (stones.length > position && stones[position] != null)) return false;
+    stones[position] =  stone;
     return true;
   }
 }

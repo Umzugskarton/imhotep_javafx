@@ -1,7 +1,7 @@
 package GameObjects;
 
 
-public class Boat {
+public class  Ship{
     private Stone[] spaces;
     private boolean available;
 

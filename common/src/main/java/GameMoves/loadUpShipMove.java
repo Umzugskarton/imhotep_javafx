@@ -2,16 +2,16 @@ package GameMoves;
 
 import java.util.Date;
 
-public class loadUpBoatMove implements Move{
+public class loadUpShipMove implements Move{
   private String move = "loadUpBoat";
   private int shipId;
   private int position;
 
-  public loadUpBoatMove(){
+  public loadUpShipMove(){
 
   }
 
-  public loadUpBoatMove(int shipId, int position){
+  public loadUpShipMove(int shipId, int position){
     this.shipId = shipId;
     this.position = position;
   }

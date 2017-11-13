@@ -15,7 +15,7 @@ public interface StoneSite {
    *
    * @param stones the stones to add to the StoneSite
    */
-  void addStones (ArrayList<Stone> stones);
+  void addStones (Stone[] stones);
 
   boolean dockShip(Ship ship);
 

@@ -6,7 +6,7 @@ public class MoveFactory {
   private HashMap<String, Move> Dict = new HashMap<>();
 
   public MoveFactory() {
-    Dict.put("loadUpShip", new loadUpBoatMove());
+    Dict.put("loadUpShip", new loadUpShipMove());
     Dict.put("fillUpStorage", new fillUpStorageMove());
     Dict.put("voyageToStoneSite", new voyageToStoneSiteMove());
   }

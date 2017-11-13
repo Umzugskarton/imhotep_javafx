@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class gameInfoEvent implements Event {
     private String event = "gameInfo";
-    private Boat[] cboats;
+    private Ship[] cboats;
     private int round;
     private boolean[] storages;
     private String[] order;

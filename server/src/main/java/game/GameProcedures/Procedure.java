@@ -1,8 +1,9 @@
 package game.GameProcedures;
 
-/**
- * Created on 08.11.2017.
- */
+import GameMoves.Move;
+import SRVevents.Event;
+
 public interface Procedure {
-  void exec();
+  Event exec();
+  void put(Move move);
 }

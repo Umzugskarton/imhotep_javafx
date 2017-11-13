@@ -57,7 +57,7 @@ public class BurialChamber extends Site
   }
 
   @Override
-  public void addStones(ArrayList<Stone> stones) {
+  public void addStones(Stone[] stones) {
 
   }
 
