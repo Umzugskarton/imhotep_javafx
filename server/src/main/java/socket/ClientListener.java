@@ -1,24 +1,36 @@
 package socket;
 
-import com.google.gson.Gson;
-import CLTrequests.Request;
-import CLTrequests.RequestFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
+import CLTrequests.createRequest;
+import GameMoves.MoveFactory;
+import SRVevents.Event;
+import com.google.gson.Gson;
 import lobby.Lobby;
+import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import socket.commands.Command;
 import socket.commands.CommandFactory;
-import socket.commands.Invoker;
-import SRVevents.Event;
 import user.User;
+
+/**
+ * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.
+ *  Wartet auf ankommende Nachrichten, und verarbeitet diese dann, mithilfe von Gson
+ *  und einer Factory, die Nachrichten werden zu Requests oder Moves zurückgeschlüsselt.
+ *  Dafür wird dann bei einer Request der zugehörige Command auch mit einer Factory initiert
+ *  und durch das Invoker Objekt (Command Pattern) ausgeführt.
+ *  ist die eingehende Nachricht ein Move, wird dieser an das GameObjekt in der
+ *  zugehörigen Lobby übergeben.
+ */
 
 public class ClientListener implements Runnable {
 
@@ -46,13 +58,6 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public Server getServer() {
-    return server;
-  }
-
-  public ClientAPI getClientAPI() {
-    return clientAPI;
-  }
 
   @Override
   public void run() {
@@ -65,16 +70,20 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-          //make sure only logged in users can execute commands
+
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");
             Request re = ev.getRequest(command);
             CommandFactory commandFactory = new CommandFactory(this);
-            Command c = commandFactory
-                .getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
+            Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
+          } else if (request.containsKey("move")) {
+            MoveFactory mf = new MoveFactory();
+            if (this.lobby != null && !this.lobby.isVisible()) {
+              lobby.getGame().setNextmove(mf.getMove((String) request.get("move")));
+            }
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
@@ -97,7 +106,7 @@ public class ClientListener implements Runnable {
       Gson gson = new Gson();
       String json = gson.toJson(event);
       log.info(
-          "Nachricht gesendet: " + json);
+              "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();
     }
@@ -125,5 +134,13 @@ public class ClientListener implements Runnable {
 
   public Thread getThread() {
     return Thread.currentThread();
+  }
+
+  public ClientAPI getClientAPI() {
+    return this.clientAPI;
+  }
+
+  public Server getServer() {
+    return this.server;
   }
 }

@@ -2,20 +2,25 @@ package lobby;
 
 import SRVevents.joinEvent;
 import commonLobby.LobbyUser;
-import java.awt.Color;
-import java.util.ArrayList;
+import game.Game;
+import socket.ClientListener;
 import user.User;
 
-public class Lobby {
+import java.awt.*;
+import java.util.ArrayList;
 
+
+public class Lobby {
   String name;
   private int LobbyID;
   private User[] lobby;
   private boolean[] ready;
   private String password;
+  private boolean show;
   private int size;
   boolean vacancy = true;
   private ArrayList<String> colors = new ArrayList<>();
+  private Game game;
 
 
   public Lobby(int size, User host, String name) {
@@ -25,11 +30,24 @@ public class Lobby {
     this.password = null;
     this.name = name;
     this.size = size;
+    this.show = true;
     generateColors();
   }
 
   public boolean isHost(User user) {
     return user == lobby[0];
+  }
+
+  public void startGame(ClientListener cl) {
+    this.game = new Game(this, cl);
+  }
+
+  public Game getGame() {
+    return game;
+  }
+
+  public boolean isShow() {
+    return show;
   }
 
   public String getHostName() {
@@ -82,7 +100,7 @@ public class Lobby {
     return this.colors;
   }
 
-  public void setColors(ArrayList<String> newColors) {
+  public void setColors(ArrayList newColors) {
     this.colors = newColors;
   }
 
@@ -115,8 +133,11 @@ public class Lobby {
     ArrayList<LobbyUser> temp = new ArrayList<>();
     int i = 0;
 
+
     for (User user : this.lobby) {
-      if (user != null) {
+      if (user == null) {
+        continue;
+      } else {
         temp.add(new LobbyUser(user.getUsername(), colors.get(i), ready[i]));
         i++;
       }
@@ -138,10 +159,17 @@ public class Lobby {
     float interval = 360 / (this.size);
     for (float x = 0; x < 360; x += interval) {
       Color c = Color.getHSBColor(x / 360, 1, 1);
-      String hex = String.format("#%02x%02x%02x", (c.getRed() + 255) / 2, (c.getGreen() + 255) / 2,
-          (c.getBlue() + 255) / 2);
+      String hex = String.format("#%02x%02x%02x", (c.getRed() + 255) / 2, (c.getGreen() + 255) / 2, (c.getBlue() + 255) / 2);
       this.colors.add(hex);
     }
+  }
+
+  public void show(boolean show) {
+    this.show = show;
+  }
+
+  public boolean isVisible() {
+    return show;
   }
 
   public void leave(User user) {
