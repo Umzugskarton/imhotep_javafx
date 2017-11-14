@@ -3,6 +3,7 @@ package game;
 import GameEvents.gameInfoEvent;
 import GameEvents.turnEvent;
 import GameMoves.Move;
+import GameMoves.actionCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
@@ -31,14 +32,14 @@ public class Game implements Runnable {
   private Pyramids pyramids;
   private ClientListener clientListener;
   private Move Nextmove = null;
-  private List<Move> oldMoves;
+  private List<Event> executedMoves;
   private Event event = null;
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
     this.gameID = this.lobby.getLobbyID();
     this.clientListener = clientListener;
-    oldMoves = new ArrayList<>();
+    executedMoves = new ArrayList<>();
     lobby.show(false);
     ships = new Ship[lobby.getSize()];
     order = new Player[lobby.getSize()];
@@ -118,18 +119,29 @@ public class Game implements Runnable {
 
           waitforMove(player);
 
-          if (this.Nextmove != null) {
-            int tryed = 0;
-            while (!executeMove() && tryed < 2) {
-              waitforMove(player);
-              tryed++;
+            if (this.Nextmove != null) {
+              if (Nextmove.getType().equals( "actionCard")){
+                actionCardMove ac = (actionCardMove) Nextmove;
+               for (Move move: ac.getMoves()){
+                 executeMove(move);
+               }
+              }
+              else {
+              int tryed = 0;
+              while (!executeMove() && tryed < 2) {
+                waitforMove(player);
+                tryed++;
+              }
             }
           }
 
           if (AllshipsDocked()) {
             break;
           }
-          //Todo:update alle Player über Spielzug
+          //Informiert alle User über den/die ausgeführten Move/s
+          for (Event e: executedMoves) {
+            sendAll(e);
+          }
         }
     }
   }
@@ -143,6 +155,12 @@ public class Game implements Runnable {
   private boolean executeMove() {
     ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
     Procedure nextProcedure = pf.getProcedure(Nextmove.getType(), Nextmove);
+    executedMoves.add(nextProcedure.exec());
+    return true;
+  }
+  private boolean executeMove(Move move) {
+    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
+    Procedure nextProcedure = pf.getProcedure(move.getType(), move);
     sendAll(nextProcedure.exec());
     return true;
   }
