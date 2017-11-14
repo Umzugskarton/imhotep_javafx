@@ -22,6 +22,16 @@ import org.slf4j.LoggerFactory;
 import socket.commands.CommandFactory;
 import user.User;
 
+/**
+ * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.
+ *  Wartet auf ankommende Nachrichten, und verarbeitet diese dann, mithilfe von Gson
+ *  und einer Factory, die Nachrichten werden zu Requests oder Moves zurückgeschlüsselt.
+ *  Dafür wird dann bei einer Request der zugehörige Command auch mit einer Factory initiert
+ *  und durch das Invoker Objekt (Command Pattern) ausgeführt.
+ *  ist die eingehende Nachricht ein Move, wird dieser an das GameObjekt in der
+ *  zugehörigen Lobby übergeben.
+ */
+
 public class ClientListener implements Runnable {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
@@ -47,6 +57,7 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     }
   }
+
 
   @Override
   public void run() {

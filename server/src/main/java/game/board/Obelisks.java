@@ -1,5 +1,6 @@
 package game.board;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -104,8 +105,8 @@ public class Obelisks extends Site
   }
 
   @Override
-  public void addStones(ArrayList<Stone> stones) {
-    this.obelisks.addAll(stones);
+  public void addStones(Stone[] stones) {
+    this.obelisks.addAll(Arrays.asList(stones));
   }
 
   @Override

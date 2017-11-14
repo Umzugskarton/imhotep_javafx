@@ -29,7 +29,7 @@ public class Ship {
     return stones;
   }
   public boolean addStone(Stone stone, int position) {
-    if (position > size || (stones.length > position && stones.get(position) != null)) return false;
+    if (position > size || (stones.length > position && stones[position] != null)) return false;
     stones[position] =  stone;
     return true;
   }

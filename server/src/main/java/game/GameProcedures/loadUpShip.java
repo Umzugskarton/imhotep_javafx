@@ -12,16 +12,16 @@ public class loadUpShip implements Procedure {
   private Game game;
   private int playerId;
 
-  loadUpShip(Game game, int playerId){
+  loadUpShip(Game game, int playerId) {
     this.game = game;
     this.playerId = playerId;
   }
 
-  public void put(Move move){
+  public void put(Move move) {
     this.move = (loadUpShipMove) move;
   }
 
-  public Event exec(){
+  public Event exec() {
 
     move.getShipId();
     move.getPosition();

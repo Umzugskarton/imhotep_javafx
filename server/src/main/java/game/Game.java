@@ -44,7 +44,7 @@ public class Game implements Runnable {
     order = new Player[lobby.getSize()];
     storages = new boolean[lobby.getSize() * 5];
     setGame();
-    pyramids = new Pyramids(lobby.getSize() ,1 );
+    pyramids = new Pyramids(lobby.getSize(), 1);
     setStartCards();
     sendAll(getGameinfo());
     run();
@@ -84,7 +84,15 @@ public class Game implements Runnable {
     }
 
     gameInfoEvent gameInfo = new gameInfoEvent();
-   // gameInfo.setCboats(this.ships);
+    for (Ship ship : ships) {
+      int[] shipInt = new int[ship.getStones().length];
+      for (int i = 0; i < ship.getStones().length; i++) {
+        if (ship.getStones()[i] != null) {
+          shipInt[i] = ship.getStones()[i].getPlayer().getId();
+        }
+      }
+      gameInfo.setCboats(shipInt);
+    }
     gameInfo.setOrder(users);
 
     gameInfo.setRound(this.round);
@@ -148,7 +156,7 @@ public class Game implements Runnable {
   }
 
   synchronized void waitforMove(int p) {
-    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p]);
+    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p].getUser().getUsername());
     try {
       this.wait(32000);
     } catch (InterruptedException e) {
@@ -163,9 +171,9 @@ public class Game implements Runnable {
 
   public void addStonesToStorage(int playerId) {
     int set = 0;
-    for (int i = (playerId  * 5) ; i < i + 5; i++) {
+    for (int i = (playerId * 5); i < i + 5; i++) {
       if (!storages[i]) {
-        storages[i] =  true;
+        storages[i] = true;
         set++;
       }
       if (set == 3) {
@@ -174,9 +182,9 @@ public class Game implements Runnable {
     }
   }
 
-  public boolean[] getStorage(int playerID){
+  public boolean[] getStorage(int playerID) {
     boolean[] playerStorage = new boolean[5];
-    for (int i = playerID*5; i < (playerID*5)+5; i++){
+    for (int i = playerID * 5; i < (playerID * 5) + 5; i++) {
       playerStorage[i % 5] = storages[i];
     }
     return playerStorage;

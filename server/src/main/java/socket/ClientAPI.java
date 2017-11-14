@@ -24,8 +24,9 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request     JSON-Objekt, das User-Daten für Login enthält;
-   * @param loggedUsers JSON-Objekt, Liste eingeloggter User
+   * @param request loginRequest, das User-Daten für Login enthält;
+   * @param loggedUsers ArrayList<String>, Liste eingeloggter User
+   * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
   public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
     loginEvent event = new loginEvent();
@@ -60,8 +61,8 @@ public class ClientAPI {
    * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request JSON-Objekt, das User-Daten für Registrierung enthält
-   * @return JSON-Objekt, das entweder Erfolg oder Misserfolg als Nachricht enthält
+   * @param request registerRequest, das User-Daten für Registrierung enthält
+   * @return registerEvent, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
   public registerEvent register(registerRequest request) {
     registerEvent event = new registerEvent();
@@ -117,7 +118,14 @@ public class ClientAPI {
     return this.dbUserDataSource.getUser(UserIdentifier.USERNAME, username);
   }
 
-
+  /**
+   * Wenn ein Client eine Anfrage zur Erstellung einer Lobby schickt
+   * wird hier das Lobby-Objekt erstellt und an den ClientListener zurückgegeben
+   *
+   * @param request createRequest, enthält alle Daten der zu erstellenden Lobby
+   * @param user User, der die Lobby erstellen möchte
+   * @return Lobby die gerade erstellt wurde und gibt diese an den Clientlistener Thread
+   */
   public Lobby createLobby(createRequest request, User user) {
     String name = request.getName();
     int size = request.getSize();
