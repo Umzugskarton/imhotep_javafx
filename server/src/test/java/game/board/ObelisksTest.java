@@ -23,7 +23,7 @@ public class ObelisksTest {
   @Test
   public void ObelisksGetPoints() {
     Obelisks test = new Obelisks(4);
-    ArrayList<Stone> stones = new ArrayList<>();
+    Stone[] stones = new Stone[3];
     p1 = mock(Player.class);
     p2 = mock(Player.class);
     p3 = mock(Player.class);
@@ -32,9 +32,9 @@ public class ObelisksTest {
     when(p2.getId()).thenReturn(1);
     when(p3.getId()).thenReturn(2);
     when(p4.getId()).thenReturn(3);
-    stones.add(new Stone(p3));
-    stones.add(new Stone(p4));
-    stones.add(new Stone(p2));
+    stones[0] =new Stone(p3);
+    stones[1] = new Stone(p4);
+    stones[2] =new Stone(p2);
     test.addStones(stones);
     int[] points = test.getPoints();
     assert points.length == 4;
