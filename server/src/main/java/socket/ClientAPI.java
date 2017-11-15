@@ -127,13 +127,6 @@ public class ClientAPI {
     return event;
   }
 
-  public changeColorEvent changeColor(changeColorRequest request) {
-    changeColorEvent event = new changeColorEvent();
-
-
-
-    return null;
-  }
 
   public chatEvent chat(chatRequest request, User user) {
     chatEvent event = new chatEvent();

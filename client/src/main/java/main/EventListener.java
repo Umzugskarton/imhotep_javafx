@@ -59,6 +59,7 @@ public class EventListener {
   public void changeColor(changeColorEvent e) {
       Platform.runLater(
               () -> {
+                //Veränderung anzeigen
 
               }
       );

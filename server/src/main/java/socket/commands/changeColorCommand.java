@@ -7,14 +7,17 @@ import socket.ClientListener;
 import socket.Server;
 import CLTrequests.Request;
 
+import java.util.ArrayList;
+
 /**
- * Created by Slothan on 09.11.2017.
+ * Created by Slothan/Dennis Lindt on 09.11.2017.
  */
 public class changeColorCommand implements Command {
 
     private changeColorRequest request;
     private ClientListener clientListener;
     private ClientAPI clientAPI;
+    private ArrayList<String> colors;
 
     public changeColorCommand(ClientListener clientListener) {
         this.clientListener = clientListener;
@@ -23,7 +26,8 @@ public class changeColorCommand implements Command {
 
     public void put(Request r) { this.request = (changeColorRequest) r;}
     public void exec() {
-        changeColorEvent response = this.clientAPI.changeColor(this.request);
+        changeColorEvent changeColorEvent = clientListener.getLobby().replaceColor(clientListener.getUser(), )
+
         this.clientListener.send(response);
     }
 

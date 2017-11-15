@@ -1,9 +1,13 @@
 package lobby;
 
+import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
 import commonLobby.LobbyUser;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import user.User;
 
 public class Lobby {
@@ -86,6 +90,16 @@ public class Lobby {
     this.colors = newColors;
   }
 
+  public changeColorEvent replaceColor(User user) {
+    int userid = Arrays.asList(lobby).indexOf(user);
+    int newcolor = userid;
+    if (userid < Arrays.asList(lobby).size()-1){
+      newcolor = Arrays.asList(lobby).size()-1 ;
+    }
+    Collections.swap(colors, userid, newcolor+1);
+    return new changeColorEvent(colors)
+  }
+
   public void setLobbyID(int id) {
     this.LobbyID = id;
   }
@@ -135,7 +149,7 @@ public class Lobby {
   }
 
   public void generateColors() {
-    float interval = 360 / (this.size);
+    float interval = 360 / 10;
     for (float x = 0; x < 360; x += interval) {
       Color c = Color.getHSBColor(x / 360, 1, 1);
       String hex = String.format("#%02x%02x%02x", (c.getRed() + 255) / 2, (c.getGreen() + 255) / 2,

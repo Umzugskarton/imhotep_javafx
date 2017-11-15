@@ -130,8 +130,10 @@ public class LobbyViewImpl implements LobbyView {
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
                 if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+                  getLobbyPresenter().sendChangeColorRequest();
 
-                  color.setFill(Color.web("#ffffff"));
+
+                  //color.setFill(Color.web("#ffffff"));
                   System.out.println(lobbyUser.getColor());
                 } else {
                   System.out.println(getLobbyPresenter().getUsername());
@@ -215,6 +217,10 @@ public class LobbyViewImpl implements LobbyView {
     Scene dialogScene = new Scene(dialogVbox, 300, 200);
     dialog.setScene(dialogScene);
     dialog.show();
+  }
+
+  public void updateColorRectangle() {
+    //Erneuern der Farben nach Farbwechsel
   }
 
   public void setLobbyPresenter(LobbyPresenter lobbyPresenter) {

@@ -1,5 +1,6 @@
 package lobby.presenter;
 
+import CLTrequests.changeColorRequest;
 import commonLobby.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;
@@ -26,6 +27,13 @@ public class LobbyPresenter {
     this.CLTLobby = CLTLobby;
     setUsername(this.sc.getMainmenuPresenter().getUsername());
     lobbyView.initLobbyInfo();
+  }
+
+  public void sendChangeColorRequest() {
+    //this.lobbyView.updateColorRectangle();
+    changeColorRequest changeColorRequest = new changeColorRequest();
+    this.getSceneController().getClientSocket().send(changeColorRequest);
+
   }
 
   public LobbyView getLobbyView() {
