@@ -16,6 +16,10 @@ public class actionCardMove implements Move{
     moves = new ArrayList<>();
   }
 
+  public int getCardID() {
+    return cardID;
+  }
+
   public void addMove(Move move){
     moves.add(move);
   }
