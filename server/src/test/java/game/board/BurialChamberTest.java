@@ -21,6 +21,7 @@ public class BurialChamberTest {
 
   @Test
   public void BurialChamberGetPoints() {
+
     BurialChamber test = new BurialChamber(4);
     Stone[] stones = new Stone[13];
     p1 = mock(Player.class);

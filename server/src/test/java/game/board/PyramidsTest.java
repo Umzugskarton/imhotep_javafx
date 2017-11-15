@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import game.Player;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class PyramidsTest {
