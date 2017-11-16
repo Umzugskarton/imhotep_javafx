@@ -16,19 +16,16 @@ public class changeColorCommand implements Command {
 
     private changeColorRequest request;
     private ClientListener clientListener;
-    private ClientAPI clientAPI;
     private ArrayList<String> colors;
 
     public changeColorCommand(ClientListener clientListener) {
         this.clientListener = clientListener;
-        this.clientAPI = clientListener.getClientAPI();
     }
 
     public void put(Request r) { this.request = (changeColorRequest) r;}
     public void exec() {
-        changeColorEvent changeColorEvent = clientListener.getLobby().replaceColor(clientListener.getUser(), )
-
-        this.clientListener.send(response);
+        changeColorEvent changeColorEvent = clientListener.getLobby().replaceColor(clientListener.getUser());
+        this.clientListener.send(changeColorEvent);
     }
 
 

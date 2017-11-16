@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class changeColorRequest implements Request {
 
-    private String request = "changeColorRequest";
+    private String request = "changeColor";
     private Date date;
     private String username;
 

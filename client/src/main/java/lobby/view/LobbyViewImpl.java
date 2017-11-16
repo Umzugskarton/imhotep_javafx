@@ -1,6 +1,7 @@
 package lobby.view;
 
 import general.Delta;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -129,6 +130,7 @@ public class LobbyViewImpl implements LobbyView {
               hbox.setSpacing(5);
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
+                //Benutzer kann nur seine eigene Farbe ändern
                 if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
                   getLobbyPresenter().sendChangeColorRequest();
 
@@ -199,10 +201,10 @@ public class LobbyViewImpl implements LobbyView {
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
 
-  /*public void changeLobbyInfo() {
+  public void changeLobbyInfo() {
 
-    table.setItems(this.lobbyPresenter.getCLTLobby().setColors());
-  }*/
+
+  }
 
   public void openModal(String msg) {
     final Stage dialog = new Stage();
@@ -234,4 +236,8 @@ public class LobbyViewImpl implements LobbyView {
   }
 
   public void setUsername(String username) { this.username = username; }
+
+  public TableView<LobbyUser> getTable() {
+    return this.table;
+  }
 }

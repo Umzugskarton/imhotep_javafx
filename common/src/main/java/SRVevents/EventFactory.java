@@ -20,6 +20,7 @@ public class EventFactory {
     Dict.put("create", new createEvent());
     Dict.put("changeCredential", new changeCredentialEvent());
     Dict.put("changeColor", new changeColorEvent());
+    Dict.put("setReady", new setReadyEvent());
   }
 
   public Event getEvent(String command) {

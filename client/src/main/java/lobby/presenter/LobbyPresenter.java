@@ -5,6 +5,8 @@ import commonLobby.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;
 
+import java.util.ArrayList;
+
 public class LobbyPresenter {
 
   private SceneController sc;
@@ -34,6 +36,11 @@ public class LobbyPresenter {
     changeColorRequest changeColorRequest = new changeColorRequest();
     this.getSceneController().getClientSocket().send(changeColorRequest);
 
+  }
+
+  public void updatePlayerColor(ArrayList<String> colors) {
+    CLTLobby.setColors(colors);
+    lobbyView.initLobbyInfo();
   }
 
   public LobbyView getLobbyView() {

@@ -97,7 +97,7 @@ public class Lobby {
       newcolor = Arrays.asList(lobby).size()-1 ;
     }
     Collections.swap(colors, userid, newcolor+1);
-    return new changeColorEvent(colors)
+    return new changeColorEvent(colors);
   }
 
   public void setLobbyID(int id) {

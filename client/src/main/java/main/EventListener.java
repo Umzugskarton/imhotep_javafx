@@ -60,10 +60,20 @@ public class EventListener {
       Platform.runLater(
               () -> {
                 //Veränderung anzeigen
-
+                  this.sceneController.getLobbyPresenter().updatePlayerColor(e.getColors());
               }
       );
   }
+
+    @Subscribe
+    public void setReady(setReadyEvent e) {
+        Platform.runLater(
+                () -> {
+                    //Veränderung anzeigen
+
+                }
+        );
+    }
 
   @Subscribe
   public void userListEventListener(userListEvent e) {
