@@ -2,6 +2,7 @@ package lobby;
 
 import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
+import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -88,6 +89,16 @@ public class Lobby {
 
   public void setColors(ArrayList newColors) {
     this.colors = newColors;
+  }
+
+  public setReadyEvent setReady(User user) {
+    int userid = Arrays.asList(lobby).indexOf(user);
+    if(ready[userid] == false) {
+      ready[userid] = true;
+    } else {
+      ready[userid] = false;
+    }
+    return new setReadyEvent(ready);
   }
 
   public changeColorEvent replaceColor(User user) {

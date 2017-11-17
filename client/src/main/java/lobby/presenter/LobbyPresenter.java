@@ -1,6 +1,7 @@
 package lobby.presenter;
 
 import CLTrequests.changeColorRequest;
+import CLTrequests.setReadyRequest;
 import commonLobby.CLTLobby;
 import lobby.view.LobbyView;
 import main.SceneController;
@@ -38,10 +39,22 @@ public class LobbyPresenter {
 
   }
 
+  public void sendSetReadyRequest() {
+    setReadyRequest setReadyRequest = new setReadyRequest();
+    this.getSceneController().getClientSocket().send(setReadyRequest);
+  }
+
   public void updatePlayerColor(ArrayList<String> colors) {
     CLTLobby.setColors(colors);
     lobbyView.initLobbyInfo();
   }
+
+  public void updatePlayerReady(boolean[] ready) {
+    CLTLobby.setReady(ready);
+    lobbyView.initLobbyInfo();
+  }
+
+
 
   public LobbyView getLobbyView() {
     return this.lobbyView;

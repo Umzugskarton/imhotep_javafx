@@ -25,6 +25,7 @@ import javafx.util.Callback;
 import commonLobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 public class LobbyViewImpl implements LobbyView {
 
@@ -46,6 +47,8 @@ public class LobbyViewImpl implements LobbyView {
     GridPane grid = new GridPane();
     userList = new Label();
     grid.add(userList, 3, 5);
+
+
 
     HBox nav = new HBox();
     nav.setId("nav");
@@ -128,10 +131,31 @@ public class LobbyViewImpl implements LobbyView {
               color.setHeight(15);
               color.setWidth(15);
               hbox.setSpacing(5);
+
+              //Shit-Button-Lösung. Valve, pls fix
+              Button setReady = new Button("Bereit");
+              grid.add(setReady, 1, 7);
+              setReady.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                  if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+                    getLobbyPresenter().sendSetReadyRequest();
+                    System.out.println(lobbyUser.isReady());
+                    if(lobbyUser.isReady()) {
+                      setReady.setStyle("-fx-background-color: green");
+                    } else {
+                      setReady.setStyle("-fx-background-color: red");
+                    }
+
+                  }
+                }
+              });
+              //Shit-End
+
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
                 //Benutzer kann nur seine eigene Farbe ändern
                 if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+
                   getLobbyPresenter().sendChangeColorRequest();
 
 
