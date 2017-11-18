@@ -149,17 +149,30 @@ public class LobbyViewImpl implements LobbyView {
                   }
                 }
               });
+
+              if(lobbyPresenter.checkHost(lobbyUser.getUsername())) {
+                Button startGame = new Button("Start Game");
+                grid.add(startGame, 3,7);
+                startGame.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                  public void handle(ActionEvent event) {
+                    if(getLobbyPresenter().checkAllReady()) {
+                      getLobbyPresenter().startGame();
+                      System.out.print("Go!");
+                    } else {
+                      System.out.print("Es sind nicht alle bereit!");
+                    }
+                  }
+                });
+              } else {
+                System.out.print("Sie sind nicht Host!");
+              }
               //Shit-End
 
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
                 //Benutzer kann nur seine eigene Farbe ändern
                 if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
-
                   getLobbyPresenter().sendChangeColorRequest();
-
-
-                  //color.setFill(Color.web("#ffffff"));
                   System.out.println(lobbyUser.getColor());
                 } else {
                   System.out.println(getLobbyPresenter().getUsername());

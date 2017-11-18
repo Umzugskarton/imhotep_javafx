@@ -56,7 +56,7 @@ public class EventListener {
   }
 
   @Subscribe
-  public void changeColor(changeColorEvent e) {
+  public void changeColorListener(changeColorEvent e) {
       Platform.runLater(
               () -> {
                 //Veränderung anzeigen
@@ -66,7 +66,7 @@ public class EventListener {
   }
 
   @Subscribe
-  public void setReady(setReadyEvent e) {
+  public void setReadyListener(setReadyEvent e) {
       Platform.runLater(
               () -> {
                   //Veränderung anzeigen
