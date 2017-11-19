@@ -152,7 +152,6 @@ public class EventListener {
         }
     );
   }
-
   @Subscribe
   public void changeColorEventListener(changeColorEvent e){
     Platform.runLater(

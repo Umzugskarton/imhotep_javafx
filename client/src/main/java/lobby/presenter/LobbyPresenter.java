@@ -7,6 +7,7 @@ import lobby.view.LobbyView;
 import main.SceneController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LobbyPresenter {
 
@@ -47,6 +48,26 @@ public class LobbyPresenter {
   public void updatePlayerReady(boolean[] ready) {
     CLTLobby.setReady(ready);
     lobbyView.initLobbyInfo();
+  }
+
+  public boolean checkAllReady() {
+    if(Arrays.asList(CLTLobby.getReady()).contains(false)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public void startGame() {
+    System.out.print("Game Start!");
+  }
+
+  public boolean checkHost(String hostUsername) {
+    if (CLTLobby.getHost().equals(hostUsername)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
