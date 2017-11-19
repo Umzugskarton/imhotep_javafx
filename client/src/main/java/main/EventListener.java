@@ -58,13 +58,12 @@ public class EventListener {
 
 
   @Subscribe
-  public void setReady(setReadyEvent e) {
+  public void setReadyEventListener(setReadyEvent e) {
       Platform.runLater(
               () -> {
-                  //Veränderung anzeigen
-                  this.sceneController.getLobbyPresenter().updatePlayerReady(e.getReady());
-
-
+                CLTLobby lobby = sceneController.getLobbyPresenter().getCLTLobby();
+                lobby.setReady(e.getReady());
+                sceneController.getLobbyPresenter().updateLobby(lobby);
               }
       );
   }
@@ -158,7 +157,7 @@ public class EventListener {
             () -> {
               CLTLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
               temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
-              sceneController.getLobbyPresenter().setCLTLobby(temp);
+              sceneController.getLobbyPresenter().updateLobby(temp);
             });
   }
 

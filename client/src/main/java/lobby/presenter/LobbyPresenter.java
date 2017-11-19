@@ -27,6 +27,10 @@ public class LobbyPresenter {
     return this.CLTLobby;
   }
 
+  public void updateLobby(CLTLobby lobby){
+    CLTLobby = lobby;
+    lobbyView.updateTable();
+  }
   public void setCLTLobby(CLTLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
     lobbyView.initLobbyInfo();
@@ -45,29 +49,16 @@ public class LobbyPresenter {
   }
 
 
-  public void updatePlayerReady(boolean[] ready) {
-    CLTLobby.setReady(ready);
-    lobbyView.initLobbyInfo();
-  }
-
   public boolean checkAllReady() {
-    if(Arrays.asList(CLTLobby.getReady()).contains(false)) {
-      return false;
-    } else {
-      return true;
-    }
+    return Arrays.asList(CLTLobby.getReady()).contains(false);
   }
 
   public void startGame() {
     System.out.print("Game Start!");
   }
 
-  public boolean checkHost(String hostUsername) {
-    if (CLTLobby.getHost().equals(hostUsername)) {
-      return true;
-    } else {
-      return false;
-    }
+  public boolean checkHost() {
+     return this.CLTLobby.getHost().equals(username);
   }
 
 

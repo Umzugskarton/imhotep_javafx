@@ -36,6 +36,7 @@ public class LobbyViewImpl implements LobbyView {
   private BorderPane main;
   private TextField messageField;
   private String username;
+  private GridPane grid = new GridPane();
 
   public LobbyViewImpl() {
     buildLobby();
@@ -44,7 +45,7 @@ public class LobbyViewImpl implements LobbyView {
   void buildLobby() {
     this.main = new BorderPane();
     main.setId("menuroot");
-    GridPane grid = new GridPane();
+
     userList = new Label();
     grid.add(userList, 3, 5);
 
@@ -133,39 +134,8 @@ public class LobbyViewImpl implements LobbyView {
               hbox.setSpacing(5);
 
               //Shit-Button-Lösung. Valve, pls fix
-              Button setReady = new Button("Bereit");
-              setReady.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                  if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
-                    getLobbyPresenter().sendSetReadyRequest();
-                    System.out.println(lobbyUser.isReady());
-                    if(lobbyUser.isReady()) {
-                      setReady.setStyle("-fx-background-color: green");
-                    } else {
-                      setReady.setStyle("-fx-background-color: red");
-                    }
+              // Anmerkung: Ja shit Lösung weil er im Callback für die Colorzeile ist
 
-                  }
-                }
-              });
-
-              if(lobbyPresenter.checkHost(lobbyUser.getUsername())) {
-                Button startGame = new Button("Start Game");
-                grid.add(startGame, 3,7);
-                startGame.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-                  public void handle(ActionEvent event) {
-                    if(getLobbyPresenter().checkAllReady()) {
-                      getLobbyPresenter().startGame();
-                      System.out.print("Go!");
-                    } else {
-                      System.out.print("Es sind nicht alle bereit!");
-                    }
-                  }
-                });
-              } else {
-                System.out.print("Sie sind nicht Host!");
-              }
-              //Shit-End
 
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
@@ -206,17 +176,10 @@ public class LobbyViewImpl implements LobbyView {
               setText(null);
             } else {
               LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
-              HBox hbox = new HBox();
-              ImageView img = new ImageView();
-              img.setFitHeight(15);
-              img.setFitWidth(10);
-              hbox.setSpacing(5);
-              img.setImage(new Image("ank.png"));
-              if (lobbyUser.isReady()) {
-                hbox.getChildren().add(img);
-                setGraphic(hbox);
+              if(lobbyUser.isReady()) {
+                this.setStyle("-fx-background-color: green");
               } else {
-                setGraphic(null);
+                this.setStyle("-fx-background-color: red");
               }
               setText(null);
             }
@@ -227,6 +190,13 @@ public class LobbyViewImpl implements LobbyView {
     };
     joinCol.setCellFactory(cellFactory2);
 
+
+
+    Button setReady = new Button("Bereit");
+    grid.add(setReady, 8,7);
+    setReady.addEventHandler(ActionEvent.ACTION,e ->
+            getLobbyPresenter().sendSetReadyRequest());
+
     table.getColumns().addAll(firstNameCol, lastNameCol, joinCol);
     table.setMaxHeight(180);
     table.setPrefHeight(180);
@@ -234,12 +204,30 @@ public class LobbyViewImpl implements LobbyView {
   }
 
   public void initLobbyInfo() {
+
+
+    if(lobbyPresenter.checkHost()) {
+      Button startGame = new Button("Start Game");
+      grid.add(startGame, 9,7);
+      startGame.addEventHandler(ActionEvent.ACTION, e -> {
+        if(getLobbyPresenter().checkAllReady()) {
+          getLobbyPresenter().startGame();
+          System.out.print("Go!");
+        } else {
+          System.out.print("Es sind nicht alle bereit!");
+        }
+      });
+    }
+
+    table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
+  }
+
+  public void updateTable(){
     for ( int i = 0; i<table.getItems().size(); i++) {
       table.getItems().clear();
     }
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
-
 
   public void openModal(String msg) {
     final Stage dialog = new Stage();
@@ -256,9 +244,6 @@ public class LobbyViewImpl implements LobbyView {
     dialog.show();
   }
 
-  public void updateColorRectangle() {
-    //Erneuern der Farben nach Farbwechsel
-  }
 
   public void setLobbyPresenter(LobbyPresenter lobbyPresenter) {
     this.lobbyPresenter = lobbyPresenter;

@@ -124,6 +124,10 @@ public class CLTLobby {
 
   public void setReady(boolean[] ready) {
     this.ready = ready;
+
+for (int i = 0 ; i < users.size(); i++){
+  users.get(i).setReady(ready[i]);
+    }
   }
 
 

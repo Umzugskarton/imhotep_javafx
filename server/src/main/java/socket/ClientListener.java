@@ -84,6 +84,9 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
+        if (lobby!=null){
+          lobby.leave(user);
+        }
         this.user = null;
         this.server.sendToAll(server.getLoggedUsers());
       }
