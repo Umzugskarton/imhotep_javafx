@@ -11,9 +11,7 @@ import user.User;
 
 import java.util.ArrayList;
 
-/**
- * Created by Slothan/Dennis Lindt on 09.11.2017.
- */
+
 public class changeColorCommand implements Command {
 
     private changeColorRequest request;
