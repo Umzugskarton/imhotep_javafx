@@ -26,7 +26,6 @@ public class MainmenuPresenter {
   private CreatePresenter createPresenter;
   private GamesPresenter gamesPresenter;
   private ProfilePresenter profilePresenter;
-  private LobbyPresenter lobbyPresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -121,8 +120,6 @@ public class MainmenuPresenter {
   public ProfilePresenter getProfilePresenter() {
     return this.profilePresenter;
   }
-
-  public LobbyPresenter getLobbyPresenter() { return this.lobbyPresenter; }
 
   public void setUsername(String username) { this.username = username; }
 

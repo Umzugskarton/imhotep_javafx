@@ -31,7 +31,6 @@ public class SceneController {
   private MainmenuPresenter MainmenuPresenter;
   private EventBus eventBus;
   private LobbyPresenter LobbyPresenter;
-  private ProfilePresenter profilePresenter;
 
 
   public SceneController(Stage stage) {
@@ -108,7 +107,4 @@ public class SceneController {
     return this.registrationPresenter;
   }
 
-  public ProfilePresenter getProfilePresenter() {
-    return this.profilePresenter;
-  }
 }

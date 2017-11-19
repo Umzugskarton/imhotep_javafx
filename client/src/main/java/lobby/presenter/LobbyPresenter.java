@@ -19,7 +19,7 @@ public class LobbyPresenter {
     this.sc = sc;
     this.lobbyView = lobbyView;
     lobbyView.setLobbyPresenter(this);
-
+    setUsername(this.sc.getMainmenuPresenter().getUsername());
   }
 
   public CLTLobby getCLTLobby() {
@@ -28,7 +28,6 @@ public class LobbyPresenter {
 
   public void setCLTLobby(CLTLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
-    setUsername(this.sc.getMainmenuPresenter().getUsername());
     lobbyView.initLobbyInfo();
   }
 
@@ -44,10 +43,6 @@ public class LobbyPresenter {
     this.getSceneController().getClientSocket().send(setReadyRequest);
   }
 
-  public void updatePlayerColor(ArrayList<String> colors) {
-    CLTLobby.setColors(colors);
-    lobbyView.initLobbyInfo();
-  }
 
   public void updatePlayerReady(boolean[] ready) {
     CLTLobby.setReady(ready);

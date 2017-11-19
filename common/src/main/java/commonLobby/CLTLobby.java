@@ -47,6 +47,23 @@ public class CLTLobby {
     this.ready = ready;
   }
 
+  public ArrayList<LobbyUser> getUsers() {
+    return users;
+  }
+
+  public LobbyUser getUserbyName(String name) {
+    int i =0;
+    LobbyUser e= null;
+    while(users.get(i).getUsername()!=name && i<users.size())
+      e=users.get(i);
+    return e;
+  }
+
+  public LobbyUser getUserbyLobbyId(int id) {
+    return users.get(id);
+  }
+
+
   public String getName() {
     return this.name;
   }

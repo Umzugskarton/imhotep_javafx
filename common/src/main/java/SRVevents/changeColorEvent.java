@@ -11,31 +11,30 @@ import java.util.Date;
 public class changeColorEvent implements Event {
     private String event = "changeColor";
     private Date date;
-    private String msg;
-    private ArrayList<String> colors;
-    private CLTLobby lobby;
+    private int id;
+    private String color;
 
     public changeColorEvent() {
-
+        date = new Date();
     }
 
-    public changeColorEvent(ArrayList<String> colors) {
-        this.colors = colors;
+    public changeColorEvent(int id,String color) {
+        this.color = color;
+        this.id = id;
     }
 
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getMsg() {
-        return this.msg;
+    public int getId() {
+        return id;
     }
 
     public Date getDate() {
         return this.date;
     }
 
-    public ArrayList<String> getColors() { return this.colors; }
+    public String getColor() { return this.color; }
 
 }

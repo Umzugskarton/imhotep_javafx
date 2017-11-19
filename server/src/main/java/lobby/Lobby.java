@@ -17,6 +17,7 @@ public class Lobby {
   private int LobbyID;
   private User[] lobby;
   private boolean[] ready;
+  private ArrayList<Integer> Usercolor;
   private String password;
   private int size;
   boolean vacancy = true;
@@ -27,6 +28,8 @@ public class Lobby {
     this.ready = new boolean[size];
     this.lobby = new User[size];
     this.lobby[0] = host;
+    Usercolor = new ArrayList<>();
+    Usercolor.add(0);
     this.password = null;
     this.name = name;
     this.size = size;
@@ -62,6 +65,11 @@ public class Lobby {
       for (int i = 0; i < lobby.length; i++) {
         if (lobby[i] == null) {
           lobby[i] = user;
+          int c= i;
+          while(Usercolor.contains(c)){
+            c++;
+          }
+          Usercolor.add(c);
           return new joinEvent("Erfolgreich beigetreten!", true);
         }
       }
@@ -84,31 +92,37 @@ public class Lobby {
   }
 
   public ArrayList<String> getColors() {
-    return this.colors;
-  }
-
-  public void setColors(ArrayList newColors) {
-    this.colors = newColors;
+    ArrayList<String> e = new ArrayList<>();
+    for (int i = 0; i < Usercolor.size(); i++){
+      e.add(colors.get(Usercolor.get(i)));
+    }
+    return e;
   }
 
   public setReadyEvent setReady(User user) {
     int userid = Arrays.asList(lobby).indexOf(user);
-    if(ready[userid] == false) {
-      ready[userid] = true;
-    } else {
-      ready[userid] = false;
-    }
+      ready[userid] = !ready[userid];
     return new setReadyEvent(ready);
   }
 
   public changeColorEvent replaceColor(User user) {
     int userid = Arrays.asList(lobby).indexOf(user);
-    int newcolor = userid;
-    if (userid < Arrays.asList(lobby).size()-1){
-      newcolor = Arrays.asList(lobby).size()-1 ;
+    int newcolor = Usercolor.get(userid);
+    do {
+      newcolor = (newcolor+1)%10;
+    }while (Usercolor.contains(newcolor));
+    Usercolor.set(userid, newcolor);
+    return new changeColorEvent(userid,colors.get(newcolor));
+  }
+
+  public int userCount(){
+    int count = 0;
+    for (User user: lobby){
+      if (user!=null) {
+        count++;
+      }
     }
-    Collections.swap(colors, userid, newcolor+1);
-    return new changeColorEvent(colors);
+    return count;
   }
 
   public void setLobbyID(int id) {
@@ -142,22 +156,13 @@ public class Lobby {
 
     for (User user : this.lobby) {
       if (user != null) {
-        temp.add(new LobbyUser(user.getUsername(), colors.get(i), ready[i]));
+        temp.add(new LobbyUser(user.getUsername(), colors.get(Usercolor.get(i)), ready[i]));
         i++;
       }
     }
     return temp;
   }
 
-  public int getUserCount() {
-    int users = 0;
-    for (int i = 0; i < lobby.length; i++) {
-      if (lobby[i] != null) {
-        users++;
-      }
-    }
-    return users;
-  }
 
   public void generateColors() {
     float interval = 360 / 10;

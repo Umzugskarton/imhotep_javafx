@@ -3,6 +3,7 @@ package main;
 import SRVevents.*;
 import com.google.common.eventbus.Subscribe;
 import commonLobby.CLTLobby;
+import commonLobby.LobbyUser;
 import javafx.application.Platform;
 
 public class EventListener {
@@ -55,15 +56,6 @@ public class EventListener {
     );
   }
 
-  @Subscribe
-  public void changeColor(changeColorEvent e) {
-      Platform.runLater(
-              () -> {
-                //Veränderung anzeigen
-                  this.sceneController.getLobbyPresenter().updatePlayerColor(e.getColors());
-              }
-      );
-  }
 
   @Subscribe
   public void setReady(setReadyEvent e) {
@@ -159,6 +151,16 @@ public class EventListener {
           }
         }
     );
+  }
+
+  @Subscribe
+  public void changeColorEventListener(changeColorEvent e){
+    Platform.runLater(
+            () -> {
+              CLTLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
+              temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
+              sceneController.getLobbyPresenter().setCLTLobby(temp);
+            });
   }
 
   @Subscribe

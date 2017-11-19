@@ -134,7 +134,6 @@ public class LobbyViewImpl implements LobbyView {
 
               //Shit-Button-Lösung. Valve, pls fix
               Button setReady = new Button("Bereit");
-              grid.add(setReady, 1, 7);
               setReady.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent event) {
                   if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
@@ -222,13 +221,12 @@ public class LobbyViewImpl implements LobbyView {
   }
 
   public void initLobbyInfo() {
+    for ( int i = 0; i<table.getItems().size(); i++) {
+      table.getItems().clear();
+    }
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
 
-  public void changeLobbyInfo() {
-
-
-  }
 
   public void openModal(String msg) {
     final Stage dialog = new Stage();
