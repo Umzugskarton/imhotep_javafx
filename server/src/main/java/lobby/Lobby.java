@@ -109,7 +109,7 @@ public class Lobby {
     int userid = Arrays.asList(lobby).indexOf(user);
     int newcolor = Usercolor.get(userid);
     do {
-      newcolor = (newcolor+1)%10;
+      newcolor = (newcolor+1);
     }while (Usercolor.contains(newcolor));
     Usercolor.set(userid, newcolor);
     return new changeColorEvent(userid,colors.get(newcolor));

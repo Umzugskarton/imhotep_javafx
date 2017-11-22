@@ -166,6 +166,14 @@ public class Server {
     return event;
   }
 
+  public void sendToLobby(Event e , Lobby lobby){
+    User[] users = lobby.getUsers();
+    for (User tempUser : users) {
+      if (tempUser != null) {
+        sendTo(e, tempUser.getUsername());
+      }
+    }
+  }
   public String getLoggedInUsername(String username) {
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {

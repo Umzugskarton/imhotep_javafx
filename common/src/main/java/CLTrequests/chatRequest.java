@@ -5,6 +5,7 @@ import java.util.Date;
 public class chatRequest implements Request {
 
   private String request = "chat";
+  private Integer lobbyId;
   private Date date;
   private String msg;
 
@@ -14,6 +15,15 @@ public class chatRequest implements Request {
   public chatRequest(String msg) {
     this.msg = msg;
     this.date = new Date();
+    lobbyId = null;
+  }
+
+  public Integer getLobbyId() {
+    return lobbyId;
+  }
+
+  public void setLobbyId(Integer lobbyId) {
+    this.lobbyId = lobbyId;
   }
 
   public String getMsg() {

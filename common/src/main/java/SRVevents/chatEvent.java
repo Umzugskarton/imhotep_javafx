@@ -7,10 +7,20 @@ public class chatEvent implements Event {
   private String event = "chat";
   private Date date;
   private String user;
+  private Integer lobbyId;
   private String msg;
 
   public chatEvent() {
+    lobbyId = null;
     this.date = new Date();
+  }
+
+  public Integer getLobbyId() {
+    return lobbyId;
+  }
+
+  public void setLobbyId(Integer lobbyId) {
+    this.lobbyId = lobbyId;
   }
 
   public void setUser(String username) {

@@ -42,17 +42,12 @@ public class joinCommand implements Command {
       if (response.getSuccess()) {
         this.clientListener.setLobby(lobby);
         this.clientListener.getServer()
-            .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
-        User[] users = lobby.getUsers();
+                .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
         CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
-            lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
-            lobby.getHostName(), lobby.getReady(), lobby.getColors());
+                lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
+                lobby.getHostName(), lobby.getReady(), lobby.getColors());
         lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
-        for (User tempUser : users) {
-          if (tempUser != null) {
-            this.server.sendTo(lobbyInfo, tempUser.getUsername());
-          }
-        }
+        server.sendToLobby(lobbyInfo, lobby);
       }
     }
   }

@@ -6,6 +6,7 @@ import SRVevents.chatEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
+import user.User;
 
 public class chatCommand implements Command {
 
@@ -26,6 +27,11 @@ public class chatCommand implements Command {
 
   public void exec() {
     chatEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
-    this.server.sendToLoggedIn(chatMessage);
+    if(request.getLobbyId() != null){
+       server.sendToLobby(chatMessage, server.getLobbybyID(request.getLobbyId()));
+    }
+    else {
+      this.server.sendToLoggedIn(chatMessage);
+    }
   }
 }
