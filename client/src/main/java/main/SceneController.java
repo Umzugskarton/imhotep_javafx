@@ -8,12 +8,12 @@ import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
+import profile.presenter.ProfilePresenter;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
-import  lobby.presenter.LobbyPresenter;
-import  lobby.view.LobbyViewImpl;
+import lobby.presenter.LobbyPresenter;
+import lobby.view.LobbyViewImpl;
 import socket.ClientSocket;
-
 
 public class SceneController {
 
@@ -74,8 +74,8 @@ public class SceneController {
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
-  public void toLobbyScene(){
-    if (this.LobbyPresenter == null){
+  public void toLobbyScene() {
+    if (this.LobbyPresenter == null) {
       this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
     }
 
@@ -106,4 +106,5 @@ public class SceneController {
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
   }
+
 }

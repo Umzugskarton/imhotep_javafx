@@ -3,33 +3,34 @@ package CLTrequests;
 import java.util.Date;
 
 public class loginRequest implements Request {
-    private String request = "login";
-    private Date date;
-    private String username;
-    private String pw;
 
-    public loginRequest() {
-    }
+  private String request = "login";
+  private Date date;
+  private String username;
+  private String pw;
 
-    public loginRequest(String username, String password) {
-        this.username = username;
-        this.pw = password;
-        this.date = new Date();
-    }
+  public loginRequest() {
+  }
 
-    public String getType() {
-        return this.request;
-    }
+  public loginRequest(String username, String password) {
+    this.username = username;
+    this.pw = password;
+    this.date = new Date();
+  }
 
-    public String getUsername() {
-        return this.username;
-    }
+  public String getRequest() {
+    return this.request;
+  }
 
-    public String getPassword() {
-        return this.pw;
-    }
+  public String getUsername() {
+    return this.username;
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public String getPassword() {
+    return this.pw;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 }

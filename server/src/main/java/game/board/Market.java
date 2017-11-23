@@ -3,7 +3,12 @@ package game.board;
 import java.util.ArrayList;
 
 public class Market extends Site {
-  private ArrayList<Card> market;
+
+  public Market(int playerCount) {
+    super(playerCount);
+  }
+
+  private ArrayList<Card> market = new ArrayList<>();
 
   public void replaceCards(ArrayList<Card> cards) {
     this.market = cards;

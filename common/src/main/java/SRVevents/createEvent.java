@@ -3,40 +3,41 @@ package SRVevents;
 import java.util.Date;
 
 public class createEvent implements Event {
-    private String event = "create";
-    private int id;
-    private String msg;
-    private boolean success;
-    private Date date;
 
-    public createEvent() {
-    }
+  private String event = "create";
+  private int id;
+  private String msg;
+  private boolean success;
+  private Date date;
 
-    public createEvent(boolean success, int lobbyID, String msg) {
-        this.success = success;
-        this.id = lobbyID;
-        this.msg = msg;
-        this.date = new Date();
-    }
+  public createEvent() {
+  }
 
-    public boolean getSuccess() {
-        return this.success;
-    }
+  public createEvent(boolean success, int lobbyID, String msg) {
+    this.success = success;
+    this.id = lobbyID;
+    this.msg = msg;
+    this.date = new Date();
+  }
 
-    public int getId() {
-        return this.id;
-    }
+  public boolean getSuccess() {
+    return this.success;
+  }
 
-    public String getEvent() {
-        return event;
-    }
+  public int getId() {
+    return this.id;
+  }
 
-    public String getMsg() {
-        return msg;
-    }
+  public String getEvent() {
+    return event;
+  }
 
-    @Override
-    public Date getDate() {
-        return this.date;
-    }
+  public String getMsg() {
+    return msg;
+  }
+
+  @Override
+  public Date getDate() {
+    return this.date;
+  }
 }

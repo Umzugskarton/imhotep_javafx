@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class BurialChamber extends Site
     implements StoneSite {
 
-  private ArrayList<Stone> burialChamber;
+  private ArrayList<Stone> burialChamber = new ArrayList<>();
+
+  public BurialChamber(int playerCount) {
+    super(playerCount);
+  }
 
   // TODO
   //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
@@ -15,7 +19,7 @@ public class BurialChamber extends Site
     boolean[] checked = new boolean[burialChamber.size()];
     int[] points = new int[4];
     for (int i = 0; i < burialChamber.size(); i++) {
-      int playerId = burialChamber.get(i).getPlayer().getPlayerId();
+      int playerId = burialChamber.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
       if (size==1) {
         points[playerId]+=1;
@@ -30,7 +34,7 @@ public class BurialChamber extends Site
 
   private int getFieldSize(int position, int playerId, boolean[] checked) {
     if (position >= burialChamber.size()
-        || burialChamber.get(position).getPlayer().getPlayerId() != playerId
+        || burialChamber.get(position).getPlayer().getId() != playerId
         || checked[position]) {
       return 0;
     }
@@ -57,7 +61,7 @@ public class BurialChamber extends Site
   }
 
   @Override
-  public void addStones(ArrayList<Stone> stones) {
+  public void addStones(Stone[] stones) {
 
   }
 

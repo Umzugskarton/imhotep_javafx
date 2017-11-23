@@ -3,42 +3,43 @@ package SRVevents;
 import java.util.Date;
 
 public class whisperEvent implements Event {
-    private String event = "whisper";
-    private String from;
-    private String msg;
-    private String to;
-    private Date date;
 
-    public whisperEvent() {
-        this.date = new Date();
-    }
+  private String event = "whisper";
+  private String from;
+  private String msg;
+  private String to;
+  private Date date;
 
-    public void setTo(String username) {
-        this.to = username;
-    }
+  public whisperEvent() {
+    this.date = new Date();
+  }
 
-    public void setFrom(String username) {
-        this.from = username;
-    }
+  public void setTo(String username) {
+    this.to = username;
+  }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+  public void setFrom(String username) {
+    this.from = username;
+  }
 
-    public String getTo() {
-        return this.to;
-    }
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
 
-    public String getFrom() {
-        return this.from;
-    }
+  public String getTo() {
+    return this.to;
+  }
 
-    public String getMsg() {
-        return this.msg;
-    }
+  public String getFrom() {
+    return this.from;
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public String getMsg() {
+    return this.msg;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 
 }

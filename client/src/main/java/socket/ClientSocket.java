@@ -9,7 +9,6 @@ import CLTrequests.Request;
 import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
 import main.SceneController;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class ClientSocket {
   // Gson caster
   private Gson gson = new Gson();
 
-  public ClientSocket(SceneController sceneController , EventBus eventBus) {
+  public ClientSocket(SceneController sceneController, EventBus eventBus) {
     this.sceneController = sceneController;
     this.eventBus = eventBus;
     this.host = "localhost";

@@ -1,9 +1,10 @@
 package game.GameProcedures;
 
 
-
+import GameEvents.fillUpStorageEvent;
 import GameMoves.Move;
 import GameMoves.fillUpStorageMove;
+import SRVevents.Event;
 import game.Game;
 
 public class fillUpStorage implements Procedure {
@@ -11,17 +12,19 @@ public class fillUpStorage implements Procedure {
   private Game game;
   private int playerId;
 
-  fillUpStorage(Game game, int playerId){
+  fillUpStorage(Game game, int playerId) {
     this.game = game;
     this.move = move;
     this.playerId = playerId;
   }
 
-  public void put(Move move){
+  public void put(Move move) {
     this.move = (fillUpStorageMove) move;
   }
 
-  public void exec(){
-    this.game.addStonesToStorage(this.playerId);
+  public fillUpStorageEvent exec() {
+    this.game.addStonesToStorage(playerId);
+
+    return new fillUpStorageEvent(playerId, game.getStorage(playerId));
   }
 }

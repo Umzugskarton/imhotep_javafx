@@ -1,25 +1,28 @@
 package game.board;
 
-import static java.lang.Math.min;
-
 import java.util.ArrayList;
 
 public class Temple extends Site
-        implements StoneSite {
+    implements StoneSite {
 
-  private ArrayList<Stone> temple;
+  private ArrayList<Stone> temple = new ArrayList<>();
 
   @Override
   public ArrayList<Stone> getStones() {
     return temple;
   }
 
+  public Temple(int playerCount) {
+    super(playerCount);
+  }
+
   @Override
   public int[] getPoints() {
-    int[] points = new int[5];
-    int size = min(temple.size(), 5);
+
+    int[] points = new int[this.playerCount];
+    int size = Math.min(temple.size(), this.playerCount<3?4:5);
     for (int i = 0; i < size; i++) {
-      points[temple.get(temple.size() - i).getPlayer().getPlayerId()]++;
+      points[temple.get(temple.size() - 1 - i).getPlayer().getId()]++;
     }
     return points;
   }
@@ -31,8 +34,10 @@ public class Temple extends Site
 
   @Override
   public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) return false;
-    temple.addAll(ship.getStones());
+    if (this.getDockedShip() != null) {
+      return false;
+    }
+    addStones(ship.getStones());
     return true;
   }
 }

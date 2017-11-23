@@ -1,5 +1,7 @@
 package mainmenu.view;
 
+import static general.TextBundle.getString;
+
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import create.view.CreateView;
@@ -30,6 +32,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mainmenu.presenter.MainmenuPresenter;
+import profile.view.ProfileView;
+import profile.view.ProfileViewImpl;
 
 public class MainmenuViewImpl implements MainmenuView {
 
@@ -40,6 +44,7 @@ public class MainmenuViewImpl implements MainmenuView {
   private Tab chatTab;
   private Tab newGameTab;
   private Tab gamesTab;
+  private Tab profileTab;
 
   public MainmenuViewImpl() {
     buildMainmenu();
@@ -70,9 +75,9 @@ public class MainmenuViewImpl implements MainmenuView {
     mainmenuScene.setFill(Color.TRANSPARENT);
 
     chatTab = new Tab();
-    chatTab.setText("Chat");
+    chatTab.setText(getString("chat"));
     chatTab.setClosable(false);
-    chatTab.setTooltip(new Tooltip("chat with other players"));
+    chatTab.setTooltip(new Tooltip(getString("chatTabTooltip")));
     chatTab.setContent(null);
 
     Button logoutButton = new Button();
@@ -85,23 +90,24 @@ public class MainmenuViewImpl implements MainmenuView {
     });
 
     gamesTab = new Tab();
-    gamesTab.setText("Games");
+    gamesTab.setText(getString("games"));
     gamesTab.setClosable(false);
-    gamesTab.setTooltip(new Tooltip("find open games"));
+    gamesTab.setTooltip(new Tooltip(getString("gameTabTooltip")));
 
-    Tab profileTab = new Tab();
-    profileTab.setText("Profile");
+    profileTab = new Tab();
+    profileTab.setText(getString("profile"));
     profileTab.setClosable(false);
-    profileTab.setTooltip(new Tooltip("edit your profile"));
-    newGameTab =new Tab();
-    newGameTab.setText("Create Game");
+    profileTab.setTooltip(new Tooltip(getString("profileTabTooltip")));
+
+    newGameTab = new Tab();
+    newGameTab.setText(getString("createGame"));
     newGameTab.setClosable(false);
-    newGameTab.setTooltip(new Tooltip("create a new game"));
+    newGameTab.setTooltip(new Tooltip(getString("newGameTabTooltip")));
 
     Tab rulesTab = new Tab();
-    rulesTab.setText("Rules");
+    rulesTab.setText(getString("rules"));
     rulesTab.setClosable(false);
-    rulesTab.setTooltip(new Tooltip("learn the game"));
+    rulesTab.setTooltip(new Tooltip(getString("rulesTabTooltip")));
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -141,7 +147,7 @@ public class MainmenuViewImpl implements MainmenuView {
       }
     });
 
-    nav.getChildren().addAll(logoutButton,min, close);
+    nav.getChildren().addAll(logoutButton, min, close);
     //Tabs werden der TabPane der Reihe nach hinzugefügt
     tabPane.getTabs().addAll(chatTab, gamesTab, profileTab, newGameTab);
   }
@@ -172,24 +178,29 @@ public class MainmenuViewImpl implements MainmenuView {
     this.chatTab.setContent((ChatViewImpl) chatView);
   }
 
-
   public void initCreate(CreateView createView) {
     this.newGameTab.setContent((CreateViewImpl) createView);
   }
-  public void initGames(GamesView gamesView){
+
+  public void initGames(GamesView gamesView) {
     this.gamesTab.setContent((GamesViewImpl) gamesView);
   }
 
-  public void openModal(String msg){
+  public void initProfile(ProfileView profileView) {
+    this.profileTab.setContent((ProfileViewImpl) profileView);
+  }
+
+
+  public void openModal(String msg) {
     final Stage dialog = new Stage();
     dialog.initModality(Modality.APPLICATION_MODAL);
     VBox dialogVbox = new VBox(20);
     dialogVbox.getStylesheets().add("style.css");
     dialogVbox.getStyleClass().add("dialog");
-    Label info= new Label(msg);
+    Label info = new Label(msg);
     Button confirm = new Button("OK");
-    confirm.addEventHandler(ActionEvent.ACTION , event -> dialog.close());
-    dialogVbox.getChildren().addAll(new Text("Message:"),info, confirm);
+    confirm.addEventHandler(ActionEvent.ACTION, event -> dialog.close());
+    dialogVbox.getChildren().addAll(new Text("Message:"), info, confirm);
     Scene dialogScene = new Scene(dialogVbox, 300, 200);
     dialog.setScene(dialogScene);
     dialog.show();

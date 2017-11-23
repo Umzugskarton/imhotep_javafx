@@ -3,9 +3,11 @@ package game;
 import GameEvents.gameInfoEvent;
 import GameEvents.turnEvent;
 import GameMoves.Move;
-import GameObjects.Bauwerke.Pyramid;
-import GameObjects.Boat;
 import SRVevents.Event;
+import game.GameProcedures.Procedure;
+import game.GameProcedures.ProcedureFactory;
+import game.board.Pyramids;
+import game.board.Ship;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +23,12 @@ public class Game implements Runnable {
 
   private int gameID;
   private Lobby lobby;
-  private Boat[] cboats;
+  private Ship[] ships;
   private boolean[] storages;
   private Player[] order;
+  private int currentPlayer;
   private int round;
-  private Pyramid pyramid;
+  private Pyramids pyramids;
   private ClientListener clientListener;
   private Move Nextmove = null;
   private List<Move> oldMoves;
@@ -37,11 +40,11 @@ public class Game implements Runnable {
     this.clientListener = clientListener;
     oldMoves = new ArrayList<>();
     lobby.show(false);
-    cboats = new Boat[lobby.getSize()];
+    ships = new Ship[lobby.getSize()];
     order = new Player[lobby.getSize()];
     storages = new boolean[lobby.getSize() * 5];
     setGame();
-    pyramid = new Pyramid();
+    pyramids = new Pyramids(lobby.getSize(), 1);
     setStartCards();
     sendAll(getGameinfo());
     run();
@@ -49,14 +52,14 @@ public class Game implements Runnable {
 
   public void resetCboats() {
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
-      this.cboats[i] = new Boat(ThreadLocalRandom.current().nextInt(1, 4));
+      this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
     }
   }
 
   public void setGame() {
     int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
-      this.cboats[i] = new Boat(ThreadLocalRandom.current().nextInt(1, 4));
+      this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
       this.order[i] = new Player(lobby.getUsers()[seq], i);
       seq = seq + 1 % lobby.getSize() - 1;
     }
@@ -81,8 +84,17 @@ public class Game implements Runnable {
     }
 
     gameInfoEvent gameInfo = new gameInfoEvent();
-    gameInfo.setCboats(this.cboats);
+    for (Ship ship : ships) {
+      int[] shipInt = new int[ship.getStones().length];
+      for (int i = 0; i < ship.getStones().length; i++) {
+        if (ship.getStones()[i] != null) {
+          shipInt[i] = ship.getStones()[i].getPlayer().getId();
+        }
+      }
+      gameInfo.setCboats(shipInt);
+    }
     gameInfo.setOrder(users);
+
     gameInfo.setRound(this.round);
     gameInfo.setStorages(this.storages);
 
@@ -101,6 +113,7 @@ public class Game implements Runnable {
       sendAll(getGameinfo());
       while (!AllshipsDocked())
         for (int player = 0; player <= this.order.length; player++) {
+          currentPlayer = player;
           switchPlayer(player);
 
           waitforMove(player);
@@ -128,20 +141,22 @@ public class Game implements Runnable {
   }
 
   private boolean executeMove() {
-    Nextmove.getType()
+    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
+    Procedure nextProcedure = pf.getProcedure(Nextmove.getType(), Nextmove);
+    sendAll(nextProcedure.exec());
     return true;
   }
 
   private boolean AllshipsDocked() {
     int haven = 0;
-    for (Boat boat : this.cboats) {
+    for (Ship ship : this.ships) {
       haven++;
     }
     return haven > 0;
   }
 
   synchronized void waitforMove(int p) {
-    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p]);
+    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p].getUser().getUsername());
     try {
       this.wait(32000);
     } catch (InterruptedException e) {
@@ -156,15 +171,27 @@ public class Game implements Runnable {
 
   public void addStonesToStorage(int playerId) {
     int set = 0;
-    for (int i = ((playerId +1 ) * 5) ; i <= i + 5; i++) {
+    for (int i = (playerId * 5); i < i + 5; i++) {
       if (!storages[i]) {
-        storages[i] =  true;
+        storages[i] = true;
         set++;
       }
       if (set == 3) {
         break;
       }
     }
+  }
+
+  public boolean[] getStorage(int playerID) {
+    boolean[] playerStorage = new boolean[5];
+    for (int i = playerID * 5; i < (playerID * 5) + 5; i++) {
+      playerStorage[i % 5] = storages[i];
+    }
+    return playerStorage;
+  }
+
+  public boolean[] getStorages() {
+    return storages;
   }
 
   public int getGameID() {
@@ -175,7 +202,7 @@ public class Game implements Runnable {
     this.round = round;
   }
 
-  public void updateCboats(Boat[] cboats) {
-    this.cboats = cboats;
+  public void updateCboats(Ship[] ships) {
+    this.ships = ships;
   }
 }

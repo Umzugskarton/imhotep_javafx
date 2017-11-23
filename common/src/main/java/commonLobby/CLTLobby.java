@@ -23,8 +23,8 @@ public class CLTLobby {
     private boolean[] ready;
 
 
-    public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size, boolean ishost, String host, boolean[] ready, ArrayList<String> colors) {
-        this.lobbyID = lobbyID;
+    public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size, boolean ishost, String host, boolean[] ready, ArrayList<String> colors){
+        this.lobbyID= lobbyID;
         this.name = name;
         this.users = users;
         this.hasPW = hasPW;
@@ -32,58 +32,49 @@ public class CLTLobby {
         this.usercount = users.size();
         this.ishost = ishost;
         this.host = host;
-        this.ready = ready;
-        this.colors = colors;
+        this.ready= ready;
+        this.colors= colors;
     }
 
 
-    public void setHost(String host) {
+    public void setHost(String host){
         this.host = host;
     }
 
-    public void setLobbyID(int id) {
-        this.lobbyID = id;
+    public void setLobbyID(int id){
+        this.lobbyID= id;
     }
 
-    public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, ArrayList<String> colors) {
+    public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, ArrayList<String> colors){
         users.clear();
         users.addAll(newUsers);
-        this.colors = colors;
+        this.colors= colors;
         this.ready = ready;
     }
+  public ArrayList<LobbyUser> getUsers() {
+    return users;
+  }
 
 
-    public String getName() {
-        return this.name;
-    }
+    public String getName(){return this.name;}
 
-    public int getSize() {
-        return this.size;
-    }
+    public int getSize(){return this.size;}
 
-    public boolean hasPW() {
-        return this.hasPW;
-    }
+    public boolean hasPW(){return this.hasPW;}
 
-    public int getUsercount() {
-        return this.usercount;
-    }
+    public int getUsercount(){return this.usercount;}
 
-    public String getBelegung() {
-        return this.belegung;
-    }
+    public String getBelegung(){return this.belegung;}
 
-    public void setBelegung(int usercount) {
-        this.belegung = (usercount + " / " + size);
+    public void setBelegung(int usercount){
+        this.belegung= (usercount + " / " + size);
     }
 
     public boolean isHost() {
         return this.ishost;
     }
 
-    public String getHost() {
-        return this.host;
-    }
+    public String getHost(){return this.host;}
 
     public boolean[] getReady() {
         return ready;
@@ -116,9 +107,15 @@ public class CLTLobby {
     }
 
 
-    public ObservableList<LobbyUser> getObservableUsers() {
+    public ObservableList<LobbyUser> getObservableUsers(){
         ObservableList<LobbyUser> x = FXCollections.observableArrayList();
         x.addAll(this.users);
         return x;
     }
+
+  public ObservableList<LobbyUser> getObservableColors() {
+    ObservableList<LobbyUser> y = FXCollections.observableArrayList();
+    y.addAll(this.users);
+    return y;
+  }
 }

@@ -1,6 +1,7 @@
 package mainmenu.presenter;
 
-import CLTrequests.*;
+import CLTrequests.logoutRequest;
+import CLTrequests.userlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +9,23 @@ import java.util.List;
 import create.presenter.CreatePresenter;
 import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
+import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
-import org.json.simple.JSONArray;
+import profile.presenter.ProfilePresenter;
 
 public class MainmenuPresenter {
 
   private MainmenuView view;
   private SceneController sceneController;
   private PlayerList playerList;
+  private String username;
   private ChatPresenter chatPresenter;
   private CreatePresenter createPresenter;
   private GamesPresenter gamesPresenter;
+  private ProfilePresenter profilePresenter;
 
   public MainmenuPresenter(MainmenuView view, SceneController sc) {
     this.view = view;
@@ -40,6 +44,10 @@ public class MainmenuPresenter {
 
     this.gamesPresenter = new GamesPresenter(this.sceneController);
     view.initGames(this.gamesPresenter.getGamesView());
+
+    this.profilePresenter = new ProfilePresenter(this.sceneController);
+    view.initProfile(this.profilePresenter.getProfileView());
+
     this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
@@ -92,8 +100,9 @@ public class MainmenuPresenter {
     return this.playerList;
   }
 
-  public void logout(){
+  public void logout() {
     this.sceneController.getClientSocket().send(new logoutRequest());
+    this.chatPresenter.getChatView().getChatText().getChildren().clear();
   }
 
   public SceneController getSceneController() {
@@ -103,7 +112,16 @@ public class MainmenuPresenter {
   public ChatPresenter getChatPresenter() {
     return this.chatPresenter;
   }
+
   public GamesPresenter getGamesPresenter() {
     return this.gamesPresenter;
   }
+
+  public ProfilePresenter getProfilePresenter() {
+    return this.profilePresenter;
+  }
+
+  public void setUsername(String username) { this.username = username; }
+
+  public String getUsername() { return username; }
 }

@@ -1,12 +1,17 @@
 package CLTrequests;
 
+import CLTrequests.*;
+import org.json.simple.JSONObject;
+
 import java.util.HashMap;
 
-
+/**
+ * Created on 10.10.2017.
+ */
 public class RequestFactory {
     private HashMap<String, Request> Dict = new HashMap<>();
 
-    public RequestFactory() {
+    public RequestFactory(){
         Dict.put("register", new registerRequest());
         Dict.put("login", new loginRequest());
         Dict.put("logout", new logoutRequest());
@@ -16,9 +21,13 @@ public class RequestFactory {
         Dict.put("create", new createRequest());
         Dict.put("whisper", new whisperRequest());
         Dict.put("chat", new chatRequest());
+      Dict.put("changeCredential", new changeCredentialRequest());
+      Dict.put("changeColor", new changeColorRequest());
+      Dict.put("setReady", new setReadyRequest());
+      Dict.put("startGame", new startGameRequest());
     }
 
-    public Request getRequest(String j) {
+    public Request getRequest(String j){
         return Dict.get(j);
     }
 }
