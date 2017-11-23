@@ -3,24 +3,25 @@ package SRVevents;
 import java.util.Date;
 
 public class chatInfoEvent implements Event {
-    private String event = "chatInfo";
-    private Date date;
-    private String msg;
 
-    public chatInfoEvent() {
-        this.date = new Date();
-    }
+  private String event = "chatInfo";
+  private Date date;
+  private String msg;
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+  public chatInfoEvent() {
+    this.date = new Date();
+  }
 
-    public String getMsg() {
-        return this.msg;
-    }
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public String getMsg() {
+    return this.msg;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 
 }

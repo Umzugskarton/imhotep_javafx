@@ -1,18 +1,19 @@
 package database.jdbc;
 
 abstract class JDBCHandler {
-    //Instanzvariable vom Typ des Interface. Defaultverhalten
-    private DB db = new DBmySQL();
 
-    public void setDb(DB db) {
-        this.db = db;
-    }
+  //Instanzvariable vom Typ des Interface. Defaultverhalten
+  private DB db = new DBmySQL();
 
-    public String getJdbcDriver() {
-        return db.getJdbcDriver();
-    }
+  public void setDb(DB db) {
+    this.db = db;
+  }
 
-    public  String getJdbcUrlPrefix() {
-        return db.getJdbcUrlPrefix();
-    }
+  public String getJdbcDriver() {
+    return db.getJdbcDriver();
+  }
+
+  public String getJdbcUrlPrefix() {
+    return db.getJdbcUrlPrefix();
+  }
 }

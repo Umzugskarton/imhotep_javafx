@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import commonLobby.CLTLobby;
 
 public interface GameList {
-    ObservableList<CLTLobby> getGames();
+
+  ObservableList<CLTLobby> getGames();
 
 }

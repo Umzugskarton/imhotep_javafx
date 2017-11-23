@@ -21,11 +21,14 @@ public class CommandFactory {
         Dict.put("create", new createCommand(clientListener));
         Dict.put("join", new joinCommand(clientListener));
         Dict.put("lobbylist", new lobbylistCommand(clientListener));
+        Dict.put("changeCredential", new changeCredentialCommand(clientListener));
+        Dict.put("changeColor", new changeColorCommand(clientListener));
+        Dict.put("setReady", new setReadyCommand(clientListener));
         Dict.put("startGame", new startGameCommand(clientListener));
     }
 
     public Command getCommand(Request request){
-        Command c = Dict.get(request.getType());
+        Command c = Dict.get(request.getRequest());
         c.put(request);
         return c;
     }

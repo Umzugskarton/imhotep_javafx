@@ -1,5 +1,7 @@
 package login.view;
 
+import static general.TextBundle.getString;
+
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -27,7 +29,7 @@ public class LoginViewImpl implements LoginView {
     buildLogin();
   }
 
-  public void buildLogin() { //created by mircoskrzipczyk, annkristinklopp
+  public void buildLogin() {
     BorderPane main = new BorderPane();
     main.setId("loginroot");
     GridPane grid = new GridPane();
@@ -51,22 +53,22 @@ public class LoginViewImpl implements LoginView {
     loginScene = new Scene(main);
     loginScene.setFill(Color.TRANSPARENT);
 
-    Label labelUser = new Label("Benutzername: "); //Label und Textfelder für den Benutzer
+    Label labelUser = new Label(getString("username") + " ");
     TextField userName = new TextField();
-    userName.setPromptText("Benutzernamen eingeben");
+    userName.setPromptText(getString("enterUsername"));
 
-    Label labelPassword = new Label("Passwort: "); //Label und Textfelder für das Passwort
+    Label labelPassword = new Label(getString("password") + " ");
     PasswordField passwordUser = new PasswordField();
-    passwordUser.setPromptText("Passwort eingeben");
+    passwordUser.setPromptText(getString("enterPassword"));
 
     loginStatus = new Label();    //gibt an, ob Login erfolgreich war
     loginStatus.setTextFill(Color.RED);
 
-    Button loginNow = new Button("Login"); //Buttons werden angelegt
+    Button loginNow = new Button(getString("login")); //Buttons werden angelegt
     loginNow.addEventHandler(ActionEvent.ACTION, e ->
         loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText()));
 
-    Button registerNow = new Button("Zur Registrierung wechseln");
+    Button registerNow = new Button(getString("goToRegister"));
     registerNow.addEventHandler(ActionEvent.ACTION, e -> loginPresenter.toRegisterScene());
 
     Button close = new Button("x");
@@ -74,22 +76,22 @@ public class LoginViewImpl implements LoginView {
 
     Button min = new Button("_");
     min.addEventHandler(ActionEvent.ACTION, e ->
-            loginPresenter.getSceneController().getStage().setIconified(true));
+        loginPresenter.getSceneController().getStage().setIconified(true));
 
     min.setMinWidth(20);
     close.setMinWidth(20);
 
     final Delta dragDelta = new Delta();
-    nav.setOnMousePressed(mouseEvent-> {
-        dragDelta.x =
-            loginPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
-        dragDelta.y =
-            loginPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+    nav.setOnMousePressed(mouseEvent -> {
+      dragDelta.x =
+          loginPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+      dragDelta.y =
+          loginPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
     });
     nav.setOnMouseDragged(mouseEvent -> {
-        loginPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
-        loginPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
-      });
+      loginPresenter.getSceneController().getStage().setX(mouseEvent.getScreenX() + dragDelta.x);
+      loginPresenter.getSceneController().getStage().setY(mouseEvent.getScreenY() + dragDelta.y);
+    });
 
     //Hier werden die Positionen "angelegt"
     GridPane.setConstraints(labelUser, 0, 0);

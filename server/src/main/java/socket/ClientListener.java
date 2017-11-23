@@ -1,17 +1,16 @@
 package socket;
 
+import com.google.gson.Gson;
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
+import socket.commands.Command;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import CLTrequests.Request;
-import CLTrequests.RequestFactory;
-import CLTrequests.createRequest;
 import GameMoves.MoveFactory;
 import SRVevents.Event;
-import com.google.gson.Gson;
 import lobby.Lobby;
 import socket.commands.*;
 import org.json.simple.JSONObject;
@@ -19,6 +18,7 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import socket.commands.Invoker;
 import socket.commands.CommandFactory;
 import user.User;
 
@@ -43,7 +43,7 @@ public class ClientListener implements Runnable {
   private BufferedReader in = null;
   private User user = null;
   private Lobby lobby = null;
-  private Gson gson = new Gson();
+  private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -58,7 +58,6 @@ public class ClientListener implements Runnable {
     }
   }
 
-
   @Override
   public void run() {
     try {
@@ -70,7 +69,6 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");
@@ -93,6 +91,10 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
+        if (lobby != null) {
+          lobby.leave(user);
+        }
+      }
         this.user = null;
         this.server.sendToAll(server.getLoggedUsers());
       }
@@ -106,14 +108,14 @@ public class ClientListener implements Runnable {
       Gson gson = new Gson();
       String json = gson.toJson(event);
       log.info(
-              "Nachricht gesendet: " + json);
+          "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();
     }
   }
 
-  public void setLobby(Lobby lobby) {
-    this.lobby = lobby;
+  public void setLobby(Lobby lobby){
+    this.lobby= lobby;
   }
 
   public boolean isLoggedIn() {
@@ -128,19 +130,15 @@ public class ClientListener implements Runnable {
     return lobby;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setUser(User user){
+    this.user=user;
   }
 
   public Thread getThread() {
     return Thread.currentThread();
   }
 
-  public ClientAPI getClientAPI() {
-    return this.clientAPI;
-  }
+  public ClientAPI getClientAPI(){return this.clientAPI;}
 
-  public Server getServer() {
-    return this.server;
-  }
+  public Server getServer(){return this.server;}
 }

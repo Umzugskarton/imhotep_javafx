@@ -1,5 +1,7 @@
 package registration.view;
 
+import static general.TextBundle.getString;
+
 import general.Delta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import registration.presenter.RegistrationPresenter;
-
 
 public class RegistrationViewImpl implements RegistrationView {
 
@@ -54,26 +55,26 @@ public class RegistrationViewImpl implements RegistrationView {
     registrationScene = new Scene(main);
     registrationScene.setFill(Color.TRANSPARENT);
 
-    Label name = new Label("Benutzername:");
+    Label name = new Label(getString("username") + ":");
     TextField nameField = new TextField();
-    nameField.setPromptText("Benutzernamen eingeben");
+    nameField.setPromptText(getString("enterUsername"));
 
-    Label password = new Label("Passwort:");
+    Label password = new Label(getString("password") + ":");
     PasswordField passwordField = new PasswordField();
-    passwordField.setPromptText("Passwort eingeben");
+    passwordField.setPromptText(getString("enterPassword"));
 
-    Label password2 = new Label("Passwort wdh.:");
+    Label password2 = new Label(getString("repeatPassword") + ":");
     PasswordField passwordField2 = new PasswordField();
-    passwordField2.setPromptText("Passwort wiederholen");
+    passwordField2.setPromptText(getString("repeatPassword"));
 
-    Label email = new Label("Email:");
+    Label email = new Label(getString("email") + ":");
     TextField emailField = new TextField();
-    emailField.setPromptText("E-Mail eingeben");
+    emailField.setPromptText(getString("enterEmail"));
 
     registrationStatus = new Label();
     registrationStatus.setTextFill(Color.RED);
 
-    Button register = new Button("Registrieren");
+    Button register = new Button(getString("register"));
     register.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         String password1 = passwordField.getText();
@@ -101,7 +102,7 @@ public class RegistrationViewImpl implements RegistrationView {
 
     min.setMinWidth(20);
     close.setMinWidth(20);
-    Button login = new Button("Zum Login wechseln");
+    Button login = new Button(getString("goToLogin"));
     login.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
       public void handle(ActionEvent event) {
         registrationPresenter.toLoginScene();

@@ -3,38 +3,39 @@ package CLTrequests;
 import java.util.Date;
 
 public class whisperRequest implements Request {
-    String request = "whisper";
-    private Date date;
-    private String to;
-    private String msg;
 
-    public whisperRequest() {
+  String request = "whisper";
+  private Date date;
+  private String to;
+  private String msg;
 
-    }
+  public whisperRequest() {
 
-    public whisperRequest(String to, String msg) {
-        this.to = to;
-        this.msg = msg;
-        this.date = new Date();
-    }
+  }
 
-    public String getType() {
-        return this.request;
-    }
+  public whisperRequest(String to, String msg) {
+    this.to = to;
+    this.msg = msg;
+    this.date = new Date();
+  }
 
-    public String getTo() {
-        return this.to;
-    }
+  public String getRequest() {
+    return this.request;
+  }
 
-    public String getRecipient() {
-        return this.to;
-    }
+  public String getTo() {
+    return this.to;
+  }
 
-    public String getMsg() {
-        return this.msg;
-    }
+  public String getRecipient() {
+    return this.to;
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public String getMsg() {
+    return this.msg;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 }

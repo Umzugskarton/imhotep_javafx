@@ -1,6 +1,5 @@
 package login.presenter;
 
-
 import CLTrequests.loginRequest;
 import login.view.LoginView;
 import main.SceneController;

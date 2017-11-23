@@ -1,7 +1,8 @@
 package games.view;
 
-
 public interface GamesView {
-    void buildGames();
-    void initGameList();
+
+  void buildGames();
+
+  void initGameList();
 }

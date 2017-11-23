@@ -1,35 +1,33 @@
 package SRVevents;
 
 import commonLobby.CLTLobby;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
 import java.util.Date;
 
 public class lobbylistEvent implements Event {
-    private String event = "lobbylist";
-    private Date date;
-    private ArrayList<CLTLobby> lobbies = new ArrayList<>();
 
-    public lobbylistEvent() {
-        this.date = new Date();
-    }
+  private String event = "lobbylist";
+  private Date date;
+  private ArrayList<CLTLobby> lobbies = new ArrayList<>();
 
-    public String getEvent() {
-        return this.event;
-    }
+  public lobbylistEvent() {
+    this.date = new Date();
+  }
 
-    public void setLobbies(ArrayList<CLTLobby> lobbies) {
-        this.lobbies.addAll(lobbies);
-    }
+  public String getEvent() {
+    return this.event;
+  }
 
-    public ArrayList<CLTLobby> getLobbies() {
-        return this.lobbies;
-    }
+  public void setLobbies(ArrayList<CLTLobby> lobbies) {
+    this.lobbies.addAll(lobbies);
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public ArrayList<CLTLobby> getLobbies() {
+    return this.lobbies;
+  }
+
+  public Date getDate() {
+    return this.date;
+  }
 
 }
