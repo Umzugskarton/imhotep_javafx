@@ -5,10 +5,12 @@ import SRVevents.createEvent;
 import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
 import commonLobby.CLTLobby;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,7 @@ public class Server {
       log.info("Server auf Port " + this.port + " gestartet");
     } catch (IOException e) {
       log.error(
-          "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
+              "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
       System.exit(-1);
     }
   }
@@ -66,18 +68,18 @@ public class Server {
     this.connectedClients.add(clientListener);
 
     log.info(
-        "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
+            "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
   }
 
   public void removeClient(ClientListener clientListener) {
     log.info("Thread " + clientListener.getThread().getId()
-        + ": Client hat die Verbindung beendet");
+            + ": Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);
 
       log.info("Thread " + clientListener.getThread().getId()
-          + " von der Liste der verbundenen Clients entfernt");
+              + " von der Liste der verbundenen Clients entfernt");
     }
   }
 
@@ -128,15 +130,15 @@ public class Server {
     for (Lobby lobby : openLobby) {
 
       CLTLobby tempLobby = new CLTLobby(
-          lobby.getLobbyID(),
-          lobby.getName(),
-          lobby.getLobbyUserArrayList(),
-          lobby.hasPW(),
-          lobby.getSize(),
-          lobby.isHost(user),
-          lobby.getHostName(),
-          lobby.getReady(),
-          lobby.getColors()
+              lobby.getLobbyID(),
+              lobby.getName(),
+              lobby.getLobbyUserArrayList(),
+              lobby.hasPW(),
+              lobby.getSize(),
+              lobby.isHost(user),
+              lobby.getHostName(),
+              lobby.getReady(),
+              lobby.getColors()
       );
       CLTLobbies.add(tempLobby);
     }
@@ -166,7 +168,7 @@ public class Server {
     return event;
   }
 
-  public void sendToLobby(Event e , Lobby lobby){
+  public void sendToLobby(Event e, Lobby lobby) {
     User[] users = lobby.getUsers();
     for (User tempUser : users) {
       if (tempUser != null) {
@@ -174,6 +176,7 @@ public class Server {
       }
     }
   }
+
   public String getLoggedInUsername(String username) {
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {

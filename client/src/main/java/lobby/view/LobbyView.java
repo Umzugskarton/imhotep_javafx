@@ -11,7 +11,9 @@ public interface LobbyView {
   void setLobbyPresenter(LobbyPresenter lobbyPresenter);
 
   void initLobbyInfo();
+
   void updateTable();
+
   TextFlow getChatText();
 
 }

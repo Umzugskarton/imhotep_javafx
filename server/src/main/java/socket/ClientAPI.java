@@ -22,7 +22,7 @@ public class ClientAPI {
    * die Daten korrekt sind, wird eine Erfolgsnachricht an den Client gesendet. Wenn Logindaten
    * inkorrekt sind, wird eine Fehlermeldung an den Client gesendet.
    *
-   * @param request JSON-Objekt, das User-Daten für Login enthält;
+   * @param request     JSON-Objekt, das User-Daten für Login enthält;
    * @param loggedUsers JSON-Objekt, Liste eingeloggter User
    */
   public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
@@ -100,7 +100,7 @@ public class ClientAPI {
       }
       if (type == 2) {
         boolean changeCredential = this.userManager
-            .changeUser(user, UserIdentifier.PASSWORD, newCred);
+                .changeUser(user, UserIdentifier.PASSWORD, newCred);
         if (changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -111,7 +111,7 @@ public class ClientAPI {
       }
       if (type == 3) {
         boolean changeCredential = this.userManager
-            .changeUser(user, UserIdentifier.USERNAME, newCred);
+                .changeUser(user, UserIdentifier.USERNAME, newCred);
         if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -133,7 +133,7 @@ public class ClientAPI {
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
-      if (request.getLobbyId() != null){
+      if (request.getLobbyId() != null) {
         event.setLobbyId(request.getLobbyId());
       }
     }

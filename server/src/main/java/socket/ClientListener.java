@@ -3,11 +3,13 @@ package socket;
 import com.google.gson.Gson;
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 import lobby.Lobby;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -72,7 +74,7 @@ public class ClientListener implements Runnable {
             Request re = ev.getRequest(command);
             CommandFactory commandFactory = new CommandFactory(this);
             Command c = commandFactory
-                .getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
+                    .getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
           }
@@ -84,7 +86,7 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
-        if (lobby!=null){
+        if (lobby != null) {
           lobby.leave(user);
         }
         this.user = null;
@@ -100,7 +102,7 @@ public class ClientListener implements Runnable {
       Gson gson = new Gson();
       String json = gson.toJson(event);
       log.info(
-          "Nachricht gesendet: " + json);
+              "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();
     }

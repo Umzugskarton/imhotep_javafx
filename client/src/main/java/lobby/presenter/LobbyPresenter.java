@@ -41,7 +41,7 @@ public class LobbyPresenter {
   public void setCLTLobby(CLTLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
     lobbyView.initLobbyInfo();
-    addInfoMessage("Welcome to Lobby "+ CLTLobby.getName());
+    addInfoMessage("Welcome to Lobby " + CLTLobby.getName());
   }
 
   public void sendChangeColorRequest() {
@@ -88,7 +88,7 @@ public class LobbyPresenter {
   }
 
   public boolean checkAllReady() {
-    return Arrays.asList(CLTLobby.getReady()).contains(false);
+    return !Arrays.asList(CLTLobby.getReady()).contains(false);
   }
 
   public void startGame() {

@@ -4,6 +4,7 @@ import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
 import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,8 +66,8 @@ public class Lobby {
       for (int i = 0; i < lobby.length; i++) {
         if (lobby[i] == null) {
           lobby[i] = user;
-          int c= i;
-          while(Usercolor.contains(c)){
+          int c = i;
+          while (Usercolor.contains(c)) {
             c++;
           }
           Usercolor.add(c);
@@ -93,7 +94,7 @@ public class Lobby {
 
   public ArrayList<String> getColors() {
     ArrayList<String> e = new ArrayList<>();
-    for (int i = 0; i < Usercolor.size(); i++){
+    for (int i = 0; i < Usercolor.size(); i++) {
       e.add(colors.get(Usercolor.get(i)));
     }
     return e;
@@ -101,7 +102,7 @@ public class Lobby {
 
   public setReadyEvent setReady(User user) {
     int userid = Arrays.asList(lobby).indexOf(user);
-      ready[userid] = !ready[userid];
+    ready[userid] = !ready[userid];
     return new setReadyEvent(ready);
   }
 
@@ -109,16 +110,16 @@ public class Lobby {
     int userid = Arrays.asList(lobby).indexOf(user);
     int newcolor = Usercolor.get(userid);
     do {
-      newcolor = (newcolor+1);
-    }while (Usercolor.contains(newcolor));
+      newcolor = (newcolor + 1);
+    } while (Usercolor.contains(newcolor));
     Usercolor.set(userid, newcolor);
-    return new changeColorEvent(userid,colors.get(newcolor));
+    return new changeColorEvent(userid, colors.get(newcolor));
   }
 
-  public int userCount(){
+  public int userCount() {
     int count = 0;
-    for (User user: lobby){
-      if (user!=null) {
+    for (User user : lobby) {
+      if (user != null) {
         count++;
       }
     }
@@ -169,7 +170,7 @@ public class Lobby {
     for (float x = 0; x < 360; x += interval) {
       Color c = Color.getHSBColor(x / 360, 1, 1);
       String hex = String.format("#%02x%02x%02x", (c.getRed() + 255) / 2, (c.getGreen() + 255) / 2,
-          (c.getBlue() + 255) / 2);
+              (c.getBlue() + 255) / 2);
       this.colors.add(hex);
     }
   }

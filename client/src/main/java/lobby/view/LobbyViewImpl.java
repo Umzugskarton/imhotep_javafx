@@ -51,8 +51,9 @@ public class LobbyViewImpl implements LobbyView {
 
     userList = new Label();
     grid.add(userList, 3, 5);
-
-
+    grid.setHgap(5);
+    grid.setVgap(5);
+    grid.setPadding(new Insets(15, 15, 15, 12));
 
     HBox nav = new HBox();
     nav.setId("nav");
@@ -75,6 +76,8 @@ public class LobbyViewImpl implements LobbyView {
     scrollPane.setFitToWidth(true);
     scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
     scrollPane.setContent(chatText);
+    scrollPane.setMaxHeight(180);
+    scrollPane.setPrefHeight(180);
 
     this.messageInput = new TextField();
     this.messageInput.setPromptText(getString("enterMessage"));
@@ -117,8 +120,9 @@ public class LobbyViewImpl implements LobbyView {
     grid.getRowConstraints().add(row);
 
 
-    grid.add(scrollPane, 0,4);
-    grid.add(messageInput, 0, 7);
+    grid.add(scrollPane, 0, 4, 2, 1);
+    grid.add(messageInput, 0, 6);
+    grid.add(sendButton, 1, 6);
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -143,18 +147,18 @@ public class LobbyViewImpl implements LobbyView {
       public void handle(MouseEvent mouseEvent) {
         // record a delta distance for the drag and drop operation.
         dragDelta.x =
-            lobbyPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+                lobbyPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
         dragDelta.y =
-            lobbyPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+                lobbyPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
       }
     });
     nav.setOnMouseDragged(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent mouseEvent) {
         lobbyPresenter.getSceneController().getStage()
-            .setX(mouseEvent.getScreenX() + dragDelta.x);
+                .setX(mouseEvent.getScreenX() + dragDelta.x);
         lobbyPresenter.getSceneController().getStage()
-            .setY(mouseEvent.getScreenY() + dragDelta.y);
+                .setY(mouseEvent.getScreenY() + dragDelta.y);
       }
     });
 
@@ -166,7 +170,7 @@ public class LobbyViewImpl implements LobbyView {
     lastNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
 
     Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
-        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
       public TableCell call(final TableColumn<LobbyUser, String> param) {
         final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
@@ -191,7 +195,7 @@ public class LobbyViewImpl implements LobbyView {
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
                 //Benutzer kann nur seine eigene Farbe ändern
-                if(getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+                if (getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
                   getLobbyPresenter().sendChangeColorRequest();
                   System.out.println(lobbyUser.getColor());
                 } else {
@@ -215,7 +219,7 @@ public class LobbyViewImpl implements LobbyView {
     joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
     Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory2
-        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
       public TableCell call(final TableColumn<LobbyUser, String> param) {
         final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
@@ -227,7 +231,7 @@ public class LobbyViewImpl implements LobbyView {
               setText(null);
             } else {
               LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
-              if(lobbyUser.isReady()) {
+              if (lobbyUser.isReady()) {
                 this.setStyle("-fx-background-color: green");
               } else {
                 this.setStyle("-fx-background-color: red");
@@ -242,26 +246,25 @@ public class LobbyViewImpl implements LobbyView {
     joinCol.setCellFactory(cellFactory2);
 
 
-
     Button setReady = new Button("Bereit");
-    grid.add(setReady, 8,7);
-    setReady.addEventHandler(ActionEvent.ACTION,e ->
+    grid.add(setReady, 4, 1);
+    setReady.addEventHandler(ActionEvent.ACTION, e ->
             getLobbyPresenter().sendSetReadyRequest());
 
     table.getColumns().addAll(firstNameCol, lastNameCol, joinCol);
     table.setMaxHeight(180);
     table.setPrefHeight(180);
-    main.setLeft(table);
+    grid.add(table, 0, 0);
   }
 
   public void initLobbyInfo() {
 
 
-    if(lobbyPresenter.checkHost()) {
+    if (lobbyPresenter.checkHost()) {
       Button startGame = new Button("Start Game");
-      grid.add(startGame, 9,7);
+      grid.add(startGame, 5, 1);
       startGame.addEventHandler(ActionEvent.ACTION, e -> {
-        if(getLobbyPresenter().checkAllReady()) {
+        if (getLobbyPresenter().checkAllReady()) {
           getLobbyPresenter().startGame();
           System.out.print("Go!");
         } else {
@@ -273,8 +276,8 @@ public class LobbyViewImpl implements LobbyView {
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
 
-  public void updateTable(){
-    for ( int i = 0; i<table.getItems().size(); i++) {
+  public void updateTable() {
+    for (int i = 0; i < table.getItems().size(); i++) {
       table.getItems().clear();
     }
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
@@ -303,13 +306,17 @@ public class LobbyViewImpl implements LobbyView {
     this.lobbyPresenter = lobbyPresenter;
   }
 
-  public LobbyPresenter getLobbyPresenter() { return lobbyPresenter; }
+  public LobbyPresenter getLobbyPresenter() {
+    return lobbyPresenter;
+  }
 
   public Scene getLobbyScene() {
     return this.LobbyScene;
   }
 
-  public void setUsername(String username) { this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   public TableView<LobbyUser> getTable() {
     return this.table;
