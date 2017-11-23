@@ -11,14 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -27,6 +27,8 @@ import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
+import static general.TextBundle.getString;
+
 public class LobbyViewImpl implements LobbyView {
 
   private Scene LobbyScene;
@@ -34,9 +36,10 @@ public class LobbyViewImpl implements LobbyView {
   private Label userList;
   private TableView<LobbyUser> table = new TableView();
   private BorderPane main;
-  private TextField messageField;
+  private TextField messageInput;
   private String username;
   private GridPane grid = new GridPane();
+  private TextFlow chatText;
 
   public LobbyViewImpl() {
     buildLobby();
@@ -65,9 +68,57 @@ public class LobbyViewImpl implements LobbyView {
     main.setClip(rect);
     LobbyScene = new Scene(main);
     LobbyScene.setFill(Color.TRANSPARENT);
+    this.chatText = new TextFlow();
+    this.chatText.setPadding(new Insets(5));
+    this.chatText.setId("#msg");
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setFitToWidth(true);
+    scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
+    scrollPane.setContent(chatText);
 
-    messageField = new TextField();
-    grid.add(messageField, 0, 7);
+    this.messageInput = new TextField();
+    this.messageInput.setPromptText(getString("enterMessage"));
+
+    Button sendButton = new Button(getString("send"));
+    sendButton.addEventHandler(ActionEvent.ACTION, event -> {
+      System.out.println(messageInput.getText());
+      lobbyPresenter.sendChatMsg(messageInput.getText());
+      messageInput.clear();
+      messageInput.requestFocus();
+    });
+
+    this.messageInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+          if (!messageInput.getText().isEmpty()) {
+            sendButton.fire();
+          }
+        }
+      }
+    });
+    ColumnConstraints column = new ColumnConstraints();
+    column.setFillWidth(true);
+    column.setHgrow(Priority.ALWAYS);
+    grid.getColumnConstraints().add(column);
+
+    column = new ColumnConstraints();
+    column.setFillWidth(false);
+    column.setHgrow(Priority.NEVER);
+    grid.getColumnConstraints().add(column);
+
+    RowConstraints row = new RowConstraints();
+    row.setFillHeight(true);
+    row.setVgrow(Priority.NEVER);
+    grid.getRowConstraints().add(row);
+
+    row = new RowConstraints();
+    row.setFillHeight(false);
+    row.setVgrow(Priority.NEVER);
+    grid.getRowConstraints().add(row);
+
+
+    grid.add(scrollPane, 0,4);
+    grid.add(messageInput, 0, 7);
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -244,6 +295,9 @@ public class LobbyViewImpl implements LobbyView {
     dialog.show();
   }
 
+  public TextFlow getChatText() {
+    return this.chatText;
+  }
 
   public void setLobbyPresenter(LobbyPresenter lobbyPresenter) {
     this.lobbyPresenter = lobbyPresenter;

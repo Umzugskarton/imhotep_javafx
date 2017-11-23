@@ -84,8 +84,17 @@ public class EventListener {
     Platform.runLater(
         () -> {
           if (this.sceneController.getMainmenuPresenter() != null) {
-            this.sceneController.getMainmenuPresenter().getChatPresenter()
-                .addChatMessage(e.getUser(), e.getMsg());
+            if (e.getLobbyId()== null) {
+              this.sceneController.getMainmenuPresenter().getChatPresenter()
+                      .addChatMessage(e.getUser(), e.getMsg());
+            }
+            else {
+              //Hier kann später auch zwischen den Lobbypresentern unterschieden werden wenn mehrere Lobbys möglich sind
+              if (this.sceneController.getLobbyPresenter() != null) {
+                this.sceneController.getLobbyPresenter()
+                        .addChatMessage(e.getUser(), e.getMsg());
+              }
+            }
           }
         }
     );

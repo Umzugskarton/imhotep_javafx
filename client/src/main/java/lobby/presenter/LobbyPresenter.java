@@ -1,13 +1,19 @@
 package lobby.presenter;
 
 import CLTrequests.changeColorRequest;
+import CLTrequests.chatRequest;
 import CLTrequests.setReadyRequest;
 import commonLobby.CLTLobby;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import lobby.view.LobbyView;
 import main.SceneController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static general.TextBundle.getString;
 
 public class LobbyPresenter {
 
@@ -27,13 +33,15 @@ public class LobbyPresenter {
     return this.CLTLobby;
   }
 
-  public void updateLobby(CLTLobby lobby){
+  public void updateLobby(CLTLobby lobby) {
     CLTLobby = lobby;
     lobbyView.updateTable();
   }
+
   public void setCLTLobby(CLTLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
     lobbyView.initLobbyInfo();
+    addInfoMessage("Welcome to Lobby "+ CLTLobby.getName());
   }
 
   public void sendChangeColorRequest() {
@@ -48,6 +56,36 @@ public class LobbyPresenter {
     this.getSceneController().getClientSocket().send(setReadyRequest);
   }
 
+  public void sendChatMsg(String text) {
+    if (!text.isEmpty()) {
+      chatRequest request = new chatRequest(text);
+      request.setLobbyId(CLTLobby.getLobbyId());
+      sc.getClientSocket().send(request);
+
+    } else {
+      addInfoMessage(getString("enterMessageToChat"));
+    }
+  }
+
+  public void addChatMessage(String user, String msg) {
+    Text userText = new Text(user + ": ");
+    userText.setStyle("-fx-font-weight: bold");
+    Text messageText = new Text(msg + "\n");
+
+    lobbyView.getChatText().getChildren().addAll(userText, messageText);
+  }
+
+  public void addInfoMessage(String msg) {
+    addInfoMessage(msg, Color.GRAY);
+  }
+
+  public void addInfoMessage(String msg, Color color) {
+    Text text = new Text(msg.toUpperCase() + "\n");
+    text.setFill(color);
+    text.setFont(new Font(null, 10));
+
+    lobbyView.getChatText().getChildren().add(text);
+  }
 
   public boolean checkAllReady() {
     return Arrays.asList(CLTLobby.getReady()).contains(false);
@@ -58,9 +96,8 @@ public class LobbyPresenter {
   }
 
   public boolean checkHost() {
-     return this.CLTLobby.getHost().equals(username);
+    return this.CLTLobby.getHost().equals(username);
   }
-
 
 
   public LobbyView getLobbyView() {
@@ -71,7 +108,11 @@ public class LobbyPresenter {
     return this.sc;
   }
 
-  public void setUsername(String username){ this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-  public String getUsername() { return this.username; }
+  public String getUsername() {
+    return this.username;
+  }
 }

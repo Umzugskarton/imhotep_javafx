@@ -1,6 +1,7 @@
 package lobby.view;
 
 import javafx.scene.Scene;
+import javafx.scene.text.TextFlow;
 import lobby.presenter.LobbyPresenter;
 
 public interface LobbyView {
@@ -11,4 +12,6 @@ public interface LobbyView {
 
   void initLobbyInfo();
   void updateTable();
+  TextFlow getChatText();
+
 }
