@@ -12,7 +12,7 @@ public class changeColorRequest implements Request {
   }
 
 
-  public String getRequest() {
+  public String getType() {
     return this.request;
   }
 

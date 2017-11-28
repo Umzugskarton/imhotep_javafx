@@ -18,7 +18,7 @@ public class changeCredentialRequest implements Request {
     this.type = type;
   }
 
-  public String getRequest() {
+  public String getType() {
     return this.request;
   }
 
@@ -34,7 +34,7 @@ public class changeCredentialRequest implements Request {
     return this.username;
   }
 
-  public Integer getType() {
+  public Integer getTypeOfC() {
     return this.type;
   }
 

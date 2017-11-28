@@ -76,8 +76,8 @@ public class LobbyViewImpl implements LobbyView {
     scrollPane.setFitToWidth(true);
     scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
     scrollPane.setContent(chatText);
-    scrollPane.setMaxHeight(180);
-    scrollPane.setPrefHeight(180);
+    scrollPane.setMaxHeight(150);
+    scrollPane.setPrefHeight(150);
 
     this.messageInput = new TextField();
     this.messageInput.setPromptText(getString("enterMessage"));
@@ -252,13 +252,13 @@ public class LobbyViewImpl implements LobbyView {
             getLobbyPresenter().sendSetReadyRequest());
 
     table.getColumns().addAll(firstNameCol, lastNameCol, joinCol);
-    table.setMaxHeight(180);
-    table.setPrefHeight(180);
+    table.setMaxHeight(120);
+    table.setPrefHeight(120);
+    table.setMaxWidth(180);
     grid.add(table, 0, 0);
   }
 
   public void initLobbyInfo() {
-
 
     if (lobbyPresenter.checkHost()) {
       Button startGame = new Button("Start Game");

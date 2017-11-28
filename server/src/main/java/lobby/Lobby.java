@@ -1,6 +1,8 @@
 package lobby;
 
+import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
+import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
 import game.Game;
 import socket.ClientListener;
@@ -8,6 +10,7 @@ import user.User;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Lobby {
@@ -19,6 +22,7 @@ public class Lobby {
   private boolean show;
   private int size;
   boolean vacancy = true;
+  private ArrayList<Integer> Usercolor;
   private ArrayList<String> colors = new ArrayList<>();
   private Game game;
 
@@ -26,6 +30,8 @@ public class Lobby {
   public Lobby(int size, User host, String name) {
     this.ready = new boolean[size];
     this.lobby = new User[size];
+    Usercolor = new ArrayList<>();
+    Usercolor.add(0);
     this.lobby[0] = host;
     this.password = null;
     this.name = name;
@@ -75,6 +81,11 @@ public class Lobby {
       for (int i = 0; i < lobby.length; i++) {
         if (lobby[i] == null) {
           lobby[i] = user;
+          int c = i;
+          while (Usercolor.contains(c)) {
+            c++;
+          }
+          Usercolor.add(c);
           return new joinEvent("Erfolgreich beigetreten!", true);
         }
       }
@@ -128,6 +139,21 @@ public class Lobby {
     return j;
   }
 
+  public setReadyEvent setReady(User user) {
+    int userid = Arrays.asList(lobby).indexOf(user);
+    ready[userid] = !ready[userid];
+    return new setReadyEvent(ready);
+  }
+
+  public changeColorEvent replaceColor(User user) {
+    int userid = Arrays.asList(lobby).indexOf(user);
+    int newcolor = Usercolor.get(userid);
+    do {
+      newcolor = (newcolor + 1) % size;
+    } while (Usercolor.contains(newcolor));
+    Usercolor.set(userid, newcolor);
+    return new changeColorEvent(userid, colors.get(newcolor));
+  }
 
   public ArrayList<LobbyUser> getLobbyUserArrayList() {
     ArrayList<LobbyUser> temp = new ArrayList<>();

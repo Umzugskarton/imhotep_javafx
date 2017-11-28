@@ -110,10 +110,10 @@ public class ClientAPI {
   public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
     changeCredentialEvent event = new changeCredentialEvent();
     String newCred = request.getCredential();
-    Integer type = request.getType();
+    Integer type = request.getTypeOfC();
     if (newCred != null) {
       if (type == 1) {
-        boolean changeCredential = this.userManager.changeUser(user, UserIdentifier.EMAIL, newCred);
+        boolean changeCredential = this.dbUserDataSource.changeUser(user, UserIdentifier.EMAIL, newCred);
         if (changeCredential) {
           event.setMsg("E-Mail wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -123,7 +123,7 @@ public class ClientAPI {
         }
       }
       if (type == 2) {
-        boolean changeCredential = this.userManager
+        boolean changeCredential = this.dbUserDataSource
                 .changeUser(user, UserIdentifier.PASSWORD, newCred);
         if (changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
@@ -134,7 +134,7 @@ public class ClientAPI {
         }
       }
       if (type == 3) {
-        boolean changeCredential = this.userManager
+        boolean changeCredential = this.dbUserDataSource
                 .changeUser(user, UserIdentifier.USERNAME, newCred);
         if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
@@ -177,7 +177,7 @@ public class ClientAPI {
     int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
 
-    if (request.getPassword() != null) {
+    if (request.getPassword() != null && !request.getPassword().isEmpty()) {
       lobby.setPassword(request.getPassword());
     }
 

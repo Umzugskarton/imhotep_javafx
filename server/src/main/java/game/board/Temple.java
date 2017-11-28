@@ -1,6 +1,7 @@
 package game.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Temple extends Site
     implements StoneSite {
@@ -28,8 +29,8 @@ public class Temple extends Site
   }
 
   @Override
-  public void addStones(ArrayList<Stone> stones) {
-    temple.addAll(stones);
+  public void addStones(Stone[] stones) {
+    temple.addAll(Arrays.asList(stones));
   }
 
   @Override

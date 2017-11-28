@@ -101,7 +101,6 @@ public class ClientListener implements Runnable {
 
       this.server.removeClient(this);
     }
-  }
 
   public void send(Event event) {
     if (this.out != null) {

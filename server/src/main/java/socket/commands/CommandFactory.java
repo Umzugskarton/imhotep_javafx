@@ -28,7 +28,7 @@ public class CommandFactory {
     }
 
     public Command getCommand(Request request){
-        Command c = Dict.get(request.getRequest());
+        Command c = Dict.get(request.getType());
         c.put(request);
         return c;
     }

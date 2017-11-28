@@ -30,7 +30,7 @@ public class chatRequest implements Request {
     return this.msg;
   }
 
-  public String getRequest() {
+  public String getType() {
     return this.request;
   }
 

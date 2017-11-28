@@ -42,6 +42,14 @@ public class Server {
       System.exit(-1);
     }
   }
+  public void sendToLobby(Event e, Lobby lobby) {
+    User[] users = lobby.getUsers();
+    for (User tempUser : users) {
+      if (tempUser != null) {
+        sendTo(e, tempUser.getUsername());
+      }
+    }
+  }
 
   public void run() {
     while (true) {

@@ -12,7 +12,7 @@ public class setReadyRequest implements Request {
     private String username;
 
 
-    public String getRequest() {
+    public String getType() {
         return this.request;
     }
 

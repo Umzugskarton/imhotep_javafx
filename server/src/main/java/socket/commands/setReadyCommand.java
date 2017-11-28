@@ -25,7 +25,6 @@ public class setReadyCommand implements Command {
     public void exec() {
         Lobby lobby = clientListener.getLobby();
         setReadyEvent setReadyEvent = lobby.setReady(clientListener.getUser());
-        this.clientListener.send(setReadyEvent);
         User[] users = lobby.getUsers();
         for (User tempUser : users) {
             if (tempUser != null) {
