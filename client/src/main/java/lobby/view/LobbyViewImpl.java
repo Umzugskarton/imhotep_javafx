@@ -1,34 +1,33 @@
 package lobby.view;
 
-import commonLobby.LobbyUser;
 import general.Delta;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import commonLobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
+
+import static general.TextBundle.getString;
 
 public class LobbyViewImpl implements LobbyView {
 
@@ -37,7 +36,10 @@ public class LobbyViewImpl implements LobbyView {
   private Label userList;
   private TableView<LobbyUser> table = new TableView();
   private BorderPane main;
-  private TextField messageField;
+  private TextField messageInput;
+  private String username;
+  private GridPane grid = new GridPane();
+  private TextFlow chatText;
 
   public LobbyViewImpl() {
     buildLobby();
@@ -46,9 +48,12 @@ public class LobbyViewImpl implements LobbyView {
   void buildLobby() {
     this.main = new BorderPane();
     main.setId("menuroot");
-    GridPane grid = new GridPane();
+
     userList = new Label();
     grid.add(userList, 3, 5);
+    grid.setHgap(5);
+    grid.setVgap(5);
+    grid.setPadding(new Insets(15, 15, 15, 12));
 
     HBox nav = new HBox();
     nav.setId("nav");
@@ -64,9 +69,60 @@ public class LobbyViewImpl implements LobbyView {
     main.setClip(rect);
     LobbyScene = new Scene(main);
     LobbyScene.setFill(Color.TRANSPARENT);
+    this.chatText = new TextFlow();
+    this.chatText.setPadding(new Insets(5));
+    this.chatText.setId("#msg");
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setFitToWidth(true);
+    scrollPane.setStyle("-fx-border-radius: 5px;-fx-background-radius: 5px;-fx-background: white;");
+    scrollPane.setContent(chatText);
+    scrollPane.setMaxHeight(150);
+    scrollPane.setPrefHeight(150);
 
-    messageField = new TextField();
-    grid.add(messageField, 0, 7);
+    this.messageInput = new TextField();
+    this.messageInput.setPromptText(getString("enterMessage"));
+
+    Button sendButton = new Button(getString("send"));
+    sendButton.addEventHandler(ActionEvent.ACTION, event -> {
+      System.out.println(messageInput.getText());
+      lobbyPresenter.sendChatMsg(messageInput.getText());
+      messageInput.clear();
+      messageInput.requestFocus();
+    });
+
+    this.messageInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+          if (!messageInput.getText().isEmpty()) {
+            sendButton.fire();
+          }
+        }
+      }
+    });
+    ColumnConstraints column = new ColumnConstraints();
+    column.setFillWidth(true);
+    column.setHgrow(Priority.ALWAYS);
+    grid.getColumnConstraints().add(column);
+
+    column = new ColumnConstraints();
+    column.setFillWidth(false);
+    column.setHgrow(Priority.NEVER);
+    grid.getColumnConstraints().add(column);
+
+    RowConstraints row = new RowConstraints();
+    row.setFillHeight(true);
+    row.setVgrow(Priority.NEVER);
+    grid.getRowConstraints().add(row);
+
+    row = new RowConstraints();
+    row.setFillHeight(false);
+    row.setVgrow(Priority.NEVER);
+    grid.getRowConstraints().add(row);
+
+
+    grid.add(scrollPane, 0, 4, 2, 1);
+    grid.add(messageInput, 0, 6);
+    grid.add(sendButton, 1, 6);
 
     Button close = new Button("x");
     close.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -91,18 +147,18 @@ public class LobbyViewImpl implements LobbyView {
       public void handle(MouseEvent mouseEvent) {
         // record a delta distance for the drag and drop operation.
         dragDelta.x =
-            lobbyPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
+                lobbyPresenter.getSceneController().getStage().getX() - mouseEvent.getScreenX();
         dragDelta.y =
-            lobbyPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
+                lobbyPresenter.getSceneController().getStage().getY() - mouseEvent.getScreenY();
       }
     });
     nav.setOnMouseDragged(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent mouseEvent) {
         lobbyPresenter.getSceneController().getStage()
-            .setX(mouseEvent.getScreenX() + dragDelta.x);
+                .setX(mouseEvent.getScreenX() + dragDelta.x);
         lobbyPresenter.getSceneController().getStage()
-            .setY(mouseEvent.getScreenY() + dragDelta.y);
+                .setY(mouseEvent.getScreenY() + dragDelta.y);
       }
     });
 
@@ -114,10 +170,10 @@ public class LobbyViewImpl implements LobbyView {
     lastNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
 
     Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
-        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
-      public TableCell<LobbyUser,String> call(final TableColumn<LobbyUser, String> param) {
-        return new TableCell<LobbyUser, String>() {
+      public TableCell call(final TableColumn<LobbyUser, String> param) {
+        final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
           @Override
           public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -131,9 +187,22 @@ public class LobbyViewImpl implements LobbyView {
               color.setHeight(15);
               color.setWidth(15);
               hbox.setSpacing(5);
+
+              //Shit-Button-Lösung. Valve, pls fix
+              // Anmerkung: Ja shit Lösung weil er im Callback für die Colorzeile ist
+
+
               color.setFill(Color.web(lobbyUser.getColor()));
               color.setOnMouseClicked(event -> {
-                System.out.println(lobbyUser.getColor());
+                //Benutzer kann nur seine eigene Farbe ändern
+                if (getLobbyPresenter().getUsername().equals(lobbyUser.getUsername())) {
+                  getLobbyPresenter().sendChangeColorRequest();
+                  System.out.println(lobbyUser.getColor());
+                } else {
+                  System.out.println(getLobbyPresenter().getUsername());
+                  System.out.println(lobbyUser.getUsername());
+                }
+
               });
               hbox.getChildren().add(color);
               setGraphic(hbox);
@@ -141,6 +210,7 @@ public class LobbyViewImpl implements LobbyView {
             }
           }
         };
+        return cell;
       }
     };
     lastNameCol.setCellFactory(cellFactory);
@@ -149,7 +219,7 @@ public class LobbyViewImpl implements LobbyView {
     joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
     Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory2
-        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+            = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
       public TableCell call(final TableColumn<LobbyUser, String> param) {
         final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
@@ -161,17 +231,10 @@ public class LobbyViewImpl implements LobbyView {
               setText(null);
             } else {
               LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
-              HBox hbox = new HBox();
-              ImageView img = new ImageView();
-              img.setFitHeight(15);
-              img.setFitWidth(10);
-              hbox.setSpacing(5);
-              img.setImage(new Image("ank.png"));
               if (lobbyUser.isReady()) {
-                hbox.getChildren().add(img);
-                setGraphic(hbox);
+                this.setStyle("-fx-background-color: green");
               } else {
-                setGraphic(null);
+                this.setStyle("-fx-background-color: red");
               }
               setText(null);
             }
@@ -182,16 +245,43 @@ public class LobbyViewImpl implements LobbyView {
     };
     joinCol.setCellFactory(cellFactory2);
 
+
+    Button setReady = new Button("Bereit");
+    grid.add(setReady, 4, 1);
+    setReady.addEventHandler(ActionEvent.ACTION, e ->
+            getLobbyPresenter().sendSetReadyRequest());
+
     table.getColumns().addAll(firstNameCol, lastNameCol, joinCol);
-    table.setMaxHeight(180);
-    table.setPrefHeight(180);
-    main.setLeft(table);
+    table.setMaxHeight(120);
+    table.setPrefHeight(120);
+    table.setMaxWidth(180);
+    grid.add(table, 0, 0);
   }
 
   public void initLobbyInfo() {
+
+    if (lobbyPresenter.checkHost()) {
+      Button startGame = new Button("Start Game");
+      grid.add(startGame, 5, 1);
+      startGame.addEventHandler(ActionEvent.ACTION, e -> {
+        if (getLobbyPresenter().checkAllReady()) {
+          getLobbyPresenter().startGame();
+          System.out.print("Go!");
+        } else {
+          System.out.print("Es sind nicht alle bereit!");
+        }
+      });
+    }
+
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
   }
 
+  public void updateTable() {
+    for (int i = 0; i < table.getItems().size(); i++) {
+      table.getItems().clear();
+    }
+    table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
+  }
 
   public void openModal(String msg) {
     final Stage dialog = new Stage();
@@ -208,11 +298,27 @@ public class LobbyViewImpl implements LobbyView {
     dialog.show();
   }
 
+  public TextFlow getChatText() {
+    return this.chatText;
+  }
+
   public void setLobbyPresenter(LobbyPresenter lobbyPresenter) {
     this.lobbyPresenter = lobbyPresenter;
   }
 
+  public LobbyPresenter getLobbyPresenter() {
+    return lobbyPresenter;
+  }
+
   public Scene getLobbyScene() {
     return this.LobbyScene;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public TableView<LobbyUser> getTable() {
+    return this.table;
   }
 }
