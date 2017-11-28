@@ -154,49 +154,7 @@ public class ClientAPI {
     }
     return event;
   }
-  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
-    changeCredentialEvent event = new changeCredentialEvent();
-    String newCred = request.getCredential();
-    Integer type = request.getTypeOfC();
-    if (newCred != null) {
-      if (type == 1) {
-        boolean changeCredential = this.dbUserDataSource.changeUser(user, UserIdentifier.EMAIL, newCred);
-        if (changeCredential) {
-          event.setMsg("E-Mail wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
-        } else {
-          event.setMsg("E-Mail wurde nicht geändert!");
-          event.setSuccess(changeCredential);
-        }
-      }
-      if (type == 2) {
-        boolean changeCredential = this.dbUserDataSource
-                .changeUser(user, UserIdentifier.PASSWORD, newCred);
-        if (changeCredential) {
-          event.setMsg("Passwort wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
-        } else {
-          event.setMsg("Passwort wurde nicht geändert");
-          event.setSuccess(changeCredential);
-        }
-      }
-      if (type == 3) {
-        boolean changeCredential = this.dbUserDataSource
-                .changeUser(user, UserIdentifier.USERNAME, newCred);
-        if (changeCredential) {
-          event.setMsg("Username wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
-        } else {
-          event.setMsg("Username wurde nicht geändert");
-          event.setSuccess(changeCredential);
-        }
-      }
-    } else {
-      event.setMsg("Fehler aufgetreten");
-      event.setSuccess(false);
-    }
-    return event;
-  }
+
 
 
   /**
