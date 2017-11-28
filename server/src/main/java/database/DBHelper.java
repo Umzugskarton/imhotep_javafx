@@ -63,7 +63,7 @@ public abstract class DBHelper {
     }
 
     /**
-     * Ueberprueft, ob die Verbindung zur DB besteht
+     * Überprüft, ob die Verbindung zur DB besteht
      *
      * @return true, wenn Verbindung besteht
      */

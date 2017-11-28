@@ -1,6 +1,7 @@
 package game.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BurialChamber extends Site
     implements StoneSite {
@@ -62,7 +63,7 @@ public class BurialChamber extends Site
 
   @Override
   public void addStones(Stone[] stones) {
-
+    burialChamber.addAll(Arrays.asList(stones));
   }
 
   public boolean dockShip(Ship ship) {

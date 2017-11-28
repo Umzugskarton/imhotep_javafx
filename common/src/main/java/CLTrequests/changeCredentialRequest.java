@@ -8,17 +8,17 @@ public class changeCredentialRequest implements Request {
   private Date date;
   private String credential;
   private String username;
-  private Integer type;
+  private Integer crednr;
 
   public changeCredentialRequest() {
   }
 
-  public changeCredentialRequest(String credential, Integer type) {
+  public changeCredentialRequest(String credential, Integer crednr) {
     this.credential = credential;
-    this.type = type;
+    this.crednr= crednr;
   }
 
-  public String getType() {
+  public String getRequest() {
     return this.request;
   }
 
@@ -34,8 +34,12 @@ public class changeCredentialRequest implements Request {
     return this.username;
   }
 
-  public Integer getTypeOfC() {
-    return this.type;
+  public String getType() {
+    return this.request;
+  }
+
+  public Integer getCrednr(){
+    return crednr;
   }
 
 }
