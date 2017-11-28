@@ -1,19 +1,22 @@
 package main;
 
-import CLTrequests.lobbylistRequest;
 import com.google.common.eventbus.EventBus;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import login.presenter.LoginPresenter;
-import login.view.LoginViewImpl;
-import mainmenu.presenter.MainmenuPresenter;
-import mainmenu.view.MainmenuViewImpl;
-import profile.presenter.ProfilePresenter;
-import registration.presenter.RegistrationPresenter;
-import registration.view.RegistrationViewImpl;
-import lobby.presenter.LobbyPresenter;
 import lobby.view.LobbyViewImpl;
+import login.presenter.LoginPresenter;
+import login.view.LoginViewImplFx;
+import mainmenu.presenter.MainmenuPresenter;
+import mainmenu.view.MainmenuViewImplFx;
+import registration.presenter.RegistrationPresenter;
+import lobby.presenter.LobbyPresenter;
+import registration.view.RegistrationViewImplFx;
 import socket.ClientSocket;
+
+import java.io.IOException;
 
 public class SceneController {
 
@@ -21,65 +24,93 @@ public class SceneController {
   private static final int STAGE_HEIGHT = 480;
 
   private Stage stage;
+  private Scene scene;
 
   // Socket
   private ClientSocket clientSocket;
 
+  // Roots
+  private Parent loginRoot;
+  private Parent registrationRoot;
+  private Parent menuRoot;
+  private Parent lobbyRoot;
+
   // Presenter
   private RegistrationPresenter registrationPresenter;
   private LoginPresenter loginPresenter;
-  private MainmenuPresenter MainmenuPresenter;
+  private MainmenuPresenter mainmenuPresenter;
   private EventBus eventBus;
-  private LobbyPresenter LobbyPresenter;
-
+  private LobbyPresenter lobbyPresenter;
 
   public SceneController(Stage stage) {
     this.eventBus = new EventBus();
     this.eventBus.register(new EventListener(this));
     this.clientSocket = new ClientSocket(this, eventBus);
+
     this.stage = stage;
+    this.scene = new Scene(new Group());
+
     this.toLoginScene();
-    stage.initStyle(StageStyle.TRANSPARENT);
+    stage.setScene(scene);
+
     stage.setTitle("Imhotep");
     stage.setHeight(STAGE_HEIGHT);
     stage.setWidth(STAGE_WIDTH);
-    stage.getScene().getStylesheets().add("style.css");
+    stage.setResizable(false);
+    scene.getStylesheets().add("style.css");
     stage.show();
   }
 
   public void toRegistrationScene() {
-    if (this.registrationPresenter == null) {
-      this.registrationPresenter = new RegistrationPresenter(new RegistrationViewImpl(), this);
+    if (registrationRoot == null) {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RegistrationView.fxml"));
+      try {
+        registrationRoot = loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      RegistrationViewImplFx view = loader.<RegistrationViewImplFx>getController();
+      this.registrationPresenter = new RegistrationPresenter(view, this);
     }
-    this.stage.setScene(this.registrationPresenter.getRegistrationView().getRegistrationScene());
-    this.stage.getScene().getStylesheets().add("style.css");
+    scene.setRoot(registrationRoot);
   }
 
   public void toLoginScene() {
-    if (this.loginPresenter == null) {
-      this.loginPresenter = new LoginPresenter(new LoginViewImpl(), this);
+    if (loginRoot == null) {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginViewImplFx.fxml"));
+      try {
+        loginRoot = loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      LoginViewImplFx view = loader.<LoginViewImplFx>getController();
+      this.loginPresenter = new LoginPresenter(view, this);
     }
-
-    this.stage.setScene(this.loginPresenter.getLoginView().getLoginScene());
-    this.stage.getScene().getStylesheets().add("style.css");
+    scene.setRoot(loginRoot);
   }
 
   public void toMainmenuScene() {
-    if (this.MainmenuPresenter == null) {
-      this.MainmenuPresenter = new MainmenuPresenter(new MainmenuViewImpl(), this);
+    if (menuRoot == null) {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainmenuViewFXML.fxml"));
+      try {
+        menuRoot = loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      MainmenuViewImplFx view = loader.<MainmenuViewImplFx>getController();
+      view.setSceneController(this);
+      this.mainmenuPresenter = new MainmenuPresenter(view, this);
     }
 
-    this.clientSocket.send(new lobbylistRequest());
-    this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
-    this.stage.getScene().getStylesheets().add("style.css");
+    scene.setRoot(menuRoot);
   }
 
   public void toLobbyScene() {
-    if (this.LobbyPresenter == null) {
-      this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
+    if (this.lobbyPresenter == null) {
+      this.lobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
     }
 
-    this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
+    this.stage.setScene(this.lobbyPresenter.getLobbyView().getLobbyScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
@@ -88,7 +119,7 @@ public class SceneController {
   }
 
   public LobbyPresenter getLobbyPresenter() {
-    return this.LobbyPresenter;
+    return this.lobbyPresenter;
   }
 
   public LoginPresenter getLoginPresenter() {
@@ -96,15 +127,14 @@ public class SceneController {
   }
 
   public MainmenuPresenter getMainmenuPresenter() {
-    return this.MainmenuPresenter;
-  }
-
-  public Stage getStage() {
-    return this.stage;
+    return this.mainmenuPresenter;
   }
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
   }
 
+  public Stage getStage() {
+    return this.stage;
+  }
 }

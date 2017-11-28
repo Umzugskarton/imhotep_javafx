@@ -14,11 +14,12 @@ import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 import mainmenu.view.MainmenuView;
+import mainmenu.view.MainmenuViewImplFx;
 import profile.presenter.ProfilePresenter;
 
 public class MainmenuPresenter {
 
-  private MainmenuView view;
+  private MainmenuViewImplFx view;
   private SceneController sceneController;
   private PlayerList playerList;
   private String username;
@@ -27,7 +28,7 @@ public class MainmenuPresenter {
   private GamesPresenter gamesPresenter;
   private ProfilePresenter profilePresenter;
 
-  public MainmenuPresenter(MainmenuView view, SceneController sc) {
+  public MainmenuPresenter(MainmenuViewImplFx view, SceneController sc) {
     this.view = view;
     this.sceneController = sc;
     view.setMainmenuPresenter(this);
@@ -51,7 +52,7 @@ public class MainmenuPresenter {
     this.sceneController.getClientSocket().send(new userlistRequest());
   }
 
-  public MainmenuView getMainmenuView() {
+  public MainmenuViewImplFx getMainmenuView() {
     return this.view;
   }
 

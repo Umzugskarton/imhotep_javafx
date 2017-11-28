@@ -2,14 +2,14 @@ package registration.presenter;
 
 import CLTrequests.registerRequest;
 import main.SceneController;
-import registration.view.RegistrationView;
+import registration.view.RegistrationViewImplFx;
 
 public class RegistrationPresenter {
 
-  private RegistrationView view;
+  private RegistrationViewImplFx view;
   private SceneController sceneController;
 
-  public RegistrationPresenter(RegistrationView view, SceneController sceneController) {
+  public RegistrationPresenter(RegistrationViewImplFx view, SceneController sceneController) {
     this.sceneController = sceneController;
     this.view = view;
     view.setRegistrationPresenter(this);
@@ -32,7 +32,7 @@ public class RegistrationPresenter {
     sceneController.toLoginScene();
   }
 
-  public RegistrationView getRegistrationView() {
+  public RegistrationViewImplFx getRegistrationView() {
     return this.view;
   }
 

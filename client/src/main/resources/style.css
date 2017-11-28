@@ -1,4 +1,4 @@
-.button{
+.button {
     -fx-text-fill: #f4c933;
     -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     -fx-border-radius: 0;
@@ -6,23 +6,21 @@
 
 }
 
-
-
-#loginroot{
+.loginroot {
     -fx-background-image: url("imhotep.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 720 480;
     -fx-border-width:5;
 }
 
-#regroot{
+.regroot {
     -fx-background-image: url("imhotep.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 720 480;
     -fx-border-width:5;
 }
 
-#menuroot{
+.menuroot {
     -fx-background-image: url("chat.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 720 480;
@@ -30,20 +28,18 @@
     -fx-padding: 5 15 15 15;
 }
 
-.tab{
+.tab {
     -fx-border-radius: 0;
     -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     -fx-background-size: stretch;
     -fx-background-insets: 0 1 0 1,0,0;
-
 }
 
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
 
-.tab-pane .tab:selected
-{
+.tab-pane .tab:selected {
     -fx-background-color: #3c3c3c;
 }
 
@@ -52,7 +48,7 @@
 }
 
 .tab-pane{
-    -fx-tab-min-width:60px;
+    -fx-tab-min-width: 60px;
 }
 
 .nav{
@@ -63,30 +59,15 @@
     fx-padding: 5 5 5 5;;
 }
 
-#msg{
+.msg{
     -fx-opacity: 0.5;
 }
 
-#logout-button{
+.logout-button{
     -fx-background-image:  url('logout.png');
     -fx-background-size: 20px 20px;
     -fx-pref-width: 25px;
     -fx-pref-height: 20px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-}
-
-.table-view:focused {
-    -fx-background-color: transparent ,-fx-box-border,-fx-control-inner-background;
-    -fx-background-insets: -1.4, 0, 1;
-    -fx-background-radius: 1.4, 0, 0;
-    /*....*/
-    -fx-padding: 1; /* 0.083333em; */
-}
-
-.dialog {
-    -fx-background-image: url("imhotep.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-width:5;
 }
