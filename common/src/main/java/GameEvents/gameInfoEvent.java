@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class gameInfoEvent implements Event {
   private String event = "gameInfo";
-  private ArrayList<int[]> ships;
+  private ArrayList<int[]> ships = new ArrayList<>();
   private int round;
   private boolean[] storages;
   private String[] order;

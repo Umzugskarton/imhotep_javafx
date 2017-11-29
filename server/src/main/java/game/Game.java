@@ -47,7 +47,6 @@ public class Game implements Runnable {
     setGame();
     pyramids = new Pyramids(lobby.getSize(), 1);
     setStartCards();
-    sendAll(getGameinfo());
     run();
   }
 
@@ -62,7 +61,7 @@ public class Game implements Runnable {
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
       this.order[i] = new Player(lobby.getUsers()[seq], i);
-      seq = seq + 1 % lobby.getSize() - 1;
+      seq = seq + 1 % lobby.getSize();
     }
   }
 
@@ -78,13 +77,13 @@ public class Game implements Runnable {
   }
 
   public gameInfoEvent getGameinfo() {
+    gameInfoEvent gameInfo = new gameInfoEvent();
+
     String[] users = new String[this.lobby.getSize()];
-    System.out.println("GRÖßE: " + this.lobby.getSize());
     for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
       users[i] = this.order[i].getUser().getUsername();
     }
 
-    gameInfoEvent gameInfo = new gameInfoEvent();
     for (Ship ship : ships) {
       int[] shipInt = new int[ship.getStones().length];
       for (int i = 0; i < ship.getStones().length; i++) {
@@ -113,7 +112,7 @@ public class Game implements Runnable {
       this.round = i;
       sendAll(getGameinfo());
       while (!AllshipsDocked())
-        for (int player = 0; player <= this.order.length; player++) {
+      for (int player = 0; player <= this.order.length -1; player++) {
           currentPlayer = player;
           switchPlayer(player);
 
@@ -141,6 +140,7 @@ public class Game implements Runnable {
           //Informiert alle User über den/die ausgeführten Move/s
           for (Event e: executedMoves) {
             sendAll(e);
+            executedMoves.remove(e);
           }
         }
     }
@@ -170,11 +170,12 @@ public class Game implements Runnable {
     for (Ship ship : this.ships) {
       haven++;
     }
-    return haven > 0;
+    System.out.println(haven);
+    return haven == 0;
   }
 
   synchronized void waitforMove(int p) {
-    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + p + 1 + " " + this.order[p].getUser().getUsername());
+    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
     try {
       this.wait(32000);
     } catch (InterruptedException e) {

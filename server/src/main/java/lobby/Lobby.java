@@ -108,7 +108,11 @@ public class Lobby {
   }
 
   public ArrayList<String> getColors() {
-    return this.colors;
+    ArrayList<String> currentColors = new ArrayList<>();
+    for (Integer user : Usercolor){
+      currentColors.add(colors.get(user));
+    }
+    return currentColors;
   }
 
   public void setColors(ArrayList newColors) {
@@ -149,7 +153,7 @@ public class Lobby {
     int userid = Arrays.asList(lobby).indexOf(user);
     int newcolor = Usercolor.get(userid);
     do {
-      newcolor = (newcolor + 1) % size;
+      newcolor = (newcolor + 1) % 10;
     } while (Usercolor.contains(newcolor));
     Usercolor.set(userid, newcolor);
     return new changeColorEvent(userid, colors.get(newcolor));
@@ -159,12 +163,9 @@ public class Lobby {
     ArrayList<LobbyUser> temp = new ArrayList<>();
     int i = 0;
 
-
     for (User user : this.lobby) {
-      if (user == null) {
-        continue;
-      } else {
-        temp.add(new LobbyUser(user.getUsername(), colors.get(i), ready[i]));
+      if (user != null) {
+        temp.add(new LobbyUser(user.getUsername(), colors.get(Usercolor.get(i)), ready[i]));
         i++;
       }
     }
@@ -182,7 +183,7 @@ public class Lobby {
   }
 
   public void generateColors() {
-    float interval = 360 / (this.size);
+    float interval = 360 / 10;
     for (float x = 0; x < 360; x += interval) {
       Color c = Color.getHSBColor(x / 360, 1, 1);
       String hex = String.format("#%02x%02x%02x", (c.getRed() + 255) / 2, (c.getGreen() + 255) / 2, (c.getBlue() + 255) / 2);
