@@ -1,19 +1,24 @@
 package main;
 
 import CLTrequests.lobbylistRequest;
+import board.presenter.BoardPresenter;
+import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
 import mainmenu.view.MainmenuViewImpl;
-import profile.presenter.ProfilePresenter;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
 import lobby.presenter.LobbyPresenter;
 import lobby.view.LobbyViewImpl;
 import socket.ClientSocket;
+
+import java.io.IOException;
 
 public class SceneController {
 
@@ -22,11 +27,15 @@ public class SceneController {
 
   private Stage stage;
 
+  //Board
+  private Parent boardRoot;
+
   // Socket
   private ClientSocket clientSocket;
 
   // Presenter
   private RegistrationPresenter registrationPresenter;
+  private BoardPresenter boardPresenter;
   private LoginPresenter loginPresenter;
   private MainmenuPresenter MainmenuPresenter;
   private EventBus eventBus;
@@ -83,8 +92,26 @@ public class SceneController {
     this.stage.getScene().getStylesheets().add("style.css");
   }
 
+  public void toBoardScene() {
+    if (boardRoot == null) {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BoardView.fxml"));
+      try {
+        boardRoot = loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      BoardViewImplFx view = loader.<BoardViewImplFx>getController();
+      boardPresenter= new BoardPresenter(view, this);
+    }
+    this.stage.setScene(boardRoot.getScene()); // nachher mit fxml wieder ändern
+  }
+
   public ClientSocket getClientSocket() {
     return this.clientSocket;
+  }
+
+  public BoardPresenter getBoardPresenter() {
+    return boardPresenter;
   }
 
   public LobbyPresenter getLobbyPresenter() {

@@ -1,9 +1,9 @@
 package main;
 
+import GameEvents.*;
 import SRVevents.*;
 import com.google.common.eventbus.Subscribe;
 import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
 import javafx.application.Platform;
 
 public class EventListener {
@@ -178,6 +178,18 @@ public class EventListener {
                 this.sceneController.getMainmenuPresenter().getChatPresenter()
                         .addWhisper(e.getFrom(), e.getMsg(), true);
               }
+            }
+    );
+  }
+
+  @Subscribe
+  public void gameInfoEventListener(gameInfoEvent e){
+    Platform.runLater(
+            () -> {
+              if (sceneController.getBoardPresenter() == null){
+                sceneController.toBoardScene();
+              }
+              sceneController.getBoardPresenter().updateBoard(e);
             }
     );
   }
