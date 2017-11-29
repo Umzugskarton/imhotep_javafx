@@ -11,6 +11,7 @@ public class Ship {
   public Ship(int size) {
     this.size = size;
     this.minimumStones = Math.max(size-1, 1);
+    stones = new Stone[size];
   }
 
   public boolean isDocked() {

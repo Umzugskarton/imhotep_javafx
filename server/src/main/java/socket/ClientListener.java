@@ -69,6 +69,7 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
+          log.error(request.toString());
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");

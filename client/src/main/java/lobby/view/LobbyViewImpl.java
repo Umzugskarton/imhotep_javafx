@@ -266,7 +266,6 @@ public class LobbyViewImpl implements LobbyView {
       startGame.addEventHandler(ActionEvent.ACTION, e -> {
         if (getLobbyPresenter().checkAllReady()) {
           getLobbyPresenter().startGame();
-          System.out.print("Go!");
         } else {
           System.out.print("Es sind nicht alle bereit!");
         }

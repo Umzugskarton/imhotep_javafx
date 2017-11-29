@@ -78,8 +78,8 @@ public class Game implements Runnable {
   }
 
   public gameInfoEvent getGameinfo() {
-    String[] users = new String[this.lobby.getSize() - 1];
-
+    String[] users = new String[this.lobby.getSize()];
+    System.out.println("GRÖßE: " + this.lobby.getSize());
     for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
       users[i] = this.order[i].getUser().getUsername();
     }

@@ -23,6 +23,7 @@ public class changeColorCommand implements Command {
     }
 
     public void put(Request r) { this.request = (changeColorRequest) r;}
+
     public void exec() {
         Lobby lobby = clientListener.getLobby();
         changeColorEvent changeColorEvent = lobby.replaceColor(clientListener.getUser());

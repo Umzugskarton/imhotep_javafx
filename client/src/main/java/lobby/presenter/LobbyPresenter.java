@@ -1,8 +1,6 @@
 package lobby.presenter;
 
-import CLTrequests.changeColorRequest;
-import CLTrequests.chatRequest;
-import CLTrequests.setReadyRequest;
+import CLTrequests.*;
 import commonLobby.CLTLobby;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -92,7 +90,13 @@ public class LobbyPresenter {
   }
 
   public void startGame() {
-    System.out.print("Game Start!");
+    if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
+      Request request = new startGameRequest();
+      sc.getClientSocket().send(request);
+    }
+    else {
+      //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
+    }
   }
 
   public boolean checkHost() {
