@@ -1,21 +1,24 @@
 package mainmenu.presenter;
 
-import CLTrequests.logoutRequest;
-import CLTrequests.userlistRequest;
-import chat.presenter.ChatPresenter;
+import CLTrequests.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import create.presenter.CreatePresenter;
 import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
-import mainmenu.view.MainmenuView;
+
 import mainmenu.view.MainmenuViewImplFx;
 import profile.presenter.ProfilePresenter;
+
+import static general.TextBundle.getString;
 
 public class MainmenuPresenter {
 
@@ -23,10 +26,10 @@ public class MainmenuPresenter {
   private SceneController sceneController;
   private PlayerList playerList;
   private String username;
-  private ChatPresenter chatPresenter;
   private CreatePresenter createPresenter;
   private GamesPresenter gamesPresenter;
   private ProfilePresenter profilePresenter;
+  private MainmenuPresenter mainmenuPresenter;
 
   public MainmenuPresenter(MainmenuViewImplFx view, SceneController sc) {
     this.view = view;
@@ -36,9 +39,6 @@ public class MainmenuPresenter {
     //Reihenfolge wichtig, sonst NullPointerException!
     this.playerList = new PlayerListImpl();
     view.initPlayerList();
-
-    this.chatPresenter = new ChatPresenter(this.sceneController);
-    view.initChat(this.chatPresenter.getChatView());
 
     this.createPresenter = new CreatePresenter(this.sceneController);
     view.initCreate(this.createPresenter.getCreateView());
@@ -77,11 +77,11 @@ public class MainmenuPresenter {
       list.removeAll(leftList);
 
       for (String username : list) {
-        this.chatPresenter.addInfoMessage("- " + username + " hat den Chat verlassen", Color.RED);
+        this.addInfoMessage("- " + username + " hat den Chat verlassen", Color.RED);
       }
 
       for (String username : joinedList) {
-        this.chatPresenter.addInfoMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
+        this.addInfoMessage("+ " + username + " hat den Chat betreten", Color.GREEN);
       }
     }
 
@@ -93,6 +93,69 @@ public class MainmenuPresenter {
     }
   }
 
+  //Chat
+  public void sendChatMsg(String text) {
+    Request chatCommand = null;
+
+    if (text.startsWith("/w") || text.startsWith("@")) {
+      Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");
+      Matcher whisperMatcher = whisperPattern.matcher(text);
+      if (whisperMatcher.find()) {
+        String receiver = whisperMatcher.group(2);
+        String message = whisperMatcher.group(3);
+
+        chatCommand = new whisperRequest(receiver, message);
+        addWhisper(receiver, message, false);
+      } else {
+        addInfoMessage(getString("invalidWhisperSyntax"));
+      }
+    } else if (!text.isEmpty()) {
+      chatCommand = new chatRequest(text);
+    } else if (text.isEmpty()) {
+      addInfoMessage(getString("enterMessageToChat"));
+    }
+
+    if (chatCommand != null) {
+      this.sceneController.getClientSocket().send(chatCommand);
+    }
+  }
+
+  public void addChatMessage(String user, String msg) {
+    Text userText = new Text(user + ": ");
+    userText.setStyle("-fx-font-weight: bold");
+    Text messageText = new Text(msg + "\n");
+
+    this.view.getChatText().getChildren().addAll(userText, messageText);
+  }
+
+  public void addWhisper(String user, String msg, boolean isClientReceiver) {
+    String recipientText = getString("from");
+    Color color = Color.web("#8A2BE2");
+
+    if (!isClientReceiver) {
+      recipientText = getString("to");
+      color = Color.web("#9c31ff");
+    }
+
+    Text userText = new Text(recipientText + " @" + user + ": ");
+    userText.setStyle("-fx-font-weight: bold");
+    userText.setFill(color);
+    Text messageText = new Text(msg + "\n");
+    messageText.setFill(color);
+
+    this.view.getChatText().getChildren().addAll(userText, messageText);
+  }
+
+  public void addInfoMessage(String msg, Color color) {
+    Text text = new Text(msg.toUpperCase() + "\n");
+    text.setFill(color);
+    text.setFont(new Font(null, 10));
+
+    this.view.getChatText().getChildren().add(text);
+  }
+
+
+
   public void toLoginScene() {
     sceneController.toLoginScene();
   }
@@ -103,15 +166,11 @@ public class MainmenuPresenter {
 
   public void logout() {
     this.sceneController.getClientSocket().send(new logoutRequest());
-    this.chatPresenter.getChatView().getChatText().getChildren().clear();
+    this.mainmenuPresenter.getMainmenuView().getChatText().getChildren().clear();
   }
 
   public SceneController getSceneController() {
     return this.sceneController;
-  }
-
-  public ChatPresenter getChatPresenter() {
-    return this.chatPresenter;
   }
 
   public GamesPresenter getGamesPresenter() {
@@ -125,4 +184,8 @@ public class MainmenuPresenter {
   public void setUsername(String username) { this.username = username; }
 
   public String getUsername() { return username; }
+
+  public void addInfoMessage(String msg) {
+    addInfoMessage(msg, Color.GRAY);
+  }
 }

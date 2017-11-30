@@ -54,8 +54,8 @@ public class SceneController {
     stage.setScene(scene);
 
     stage.setTitle("Imhotep");
-    stage.setHeight(STAGE_HEIGHT);
-    stage.setWidth(STAGE_WIDTH);
+    stage.setHeight(500);
+    stage.setWidth(720);
     stage.setResizable(false);
     scene.getStylesheets().add("style.css");
     stage.show();

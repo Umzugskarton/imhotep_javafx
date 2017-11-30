@@ -85,7 +85,7 @@ public class EventListener {
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
                 if (e.getLobbyId()== null) {
-                  this.sceneController.getMainmenuPresenter().getChatPresenter()
+                  this.sceneController.getMainmenuPresenter()
                           .addChatMessage(e.getUser(), e.getMsg());
                 }
                 else {
@@ -105,7 +105,7 @@ public class EventListener {
     Platform.runLater(
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter().getChatPresenter()
+                this.sceneController.getMainmenuPresenter()
                         .addInfoMessage(e.getMsg());
               }
             }
@@ -175,7 +175,7 @@ public class EventListener {
     Platform.runLater(
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter().getChatPresenter()
+                this.sceneController.getMainmenuPresenter()
                         .addWhisper(e.getFrom(), e.getMsg(), true);
               }
             }

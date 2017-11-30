@@ -1,14 +1,11 @@
 package mainmenu.view;
 
-import chat.view.ChatView;
-import chat.view.ChatViewImpl;
 import create.view.CreateView;
 import create.view.CreateViewImpl;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
@@ -69,7 +66,7 @@ public class MainmenuViewImplFx {
 
     @FXML
     void sendMsg_handle(ActionEvent event) {
-        mainmenuPresenter.getChatPresenter().sendChatMsg(messageInput.getText());
+        mainmenuPresenter.sendChatMsg(messageInput.getText());
         messageInput.clear();
         messageInput.requestFocus();
     }
@@ -105,10 +102,6 @@ public class MainmenuViewImplFx {
     }
 
     public void setSceneController(SceneController sc){ this.sc = sc; }
-
-    public void initChat(ChatView chatView) {
-        this.chatTab.setContent((ChatViewImpl) chatView);
-    }
 
     public void initCreate(CreateView createView) {
         this.newGameTab.setContent((CreateViewImpl) createView);
