@@ -1,4 +1,4 @@
-package mainmenu.view;
+/*package mainmenu.view;
 
 import static general.TextBundle.getString;
 
@@ -216,3 +216,4 @@ public class MainmenuViewImpl implements MainmenuView {
   }
 }
 
+*/

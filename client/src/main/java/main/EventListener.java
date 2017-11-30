@@ -20,9 +20,9 @@ public class EventListener {
             () -> {
               this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
               if (e.getSuccess()) {
-                this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                this.sceneController.getMainmenuPresenter()
                         .updateUsernameLabel(e.getUsername());
-                this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                this.sceneController.getMainmenuPresenter()
                         .updateEmailLabel(e.getEmail());
                 this.sceneController.getMainmenuPresenter().setUsername(e.getUsername());
               }
@@ -45,10 +45,10 @@ public class EventListener {
     Platform.runLater(
             () -> {
               if (e.getType() == 1) {
-                this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                this.sceneController.getMainmenuPresenter()
                         .updateEmailLabel(e.getCredential());
               }
-              this.sceneController.getMainmenuPresenter().getProfilePresenter()
+              this.sceneController.getMainmenuPresenter()
                       .processChangeResponse(e.getSuccess(), e.getMsg());
               //this.sceneController.getMainmenuPresenter()
               //this.sceneController.toRegistrationScene();
@@ -85,7 +85,7 @@ public class EventListener {
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
                 if (e.getLobbyId()== null) {
-                  this.sceneController.getMainmenuPresenter().getChatPresenter()
+                  this.sceneController.getMainmenuPresenter()
                           .addChatMessage(e.getUser(), e.getMsg());
                 }
                 else {
@@ -105,7 +105,7 @@ public class EventListener {
     Platform.runLater(
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter().getChatPresenter()
+                this.sceneController.getMainmenuPresenter()
                         .addInfoMessage(e.getMsg());
               }
             }
@@ -175,7 +175,7 @@ public class EventListener {
     Platform.runLater(
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter().getChatPresenter()
+                this.sceneController.getMainmenuPresenter()
                         .addWhisper(e.getFrom(), e.getMsg(), true);
               }
             }
