@@ -15,13 +15,12 @@ import javafx.scene.text.TextFlow;
 import main.SceneController;
 import mainmenu.presenter.MainmenuPresenter;
 import javafx.scene.input.KeyEvent;
-import profile.view.ProfileView;
-import profile.view.ProfileViewImpl;
 
 public class MainmenuViewImplFx {
 
     private MainmenuPresenter mainmenuPresenter;
     private SceneController sc;
+    private Integer credType;
 
     @FXML
     private Button sendButton;
@@ -39,6 +38,30 @@ public class MainmenuViewImplFx {
     private Tab profileTab;
 
     @FXML
+    private Label usernameLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    @FXML
+    private Button changeEmailButton;
+
+    @FXML
+    private Button changePasswordButton;
+
+    @FXML
+    private Label newLabel;
+
+    @FXML
+    private Label repeatPWLabel;
+
+    @FXML
+    private Button confirm;
+
+    @FXML
+    private Label userFeedback;
+
+    @FXML
     private Tab newGameTab;
 
     @FXML
@@ -54,9 +77,73 @@ public class MainmenuViewImplFx {
     private Button logoutButton;
 
     @FXML
+    private PasswordField passwordInput;
+
+    @FXML
+    private PasswordField passwordInput2;
+
+    @FXML
+    private TextField emailInput;
+
+    @FXML
     void createGame_handle(ActionEvent event) {
 
     }
+
+    @FXML
+    void changeEmail_handle(ActionEvent event) {
+        passwordInput.setVisible(false);
+        passwordInput2.setVisible(false);
+        //usernameInput.setVisible(false);
+        repeatPWLabel.setVisible(false);
+        newLabel.setText("Neue E-Mail: ");
+        newLabel.setVisible(true);
+        emailInput.setVisible(true);
+        credType = 1;
+        confirm.setVisible(true);
+    }
+
+    @FXML
+    void changePassword_handle(ActionEvent event) {
+        emailInput.setVisible(false);
+        //usernameInput.setVisible(false);
+        newLabel.setText("Neues Passwort: ");
+        newLabel.setVisible(true);
+        repeatPWLabel.setVisible(true);
+        passwordInput.setVisible(true);
+        passwordInput2.setVisible(true);
+        credType = 2;
+        confirm.setVisible(true);
+    }
+
+    @FXML
+    void confirm_handle(ActionEvent event) {
+        if (credType == 1) {
+            String email = emailInput.getText();
+            mainmenuPresenter.sendChangeRequest(email, credType);
+        }
+        if (credType == 2) {
+            String password = passwordInput.getText();
+            String confirmPassword = passwordInput2.getText();
+            if (password.length() < 8) {
+                userFeedback.setText("Passwort muss mindestens 8 Zeichen lang sein.");
+            } else {
+                if (password.equals(confirmPassword)) {
+                    mainmenuPresenter.sendChangeRequest(password, credType);
+                } else {
+                    userFeedback.setText("Passwort stimmt nicht überein!");
+                }
+            }
+        }
+        if (credType == 3) {
+            //String username = usernameInput.getText();
+            //mainmenuPresenter.sendChangeRequest(username, credType);
+        }
+        passwordInput.setText("");
+        passwordInput2.setText("");
+        emailInput.setText("");
+    }
+
 
     @FXML
     void logout_handle(ActionEvent event) {
@@ -111,10 +198,6 @@ public class MainmenuViewImplFx {
         this.gamesTab.setContent((GamesViewImpl) gamesView);
     }
 
-    public void initProfile(ProfileView profileView) {
-        this.profileTab.setContent((ProfileViewImpl) profileView);
-    }
-
     public TextFlow getChatText() {
                 return this.chatText;
             }
@@ -122,5 +205,21 @@ public class MainmenuViewImplFx {
     public TextField getMessageInput() {
                 return this.messageInput;
             }
+
+    public Label getUsernameLabel() {
+        return this.usernameLabel;
+    }
+
+    public Label getEmailLabel() {
+        return this.emailLabel;
+    }
+
+    public TextField getEmailInputField() {
+        return this.emailInput;
+    }
+
+    public void updateStatusLabel(String msg) {
+        userFeedback.setText(msg);
+    }
 }
 

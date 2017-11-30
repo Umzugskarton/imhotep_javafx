@@ -16,7 +16,7 @@ import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
 
 import mainmenu.view.MainmenuViewImplFx;
-import profile.presenter.ProfilePresenter;
+
 
 import static general.TextBundle.getString;
 
@@ -28,7 +28,6 @@ public class MainmenuPresenter {
   private String username;
   private CreatePresenter createPresenter;
   private GamesPresenter gamesPresenter;
-  private ProfilePresenter profilePresenter;
   private MainmenuPresenter mainmenuPresenter;
 
   public MainmenuPresenter(MainmenuViewImplFx view, SceneController sc) {
@@ -46,8 +45,6 @@ public class MainmenuPresenter {
     this.gamesPresenter = new GamesPresenter(this.sceneController);
     view.initGames(this.gamesPresenter.getGamesView());
 
-    this.profilePresenter = new ProfilePresenter(this.sceneController);
-    view.initProfile(this.profilePresenter.getProfileView());
 
     this.sceneController.getClientSocket().send(new userlistRequest());
   }
@@ -154,7 +151,58 @@ public class MainmenuPresenter {
     this.view.getChatText().getChildren().add(text);
   }
 
+//Profil
 
+  public void processChangeResponse(boolean validate, String msg) {
+    if (validate) {
+      this.view.updateStatusLabel(msg);
+    } else {
+      this.view.updateStatusLabel("Etwas lief schief.");
+    }
+  }
+
+  public void updateUsernameLabel(String username) {
+    this.view.getUsernameLabel().setText("Username: " + username);
+  }
+
+  public void updateEmailLabel(String email) {
+    this.view.getEmailLabel().setText("Email: " + email);
+  }
+
+  public void sendChangeRequest(String credential, Integer type) {
+    if (type == 1) {
+      if (this.validate(credential)) {
+        this.view.updateStatusLabel("");
+        changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+                type);
+        this.sceneController.getClientSocket().send(changeCredentialsCommand);
+      }
+    }
+    if (type == 2) {
+      this.view.updateStatusLabel("");
+      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+              type);
+      this.sceneController.getClientSocket().send(changeCredentialsCommand);
+    }
+    if (type == 3) {
+      this.view.updateStatusLabel("");
+      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+              type);
+      this.sceneController.getClientSocket().send(changeCredentialsCommand);
+    }
+
+  }
+
+  private boolean validate(String email) {
+    String msg = "";
+    if (!email.isEmpty()) {
+      return true;
+    } else {
+      msg += "Bitte eine E-Mail eingeben. \n";
+    }
+    this.view.updateStatusLabel(msg);
+    return false;
+  }
 
   public void toLoginScene() {
     sceneController.toLoginScene();
@@ -175,10 +223,6 @@ public class MainmenuPresenter {
 
   public GamesPresenter getGamesPresenter() {
     return this.gamesPresenter;
-  }
-
-  public ProfilePresenter getProfilePresenter() {
-    return this.profilePresenter;
   }
 
   public void setUsername(String username) { this.username = username; }
