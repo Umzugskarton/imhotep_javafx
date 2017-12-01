@@ -8,14 +8,14 @@ import socket.ClientListener;
 import socket.Server;
 import user.User;
 
-public class loginCommand implements Command {
+public class LoginCommand implements Command {
 
   private loginRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
 
-  public loginCommand(ClientListener clientListener) {
+  public LoginCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();

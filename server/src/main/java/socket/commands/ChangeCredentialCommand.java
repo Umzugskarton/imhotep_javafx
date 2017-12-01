@@ -6,13 +6,13 @@ import SRVevents.changeCredentialEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
-public class changeCredentialCommand implements Command {
+public class ChangeCredentialCommand implements Command {
 
   private changeCredentialRequest request;
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public changeCredentialCommand(ClientListener clientListener) {
+  public ChangeCredentialCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.clientAPI = clientListener.getClientAPI();
   }

@@ -11,13 +11,13 @@ import socket.ClientAPI;
 import socket.ClientListener;
 
 
-public class createCommand implements Command {
+public class CreateCommand implements Command {
     private ClientListener clientListener;
     private createRequest request;
     private ClientAPI clientAPI;
 
 
-    public createCommand(ClientListener clientListener){
+    public CreateCommand(ClientListener clientListener){
         this.clientListener= clientListener;
         this.clientAPI = clientListener.getClientAPI();
     }

@@ -10,14 +10,14 @@ import SRVevents.joinEvent;
 import SRVevents.lobbyInfoEvent;
 import user.User;
 
-public class joinCommand implements Command {
+public class JoinCommand implements Command {
 
   private ClientListener clientListener;
   private joinRequest request;
   private Server server;
 
 
-  public joinCommand(ClientListener clientListener) {
+  public JoinCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
   }

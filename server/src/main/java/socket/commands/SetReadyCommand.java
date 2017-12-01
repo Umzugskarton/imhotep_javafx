@@ -10,12 +10,12 @@ import user.User;
 /**
  * Created by Slothan on 16.11.2017.
  */
-public class setReadyCommand implements Command {
+public class SetReadyCommand implements Command {
 
     private ClientListener clientListener;
     private setReadyRequest request;
 
-    public setReadyCommand(ClientListener clientListener) {
+    public SetReadyCommand(ClientListener clientListener) {
         this.clientListener = clientListener;
 
     }

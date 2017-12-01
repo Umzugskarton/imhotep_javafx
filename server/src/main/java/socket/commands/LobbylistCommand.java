@@ -5,12 +5,12 @@ import CLTrequests.lobbylistRequest;
 import SRVevents.lobbylistEvent;
 import socket.ClientListener;
 
-public class lobbylistCommand implements Command {
+public class LobbylistCommand implements Command {
 
   private lobbylistRequest request;
   private ClientListener clientListener;
 
-  public lobbylistCommand(ClientListener clientListener) {
+  public LobbylistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
 
   }

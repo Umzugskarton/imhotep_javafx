@@ -8,14 +8,14 @@ import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
-public class whisperCommand implements Command {
+public class WhisperCommand implements Command {
 
   private whisperRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
 
-  public whisperCommand(ClientListener clientListener) {
+  public WhisperCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();

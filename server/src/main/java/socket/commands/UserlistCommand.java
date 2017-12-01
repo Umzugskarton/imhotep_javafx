@@ -5,13 +5,13 @@ import CLTrequests.userlistRequest;
 import SRVevents.userListEvent;
 import socket.ClientListener;
 
-public class userlistCommand implements Command {
+public class UserlistCommand implements Command {
 
   private userlistRequest request;
   private ClientListener clientListener;
 
 
-  public userlistCommand(ClientListener clientListener) {
+  public UserlistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
 
   }

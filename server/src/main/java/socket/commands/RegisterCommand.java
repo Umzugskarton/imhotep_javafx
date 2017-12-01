@@ -6,13 +6,13 @@ import SRVevents.registerEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
-public class registerCommand implements Command {
+public class RegisterCommand implements Command {
 
   private registerRequest request;
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public registerCommand(ClientListener clientListener) {
+  public RegisterCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
 
     this.clientAPI = clientListener.getClientAPI();

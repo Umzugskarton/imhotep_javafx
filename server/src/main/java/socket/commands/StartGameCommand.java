@@ -6,11 +6,11 @@ import CLTrequests.Request;
 import CLTrequests.startGameRequest;
 import socket.ClientListener;
 
-public class startGameCommand implements Command{
+public class StartGameCommand implements Command{
   private startGameRequest request;
   private ClientListener clientListener;
 
-  public startGameCommand(ClientListener clientListener){
+  public StartGameCommand(ClientListener clientListener){
     this.clientListener=clientListener;
   }
 

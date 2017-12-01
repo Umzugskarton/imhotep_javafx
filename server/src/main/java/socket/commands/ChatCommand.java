@@ -8,14 +8,14 @@ import socket.ClientListener;
 import socket.Server;
 import user.User;
 
-public class chatCommand implements Command {
+public class ChatCommand implements Command {
 
   private chatRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
 
-  public chatCommand(ClientListener clientListener) {
+  public ChatCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();

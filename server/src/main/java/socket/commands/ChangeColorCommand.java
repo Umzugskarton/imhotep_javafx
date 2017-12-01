@@ -12,13 +12,13 @@ import user.User;
 import java.util.ArrayList;
 
 
-public class changeColorCommand implements Command {
+public class ChangeColorCommand implements Command {
 
     private changeColorRequest request;
     private ClientListener clientListener;
     private ArrayList<String> colors;
 
-    public changeColorCommand(ClientListener clientListener) {
+    public ChangeColorCommand(ClientListener clientListener) {
         this.clientListener = clientListener;
     }
 

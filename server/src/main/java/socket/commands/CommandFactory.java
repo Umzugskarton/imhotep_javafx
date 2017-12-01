@@ -12,19 +12,19 @@ public class CommandFactory {
     private HashMap<String, Command> Dict = new HashMap<>();
 
     public CommandFactory(ClientListener clientListener){
-        Dict.put("register", new registerCommand(clientListener));
-        Dict.put("login", new loginCommand(clientListener));
-        Dict.put("logout", new logoutCommand(clientListener));
-        Dict.put("userlist", new userlistCommand(clientListener));
-        Dict.put("whisper", new whisperCommand(clientListener));
-        Dict.put("chat", new chatCommand(clientListener));
-        Dict.put("create", new createCommand(clientListener));
-        Dict.put("join", new joinCommand(clientListener));
-        Dict.put("lobbylist", new lobbylistCommand(clientListener));
-        Dict.put("changeCredential", new changeCredentialCommand(clientListener));
-        Dict.put("changeColor", new changeColorCommand(clientListener));
-        Dict.put("setReady", new setReadyCommand(clientListener));
-        Dict.put("startGame", new startGameCommand(clientListener));
+        Dict.put("register", new RegisterCommand(clientListener));
+        Dict.put("login", new LoginCommand(clientListener));
+        Dict.put("logout", new LogoutCommand(clientListener));
+        Dict.put("userlist", new UserlistCommand(clientListener));
+        Dict.put("whisper", new WhisperCommand(clientListener));
+        Dict.put("chat", new ChatCommand(clientListener));
+        Dict.put("create", new CreateCommand(clientListener));
+        Dict.put("join", new JoinCommand(clientListener));
+        Dict.put("lobbylist", new LobbylistCommand(clientListener));
+        Dict.put("changeCredential", new ChangeCredentialCommand(clientListener));
+        Dict.put("changeColor", new ChangeColorCommand(clientListener));
+        Dict.put("setReady", new SetReadyCommand(clientListener));
+        Dict.put("startGame", new StartGameCommand(clientListener));
     }
 
     public Command getCommand(Request request){

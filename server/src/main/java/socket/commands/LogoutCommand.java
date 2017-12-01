@@ -4,12 +4,12 @@ import CLTrequests.Request;
 import CLTrequests.logoutRequest;
 import socket.ClientListener;
 
-public class logoutCommand implements Command {
+public class LogoutCommand implements Command {
 
   private logoutRequest request;
   private ClientListener clientListener;
 
-  public logoutCommand(ClientListener clientListener) {
+  public LogoutCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
   }
 
