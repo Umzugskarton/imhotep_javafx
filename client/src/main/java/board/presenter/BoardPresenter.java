@@ -18,13 +18,11 @@ public class BoardPresenter {
     this.sc = sc;
     int render = 0;
     int test= 0;
-// zum testen
-    String[] x = {"ank.png", "logout.png"};
+    // zum testen
       for (LobbyUser user : lobby.getUsers()) {
-        view.addHouse(x[test]);
+        view.addHouse(render);
         System.out.println(user.getUsername());
-        test++;
-        test= test % 2;
+        render++;
       }
       sc.toggleFullscreen();
   }
