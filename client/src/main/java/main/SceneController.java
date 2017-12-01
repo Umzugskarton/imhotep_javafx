@@ -6,6 +6,7 @@ import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.presenter.LoginPresenter;
@@ -94,16 +95,18 @@ public class SceneController {
 
   public void toBoardScene() {
     if (boardRoot == null) {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BoardView.fxml"));
       try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/BoardView.fxml"));
         boardRoot = loader.load();
+        BoardViewImplFx view = loader.getController();
+        boardPresenter= new BoardPresenter(view, this, getLobbyPresenter().getCLTLobby());
+        Scene boardScene = new Scene(boardRoot);
+        this.stage.setScene(boardScene); // nachher mit fxml wieder ändern
       } catch (IOException e) {
         e.printStackTrace();
       }
-      BoardViewImplFx view = loader.<BoardViewImplFx>getController();
-      boardPresenter= new BoardPresenter(view, this);
     }
-    this.stage.setScene(boardRoot.getScene()); // nachher mit fxml wieder ändern
   }
 
   public ClientSocket getClientSocket() {
@@ -132,6 +135,10 @@ public class SceneController {
 
   public RegistrationPresenter getRegistrationPresenter() {
     return this.registrationPresenter;
+  }
+
+  public void toggleFullscreen(){
+    stage.setFullScreen(!stage.isFullScreen());
   }
 
 }

@@ -115,10 +115,6 @@ public class Lobby {
     return currentColors;
   }
 
-  public void setColors(ArrayList newColors) {
-    this.colors = newColors;
-  }
-
   public void setLobbyID(int id) {
     this.LobbyID = id;
   }
