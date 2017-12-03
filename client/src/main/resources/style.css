@@ -90,3 +90,11 @@
     -fx-background-size: 720 480;
     -fx-border-width:5;
 }
+
+
+#mainland {
+    -fx-background-image: url("back.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 458 804;
+    -fx-background-position: center center;
+}

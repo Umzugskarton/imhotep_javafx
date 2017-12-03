@@ -24,7 +24,7 @@ public class BoardPresenter {
         System.out.println(user.getUsername());
         render++;
       }
-      sc.toggleFullscreen();
+
   }
 
   public BoardViewImplFx getView() {
@@ -37,6 +37,10 @@ public class BoardPresenter {
 
   public void updateBoard(gameInfoEvent e){
 
+  }
+
+  public void fullscreen(){
+    sc.toggleFullscreen();
   }
 
 }
