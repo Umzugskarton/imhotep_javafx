@@ -25,6 +25,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
+    compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.7'
+
 }
 
 idea {

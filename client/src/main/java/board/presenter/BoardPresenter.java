@@ -7,25 +7,26 @@ import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import main.SceneController;
 
+
 public class BoardPresenter {
   private BoardViewImplFx view;
   private SceneController sc;
   private CLTLobby lobby;
 
-  public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy){
+  public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
     this.lobby = legacy;
     this.view = view;
     this.sc = sc;
     int render = 0;
-    int test= 0;
+    int test = 0;
     // zum testen
-      for (LobbyUser user : lobby.getUsers()) {
-        view.addHouse(render);
-        System.out.println(user.getUsername());
-        render++;
-      }
+    for (LobbyUser user : lobby.getUsers()) {
+      view.addHouse(render, user.getColor());
+      render++;
+    }
 
   }
+
 
   public BoardViewImplFx getView() {
     return view;
@@ -35,12 +36,13 @@ public class BoardPresenter {
     return sc;
   }
 
-  public void updateBoard(gameInfoEvent e){
+  public void updateBoard(gameInfoEvent e) {
 
   }
 
-  public void fullscreen(){
+  public void fullscreen() {
     sc.toggleFullscreen();
   }
+
 
 }

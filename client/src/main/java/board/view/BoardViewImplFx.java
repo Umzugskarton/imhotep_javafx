@@ -8,7 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 
 import java.awt.*;
 
@@ -31,8 +32,22 @@ public class BoardViewImplFx {
   @FXML
   private GridPane[] storages = new GridPane[4];
 
+  @FXML
+  private Polygon deko0;
+  @FXML
+  private Polygon deko1;
+  @FXML
+  private ImageView deko2;
+  @FXML
+  private ImageView deko3;
+  @FXML
+  private Polygon[] dekos = {deko0, deko1};
 
-  public void addHouse(int i){
+
+
+
+  public void addHouse(int i, String s){
+    dekos[i].setFill(Color.web(s));
     Image image = new Image("haus.png");
     ImageView house = new ImageView();
     house.setFitHeight(120);
