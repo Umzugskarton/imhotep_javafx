@@ -101,6 +101,7 @@ public class SceneController {
         boardRoot = loader.load();
         BoardViewImplFx view = loader.getController();
         boardPresenter= new BoardPresenter(view, this, getLobbyPresenter().getCLTLobby());
+        view.setBoardPresenter(boardPresenter);
         Scene boardScene = new Scene(boardRoot);
         this.stage.setScene(boardScene); // nachher mit fxml wieder ändern
       } catch (IOException e) {

@@ -35,9 +35,17 @@ public class BoardViewImplFx {
   public void addHouse(int i){
     Image image = new Image("haus.png");
     ImageView house = new ImageView();
-    house.setFitHeight(50);
-    house.setFitWidth(50);
+    house.setFitHeight(120);
+    house.setFitWidth(250);
     house.setImage(image);
     houses.add(house, 0, i );
+  }
+
+  public void setBoardPresenter(BoardPresenter boardPresenter) {
+    this.boardPresenter = boardPresenter;
+  }
+
+  public void full(){
+    boardPresenter.fullscreen();
   }
 }
