@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.Double?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="124.0" prefWidth="255.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.StorageViewImplFx">
+   <children>
+      <Pane layoutX="8.0" layoutY="-44.0" prefHeight="111.0" prefWidth="211.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Rectangle fx:id="flag" fill="DODGERBLUE" height="47.0" layoutX="56.0" layoutY="21.0" stroke="TRANSPARENT" strokeType="INSIDE" width="18.0" />
+            <Pane id="house" prefHeight="124.0" prefWidth="255.0">
+               <children>
+                  <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="113.0" layoutY="21.0" scaleX="0.21" scaleY="0.12" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                    <points>
+                      <Double fx:value="-50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="0.0" />
+                      <Double fx:value="-60.0" />
+                    </points>
+                  </Polygon>
+                  <Polygon fill="#42424290" layoutX="113.0" layoutY="23.0" scaleX="0.1" scaleY="0.08" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                    <points>
+                      <Double fx:value="-50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="0.0" />
+                      <Double fx:value="-60.0" />
+                    </points>
+                  </Polygon>
+                  <Circle fill="WHITE" layoutX="113.0" layoutY="14.0" radius="1.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

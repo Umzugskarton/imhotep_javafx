@@ -101,12 +101,18 @@
 
 #haven{
     -fx-background-repeat: stretch;
-    -fx-background-size: 328 714;
+    -fx-background-size: 360 760;
     -fx-background-image: url("hafen.png");
 }
 
 #docks{
     -fx-background-repeat: stretch;
-    -fx-background-size: 315 89;
+    -fx-background-size: 346 102;
     -fx-background-image: url("dock.png");
+}
+
+#house{
+    -fx-background-repeat: stretch;
+    -fx-background-size: 255 124;
+    -fx-background-image: url("haus.png");
 }
