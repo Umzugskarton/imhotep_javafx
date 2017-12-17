@@ -22,17 +22,13 @@ public class BoardViewImplFx {
   private AnchorPane BoardView;
 
   @FXML
-  private Pane mainframe;
-
-  @FXML
-  private Button fb;
-
-  @FXML
   private GridPane houses;
 
   @FXML
   private GridPane[] storages = new GridPane[4];
 
+  @FXML
+  private Pane userInterface;
 
   @FXML
   private ComboBox selectShipStones;
@@ -86,11 +82,8 @@ public class BoardViewImplFx {
     return houses;
   }
 
-  public ArrayList<Button> getButtons() {
-    ArrayList<Button> buttons = new ArrayList<>();
-    Collections.addAll(buttons, getNewStones, selectShipStones, placeStones, SelectShipLocation, moveShipToLocation, playCard);
-
-    return buttons;
+  public Pane getUserInterface() {
+    return userInterface;
   }
 
   public void addHouse(int i, AnchorPane house){

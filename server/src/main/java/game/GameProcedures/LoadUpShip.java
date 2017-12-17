@@ -3,7 +3,6 @@ package game.GameProcedures;
 
 import GameEvents.AlreadyAllocatedError;
 import GameEvents.ShipLoadedEvent;
-import GameEvents.fillUpStorageEvent;
 import GameMoves.Move;
 import GameMoves.loadUpShipMove;
 import SRVevents.Event;

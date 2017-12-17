@@ -5,12 +5,12 @@ import SRVevents.Event;
 import java.util.Date;
 
 //TODO
-public class pyramidEvent implements Event {
+public class PyramidEvent implements Event {
   private String event = "pyramid";
   // private Pyramid pyramid;
   private Date date;
 
-  /* public pyramidEvent(Pyramid pyramid) {
+  /* public PyramidEvent(Pyramid pyramid) {
      this.pyramid = pyramid;
    }
 

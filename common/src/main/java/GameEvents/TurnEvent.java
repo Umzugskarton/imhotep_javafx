@@ -4,11 +4,15 @@ import SRVevents.Event;
 
 import java.util.Date;
 
-public class turnEvent implements Event {
+public class TurnEvent implements Event {
+  private String event = "turn";
   boolean myturn;
   String username;
 
-  public turnEvent(boolean myturn, String username) {
+  // Dummy
+  public TurnEvent() { }
+
+  public TurnEvent(boolean myturn, String username) {
     this.myturn = myturn;
     this.username = username;
   }

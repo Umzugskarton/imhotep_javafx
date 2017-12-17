@@ -1,7 +1,7 @@
 package game;
 
 import GameEvents.GameInfoEvent;
-import GameEvents.turnEvent;
+import GameEvents.TurnEvent;
 import GameMoves.Move;
 import GameMoves.actionCardMove;
 import SRVevents.Event;
@@ -180,7 +180,7 @@ public class Game implements Runnable {
 
     private void setActivePlayer(int player) {
         for (Player p : this.order) {
-            sendTo(p.getUser(), new turnEvent(p == this.order[player], this.order[player].getUser().getUsername()));
+            sendTo(p.getUser(), new TurnEvent(p == this.order[player], this.order[player].getUser().getUsername()));
         }
     }
 

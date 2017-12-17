@@ -100,18 +100,18 @@
         </Pane>
         <Pane fx:id="userInterface" layoutY="863.0" prefHeight="225.0" prefWidth="1343.0">
             <children>
-                <Button fx:id="getNewStones" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
-                <Button fx:id="moveShipToLocation" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
-                <Button fx:id="placeStones" layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                <Button fx:id="playCard" layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
-                <ComboBox fx:id="selectShipLocation" layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <Button id="getNewStones" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
+                <Button id="moveShipToLocation" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
+                <Button id="placeStones" layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
+                <Button id="playCard" layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
+                <ComboBox fx:id="selectShip" layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
                 <Text layoutX="4.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 1" />
                 <Text layoutX="4.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 2" />
                 <Text layoutX="3.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 3" />
                 <Text layoutX="4.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 4" />
                 <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
                 <ComboBox fx:id="selectShipLocation" layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
-                <ComboBox fx:id="selectShipLocation" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <ComboBox fx:id="selectShipToLocation" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
             <TextFlow id="gamelog" fx:id="gamelog" layoutX="619.0" layoutY="13.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
             </children>
         </Pane>

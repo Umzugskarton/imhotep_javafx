@@ -190,18 +190,14 @@ public class EventListener {
                         sceneController.toBoardScene();
                     }
                     sceneController.getBoardPresenter().updateBoard(e);
-
-                    // DEBUG
-                    sceneController.getBoardPresenter().addLogMessage("Runde " + e.getRound() + " gestartet");
                 }
         );
     }
 
     @Subscribe
-    public void turnEventListener(turnEvent e) {
+    public void turnEventListener(TurnEvent e) {
         Platform.runLater(
                 () -> {
-                    System.out.println("test");
                     if(sceneController.getBoardPresenter() != null) {
                         sceneController.getBoardPresenter().updateUserInterface(e);
                     }

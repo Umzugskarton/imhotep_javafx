@@ -4,17 +4,17 @@ import SRVevents.Event;
 
 import java.util.Date;
 
-public class fillUpStorageEvent implements Event {
+public class FillUpStorageEvent implements Event {
   private String event = "filUpStorage";
   private int playerId;
   private boolean[] storage;
   public Date date;
 
-  public fillUpStorageEvent() {
+  public FillUpStorageEvent() {
     this.date = new Date();
   }
 
-  public fillUpStorageEvent(int playerId, boolean[] storage) {
+  public FillUpStorageEvent(int playerId, boolean[] storage) {
     this.playerId = playerId;
     this.storage = storage;
     this.date = new Date();

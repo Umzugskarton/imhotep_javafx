@@ -2,7 +2,7 @@ package board.presenter;
 
 
 import GameEvents.GameInfoEvent;
-import GameEvents.turnEvent;
+import GameEvents.TurnEvent;
 import board.view.BoardViewImplFx;
 import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.SceneController;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -53,10 +52,8 @@ public class BoardPresenter {
         }
     }
 
-    public void toggleShowButtons(boolean show) {
-        for(Button button: this.view.getButtons()) {
-            button.setVisible(show);
-        };
+    public void toggleUserInterface(boolean show) {
+        view.getUserInterface().setVisible(show);
     }
 
     public BoardViewImplFx getView() {
@@ -72,12 +69,16 @@ public class BoardPresenter {
         ships = e.getShips();
         round = e.getRound();
         order = e.getOrder();
+
         updateView();
+
+        // DEBUG
+        this.addLogMessage("Runde " + e.getRound() + " gestartet");
     }
 
-    public void updateUserInterface(turnEvent e) {
+    public void updateUserInterface(TurnEvent e) {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-        this.toggleShowButtons(e.isMyturn());
+        this.toggleUserInterface(e.isMyturn());
 
         String msg;
         if(e.isMyturn()) {
@@ -117,6 +118,4 @@ public class BoardPresenter {
     public void fullscreen() {
         sc.toggleFullscreen();
     }
-
-
 }
