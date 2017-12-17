@@ -7,8 +7,7 @@ import GameMoves.actionCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
-import game.board.Pyramids;
-import game.board.Ship;
+import game.board.*;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,14 @@ public class Game implements Runnable {
   private Player[] order;
   private int currentPlayer;
   private int round;
+
+  //StoneSites
   private Pyramids pyramids;
+  private Market market;
+  private Obelisks obelisks;
+  private Temple temple;
+  private BurialChamber burialChamber;
+
   private ClientListener clientListener;
   private Move Nextmove = null;
   private List<Event> executedMoves;
@@ -45,7 +51,11 @@ public class Game implements Runnable {
     order = new Player[lobby.getSize()];
     storages = new boolean[lobby.getSize() * 5];
     setGame();
+
     pyramids = new Pyramids(lobby.getSize(), 1);
+    market = new Market(lobby.getSize());
+    temple = new Temple(lobby.getSize());
+    burialChamber = new BurialChamber(lobby.getSize());
     setStartCards();
     run();
   }
@@ -61,7 +71,7 @@ public class Game implements Runnable {
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
       this.order[i] = new Player(lobby.getUsers()[seq], i);
-      seq = seq + 1 % lobby.getSize();
+      seq = (seq + 1) % lobby.getSize();
     }
   }
 
@@ -114,8 +124,7 @@ public class Game implements Runnable {
       while (!AllshipsDocked())
       for (int player = 0; player <= this.order.length -1; player++) {
           currentPlayer = player;
-          switchPlayer(player);
-
+          setActivePlayer(player);
           waitforMove(player);
 
             if (this.Nextmove != null) {
@@ -134,19 +143,43 @@ public class Game implements Runnable {
             }
           }
 
-          if (AllshipsDocked()) {
-            break;
-          }
           //Informiert alle User über den/die ausgeführten Move/s
           for (Event e: executedMoves) {
             sendAll(e);
             executedMoves.remove(e);
           }
+          if (AllshipsDocked()) {
+          break;
+        }
         }
     }
   }
 
-  private void switchPlayer(int player) {
+  public BurialChamber getBurialChamber() {
+    return burialChamber;
+  }
+
+  public Market getMarket() {
+    return market;
+  }
+
+  public Obelisks getObelisks() {
+    return obelisks;
+  }
+
+  public Pyramids getPyramids() {
+    return pyramids;
+  }
+
+  public Temple getTemple() {
+    return temple;
+  }
+
+  public Ship[] getShips() {
+    return ships;
+  }
+
+  private void setActivePlayer(int player) {
     for (Player p : this.order) {
       sendTo(p.getUser(), new turnEvent(p == this.order[player]));
     }
@@ -161,7 +194,7 @@ public class Game implements Runnable {
   private boolean executeMove(Move move) {
     ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
     Procedure nextProcedure = pf.getProcedure(move.getType(), move);
-    sendAll(nextProcedure.exec());
+    executedMoves.add(nextProcedure.exec());
     return true;
   }
 
@@ -224,4 +257,14 @@ public class Game implements Runnable {
   public void updateCboats(Ship[] ships) {
     this.ships = ships;
   }
+
+  public Ship getBoatbyID(int shipId) {
+    return ships[shipId];
+  }
+
+  public Player[] getOrder() {
+    return order;
+  }
+
+
 }

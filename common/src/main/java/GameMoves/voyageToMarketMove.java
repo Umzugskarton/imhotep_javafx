@@ -1,26 +1,24 @@
 package GameMoves;
 
-
 import java.util.Date;
 
-public class voyageToStoneSiteMove implements Move{
-  private String move = "voyageToStoneSite";
+/**
+ * Created on 16.12.2017.
+ */
+public class voyageToMarketMove implements Move{
   private int shipId;
   private String stonesite;
 
-  public voyageToStoneSiteMove(){}
+  public voyageToMarketMove(){}
 
-  public voyageToStoneSiteMove(int shipId, String stonesite){
+  public voyageToMarketMove(int shipId, String stonesite){
     this.shipId = shipId;
     this.stonesite =stonesite;
   }
 
+
   public int getShipId() {
     return shipId;
-  }
-
-  public String getStonesite() {
-    return stonesite;
   }
 
   public void setShipId(int shipId) {
@@ -33,7 +31,7 @@ public class voyageToStoneSiteMove implements Move{
 
   @Override
   public String getType() {
-    return move;
+    return "voyageToStoneSite";
   }
 
   @Override

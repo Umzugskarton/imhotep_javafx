@@ -7,12 +7,12 @@ import GameMoves.fillUpStorageMove;
 import SRVevents.Event;
 import game.Game;
 
-public class fillUpStorage implements Procedure {
+public class FillUpStorage implements Procedure {
   private fillUpStorageMove move;
   private Game game;
   private int playerId;
 
-  fillUpStorage(Game game, int playerId) {
+  FillUpStorage(Game game, int playerId) {
     this.game = game;
     this.move = move;
     this.playerId = playerId;

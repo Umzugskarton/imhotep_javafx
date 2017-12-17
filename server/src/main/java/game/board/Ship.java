@@ -26,6 +26,10 @@ public class Ship {
     return minimumStones;
   }
 
+  public void setDocked(boolean docked) {
+    this.docked = docked;
+  }
+
   public Stone[] getStones() {
     return stones;
   }
