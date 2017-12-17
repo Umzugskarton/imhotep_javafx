@@ -19,252 +19,250 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
-  private final Logger log = LoggerFactory.getLogger(getClass().getName());
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-  private int gameID;
-  private Lobby lobby;
-  private Ship[] ships;
-  private boolean[] storages;
-  private Player[] order;
-  private int currentPlayer;
-  private int round;
+    private int gameID;
+    private Lobby lobby;
+    private Ship[] ships;
+    private boolean[] storages;
+    private Player[] order;
+    private int currentPlayer;
+    private int round;
 
-  //StoneSites
-  private Pyramids pyramids;
-  private Market market;
-  private Obelisks obelisks;
-  private Temple temple;
-  private BurialChamber burialChamber;
+    //StoneSites
+    private Pyramids pyramids;
+    private Market market;
+    private Obelisks obelisks;
+    private Temple temple;
+    private BurialChamber burialChamber;
 
-  private ClientListener clientListener;
-  private Move nextmove = null;
-  private List<Event> executedMoves;
+    private ClientListener clientListener;
+    private Move nextMove = null;
+    private List<Event> executedMoves;
 
-  public Game(Lobby lobby, ClientListener clientListener) {
-    this.lobby = lobby;
-    this.gameID = this.lobby.getLobbyID();
-    this.clientListener = clientListener;
-    this.executedMoves = new ArrayList<>();
-    lobby.show(false);
-    this.ships = new Ship[lobby.getSize()];
-    this.order = new Player[lobby.getSize()];
-    this.storages = new boolean[lobby.getSize() * 5];
-    setGame();
+    public Game(Lobby lobby, ClientListener clientListener) {
+        this.lobby = lobby;
+        this.gameID = this.lobby.getLobbyID();
+        this.clientListener = clientListener;
+        this.executedMoves = new ArrayList<>();
+        lobby.show(false);
 
-    this.pyramids = new Pyramids(lobby.getSize(), 1);
-    this.obelisks = new Obelisks(lobby.getSize());
-    this.market = new Market(lobby.getSize());
-    this.temple = new Temple(lobby.getSize());
-    this.burialChamber = new BurialChamber(lobby.getSize());
-    setStartCards();
-    run();
-  }
+        this.ships = new Ship[lobby.getSize()];
+        this.order = new Player[lobby.getSize()];
+        this.storages = new boolean[lobby.getSize() * 5];
+        setGame();
 
-  public void resetCurrentShips() {
-    for (int i = 0; i <= lobby.getSize() - 1; i++) {
-      this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
-    }
-  }
-
-  private void setGame() {
-    int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
-    for (int i = 0; i <= lobby.getSize() - 1; i++) {
-      this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
-      this.order[i] = new Player(lobby.getUsers()[seq], i);
-      seq = (seq + 1) % lobby.getSize();
-    }
-  }
-
-  private void sendAll(Event event) {
-    for (Player player : this.order) {
-      sendTo(player.getUser(), event);
-    }
-  }
-
-
-  private void sendTo(User user, Event event) {
-    this.clientListener.getServer().sendTo(event, user.getUsername());
-  }
-
-  private GameInfoEvent getGameinfo() {
-    GameInfoEvent gameInfo = new GameInfoEvent();
-
-    String[] users = new String[this.lobby.getSize()];
-    for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
-      users[i] = this.order[i].getUser().getUsername();
+        this.pyramids = new Pyramids(lobby.getSize(), 1);
+        this.obelisks = new Obelisks(lobby.getSize());
+        this.market = new Market(lobby.getSize());
+        this.temple = new Temple(lobby.getSize());
+        this.burialChamber = new BurialChamber(lobby.getSize());
+        setStartCards();
+        run();
     }
 
-    for (Ship ship : ships) {
-      int[] shipInt = new int[ship.getStones().length];
-      for (int i = 0; i < ship.getStones().length; i++) {
-        if (ship.getStones()[i] != null) {
-          shipInt[i] = ship.getStones()[i].getPlayer().getId();
+    public void resetCurrentShips() {
+        for (int i = 0; i <= lobby.getSize() - 1; i++) {
+            this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
         }
-      }
-      gameInfo.setCboats(shipInt);
     }
-    gameInfo.setOrder(users);
 
-    gameInfo.setRound(this.round);
-    gameInfo.setStorages(this.storages);
+    private void setGame() {
+        int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
+        for (int i = 0; i <= lobby.getSize() - 1; i++) {
+            this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
+            this.order[i] = new Player(lobby.getUsers()[seq], i);
+            seq = (seq + 1) % lobby.getSize();
+        }
+    }
 
-    return gameInfo;
-  }
+    private void sendAll(Event event) {
+        for (Player player : this.order) {
+            sendTo(player.getUser(), event);
+        }
+    }
 
-  private void setStartCards() {
+    private void sendTo(User user, Event event) {
+        this.clientListener.getServer().sendTo(event, user.getUsername());
+    }
 
-  }
+    private GameInfoEvent getGameinfo() {
+        GameInfoEvent gameInfo = new GameInfoEvent();
 
-  @Override
-  public void run() {
-    for (int i = 1; i <= 6; i++) {
-      this.round = i;
-      sendAll(getGameinfo());
-      while (!allshipsDocked())
-      for (int player = 0; player <= this.order.length -1; player++) {
-          currentPlayer = player;
-          setActivePlayer(player);
-          waitForMove(player);
+        String[] users = new String[this.lobby.getSize()];
+        for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
+            users[i] = this.order[i].getUser().getUsername();
+        }
 
-            if (this.nextmove != null) {
-              if (nextmove.getType().equals( "actionCard")){
-                actionCardMove ac = (actionCardMove) nextmove;
-               for (Move move: ac.getMoves()){
-                 executeMove(move);
-               }
-              }
-              else {
-              int tryed = 0;
-              while (!executeMove() && tryed < 2) {
-                waitForMove(player);
-                tryed++;
-              }
+        for (Ship ship : ships) {
+            int[] shipInt = new int[ship.getStones().length];
+            for (int i = 0; i < ship.getStones().length; i++) {
+                if (ship.getStones()[i] != null) {
+                    shipInt[i] = ship.getStones()[i].getPlayer().getId();
+                }
             }
-          }
-          nextmove = null;
-          //Informiert alle User über den/die ausgeführten Move/s
-          for (Event e: executedMoves) {
-            sendAll(e);
-            executedMoves.remove(e);
-          }
-          if (allshipsDocked()) {
-           break;
-          }
+            gameInfo.setCboats(shipInt);
         }
-        resetCurrentShips();
+        gameInfo.setOrder(users);
+
+        gameInfo.setRound(this.round);
+        gameInfo.setStorages(this.storages);
+
+        return gameInfo;
     }
-  }
 
-  public BurialChamber getBurialChamber() {
-    return burialChamber;
-  }
+    private void setStartCards() {
 
-  public Market getMarket() {
-    return market;
-  }
-
-  public Obelisks getObelisks() {
-    return obelisks;
-  }
-
-  public Pyramids getPyramids() {
-    return pyramids;
-  }
-
-  public Temple getTemple() {
-    return temple;
-  }
-
-  public Ship[] getShips() {
-    return ships;
-  }
-
-  private void setActivePlayer(int player) {
-    for (Player p : this.order) {
-      sendTo(p.getUser(), new turnEvent(p == this.order[player]));
     }
-  }
 
-  private boolean executeMove() {
-    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
-    Procedure nextProcedure = pf.getProcedure(nextmove.getType(), nextmove);
-    executedMoves.add(nextProcedure.exec());
-    return true;
-  }
-  private boolean executeMove(Move move) {
-    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
-    Procedure nextProcedure = pf.getProcedure(move.getType(), move);
-    executedMoves.add(nextProcedure.exec());
-    return true;
-  }
+    @Override
+    public void run() {
+        for (int i = 1; i <= 6; i++) {
+            this.round = i;
+            sendAll(getGameinfo());
+            while (!allshipsDocked())
+                for (int player = 0; player <= this.order.length - 1; player++) {
+                    currentPlayer = player;
+                    setActivePlayer(player);
+                    waitForMove(player);
 
-  private boolean allshipsDocked() {
-    int haven = 0;
-    for (Ship ship : this.ships) {
-      haven++;
+                    if (this.nextMove != null) {
+                        if (nextMove.getType().equals("actionCard")) {
+                            actionCardMove ac = (actionCardMove) nextMove;
+                            for (Move move : ac.getMoves()) {
+                                executeMove(move);
+                            }
+                        } else {
+                            int tryed = 0;
+                            while (!executeMove() && tryed < 2) {
+                                waitForMove(player);
+                                tryed++;
+                            }
+                        }
+                    }
+                    nextMove = null;
+                    //Informiert alle User über den/die ausgeführten Move/s
+                    for (Event e : executedMoves) {
+                        sendAll(e);
+                        executedMoves.remove(e);
+                    }
+                    if (allshipsDocked()) {
+                        break;
+                    }
+                }
+            resetCurrentShips();
+        }
     }
-    System.out.println(haven);
-    return haven == 0;
-  }
 
-  private synchronized void waitForMove(int p) {
-    log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
-    try {
-      this.wait(32000);
-    } catch (InterruptedException e) {
-      log.error(e.getMessage());
+    public BurialChamber getBurialChamber() {
+        return burialChamber;
     }
-  }
 
-  public synchronized void setNextmove(Move nextmove) {
-    this.nextmove = nextmove;
-    this.notify();
-  }
-
-  public void addStonesToStorage(int playerId) {
-    int set = 0;
-    for (int i = (playerId * 5); i < i + 5; i++) {
-      if (!storages[i]) {
-        storages[i] = true;
-        set++;
-      }
-      if (set == 3) {
-        break;
-      }
+    public Market getMarket() {
+        return market;
     }
-  }
 
-  public boolean[] getStorage(int playerID) {
-    boolean[] playerStorage = new boolean[5];
-    for (int i = playerID * 5; i < (playerID * 5) + 5; i++) {
-      playerStorage[i % 5] = storages[i];
+    public Obelisks getObelisks() {
+        return obelisks;
     }
-    return playerStorage;
-  }
 
-  public boolean[] getStorages() {
-    return storages;
-  }
+    public Pyramids getPyramids() {
+        return pyramids;
+    }
 
-  public int getGameID() {
-    return gameID;
-  }
+    public Temple getTemple() {
+        return temple;
+    }
 
-  public void updateRound(int round) {
-    this.round = round;
-  }
+    public Ship[] getShips() {
+        return ships;
+    }
 
-  public void updateCboats(Ship[] ships) {
-    this.ships = ships;
-  }
+    private void setActivePlayer(int player) {
+        for (Player p : this.order) {
+            sendTo(p.getUser(), new turnEvent(p == this.order[player]));
+        }
+    }
 
-  public Ship getBoatByID(int shipId) {
-    return ships[shipId];
-  }
+    private boolean executeMove() {
+        ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
+        Procedure nextProcedure = pf.getProcedure(nextMove.getType(), nextMove);
+        executedMoves.add(nextProcedure.exec());
+        return true;
+    }
 
-  public Player[] getOrder() {
-    return order;
-  }
+    private boolean executeMove(Move move) {
+        ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
+        Procedure nextProcedure = pf.getProcedure(move.getType(), move);
+        executedMoves.add(nextProcedure.exec());
+        return true;
+    }
 
+    private boolean allshipsDocked() {
+        int haven = 0;
+        for (Ship ship : this.ships) {
+            haven++;
+        }
+        System.out.println(haven);
+        return haven == 0;
+    }
 
+    private synchronized void waitForMove(int p) {
+        log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
+        try {
+            this.wait(32000);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    public synchronized void setNextMove(Move nextMove) {
+        this.nextMove = nextMove;
+        this.notify();
+    }
+
+    public void addStonesToStorage(int playerId) {
+        int set = 0;
+        for (int i = (playerId * 5); i < i + 5; i++) {
+            if (!storages[i]) {
+                storages[i] = true;
+                set++;
+            }
+            if (set == 3) {
+                break;
+            }
+        }
+    }
+
+    public boolean[] getStorage(int playerID) {
+        boolean[] playerStorage = new boolean[5];
+        for (int i = playerID * 5; i < (playerID * 5) + 5; i++) {
+            playerStorage[i % 5] = storages[i];
+        }
+        return playerStorage;
+    }
+
+    public boolean[] getStorages() {
+        return storages;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void updateRound(int round) {
+        this.round = round;
+    }
+
+    public void updateCboats(Ship[] ships) {
+        this.ships = ships;
+    }
+
+    public Ship getBoatByID(int shipId) {
+        return ships[shipId];
+    }
+
+    public Player[] getOrder() {
+        return order;
+    }
 }

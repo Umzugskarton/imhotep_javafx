@@ -81,7 +81,7 @@ public class ClientListener implements Runnable {
           } else if (request.containsKey("move")) {
             MoveFactory mf = new MoveFactory();
             if (this.lobby != null && !this.lobby.isVisible()) {
-              lobby.getGame().setNextmove(mf.getMove((String) request.get("move")));
+              lobby.getGame().setNextMove(mf.getMove((String) request.get("move")));
             }
           }
         } catch (ParseException pe) {
