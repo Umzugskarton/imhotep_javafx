@@ -28,19 +28,34 @@ public class BoardViewImplFx {
   @FXML
   private GridPane[] storages = new GridPane[4];
 
+  @FXML
+  private Button getNewStones;
+
+  @FXML
+  private Button selectShipStones;
+
+  @FXML
+  private Button placeStones;
+
+  @FXML
+  private Button SelectShipLocation;
+
+  @FXML
+  private Button moveShipToLocation;
+  @FXML
+  private Button playCard;
 
 
+  public void addHouse(int i, AnchorPane house) {
 
-  public void addHouse(int i, AnchorPane house){
-
-    houses.add(house, 0, i );
+    houses.add(house, 0, i);
   }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;
   }
 
-  public void full(){
+  public void full() {
     boardPresenter.fullscreen();
   }
 }
