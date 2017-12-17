@@ -3,6 +3,7 @@ package board.view;
 
 import board.presenter.BoardPresenter;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -32,17 +33,18 @@ public class BoardViewImplFx {
   @FXML
   private GridPane[] storages = new GridPane[4];
 
-  @FXML
-  private Button getNewStones;
 
   @FXML
-  private Button selectShipStones;
+  private ComboBox selectShipStones;
 
   @FXML
   private Button placeStones;
 
   @FXML
-  private Button SelectShipLocation;
+  private Button getNewStones;
+
+  @FXML
+  private ComboBox selectShipLocation;
 
   @FXML
   private Button moveShipToLocation;
