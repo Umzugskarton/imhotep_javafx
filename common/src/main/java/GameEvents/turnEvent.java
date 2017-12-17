@@ -21,6 +21,10 @@ public class turnEvent implements Event {
     this.myturn = myturn;
   }
 
+  public String getUsername() {
+    return this.username;
+  }
+
   @Override
   public Date getDate() {
     return this.date;
