@@ -14,6 +14,7 @@ import java.io.IOException;
 
 
 public class StorageViewImplFx {
+
   @FXML
   private Polygon polygon;
 
@@ -26,17 +27,16 @@ public class StorageViewImplFx {
   private AnchorPane root;
 
 
-
-  public StorageViewImplFx(){
+  public StorageViewImplFx() {
 
   }
 
-  public void setUserColor(String color){
+  public void setUserColor(String color) {
     flag.setFill(Color.web(color));
     polygon.setFill(Color.web(color));
   }
 
-   AnchorPane getRoot() {
+  AnchorPane getRoot() {
     return root;
   }
 }
