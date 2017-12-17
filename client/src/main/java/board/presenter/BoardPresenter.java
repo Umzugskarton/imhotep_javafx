@@ -3,6 +3,7 @@ package board.presenter;
 
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
+import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
 import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
@@ -21,11 +22,13 @@ public class BoardPresenter {
     private SceneController sc;
     private CLTLobby lobby;
     private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
+
     //Board Variables
     private ArrayList<int[]> ships;
     private int round;
     private boolean[] storages;
     private String[] order;
+    private Thread turnTimerThread;
 
 
     public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
@@ -33,8 +36,8 @@ public class BoardPresenter {
         this.view = view;
         this.sc = sc;
         int render = 0;
-        int test = 0;
-        // zum testen
+        this.turnTimerThread = null;
+
         for (LobbyUser user : lobby.getUsers()) {
             try {
                 AnchorPane root;
@@ -76,18 +79,32 @@ public class BoardPresenter {
         this.addLogMessage("Runde " + e.getRound() + " gestartet");
     }
 
-    public void updateUserInterface(TurnEvent e) {
+    public void newTurn(TurnEvent e) {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
+        this.view.getGameLog().getChildren().clear();
         this.toggleUserInterface(e.isMyturn());
 
         String msg;
         if(e.isMyturn()) {
             msg = "Du bist am Zug";
+            startTurnTimer();
         } else {
             msg = "Spieler " + e.getUsername() + " ist am Zug";
         }
 
         this.addLogMessage(msg);
+    }
+
+    private void startTurnTimer() {
+        this.stopTurnTimer();
+
+        this.turnTimerThread = new Thread(new TurnTimerThread(this, 30));
+        this.turnTimerThread.start();
+    }
+
+    private void stopTurnTimer() {
+        if(this.turnTimerThread != null)
+            this.turnTimerThread.interrupt();
     }
 
     private void updateView() {

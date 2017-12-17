@@ -86,7 +86,7 @@ public class Game implements Runnable {
         this.clientListener.getServer().sendTo(event, user.getUsername());
     }
 
-    private GameInfoEvent getGameinfo() {
+    private GameInfoEvent getGameInfo() {
         GameInfoEvent gameInfo = new GameInfoEvent();
 
         String[] users = new String[this.lobby.getSize()];
@@ -119,7 +119,7 @@ public class Game implements Runnable {
     public void run() {
         for (int i = 1; i <= 6; i++) {
             this.round = i;
-            sendAll(getGameinfo());
+            sendAll(getGameInfo());
             while (!allshipsDocked())
                 for (int player = 0; player <= this.order.length - 1; player++) {
                     currentPlayer = player;

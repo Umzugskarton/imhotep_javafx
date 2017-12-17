@@ -19,7 +19,7 @@ public class BoardViewImplFx {
   private BoardPresenter boardPresenter;
 
   @FXML
-  private AnchorPane BoardView;
+  private AnchorPane boardView;
 
   @FXML
   private GridPane houses;
@@ -27,26 +27,33 @@ public class BoardViewImplFx {
   @FXML
   private GridPane[] storages = new GridPane[4];
 
+  // User Interface
   @FXML
-  private Pane userInterface;
+  private Pane userInterfacePane;
 
   @FXML
-  private ComboBox selectShipStones;
+  private TextFlow gameLog;
 
   @FXML
-  private Button placeStones;
+  private Button getNewStonesButton;
 
   @FXML
-  private Button getNewStones;
+  private Button moveShipToLocationButton;
 
   @FXML
-  private ComboBox selectShipLocation;
+  private Button placeStonesButton;
 
   @FXML
-  private Button moveShipToLocation;
+  private Button playCardButton;
 
   @FXML
-  private Button playCard;
+  private ComboBox selectShipBox;
+
+  @FXML
+  private ComboBox selectShipLocationBox;
+
+  @FXML
+  private ComboBox selectShipToLocationBox;
 
   @FXML
   private Pane berth0;
@@ -61,39 +68,36 @@ public class BoardViewImplFx {
   private Pane berth3;
 
   @FXML
-  private Pane marketpier;
+  private Pane marketPier;
 
   @FXML
-  private Pane burialchamberpier;
+  private Pane burialChamberPier;
 
   @FXML
-  private Pane templepier;
+  private Pane templePier;
 
   @FXML
-  private Pane obeliskspier;
+  private Pane obelisksPier;
 
   @FXML
-  private Pane pyramidspier;
-
-  @FXML
-  private TextFlow gamelog;
+  private Pane pyramidsPier;
 
   public GridPane getHouses() {
     return houses;
   }
 
   public Pane getUserInterface() {
-    return userInterface;
+    return userInterfacePane;
   }
 
   public void addHouse(int i, AnchorPane house){
     Text text = new Text("x: " + i);
-    gamelog.getChildren().addAll();
-    houses.add(house, 0, i );
+    this.gameLog.getChildren().addAll();
+    this.houses.add(house, 0, i );
   }
 
   public TextFlow getGameLog() {
-    return gamelog;
+    return this.gameLog;
   }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {

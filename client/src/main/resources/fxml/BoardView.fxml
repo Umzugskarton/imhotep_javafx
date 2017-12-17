@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="BoardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
+<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
         <Pane fx:id="mainframe" layoutX="214.0" layoutY="75.0" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -28,11 +28,11 @@
                             <children>
                                 <Pane prefHeight="804.0" prefWidth="929.0" GridPane.columnIndex="1">
                                     <children>
-                                        <Pane fx:id="marketpier" layoutX="735.0" layoutY="26.0" prefHeight="118.0" prefWidth="200.0" />
-                                        <Pane fx:id="pyramidspier" layoutX="729.0" layoutY="184.0" prefHeight="118.0" prefWidth="200.0" />
-                                        <Pane fx:id="burialchamberpier" layoutX="735.0" layoutY="343.0" prefHeight="118.0" prefWidth="200.0" />
-                                        <Pane fx:id="templepier" layoutX="735.0" layoutY="495.0" prefHeight="118.0" prefWidth="200.0" />
-                                        <Pane fx:id="obeliskspier" layoutX="735.0" layoutY="656.0" prefHeight="118.0" prefWidth="200.0" />
+                                        <Pane fx:id="marketPier" layoutX="735.0" layoutY="26.0" prefHeight="118.0" prefWidth="200.0" />
+                                        <Pane fx:id="pyramidsPier" layoutX="729.0" layoutY="184.0" prefHeight="118.0" prefWidth="200.0" />
+                                        <Pane fx:id="burialChamberPier" layoutX="735.0" layoutY="343.0" prefHeight="118.0" prefWidth="200.0" />
+                                        <Pane fx:id="templePier" layoutX="735.0" layoutY="495.0" prefHeight="118.0" prefWidth="200.0" />
+                                        <Pane fx:id="obelisksPier" layoutX="735.0" layoutY="656.0" prefHeight="118.0" prefWidth="200.0" />
                                     </children>
                                 </Pane>
                                 <Pane id="mainland" prefHeight="804.0" prefWidth="453.0" stylesheets="@../style.css">
@@ -98,25 +98,25 @@
                 <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#full" text="Fullscreentest" />
             <Pane layoutX="1234.0" layoutY="863.0" prefHeight="217.0" prefWidth="686.0">
                <children>
-                  <TextFlow id="gamelog" fx:id="gamelog" layoutX="91.0" layoutY="17.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
+                  <TextFlow id="gameLog" fx:id="gameLog" layoutX="91.0" layoutY="17.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
                </children>
             </Pane>
             </children>
         </Pane>
-        <Pane fx:id="userInterface" layoutY="863.0" prefHeight="225.0" prefWidth="1128.0">
+        <Pane fx:id="userInterfacePane" layoutY="863.0" prefHeight="225.0" prefWidth="1128.0">
             <children>
-                <Button id="getNewStones" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
-                <Button id="moveShipToLocation" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
-                <Button id="placeStones" layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                <Button id="playCard" layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
-                <ComboBox fx:id="selectShip" layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <Button id="getNewStonesButton" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
+                <Button id="moveShipToLocationButton" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
+                <Button id="placeStonesButton" layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
+                <Button id="playCardButton" layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
+                <ComboBox fx:id="selectShipBox" layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
                 <Text layoutX="4.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 1" />
                 <Text layoutX="4.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 2" />
                 <Text layoutX="3.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 3" />
                 <Text layoutX="4.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 4" />
                 <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
-                <ComboBox fx:id="selectShipLocation" layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
-                <ComboBox fx:id="selectShipToLocation" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <ComboBox fx:id="selectShipLocationBox" layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
+                <ComboBox fx:id="selectShipToLocationBox" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
             </children>
         </Pane>
     </children>

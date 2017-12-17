@@ -129,7 +129,7 @@
   -fx-background-image: url("haus.png");
 }
 
-#gamelog{
+#gameLog{
   -fx-background-color: #fff;
   -fx-border-color: #753b64;
   -fx-text-fill: #623e66;

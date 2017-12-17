@@ -199,7 +199,7 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     if(sceneController.getBoardPresenter() != null) {
-                        sceneController.getBoardPresenter().updateUserInterface(e);
+                        sceneController.getBoardPresenter().newTurn(e);
                     }
                 }
         );
