@@ -28,7 +28,7 @@ public class VoyageToStoneSite implements Procedure {
   }
 
   public Event exec() {
-    Ship ship = game.getBoatbyID(move.getShipId());
+    Ship ship = game.getBoatByID(move.getShipId());
     StoneSite site;
     Method method;
 

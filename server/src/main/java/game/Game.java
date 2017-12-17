@@ -37,30 +37,30 @@ public class Game implements Runnable {
   private BurialChamber burialChamber;
 
   private ClientListener clientListener;
-  private Move Nextmove = null;
+  private Move nextmove = null;
   private List<Event> executedMoves;
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
     this.gameID = this.lobby.getLobbyID();
     this.clientListener = clientListener;
-    executedMoves = new ArrayList<>();
+    this.executedMoves = new ArrayList<>();
     lobby.show(false);
-    ships = new Ship[lobby.getSize()];
-    order = new Player[lobby.getSize()];
-    storages = new boolean[lobby.getSize() * 5];
+    this.ships = new Ship[lobby.getSize()];
+    this.order = new Player[lobby.getSize()];
+    this.storages = new boolean[lobby.getSize() * 5];
     setGame();
 
-    pyramids = new Pyramids(lobby.getSize(), 1);
-    obelisks = new Obelisks(lobby.getSize());
-    market = new Market(lobby.getSize());
-    temple = new Temple(lobby.getSize());
-    burialChamber = new BurialChamber(lobby.getSize());
+    this.pyramids = new Pyramids(lobby.getSize(), 1);
+    this.obelisks = new Obelisks(lobby.getSize());
+    this.market = new Market(lobby.getSize());
+    this.temple = new Temple(lobby.getSize());
+    this.burialChamber = new BurialChamber(lobby.getSize());
     setStartCards();
     run();
   }
 
-  public void resetCboats() {
+  public void resetCurrentShips() {
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
     }
@@ -115,21 +115,20 @@ public class Game implements Runnable {
 
   }
 
-
   @Override
   public void run() {
     for (int i = 1; i <= 6; i++) {
       this.round = i;
       sendAll(getGameinfo());
-      while (!AllshipsDocked())
+      while (!allshipsDocked())
       for (int player = 0; player <= this.order.length -1; player++) {
           currentPlayer = player;
           setActivePlayer(player);
-          waitforMove(player);
+          waitForMove(player);
 
-            if (this.Nextmove != null) {
-              if (Nextmove.getType().equals( "actionCard")){
-                actionCardMove ac = (actionCardMove) Nextmove;
+            if (this.nextmove != null) {
+              if (nextmove.getType().equals( "actionCard")){
+                actionCardMove ac = (actionCardMove) nextmove;
                for (Move move: ac.getMoves()){
                  executeMove(move);
                }
@@ -137,22 +136,22 @@ public class Game implements Runnable {
               else {
               int tryed = 0;
               while (!executeMove() && tryed < 2) {
-                waitforMove(player);
+                waitForMove(player);
                 tryed++;
               }
             }
           }
-          Nextmove = null;
+          nextmove = null;
           //Informiert alle User über den/die ausgeführten Move/s
           for (Event e: executedMoves) {
             sendAll(e);
             executedMoves.remove(e);
           }
-          if (AllshipsDocked()) {
+          if (allshipsDocked()) {
            break;
           }
         }
-        resetCboats();
+        resetCurrentShips();
     }
   }
 
@@ -188,7 +187,7 @@ public class Game implements Runnable {
 
   private boolean executeMove() {
     ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
-    Procedure nextProcedure = pf.getProcedure(Nextmove.getType(), Nextmove);
+    Procedure nextProcedure = pf.getProcedure(nextmove.getType(), nextmove);
     executedMoves.add(nextProcedure.exec());
     return true;
   }
@@ -199,7 +198,7 @@ public class Game implements Runnable {
     return true;
   }
 
-  private boolean AllshipsDocked() {
+  private boolean allshipsDocked() {
     int haven = 0;
     for (Ship ship : this.ships) {
       haven++;
@@ -208,7 +207,7 @@ public class Game implements Runnable {
     return haven == 0;
   }
 
-  private synchronized void waitforMove(int p) {
+  private synchronized void waitForMove(int p) {
     log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
     try {
       this.wait(32000);
@@ -218,7 +217,7 @@ public class Game implements Runnable {
   }
 
   public synchronized void setNextmove(Move nextmove) {
-    this.Nextmove = nextmove;
+    this.nextmove = nextmove;
     this.notify();
   }
 
@@ -259,7 +258,7 @@ public class Game implements Runnable {
     this.ships = ships;
   }
 
-  public Ship getBoatbyID(int shipId) {
+  public Ship getBoatByID(int shipId) {
     return ships[shipId];
   }
 

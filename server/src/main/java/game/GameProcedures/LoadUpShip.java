@@ -29,7 +29,7 @@ public class LoadUpShip implements Procedure {
   public Event exec() {
     Player player = game.getOrder()[playerId];
     Stone stone = new Stone(player);
-    Ship ship = game.getBoatbyID(move.getShipId());
+    Ship ship = game.getBoatByID(move.getShipId());
 
     if (ship.addStone(stone, move.getPosition())) {
       int[] shipInt = new int[ship.getStones().length];
