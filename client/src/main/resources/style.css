@@ -128,3 +128,9 @@
   -fx-background-size: 255 124;
   -fx-background-image: url("haus.png");
 }
+
+#gamelog{
+  -fx-background-color: #fff;
+  -fx-border-color: #753b64;
+  -fx-text-fill: #623e66;
+}

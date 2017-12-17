@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,6 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane fx:id="BoardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
@@ -45,6 +40,7 @@
                                         <GridPane fx:id="houses" layoutY="100.0" prefHeight="550.0" prefWidth="300.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints />
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="129.0" vgrow="SOMETIMES" />
@@ -102,12 +98,12 @@
                 <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#full" text="Fullscreentest" />
             </children>
         </Pane>
-        <Pane layoutY="863.0" prefHeight="225.0" prefWidth="844.0">
+        <Pane layoutY="863.0" prefHeight="225.0" prefWidth="1343.0">
             <children>
                 <Button layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
                 <Button layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
                 <Button layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                <Button  layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
+                <Button layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
                 <ComboBox layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
                 <Text layoutX="4.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 1" />
                 <Text layoutX="4.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 2" />
@@ -115,7 +111,8 @@
                 <Text layoutX="4.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 4" />
                 <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
                 <ComboBox layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
-                <ComboBox  layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <ComboBox layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
+            <TextFlow id="gamelog" fx:id="gamelog" layoutX="619.0" layoutY="13.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
             </children>
         </Pane>
     </children>

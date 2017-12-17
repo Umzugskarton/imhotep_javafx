@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.awt.*;
 
@@ -70,12 +72,21 @@ public class BoardViewImplFx {
   @FXML
   private Pane pyramidspier;
 
+  @FXML
+  private TextFlow gamelog;
+
   public GridPane getHouses() {
     return houses;
   }
 
   public void addHouse(int i, AnchorPane house){
+    Text text = new Text("x: " + i);
+    gamelog.getChildren().addAll();
     houses.add(house, 0, i );
+  }
+
+  public TextFlow getGamelog() {
+    return gamelog;
   }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
