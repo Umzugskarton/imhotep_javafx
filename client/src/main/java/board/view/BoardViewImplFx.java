@@ -27,6 +27,21 @@ public class BoardViewImplFx {
 
   @FXML
   private GridPane[] storages = new GridPane[4];
+  @FXML
+  private Button getNewStones;
+
+  @FXML
+  private Button selectShipStones;
+  @FXML
+  private Button placeStones;
+
+  @FXML
+  private Button SelectShipLocation;
+
+  @FXML
+  private Button moveShipToLocation;
+  @FXML
+  private Button playCard;
 
   @FXML
   private Pane berth0;

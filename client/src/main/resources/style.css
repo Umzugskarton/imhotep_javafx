@@ -1,118 +1,130 @@
-.button{
-    -fx-text-fill: #f4c933;
-    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    -fx-border-radius: 0;
-    -fx-font-weight: bold;
+.button {
+  -fx-text-fill: #f4c933;
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -fx-border-radius: 0;
+  -fx-font-weight: bold;
 
 }
 
+.combo-box {
+  -fx-text-fill: #f4c933;
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -fx-border-radius: 0;
+  -fx-font-weight: bold;
 
-
-#loginroot{
-    -fx-background-image: url("imhotep.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-width:5;
 }
 
-#regroot{
-    -fx-background-image: url("imhotep.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-width:5;
+.combo-box-base {
+  -fx-text-fill: #f4c933;
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -fx-border-radius: 0;
+  -fx-font-weight: bold;
+
 }
 
-#menuroot{
-    -fx-background-image: url("chat.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-width:5;
-    -fx-padding: 5 15 15 15;
+#loginroot {
+  -fx-background-image: url("imhotep.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 720 480;
+  -fx-border-width: 5;
 }
 
-.tab{
-    -fx-border-radius: 0;
-    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    -fx-background-size: stretch;
-    -fx-background-insets: 0 1 0 1,0,0;
+#regroot {
+  -fx-background-image: url("imhotep.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 720 480;
+  -fx-border-width: 5;
+}
+
+#menuroot {
+  -fx-background-image: url("chat.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 720 480;
+  -fx-border-width: 5;
+  -fx-padding: 5 15 15 15;
+}
+
+.tab {
+  -fx-border-radius: 0;
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -fx-background-size: stretch;
+  -fx-background-insets: 0 1 0 1, 0, 0;
 
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-opacity: 0;
+  -fx-opacity: 0;
 }
 
-.tab-pane .tab:selected
-{
-    -fx-background-color: #3c3c3c;
+.tab-pane .tab:selected {
+  -fx-background-color: #3c3c3c;
 }
 
-.tab .tab-label{
-    -fx-text-fill: #f4c933;
+.tab .tab-label {
+  -fx-text-fill: #f4c933;
 }
 
-.tab-pane{
-    -fx-tab-min-width:60px;
+.tab-pane {
+  -fx-tab-min-width: 60px;
 }
 
-.nav{
-    -webkit-fx-padding: 5 5 5 5;
-    -moz-fx-padding: 5 5 5 5;
-    -ms-fx-padding: 5 5 5 5;
-    -o-fx-padding: 5 5 5 5;
-    fx-padding: 5 5 5 5;;
+.nav {
+  -webkit-fx-padding: 5 5 5 5;
+  -moz-fx-padding: 5 5 5 5;
+  -ms-fx-padding: 5 5 5 5;
+  -o-fx-padding: 5 5 5 5;
+  fx-padding: 5 5 5 5;;
 }
 
-#msg{
-    -fx-opacity: 0.5;
+#msg {
+  -fx-opacity: 0.5;
 }
 
-#logout-button{
-    -fx-background-image:  url('logout.png');
-    -fx-background-size: 20px 20px;
-    -fx-pref-width: 25px;
-    -fx-pref-height: 20px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+#logout-button {
+  -fx-background-image: url('logout.png');
+  -fx-background-size: 20px 20px;
+  -fx-pref-width: 25px;
+  -fx-pref-height: 20px;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
 }
 
 .table-view:focused {
-    -fx-background-color: transparent ,-fx-box-border,-fx-control-inner-background;
-    -fx-background-insets: -1.4, 0, 1;
-    -fx-background-radius: 1.4, 0, 0;
-    /*....*/
-    -fx-padding: 1; /* 0.083333em; */
+  -fx-background-color: transparent, -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: -1.4, 0, 1;
+  -fx-background-radius: 1.4, 0, 0;
+  /*....*/
+  -fx-padding: 1; /* 0.083333em; */
 }
 
 .dialog {
-    -fx-background-image: url("imhotep.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 720 480;
-    -fx-border-width:5;
+  -fx-background-image: url("imhotep.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 720 480;
+  -fx-border-width: 5;
 }
-
 
 #mainland {
-    -fx-background-image: url("back.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 458 804;
-    -fx-background-position: center center;
+  -fx-background-image: url("back.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 458 804;
+  -fx-background-position: center center;
 }
 
-#haven{
-    -fx-background-repeat: stretch;
-    -fx-background-size: 360 760;
-    -fx-background-image: url("hafen.png");
+#haven {
+  -fx-background-repeat: stretch;
+  -fx-background-size: 360 760;
+  -fx-background-image: url("hafen.png");
 }
 
-#docks{
-    -fx-background-repeat: stretch;
-    -fx-background-size: 346 102;
-    -fx-background-image: url("dock.png");
+#docks {
+  -fx-background-repeat: stretch;
+  -fx-background-size: 346 102;
+  -fx-background-image: url("dock.png");
 }
 
-#house{
-    -fx-background-repeat: stretch;
-    -fx-background-size: 255 124;
-    -fx-background-image: url("haus.png");
+#house {
+  -fx-background-repeat: stretch;
+  -fx-background-size: 255 124;
+  -fx-background-image: url("haus.png");
 }
