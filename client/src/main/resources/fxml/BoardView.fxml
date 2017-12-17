@@ -96,9 +96,14 @@
                     </children>
                 </Pane>
                 <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#full" text="Fullscreentest" />
+            <Pane layoutX="1234.0" layoutY="863.0" prefHeight="217.0" prefWidth="686.0">
+               <children>
+                  <TextFlow id="gamelog" fx:id="gamelog" layoutX="91.0" layoutY="17.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
+               </children>
+            </Pane>
             </children>
         </Pane>
-        <Pane fx:id="userInterface" layoutY="863.0" prefHeight="225.0" prefWidth="1343.0">
+        <Pane fx:id="userInterface" layoutY="863.0" prefHeight="225.0" prefWidth="1128.0">
             <children>
                 <Button id="getNewStones" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
                 <Button id="moveShipToLocation" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
@@ -112,7 +117,6 @@
                 <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
                 <ComboBox fx:id="selectShipLocation" layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
                 <ComboBox fx:id="selectShipToLocation" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
-            <TextFlow id="gamelog" fx:id="gamelog" layoutX="619.0" layoutY="13.0" prefHeight="183.0" prefWidth="424.0" stylesheets="@../style.css" />
             </children>
         </Pane>
     </children>
