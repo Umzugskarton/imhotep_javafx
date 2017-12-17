@@ -16,10 +16,8 @@ public class TurnTimerThread implements Runnable {
     @Override
     public void run() {
         try {
-            while(secondsRemaining > 0) {
-                if(secondsRemaining % 5 == 0 || secondsRemaining < 5) {
-                    notifyPlayer();
-                }
+            while(secondsRemaining >= 0) {
+                setRemainingTurnTime();
                 Thread.sleep(1000);
                 this.secondsRemaining -= 1;
             }
@@ -28,10 +26,10 @@ public class TurnTimerThread implements Runnable {
         }
     }
 
-    public void notifyPlayer() {
+    public void setRemainingTurnTime() {
         Platform.runLater(() -> {
             if(boardPresenter != null) {
-                boardPresenter.addLogMessage("Du hast noch " + this.secondsRemaining + " Sekunden für deinen Zug");
+                boardPresenter.updateTurnTimer(this.secondsRemaining);
             }
         });
     }

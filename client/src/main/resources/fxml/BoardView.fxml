@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
+<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
         <Pane fx:id="mainframe" layoutX="214.0" layoutY="75.0" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -66,6 +66,7 @@
                                                 <Pane fx:id="berth3" layoutX="207.0" layoutY="438.0" prefHeight="118.0" prefWidth="200.0" />
                                             </children>
                                         </Pane>
+                              <TextFlow fx:id="turnTimer" layoutY="779.0" prefHeight="25.0" prefWidth="458.0" />
                                     </children>
                                 </Pane>
                                 <Pane id="mainland" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #edc9af;" GridPane.columnIndex="2">

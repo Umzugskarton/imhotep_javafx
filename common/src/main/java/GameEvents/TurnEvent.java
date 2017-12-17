@@ -17,11 +17,11 @@ public class TurnEvent implements Event {
     this.username = username;
   }
 
-  public boolean isMyturn() {
+  public boolean isMyTurn() {
     return myturn;
   }
 
-  public void setMyturn(boolean myturn) {
+  public void setMyTurn(boolean myturn) {
     this.myturn = myturn;
   }
 

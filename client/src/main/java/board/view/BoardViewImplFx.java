@@ -35,6 +35,9 @@ public class BoardViewImplFx {
   private TextFlow gameLog;
 
   @FXML
+  private TextFlow turnTimer;
+
+  @FXML
   private Button getNewStonesButton;
 
   @FXML
@@ -99,6 +102,8 @@ public class BoardViewImplFx {
   public TextFlow getGameLog() {
     return this.gameLog;
   }
+
+  public TextFlow getTurnTimer() { return this.turnTimer; }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;

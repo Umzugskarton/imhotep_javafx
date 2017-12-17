@@ -20,6 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
+    private static final int TURN_TIME = 20;
+    private static final int TURN_TIME_BUFFER = 2;
 
     private int gameID;
     private Lobby lobby;
@@ -105,6 +107,7 @@ public class Game implements Runnable {
         }
         gameInfo.setOrder(users);
 
+        gameInfo.setTurnTime(this.TURN_TIME);
         gameInfo.setRound(this.round);
         gameInfo.setStorages(this.storages);
 
@@ -208,9 +211,10 @@ public class Game implements Runnable {
     }
 
     private synchronized void waitForMove(int p) {
-        log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
+        log.info("[Lobby " + this.lobby.getLobbyID() + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
+
         try {
-            this.wait(32000);
+            this.wait(this.TURN_TIME * 1000 + this.TURN_TIME_BUFFER * 1000);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }

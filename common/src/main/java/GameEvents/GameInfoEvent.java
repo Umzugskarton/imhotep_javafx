@@ -13,6 +13,7 @@ public class GameInfoEvent implements Event {
   private boolean[] storages;
   private String[] order;
   private Date date;
+  private int turnTime;
 
   public GameInfoEvent() {
     this.date = new Date();
@@ -29,6 +30,10 @@ public class GameInfoEvent implements Event {
   public int getRound() {
     return round;
   }
+
+  public void setTurnTime(int seconds) { this.turnTime = seconds; }
+
+  public int getTurnTime() { return turnTime; }
 
   public ArrayList<int[]> getShips() {
     return ships;
