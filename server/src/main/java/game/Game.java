@@ -180,7 +180,7 @@ public class Game implements Runnable {
 
     private void setActivePlayer(int player) {
         for (Player p : this.order) {
-            sendTo(p.getUser(), new turnEvent(p == this.order[player]));
+            sendTo(p.getUser(), new turnEvent(p == this.order[player], this.order[player].getUser().getUsername()));
         }
     }
 

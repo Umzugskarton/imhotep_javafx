@@ -6,9 +6,11 @@ import java.util.Date;
 
 public class turnEvent implements Event {
   boolean myturn;
+  String username;
 
-  public turnEvent(boolean myturn) {
+  public turnEvent(boolean myturn, String username) {
     this.myturn = myturn;
+    this.username = username;
   }
 
   public boolean isMyturn() {
