@@ -1,6 +1,6 @@
 package game;
 
-import GameEvents.gameInfoEvent;
+import GameEvents.GameInfoEvent;
 import GameEvents.turnEvent;
 import GameMoves.Move;
 import GameMoves.actionCardMove;
@@ -39,7 +39,6 @@ public class Game implements Runnable {
   private ClientListener clientListener;
   private Move Nextmove = null;
   private List<Event> executedMoves;
-  private Event event = null;
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
@@ -53,6 +52,7 @@ public class Game implements Runnable {
     setGame();
 
     pyramids = new Pyramids(lobby.getSize(), 1);
+    obelisks = new Obelisks(lobby.getSize());
     market = new Market(lobby.getSize());
     temple = new Temple(lobby.getSize());
     burialChamber = new BurialChamber(lobby.getSize());
@@ -66,7 +66,7 @@ public class Game implements Runnable {
     }
   }
 
-  public void setGame() {
+  private void setGame() {
     int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
@@ -75,19 +75,19 @@ public class Game implements Runnable {
     }
   }
 
-  public void sendAll(Event event) {
+  private void sendAll(Event event) {
     for (Player player : this.order) {
       sendTo(player.getUser(), event);
     }
   }
 
 
-  public void sendTo(User user, Event event) {
+  private void sendTo(User user, Event event) {
     this.clientListener.getServer().sendTo(event, user.getUsername());
   }
 
-  public gameInfoEvent getGameinfo() {
-    gameInfoEvent gameInfo = new gameInfoEvent();
+  private GameInfoEvent getGameinfo() {
+    GameInfoEvent gameInfo = new GameInfoEvent();
 
     String[] users = new String[this.lobby.getSize()];
     for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
@@ -111,7 +111,7 @@ public class Game implements Runnable {
     return gameInfo;
   }
 
-  public void setStartCards() {
+  private void setStartCards() {
 
   }
 
@@ -142,16 +142,17 @@ public class Game implements Runnable {
               }
             }
           }
-
+          Nextmove = null;
           //Informiert alle User über den/die ausgeführten Move/s
           for (Event e: executedMoves) {
             sendAll(e);
             executedMoves.remove(e);
           }
           if (AllshipsDocked()) {
-          break;
+           break;
+          }
         }
-        }
+        resetCboats();
     }
   }
 
@@ -207,7 +208,7 @@ public class Game implements Runnable {
     return haven == 0;
   }
 
-  synchronized void waitforMove(int p) {
+  private synchronized void waitforMove(int p) {
     log.info("Lobby" + this.lobby.getLobbyID() + ": Warte auf Spielzug von Spieler nr." + (p + 1) + " " + this.order[p].getUser().getUsername());
     try {
       this.wait(32000);

@@ -1,7 +1,7 @@
 package board.presenter;
 
 
-import GameEvents.gameInfoEvent;
+import GameEvents.GameInfoEvent;
 import board.view.BoardViewImplFx;
 import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
@@ -19,6 +19,12 @@ public class BoardPresenter {
   private SceneController sc;
   private CLTLobby lobby;
   private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
+  //Board Variables
+  private ArrayList<int[]> ships;
+  private int round;
+  private boolean[] storages;
+  private String[] order;
+
 
   public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
     this.lobby = legacy;
@@ -55,9 +61,33 @@ public class BoardPresenter {
     return sc;
   }
 
-  public void updateBoard(gameInfoEvent e) {
+  public void updateBoard(GameInfoEvent e) {
+    storages = e.getStorages();
+    ships = e.getShips();
+    round = e.getRound();
+    order = e.getOrder();
+    updateView();
+  }
+
+  private void updateView(){
+    updateStorages();
 
   }
+
+  private void updateStorages(){
+    int i = 0;
+    int[] playerStorages  = new int[storages.length/5];
+    for (boolean stone: storages){
+      if (stone){
+        playerStorages[i/5]++;
+      }
+      if ((i+1) % 5 == 0 ){
+        storagePresenters.get(i/5).setStoneCount(playerStorages[i/5]);
+      }
+      i++;
+    }
+  }
+
 
   public void fullscreen() {
     sc.toggleFullscreen();

@@ -14,7 +14,6 @@ public class FillUpStorage implements Procedure {
 
   FillUpStorage(Game game, int playerId) {
     this.game = game;
-    this.move = move;
     this.playerId = playerId;
   }
 

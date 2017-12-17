@@ -1,6 +1,6 @@
 package SRVevents;
 
-import GameEvents.gameInfoEvent;
+import GameEvents.GameInfoEvent;
 
 import java.util.HashMap;
 
@@ -23,7 +23,7 @@ public class EventFactory {
     Dict.put("changeCredential", new changeCredentialEvent());
     Dict.put("changeColor", new changeColorEvent());
     Dict.put("setReady", new setReadyEvent());
-    Dict.put("gameInfo", new gameInfoEvent());
+    Dict.put("gameInfo", new GameInfoEvent());
   }
 
   public Event getEvent(String command) {

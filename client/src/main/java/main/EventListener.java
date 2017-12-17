@@ -183,7 +183,7 @@ public class EventListener {
   }
 
   @Subscribe
-  public void gameInfoEventListener(gameInfoEvent e){
+  public void gameInfoEventListener(GameInfoEvent e){
     Platform.runLater(
             () -> {
               if (sceneController.getBoardPresenter() == null){

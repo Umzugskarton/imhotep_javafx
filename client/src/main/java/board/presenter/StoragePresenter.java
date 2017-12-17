@@ -14,5 +14,11 @@ public class StoragePresenter {
     this.view.setUserColor(user.getColor());
   }
 
+  public void setStoneCount(int stones){
+    for (int i = 0; i < stones ; i++){
+
+    }
+      //TODO steine gemäß anzahl anzeigen
+  }
 
 }

@@ -6,7 +6,7 @@ import SRVevents.Event;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class gameInfoEvent implements Event {
+public class GameInfoEvent implements Event {
   private String event = "gameInfo";
   private ArrayList<int[]> ships = new ArrayList<>();
   private int round;
@@ -14,7 +14,7 @@ public class gameInfoEvent implements Event {
   private String[] order;
   private Date date;
 
-  public gameInfoEvent() {
+  public GameInfoEvent() {
     this.date = new Date();
   }
 

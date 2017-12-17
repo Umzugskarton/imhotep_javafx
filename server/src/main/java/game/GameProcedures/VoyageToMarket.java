@@ -1,5 +1,7 @@
 package game.GameProcedures;
 
+import GameEvents.ShipAlreadyDockedError;
+import GameEvents.SiteAlreadyDockedError;
 import GameMoves.Move;
 import GameMoves.voyageToMarketMove;
 import GameMoves.voyageToStoneSiteMove;
@@ -7,8 +9,6 @@ import SRVevents.Event;
 import game.Game;
 import game.board.Market;
 import game.board.Ship;
-import game.board.StoneSite;
-
 import java.lang.reflect.Method;
 
 /**
@@ -25,11 +25,12 @@ public class VoyageToMarket {
   }
 
   public void put(Move move) {
-    this.move = (voyageToStoneSiteMove) move;
+    this.move = (voyageToMarketMove) move;
   }
+  /*
 
   public Event exec() {
-    Ship ship = game.getBoatbyID(move.getShipId());
+  /*  Ship ship = game.getBoatbyID(move.getShipId());
     Market market = game.getMarket();
     Method method;
 
@@ -39,11 +40,11 @@ public class VoyageToMarket {
        //TODO MARKET CARDS ETC.
       }
       else {
-        return new SiteAlreadyDockedErrorEvent(move.getShipId());
+        return new SiteAlreadyDockedError("Market");
       }
 
     } else {
-      return new ShipAlreadyDockedErrorEvent(move.getShipId());
+      return new ShipAlreadyDockedError(move.getShipId());
     }
-  }
+  }*/
 }

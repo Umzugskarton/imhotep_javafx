@@ -28,11 +28,38 @@ public class BoardViewImplFx {
   @FXML
   private GridPane[] storages = new GridPane[4];
 
+  @FXML
+  private Pane berth0;
 
+  @FXML
+  private Pane berth1;
 
+  @FXML
+  private Pane berth2;
+
+  @FXML
+  private Pane berth3;
+
+  @FXML
+  private Pane marketpier;
+
+  @FXML
+  private Pane burialchamberpier;
+
+  @FXML
+  private Pane templepier;
+
+  @FXML
+  private Pane obeliskspier;
+
+  @FXML
+  private Pane pyramidspier;
+
+  public GridPane getHouses() {
+    return houses;
+  }
 
   public void addHouse(int i, AnchorPane house){
-
     houses.add(house, 0, i );
   }
 
