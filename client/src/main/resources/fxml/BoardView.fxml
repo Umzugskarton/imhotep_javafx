@@ -6,6 +6,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="BoardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
@@ -96,21 +104,19 @@
         </Pane>
         <Pane layoutY="863.0" prefHeight="225.0" prefWidth="844.0">
             <children>
-                <Button fx:id="getNewStones" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
-                <Button fx:id="moveShipToLocation" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
-                <Button fx:id="placeStones" layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                <Button fx:id="playCard" layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
-                <ComboBox fx:id="SelectShipLocation" layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <Button layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
+                <Button layoutX="367.0" layoutY="85.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
+                <Button layoutX="164.0" layoutY="140.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
+                <Button  layoutX="3.0" layoutY="192.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
+                <ComboBox layoutX="4.0" layoutY="85.0" prefWidth="150.0" promptText="Boot auswählen" />
                 <Text layoutX="4.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 1" />
                 <Text layoutX="4.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 2" />
                 <Text layoutX="3.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 3" />
                 <Text layoutX="4.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 4" />
                 <Text layoutX="164.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
-                <ComboBox fx:id="SelectShipLocation" layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
-                <ComboBox fx:id="selectShipStones" layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <ComboBox layoutX="201.0" layoutY="85.0" prefWidth="150.0" promptText="Ort auswählen" />
+                <ComboBox  layoutX="4.0" layoutY="140.0" prefWidth="150.0" promptText="Boot auswählen" />
             </children>
         </Pane>
-
-    </Pane>
     </children>
 </AnchorPane>
