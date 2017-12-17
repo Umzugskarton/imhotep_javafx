@@ -190,6 +190,9 @@ public class EventListener {
                         sceneController.toBoardScene();
                     }
                     sceneController.getBoardPresenter().updateBoard(e);
+
+                    // DEBUG
+                    sceneController.getBoardPresenter().addLogMessage("Runde " + e.getRound() + " gestartet");
                 }
         );
     }
@@ -198,9 +201,9 @@ public class EventListener {
     public void turnEventListener(turnEvent e) {
         Platform.runLater(
                 () -> {
+                    System.out.println("test");
                     if(sceneController.getBoardPresenter() != null) {
-                        // TODO: verbleibende zeit anzeigen
-                        // TODO: buttons anzeigen
+                        sceneController.getBoardPresenter().updateUserInterface(e);
                     }
                 }
         );

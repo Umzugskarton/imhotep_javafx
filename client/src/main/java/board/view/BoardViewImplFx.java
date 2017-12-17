@@ -3,6 +3,7 @@ package board.view;
 
 import board.presenter.BoardPresenter;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -10,6 +11,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class BoardViewImplFx {
 
@@ -29,19 +32,23 @@ public class BoardViewImplFx {
 
   @FXML
   private GridPane[] storages = new GridPane[4];
-  @FXML
-  private Button getNewStones;
+
 
   @FXML
-  private Button selectShipStones;
+  private ComboBox selectShipStones;
+
   @FXML
   private Button placeStones;
 
   @FXML
-  private Button SelectShipLocation;
+  private Button getNewStones;
+
+  @FXML
+  private ComboBox selectShipLocation;
 
   @FXML
   private Button moveShipToLocation;
+
   @FXML
   private Button playCard;
 
@@ -79,13 +86,20 @@ public class BoardViewImplFx {
     return houses;
   }
 
+  public ArrayList<Button> getButtons() {
+    ArrayList<Button> buttons = new ArrayList<>();
+    Collections.addAll(buttons, getNewStones, selectShipStones, placeStones, SelectShipLocation, moveShipToLocation, playCard);
+
+    return buttons;
+  }
+
   public void addHouse(int i, AnchorPane house){
     Text text = new Text("x: " + i);
     gamelog.getChildren().addAll();
     houses.add(house, 0, i );
   }
 
-  public TextFlow getGamelog() {
+  public TextFlow getGameLog() {
     return gamelog;
   }
 
