@@ -82,7 +82,7 @@ public class ClientListener implements Runnable {
           } else if (request.containsKey("move")) {
             MoveFactory mf = new MoveFactory();
             if (this.lobby != null && !this.lobby.isVisible()) {
-              lobby.getGame().setNextMove(mf.getMove((String) request.get("move")));
+              lobby.getExecutor().setMove(mf.getMove((String) request.get("move")));
             }
           }
         } catch (ParseException pe) {
@@ -108,7 +108,7 @@ public class ClientListener implements Runnable {
       }
 
       this.server.removeClient(this);
-    }
+  }
 
   public void send(Event event) {
     if (this.out != null) {

@@ -163,3 +163,9 @@
   -fx-background-size: 100% 100%;
   -fx-background-repeat: stretch;
 }
+
+#stonegrid{
+  -fx-background-image: url("stoneback.png");
+  -fx-background-size: 100% 100%;
+  -fx-background-repeat: stretch;
+}

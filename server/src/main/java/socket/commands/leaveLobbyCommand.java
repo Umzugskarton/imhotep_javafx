@@ -40,7 +40,7 @@ public class leaveLobbyCommand implements Command {
 
         leaveLobbyEvent response = lobby.leave(user);
         server.sendTo(response, clientListener.getUser().getUsername());
-
+        this.clientListener.setLobby(null);
         if(lobby.getUserCount() != 0) {
             this.clientListener.getServer()
                     .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
