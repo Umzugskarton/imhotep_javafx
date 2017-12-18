@@ -13,6 +13,7 @@ import javafx.scene.layout.RowConstraints;
 public class CreateViewImpl extends GridPane implements CreateView {
 
   private CreatePresenter createPresenter;
+  private Label message;
 
   public CreateViewImpl(CreatePresenter createPresenter) {
     this.createPresenter = createPresenter;
@@ -44,6 +45,8 @@ public class CreateViewImpl extends GridPane implements CreateView {
         createPresenter.createLobby(lobbyName.getText(), Integer.parseInt(lobbySize.getValue()),
             passwordUser.getText()));
 
+    message = new Label();
+
     ColumnConstraints column = new ColumnConstraints();
     column.setFillWidth(true);
     column.setHgrow(Priority.ALWAYS);
@@ -71,6 +74,11 @@ public class CreateViewImpl extends GridPane implements CreateView {
     root.add(labelPassword, 0, 3);
     root.add(passwordUser, 1, 3);
     root.add(sendButton, 2, 2);
+    root.add(message, 0, 4);
+  }
+
+  public void updateStatusLabel(String m) {
+      message.setText(m);
   }
 
 }
