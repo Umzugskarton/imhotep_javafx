@@ -40,6 +40,7 @@ public class LobbyViewImpl implements LobbyView {
   private String username;
   private GridPane grid = new GridPane();
   private TextFlow chatText;
+  private Label playerCount;
 
   public LobbyViewImpl() {
     buildLobby();
@@ -54,6 +55,10 @@ public class LobbyViewImpl implements LobbyView {
     grid.setHgap(5);
     grid.setVgap(5);
     grid.setPadding(new Insets(15, 15, 15, 12));
+
+
+    playerCount = new Label();
+    grid.add(playerCount, 4, 4);
 
     HBox nav = new HBox();
     nav.setId("nav");
@@ -188,6 +193,7 @@ public class LobbyViewImpl implements LobbyView {
               color.setWidth(15);
               hbox.setSpacing(5);
 
+
               //Shit-Button-Lösung. Valve, pls fix
               // Anmerkung: Ja shit Lösung weil er im Callback für die Colorzeile ist
 
@@ -273,6 +279,7 @@ public class LobbyViewImpl implements LobbyView {
     }
 
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
+    playerCount.setText("Players:" +  String.valueOf(this.lobbyPresenter.getCLTLobby().getObservableUsers().size()) + " / " + this.lobbyPresenter.getCLTLobby().getSize());
   }
 
   public void updateTable() {
