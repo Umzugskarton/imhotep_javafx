@@ -161,9 +161,9 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
-                        if (this.sceneController.getLobbyPresenter() == null) {
-                            this.sceneController.toLobbyScene();
-                        }
+
+                      this.sceneController.toLobbyScene();
+
                         CLTLobby temp = e.getLobby();
                         this.sceneController.getLobbyPresenter().setCLTLobby(temp);
                     }

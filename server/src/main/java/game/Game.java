@@ -147,6 +147,8 @@ public class Game implements Runnable {
                             }
                         }
                     }
+                    else
+                        log.error("Kein Spielzug gesetzt!");
                     nextMove = null;
                     //Informiert alle User über den/die ausgeführten Move/s
                     for (Event e : executedMoves) {
@@ -214,20 +216,17 @@ public class Game implements Runnable {
         return haven == 0;
     }
 
-    private synchronized void waitForMove(int p) {
+    private  void waitForMove(int p) {
         log.info("[Lobby " + this.lobby.getLobbyID() + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
-
-        try {
-            this.wait(this.TURN_TIME * 1000 + this.TURN_TIME_BUFFER * 1000);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-        }
+        nextMove = lobby.getExecutor().waitForMove();
     }
 
-    public synchronized void setNextMove(Move nextMove) {
+   /* public void setNextMove(Move nextMove) {
+        lock.lock();
+        log.info("Spielzug "+ nextMove.getType() + " wurde gesetzt. Für Spieler " + currentPlayer);
         this.nextMove = nextMove;
-        this.notify();
-    }
+        noMove.signalAll();
+    }*/
 
     public void addStonesToStorage(int playerId) {
         if (storages.get(playerId)+3 >5)

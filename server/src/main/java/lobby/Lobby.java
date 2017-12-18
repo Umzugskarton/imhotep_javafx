@@ -6,6 +6,7 @@ import SRVevents.leaveLobbyEvent;
 import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
 import game.Game;
+import game.MoveExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
@@ -30,6 +31,7 @@ public class Lobby {
     private ArrayList<Integer> userColor;
     private ArrayList<String> colors = new ArrayList<>();
     private Game game;
+    private MoveExecutor executor;
 
     public Lobby(int size, User host, String name) {
         this.ready = new boolean[size];
@@ -42,6 +44,10 @@ public class Lobby {
         this.size = size;
         this.show = true;
         generateColors();
+    }
+
+    public MoveExecutor getExecutor() {
+        return executor;
     }
 
     public boolean isHost(User user) {
@@ -203,9 +209,11 @@ public class Lobby {
         for (int i = 0; i < lobby.length; i++) {
             if (lobby[i] == user) {
                 lobby[i] = null;
+                userColor.remove(i);
                 break;
             }
         }
+
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
 
