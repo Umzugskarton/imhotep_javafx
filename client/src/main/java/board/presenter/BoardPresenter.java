@@ -131,7 +131,7 @@ public class BoardPresenter {
                 new Stop(1, Color.TRANSPARENT)};
 
         LinearGradient linearGradient =
-                new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
+                new LinearGradient(0, 0, 0, 0.3, true, CycleMethod.NO_CYCLE, stops);
 
         this.view.getPlayerColorRectangle().setFill(linearGradient);
 
@@ -163,8 +163,8 @@ public class BoardPresenter {
         }
     }
 
-    public void updateTurnTimer(int seconds) {
-        this.view.getTurnTimerProgress().setProgress((double) seconds / (double) turnTime);
+    public void updateTurnTimer(double seconds) {
+        this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
 
         if(seconds <= 0) {
             this.endTurn();

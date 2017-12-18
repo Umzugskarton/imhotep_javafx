@@ -4,21 +4,21 @@ import board.presenter.BoardPresenter;
 import javafx.application.Platform;
 
 public class TurnTimerThread implements Runnable {
-    private int secondsRemaining;
+    private double secondsRemaining;
     private BoardPresenter boardPresenter;
 
     public TurnTimerThread(BoardPresenter boardPresenter, int seconds) {
-        this.secondsRemaining = seconds;
+        this.secondsRemaining = (double) seconds;
         this.boardPresenter = boardPresenter;
     }
 
     @Override
     public void run() {
         try {
-            while(secondsRemaining >= 0) {
+            while(secondsRemaining >= 0.0) {
                 setRemainingTurnTime();
-                Thread.sleep(1000);
-                this.secondsRemaining -= 1;
+                Thread.sleep(100);
+                this.secondsRemaining -= 0.1;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
