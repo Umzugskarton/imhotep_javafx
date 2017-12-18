@@ -17,9 +17,8 @@ public class StoragePresenter {
 
   public void setStoneCount(int stones){
     for (int i = 0; i < stones ; i++){
-
+      view.getStones().get(i).setVisible(true);
     }
-      //TODO steine gemäß anzahl anzeigen
   }
 
 }

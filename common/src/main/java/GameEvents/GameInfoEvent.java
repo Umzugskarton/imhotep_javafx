@@ -10,7 +10,7 @@ public class GameInfoEvent implements Event {
   private String event = "gameInfo";
   private ArrayList<int[]> ships = new ArrayList<>();
   private int round;
-  private boolean[] storages;
+  private ArrayList<Integer> storages;
   private String[] order;
   private Date date;
   private int turnTime;
@@ -19,11 +19,11 @@ public class GameInfoEvent implements Event {
     this.date = new Date();
   }
 
-  public void setCboats(int[] ship) {
+  public void setCurrentShips(int[] ship) {
     ships.add(ship);
   }
 
-  public boolean[] getStorages() {
+  public ArrayList<Integer> getStorages() {
     return storages;
   }
 
@@ -55,7 +55,7 @@ public class GameInfoEvent implements Event {
     this.round = round;
   }
 
-  public void setStorages(boolean[] storages) {
+  public void setStorages(ArrayList storages) {
     this.storages = storages;
   }
 

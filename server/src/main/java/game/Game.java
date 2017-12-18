@@ -26,7 +26,7 @@ public class Game implements Runnable {
     private int gameID;
     private Lobby lobby;
     private Ship[] ships;
-    private boolean[] storages;
+    private ArrayList<Integer> storages;
     private Player[] order;
     private int currentPlayer;
     private int round;
@@ -51,7 +51,7 @@ public class Game implements Runnable {
 
         this.ships = new Ship[lobby.getSize()];
         this.order = new Player[lobby.getSize()];
-        this.storages = new boolean[lobby.getSize() * 5];
+        this.storages = new ArrayList<>();
         setGame();
 
         this.pyramids = new Pyramids(lobby.getSize(), 1);
@@ -74,6 +74,7 @@ public class Game implements Runnable {
         for (int i = 0; i <= lobby.getSize() - 1; i++) {
             this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
             this.order[i] = new Player(lobby.getUsers()[seq], i);
+            this.storages.add(i, i+1);
             seq = (seq + 1) % lobby.getSize();
         }
     }
@@ -107,7 +108,7 @@ public class Game implements Runnable {
                     shipInt[i] = ThreadLocalRandom.current().nextInt(0, 2);
                 }
             }
-            gameInfo.setCboats(shipInt);
+            gameInfo.setCurrentShips(shipInt);
         }
         gameInfo.setOrder(users);
 
@@ -230,29 +231,16 @@ public class Game implements Runnable {
     }
 
     public void addStonesToStorage(int playerId) {
-        int set = 0;
-        for (int i = (playerId * 5); i < i + 5; i++) {
-            if (!storages[i]) {
-                storages[i] = true;
-                set++;
-            }
-            if (set == 3) {
-                break;
-            }
-        }
+        if (storages.get(playerId)+3 >5)
+            storages.set(playerId, 5);
+        else
+            storages.set(playerId, storages.get(playerId)+3 );
     }
 
-    public boolean[] getStorage(int playerID) {
-        boolean[] playerStorage = new boolean[5];
-        for (int i = playerID * 5; i < (playerID * 5) + 5; i++) {
-            playerStorage[i % 5] = storages[i];
-        }
-        return playerStorage;
+    public int getStorage(int playerID) {
+        return storages.get(playerID);
     }
 
-    public boolean[] getStorages() {
-        return storages;
-    }
 
     public int getGameID() {
         return gameID;

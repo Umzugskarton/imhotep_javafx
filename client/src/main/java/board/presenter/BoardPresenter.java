@@ -30,7 +30,7 @@ public class BoardPresenter {
     //Board Variables
     private ArrayList<int[]> ships;
     private int round;
-    private boolean[] storages;
+    private ArrayList<Integer> storages;
     private String[] order;
     private int turnTime;
     private Thread turnTimerThread;
@@ -103,15 +103,9 @@ public class BoardPresenter {
     }
 
     private void updateStorages() {
-        int i = 0;
-        int[] playerStorages = new int[storages.length / 5];
-        for (boolean stone : storages) {
-            if (stone) {
-                playerStorages[i / 5]++;
-            }
-            if ((i + 1) % 5 == 0) {
-                storagePresenters.get(i / 5).setStoneCount(playerStorages[i / 5]);
-            }
+        int i = 0 ;
+        for (int stone : storages) {
+            storagePresenters.get(i).setStoneCount(stone);
             i++;
         }
     }

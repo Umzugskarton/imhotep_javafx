@@ -7,20 +7,20 @@ import java.util.Date;
 public class FillUpStorageEvent implements Event {
   private String event = "filUpStorage";
   private int playerId;
-  private boolean[] storage;
+  private int storage;
   public Date date;
 
   public FillUpStorageEvent() {
     this.date = new Date();
   }
 
-  public FillUpStorageEvent(int playerId, boolean[] storage) {
+  public FillUpStorageEvent(int playerId, int storage) {
     this.playerId = playerId;
     this.storage = storage;
     this.date = new Date();
   }
 
-  public boolean[] getStorage() {
+  public int getStorage() {
     return storage;
   }
 
@@ -28,7 +28,7 @@ public class FillUpStorageEvent implements Event {
     return event;
   }
 
-  public void setStorage(boolean[] storage) {
+  public void setStorage(int storage) {
     this.storage = storage;
   }
 
