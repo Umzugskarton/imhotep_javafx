@@ -31,7 +31,7 @@ public class BoardViewImplFx {
 
   // User Interface
   @FXML
-  private Pane userInterfacePane;
+  private GridPane userInterfacePane;
 
   @FXML
   public Label uiBannerLabel;
@@ -108,7 +108,7 @@ public class BoardViewImplFx {
     return houses;
   }
 
-  public Pane getUserInterface() {
+  public GridPane getUserInterface() {
     return userInterfacePane;
   }
 

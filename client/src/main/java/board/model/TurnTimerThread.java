@@ -15,7 +15,7 @@ public class TurnTimerThread implements Runnable {
     @Override
     public void run() {
         try {
-            while(secondsRemaining >= 0.0) {
+            while(secondsRemaining >= -0.2) {
                 setRemainingTurnTime();
                 Thread.sleep(100);
                 this.secondsRemaining -= 0.1;

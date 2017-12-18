@@ -127,13 +127,16 @@ public class BoardPresenter {
     public void endTurn() {
         this.toggleUserInterface(false);
         this.stopTurnTimer();
+
+        this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
+        this.changeBgGradient(Color.web("#cdb39c"));
     }
 
     public void newTurn(TurnEvent e) {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
         this.toggleUserInterface(e.isMyTurn());
 
-        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor());
+        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
 
         this.view.getCurrentPlayerLabel().setText(e.getUsername());
         this.changeBgGradient(userColor);
@@ -198,7 +201,7 @@ public class BoardPresenter {
 
     public void changeBannerLabels(String text, String subText, Color textColor) {
         this.view.getUiBannerLabel().setText(text);
-        this.view.getUiBannerSmallLabel().setText(subText);
+        this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
         this.view.getUiBannerLabel().setTextFill(textColor);
     }
 }
