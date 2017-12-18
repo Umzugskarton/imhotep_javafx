@@ -199,7 +199,7 @@ public class Lobby {
         return show;
     }
 
-    public void leave(User user) {
+    public leaveLobbyEvent leave(User user) {
         for (int i = 0; i < lobby.length; i++) {
             if (lobby[i] == user) {
                 lobby[i] = null;
@@ -210,10 +210,8 @@ public class Lobby {
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
 
         this.vacancy = true;
-        leaveSuccess();
+        return new leaveLobbyEvent(true);
+
     }
 
-    public leaveLobbyEvent leaveSuccess() {
-        return new leaveLobbyEvent(true);
-    }
 }

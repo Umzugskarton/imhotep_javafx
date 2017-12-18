@@ -2,6 +2,7 @@ package socket.commands;
 
 import CLTrequests.Request;
 import CLTrequests.leaveLobbyRequest;
+import SRVevents.leaveLobbyEvent;
 import SRVevents.lobbyInfoEvent;
 import commonLobby.CLTLobby;
 import lobby.Lobby;
@@ -18,6 +19,7 @@ public class leaveLobbyCommand implements Command {
 
     private ClientListener clientListener;
     private leaveLobbyRequest request;
+    private CLTLobby cltLobby;
     private Server server;
 
     public leaveLobbyCommand(ClientListener clientListener) {
@@ -34,21 +36,20 @@ public class leaveLobbyCommand implements Command {
     public void exec() {
         User user = this.clientListener.getUser();
         Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getId());
-        clientListener.setLobby(lobby);
-        lobby.leave(user);
+        //clientListener.setLobby(lobby);
 
-        this.clientListener.setLobby(lobby);
+        leaveLobbyEvent response = lobby.leave(user);
+        server.sendTo(response, clientListener.getUser().getUsername());
+
         if(lobby.getUserCount() != 0) {
             this.clientListener.getServer()
                     .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
+
             CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
                     lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
                     lobby.getHostName(), lobby.getReady(), lobby.getColors());
             lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
             server.sendToLobby(lobbyInfo, lobby);
-        } else {
-
         }
-
     }
 }

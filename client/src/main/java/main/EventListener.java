@@ -126,11 +126,9 @@ public class EventListener {
     public void leaveLobbyEventListener(leaveLobbyEvent e) {
         Platform.runLater(
                 () -> {
-
-                        this.sceneController.toLoginScene();
-                        System.out.print("A");
-
-
+                    if(e.getSuccess()) {
+                        this.sceneController.toMainmenuScene();
+                    }
                 }
         );
     }
