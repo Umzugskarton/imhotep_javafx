@@ -238,15 +238,15 @@
                      <children>
                         <Label fx:id="uiBannerLabel" text="test" textFill="#cdb39c">
                            <font>
-                              <Font name="Calibri" size="55.0" />
+                              <Font name="Constantia" size="85.0" />
                            </font>
                         </Label>
-                        <Label fx:id="uiBannerSmallLabel" text="Label" textFill="#ddc4ae">
+                        <Label fx:id="uiBannerSmallLabel" text="Label" textFill="#cdb39c">
                            <font>
-                              <Font name="System Italic" size="16.0" />
+                              <Font name="System Italic" size="20.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="-5.0" />
+                              <Insets top="-15.0" />
                            </VBox.margin>
                         </Label>
                      </children>
