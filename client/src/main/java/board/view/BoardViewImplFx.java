@@ -2,13 +2,14 @@ package board.view;
 
 import board.presenter.BoardPresenter;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,7 +37,7 @@ public class BoardViewImplFx {
   public Label currentPlayerLabel;
 
   @FXML
-  public Label turnTimerLabel;
+  public ProgressBar turnTimerProgress;
 
   @FXML
   private Button getNewStonesButton;
@@ -99,7 +100,7 @@ public class BoardViewImplFx {
     this.houses.add(house, 0, i );
   }
 
-  public Label getTurnTimerLabel() { return this.turnTimerLabel; }
+  public ProgressBar getTurnTimerProgress() { return this.turnTimerProgress; }
 
   public Label getRoundLabel() { return this.roundLabel; }
 

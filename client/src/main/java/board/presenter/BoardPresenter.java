@@ -130,9 +130,9 @@ public class BoardPresenter {
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
-            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.BOLD, 12));
+            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.BOLD, 14));
         } else {
-            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.NORMAL, 12));
+            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.NORMAL, 14));
         }
 
         this.startTurnTimer();
@@ -147,7 +147,7 @@ public class BoardPresenter {
     }
 
     public void stopTurnTimer() {
-        this.view.getTurnTimerLabel().setText("Zug beendet");
+        this.view.getTurnTimerProgress().setProgress(0.0);
 
         if(this.turnTimerThread != null) {
             this.turnTimer.forceEnd();
@@ -157,7 +157,7 @@ public class BoardPresenter {
     }
 
     public void updateTurnTimer(int seconds) {
-        this.view.getTurnTimerLabel().setText(seconds + " Sekunden");
+        this.view.getTurnTimerProgress().setProgress((double) seconds / (double) turnTime);
 
         if(seconds <= 0) {
             this.endTurn();

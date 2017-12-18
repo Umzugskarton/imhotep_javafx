@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Game implements Runnable {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
     private static final int TURN_TIME = 20;
-    private static final int TURN_TIME_BUFFER = 5;
+    private static final int TURN_TIME_BUFFER = 3;
 
     private int gameID;
     private Lobby lobby;

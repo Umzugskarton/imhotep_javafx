@@ -129,6 +129,13 @@
   -fx-background-image: url("haus.png");
 }
 
+#turnTimerProgress {
+  -fx-text-box-border: #e6c59a;
+  -fx-control-inner-background: #e6c59a;
+  -fx-background-color: #e6c59a;
+  -fx-accent: #fddcb2;
+}
+
 #gameLog{
   -fx-background-color: #fff;
   -fx-border-color: #753b64;
