@@ -57,7 +57,6 @@ public class CLTLobby {
         return users.get(i);
       }
     }
-
     return null;
   }
 
