@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
+
 import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
@@ -69,7 +71,7 @@ public class ClientListener implements Runnable {
         try {
           Object obj = parser.parse(receivedMsg);
           JSONObject request = (JSONObject) obj;
-          log.error(request.toString());
+          log.info(request.toString());
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");
@@ -87,6 +89,12 @@ public class ClientListener implements Runnable {
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
         }
+      }
+    } catch (SocketException ex) {
+      if(this.user != null) {
+        log.error("User " + this.user.getUsername() + " hat die Verbindung unerwartet beendet");
+      } else {
+        log.error("Client hat die Verbindung unerwartet beendet", ex);
       }
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
