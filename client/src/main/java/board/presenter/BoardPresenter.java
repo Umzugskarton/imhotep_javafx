@@ -111,6 +111,8 @@ public class BoardPresenter {
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
             this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.BOLD, 12));
+        } else {
+            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.NORMAL, 12));
         }
 
         this.startTurnTimer();
