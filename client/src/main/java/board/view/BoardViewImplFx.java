@@ -34,6 +34,12 @@ public class BoardViewImplFx {
   private Pane userInterfacePane;
 
   @FXML
+  public Label uiBannerLabel;
+
+  @FXML
+  public Label uiBannerSmallLabel;
+
+  @FXML
   public Label roundLabel;
 
   @FXML
@@ -119,7 +125,9 @@ public class BoardViewImplFx {
 
   public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
 
-  public Button getGetNewStonesButton() { return this.getNewStonesButton; }
+  public Label getUiBannerLabel() { return this.uiBannerLabel; }
+
+  public Label getUiBannerSmallLabel() { return this.uiBannerSmallLabel; }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;

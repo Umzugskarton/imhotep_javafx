@@ -133,14 +133,18 @@ public class BoardPresenter {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
         this.toggleUserInterface(e.isMyTurn());
 
+        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor());
+
         this.view.getCurrentPlayerLabel().setText(e.getUsername());
-        this.changeBgGradient(Color.web(lobby.getUserByName(e.getUsername()).getColor()));
+        this.changeBgGradient(userColor);
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
             this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
+            this.changeBannerLabels("", "", Color.TRANSPARENT);
         } else {
             this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
+            this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
         }
 
         this.startTurnTimer();
@@ -167,7 +171,7 @@ public class BoardPresenter {
     public void updateTurnTimer(double seconds) {
         this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
 
-        if(seconds <= 0) {
+        if(seconds <= 0.0) {
             this.endTurn();
         }
     }
@@ -187,8 +191,14 @@ public class BoardPresenter {
                 new Stop(1, Color.TRANSPARENT)};
 
         LinearGradient linearGradient =
-                new LinearGradient(0, 0, 0, 0.3, true, CycleMethod.NO_CYCLE, stops);
+                new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
 
         this.view.getPlayerColorRectangle().setFill(linearGradient);
+    }
+
+    public void changeBannerLabels(String text, String subText, Color textColor) {
+        this.view.getUiBannerLabel().setText(text);
+        this.view.getUiBannerSmallLabel().setText(subText);
+        this.view.getUiBannerLabel().setTextFill(textColor);
     }
 }
