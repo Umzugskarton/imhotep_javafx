@@ -3,7 +3,6 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import socket.ClientSocket;
-import sound.Soundtrack;
 
 
 public class ClientApplication extends Application {
@@ -21,7 +20,6 @@ public class ClientApplication extends Application {
   public void start(Stage stage) {
     this.sceneController = new SceneController(stage);
     this.clientSocket = sceneController.getClientSocket();
-    Soundtrack.imhotepTheme.loop();
   }
 
   @Override

@@ -10,6 +10,7 @@ import main.SceneController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import sound.Soundtrack;
 
 import static general.TextBundle.getString;
 
@@ -93,6 +94,7 @@ public class LobbyPresenter {
     if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
       Request request = new startGameRequest();
       sc.getClientSocket().send(request);
+      Soundtrack.imhotepTheme.loop();
     }
     else {
       //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
