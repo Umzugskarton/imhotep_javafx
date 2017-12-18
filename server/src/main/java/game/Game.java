@@ -104,8 +104,7 @@ public class Game implements Runnable {
                     shipInt[i] = ship.getStones()[i].getPlayer().getId();
                 }
                 else {
-                    //Todo auf -1 zurück nur wegen testzwecken zwischen 0 und 1  ;
-                    shipInt[i] = ThreadLocalRandom.current().nextInt(0, 2);
+                    shipInt[i] = -1;
                 }
             }
             gameInfo.setCurrentShips(shipInt);

@@ -17,9 +17,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import main.SceneController;
-import org.apache.fop.fonts.FontType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,23 +74,8 @@ public class BoardPresenter {
     public void updateBoard(GameInfoEvent event) {
         storages = event.getStorages();
         if (ships == null) {
-            ships = event.getShips();
-            int render = 0;
-            for (int[] ship : ships){
-                try {
-                    AnchorPane root;
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/fxml/ShipView.fxml"));
-                    root = loader.load();
-                    ShipViewImplFx shipView = loader.getController();
-                    ShipPresenter shipPresenter = new ShipPresenter( lobby, shipView, ship);
-                    shipPresenters.add(shipPresenter);
-                    view.addShip(render, root);
-                    render++;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+          ships = event.getShips();
+          setShips();
         }
         round = event.getRound();
         order = event.getOrder();
@@ -113,6 +96,25 @@ public class BoardPresenter {
             storagePresenters.get(i).setStoneCount(stone);
             i++;
         }
+    }
+
+    private void  setShips(){
+      int render = 0;
+      for (int[] ship : ships){
+        try {
+          AnchorPane root;
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("/fxml/ShipView.fxml"));
+          root = loader.load();
+          ShipViewImplFx shipView = loader.getController();
+          ShipPresenter shipPresenter = new ShipPresenter( lobby, shipView, ship);
+          shipPresenters.add(shipPresenter);
+          view.addShip(render, root);
+          render++;
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
 
     // Turns
