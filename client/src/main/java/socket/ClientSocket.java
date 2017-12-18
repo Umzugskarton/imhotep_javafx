@@ -68,7 +68,7 @@ public class ClientSocket {
     this.out.println(jsonString);
     this.out.flush();
 
-    log.info("Nachricht gesendet: " + jsonString);
+    log.debug("Nachricht gesendet: " + jsonString);
   }
 
   public void close() {

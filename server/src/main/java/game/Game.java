@@ -210,7 +210,7 @@ public class Game implements Runnable {
         for (Ship ship : this.ships) {
             haven++;
         }
-        System.out.println(haven);
+
         return haven == 0;
     }
 

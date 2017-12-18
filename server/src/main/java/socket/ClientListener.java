@@ -65,7 +65,7 @@ public class ClientListener implements Runnable {
     try {
       String receivedMsg;
       while ((receivedMsg = in.readLine()) != null) {
-        log.info("Nachricht erhalten: " + receivedMsg);
+        log.debug("Nachricht erhalten: " + receivedMsg);
 
         JSONParser parser = new JSONParser();
         try {
@@ -114,7 +114,7 @@ public class ClientListener implements Runnable {
     if (this.out != null) {
       Gson gson = new Gson();
       String json = gson.toJson(event);
-      log.info(
+      log.debug(
           "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();

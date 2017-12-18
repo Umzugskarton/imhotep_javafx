@@ -69,14 +69,14 @@ public class Server {
     Thread thread = new Thread(clientListener);
     thread.start();
 
-    log.info("Thread " + thread.getId() + ": Ein neuer Client hat sich verbunden");
+    log.info("[Thread " + thread.getId() + "] Ein neuer Client hat sich verbunden");
 
     this.connectedClients.add(clientListener);
   }
 
   public void removeClient(ClientListener clientListener) {
-    log.info("Thread " + clientListener.getThread().getId()
-            + ": Client hat die Verbindung beendet");
+    log.info("[Thread " + clientListener.getThread().getId()
+            + "] Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);

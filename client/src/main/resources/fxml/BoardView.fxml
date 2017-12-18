@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
+<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
         <Pane fx:id="mainframe" layoutX="214.0" layoutY="75.0" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Pane layoutY="59.0" prefHeight="804.0" prefWidth="1920.0">
+                <Pane prefHeight="804.0" prefWidth="1920.0">
                     <children>
                         <GridPane prefHeight="804.0" prefWidth="1920.0" style="-fx-background-color: #74ccf4;">
                             <columnConstraints>
@@ -66,10 +67,10 @@
                                                 <Pane fx:id="berth3" layoutX="207.0" layoutY="438.0" prefHeight="118.0" prefWidth="200.0" />
                                             </children>
                                         </Pane>
-                              <GridPane layoutX="14.0" layoutY="733.0" prefHeight="57.0" prefWidth="230.0">
+                              <GridPane layoutX="14.0" layoutY="738.0" prefHeight="57.0" prefWidth="260.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="109.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="121.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="127.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="103.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -77,14 +78,33 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Runde:" />
-                                    <Label prefHeight="17.0" prefWidth="103.0" text="Aktueller Spieler:" GridPane.rowIndex="1" />
-                                    <Label text="Verbleibende Zeit:" GridPane.rowIndex="2" />
-                                    <Label fx:id="roundLabel" GridPane.columnIndex="1" />
-                                    <Label fx:id="currentPlayerLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="turnTimerLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="RUNDE" textFill="#886d4b">
+                                       <font>
+                                          <Font name="Calibri Italic" size="14.0" />
+                                       </font></Label>
+                                    <Label prefHeight="17.0" prefWidth="125.0" text="AKTUELLER SPIELER" textFill="#886d4b" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Calibri Italic" size="14.0" />
+                                       </font></Label>
+                                    <Label text="VERBLEIBENDE ZEIT" textFill="#886d4b" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="Calibri Italic" size="14.0" />
+                                       </font></Label>
+                                    <Label fx:id="roundLabel" textFill="#735c40" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font></Label>
+                                    <Label fx:id="currentPlayerLabel" textFill="#735c40" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font></Label>
+                                    <Label fx:id="turnTimerLabel" textFill="#735c40" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font></Label>
                                  </children>
                               </GridPane>
+                                  <Button layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#full" stylesheets="@../style.css" text="Vollbild" />
                                     </children>
                                 </Pane>
                                 <Pane id="mainland" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #edc9af;" GridPane.columnIndex="2">
@@ -114,23 +134,36 @@
                         </GridPane>
                     </children>
                 </Pane>
-                <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#full" text="Fullscreentest" />
             </children>
         </Pane>
-        <Pane fx:id="userInterfacePane" layoutX="6.0" layoutY="870.0" prefHeight="209.0" prefWidth="507.0">
+        <Pane fx:id="userInterfacePane" layoutX="10.0" layoutY="812.0" prefHeight="261.0" prefWidth="590.0">
             <children>
                 <Button id="getNewStonesButton" layoutY="17.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
-                <Button id="moveShipToLocationButton" layoutX="349.0" layoutY="69.0" mnemonicParsing="false" stylesheets="@../style.css" text="Boot zum Ort schicken" />
-                <Button id="placeStonesButton" layoutX="161.0" layoutY="118.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                <Button id="playCardButton" layoutX="3.0" layoutY="166.0" mnemonicParsing="false" stylesheets="@../style.css" text="blaue Markt-Karte ausspielen" />
-                <ComboBox fx:id="selectShipBox" layoutY="69.0" prefWidth="150.0" promptText="Boot auswählen" />
-                <Text layoutX="3.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 1" />
-                <Text layoutX="3.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 2" />
-                <Text layoutX="4.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 3" />
-                <Text layoutX="4.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktion 4" />
-                <Text layoutX="161.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
-                <ComboBox fx:id="selectShipLocationBox" layoutX="192.0" layoutY="69.0" prefWidth="150.0" promptText="Ort auswählen" />
-                <ComboBox fx:id="selectShipToLocationBox" layoutY="118.0" prefWidth="150.0" promptText="Boot auswählen" />
+                <Button id="moveShipToLocationButton" layoutX="417.0" layoutY="69.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" stylesheets="@../style.css" text="Boot zum Ort schicken" />
+                <Button id="placeStonesButton" layoutX="417.0" layoutY="118.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
+                <Button id="playCardButton" layoutX="3.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Markt-Karte ausspielen" />
+                <ComboBox fx:id="selectShipBox" layoutY="69.0" prefHeight="25.0" prefWidth="172.0" promptText="Boot auswählen" />
+                <Text fill="#00000080" layoutX="3.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 1">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Text>
+                <Text fill="#00000080" layoutX="3.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 2">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Text>
+                <Text fill="#00000080" layoutX="4.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 3">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Text>
+                <Text fill="#00000080" layoutX="4.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 4">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Text>
+                <Text layoutX="188.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
+                <ComboBox fx:id="selectShipLocationBox" layoutX="228.0" layoutY="69.0" prefHeight="25.0" prefWidth="172.0" promptText="Ort auswählen" />
+                <ComboBox fx:id="selectShipToLocationBox" layoutY="118.0" prefHeight="25.0" prefWidth="172.0" promptText="Boot auswählen" />
+            <ComboBox fx:id="selectStoneLocationBox" layoutX="228.0" layoutY="118.0" prefHeight="25.0" prefWidth="172.0" promptText="Position auswählen" />
+            <Text layoutX="188.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
             </children>
         </Pane>
     </children>
