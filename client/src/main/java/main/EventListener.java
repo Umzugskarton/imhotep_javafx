@@ -123,6 +123,19 @@ public class EventListener {
     }
 
     @Subscribe
+    public void leaveLobbyEventListener(leaveLobbyEvent e) {
+        Platform.runLater(
+                () -> {
+
+                        this.sceneController.toLoginScene();
+                        System.out.print("A");
+
+
+                }
+        );
+    }
+
+    @Subscribe
     public void lobbylistEventListener(lobbylistEvent e) {
         Platform.runLater(
                 () -> {

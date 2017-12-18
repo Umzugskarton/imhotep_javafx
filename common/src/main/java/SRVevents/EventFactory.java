@@ -26,6 +26,7 @@ public class EventFactory {
     Dict.put("setReady", new setReadyEvent());
     Dict.put("gameInfo", new GameInfoEvent());
     Dict.put("turn", new TurnEvent());
+    Dict.put("leaveLobby", new leaveLobbyEvent());
   }
 
   public Event getEvent(String command) {

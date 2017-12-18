@@ -2,6 +2,7 @@ package lobby;
 
 import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
+import SRVevents.leaveLobbyEvent;
 import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
 import game.Game;
@@ -209,5 +210,10 @@ public class Lobby {
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
 
         this.vacancy = true;
+        leaveSuccess();
+    }
+
+    public leaveLobbyEvent leaveSuccess() {
+        return new leaveLobbyEvent(true);
     }
 }

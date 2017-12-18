@@ -99,6 +99,12 @@ public class LobbyPresenter {
     }
   }
 
+  public void leaveLobbyRequest() {
+    leaveLobbyRequest leaveLobbyRequest = new leaveLobbyRequest(CLTLobby.getLobbyId());
+    this.getSceneController().getClientSocket().send(leaveLobbyRequest);
+
+  }
+
   public boolean checkHost() {
     return this.CLTLobby.getHost().equals(username);
   }

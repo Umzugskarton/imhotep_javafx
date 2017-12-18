@@ -4,6 +4,8 @@ import CLTrequests.lobbylistRequest;
 import board.presenter.BoardPresenter;
 import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;
+import games.presenter.GamesPresenter;
+import games.view.GamesViewImpl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +43,7 @@ public class SceneController {
   private MainmenuPresenter MainmenuPresenter;
   private EventBus eventBus;
   private LobbyPresenter LobbyPresenter;
+  private GamesPresenter gamesPresenter;
 
 
   public SceneController(Stage stage) {
@@ -81,6 +84,11 @@ public class SceneController {
 
     this.clientSocket.send(new lobbylistRequest());
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
+    this.stage.getScene().getStylesheets().add("style.css");
+  }
+  public void toGamesScene() {
+    this.clientSocket.send(new lobbylistRequest());
+    this.stage.setScene(this.gamesPresenter.getGamesView().getGamesScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }
 

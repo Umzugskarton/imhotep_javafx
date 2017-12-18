@@ -25,6 +25,7 @@ public class CommandFactory {
         Dict.put("changeColor", new ChangeColorCommand(clientListener));
         Dict.put("setReady", new SetReadyCommand(clientListener));
         Dict.put("startGame", new StartGameCommand(clientListener));
+        Dict.put("leaveLobby", new leaveLobbyCommand(clientListener));
     }
 
     public Command getCommand(Request request){

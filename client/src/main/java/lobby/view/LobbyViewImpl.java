@@ -278,6 +278,12 @@ public class LobbyViewImpl implements LobbyView {
       });
     }
 
+    Button leaveGame = new Button("Sitzung verlassen");
+    grid.add(leaveGame, 5,2);
+    leaveGame.addEventHandler(ActionEvent.ACTION, e -> {
+      getLobbyPresenter().leaveLobbyRequest();
+    });
+
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
     playerCount.setText("Players:" +  String.valueOf(this.lobbyPresenter.getCLTLobby().getObservableUsers().size()) + " / " + this.lobbyPresenter.getCLTLobby().getSize());
   }

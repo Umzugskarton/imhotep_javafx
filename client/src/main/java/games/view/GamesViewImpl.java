@@ -27,6 +27,7 @@ public class GamesViewImpl extends GridPane implements GamesView {
   private GamesPresenter gamesPresenter;
   private TableView<CLTLobby> table = new TableView();
   private int click = 0;
+  private Scene gamesScene;
 
   public GamesViewImpl(GamesPresenter gamesPresenter) {
     this.gamesPresenter = gamesPresenter;
@@ -38,6 +39,10 @@ public class GamesViewImpl extends GridPane implements GamesView {
     root.setHgap(5);
     root.setVgap(5);
     root.setPadding(new Insets(5));
+
+    gamesScene = new Scene(root);
+
+
 
     TableColumn firstNameCol = new TableColumn("CLTLobby Name");
     firstNameCol.setCellValueFactory(new PropertyValueFactory<CLTLobby, String>("name"));
@@ -127,5 +132,9 @@ public class GamesViewImpl extends GridPane implements GamesView {
   public void initGameList() {
     //Liste der erstellter Spiele
     table.setItems(this.gamesPresenter.getGameList().getGames());
+  }
+
+  public Scene getGamesScene() {
+    return this.gamesScene;
   }
 }
