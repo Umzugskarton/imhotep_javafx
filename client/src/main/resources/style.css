@@ -134,3 +134,35 @@
   -fx-border-color: #753b64;
   -fx-text-fill: #623e66;
 }
+
+#ship{
+  -fx-background-image: url("boot4.png");
+  -fx-background-size: 100% 100%;
+  -fx-background-repeat: stretch;
+}
+
+#ship1{
+  -fx-background-image: url("boot1.png");
+  -fx-background-size: 80% 80%;
+  -fx-background-repeat: stretch;
+}
+
+#ship2{
+  -fx-background-image: url("boot2.png");
+  -fx-background-size: 85% 85%;
+  -fx-background-repeat: stretch;
+
+}
+
+
+#ship3{
+  -fx-background-image: url("boot3.png");
+  -fx-background-size: 90% 90%;
+  -fx-background-repeat: stretch;
+}
+
+#ship4{
+  -fx-background-image: url("boot4.png");
+  -fx-background-size: 100% 100%;
+  -fx-background-repeat: stretch;
+}

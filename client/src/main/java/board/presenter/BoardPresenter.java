@@ -5,6 +5,7 @@ import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
+import board.view.ShipViewImplFx;
 import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
@@ -24,6 +25,7 @@ public class BoardPresenter {
     private SceneController sc;
     private CLTLobby lobby;
     private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
+    private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
     //Board Variables
     private ArrayList<int[]> ships;
@@ -66,12 +68,30 @@ public class BoardPresenter {
         return view;
     }
 
-    public void updateBoard(GameInfoEvent e) {
-        storages = e.getStorages();
-        ships = e.getShips();
-        round = e.getRound();
-        order = e.getOrder();
-        turnTime = e.getTurnTime();
+    public void updateBoard(GameInfoEvent event) {
+        storages = event.getStorages();
+        if (ships == null) {
+            ships = event.getShips();
+            int render = 0;
+            for (int[] ship : ships){
+                try {
+                    AnchorPane root;
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/fxml/ShipView.fxml"));
+                    root = loader.load();
+                    ShipViewImplFx shipView = loader.getController();
+                    ShipPresenter shipPresenter = new ShipPresenter( lobby, shipView, ship);
+                    shipPresenters.add(shipPresenter);
+                    view.addShip(render, root);
+                    render++;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        round = event.getRound();
+        order = event.getOrder();
+        turnTime = event.getTurnTime();
 
         this.view.getRoundLabel().setText(round + " / 6");
 

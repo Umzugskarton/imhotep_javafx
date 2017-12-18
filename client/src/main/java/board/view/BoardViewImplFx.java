@@ -8,8 +8,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
-
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class BoardViewImplFx {
 
   private BoardPresenter boardPresenter;
@@ -109,5 +111,15 @@ public class BoardViewImplFx {
 
   public void full(){
     boardPresenter.fullscreen();
+  }
+
+  public ArrayList<Pane> getBerths(){
+    ArrayList<Pane> a = new ArrayList<>();
+    Collections.addAll(a, berth0, berth1, berth2,berth3);
+    return a;
+  }
+
+  public void addShip(int i, AnchorPane ship){
+      getBerths().get(i).getChildren().add(ship);
   }
 }
