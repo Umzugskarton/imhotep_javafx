@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class BoardViewImplFx {
 
   @FXML
   public ProgressBar turnTimerProgress;
+
+  @FXML
+  public Rectangle playerColorRectangle;
 
   @FXML
   private Button getNewStonesButton;
@@ -105,6 +109,8 @@ public class BoardViewImplFx {
   public Label getRoundLabel() { return this.roundLabel; }
 
   public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
+
+  public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;

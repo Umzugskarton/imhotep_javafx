@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,6 +10,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -68,10 +73,10 @@
                                                 <Pane fx:id="berth3" layoutX="207.0" layoutY="438.0" prefHeight="118.0" prefWidth="200.0" />
                                             </children>
                                         </Pane>
-                              <GridPane layoutX="14.0" layoutY="738.0" prefHeight="57.0" prefWidth="310.0">
+                              <GridPane layoutX="14.0" layoutY="738.0" prefHeight="57.0" prefWidth="435.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="127.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="103.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="103.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -99,7 +104,7 @@
                                        <font>
                                           <Font name="Calibri" size="14.0" />
                                        </font></Label>
-                                    <ProgressBar id="turnTimerProgress" fx:id="turnTimerProgress" prefWidth="200.0" progress="0.0" stylesheets="@../style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ProgressBar id="turnTimerProgress" fx:id="turnTimerProgress" prefHeight="18.0" prefWidth="238.0" progress="0.0" stylesheets="@../style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                                   <Button layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#full" stylesheets="@../style.css" text="Vollbild" />
@@ -132,40 +137,84 @@
                         </GridPane>
                     </children>
                 </Pane>
-              <Pane fx:id="userInterfacePane" layoutX="14.0" layoutY="837.0" prefHeight="197.0" prefWidth="590.0">
-                  <children>
-                      <Button id="getNewStonesButton" layoutY="17.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
-                      <Button id="moveShipToLocationButton" layoutX="417.0" layoutY="69.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" stylesheets="@../style.css" text="Boot zum Ort schicken" />
-                      <Button id="placeStonesButton" layoutX="417.0" layoutY="118.0" mnemonicParsing="false" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
-                      <Button id="playCardButton" layoutX="3.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="172.0" stylesheets="@../style.css" text="Markt-Karte ausspielen" />
-                      <ComboBox fx:id="selectShipBox" layoutY="69.0" prefHeight="25.0" prefWidth="172.0" promptText="Boot auswählen" />
-                      <Text fill="#00000080" layoutX="3.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 1">
+            <Rectangle fx:id="playerColorRectangle" arcHeight="5.0" arcWidth="5.0" height="275.0" layoutY="805.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1920.0">
+               <fill>
+                  <LinearGradient endX="0.06666666666666665" endY="1.0" startY="1.0">
+                     <stops>
+                        <Stop color="#ad2424" />
+                        <Stop color="WHITE" offset="0.007662835249042145" />
+                        <Stop color="#ad242400" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <GridPane fx:id="userInterfacePane" hgap="15.0" layoutY="805.0" prefHeight="200.0" prefWidth="1920.0" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="231.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                      <Text fill="#00000080" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 1" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Calibri" size="12.0" />
+                        <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                      <Text fill="#00000080" layoutX="3.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 2">
+                  <Text fill="#00000080" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 2" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Calibri" size="12.0" />
+                        <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                      <Text fill="#00000080" layoutX="4.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 3">
+                  <Text fill="#00000080" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 3" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Calibri" size="12.0" />
+                        <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                      <Text fill="#00000080" layoutX="4.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 4">
+                  <Text fill="#00000080" strokeType="OUTSIDE" strokeWidth="0.0" text="AKTION 4" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Calibri" size="12.0" />
+                        <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                      <Text layoutX="188.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
-                      <ComboBox fx:id="selectShipLocationBox" layoutX="228.0" layoutY="69.0" prefHeight="25.0" prefWidth="172.0" promptText="Ort auswählen" />
-                      <ComboBox fx:id="selectShipToLocationBox" layoutY="118.0" prefHeight="25.0" prefWidth="172.0" promptText="Boot auswählen" />
-                  <ComboBox fx:id="selectStoneLocationBox" layoutX="228.0" layoutY="118.0" prefHeight="25.0" prefWidth="172.0" promptText="Position auswählen" />
-                  <Text layoutX="188.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="und" />
-                  </children>
-              </Pane>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                            <ComboBox fx:id="selectShipBox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="464.0" promptText="Boot auswählen" />
+                            <ComboBox fx:id="selectShipLocationBox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="464.0" promptText="Ort auswählen" />
+                            <Button id="moveShipToLocationButton" fx:id="moveShipToLocationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="464.0" stylesheets="@../style.css" text="Boot zum Ort schicken" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox GridPane.rowIndex="1">
+                     <children>
+                            <Button id="getNewStonesButton" fx:id="getNewStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="229.0" stylesheets="@../style.css" text="Neue Steine besorgen" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                            <ComboBox fx:id="selectShipToLocationBox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="464.0" promptText="Boot auswählen" />
+                        <ComboBox fx:id="selectStoneLocationBox" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="464.0" promptText="Position auswählen" />
+                            <Button id="placeStonesButton" fx:id="placeStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="464.0" stylesheets="@../style.css" text="Stein Auf Boot platzieren" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <children>
+                            <Button id="playCardButton" fx:id="playCardButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="228.0" stylesheets="@../style.css" text="Markt-Karte ausspielen" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+               </padding>
+            </GridPane>
             </children>
         </Pane>
     </children>

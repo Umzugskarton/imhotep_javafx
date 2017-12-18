@@ -51,12 +51,14 @@ public class CLTLobby {
     return users;
   }
 
-  public LobbyUser getUserbyName(String name) {
-    int i =0;
-    LobbyUser e= null;
-    while(users.get(i).getUsername()!=name && i<users.size())
-      e=users.get(i);
-    return e;
+  public LobbyUser getUserByName(String name) {
+    for(int i = 0; i < users.size(); i++) {
+      if(users.get(i).getUsername().equals(name)) {
+        return users.get(i);
+      }
+    }
+
+    return null;
   }
 
   public LobbyUser getUserbyLobbyId(int id) {

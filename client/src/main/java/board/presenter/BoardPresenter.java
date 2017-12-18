@@ -11,10 +11,15 @@ import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import main.SceneController;
+import org.apache.fop.fonts.FontType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,12 +126,20 @@ public class BoardPresenter {
         this.toggleUserInterface(e.isMyTurn());
 
         this.view.getCurrentPlayerLabel().setText(e.getUsername());
+        Stop[] stops = new Stop[] {
+                new Stop(0, Color.web(lobby.getUserByName(e.getUsername()).getColor())),
+                new Stop(1, Color.TRANSPARENT)};
+
+        LinearGradient linearGradient =
+                new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
+
+        this.view.getPlayerColorRectangle().setFill(linearGradient);
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
-            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.BOLD, 14));
+            this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
         } else {
-            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.NORMAL, 14));
+            this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
         }
 
         this.startTurnTimer();
