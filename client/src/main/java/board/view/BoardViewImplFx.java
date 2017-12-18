@@ -1,6 +1,5 @@
 package board.view;
 
-
 import board.presenter.BoardPresenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -8,12 +7,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.control.Label;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class BoardViewImplFx {
 
   private BoardPresenter boardPresenter;
@@ -32,10 +28,13 @@ public class BoardViewImplFx {
   private Pane userInterfacePane;
 
   @FXML
-  private TextFlow gameLog;
+  public Label roundLabel;
 
   @FXML
-  private TextFlow turnTimer;
+  public Label currentPlayerLabel;
+
+  @FXML
+  public Label turnTimerLabel;
 
   @FXML
   private Button getNewStonesButton;
@@ -95,15 +94,14 @@ public class BoardViewImplFx {
 
   public void addHouse(int i, AnchorPane house){
     Text text = new Text("x: " + i);
-    this.gameLog.getChildren().addAll();
     this.houses.add(house, 0, i );
   }
 
-  public TextFlow getGameLog() {
-    return this.gameLog;
-  }
+  public Label getTurnTimerLabel() { return this.turnTimerLabel; }
 
-  public TextFlow getTurnTimer() { return this.turnTimer; }
+  public Label getRoundLabel() { return this.roundLabel; }
+
+  public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;

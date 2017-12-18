@@ -10,6 +10,8 @@ import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import main.SceneController;
 
@@ -30,6 +32,7 @@ public class BoardPresenter {
     private String[] order;
     private int turnTime;
     private Thread turnTimerThread;
+    private TurnTimerThread turnTimer;
 
     // Konstruktor
     public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
@@ -39,6 +42,7 @@ public class BoardPresenter {
         this.turnTime = 0;
         int render = 0;
         this.turnTimerThread = null;
+        this.turnTimer = null;
 
         for (LobbyUser user : lobby.getUsers()) {
             try {
@@ -69,6 +73,8 @@ public class BoardPresenter {
         order = e.getOrder();
         turnTime = e.getTurnTime();
 
+        this.view.getRoundLabel().setText(round + " / 6");
+
         updateView();
     }
 
@@ -92,58 +98,44 @@ public class BoardPresenter {
 
     // Turns
     public void endTurn() {
-        System.out.println("endTurn1");
         this.toggleUserInterface(false);
         this.stopTurnTimer();
     }
 
     public void newTurn(TurnEvent e) {
-        System.out.println("newTurn1");
-        System.out.println("turnTime: " +this.turnTime);
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-        this.view.getGameLog().getChildren().clear();
         this.toggleUserInterface(e.isMyTurn());
 
-        String msg;
+        this.view.getCurrentPlayerLabel().setText(e.getUsername());
+
+        // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
-            msg = "Du bist am Zug";
-            this.startTurnTimer();
-        } else {
-            msg = "Spieler " + e.getUsername() + " ist am Zug";
+            this.view.getCurrentPlayerLabel().setFont(Font.font(null, FontWeight.BOLD, 12));
         }
 
-        this.addLogMessage(msg);
-        System.out.println("newTurn2");
+        this.startTurnTimer();
     }
 
+    // Timer
     private void startTurnTimer() {
-        System.out.println("startTimer1");
         this.stopTurnTimer();
 
-        this.turnTimerThread = new Thread(new TurnTimerThread(this, this.turnTime));
+        this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
         this.turnTimerThread.start();
-
-        System.out.println("startTimer2");
     }
 
     public void stopTurnTimer() {
-        System.out.println("stopTimer1");
-        this.view.getTurnTimer().getChildren().clear();
+        this.view.getTurnTimerLabel().setText("Zug beendet");
 
         if(this.turnTimerThread != null) {
-            System.out.println("stopTimer2");
-            this.turnTimerThread.interrupt();
+            this.turnTimer.forceEnd();
+            this.turnTimer = null;
             this.turnTimerThread = null;
         }
-
-        System.out.println("stopTimer3");
     }
 
     public void updateTurnTimer(int seconds) {
-        Text text = new Text("Verbleibende Zeit: " + seconds + "\n");
-
-        this.view.getTurnTimer().getChildren().clear();
-        this.view.getTurnTimer().getChildren().add(text);
+        this.view.getTurnTimerLabel().setText(seconds + " Sekunden");
 
         if(seconds <= 0) {
             this.endTurn();
@@ -153,12 +145,6 @@ public class BoardPresenter {
     // User Interface
     public void toggleUserInterface(boolean show) {
         view.getUserInterface().setVisible(show);
-    }
-
-    public void addLogMessage(String message) {
-        Text text = new Text(message + "\n");
-
-        this.view.getGameLog().getChildren().addAll(text);
     }
 
     public void fullscreen() {

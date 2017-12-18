@@ -2,7 +2,6 @@ package board.model;
 
 import board.presenter.BoardPresenter;
 import javafx.application.Platform;
-import main.SceneController;
 
 public class TurnTimerThread implements Runnable {
     private int secondsRemaining;
@@ -32,5 +31,9 @@ public class TurnTimerThread implements Runnable {
                 boardPresenter.updateTurnTimer(this.secondsRemaining);
             }
         });
+    }
+
+    public void forceEnd() {
+        this.secondsRemaining = 0;
     }
 }
