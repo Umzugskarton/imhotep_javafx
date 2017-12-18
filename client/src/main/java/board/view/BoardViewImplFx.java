@@ -1,6 +1,8 @@
 package board.view;
 
+import GameMoves.fillUpStorageMove;
 import board.presenter.BoardPresenter;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -91,6 +93,11 @@ public class BoardViewImplFx {
   @FXML
   private Pane pyramidsPier;
 
+  @FXML
+  public void sendFillUpStorageMove(ActionEvent e) {
+      this.boardPresenter.sendFillUpStorageMove();
+  }
+
   public GridPane getHouses() {
     return houses;
   }
@@ -111,6 +118,8 @@ public class BoardViewImplFx {
   public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
 
   public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
+
+  public Button getGetNewStonesButton() { return this.getNewStonesButton; }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;

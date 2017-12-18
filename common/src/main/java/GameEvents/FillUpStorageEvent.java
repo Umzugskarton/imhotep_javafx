@@ -5,7 +5,7 @@ import SRVevents.Event;
 import java.util.Date;
 
 public class FillUpStorageEvent implements Event {
-  private String event = "filUpStorage";
+  private String event = "fillUpStorage";
   private int playerId;
   private int storage;
   public Date date;

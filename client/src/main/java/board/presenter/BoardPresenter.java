@@ -1,8 +1,8 @@
 package board.presenter;
 
-
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
+import GameMoves.fillUpStorageMove;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
 import board.view.ShipViewImplFx;
@@ -17,9 +17,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import main.SceneController;
-import org.apache.fop.fonts.FontType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +64,12 @@ public class BoardPresenter {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Moves
+    public void sendFillUpStorageMove() {
+        fillUpStorageMove fillUpStorageMove = new fillUpStorageMove();
+        this.sc.getClientSocket().send(fillUpStorageMove);
     }
 
     // Board View
@@ -126,14 +130,7 @@ public class BoardPresenter {
         this.toggleUserInterface(e.isMyTurn());
 
         this.view.getCurrentPlayerLabel().setText(e.getUsername());
-        Stop[] stops = new Stop[] {
-                new Stop(0, Color.web(lobby.getUserByName(e.getUsername()).getColor())),
-                new Stop(1, Color.TRANSPARENT)};
-
-        LinearGradient linearGradient =
-                new LinearGradient(0, 0, 0, 0.3, true, CycleMethod.NO_CYCLE, stops);
-
-        this.view.getPlayerColorRectangle().setFill(linearGradient);
+        this.changeBgGradient(Color.web(lobby.getUserByName(e.getUsername()).getColor()));
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
@@ -178,5 +175,16 @@ public class BoardPresenter {
 
     public void fullscreen() {
         sc.toggleFullscreen();
+    }
+
+    public void changeBgGradient(Color color) {
+        Stop[] stops = new Stop[] {
+                new Stop(0, color),
+                new Stop(1, Color.TRANSPARENT)};
+
+        LinearGradient linearGradient =
+                new LinearGradient(0, 0, 0, 0.3, true, CycleMethod.NO_CYCLE, stops);
+
+        this.view.getPlayerColorRectangle().setFill(linearGradient);
     }
 }
