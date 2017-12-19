@@ -24,6 +24,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import main.SceneController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ import java.util.Optional;
 
 
 public class BoardPresenter {
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
+
     private BoardViewImplFx view;
     private SceneController sc;
     private CLTLobby lobby;
@@ -78,6 +82,11 @@ public class BoardPresenter {
     public void sendFillUpStorageMove() {
         FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
         this.sc.getClientSocket().send(fillUpStorageMove);
+    }
+
+    public void receiveFillUpStorageEvent(FillUpStorageEvent e) {
+        this.updateStorages(e);
+        this.endTurn(false);
     }
 
     // Board View
@@ -176,18 +185,21 @@ public class BoardPresenter {
 
         }
     }
-    // Turns
-    public void endTurn() {
-        this.toggleUserInterface(false);
-        this.stopTurnTimer();
 
-        this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
-        this.changeBgGradient(Color.web("#cdb39c"));
+    // Turns
+    public void endTurn(boolean noTimeLeft) {
+        this.toggleUserInterface(false);
+
+        if(noTimeLeft) {
+            this.stopTurnTimer();
+
+            this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
+            this.changeBgGradient(Color.web("#cdb39c"));
+        }
     }
 
     public void newTurn(TurnEvent e) {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-
         this.toggleUserInterface(e.isMyTurn());
         Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
 
@@ -226,7 +238,7 @@ public class BoardPresenter {
         this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
 
         if(seconds <= 0.0) {
-            this.endTurn();
+            this.endTurn(true);
         }
     }
 

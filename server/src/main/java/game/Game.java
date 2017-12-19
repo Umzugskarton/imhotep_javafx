@@ -21,8 +21,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Game implements Runnable {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-
-
     private int gameID;
     private Lobby lobby;
     private Ship[] ships;
@@ -30,7 +28,6 @@ public class Game implements Runnable {
     private Player[] order;
     private int currentPlayer;
     private int round;
-
 
     //StoneSites
     private Pyramids pyramids;

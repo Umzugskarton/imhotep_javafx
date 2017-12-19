@@ -222,7 +222,7 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     if(sceneController.getBoardPresenter() != null) {
-                        sceneController.getBoardPresenter().updateStorages(e);
+                        sceneController.getBoardPresenter().receiveFillUpStorageEvent(e);
                     }
                 }
         );

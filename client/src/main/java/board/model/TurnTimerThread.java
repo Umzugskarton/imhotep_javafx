@@ -34,6 +34,6 @@ public class TurnTimerThread implements Runnable {
     }
 
     public void forceEnd() {
-        this.secondsRemaining = 0;
+        this.secondsRemaining = -1.0;
     }
 }

@@ -18,7 +18,7 @@ public class MoveExecutor {
     private Move move;
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
     private static final int TURN_TIME = 20;
-    private static final int TURN_TIME_BUFFER = 5;
+    private static final int TURN_TIME_BUFFER = 3;
 
     public void waitForMove(){
       move = null;
