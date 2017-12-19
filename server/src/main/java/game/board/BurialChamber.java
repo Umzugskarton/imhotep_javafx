@@ -18,7 +18,7 @@ public class BurialChamber extends Site
   @Override
   public int[] getPoints() {
     boolean[] checked = new boolean[burialChamber.size()];
-    int[] points = new int[4];
+    int[] points = new int[playerCount];
     for (int i = 0; i < burialChamber.size(); i++) {
       int playerId = burialChamber.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
@@ -72,5 +72,14 @@ public class BurialChamber extends Site
     }
     addStones(ship.getStones());
     return true;
+  }
+  @Override
+  public boolean isDocked(){
+    return this.getDockedShip() != null;
+  }
+
+  @Override
+  public Ship getDockedShip() {
+    return super.getDockedShip();
   }
 }

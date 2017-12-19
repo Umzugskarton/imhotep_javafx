@@ -1,9 +1,6 @@
 package board.presenter;
 
-import GameEvents.FillUpStorageEvent;
-import GameEvents.GameInfoEvent;
-import GameEvents.ShipLoadedEvent;
-import GameEvents.TurnEvent;
+import GameEvents.*;
 import GameMoves.FillUpStorageMove;
 import GameMoves.LoadUpShipMove;
 import board.model.TurnTimerThread;
@@ -17,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -150,6 +148,11 @@ public class BoardPresenter {
               x.getItems().add( i );
           }
         }
+    }
+
+    private void shipDocked(ShipDockedEvent event){
+        shipPresenters.get(event.getShipID()).setLocation(event.getSite());
+        view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
     }
 
     public void updateShipCargobyId(ShipLoadedEvent e){

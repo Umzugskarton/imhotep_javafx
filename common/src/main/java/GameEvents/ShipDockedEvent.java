@@ -21,6 +21,10 @@ public class ShipDockedEvent implements Event {
     this.date = new Date();
   }
 
+  public int[] getNewpoints() {
+    return newpoints;
+  }
+
   public int getShipID() {
     return shipID;
   }

@@ -16,10 +16,13 @@ public class ShipPresenter {
   private ShipViewImplFx view;
   private CLTLobby lobby;
   private int[] cargo;
+  private boolean docked;
+  private String location;
 
   public ShipPresenter(CLTLobby lobby, ShipViewImplFx view, int[] placement) {
     this.view = view;
     this.lobby = lobby;
+    docked = false;
     this.cargo = placement;
     view.getSprite().setId("ship"+placement.length);
     ArrayList<Group> stones = view.getStones();
@@ -34,6 +37,14 @@ public class ShipPresenter {
   public void setCargo(int[] cargo) {
     this.cargo = cargo;
     updateCargo();
+  }
+
+  public void setLocation(String site){
+    for (Group p :view.getStones()){
+      p.setVisible(false);
+    }
+    location = site;
+    docked = true;
   }
 
   private void updateCargo(){

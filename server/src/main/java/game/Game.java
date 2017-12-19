@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import user.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,11 +32,13 @@ public class Game implements Runnable {
     private int round;
 
     //StoneSites
+    private ArrayList<StoneSite> sites;
     private Pyramids pyramids;
     private Market market;
     private Obelisks obelisks;
     private Temple temple;
     private BurialChamber burialChamber;
+    private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
 
     private ClientListener clientListener;
     private Move nextMove = null;
@@ -52,17 +56,24 @@ public class Game implements Runnable {
         this.storages = new ArrayList<>();
         setGame();
 
+        this.market = new Market(lobby.getSize());
         this.pyramids = new Pyramids(lobby.getSize(), 1);
         this.obelisks = new Obelisks(lobby.getSize());
-        this.market = new Market(lobby.getSize());
         this.temple = new Temple(lobby.getSize());
         this.burialChamber = new BurialChamber(lobby.getSize());
+        sites = new ArrayList<>();
+        sites.add(market);
+        sites.add(pyramids);
+        sites.add(temple);
+        sites.add(burialChamber);
+        sites.add(obelisks);
+
         setStartCards();
     }
 
     public void resetCurrentShips() {
         for (int i = 0; i <= lobby.getSize() - 1; i++) {
-            this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
+            this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
         }
     }
 
@@ -70,7 +81,7 @@ public class Game implements Runnable {
     private void setGame() {
         int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
         for (int i = 0; i <= lobby.getSize() - 1; i++) {
-            this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
+            this.ships[i] = new Ship( i , ThreadLocalRandom.current().nextInt(1, 4));
             this.order[i] = new Player(lobby.getUsers()[seq], i);
             this.storages.add(i, i+1);
             seq = (seq + 1) % lobby.getSize();
@@ -90,6 +101,18 @@ public class Game implements Runnable {
         }
     }
 
+
+    public int[] getPointsSum(){
+        int[] points = new int[order.length];
+        for (StoneSite site :sites){
+            int[] sitepoints = site.getPoints();
+            for (int i = 0; i <= points.length -1 ; i++){
+                points[i] += sitepoints[i];
+            }
+        }
+        return points;
+    }
+
     private void sendTo(User user, Event event) {
         this.clientListener.getServer().sendTo(event, user.getUsername());
     }
@@ -105,8 +128,21 @@ public class Game implements Runnable {
         for (Ship ship : ships) {
             gameInfo.setCurrentShips(getCargoAsIntArrayByShip(ship));
         }
-        gameInfo.setOrder(users);
 
+        int[] dockedSites = new int[5];
+
+        for (int i = 0; i<= sites.size()-1; i++){
+            if (sites.get(i).isDocked()){
+                dockedSites[i] = sites.get(i).getDockedShip().getId();
+            }
+            else {
+                dockedSites[i] = -1;
+            }
+        }
+
+        gameInfo.setSiteString(siteString);
+        gameInfo.setSitesAllocation(dockedSites);
+        gameInfo.setOrder(users);
         gameInfo.setTurnTime(lobby.getExecutor().getTurnTime());
         gameInfo.setRound(this.round);
         gameInfo.setStorages(this.storages);

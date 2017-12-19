@@ -3,15 +3,20 @@ package game.board;
 import java.util.ArrayList;
 
 public class Ship {
+  private int id;
   private int size;
   private int minimumStones;
   private Stone[] stones;
   private boolean docked;
 
-  public Ship(int size) {
+  public Ship(int id, int size) {
     this.size = size;
     this.minimumStones = Math.max(size-1, 1);
     stones = new Stone[size];
+  }
+
+  public int getId() {
+    return id;
   }
 
   public boolean isDocked() {

@@ -13,8 +13,10 @@ public class GameInfoEvent implements Event {
   private int round;
   private ArrayList<Integer> storages;
   private String[] order;
+  private String[] siteString;
   private Date date;
   private int turnTime;
+  private int[] sitesAllocation;
 
   public GameInfoEvent() {
     this.date = new Date();
@@ -26,6 +28,22 @@ public class GameInfoEvent implements Event {
 
   public int getMyId() {
     return myId;
+  }
+
+  public int[] getSitesAllocation() {
+    return sitesAllocation;
+  }
+
+  public void setSitesAllocation(int[] sitesAllocation) {
+    this.sitesAllocation = sitesAllocation;
+  }
+
+  public String[] getSiteString() {
+    return siteString;
+  }
+
+  public void setSiteString(String[] siteString) {
+    this.siteString = siteString;
   }
 
   public void setCurrentShips(int[] ship) {

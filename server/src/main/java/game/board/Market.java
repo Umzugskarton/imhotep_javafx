@@ -42,4 +42,14 @@ public class Market extends Site implements  StoneSite{
   public boolean dockShip(Ship ship) {
     return false;
   }
+
+  @Override
+  public boolean isDocked(){
+    return this.getDockedShip() != null;
+  }
+
+  @Override
+  public Ship getDockedShip() {
+    return super.getDockedShip();
+  }
 }

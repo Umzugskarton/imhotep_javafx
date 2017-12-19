@@ -29,7 +29,7 @@ public class SceneController {
   private static final int STAGE_HEIGHT = 480;
 
   private Stage stage;
-
+  private Stage gameStage;
   //Board
   private Parent boardRoot;
 
@@ -105,11 +105,12 @@ public class SceneController {
     if (boardRoot == null) {
       //Nur für die Präsentation
       stage.close();
-      stage = new Stage();
-      stage.initStyle(StageStyle.DECORATED);
-      stage.setHeight(1080);
-      stage.setWidth(1920);
-      stage.show();
+      gameStage = new Stage();
+      gameStage.initStyle(StageStyle.DECORATED);
+      gameStage.setTitle("Imhotep");
+      gameStage.setHeight(1080);
+      gameStage.setWidth(1920);
+      gameStage.show();
       try {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/BoardView.fxml"));
@@ -118,8 +119,8 @@ public class SceneController {
         boardPresenter= new BoardPresenter(view, this, getLobbyPresenter().getCLTLobby());
         view.setBoardPresenter(boardPresenter);
         Scene boardScene = new Scene(boardRoot);
-        this.stage.setScene(boardScene); // nachher mit fxml wieder ändern
-        stage.getScene().getStylesheets().add("style.css");
+        this.gameStage.setScene(boardScene); // nachher mit fxml wieder ändern
+        gameStage.getScene().getStylesheets().add("style.css");
       } catch (IOException e) {
         e.printStackTrace();
       }

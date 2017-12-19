@@ -42,7 +42,8 @@ public class VoyageToStoneSite implements Procedure {
     if (!ship.isDocked()) {
       if (site.dockShip(ship)){
         ship.setDocked(true);
-        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), site.getPoints());
+
+        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum());
       }
       else {
         return new SiteAlreadyDockedError(move.getStonesite());

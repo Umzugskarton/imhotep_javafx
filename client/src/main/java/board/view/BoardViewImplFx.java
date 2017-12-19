@@ -3,6 +3,7 @@ package board.view;
 import board.presenter.BoardPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
@@ -15,6 +16,8 @@ import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BoardViewImplFx {
 
@@ -126,7 +129,15 @@ public class BoardViewImplFx {
     return selectStoneLocationBox;
   }
 
-
+  public Pane getPierbyName(String name){
+    Map<String, Pane> piers = new HashMap<String, Pane>();
+    piers.put("Market", marketPier);
+    piers.put("Obelisks", obelisksPier);
+    piers.put("Pyramids", pyramidsPier);
+    piers.put("Temple", templePier);
+    piers.put("BurialChamber", burialChamberPier);
+    return piers.get(name);
+  }
 
   public ArrayList<ComboBox<Integer>> getShipCBoxes(){
     ArrayList<ComboBox<Integer>> a = new ArrayList<>();
@@ -151,6 +162,12 @@ public class BoardViewImplFx {
     else {
       System.out.println("Null");
     }
+  }
+
+  public AnchorPane removeShipPaneById(int id){
+    AnchorPane ship = (AnchorPane)  getBerths().get(id).getChildren().get(0);
+    getBerths().get(id).getChildren().remove(0);
+    return ship;
   }
 
   @FXML
@@ -182,6 +199,7 @@ public class BoardViewImplFx {
   public void setGuiToFront(){
     userInterfacePane.toFront();
   }
+
   public ArrayList<Pane> getBerths(){
     ArrayList<Pane> a = new ArrayList<>();
     Collections.addAll(a, berth0, berth1, berth2,berth3);
