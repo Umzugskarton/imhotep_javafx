@@ -54,6 +54,17 @@ public class Lobby {
         return user == lobby[0];
     }
 
+    public void swapHost() {
+        for(int i = 0; i <= lobby.length; i++) {
+            if(lobby[i] != lobby[0]) {
+                User temp = lobby[0];
+                lobby[0] = lobby[i];
+                lobby[i] = temp;
+                break;
+            }
+        }
+    }
+
     public void startGame(ClientListener cl) {
         this.game = new Game(this, cl);
     }
@@ -67,7 +78,12 @@ public class Lobby {
     }
 
     public String getHostName() {
-        return this.lobby[0].getUsername();
+        if(lobby[0] == null) {
+            return "Kein User vorhanden";
+        } else {
+            return this.lobby[0].getUsername();
+        }
+
     }
 
     public void setPassword(String psw) {
@@ -206,6 +222,9 @@ public class Lobby {
     }
 
     public leaveLobbyEvent leave(User user) {
+        if(user == lobby[0] && getUserCount() != 1) {
+            swapHost();
+        }
         for (int i = 0; i < lobby.length; i++) {
             if (lobby[i] == user) {
                 lobby[i] = null;
@@ -216,6 +235,7 @@ public class Lobby {
 
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
+
 
         this.vacancy = true;
         return new leaveLobbyEvent(true);

@@ -41,7 +41,7 @@ public class leaveLobbyCommand implements Command {
         leaveLobbyEvent response = lobby.leave(user);
         server.sendTo(response, clientListener.getUser().getUsername());
         this.clientListener.setLobby(null);
-        if(lobby.getUserCount() != 0) {
+        if(lobby.getUsers()[0] != null) {
             this.clientListener.getServer()
                     .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
 
@@ -50,6 +50,10 @@ public class leaveLobbyCommand implements Command {
                     lobby.getHostName(), lobby.getReady(), lobby.getColors());
             lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
             server.sendToLobby(lobbyInfo, lobby);
+        } else {
+            lobbyInfoEvent lobbyInfoEmpty = new lobbyInfoEvent();
+            server.sendToLobby(lobbyInfoEmpty, lobby);
+
         }
     }
 }

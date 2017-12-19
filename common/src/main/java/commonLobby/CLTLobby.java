@@ -18,6 +18,10 @@ public class CLTLobby {
   private ArrayList<String> colors;
   private boolean[] ready;
 
+  public CLTLobby() {
+
+  }
+
   public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size,
                   boolean ishost, String host, boolean[] ready, ArrayList<String> colors) {
     this.lobbyID = lobbyID;
