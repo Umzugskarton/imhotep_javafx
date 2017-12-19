@@ -1,5 +1,6 @@
 package SRVevents;
 
+import GameEvents.FillUpStorageEvent;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 
@@ -27,6 +28,7 @@ public class EventFactory {
     Dict.put("gameInfo", new GameInfoEvent());
     Dict.put("turn", new TurnEvent());
     Dict.put("leaveLobby", new leaveLobbyEvent());
+    Dict.put("fillUpStorage", new FillUpStorageEvent());
   }
 
   public Event getEvent(String command) {

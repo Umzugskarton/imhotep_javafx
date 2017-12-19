@@ -1,5 +1,6 @@
 package board.presenter;
 
+import GameEvents.FillUpStorageEvent;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import GameMoves.fillUpStorageMove;
@@ -93,15 +94,19 @@ public class BoardPresenter {
     }
 
     private void updateView() {
-        updateStorages();
+        setStorages();
     }
 
-    private void updateStorages() {
+    private void setStorages() {
         int i = 0 ;
         for (int stone : storages) {
             storagePresenters.get(i).setStoneCount(stone);
             i++;
         }
+    }
+
+    public void updateStorages(FillUpStorageEvent event) {
+        storagePresenters.get(event.getPlayerId()).setStoneCount(event.getStorage());
     }
 
     private void  setShips(){
@@ -143,6 +148,7 @@ public class BoardPresenter {
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
+            this.view.setGuiToFront();
             this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
             this.changeBannerLabels("", "", Color.TRANSPARENT);
         } else {

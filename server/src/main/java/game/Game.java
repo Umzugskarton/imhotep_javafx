@@ -20,8 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
-    private static final int TURN_TIME = 20;
-    private static final int TURN_TIME_BUFFER = 5;
+
+
 
     private int gameID;
     private Lobby lobby;
@@ -30,6 +30,7 @@ public class Game implements Runnable {
     private Player[] order;
     private int currentPlayer;
     private int round;
+
 
     //StoneSites
     private Pyramids pyramids;
@@ -60,7 +61,6 @@ public class Game implements Runnable {
         this.temple = new Temple(lobby.getSize());
         this.burialChamber = new BurialChamber(lobby.getSize());
         setStartCards();
-        run();
     }
 
     public void resetCurrentShips() {
@@ -68,6 +68,7 @@ public class Game implements Runnable {
             this.ships[i] = new Ship(ThreadLocalRandom.current().nextInt(1, 4));
         }
     }
+
 
     private void setGame() {
         int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
@@ -111,7 +112,7 @@ public class Game implements Runnable {
         }
         gameInfo.setOrder(users);
 
-        gameInfo.setTurnTime(this.TURN_TIME);
+        gameInfo.setTurnTime(lobby.getExecutor().getTurnTime());
         gameInfo.setRound(this.round);
         gameInfo.setStorages(this.storages);
 
@@ -153,8 +154,9 @@ public class Game implements Runnable {
                     //Informiert alle User über den/die ausgeführten Move/s
                     for (Event e : executedMoves) {
                         sendAll(e);
-                        executedMoves.remove(e);
                     }
+                    executedMoves.clear();
+
                     if (allshipsDocked()) {
                         break;
                     }
@@ -218,7 +220,8 @@ public class Game implements Runnable {
 
     private  void waitForMove(int p) {
         log.info("[Lobby " + this.lobby.getLobbyID() + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
-        nextMove = lobby.getExecutor().waitForMove();
+        lobby.getExecutor().waitForMove();
+        nextMove = lobby.getExecutor().getMove();
     }
 
    /* public void setNextMove(Move nextMove) {

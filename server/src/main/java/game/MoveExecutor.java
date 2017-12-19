@@ -17,22 +17,33 @@ public class MoveExecutor {
     private final Condition notSet = lock.newCondition();
     private Move move;
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
+    private static final int TURN_TIME = 20;
+    private static final int TURN_TIME_BUFFER = 5;
 
-    public Move waitForMove(){
+    public void waitForMove(){
+      move = null;
       lock.lock();
       try {
-        while (move == null)
-        notSet.await(30, TimeUnit.SECONDS);
+
+          notSet.await(TURN_TIME+TURN_TIME_BUFFER, TimeUnit.SECONDS);
+
       }catch (InterruptedException e){
         log.error(e.getMessage());
       }
       finally {
         lock.unlock();
       }
-      return move;
     }
 
-    public void setMove(Move move){
+  public static int getTurnTime() {
+    return TURN_TIME;
+  }
+
+  public Move getMove() {
+    return move;
+  }
+
+  public void setMove(Move move){
       lock.lock();
       try{
         this.move = move;

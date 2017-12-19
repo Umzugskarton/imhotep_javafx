@@ -137,6 +137,9 @@ public class BoardViewImplFx {
     boardPresenter.fullscreen();
   }
 
+  public void setGuiToFront(){
+    userInterfacePane.toFront();
+  }
   public ArrayList<Pane> getBerths(){
     ArrayList<Pane> a = new ArrayList<>();
     Collections.addAll(a, berth0, berth1, berth2,berth3);

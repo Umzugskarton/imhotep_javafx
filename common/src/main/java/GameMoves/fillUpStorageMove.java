@@ -4,7 +4,7 @@ package GameMoves;
 import java.util.Date;
 
 public class fillUpStorageMove implements Move {
-  private String move = "fillUpStorage";
+  private String move = "FillUpStorage";
 
   public fillUpStorageMove() {
 

@@ -215,4 +215,15 @@ public class EventListener {
                 }
         );
     }
+
+    @Subscribe
+    public void fillUpStorageEventListener(FillUpStorageEvent e) {
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().updateStorages(e);
+                    }
+                }
+        );
+    }
 }
