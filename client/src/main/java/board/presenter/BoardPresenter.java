@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-
 public class BoardPresenter {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
@@ -42,7 +41,7 @@ public class BoardPresenter {
     private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
     //Board Variables
-    private int myid = -1;
+    private int myID = -1;
     private ArrayList<int[]> ships;
     private int round;
     private ArrayList<Integer> storages;
@@ -89,14 +88,38 @@ public class BoardPresenter {
         this.endTurn(false);
     }
 
+    public void sendLoadUpShipMove(int ship, int position){
+        if(storagePresenters.get(myID).getStoneCount() > 0) {
+            LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
+            sc.getClientSocket().send(loadUpShipMove);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Steine aufladen nicht möglich");
+            alert.setHeaderText("Keine Steine im Lager");
+            alert.setContentText("Möchten Sie neue Steine anfordern?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    sendFillUpStorageMove();
+                }
+            }
+        }
+    }
+
+    public void receiveShipLoadedEvent(ShipLoadedEvent e) {
+        this.updateShipCargoById(e);
+        this.endTurn(false);
+    }
+
     // Board View
     public BoardViewImplFx getView() {
         return view;
     }
 
     public void updateBoard(GameInfoEvent event) {
-        if (myid == -1){
-           myid= event.getMyId();
+        if (myID == -1){
+           myID= event.getMyId();
         }
         storages = event.getStorages();
         if (ships == null) {
@@ -128,7 +151,7 @@ public class BoardPresenter {
         storagePresenters.get(event.getPlayerId()).setStoneCount(event.getStorage());
     }
 
-    private void  setShips(){
+    private void setShips(){
       int render = 0;
       for (int[] ship : ships){
         try {
@@ -152,38 +175,15 @@ public class BoardPresenter {
         }
     }
 
-    public void updateShipCargobyId(ShipLoadedEvent e){
+    public void updateShipCargoById(ShipLoadedEvent e){
         storagePresenters.get(e.getPlayerId()).setStoneCount(e.getStorage());
         shipPresenters.get(e.getShipID()).setCargo(e.getCargo());
-    }
 
-    public void setStoneLocationCBox(int ship){
-        view.getSelectStoneLocationBox().getItems().clear();
-        for (int i=0; i <= ships.get(ship).length-1; i++){
-            if (ships.get(ship)[i] == -1)
-                view.getSelectStoneLocationBox().getItems().add(i);
+        for(int i = 0; i < e.getCargo().length; i++) {
+            this.ships.get(e.getShipID())[i] = e.getCargo()[i];
         }
-    }
 
-    public void sendLoadUpShipMove(int ship, int position){
-        if(storagePresenters.get(myid).getStoneCount() > 0) {
-            LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
-            sc.getClientSocket().send(loadUpShipMove);
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Steine aufladen nicht möglich");
-            alert.setHeaderText("Keine Steine im Lager");
-            alert.setContentText("Möchten Sie neue Steine anfordern?");
-            alert.showAndWait();
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == ButtonType.OK) {
-                    sendFillUpStorageMove();
-                }
-            }
-
-        }
+        this.setStoneLocationCBox(e.getShipID());
     }
 
     // Turns
@@ -243,6 +243,14 @@ public class BoardPresenter {
     }
 
     // User Interface
+    public void setStoneLocationCBox(int ship) {
+        view.getSelectStoneLocationBox().getItems().clear();
+        for (int i=0; i <= ships.get(ship).length-1; i++){
+            if (ships.get(ship)[i] == -1)
+                view.getSelectStoneLocationBox().getItems().add(i);
+        }
+    }
+
     public void toggleUserInterface(boolean show) {
         view.getHoldingArea().setVisible(!show);
         view.getHoldingArea().toBack();

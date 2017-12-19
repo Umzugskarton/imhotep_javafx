@@ -13,6 +13,8 @@ public class AlreadyAllocatedError implements Event {
   private int shipID;
   private int position;
 
+  public AlreadyAllocatedError() {}
+
   public AlreadyAllocatedError(int shipID, int position) {
     this.shipID= shipID;
     this.position = position;

@@ -1,9 +1,6 @@
 package SRVevents;
 
-import GameEvents.FillUpStorageEvent;
-import GameEvents.GameInfoEvent;
-import GameEvents.ShipLoadedEvent;
-import GameEvents.TurnEvent;
+import GameEvents.*;
 
 import java.util.HashMap;
 
@@ -31,6 +28,7 @@ public class EventFactory {
     Dict.put("leaveLobby", new leaveLobbyEvent());
     Dict.put("FillUpStorage", new FillUpStorageEvent());
     Dict.put("ShipLoaded", new ShipLoadedEvent());
+    Dict.put("AlreadyAllocatedError", new AlreadyAllocatedError());
   }
 
   public Event getEvent(String command) {

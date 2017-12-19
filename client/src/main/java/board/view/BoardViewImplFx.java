@@ -126,8 +126,6 @@ public class BoardViewImplFx {
     return selectStoneLocationBox;
   }
 
-
-
   public ArrayList<ComboBox<Integer>> getShipCBoxes(){
     ArrayList<ComboBox<Integer>> a = new ArrayList<>();
     Collections.addAll(a, selectShipBox, selectShipToLocationBox);
