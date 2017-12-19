@@ -93,9 +93,9 @@ public class SceneController {
   }
 
   public void toLobbyScene() {
-    if (this.LobbyPresenter == null) {
-      this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
-    }
+    //Es wird stets beim Wechsel zur LobbyScene eine neuer Presenter/View gesetzt
+    this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
+
 
     this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
     this.stage.getScene().getStylesheets().add("style.css");

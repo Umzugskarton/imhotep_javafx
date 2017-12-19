@@ -105,6 +105,10 @@ public class LobbyPresenter {
   public void leaveLobbyRequest() {
     leaveLobbyRequest leaveLobbyRequest = new leaveLobbyRequest(CLTLobby.getLobbyId());
     this.getSceneController().getClientSocket().send(leaveLobbyRequest);
+  }
+
+  public void resetUserAfterLeaving() {
+    //lobbyView.getChatText().getChildren().clear();
 
   }
 

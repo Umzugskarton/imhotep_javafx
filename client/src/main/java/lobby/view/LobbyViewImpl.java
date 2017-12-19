@@ -303,9 +303,8 @@ public class LobbyViewImpl implements LobbyView {
   }
 
   public void initLobbyInfo() {
-
+    Button startGame = new Button("Start Game");
     if (lobbyPresenter.checkHost()) {
-      Button startGame = new Button("Start Game");
       grid.add(startGame, 5, 1);
       startGame.addEventHandler(ActionEvent.ACTION, e -> {
         if (getLobbyPresenter().checkAllReady()) {
@@ -314,6 +313,8 @@ public class LobbyViewImpl implements LobbyView {
           System.out.print("Es sind nicht alle bereit!");
         }
       });
+    } else {
+      startGame.setVisible(false);
     }
 
     Button leaveGame = new Button("Sitzung verlassen");

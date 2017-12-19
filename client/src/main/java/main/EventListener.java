@@ -128,6 +128,7 @@ public class EventListener {
                 () -> {
                     if(e.getSuccess()) {
                         this.sceneController.toMainmenuScene();
+                        //this.sceneController.getLobbyPresenter().resetUserAfterLeaving();
                     }
                 }
         );

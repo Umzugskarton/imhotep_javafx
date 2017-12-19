@@ -239,6 +239,11 @@ public class Lobby {
 
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
+        Arrays.fill(ready, false);
+        if(getUserCount() == 0) {
+            this.show = false;
+
+        }
 
 
         this.vacancy = true;
