@@ -229,13 +229,24 @@ public class EventListener {
     }
 
     @Subscribe
-  public void shipLoadedEventListener(ShipLoadedEvent e){
+    public void shipLoadedEventListener(ShipLoadedEvent e){
       Platform.runLater(
               () -> {
                 if(sceneController.getBoardPresenter() != null) {
-                  sceneController.getBoardPresenter().updateShipCargobyId(e);
+                  sceneController.getBoardPresenter().receiveShipLoadedEvent(e);
                 }
               }
       );
+    }
+
+    @Subscribe
+    public void alreadyAllocatedErrorListener(AlreadyAllocatedError e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        System.out.println("alreadyallocatederror");
+                    }
+                }
+        );
     }
 }
