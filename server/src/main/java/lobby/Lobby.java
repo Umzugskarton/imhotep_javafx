@@ -66,7 +66,10 @@ public class Lobby {
     }
 
     public void startGame(ClientListener cl) {
-        this.game = new Game(this, cl);
+        executor = new MoveExecutor();
+        game = new Game(this, cl);
+        Thread thread = new Thread(game);
+        thread.start();
     }
 
     public Game getGame() {
@@ -232,6 +235,7 @@ public class Lobby {
                 break;
             }
         }
+
 
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");

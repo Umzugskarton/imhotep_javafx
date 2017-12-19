@@ -19,6 +19,10 @@ public class FillUpStorageEvent implements Event {
     this.storage = storage;
     this.date = new Date();
   }
+  
+  public int getPlayerId() {
+    return playerId;
+  }
 
   public int getStorage() {
     return storage;

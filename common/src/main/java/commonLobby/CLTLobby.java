@@ -34,6 +34,7 @@ public class CLTLobby {
     this.host = host;
     this.ready = ready;
     this.colors = colors;
+    setBelegung();
   }
 
   public void setHost(String host) {
@@ -89,7 +90,7 @@ public class CLTLobby {
     return this.belegung;
   }
 
-  public void setBelegung(int usercount) {
+  public void setBelegung() {
     this.belegung = (usercount + " / " + size);
   }
 
