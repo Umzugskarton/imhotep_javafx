@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -83,6 +85,15 @@ public class RegistrationViewImpl implements RegistrationView {
         String email = emailField.getText();
 
         registrationPresenter.sendRegisterRequest(username, password1, password2, email);
+      }
+    });
+
+    registrationScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+          register.fire();
+        }
       }
     });
 

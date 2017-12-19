@@ -72,14 +72,11 @@ public class LoginViewImpl implements LoginView {
     loginNow.addEventHandler(ActionEvent.ACTION, e ->
         loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText()));
 
-
-    loginNow.defaultButtonProperty().bind(loginNow.focusedProperty());
-
     loginScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER) {
-          loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText());
+          loginNow.fire();
         }
       }
     });
