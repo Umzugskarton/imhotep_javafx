@@ -50,10 +50,6 @@ public class LobbyPresenter {
 
   }
 
-  public void sendShowHostRequest() {
-    showHostRequest showHostRequest = new showHostRequest();
-    this.getSceneController().getClientSocket().send(showHostRequest);
-  }
 
   public void sendSetReadyRequest() {
     setReadyRequest setReadyRequest = new setReadyRequest();
