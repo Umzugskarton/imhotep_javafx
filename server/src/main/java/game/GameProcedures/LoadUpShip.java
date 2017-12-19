@@ -4,7 +4,7 @@ package game.GameProcedures;
 import GameEvents.AlreadyAllocatedError;
 import GameEvents.ShipLoadedEvent;
 import GameMoves.Move;
-import GameMoves.loadUpShipMove;
+import GameMoves.LoadUpShipMove;
 import SRVevents.Event;
 import game.Game;
 import game.Player;
@@ -12,7 +12,7 @@ import game.board.Ship;
 import game.board.Stone;
 
 public class LoadUpShip implements Procedure {
-  private loadUpShipMove move;
+  private LoadUpShipMove move;
   private Game game;
   private int playerId;
 
@@ -22,22 +22,16 @@ public class LoadUpShip implements Procedure {
   }
 
   public void put(Move move) {
-    this.move = (loadUpShipMove) move;
+    this.move = (LoadUpShipMove) move;
   }
 
   public Event exec() {
     Player player = game.getOrder()[playerId];
     Stone stone = new Stone(player);
-    Ship ship = game.getBoatByID(move.getShipId());
-
+    Ship ship = game.getShipByID(move.getShipId());
+    game.decrPlayerStorage(playerId);
     if (ship.addStone(stone, move.getPosition())) {
-      int[] shipInt = new int[ship.getStones().length];
-      for (int i = 0; i < ship.getStones().length; i++) {
-        if (ship.getStones()[i] != null) {
-          shipInt[i] = ship.getStones()[i].getPlayer().getId();
-        }
-      }
-      return new ShipLoadedEvent(move.getShipId(), shipInt);
+      return new ShipLoadedEvent(playerId, move.getShipId(), game.getCargoAsIntArrayByShip(ship), game.getStorage(playerId));
     }
     else{
         return new AlreadyAllocatedError(move.getShipId(), move.getPosition());

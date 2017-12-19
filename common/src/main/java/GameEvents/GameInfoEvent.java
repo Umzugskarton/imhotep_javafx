@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class GameInfoEvent implements Event {
   private String event = "gameInfo";
+  private int myId;
   private ArrayList<int[]> ships = new ArrayList<>();
   private int round;
   private ArrayList<Integer> storages;
@@ -17,6 +18,14 @@ public class GameInfoEvent implements Event {
 
   public GameInfoEvent() {
     this.date = new Date();
+  }
+
+  public void setMyId(int id) {
+    this.myId = id;
+  }
+
+  public int getMyId() {
+    return myId;
   }
 
   public void setCurrentShips(int[] ship) {

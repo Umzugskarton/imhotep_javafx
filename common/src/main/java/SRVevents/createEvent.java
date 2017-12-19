@@ -35,8 +35,5 @@ public class createEvent implements Event {
         return msg;
     }
 
-    @Override
-    public Date getDate() {
-        return this.date;
-    }
+
 }

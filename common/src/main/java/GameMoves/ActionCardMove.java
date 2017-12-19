@@ -4,13 +4,17 @@ package GameMoves;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class actionCardMove implements Move{
-  private String move = "actionCard";
+public class ActionCardMove implements Move{
+  private String move = "ActionCard";
   private int cardID;
   private Date date;
   private ArrayList<Move> moves;
 
-  public actionCardMove(int cardID) {
+  public ActionCardMove() {
+
+  }
+
+  public ActionCardMove(int cardID) {
     date = new Date();
     this.cardID = cardID;
     moves = new ArrayList<>();

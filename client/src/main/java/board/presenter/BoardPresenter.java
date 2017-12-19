@@ -2,8 +2,10 @@ package board.presenter;
 
 import GameEvents.FillUpStorageEvent;
 import GameEvents.GameInfoEvent;
+import GameEvents.ShipLoadedEvent;
 import GameEvents.TurnEvent;
-import GameMoves.fillUpStorageMove;
+import GameMoves.FillUpStorageMove;
+import GameMoves.LoadUpShipMove;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
 import board.view.ShipViewImplFx;
@@ -11,6 +13,9 @@ import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -22,6 +27,7 @@ import main.SceneController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class BoardPresenter {
@@ -32,6 +38,7 @@ public class BoardPresenter {
     private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
     //Board Variables
+    private int myid = -1;
     private ArrayList<int[]> ships;
     private int round;
     private ArrayList<Integer> storages;
@@ -69,7 +76,7 @@ public class BoardPresenter {
 
     // Moves
     public void sendFillUpStorageMove() {
-        fillUpStorageMove fillUpStorageMove = new fillUpStorageMove();
+        FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
         this.sc.getClientSocket().send(fillUpStorageMove);
     }
 
@@ -79,6 +86,9 @@ public class BoardPresenter {
     }
 
     public void updateBoard(GameInfoEvent event) {
+        if (myid == -1){
+           myid= event.getMyId();
+        }
         storages = event.getStorages();
         if (ships == null) {
           ships = event.getShips();
@@ -126,8 +136,46 @@ public class BoardPresenter {
           e.printStackTrace();
         }
       }
+        for (ComboBox<Integer> x : view.getShipCBoxes()){
+          for (int i = 0 ; i<= ships.size() -1 ; i++){
+              x.getItems().add( i );
+          }
+        }
     }
 
+    public void updateShipCargobyId(ShipLoadedEvent e){
+        storagePresenters.get(e.getPlayerId()).setStoneCount(e.getStorage());
+        shipPresenters.get(e.getShipID()).setCargo(e.getCargo());
+    }
+
+    public void setStoneLocationCBox(int ship){
+        view.getSelectStoneLocationBox().getItems().clear();
+        for (int i=0; i <= ships.get(ship).length-1; i++){
+            if (ships.get(ship)[i] == -1)
+                view.getSelectStoneLocationBox().getItems().add(i);
+        }
+    }
+
+    public void sendLoadUpShipMove(int ship, int position){
+        if(storagePresenters.get(myid).getStoneCount() > 0) {
+            LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
+            sc.getClientSocket().send(loadUpShipMove);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Steine aufladen nicht möglich");
+            alert.setHeaderText("Keine Steine im Lager");
+            alert.setContentText("Möchten Sie neue Steine anfordern?");
+            alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    sendFillUpStorageMove();
+                }
+            }
+
+        }
+    }
     // Turns
     public void endTurn() {
         this.toggleUserInterface(false);
@@ -139,8 +187,8 @@ public class BoardPresenter {
 
     public void newTurn(TurnEvent e) {
         // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-        this.toggleUserInterface(e.isMyTurn());
 
+        this.toggleUserInterface(e.isMyTurn());
         Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
 
         this.view.getCurrentPlayerLabel().setText(e.getUsername());
@@ -148,7 +196,6 @@ public class BoardPresenter {
 
         // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
         if(e.isMyTurn()) {
-            this.view.setGuiToFront();
             this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
             this.changeBannerLabels("", "", Color.TRANSPARENT);
         } else {
@@ -162,14 +209,12 @@ public class BoardPresenter {
     // Timer
     private void startTurnTimer() {
         this.stopTurnTimer();
-
         this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
         this.turnTimerThread.start();
     }
 
     public void stopTurnTimer() {
         this.view.getTurnTimerProgress().setProgress(0.0);
-
         if(this.turnTimerThread != null) {
             this.turnTimer.forceEnd();
             this.turnTimer = null;
@@ -187,6 +232,8 @@ public class BoardPresenter {
 
     // User Interface
     public void toggleUserInterface(boolean show) {
+        view.getHoldingArea().setVisible(!show);
+        view.getHoldingArea().toBack();
         view.getUserInterface().setVisible(show);
     }
 

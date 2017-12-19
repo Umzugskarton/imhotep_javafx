@@ -3,7 +3,7 @@ package game;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import GameMoves.Move;
-import GameMoves.actionCardMove;
+import GameMoves.ActionCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
@@ -86,6 +86,13 @@ public class Game implements Runnable {
         }
     }
 
+    private void sendAll(GameInfoEvent event) {
+        for (Player player : this.order) {
+            event.setMyId(player.getId());
+            sendTo(player.getUser(), event);
+        }
+    }
+
     private void sendTo(User user, Event event) {
         this.clientListener.getServer().sendTo(event, user.getUsername());
     }
@@ -99,16 +106,7 @@ public class Game implements Runnable {
         }
 
         for (Ship ship : ships) {
-            int[] shipInt = new int[ship.getStones().length];
-            for (int i = 0; i < ship.getStones().length; i++) {
-                if (ship.getStones()[i] != null) {
-                    shipInt[i] = ship.getStones()[i].getPlayer().getId();
-                }
-                else {
-                    shipInt[i] = -1;
-                }
-            }
-            gameInfo.setCurrentShips(shipInt);
+            gameInfo.setCurrentShips(getCargoAsIntArrayByShip(ship));
         }
         gameInfo.setOrder(users);
 
@@ -117,6 +115,18 @@ public class Game implements Runnable {
         gameInfo.setStorages(this.storages);
 
         return gameInfo;
+    }
+
+    public int[] getCargoAsIntArrayByShip(Ship ship){
+        int[] shipInt = new int[ship.getStones().length];
+        for (int i = 0; i < ship.getStones().length; i++) {
+            if (ship.getStones()[i] != null) {
+                shipInt[i] = ship.getStones()[i].getPlayer().getId();
+            } else {
+                shipInt[i] = -1;
+            }
+        }
+        return shipInt;
     }
 
     private void setStartCards() {
@@ -136,7 +146,7 @@ public class Game implements Runnable {
 
                     if (this.nextMove != null) {
                         if (nextMove.getType().equals("actionCard")) {
-                            actionCardMove ac = (actionCardMove) nextMove;
+                            ActionCardMove ac = (ActionCardMove) nextMove;
                             for (Move move : ac.getMoves()) {
                                 executeMove(move);
                             }
@@ -224,12 +234,6 @@ public class Game implements Runnable {
         nextMove = lobby.getExecutor().getMove();
     }
 
-   /* public void setNextMove(Move nextMove) {
-        lock.lock();
-        log.info("Spielzug "+ nextMove.getType() + " wurde gesetzt. Für Spieler " + currentPlayer);
-        this.nextMove = nextMove;
-        noMove.signalAll();
-    }*/
 
     public void addStonesToStorage(int playerId) {
         if (storages.get(playerId)+3 >5)
@@ -242,6 +246,10 @@ public class Game implements Runnable {
         return storages.get(playerID);
     }
 
+    public void decrPlayerStorage(int playerID){
+        int storage = storages.get(playerID)-1;
+        storages.set(playerID, storage);
+    }
 
     public int getGameID() {
         return gameID;
@@ -255,7 +263,7 @@ public class Game implements Runnable {
         this.ships = ships;
     }
 
-    public Ship getBoatByID(int shipId) {
+    public Ship getShipByID(int shipId) {
         return ships[shipId];
     }
 

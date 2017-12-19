@@ -2,6 +2,7 @@ package SRVevents;
 
 import GameEvents.FillUpStorageEvent;
 import GameEvents.GameInfoEvent;
+import GameEvents.ShipLoadedEvent;
 import GameEvents.TurnEvent;
 
 import java.util.HashMap;
@@ -28,7 +29,8 @@ public class EventFactory {
     Dict.put("gameInfo", new GameInfoEvent());
     Dict.put("turn", new TurnEvent());
     Dict.put("leaveLobby", new leaveLobbyEvent());
-    Dict.put("fillUpStorage", new FillUpStorageEvent());
+    Dict.put("FillUpStorage", new FillUpStorageEvent());
+    Dict.put("ShipLoaded", new ShipLoadedEvent());
   }
 
   public Event getEvent(String command) {

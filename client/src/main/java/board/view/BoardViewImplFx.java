@@ -1,6 +1,5 @@
 package board.view;
 
-import GameMoves.fillUpStorageMove;
 import board.presenter.BoardPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -64,13 +64,16 @@ public class BoardViewImplFx {
   private Button playCardButton;
 
   @FXML
-  private ComboBox selectShipBox;
+  private ComboBox<Integer> selectShipBox;
 
   @FXML
   private ComboBox selectShipLocationBox;
 
   @FXML
-  private ComboBox selectShipToLocationBox;
+  private ComboBox<Integer> selectShipToLocationBox;
+
+  @FXML
+  private ComboBox<Integer> selectStoneLocationBox;
 
   @FXML
   private Pane berth0;
@@ -100,6 +103,9 @@ public class BoardViewImplFx {
   private Pane pyramidsPier;
 
   @FXML
+  private GridPane holdingArea;
+
+  @FXML
   public void sendFillUpStorageMove(ActionEvent e) {
       this.boardPresenter.sendFillUpStorageMove();
   }
@@ -112,11 +118,47 @@ public class BoardViewImplFx {
     return userInterfacePane;
   }
 
+  public GridPane getHoldingArea() {
+    return holdingArea;
+  }
+
+  public ComboBox<Integer> getSelectStoneLocationBox() {
+    return selectStoneLocationBox;
+  }
+
+
+
+  public ArrayList<ComboBox<Integer>> getShipCBoxes(){
+    ArrayList<ComboBox<Integer>> a = new ArrayList<>();
+    Collections.addAll(a, selectShipBox, selectShipToLocationBox);
+    return a;
+  }
+
   public void addHouse(int i, AnchorPane house){
     Text text = new Text("x: " + i);
     this.houses.add(house, 0, i );
   }
 
+  public ComboBox getSelectShipLocationBox() {
+    return selectShipLocationBox;
+  }
+
+  @FXML
+  void setStoneLocationCBox(ActionEvent event){
+    if ( selectShipToLocationBox.getValue() != null){
+      boardPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
+    }
+    else {
+      System.out.println("Null");
+    }
+  }
+
+  @FXML
+  void sendLoadUpShipMove(){
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
+      boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
+    }
+  }
   public ProgressBar getTurnTimerProgress() { return this.turnTimerProgress; }
 
   public Label getRoundLabel() { return this.roundLabel; }

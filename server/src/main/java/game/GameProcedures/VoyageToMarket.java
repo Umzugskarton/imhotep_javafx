@@ -1,21 +1,14 @@
 package game.GameProcedures;
 
-import GameEvents.ShipAlreadyDockedError;
-import GameEvents.SiteAlreadyDockedError;
 import GameMoves.Move;
-import GameMoves.voyageToMarketMove;
-import GameMoves.voyageToStoneSiteMove;
-import SRVevents.Event;
+import GameMoves.VoyageToMarketMove;
 import game.Game;
-import game.board.Market;
-import game.board.Ship;
-import java.lang.reflect.Method;
 
 /**
  * Created on 16.12.2017.
  */
 public class VoyageToMarket {
-  private voyageToMarketMove move;
+  private VoyageToMarketMove move;
   private Game game;
   private int playerId;
 
@@ -25,7 +18,7 @@ public class VoyageToMarket {
   }
 
   public void put(Move move) {
-    this.move = (voyageToMarketMove) move;
+    this.move = (VoyageToMarketMove) move;
   }
   /*
 

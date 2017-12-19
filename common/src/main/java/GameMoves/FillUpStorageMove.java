@@ -3,10 +3,10 @@ package GameMoves;
 
 import java.util.Date;
 
-public class fillUpStorageMove implements Move {
+public class FillUpStorageMove implements Move {
   private String move = "FillUpStorage";
 
-  public fillUpStorageMove() {
+  public FillUpStorageMove() {
 
   }
 

@@ -226,4 +226,15 @@ public class EventListener {
                 }
         );
     }
+
+    @Subscribe
+  public void shipLoadedEventListener(ShipLoadedEvent e){
+      Platform.runLater(
+              () -> {
+                if(sceneController.getBoardPresenter() != null) {
+                  sceneController.getBoardPresenter().updateShipCargobyId(e);
+                }
+              }
+      );
+    }
 }

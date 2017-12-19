@@ -5,7 +5,7 @@ import GameEvents.ShipAlreadyDockedError;
 import GameEvents.ShipDockedEvent;
 import GameMoves.Move;
 import GameEvents.SiteAlreadyDockedError;
-import GameMoves.voyageToStoneSiteMove;
+import GameMoves.VoyageToStoneSiteMove;
 import SRVevents.Event;
 import game.Game;
 import game.board.Ship;
@@ -14,7 +14,7 @@ import game.board.StoneSite;
 import java.lang.reflect.Method;
 
 public class VoyageToStoneSite implements Procedure {
-  private voyageToStoneSiteMove move;
+  private VoyageToStoneSiteMove move;
   private Game game;
   private int playerId;
 
@@ -24,11 +24,11 @@ public class VoyageToStoneSite implements Procedure {
   }
 
   public void put(Move move) {
-    this.move = (voyageToStoneSiteMove) move;
+    this.move = (VoyageToStoneSiteMove) move;
   }
 
   public Event exec() {
-    Ship ship = game.getBoatByID(move.getShipId());
+    Ship ship = game.getShipByID(move.getShipId());
     StoneSite site;
     Method method;
 

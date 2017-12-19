@@ -1,5 +1,6 @@
 package socket;
 
+import GameMoves.Move;
 import com.google.gson.Gson;
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
@@ -80,9 +81,10 @@ public class ClientListener implements Runnable {
             Invoker invoker = new Invoker(c);
             invoker.call();
           } else if (request.containsKey("move")) {
-            MoveFactory mf = new MoveFactory();
             if (this.lobby != null && !this.lobby.isVisible()) {
-              lobby.getExecutor().setMove(mf.getMove((String) request.get("move")));
+              MoveFactory mf = new MoveFactory();
+              Move move = mf.getMove((String) request.get("move"));
+              lobby.getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
             }
           }
         } catch (ParseException pe) {

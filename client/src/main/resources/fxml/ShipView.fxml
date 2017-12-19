@@ -9,25 +9,25 @@
    <children>
       <Pane id="ship" fx:id="sprite" layoutX="14.0" layoutY="-42.0" prefHeight="166.0" prefWidth="269.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Group fx:id="stone0" layoutX="63.0" layoutY="97.0" visible="false">
+            <Group fx:id="stone0" layoutX="165.0" layoutY="98.0" visible="false">
                <children>
                   <Rectangle fx:id="stoneColor0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                </children>
             </Group>
-            <Group fx:id="stone1" layoutX="94.0" layoutY="97.0" visible="false">
+            <Group fx:id="stone1" layoutX="137.0" layoutY="98.0" visible="false">
                <children>
                   <Rectangle fx:id="stoneColor1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                   <Rectangle fx:id="shadow1" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                </children>
             </Group>
-            <Group fx:id="stone2" layoutX="134.0" layoutY="96.0" visible="false">
+            <Group fx:id="stone2" layoutX="93.0" layoutY="98.0" visible="false">
                <children>
                   <Rectangle fx:id="stoneColor2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                   <Rectangle fx:id="shadow2" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                </children>
             </Group>
-            <Group fx:id="stone3" layoutX="165.0" layoutY="96.0" visible="false">
+            <Group fx:id="stone3" layoutX="64.0" layoutY="98.0" visible="false">
                <children>
                   <Rectangle fx:id="stoneColor3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
                   <Rectangle fx:id="shadow3" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />

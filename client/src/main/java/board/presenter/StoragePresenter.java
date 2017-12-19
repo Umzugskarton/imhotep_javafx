@@ -8,6 +8,7 @@ public class StoragePresenter {
 
   private StorageViewImplFx view;
   private LobbyUser user;
+  private int stoneCount;
 
   public StoragePresenter(LobbyUser user, StorageViewImplFx view) {
     this.view = view;
@@ -16,9 +17,16 @@ public class StoragePresenter {
   }
 
   public void setStoneCount(int stones){
+    stoneCount = stones;
+    for (int i = 0; i < view.getStones().size() ; i++){
+      view.getStones().get(i).setVisible(false);
+    }
     for (int i = 0; i < stones ; i++){
       view.getStones().get(i).setVisible(true);
     }
   }
 
+  public int getStoneCount() {
+    return stoneCount;
+  }
 }

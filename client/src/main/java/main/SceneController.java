@@ -103,6 +103,13 @@ public class SceneController {
 
   public void toBoardScene() {
     if (boardRoot == null) {
+      //Nur für die Präsentation
+      stage.close();
+      stage = new Stage();
+      stage.initStyle(StageStyle.DECORATED);
+      stage.setHeight(1080);
+      stage.setWidth(1920);
+      stage.show();
       try {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/BoardView.fxml"));
@@ -112,6 +119,7 @@ public class SceneController {
         view.setBoardPresenter(boardPresenter);
         Scene boardScene = new Scene(boardRoot);
         this.stage.setScene(boardScene); // nachher mit fxml wieder ändern
+        stage.getScene().getStylesheets().add("style.css");
       } catch (IOException e) {
         e.printStackTrace();
       }

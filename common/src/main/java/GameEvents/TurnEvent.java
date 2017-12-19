@@ -29,8 +29,4 @@ public class TurnEvent implements Event {
     return this.username;
   }
 
-  @Override
-  public Date getDate() {
-    return this.date;
-  }
 }

@@ -69,9 +69,9 @@
                                                 <Pane fx:id="berth0" layoutX="207.0" layoutY="59.0" prefHeight="118.0" prefWidth="200.0" />
                                                 <Pane id="docks" layoutX="13.0" layoutY="186.0" prefHeight="102.0" prefWidth="346.0" />
                                                 <Pane fx:id="berth2" layoutX="207.0" layoutY="335.0" prefHeight="118.0" prefWidth="200.0" />
-                                                <Pane fx:id="berth1" layoutX="207.0" layoutY="216.0" prefHeight="118.0" prefWidth="200.0" />
+                                                <Pane fx:id="berth1" layoutX="207.0" layoutY="215.0" prefHeight="118.0" prefWidth="200.0" />
                                                 <Pane id="docks" layoutX="13.0" layoutY="420.0" prefHeight="102.0" prefWidth="349.0" />
-                                                <Pane fx:id="berth3" layoutX="207.0" layoutY="438.0" prefHeight="118.0" prefWidth="200.0" />
+                                                <Pane fx:id="berth3" layoutX="206.0" layoutY="437.0" prefHeight="118.0" prefWidth="200.0" />
                                             </children>
                                         </Pane>
                               <GridPane layoutX="14.0" layoutY="738.0" prefHeight="57.0" prefWidth="435.0">
@@ -154,7 +154,7 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <GridPane layoutY="804.0" prefHeight="281.0" prefWidth="1920.0">
+            <GridPane fx:id="holdingArea" layoutY="804.0" prefHeight="281.0" prefWidth="1920.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -238,9 +238,9 @@
                   </VBox>
                   <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                            <ComboBox fx:id="selectShipToLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Boot auswählen" stylesheets="@../gui-style.css" />
+                            <ComboBox fx:id="selectShipToLocationBox" maxWidth="1.7976931348623157E308" onAction="#setStoneLocationCBox" prefHeight="54.0" prefWidth="464.0" promptText="Boot auswählen" stylesheets="@../gui-style.css" />
                         <ComboBox fx:id="selectStoneLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Position auswählen" stylesheets="@../gui-style.css" />
-                            <Button id="placeStonesButton" fx:id="placeStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="464.0" styleClass="gui-button" stylesheets="@../gui-style.css" text="Stein Auf Boot platzieren" />
+                            <Button id="placeStonesButton" fx:id="placeStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendLoadUpShipMove" prefHeight="50.0" prefWidth="464.0" styleClass="gui-button" stylesheets="@../gui-style.css" text="Stein Auf Boot platzieren" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">

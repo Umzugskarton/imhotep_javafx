@@ -3,14 +3,14 @@ package GameMoves;
 
 import java.util.Date;
 
-public class voyageToStoneSiteMove implements Move{
-  private String move = "voyageToStoneSite";
+public class VoyageToStoneSiteMove implements Move{
+  private String move = "VoyageToStoneSite";
   private int shipId;
   private String stonesite;
 
-  public voyageToStoneSiteMove(){}
+  public VoyageToStoneSiteMove(){}
 
-  public voyageToStoneSiteMove(int shipId, String stonesite){
+  public VoyageToStoneSiteMove(int shipId, String stonesite){
     this.shipId = shipId;
     this.stonesite =stonesite;
   }

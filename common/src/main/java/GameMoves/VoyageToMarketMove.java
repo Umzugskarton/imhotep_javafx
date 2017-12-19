@@ -5,13 +5,13 @@ import java.util.Date;
 /**
  * Created on 16.12.2017.
  */
-public class voyageToMarketMove implements Move{
+public class VoyageToMarketMove implements Move{
   private int shipId;
   private String stonesite;
 
-  public voyageToMarketMove(){}
+  public VoyageToMarketMove(){}
 
-  public voyageToMarketMove(int shipId, String stonesite){
+  public VoyageToMarketMove(int shipId, String stonesite){
     this.shipId = shipId;
     this.stonesite =stonesite;
   }
