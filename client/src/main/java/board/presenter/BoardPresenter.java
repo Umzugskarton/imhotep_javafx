@@ -5,10 +5,7 @@ import GameMoves.FillUpStorageMove;
 import GameMoves.LoadUpShipMove;
 import GameMoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
-import board.view.BoardViewImplFx;
-import board.view.PyramidViemImplFx;
-import board.view.ShipViewImplFx;
-import board.view.StorageViewImplFx;
+import board.view.*;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +13,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -29,6 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class BoardPresenter {
@@ -41,7 +39,12 @@ public class BoardPresenter {
   private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
   //StoneSitePresenter
-  private PyramidPresenter pyramidPresenter;
+  private PyramidPresenter pyramidsPresenter;
+  private TemplePresenter templePresenter;
+
+
+  private Map<String, StoneSitePresenter> sitePresenters = new HashMap<>();
+
 
   //Board Variables
   private int myID = -1;
@@ -69,10 +72,18 @@ public class BoardPresenter {
       loader.setLocation(getClass().getResource("/fxml/PyramidsView.fxml"));
       pyramid = loader.load();
       PyramidViemImplFx pyramidController = loader.getController();
-      pyramidPresenter = new PyramidPresenter(lobby, pyramidController);
+      pyramidsPresenter = new PyramidPresenter(lobby, pyramidController);
 
       view.getStoneSiteGrid().add(pyramid, 0, 1 );
-      render++;
+
+      AnchorPane temple;
+      FXMLLoader loader1 = new FXMLLoader();
+      loader1.setLocation(getClass().getResource("/fxml/TempleView.fxml"));
+      temple = loader1.load();
+      TempleViewImplFx templeController = loader1.getController();
+      templePresenter = new TemplePresenter(lobby, templeController);
+
+      view.getStoneSiteGrid().add(temple, 0, 2 );
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -93,6 +104,11 @@ public class BoardPresenter {
         e.printStackTrace();
       }
     }
+
+    sitePresenters.put("Pyramids",pyramidsPresenter);
+    sitePresenters.put("Temple",templePresenter);
+   // sitePresenters.put("BurialChamber", 2);
+    //sitePresenters.put("Obeliks",-4);
   }
 
   // Moves
@@ -208,7 +224,9 @@ public class BoardPresenter {
     public void shipDocked(ShipDockedEvent event){
         shipPresenters.get(event.getShipID()).setLocation(event.getSite());
         view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
-        pyramidPresenter.setStones(event.getNewstones());
+        StoneSitePresenter presenter = sitePresenters.get(event.getSite());
+        presenter.setStones(event.getNewstones());
+        pyramidsPresenter.setStones(event.getNewstones());
         updatePoints(event.getNewpoints());
     }
 
