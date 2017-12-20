@@ -77,7 +77,6 @@ public class Game implements Runnable {
         }
     }
 
-
     private void setGame() {
         int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
         for (int i = 0; i <= lobby.getSize() - 1; i++) {
@@ -171,11 +170,21 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+        currentPlayer = 0;
         for (int i = 1; i <= 6; i++) {
             this.round = i;
             sendAll(getGameInfo());
+
+            if(round > 1) {
+                currentPlayer++;
+
+                if(currentPlayer > this.order.length - 1) {
+                    currentPlayer = 0;
+                }
+            }
+
             while (!allshipsDocked())
-                for (int player = 0; player <= this.order.length - 1; player++) {
+                for (int player = currentPlayer; player <= this.order.length - 1; player++) {
                     currentPlayer = player;
                     setActivePlayer(player);
                     waitForMove(player);
@@ -256,12 +265,12 @@ public class Game implements Runnable {
     }
 
     private boolean allshipsDocked() {
-        int haven = 0;
         for (Ship ship : this.ships) {
-            haven++;
+            if(!ship.isDocked())
+                return false;
         }
 
-        return haven == 0;
+        return true;
     }
 
     private  void waitForMove(int p) {

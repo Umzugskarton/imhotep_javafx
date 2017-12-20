@@ -116,6 +116,8 @@ public class BoardViewImplFx {
       this.boardPresenter.sendFillUpStorageMove();
   }
 
+  Map<String, Pane> piers = new HashMap<String, Pane>(){};
+
   public GridPane getHouses() {
     return houses;
   }
@@ -132,14 +134,26 @@ public class BoardViewImplFx {
     return selectStoneLocationBox;
   }
 
-  public Pane getPierbyName(String name){
-    Map<String, Pane> piers = new HashMap<String, Pane>();
+  public Pane getPierByName(String name){
+    if(this.piers.isEmpty())
+      initPiers();
+
+    return piers.get(name);
+  }
+
+  public Map<String, Pane> getPiers() {
+    if(this.piers.isEmpty())
+      initPiers();
+
+    return this.piers;
+  }
+
+  public void initPiers() {
     piers.put("Market", marketPier);
     piers.put("Obelisks", obelisksPier);
     piers.put("Pyramids", pyramidsPier);
     piers.put("Temple", templePier);
     piers.put("BurialChamber", burialChamberPier);
-    return piers.get(name);
   }
 
   public ArrayList<ComboBox<Integer>> getShipCBoxes(){
