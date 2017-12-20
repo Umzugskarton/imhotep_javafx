@@ -108,8 +108,8 @@ public class SceneController {
       gameStage = new Stage();
       gameStage.initStyle(StageStyle.DECORATED);
       gameStage.setTitle("Imhotep");
-      gameStage.setHeight(1080);
-      gameStage.setWidth(1920);
+      gameStage.setHeight(907);
+      gameStage.setWidth(1582);
       gameStage.show();
       try {
         FXMLLoader loader = new FXMLLoader();

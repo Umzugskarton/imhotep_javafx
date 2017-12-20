@@ -195,6 +195,8 @@ public class BoardViewImplFx {
   void sendVoyageToStoneSiteMove(){
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
       boardPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
+    else
+      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
   }
 
   @FXML
