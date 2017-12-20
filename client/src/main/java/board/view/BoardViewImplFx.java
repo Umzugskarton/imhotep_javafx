@@ -109,6 +109,9 @@ public class BoardViewImplFx {
   private GridPane holdingArea;
 
   @FXML
+  private GridPane stoneSiteGrid;
+
+  @FXML
   public void sendFillUpStorageMove(ActionEvent e) {
       this.boardPresenter.sendFillUpStorageMove();
   }
@@ -168,6 +171,10 @@ public class BoardViewImplFx {
     AnchorPane ship = (AnchorPane)  getBerths().get(id).getChildren().get(0);
     getBerths().get(id).getChildren().remove(0);
     return ship;
+  }
+
+  public GridPane getStoneSiteGrid(){
+    return stoneSiteGrid;
   }
 
   @FXML

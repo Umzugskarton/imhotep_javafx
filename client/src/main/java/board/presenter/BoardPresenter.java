@@ -6,6 +6,7 @@ import GameMoves.LoadUpShipMove;
 import GameMoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
+import board.view.PyramidViemImplFx;
 import board.view.ShipViewImplFx;
 import board.view.StorageViewImplFx;
 import commonLobby.CLTLobby;
@@ -31,173 +32,191 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class BoardPresenter {
-    private final Logger log = LoggerFactory.getLogger(getClass().getName());
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-    private BoardViewImplFx view;
-    private SceneController sc;
-    private CLTLobby lobby;
-    private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
-    private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
+  private BoardViewImplFx view;
+  private SceneController sc;
+  private CLTLobby lobby;
+  private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
+  private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
-    //Board Variables
-    private int myID = -1;
-    private ArrayList<int[]> ships;
-    private int round;
-    private ArrayList<Integer> storages;
-    private String[] order;
-    private int turnTime;
-    private Thread turnTimerThread;
-    private TurnTimerThread turnTimer;
+  //StoneSitePresenter
+  private PyramidPresenter pyramidPresenter;
 
-    // Konstruktor
-    public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
-        this.lobby = legacy;
-        this.view = view;
-        this.sc = sc;
-        this.turnTime = 0;
-        int render = 0;
-        this.turnTimerThread = null;
-        this.turnTimer = null;
+  //Board Variables
+  private int myID = -1;
+  private ArrayList<int[]> ships;
+  private int round;
+  private ArrayList<Integer> storages;
+  private String[] order;
+  private int turnTime;
+  private Thread turnTimerThread;
+  private TurnTimerThread turnTimer;
 
-        for (LobbyUser user : lobby.getUsers()) {
-            try {
-                AnchorPane root;
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/StorageView.fxml"));
-                root = loader.load();
-                StorageViewImplFx storage = loader.getController();
-                StoragePresenter storagePresenter = new StoragePresenter(user, storage);
-                storagePresenters.add(storagePresenter);
-                view.addHouse(render, root);
-                render++;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+  // Konstruktor
+  public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
+    this.lobby = legacy;
+    this.view = view;
+    this.sc = sc;
+    this.turnTime = 0;
+    int render = 0;
+    this.turnTimerThread = null;
+    this.turnTimer = null;
+
+    try {
+      AnchorPane pyramid;
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("/fxml/PyramidsView.fxml"));
+      pyramid = loader.load();
+      PyramidViemImplFx pyramidController = loader.getController();
+      pyramidPresenter = new PyramidPresenter(lobby, pyramidController);
+
+      view.getStoneSiteGrid().add(pyramid, 0, 1 );
+      render++;
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    // Moves
-    public void sendFillUpStorageMove() {
-        FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
-        this.sc.getClientSocket().send(fillUpStorageMove);
-    }
-
-    public void receiveFillUpStorageEvent(FillUpStorageEvent e) {
-        this.updateStorages(e);
-        this.endTurn(false);
-    }
-
-    public void sendLoadUpShipMove(int ship, int position){
-        if(storagePresenters.get(myID).getStoneCount() > 0) {
-            LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
-            sc.getClientSocket().send(loadUpShipMove);
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Steine aufladen nicht möglich");
-            alert.setHeaderText("Keine Steine im Lager");
-            alert.setContentText("Möchten Sie neue Steine anfordern?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == ButtonType.OK) {
-                    sendFillUpStorageMove();
-                }
-            }
-        }
-    }
-
-    public void receiveShipLoadedEvent(ShipLoadedEvent e) {
-        this.updateShipCargoById(e);
-        this.endTurn(false);
-    }
-
-    // Board View
-    public BoardViewImplFx getView() {
-        return view;
-    }
-
-    public void updateBoard(GameInfoEvent event) {
-        if (myID == -1){
-           myID= event.getMyId();
-        }
-        storages = event.getStorages();
-        if (ships == null) {
-          ships = event.getShips();
-          setShips();
-        }
-        round = event.getRound();
-        order = event.getOrder();
-        turnTime = event.getTurnTime();
-
-        this.view.getRoundLabel().setText(round + " / 6");
-        int i = 0;
-        for (String site : event.getSiteString()){
-          if (event.getSitesAllocation()[i] == -1){
-            view.getSelectShipLocationBox().getItems().add(site);
-          }
-          i++;
-        }
-        updateView();
-    }
-
-    public void sendVoyageToStoneSiteMove(int shipID, String site){
-      if (!shipPresenters.get(shipID).isDocked()) {
-        VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
-        sc.getClientSocket().send(move);
+    for (LobbyUser user : lobby.getUsers()) {
+      try {
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/StorageView.fxml"));
+        root = loader.load();
+        StorageViewImplFx storage = loader.getController();
+        StoragePresenter storagePresenter = new StoragePresenter(user, storage);
+        storagePresenters.add(storagePresenter);
+        view.addHouse(render, root);
+        render++;
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
+  }
 
-    private void updateView() {
-        setStorages();
-    }
+  // Moves
+  public void sendFillUpStorageMove() {
+    FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
+    this.sc.getClientSocket().send(fillUpStorageMove);
+  }
 
-    private void setStorages() {
-        int i = 0 ;
-        for (int stone : storages) {
-            storagePresenters.get(i).setStoneCount(stone);
-            i++;
-        }
-    }
+  public void receiveFillUpStorageEvent(FillUpStorageEvent e) {
+    this.updateStorages(e);
+    this.endTurn(false);
+  }
 
-    public void updateStorages(FillUpStorageEvent event) {
-        storagePresenters.get(event.getPlayerId()).setStoneCount(event.getStorage());
-    }
-
-    private void setShips(){
-      int render = 0;
-      for (int[] ship : ships){
-        try {
-          AnchorPane root;
-          FXMLLoader loader = new FXMLLoader();
-          loader.setLocation(getClass().getResource("/fxml/ShipView.fxml"));
-          root = loader.load();
-          ShipViewImplFx shipView = loader.getController();
-          ShipPresenter shipPresenter = new ShipPresenter( lobby, shipView, ship);
-          shipPresenters.add(shipPresenter);
-          view.addShip(render, root);
-          render++;
-        } catch (IOException e) {
-          e.printStackTrace();
+  public void sendLoadUpShipMove(int ship, int position) {
+    if (storagePresenters.get(myID).getStoneCount() > 0) {
+      LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
+      sc.getClientSocket().send(loadUpShipMove);
+    } else {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Steine aufladen nicht möglich");
+      alert.setHeaderText("Keine Steine im Lager");
+      alert.setContentText("Möchten Sie neue Steine anfordern?");
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.isPresent()) {
+        if (result.get() == ButtonType.OK) {
+          sendFillUpStorageMove();
         }
       }
-        for (ComboBox<Integer> x : view.getShipCBoxes()){
-          for (int i = 0 ; i<= ships.size() -1 ; i++){
-              x.getItems().add( i );
-          }
-        }
     }
+  }
+
+  public void receiveShipLoadedEvent(ShipLoadedEvent e) {
+    this.updateShipCargoById(e);
+    this.endTurn(false);
+  }
+
+  // Board View
+  public BoardViewImplFx getView() {
+    return view;
+  }
+
+  public void updateBoard(GameInfoEvent event) {
+    if (myID == -1) {
+      myID = event.getMyId();
+    }
+    storages = event.getStorages();
+    if (ships == null) {
+      ships = event.getShips();
+      setShips();
+    }
+    round = event.getRound();
+    order = event.getOrder();
+    turnTime = event.getTurnTime();
+
+    this.view.getRoundLabel().setText(round + " / 6");
+    int i = 0;
+    for (String site : event.getSiteString()) {
+      if (event.getSitesAllocation()[i] == -1) {
+        view.getSelectShipLocationBox().getItems().add(site);
+      }
+      i++;
+    }
+    updateView();
+  }
+
+  public void sendVoyageToStoneSiteMove(int shipID, String site) {
+    if (!shipPresenters.get(shipID).isDocked()) {
+      VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
+      sc.getClientSocket().send(move);
+    }
+  }
+
+  private void updateView() {
+    setStorages();
+  }
+
+  private void setStorages() {
+    int i = 0;
+    for (int stone : storages) {
+      storagePresenters.get(i).setStoneCount(stone);
+      i++;
+    }
+  }
+
+  public void updateStorages(FillUpStorageEvent event) {
+    storagePresenters.get(event.getPlayerId()).setStoneCount(event.getStorage());
+  }
+
+  private void setShips() {
+    int render = 0;
+    for (int[] ship : ships) {
+      try {
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/ShipView.fxml"));
+        root = loader.load();
+        ShipViewImplFx shipView = loader.getController();
+        ShipPresenter shipPresenter = new ShipPresenter(lobby, shipView, ship);
+        shipPresenters.add(shipPresenter);
+        view.addShip(render, root);
+        render++;
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    for (ComboBox<Integer> x : view.getShipCBoxes()) {
+      for (int i = 0; i <= ships.size() - 1; i++) {
+        x.getItems().add(i);
+      }
+    }
+  }
 
     public void shipDocked(ShipDockedEvent event){
         shipPresenters.get(event.getShipID()).setLocation(event.getSite());
         view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+        pyramidPresenter.setStones(event.getNewstones());
         updatePoints(event.getNewpoints());
     }
 
-  public void updateShipCargoById(ShipLoadedEvent e){
+  public void updateShipCargoById(ShipLoadedEvent e) {
     storagePresenters.get(e.getPlayerId()).setStoneCount(e.getStorage());
     shipPresenters.get(e.getShipID()).setCargo(e.getCargo());
 
-    for(int i = 0; i < e.getCargo().length; i++) {
+    for (int i = 0; i < e.getCargo().length; i++) {
       this.ships.get(e.getShipID())[i] = e.getCargo()[i];
     }
 
@@ -206,90 +225,90 @@ public class BoardPresenter {
 
 
   // Turns
-    public void endTurn(boolean noTimeLeft) {
-        this.toggleUserInterface(false);
+  public void endTurn(boolean noTimeLeft) {
+    this.toggleUserInterface(false);
 
-        if(noTimeLeft) {
-            this.stopTurnTimer();
+    if (noTimeLeft) {
+      this.stopTurnTimer();
 
-            this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
-            this.changeBgGradient(Color.web("#cdb39c"));
-        }
+      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
+      this.changeBgGradient(Color.web("#cdb39c"));
+    }
+  }
+
+  public void newTurn(TurnEvent e) {
+    // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
+    this.toggleUserInterface(e.isMyTurn());
+    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+
+    this.view.getCurrentPlayerLabel().setText(e.getUsername());
+    this.changeBgGradient(userColor);
+
+    // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
+    if (e.isMyTurn()) {
+      this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
+      this.changeBannerLabels("", "", Color.TRANSPARENT);
+    } else {
+      this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
+      this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
     }
 
-    public void newTurn(TurnEvent e) {
-        // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-        this.toggleUserInterface(e.isMyTurn());
-        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+    this.startTurnTimer();
+  }
 
-        this.view.getCurrentPlayerLabel().setText(e.getUsername());
-        this.changeBgGradient(userColor);
+  // Timer
+  private void startTurnTimer() {
+    this.stopTurnTimer();
+    this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
+    this.turnTimerThread.start();
+  }
 
-        // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
-        if(e.isMyTurn()) {
-            this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
-            this.changeBannerLabels("", "", Color.TRANSPARENT);
-        } else {
-            this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
-            this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
-        }
-
-        this.startTurnTimer();
+  public void stopTurnTimer() {
+    this.view.getTurnTimerProgress().setProgress(0.0);
+    if (this.turnTimerThread != null) {
+      this.turnTimer.forceEnd();
+      this.turnTimer = null;
+      this.turnTimerThread = null;
     }
+  }
 
-    // Timer
-    private void startTurnTimer() {
-        this.stopTurnTimer();
-        this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
-        this.turnTimerThread.start();
+  public void updateTurnTimer(double seconds) {
+    this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
+
+    if (seconds <= 0.0) {
+      this.endTurn(true);
     }
+  }
 
-    public void stopTurnTimer() {
-        this.view.getTurnTimerProgress().setProgress(0.0);
-        if(this.turnTimerThread != null) {
-            this.turnTimer.forceEnd();
-            this.turnTimer = null;
-            this.turnTimerThread = null;
-        }
+  // User Interface
+  public void setStoneLocationCBox(int ship) {
+    view.getSelectStoneLocationBox().getItems().clear();
+    for (int i = 0; i <= ships.get(ship).length - 1; i++) {
+      if (ships.get(ship)[i] == -1)
+        view.getSelectStoneLocationBox().getItems().add(i);
     }
+  }
 
-    public void updateTurnTimer(double seconds) {
-        this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
+  public void toggleUserInterface(boolean show) {
+    view.getHoldingArea().setVisible(!show);
+    view.getHoldingArea().toBack();
+    view.getUserInterface().setVisible(show);
+  }
 
-        if(seconds <= 0.0) {
-            this.endTurn(true);
-        }
-    }
+  public void fullscreen() {
+    sc.toggleFullscreen();
+  }
 
-    // User Interface
-    public void setStoneLocationCBox(int ship) {
-        view.getSelectStoneLocationBox().getItems().clear();
-        for (int i=0; i <= ships.get(ship).length-1; i++){
-            if (ships.get(ship)[i] == -1)
-                view.getSelectStoneLocationBox().getItems().add(i);
-        }
-    }
+  public void changeBgGradient(Color color) {
+    Stop[] stops = new Stop[]{
+            new Stop(0, color),
+            new Stop(1, Color.TRANSPARENT)};
 
-    public void toggleUserInterface(boolean show) {
-        view.getHoldingArea().setVisible(!show);
-        view.getHoldingArea().toBack();
-        view.getUserInterface().setVisible(show);
-    }
+    LinearGradient linearGradient =
+            new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
 
-    public void fullscreen() {
-        sc.toggleFullscreen();
-    }
-
-    public void changeBgGradient(Color color) {
-        Stop[] stops = new Stop[] {
-                new Stop(0, color),
-                new Stop(1, Color.TRANSPARENT)};
-
-        LinearGradient linearGradient =
-                new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
-
-        this.view.getPlayerColorRectangle().setFill(linearGradient);
-    }
+    this.view.getPlayerColorRectangle().setFill(linearGradient);
+  }
 
     public void changeBannerLabels(String text, String subText, Color textColor) {
         this.view.getUiBannerLabel().setText(text);
