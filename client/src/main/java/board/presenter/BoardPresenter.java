@@ -190,6 +190,7 @@ public class BoardPresenter {
     public void shipDocked(ShipDockedEvent event){
         shipPresenters.get(event.getShipID()).setLocation(event.getSite());
         view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+        updatePoints(event.getNewpoints());
     }
 
   public void updateShipCargoById(ShipLoadedEvent e){
@@ -294,5 +295,26 @@ public class BoardPresenter {
         this.view.getUiBannerLabel().setText(text);
         this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
         this.view.getUiBannerLabel().setTextFill(textColor);
+    }
+
+    public void updatePoints(int[] pointArray) {
+        int highestPoints = 0;
+        int playerWithHighestPoints = 0;
+
+        // Punktestand aktualisieren
+        for(int i = 0; i < pointArray.length; i++) {
+            int points = pointArray[i];
+            if(points > highestPoints) {
+                highestPoints = points;
+                playerWithHighestPoints = i;
+            }
+
+            storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(false);
+            storagePresenters.get(i).setPoints(points);
+        }
+
+        if(highestPoints != 0) {
+            storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(true);
+        }
     }
 }

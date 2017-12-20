@@ -251,7 +251,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void shipDockedErrorListener(ShipDockedEvent e){
+    public void shipDockedListener(ShipDockedEvent e){
         Platform.runLater(
                 () -> {
                     if(sceneController.getBoardPresenter() != null) {
