@@ -15,6 +15,17 @@ repositories {
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Imhotep Server',
+                'Implementation-Version': version,
+                'Main-Class': 'main.ServerApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile project(":common")
 

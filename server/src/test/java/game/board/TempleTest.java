@@ -28,7 +28,7 @@ class TempleTest {
     stones.add(new Stone(p4));
     stones.add(new Stone(p2));
     stones.add(new Stone(p3));
-    test.addStones(stones);
+    //test.addStones(stones);
     int[] points = test.getPoints();
     assert points.length == 4;
     assert points[0] == 0;
