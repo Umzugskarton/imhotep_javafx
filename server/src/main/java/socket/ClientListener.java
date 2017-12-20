@@ -95,7 +95,7 @@ public class ClientListener implements Runnable {
       if(this.user != null) {
         log.error("User " + this.user.getUsername() + " hat die Verbindung unerwartet beendet");
       } else {
-        log.error("Client hat die Verbindung unerwartet beendet", ex);
+        log.error("Client hat die Verbindung unerwartet beendet");
       }
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
