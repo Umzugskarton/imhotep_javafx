@@ -41,6 +41,7 @@ public class BoardPresenter {
   //StoneSitePresenter
   private PyramidPresenter pyramidsPresenter;
   private TemplePresenter templePresenter;
+  private BurialChamberPresenter burialPresenter;
 
 
   private Map<String, StoneSitePresenter> sitePresenters = new HashMap<>();
@@ -85,6 +86,14 @@ public class BoardPresenter {
 
       view.getStoneSiteGrid().add(temple, 0, 2 );
 
+      AnchorPane burial;
+      FXMLLoader loader2 = new FXMLLoader();
+      loader2.setLocation(getClass().getResource("/fxml/BurialChamberView.fxml"));
+      burial = loader2.load();
+      BurialChamberViewImplFx burialFx = loader2.getController();
+      burialPresenter = new BurialChamberPresenter(lobby, burialFx);
+      view.getStoneSiteGrid().add(burial, 0, 3 );
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -107,7 +116,7 @@ public class BoardPresenter {
 
     sitePresenters.put("Pyramids",pyramidsPresenter);
     sitePresenters.put("Temple",templePresenter);
-   // sitePresenters.put("BurialChamber", 2);
+    sitePresenters.put("BurialChamber", burialPresenter);
     //sitePresenters.put("Obeliks",-4);
   }
 
@@ -226,7 +235,6 @@ public class BoardPresenter {
         view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
         StoneSitePresenter presenter = sitePresenters.get(event.getSite());
         presenter.setStones(event.getNewstones());
-        pyramidsPresenter.setStones(event.getNewstones());
         updatePoints(event.getNewpoints());
     }
 

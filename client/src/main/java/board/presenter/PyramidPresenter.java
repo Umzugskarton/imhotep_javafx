@@ -24,7 +24,6 @@ public class PyramidPresenter implements StoneSitePresenter{
     ArrayList<Group> stoneGroups = pyramidController.getStones();
     for (int i = 0; i < stones.size() ; i++){
       stoneGroups.get(i).setVisible(true);
-      Group p = stoneGroups.get(i);
       Rectangle r = pyramidController.getColorStones(i);
       r.setFill(Color.web(lobby.getUserbyLobbyId(stones.get(i)).getColor()));
     }
