@@ -232,7 +232,7 @@ public class BoardPresenter {
 
     public void shipDocked(ShipDockedEvent event){
         shipPresenters.get(event.getShipID()).setLocation(event.getSite());
-        view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+        view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
         StoneSitePresenter presenter = sitePresenters.get(event.getSite());
         presenter.setStones(event.getNewstones());
         updatePoints(event.getNewpoints());
