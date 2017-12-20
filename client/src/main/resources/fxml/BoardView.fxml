@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
+<AnchorPane fx:id="boardView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="1200" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.BoardViewImplFx">
     <children>
         <Pane fx:id="mainframe" layoutX="214.0" layoutY="75.0" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -217,7 +217,7 @@
                      <children>
                             <ComboBox fx:id="selectShipBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Boot auswählen" styleClass="gui-combobox" stylesheets="@../gui-style.css" />
                             <ComboBox fx:id="selectShipLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Ort auswählen" stylesheets="@../gui-style.css" />
-                            <Button id="moveShipToLocationButton" fx:id="moveShipToLocationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="464.0" styleClass="gui-button" text="Boot zum Ort schicken">
+                            <Button id="moveShipToLocationButton" fx:id="moveShipToLocationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendVoyageToStoneSiteMove" prefHeight="50.0" prefWidth="464.0" styleClass="gui-button" text="Boot zum Ort schicken">
                            <stylesheets>
                               <URL value="@../style.css" />
                               <URL value="@../gui-style.css" />

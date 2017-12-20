@@ -29,8 +29,12 @@ public class Temple extends Site
   }
 
   @Override
-  public void addStones(Stone[] stones) {
-    temple.addAll(Arrays.asList(stones));
+  public void addStones(Stone[] stones){
+    for (Stone stone : stones){
+      if (stone !=null){
+        temple.add(stone);
+      }
+    }
   }
 
   @Override

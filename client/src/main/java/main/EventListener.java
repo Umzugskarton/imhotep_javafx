@@ -249,4 +249,15 @@ public class EventListener {
                 }
         );
     }
+
+    @Subscribe
+    public void shipDockedErrorListener(ShipDockedEvent e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().shipDocked(e);
+                    }
+                }
+        );
+    }
 }

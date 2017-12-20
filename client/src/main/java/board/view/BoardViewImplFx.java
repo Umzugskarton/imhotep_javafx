@@ -70,7 +70,7 @@ public class BoardViewImplFx {
   private ComboBox<Integer> selectShipBox;
 
   @FXML
-  private ComboBox selectShipLocationBox;
+  private ComboBox<String> selectShipLocationBox;
 
   @FXML
   private ComboBox<Integer> selectShipToLocationBox;
@@ -150,7 +150,7 @@ public class BoardViewImplFx {
     this.houses.add(house, 0, i );
   }
 
-  public ComboBox getSelectShipLocationBox() {
+  public ComboBox<String> getSelectShipLocationBox() {
     return selectShipLocationBox;
   }
 
@@ -168,6 +168,12 @@ public class BoardViewImplFx {
     AnchorPane ship = (AnchorPane)  getBerths().get(id).getChildren().get(0);
     getBerths().get(id).getChildren().remove(0);
     return ship;
+  }
+
+  @FXML
+  void sendVoyageToStoneSiteMove(){
+    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
+      boardPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
   }
 
   @FXML

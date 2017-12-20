@@ -37,7 +37,12 @@ public class Pyramids extends Site
     int[] points = new int[playerCount];
     int i = 0;
     for (Stone s : pyramid) {
+
       if (i < positionValues.length) {
+        System.out.println("playerid: "+s.getPlayer().getId());
+        System.out.println("playerC: "+playerCount);
+        System.out.println("POINTS: "+points[s.getPlayer().getId()]);
+                System.out.println("POSITIONVALUES: "+  positionValues[i++]);
         points[s.getPlayer().getId()] += positionValues[i++];
       } else {
         points[s.getPlayer().getId()] += standardValue;
@@ -48,7 +53,11 @@ public class Pyramids extends Site
 
   @Override
   public void addStones(Stone[] stones) {
-      pyramid.addAll(Arrays.asList(stones));
+    for (Stone stone : stones){
+      if (stone !=null){
+        pyramid.add(stone);
+      }
+    }
   }
 
   @Override

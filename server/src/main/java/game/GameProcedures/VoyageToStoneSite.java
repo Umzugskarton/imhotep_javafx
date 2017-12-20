@@ -9,9 +9,11 @@ import GameMoves.VoyageToStoneSiteMove;
 import SRVevents.Event;
 import game.Game;
 import game.board.Ship;
+import game.board.Stone;
 import game.board.StoneSite;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class VoyageToStoneSite implements Procedure {
   private VoyageToStoneSiteMove move;
@@ -42,8 +44,14 @@ public class VoyageToStoneSite implements Procedure {
     if (!ship.isDocked()) {
       if (site.dockShip(ship)){
         ship.setDocked(true);
+        ArrayList<Integer> siteStones = new ArrayList<>();
 
-        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum());
+        for (Stone stone : site.getStones()){
+          if (stone != null) {
+            siteStones.add(stone.getPlayer().getId());
+          }
+        }
+        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum(), siteStones);
       }
       else {
         return new SiteAlreadyDockedError(move.getStonesite());

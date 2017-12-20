@@ -1,6 +1,5 @@
 package game.board;
 
-import java.util.ArrayList;
 
 public class Ship {
   private int id;
@@ -10,7 +9,9 @@ public class Ship {
   private boolean docked;
 
   public Ship(int id, int size) {
+    this.id = id;
     this.size = size;
+    this.docked = false;
     this.minimumStones = Math.max(size-1, 1);
     stones = new Stone[size];
   }
@@ -38,8 +39,9 @@ public class Ship {
   public Stone[] getStones() {
     return stones;
   }
+
   public boolean addStone(Stone stone, int position) {
-    if (position > size || (stones.length > position && stones[position] != null)) return false;
+    if (docked || (position > size || (stones.length > position && stones[position] != null))) return false;
     stones[position] =  stone;
     return true;
   }

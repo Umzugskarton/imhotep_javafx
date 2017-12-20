@@ -62,8 +62,12 @@ public class BurialChamber extends Site
   }
 
   @Override
-  public void addStones(Stone[] stones) {
-    burialChamber.addAll(Arrays.asList(stones));
+  public void addStones(Stone[] stones){
+    for (Stone stone : stones){
+      if (stone !=null){
+        burialChamber.add(stone);
+      }
+    }
   }
 
   public boolean dockShip(Ship ship) {

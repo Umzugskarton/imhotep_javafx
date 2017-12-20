@@ -105,9 +105,12 @@ public class Game implements Runnable {
     public int[] getPointsSum(){
         int[] points = new int[order.length];
         for (StoneSite site :sites){
-            int[] sitepoints = site.getPoints();
-            for (int i = 0; i <= points.length -1 ; i++){
-                points[i] += sitepoints[i];
+            if (!site.equals(market)) {
+                int[] sitepoints = site.getPoints();
+                log.error(site.getClass().getName());
+                for (int i = 0; i <= points.length - 1; i++) {
+                    points[i] += sitepoints[i];
+                }
             }
         }
         return points;
@@ -279,9 +282,13 @@ public class Game implements Runnable {
         return storages.get(playerID);
     }
 
-    public void decrPlayerStorage(int playerID){
-        int storage = storages.get(playerID)-1;
-        storages.set(playerID, storage);
+    public boolean decrPlayerStorage(int playerID){
+        if ((storages.get(playerID)-1) >= 0) {
+            int storage = storages.get(playerID) - 1;
+            storages.set(playerID, storage);
+            return true;
+        }
+        return false;
     }
 
     public int getGameID() {

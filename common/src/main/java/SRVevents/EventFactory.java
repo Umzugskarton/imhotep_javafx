@@ -29,6 +29,7 @@ public class EventFactory {
     Dict.put("FillUpStorage", new FillUpStorageEvent());
     Dict.put("ShipLoaded", new ShipLoadedEvent());
     Dict.put("AlreadyAllocatedError", new AlreadyAllocatedError());
+    Dict.put("ShipDocked", new ShipDockedEvent());
   }
 
   public Event getEvent(String command) {

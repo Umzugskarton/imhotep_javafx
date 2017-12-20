@@ -106,7 +106,11 @@ public class Obelisks extends Site
 
   @Override
   public void addStones(Stone[] stones) {
-    this.obelisks.addAll(Arrays.asList(stones));
+    for (Stone stone : stones){
+      if (stone !=null){
+        obelisks.add(stone);
+      }
+    }
   }
 
   @Override

@@ -3,6 +3,7 @@ package board.presenter;
 import GameEvents.*;
 import GameMoves.FillUpStorageMove;
 import GameMoves.LoadUpShipMove;
+import GameMoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
 import board.view.ShipViewImplFx;
@@ -129,8 +130,21 @@ public class BoardPresenter {
         turnTime = event.getTurnTime();
 
         this.view.getRoundLabel().setText(round + " / 6");
-
+        int i = 0;
+        for (String site : event.getSiteString()){
+          if (event.getSitesAllocation()[i] == -1){
+            view.getSelectShipLocationBox().getItems().add(site);
+          }
+          i++;
+        }
         updateView();
+    }
+
+    public void sendVoyageToStoneSiteMove(int shipID, String site){
+      if (!shipPresenters.get(shipID).isDocked()) {
+        VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
+        sc.getClientSocket().send(move);
+      }
     }
 
     private void updateView() {
@@ -173,7 +187,7 @@ public class BoardPresenter {
         }
     }
 
-    private void shipDocked(ShipDockedEvent event){
+    public void shipDocked(ShipDockedEvent event){
         shipPresenters.get(event.getShipID()).setLocation(event.getSite());
         view.getPierbyName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
     }
