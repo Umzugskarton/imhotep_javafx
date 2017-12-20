@@ -9,10 +9,9 @@ import board.view.*;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -43,9 +42,7 @@ public class BoardPresenter {
   private TemplePresenter templePresenter;
   private BurialChamberPresenter burialPresenter;
 
-
   private Map<String, StoneSitePresenter> sitePresenters = new HashMap<>();
-
 
   //Board Variables
   private int myID = -1;
@@ -135,23 +132,19 @@ public class BoardPresenter {
     if (storagePresenters.get(myID).getStoneCount() > 0) {
       LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
       sc.getClientSocket().send(loadUpShipMove);
-    } else {
-      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-      alert.setTitle("Steine aufladen nicht möglich");
-      alert.setHeaderText("Keine Steine im Lager");
-      alert.setContentText("Möchten Sie neue Steine anfordern?");
-      Optional<ButtonType> result = alert.showAndWait();
-      if (result.isPresent()) {
-        if (result.get() == ButtonType.OK) {
-          sendFillUpStorageMove();
-        }
-      }
     }
   }
 
   public void receiveShipLoadedEvent(ShipLoadedEvent e) {
     this.updateShipCargoById(e);
     this.endTurn(false);
+  }
+
+  public void sendVoyageToStoneSiteMove(int shipID, String site) {
+    if (!shipPresenters.get(shipID).isDocked()) {
+      VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
+      sc.getClientSocket().send(move);
+    }
   }
 
   // Board View
@@ -164,16 +157,24 @@ public class BoardPresenter {
       myID = event.getMyId();
     }
     storages = event.getStorages();
-    if (ships == null) {
-      ships = event.getShips();
-      setShips();
-    }
     round = event.getRound();
     order = event.getOrder();
     turnTime = event.getTurnTime();
 
+    for(Pane pierPane : this.view.getPiers().values()) {
+      pierPane.getChildren().clear();
+      ships = null;
+    }
+
+    if (ships == null) {
+      ships = event.getShips();
+      setShips();
+    }
+
     this.view.getRoundLabel().setText(round + " / 6");
+
     int i = 0;
+    view.getSelectShipLocationBox().getItems().clear();
     for (String site : event.getSiteString()) {
       if (event.getSitesAllocation()[i] == -1) {
         view.getSelectShipLocationBox().getItems().add(site);
@@ -181,13 +182,6 @@ public class BoardPresenter {
       i++;
     }
     updateView();
-  }
-
-  public void sendVoyageToStoneSiteMove(int shipID, String site) {
-    if (!shipPresenters.get(shipID).isDocked()) {
-      VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
-      sc.getClientSocket().send(move);
-    }
   }
 
   private void updateView() {
@@ -207,6 +201,7 @@ public class BoardPresenter {
   }
 
   private void setShips() {
+    this.shipPresenters = new ArrayList<>();
     int render = 0;
     for (int[] ship : ships) {
       try {
@@ -223,9 +218,10 @@ public class BoardPresenter {
         e.printStackTrace();
       }
     }
-    for (ComboBox<Integer> x : view.getShipCBoxes()) {
+    for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
+      shipBox.getItems().clear();
       for (int i = 0; i <= ships.size() - 1; i++) {
-        x.getItems().add(i);
+        shipBox.getItems().add(i);
       }
     }
   }

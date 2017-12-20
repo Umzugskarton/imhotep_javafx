@@ -43,6 +43,10 @@ public class ShipPresenter {
     return docked;
   }
 
+  public void setDocked(boolean docked) {
+    this.docked = docked;
+  }
+
   public void setLocation(String site){
     for (Group p :view.getStones()){
       p.setVisible(false);

@@ -170,21 +170,11 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        currentPlayer = 0;
         for (int i = 1; i <= 6; i++) {
             this.round = i;
             sendAll(getGameInfo());
-
-            if(round > 1) {
-                currentPlayer++;
-
-                if(currentPlayer > this.order.length - 1) {
-                    currentPlayer = 0;
-                }
-            }
-
             while (!allshipsDocked())
-                for (int player = currentPlayer; player <= this.order.length - 1; player++) {
+                for (int player = 0; player <= this.order.length - 1; player++) {
                     currentPlayer = player;
                     setActivePlayer(player);
                     waitForMove(player);
