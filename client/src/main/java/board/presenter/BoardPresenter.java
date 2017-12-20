@@ -41,6 +41,7 @@ public class BoardPresenter {
   private PyramidPresenter pyramidsPresenter;
   private TemplePresenter templePresenter;
   private BurialChamberPresenter burialPresenter;
+  private ObelisksPresenter obelisksPresenter;
 
   private Map<String, StoneSitePresenter> sitePresenters = new HashMap<>();
 
@@ -91,6 +92,14 @@ public class BoardPresenter {
       burialPresenter = new BurialChamberPresenter(lobby, burialFx);
       view.getStoneSiteGrid().add(burial, 0, 3 );
 
+      AnchorPane obelisks;
+      FXMLLoader loader3 = new FXMLLoader();
+      loader3.setLocation(getClass().getResource("/fxml/ObelisksView.fxml"));
+      obelisks = loader3.load();
+      ObelisksViewImplFx obelisksFx = loader3.getController();
+      obelisksPresenter = new ObelisksPresenter(lobby, obelisksFx);
+      view.getStoneSiteGrid().add(obelisks, 0, 4 );
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -114,7 +123,7 @@ public class BoardPresenter {
     sitePresenters.put("Pyramids",pyramidsPresenter);
     sitePresenters.put("Temple",templePresenter);
     sitePresenters.put("BurialChamber", burialPresenter);
-    //sitePresenters.put("Obeliks",-4);
+    sitePresenters.put("Obelisks",obelisksPresenter);
   }
 
   // Moves
