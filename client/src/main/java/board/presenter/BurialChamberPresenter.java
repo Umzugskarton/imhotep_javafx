@@ -1,7 +1,7 @@
 package board.presenter;
 
+import board.view.BurialChamberViewImplFx;
 import board.view.PyramidViemImplFx;
-import board.view.TempleViewImplFx;
 import commonLobby.CLTLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -12,20 +12,20 @@ import java.util.ArrayList;
 /**
  * Created on 20.12.2017.
  */
-public class TemplePresenter implements StoneSitePresenter {
-  private TempleViewImplFx templeController;
+public class BurialChamberPresenter implements StoneSitePresenter{
+  private BurialChamberViewImplFx burialChamberController;
   private CLTLobby lobby;
 
-  public TemplePresenter(CLTLobby lobby, TempleViewImplFx templeController){
+  public BurialChamberPresenter(CLTLobby lobby, BurialChamberViewImplFx burialChamberController){
     this.lobby = lobby;
-    this.templeController = templeController;
+    this.burialChamberController = burialChamberController;
   }
 
   public void setStones(ArrayList<Integer> stones){
-    ArrayList<Group> stoneGroups = templeController.getStones();
+    ArrayList<Group> stoneGroups = burialChamberController.getStones();
     for (int i = 0; i < stones.size() ; i++){
       stoneGroups.get(i).setVisible(true);
-      Rectangle r = templeController.getColorStones(i);
+      Rectangle r = burialChamberController.getColorStones(i);
       r.setFill(Color.web(lobby.getUserbyLobbyId(stones.get(i)).getColor()));
     }
   }
