@@ -2,7 +2,7 @@ package game.board;
 
 
 import GameMoves.Move;
-import GameMoves.actionCardMove;
+import GameMoves.ActionCardMove;
 
 import java.util.HashMap;
 
@@ -15,7 +15,7 @@ public class CardVerify {
   }
 
 
-  public boolean validate(actionCardMove move){
+  public boolean validate(ActionCardMove move){
     if (move.getMoves().size() > 2){
       return false;
     }
@@ -31,7 +31,7 @@ public class CardVerify {
       }
     }
 
-    if (vRate  == val.length){
+    if (vRate == val.length){
       return true;
     }
     else {

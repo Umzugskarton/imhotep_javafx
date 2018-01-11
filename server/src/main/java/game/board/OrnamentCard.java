@@ -16,7 +16,6 @@ public class OrnamentCard extends Card {
     } else if (this.getName().equals("obelisk")) {
       type = 3;
     }
-
     return stones[type]/3;
   }
 }

@@ -6,7 +6,11 @@ public class StatueCard extends Card {
   int additionalStatuePoints = 2;
 
   public int calc(int numberOfCards) {
-    int additional = numberOfCards-points.length;
+
+    int additional = 0;
+    if (numberOfCards > points.length) {
+      additional = numberOfCards-points.length;
+    }
     return points[numberOfCards-1-additional] + additional*additionalStatuePoints;
   }
 }

@@ -2,7 +2,7 @@ package game.board;
 
 import java.util.ArrayList;
 
-public class Market extends Site implements  StoneSite{
+public class Market extends Site implements StoneSite{
 
   public Market(int playerCount) {
     super(playerCount);
@@ -12,6 +12,10 @@ public class Market extends Site implements  StoneSite{
 
   public void replaceCards(ArrayList<Card> cards) {
     this.market = cards;
+  }
+
+  public void addCards(ArrayList<Card> cards) {
+    market.addAll(cards);
   }
 
   public Card removeCard(int position) {
