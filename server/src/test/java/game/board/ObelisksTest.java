@@ -37,5 +37,9 @@ public class ObelisksTest {
     test.addStones(stones);
     int[] points = test.getPoints();
     assertEquals(4, points.length);
+    assertEquals(0, points[0]);
+    assertEquals(10, points[1]);
+    assertEquals(10, points[2]);
+    assertEquals(10, points[3]);
   }
 }
