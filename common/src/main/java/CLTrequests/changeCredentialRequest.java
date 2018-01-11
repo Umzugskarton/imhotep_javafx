@@ -18,6 +18,10 @@ public class changeCredentialRequest implements Request {
     this.crednr= crednr;
   }
 
+  public Integer getTypeOfC(){
+    return crednr;
+  }
+
   public String getRequest() {
     return this.request;
   }

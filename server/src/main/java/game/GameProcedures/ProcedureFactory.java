@@ -10,9 +10,9 @@ public class ProcedureFactory {
   private HashMap<String, Procedure> Dict = new HashMap<>();
 
   public ProcedureFactory(int playerId, Game game) {
-    Dict.put("fillUpStorage", new fillUpStorage(game, playerId));
-    Dict.put("loadUpShip", new loadUpShip(game, playerId));
-    Dict.put("voyageToStoneSite", new voyageToStoneSite(game, playerId));
+    Dict.put("FillUpStorage", new FillUpStorage(game, playerId));
+    Dict.put("LoadUpShip", new LoadUpShip(game, playerId));
+    Dict.put("VoyageToStoneSite", new VoyageToStoneSite(game, playerId));
   }
 
   public Procedure getProcedure(String m, Move move) {

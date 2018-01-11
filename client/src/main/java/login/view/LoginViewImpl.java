@@ -4,6 +4,7 @@ import static general.TextBundle.getString;
 
 import general.Delta;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,12 +12,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import login.presenter.LoginPresenter;
+
 
 public class LoginViewImpl implements LoginView {
 
@@ -67,6 +71,15 @@ public class LoginViewImpl implements LoginView {
     Button loginNow = new Button(getString("login")); //Buttons werden angelegt
     loginNow.addEventHandler(ActionEvent.ACTION, e ->
         loginPresenter.sendLoginRequest(userName.getText(), passwordUser.getText()));
+
+    loginScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+          loginNow.fire();
+        }
+      }
+    });
 
     Button registerNow = new Button(getString("goToRegister"));
     registerNow.addEventHandler(ActionEvent.ACTION, e -> loginPresenter.toRegisterScene());
@@ -121,4 +134,6 @@ public class LoginViewImpl implements LoginView {
   public void setLoginPresenter(LoginPresenter loginPresenter) {
     this.loginPresenter = loginPresenter;
   }
+
+
 }

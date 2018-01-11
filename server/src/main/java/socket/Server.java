@@ -42,6 +42,14 @@ public class Server {
       System.exit(-1);
     }
   }
+  public void sendToLobby(Event e, Lobby lobby) {
+    User[] users = lobby.getUsers();
+    for (User tempUser : users) {
+      if (tempUser != null) {
+        sendTo(e, tempUser.getUsername());
+      }
+    }
+  }
 
   public void run() {
     while (true) {
@@ -57,29 +65,21 @@ public class Server {
   }
 
   public void addClient(Socket clientSocket) {
-    log.info("Ein neuer Client hat sich verbunden");
-
     ClientListener clientListener = new ClientListener(this, clientSocket, this.clientAPI);
     Thread thread = new Thread(clientListener);
     thread.start();
 
-    log.info("Thread " + thread.getId() + " gestartet");
+    log.info("[Thread " + thread.getId() + "] Ein neuer Client hat sich verbunden");
 
     this.connectedClients.add(clientListener);
-
-    log.info(
-            "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
   }
 
   public void removeClient(ClientListener clientListener) {
-    log.info("Thread " + clientListener.getThread().getId()
-            + ": Client hat die Verbindung beendet");
+    log.info("[Thread " + clientListener.getThread().getId()
+            + "] Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);
-
-      log.info("Thread " + clientListener.getThread().getId()
-              + " von der Liste der verbundenen Clients entfernt");
     }
   }
 

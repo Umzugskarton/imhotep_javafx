@@ -139,7 +139,9 @@ public class ClientAPI {
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
-
+      if (request.getLobbyId() != null) {
+        event.setLobbyId(request.getLobbyId());
+      }
     }
     return event;
   }
@@ -152,6 +154,8 @@ public class ClientAPI {
     }
     return event;
   }
+
+
 
   /**
    * Ist der Login() erfolgreich, so wird ein Userelement über
@@ -178,7 +182,7 @@ public class ClientAPI {
     int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
 
-    if (request.getPassword() != null) {
+    if (request.getPassword() != null && !request.getPassword().isEmpty()) {
       lobby.setPassword(request.getPassword());
     }
 
