@@ -60,6 +60,7 @@ public class Pyramids extends Site
     if (this.getDockedShip() != null) {
       return false;
     }
+    setDockedShip(ship);
     addStones(ship.getStones());
     return true;
   }
