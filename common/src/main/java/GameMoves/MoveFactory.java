@@ -9,7 +9,8 @@ public class MoveFactory {
     Dict.put("LoadUpShip", new LoadUpShipMove());
     Dict.put("FillUpStorage", new FillUpStorageMove());
     Dict.put("VoyageToStoneSite", new VoyageToStoneSiteMove());
-    Dict.put("ActionCard", new ActionCardMove());
+    Dict.put("ToolCard", new ToolCardMove());
+
   }
 
   public Move getMove(String move) {

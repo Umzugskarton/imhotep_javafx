@@ -1,5 +1,7 @@
 package game.board;
 
+import game.board.Cards.Card;
+
 import java.util.ArrayList;
 
 public class Market extends Site implements StoneSite{

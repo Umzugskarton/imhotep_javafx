@@ -1,4 +1,4 @@
-package game.board;
+package game.board.Cards;
 
 public class ToolCard extends Card {
   //lever, sail, hammer, chisel

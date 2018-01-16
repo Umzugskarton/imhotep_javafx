@@ -2,6 +2,7 @@ package game.board;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import game.board.Cards.StatueCard;
 import org.junit.jupiter.api.Test;
 
 class StatueCardTest {

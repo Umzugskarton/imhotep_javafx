@@ -1,4 +1,4 @@
-package game.board;
+package game.board.Cards;
 
 public class StatueCard extends Card {
 

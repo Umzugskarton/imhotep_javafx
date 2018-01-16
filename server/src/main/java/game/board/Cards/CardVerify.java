@@ -1,8 +1,8 @@
-package game.board;
+package game.board.Cards;
 
 
 import GameMoves.Move;
-import GameMoves.ActionCardMove;
+import GameMoves.ToolCardMove;
 
 import java.util.HashMap;
 
@@ -14,8 +14,8 @@ public class CardVerify {
     Dict.put(1, a);
   }
 
-
-  public boolean validate(ActionCardMove move){
+/*
+  public boolean validate(ToolCardMove move){
     if (move.getMoves().size() > 2){
       return false;
     }
@@ -30,7 +30,7 @@ public class CardVerify {
         }
       }
     }
-
+*
     if (vRate == val.length){
       return true;
     }
@@ -38,4 +38,5 @@ public class CardVerify {
       return true;
     }
   }
+  */
 }
