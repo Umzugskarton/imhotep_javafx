@@ -50,7 +50,7 @@ public class Game implements Runnable {
   private Temple temple;
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
-  private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+  private String[] siteString = {"Pyramids", "Temple", "BurialChamber", "Obelisks"};
 
   private ClientListener clientListener;
   private Move nextMove = null;
@@ -75,7 +75,6 @@ public class Game implements Runnable {
     this.burialChamber = new BurialChamber(lobby.getSize());
     sites = new ArrayList<>();
     //Reihenfolge beachten!
-    sites.add(market);
     sites.add(pyramids);
     sites.add(temple);
     sites.add(burialChamber);
@@ -118,12 +117,10 @@ public class Game implements Runnable {
   public int[] getPointsSum() {
     int[] points = new int[order.length];
     for (StoneSite site : sites) {
-      if (!site.equals(market)) {
-        int[] sitepoints = site.getPoints();
-        log.error(site.getClass().getName());
-        for (int i = 0; i <= points.length - 1; i++) {
-          points[i] += sitepoints[i];
-        }
+      int[] sitepoints = site.getPoints();
+      log.error(site.getClass().getName());
+      for (int i = 0; i <= points.length - 1; i++) {
+        points[i] += sitepoints[i];
       }
     }
     return points;
@@ -147,7 +144,12 @@ public class Game implements Runnable {
 
     int[] dockedSites = new int[5];
 
-    for (int i = 0; i <= sites.size() - 1; i++) {
+    if (market.isDocked()) {
+      dockedSites[0] = market.getDockedShip().getId();
+    } else {
+      dockedSites[0] = -1;
+    }
+    for (int i = 1; i < sites.size(); i++) {
       if (sites.get(i).isDocked()) {
         dockedSites[i] = sites.get(i).getDockedShip().getId();
       } else {
@@ -155,6 +157,7 @@ public class Game implements Runnable {
       }
     }
 
+    //TODO siteString doesn't contain market anymore
     gameInfo.setSiteString(siteString);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);
@@ -178,7 +181,7 @@ public class Game implements Runnable {
   }
 
   private void setCards() {
-    for (int i = 1; i <= siteString.length - 1; i++) {
+    for (int i = 0; i < siteString.length; i++) {
       cardStack.add(new OrnamentCard(siteString[i]));
       cardStack.add(new OrnamentCard(siteString[i]));
     }

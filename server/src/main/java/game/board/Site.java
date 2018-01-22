@@ -1,6 +1,6 @@
 package game.board;
 
-abstract class Site {
+public abstract class Site {
 
   private Ship dockedShip = null;
 
@@ -10,12 +10,12 @@ abstract class Site {
     this.playerCount = playerCount;
   }
 
-  abstract boolean dockShip(Ship ship);
+  public abstract boolean dockShip(Ship ship);
 
-  Ship getDockedShip() {
+  public Ship getDockedShip() {
     return dockedShip;
   }
 
-  boolean isDocked(){ return dockedShip !=null;}
+  public boolean isDocked(){ return dockedShip !=null;}
 
 }

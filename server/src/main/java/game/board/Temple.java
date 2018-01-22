@@ -1,10 +1,8 @@
 package game.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Temple extends Site
-    implements StoneSite {
+public class Temple extends StoneSite {
 
   private ArrayList<Stone> temple = new ArrayList<>();
 

@@ -4,7 +4,7 @@ import game.board.Cards.Card;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Market extends Site implements StoneSite {
+public class Market extends Site {
   private static final int numberOfCards = 4;
 
   private ArrayList<Card> drawPile = new ArrayList<>();
@@ -52,21 +52,6 @@ public class Market extends Site implements StoneSite {
     }
   }
 
-  @Override
-  public int[] getPoints() {
-    return new int[0];
-  }
-
-  @Override
-  public void addStones(Stone[] stones) {
-
-  }
-
-  @Override
-  public ArrayList<Stone> getStones() {
-    return null;
-  }
-
   // TODO
   @Override
   public boolean dockShip(Ship ship) {
@@ -76,10 +61,5 @@ public class Market extends Site implements StoneSite {
   @Override
   public boolean isDocked() {
     return this.getDockedShip() != null;
-  }
-
-  @Override
-  public Ship getDockedShip() {
-    return super.getDockedShip();
   }
 }

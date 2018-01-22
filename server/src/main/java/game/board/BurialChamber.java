@@ -1,10 +1,8 @@
 package game.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class BurialChamber extends Site
-    implements StoneSite {
+public class BurialChamber extends StoneSite {
 
   private ArrayList<Stone> burialChamber = new ArrayList<>();
 
@@ -80,10 +78,5 @@ public class BurialChamber extends Site
   @Override
   public boolean isDocked(){
     return this.getDockedShip() != null;
-  }
-
-  @Override
-  public Ship getDockedShip() {
-    return super.getDockedShip();
   }
 }

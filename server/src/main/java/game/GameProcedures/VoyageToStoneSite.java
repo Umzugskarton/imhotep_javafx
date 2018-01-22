@@ -10,8 +10,8 @@ import SRVevents.Event;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;
-import game.board.StoneSite;
 
+import game.board.StoneSite;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 

@@ -1,10 +1,8 @@
 package game.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Pyramids extends Site
-    implements StoneSite {
+public class Pyramids extends StoneSite {
 
   private ArrayList<Stone> pyramid = new ArrayList<>();
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};

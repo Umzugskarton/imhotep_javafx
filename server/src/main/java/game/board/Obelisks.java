@@ -1,14 +1,10 @@
 package game.board;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
-
-public class Obelisks extends Site
-    implements StoneSite {
+public class Obelisks extends StoneSite {
 
   private ArrayList<Stone> obelisks = new ArrayList<>();
 
@@ -21,9 +17,6 @@ public class Obelisks extends Site
     return obelisks;
   }
 
-    
-  // Keinen Plan ob das so funktioniert,
-  // müssen wir später testen
   @Override
   public int[] getPoints() {
     int[] points = new int[playerCount];
