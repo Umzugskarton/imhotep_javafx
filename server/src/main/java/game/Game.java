@@ -7,11 +7,18 @@ import GameMoves.ToolCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
-import game.board.*;
+import game.board.BurialChamber;
 import game.board.Cards.Card;
 import game.board.Cards.LocationCard;
 import game.board.Cards.OrnamentCard;
 import game.board.Cards.ToolCard;
+import game.board.Market;
+import game.board.Obelisks;
+import game.board.Pyramids;
+import game.board.Ship;
+import game.board.StoneSite;
+import game.board.Temple;
+import java.util.Collections;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +27,6 @@ import user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
@@ -33,7 +39,7 @@ public class Game implements Runnable {
   private Player[] order;
   private int currentPlayer;
   private int round;
-  private ArrayList<Card> cardStack;
+  private ArrayList<Card> cardStack = new ArrayList<>();
 
 
   //StoneSites
@@ -196,13 +202,8 @@ public class Game implements Runnable {
   }
 
   private void distributeCards(){
-    ArrayList<Card> cards = new ArrayList<>();
-    for (int i = 0 ; i <= 7; i++){
-      Random rn = new Random();
-      int number = rn.nextInt(cardStack.size());
-      cards.add(cardStack.get(number));
-      cardStack.remove(number);
-    }
+    ArrayList<Card> cards = new ArrayList<>(cardStack);
+    Collections.shuffle(cards);
     market.addCards(cards);
   }
 

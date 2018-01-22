@@ -1,31 +1,55 @@
 package game.board;
 
 import game.board.Cards.Card;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Market extends Site implements StoneSite{
+public class Market extends Site implements StoneSite {
+  private static final int numberOfCards = 4;
+
+  private ArrayList<Card> drawPile = new ArrayList<>();
+  private Card[] activeCards = new Card[numberOfCards];
 
   public Market(int playerCount) {
     super(playerCount);
   }
 
-  private ArrayList<Card> market = new ArrayList<>();
-
-  public void replaceCards(ArrayList<Card> cards) {
-    this.market = cards;
-  }
-
   public void addCards(ArrayList<Card> cards) {
-    market.addAll(cards);
+    drawPile.addAll(cards);
   }
 
+  /**
+   * Gibt die aktive Karte an Index position zurück.
+   * @param position
+   * @return
+   */
   public Card removeCard(int position) {
-    return market.remove(position);
+    // TODO exception handling: activeCards[position] might not hold a card
+    Card c = activeCards[position];
+    activeCards[position] = null;
+    return c;
   }
 
-  public ArrayList<Card> getCards() {
-    return market;
+  /**
+   * Gibt eine begrenzte Anzahl Karten zurück, nämlich genau die, die zum aktuellen
+   * Zeitpunkt auf dem Markt angezeigt werden.
+   *
+   * @return the currently relevant cards
+   */
+  public ArrayList<Card> getActiveCards() {
+    return new ArrayList<>(Arrays.asList(activeCards));
+  }
+
+  /**
+   * Richtet den Markt für eine neue Runde ein. Noch vorhandene Karten werden entfernt
+   * und aus dem Pool werden neue Karten gezogen.
+   */
+  public void newRound() {
+    for (int i = 0; i < numberOfCards; i++) {
+      if (!drawPile.isEmpty()) {
+        activeCards[i] = drawPile.get(0);
+      }
+    }
   }
 
   @Override
@@ -50,7 +74,7 @@ public class Market extends Site implements StoneSite{
   }
 
   @Override
-  public boolean isDocked(){
+  public boolean isDocked() {
     return this.getDockedShip() != null;
   }
 
