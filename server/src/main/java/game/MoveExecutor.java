@@ -35,6 +35,7 @@ public class MoveExecutor {
       }
     }
 
+
   public static int getTurnTime() {
     return TURN_TIME;
   }

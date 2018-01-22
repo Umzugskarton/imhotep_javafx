@@ -16,16 +16,47 @@ public class Inventory {
   ArrayList<ToolCard> toolCards = new ArrayList<>();
   ArrayList<StatueCard> statueCards = new ArrayList<>();
 
-  HashMap<String, ArrayList> map = new HashMap<>();
+
 
   public Inventory() {
-    map.put("OrnamentCard", ornamentCards);
-    map.put("StatueCard", statueCards);
-    map.put("ToolCard", toolCards);
+
   }
-// Todo: Karten richtig hinzufügen
+
+  public ArrayList<OrnamentCard> getOrnamentCards() {
+    return ornamentCards;
+  }
+
+  public ArrayList<StatueCard> getStatueCards() {
+    return statueCards;
+  }
+
+  public ArrayList<ToolCard> getToolCards() {
+    return toolCards;
+  }
+
+  public boolean ownsCard(Card card){
+    ArrayList temp = new ArrayList();
+   if (card instanceof OrnamentCard)
+     temp = ornamentCards;
+   else if (card instanceof ToolCard)
+     temp = toolCards;
+   else if (card instanceof StatueCard)
+     temp = statueCards;
+
+   for (Object object : temp){
+     Card cardInstance = (Card) object;
+     if (cardInstance == card)
+         return true;
+   }
+   return false;
+  }
+
   public void addCard(Card card){
-    String type = card.getClass().toString();
-     map.get(type).add(card);
+    if (card instanceof OrnamentCard)
+     ornamentCards.add((OrnamentCard) card);
+    else if (card instanceof ToolCard)
+      toolCards.add((ToolCard) card);
+    else if (card instanceof StatueCard)
+    statueCards.add((StatueCard) card);
   }
 }

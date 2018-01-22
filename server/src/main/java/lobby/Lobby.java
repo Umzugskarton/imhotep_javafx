@@ -31,7 +31,6 @@ public class Lobby {
     private ArrayList<Integer> userColor;
     private ArrayList<String> colors = new ArrayList<>();
     private Game game;
-    private MoveExecutor executor;
 
     public Lobby(int size, User host, String name) {
         this.ready = new boolean[size];
@@ -46,9 +45,6 @@ public class Lobby {
         generateColors();
     }
 
-    public MoveExecutor getExecutor() {
-        return executor;
-    }
 
     public boolean isHost(User user) {
         return user == lobby[0];
@@ -66,7 +62,6 @@ public class Lobby {
     }
 
     public void startGame(ClientListener cl) {
-        executor = new MoveExecutor();
         game = new Game(this, cl);
         Thread thread = new Thread(game);
         thread.start();

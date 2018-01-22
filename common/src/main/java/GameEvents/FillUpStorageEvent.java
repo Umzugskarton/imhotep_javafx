@@ -8,16 +8,13 @@ public class FillUpStorageEvent implements Event {
   private String event = "FillUpStorage";
   private int playerId;
   private int storage;
-  public Date date;
 
-  public FillUpStorageEvent() {
-    this.date = new Date();
+  public FillUpStorageEvent(){
   }
 
   public FillUpStorageEvent(int playerId, int storage) {
     this.playerId = playerId;
     this.storage = storage;
-    this.date = new Date();
   }
   
   public int getPlayerId() {
@@ -36,7 +33,4 @@ public class FillUpStorageEvent implements Event {
     this.storage = storage;
   }
 
-  public Date getDate() {
-    return this.date;
-  }
 }

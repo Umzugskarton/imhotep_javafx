@@ -3,7 +3,7 @@ package GameMoves;
 import java.util.Date;
 
 public class ToolCardMove implements Move{
-  private String move = "ToolCard";
+  private String move = "LeadToolCard";
   private String name;
 
   public ToolCardMove() {

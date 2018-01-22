@@ -13,10 +13,11 @@ public class ProcedureFactory {
     Dict.put("FillUpStorage", new FillUpStorage(game, playerId));
     Dict.put("LoadUpShip", new LoadUpShip(game, playerId));
     Dict.put("VoyageToStoneSite", new VoyageToStoneSite(game, playerId));
+    Dict.put("LeadToolCard", new LeadToolCard(game, playerId));
   }
 
-  public Procedure getProcedure(String m, Move move) {
-    Procedure p = Dict.get(m);
+  public Procedure getProcedure(Move move) {
+    Procedure p = Dict.get(move.getType());
     p.put(move);
     return p;
   }

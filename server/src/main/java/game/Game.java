@@ -55,6 +55,8 @@ public class Game implements Runnable {
   private ClientListener clientListener;
   private Move nextMove = null;
   private List<Event> executedMoves;
+  ProcedureFactory pf;
+  private MoveExecutor executor;
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
@@ -67,7 +69,7 @@ public class Game implements Runnable {
     this.order = new Player[lobby.getSize()];
     this.storages = new ArrayList<>();
     setGame();
-
+    executor = new MoveExecutor();
     this.market = new Market(lobby.getSize());
     this.pyramids = new Pyramids(lobby.getSize(), 1);
     this.obelisks = new Obelisks(lobby.getSize());
@@ -100,13 +102,13 @@ public class Game implements Runnable {
     }
   }
 
-  private void sendAll(Event event) {
+  public void sendAll(Event event) {
     for (Player player : this.order) {
       sendTo(player.getUser(), event);
     }
   }
 
-  private void sendAll(GameInfoEvent event) {
+  public void sendAll(GameInfoEvent event) {
     for (Player player : this.order) {
       event.setMyId(player.getId());
       sendTo(player.getUser(), event);
@@ -126,7 +128,7 @@ public class Game implements Runnable {
     return points;
   }
 
-  private void sendTo(User user, Event event) {
+  public void sendTo(User user, Event event) {
     this.clientListener.getServer().sendTo(event, user.getUsername());
   }
 
@@ -161,7 +163,7 @@ public class Game implements Runnable {
     gameInfo.setSiteString(siteString);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);
-    gameInfo.setTurnTime(lobby.getExecutor().getTurnTime());
+    gameInfo.setTurnTime(executor.getTurnTime());
     gameInfo.setRound(this.round);
     gameInfo.setStorages(this.storages);
 
@@ -222,21 +224,10 @@ public class Game implements Runnable {
           waitForMove(player);
 
           if (this.nextMove != null) {
-            if (nextMove.getType().equals("ToolCard")) {
-
-              // Todo BLAUE MARKTKARTEN REALISIERUNG
-              ToolCardMove ac = (ToolCardMove) nextMove;
-              /*for (Move move : ac.getMoves()) {
-                executeMove(move);
-              }*/
-
-
-            } else {
               int tryed = 0;
               while (!executeMove() && tryed < 2) {
                 waitForMove(player);
                 tryed++;
-              }
             }
           } else
             log.error("Kein Spielzug gesetzt!");
@@ -280,22 +271,25 @@ public class Game implements Runnable {
   }
 
   private void setActivePlayer(int player) {
+    pf = new ProcedureFactory(player, this);
     for (Player p : this.order) {
       sendTo(p.getUser(), new TurnEvent(p == this.order[player], this.order[player].getUser().getUsername()));
     }
   }
 
   private boolean executeMove() {
-    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
-    Procedure nextProcedure = pf.getProcedure(nextMove.getType(), nextMove);
-    executedMoves.add(nextProcedure.exec());
+    Procedure nextProcedure = pf.getProcedure(nextMove);
+    executeProcedure(nextProcedure);
     return true;
   }
 
-  private boolean executeMove(Move move) {
-    ProcedureFactory pf = new ProcedureFactory(currentPlayer, this);
-    Procedure nextProcedure = pf.getProcedure(move.getType(), move);
-    executedMoves.add(nextProcedure.exec());
+  private void executeProcedure(Procedure procedure){
+    executedMoves.add(procedure.exec());
+  }
+
+  public boolean executeMove(Move move){
+    Procedure nextProcedure = pf.getProcedure(move);
+    executeProcedure(nextProcedure);
     return true;
   }
 
@@ -310,10 +304,12 @@ public class Game implements Runnable {
 
   private void waitForMove(int p) {
     log.info("[Lobby " + this.lobby.getLobbyID() + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
-    lobby.getExecutor().waitForMove();
-    nextMove = lobby.getExecutor().getMove();
+    executor.waitForMove();
+    nextMove = executor.getMove();
   }
 
+
+  public MoveExecutor getExecutor(){return executor;}
 
   public void addStonesToStorage(int playerId) {
     if (storages.get(playerId) + 3 > 5)
