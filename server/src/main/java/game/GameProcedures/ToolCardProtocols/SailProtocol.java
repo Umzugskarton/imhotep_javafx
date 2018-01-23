@@ -2,6 +2,7 @@ package game.GameProcedures.ToolCardProtocols;
 
 import GameEvents.LoadUpShipExclusiveEvent;
 import GameEvents.ToolCardEvent;
+import GameEvents.VoyageToStoneSiteExclusiveEvent;
 import GameMoves.LoadUpShipMove;
 import GameMoves.Move;
 import GameMoves.VoyageToStoneSiteMove;
@@ -18,20 +19,31 @@ public class SailProtocol implements Protocol {
 
   public void exec(){
     game.sendAll(new ToolCardEvent("Sail", playerId ,true));
-    game.sendTo(game.getOrder()[playerId].getUser(), new LoadUpShipExclusiveEvent());
+
 
     for (int i = 0; i < 2 ; i++){
-      int tries  =0;
-      while (game.getExecutor().getMove() == null && !(game.getExecutor().getMove() instanceof ) && tries < 2) {
+      if (i == 0) {
+      game.sendTo(game.getOrder()[playerId].getUser(), new LoadUpShipExclusiveEvent());
+      game.getExecutor().waitForMove();
+      if(game.getExecutor().getMove() != null) {
+        Move move = game.getExecutor().getMove();
+          if (move instanceof LoadUpShipMove){
+            game.executeMove(move);
+          }
+        }
+      }
+      else{
+        game.sendTo(game.getOrder()[playerId].getUser(), new VoyageToStoneSiteExclusiveEvent());
         game.getExecutor().waitForMove();
-        tries++;
+        if(game.getExecutor().getMove() != null) {
+          Move move = game.getExecutor().getMove();
+          if (move instanceof VoyageToStoneSiteMove){
+            game.executeMove(move);
+          }
+        }
       }
-      Move move = game.getExecutor().getMove();
-      game.executeMove(move);
       }
-    }
-
-  private void waitForMove
+      }
 }
 
 
