@@ -4,7 +4,7 @@ public abstract class Card {
 
   private String name;
 
-  String getName() {
+  public String getName() {
     return name;
   }
 

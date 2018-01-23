@@ -54,7 +54,6 @@ public class Game implements Runnable {
 
   private ClientListener clientListener;
   private Move nextMove = null;
-  private List<Event> executedMoves;
   ProcedureFactory pf;
   private MoveExecutor executor;
 
@@ -62,7 +61,6 @@ public class Game implements Runnable {
     this.lobby = lobby;
     this.gameID = this.lobby.getLobbyID();
     this.clientListener = clientListener;
-    this.executedMoves = new ArrayList<>();
     lobby.show(false);
 
     this.ships = new Ship[lobby.getSize()];
@@ -217,31 +215,28 @@ public class Game implements Runnable {
     for (int i = 1; i <= 6; i++) {
       this.round = i;
       sendAll(getGameInfo());
-      while (!allshipsDocked())
+      while (!allshipsDocked()) {
         for (int player = 0; player <= this.order.length - 1; player++) {
           currentPlayer = player;
           setActivePlayer(player);
           waitForMove(player);
 
           if (this.nextMove != null) {
-              int tryed = 0;
-              while (!executeMove() && tryed < 2) {
-                waitForMove(player);
-                tryed++;
+            int tryed = 0;
+            while (!executeMove() && tryed < 2) {
+              waitForMove(player);
+              tryed++;
             }
-          } else
+          } else {
             log.error("Kein Spielzug gesetzt!");
-          nextMove = null;
-          //Informiert alle User über den/die ausgeführten Move/s
-          for (Event e : executedMoves) {
-            sendAll(e);
           }
-          executedMoves.clear();
+          nextMove = null;
 
           if (allshipsDocked()) {
             break;
           }
         }
+      }
       resetCurrentShips();
     }
   }
@@ -284,7 +279,8 @@ public class Game implements Runnable {
   }
 
   private void executeProcedure(Procedure procedure){
-    executedMoves.add(procedure.exec());
+    //Informiert alle User über den/die ausgeführten Move/s
+      sendAll(procedure.exec());
   }
 
   public boolean executeMove(Move move){

@@ -17,7 +17,6 @@ public class Inventory {
   ArrayList<StatueCard> statueCards = new ArrayList<>();
 
 
-
   public Inventory() {
 
   }
@@ -34,29 +33,37 @@ public class Inventory {
     return toolCards;
   }
 
-  public boolean ownsCard(Card card){
-    ArrayList temp = new ArrayList();
-   if (card instanceof OrnamentCard)
-     temp = ornamentCards;
-   else if (card instanceof ToolCard)
-     temp = toolCards;
-   else if (card instanceof StatueCard)
-     temp = statueCards;
+  public boolean ownsCard(Card card) {
 
-   for (Object object : temp){
-     Card cardInstance = (Card) object;
-     if (cardInstance == card)
-         return true;
-   }
-   return false;
+    if (card instanceof ToolCard) {
+      for (ToolCard tool : toolCards) {
+        if (tool.getName().equals(card.getName()))
+          return true;
+      }
+      return false;
+    } else {
+      ArrayList temp = new ArrayList();
+
+      if (card instanceof OrnamentCard)
+        temp = ornamentCards;
+      else if (card instanceof StatueCard)
+        temp = statueCards;
+
+      for (Object object : temp) {
+        Card cardInstance = (Card) object;
+        if (cardInstance == card)
+          return true;
+      }
+      return false;
+    }
   }
 
-  public void addCard(Card card){
+  public void addCard(Card card) {
     if (card instanceof OrnamentCard)
-     ornamentCards.add((OrnamentCard) card);
+      ornamentCards.add((OrnamentCard) card);
     else if (card instanceof ToolCard)
       toolCards.add((ToolCard) card);
     else if (card instanceof StatueCard)
-    statueCards.add((StatueCard) card);
+      statueCards.add((StatueCard) card);
   }
 }

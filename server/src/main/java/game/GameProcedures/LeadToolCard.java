@@ -1,8 +1,10 @@
 package game.GameProcedures;
 
+import GameEvents.CardNotInPossessionError;
 import GameEvents.ToolCardEvent;
 import GameMoves.Move;
 import GameMoves.ToolCardMove;
+import SRVevents.Event;
 import game.Game;
 import game.GameProcedures.ToolCardProtocols.*;
 import game.board.Cards.ToolCard;
@@ -29,15 +31,15 @@ public class LeadToolCard implements Procedure{
     this.move = (ToolCardMove) move;
   }
 
-  public ToolCardEvent exec() {
+  public Event exec() {
     ToolCard dummy = new ToolCard(move.getName());
     if (game.getOrder()[playerId].getInventory().ownsCard(dummy)) {
       Protocol protocol = protocolHashMap.get(move.getName());
       protocol.exec();
-      return new ToolCardEvent(move.getName(), playerId);
+      return new ToolCardEvent(move.getName(), playerId, false);
     }
     else {
-      return new CardNotInPossessionError();
+      return new CardNotInPossessionError(move.getName());
     }
   }
 }
