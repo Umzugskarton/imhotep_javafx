@@ -6,6 +6,7 @@ import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
 import events.main.*;
+import events.main.lobby.LobbyJoinSuccessfulEvent;
 import events.main.login.LoginFailedEvent;
 import events.main.login.LoginSuccessfulEvent;
 import javafx.collections.ObservableList;
@@ -189,7 +190,7 @@ public class DebugApp {
         tab.setContent(vBox);
 
         // Buttons 1
-        Button lobbyListButton1 = new Button("UserList Event");
+        Button lobbyListButton1 = new Button("LobbyList Event");
         lobbyListButton1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -213,8 +214,20 @@ public class DebugApp {
             }
         });
 
+        // Buttons 2
+        Button lobbyListButton2 = new Button("LobbyJoinSuccessfulEvent");
+        lobbyListButton2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LobbyJoinSuccessfulEvent myEvent = new LobbyJoinSuccessfulEvent();
+                logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
+                getEventBus().post(myEvent);
+            }
+        });
+
         //Füge Button im View hinzu!
         vBox.getChildren().add(lobbyListButton1);
+        vBox.getChildren().add(lobbyListButton2);
     }
 
     private void initEventBusSniffer(){

@@ -1,8 +1,10 @@
 package ui.app;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
+import events.main.lobby.LobbyJoinSuccessfulEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -111,5 +113,10 @@ public class AppView implements IAppView  {
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    @Subscribe
+    public void onLobbyJoinSuccessfulEvent(LobbyJoinSuccessfulEvent e){
+        addTab(new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user));
     }
 }
