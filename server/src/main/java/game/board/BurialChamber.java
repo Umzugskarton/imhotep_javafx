@@ -28,6 +28,12 @@ public class BurialChamber extends Site
         points[playerId]+=3;
       } else if (size==3) {
         points[playerId]+=6;
+      } else if (size==4) {
+        points[playerId]+=10;
+      } else if (size==5) {
+        points[playerId] += 15;
+      } else if (size>5) {
+        points[playerId] += 15 + (size - 5) * 2; //2Punkte für jeden weiteren Stein nach dem 5.
       }
     }
     return points;

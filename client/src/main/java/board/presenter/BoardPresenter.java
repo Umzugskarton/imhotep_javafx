@@ -236,11 +236,14 @@ public class BoardPresenter {
   }
 
     public void shipDocked(ShipDockedEvent event){
-        shipPresenters.get(event.getShipID()).setLocation(event.getSite());
-        view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
-        StoneSitePresenter presenter = sitePresenters.get(event.getSite());
-        presenter.setStones(event.getNewstones());
-        updatePoints(event.getNewpoints());
+      shipPresenters.get(event.getShipID()).setLocation(event.getSite());
+      view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+      StoneSitePresenter presenter = sitePresenters.get(event.getSite());
+      presenter.setStones(event.getNewstones());
+    }
+
+    public void updatePoints(UpdatePointsEvent event){
+      updatePointsView(event.getPoints());
     }
 
   public void updateShipCargoById(ShipLoadedEvent e) {
@@ -347,7 +350,7 @@ public class BoardPresenter {
         this.view.getUiBannerLabel().setTextFill(textColor);
     }
 
-    public void updatePoints(int[] pointArray) {
+    public void updatePointsView(int[] pointArray) {
         int highestPoints = 0;
         int playerWithHighestPoints = 0;
 
