@@ -1,4 +1,4 @@
-/*package mainmenu.view;
+package mainmenu.view;
 
 import chat.view.ChatView;
 import create.view.CreateView;
@@ -27,4 +27,3 @@ public interface MainmenuView {
 
   void openModal(String msg);
 }
-*/

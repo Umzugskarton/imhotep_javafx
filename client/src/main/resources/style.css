@@ -1,8 +1,9 @@
-.button{
-    -fx-text-fill: #f4c933;
-    -fx-background-color: linear-gradient(to bottom, #753b64 0%,#623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    -fx-border-radius: 0;
-    -fx-font-weight: bold;
+.button {
+  -fx-text-fill: #f4c933;
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -fx-border-radius: 0;
+  -fx-font-weight: bold;
+}
 
 .combo-box {
   -fx-text-fill: #f4c933;

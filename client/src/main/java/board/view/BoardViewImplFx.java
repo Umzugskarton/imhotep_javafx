@@ -3,7 +3,6 @@ package board.view;
 import board.presenter.BoardPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
@@ -113,10 +112,11 @@ public class BoardViewImplFx {
 
   @FXML
   public void sendFillUpStorageMove(ActionEvent e) {
-      this.boardPresenter.sendFillUpStorageMove();
+    this.boardPresenter.sendFillUpStorageMove();
   }
 
-  Map<String, Pane> piers = new HashMap<String, Pane>(){};
+  Map<String, Pane> piers = new HashMap<String, Pane>() {
+  };
 
   public GridPane getHouses() {
     return houses;
@@ -134,16 +134,18 @@ public class BoardViewImplFx {
     return selectStoneLocationBox;
   }
 
-  public Pane getPierByName(String name){
-    if(this.piers.isEmpty())
+  public Pane getPierByName(String name) {
+    if (this.piers.isEmpty()) {
       initPiers();
+    }
 
     return piers.get(name);
   }
 
   public Map<String, Pane> getPiers() {
-    if(this.piers.isEmpty())
+    if (this.piers.isEmpty()) {
       initPiers();
+    }
 
     return this.piers;
   }
@@ -156,15 +158,15 @@ public class BoardViewImplFx {
     piers.put("BurialChamber", burialChamberPier);
   }
 
-  public ArrayList<ComboBox<Integer>> getShipCBoxes(){
+  public ArrayList<ComboBox<Integer>> getShipCBoxes() {
     ArrayList<ComboBox<Integer>> a = new ArrayList<>();
     Collections.addAll(a, selectShipBox, selectShipToLocationBox);
     return a;
   }
 
-  public void addHouse(int i, AnchorPane house){
+  public void addHouse(int i, AnchorPane house) {
     Text text = new Text("x: " + i);
-    this.houses.add(house, 0, i );
+    this.houses.add(house, 0, i);
   }
 
   public ComboBox<String> getSelectShipLocationBox() {
@@ -172,70 +174,86 @@ public class BoardViewImplFx {
   }
 
   @FXML
-  void setStoneLocationCBox(ActionEvent event){
-    if ( selectShipToLocationBox.getValue() != null){
+  void setStoneLocationCBox(ActionEvent event) {
+    if (selectShipToLocationBox.getValue() != null) {
       boardPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
-    }
-    else {
+    } else {
       System.out.println("Null");
     }
   }
 
-  public AnchorPane removeShipPaneById(int id){
-    AnchorPane ship = (AnchorPane)  getBerths().get(id).getChildren().get(0);
+  public AnchorPane removeShipPaneById(int id) {
+    AnchorPane ship = (AnchorPane) getBerths().get(id).getChildren().get(0);
     getBerths().get(id).getChildren().remove(0);
     return ship;
   }
 
-  public GridPane getStoneSiteGrid(){
+  public GridPane getStoneSiteGrid() {
     return stoneSiteGrid;
   }
 
   @FXML
-  void sendVoyageToStoneSiteMove(){
-    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
-      boardPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
-    else
-      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+  void sendVoyageToStoneSiteMove() {
+    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
+      boardPresenter
+          .sendVoyageToStoneSiteMove(selectShipBox.getValue(), selectShipLocationBox.getValue());
+    } else {
+      System.out
+          .println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+    }
   }
 
   @FXML
-  void sendLoadUpShipMove(){
-    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
-      boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
+  void sendLoadUpShipMove() {
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null) {
+      boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(),
+          selectStoneLocationBox.getValue());
     }
   }
-  public ProgressBar getTurnTimerProgress() { return this.turnTimerProgress; }
 
-  public Label getRoundLabel() { return this.roundLabel; }
+  public ProgressBar getTurnTimerProgress() {
+    return this.turnTimerProgress;
+  }
 
-  public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
+  public Label getRoundLabel() {
+    return this.roundLabel;
+  }
 
-  public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
+  public Label getCurrentPlayerLabel() {
+    return this.currentPlayerLabel;
+  }
 
-  public Label getUiBannerLabel() { return this.uiBannerLabel; }
+  public Rectangle getPlayerColorRectangle() {
+    return this.playerColorRectangle;
+  }
 
-  public Label getUiBannerSmallLabel() { return this.uiBannerSmallLabel; }
+  public Label getUiBannerLabel() {
+    return this.uiBannerLabel;
+  }
+
+  public Label getUiBannerSmallLabel() {
+    return this.uiBannerSmallLabel;
+  }
 
   public void setBoardPresenter(BoardPresenter boardPresenter) {
     this.boardPresenter = boardPresenter;
   }
 
-  public void full(){
+  public void full() {
     boardPresenter.fullscreen();
   }
 
-  public void setGuiToFront(){
+  public void setGuiToFront() {
     userInterfacePane.toFront();
   }
 
-  public ArrayList<Pane> getBerths(){
+  public ArrayList<Pane> getBerths() {
     ArrayList<Pane> a = new ArrayList<>();
-    Collections.addAll(a, berth0, berth1, berth2,berth3);
+    Collections.addAll(a, berth0, berth1, berth2, berth3);
     return a;
   }
 
-  public void addShip(int i, AnchorPane ship){
-      getBerths().get(i).getChildren().add(ship);
+  public void addShip(int i, AnchorPane ship) {
+    getBerths().get(i).getChildren().add(ship);
   }
 }

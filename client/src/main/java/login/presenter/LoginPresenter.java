@@ -1,15 +1,15 @@
 package login.presenter;
 
 import CLTrequests.loginRequest;
-import login.view.LoginViewImplFx;
+import login.view.LoginView;
 import main.SceneController;
 
 public class LoginPresenter {
 
-  private LoginViewImplFx view;
+  private LoginView view;
   private SceneController sceneController;
 
-  public LoginPresenter(LoginViewImplFx view, SceneController sc) {
+  public LoginPresenter(LoginView view, SceneController sc) {
     this.view = view;
     this.sceneController = sc;
     view.setLoginPresenter(this);
@@ -29,7 +29,7 @@ public class LoginPresenter {
   public void processLoginResponse(boolean loginSuccessful, String message) {
     if (loginSuccessful) {
       this.toMainmenuScene();
-      sceneController.getMainmenuPresenter()
+      sceneController.getMainmenuPresenter().getChatPresenter()
           .addInfoMessage("Du hast dich erfolgreich eingeloggt! Willkommen!");
     } else {
       this.view.updateStatusLabel(message);
@@ -44,7 +44,7 @@ public class LoginPresenter {
     sceneController.toMainmenuScene();
   }
 
-  public LoginViewImplFx getLoginView() {
+  public LoginView getLoginView() {
     return this.view;
   }
 

@@ -9,9 +9,6 @@ import java.util.Collections;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Created on 17.12.2017.
- */
 public class ShipViewImplFx {
 
   @FXML
@@ -32,28 +29,27 @@ public class ShipViewImplFx {
 
   public ArrayList<Group> getStones() {
     ArrayList<Group> a = new ArrayList<>();
-            Collections.addAll(a, stone0, stone1,stone2,stone3);
-            return a;
+    Collections.addAll(a, stone0, stone1, stone2, stone3);
+    return a;
   }
 
-  public  ArrayList<Rectangle> getColorStones(){
+  public ArrayList<Rectangle> getColorStones() {
     ArrayList<Rectangle> a = new ArrayList<>();
-        for (Group g : getStones()){
-          int i = 0;
-          for(Node x : g.getChildren()){
-             if (i==0){
-              a.add( (Rectangle) x);
-             }
-            i++;
-          }
+    for (Group g : getStones()) {
+      int i = 0;
+      for (Node x : g.getChildren()) {
+        if (i == 0) {
+          a.add((Rectangle) x);
         }
-        return a;
+        i++;
+      }
+    }
+    return a;
   }
 
-  public Pane getSprite(){
+  public Pane getSprite() {
     return sprite;
   }
-
 
 
 }

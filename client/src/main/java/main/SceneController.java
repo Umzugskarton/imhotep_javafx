@@ -5,7 +5,6 @@ import board.presenter.BoardPresenter;
 import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;
 import games.presenter.GamesPresenter;
-import games.view.GamesViewImpl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.stage.StageStyle;
 import login.presenter.LoginPresenter;
 import login.view.LoginViewImpl;
 import mainmenu.presenter.MainmenuPresenter;
-import mainmenu.view.MainmenuViewImplFx;
 import mainmenu.view.MainmenuViewImpl;
 import registration.presenter.RegistrationPresenter;
 import registration.view.RegistrationViewImpl;
@@ -87,16 +85,10 @@ public class SceneController {
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }
-  public void toGamesScene() {
-    this.clientSocket.send(new lobbylistRequest());
-    this.stage.setScene(this.gamesPresenter.getGamesView().getGamesScene());
-    this.stage.getScene().getStylesheets().add("style.css");
-  }
 
   public void toLobbyScene() {
     //Es wird stets beim Wechsel zur LobbyScene eine neuer Presenter/View gesetzt
     this.LobbyPresenter = new LobbyPresenter(new LobbyViewImpl(), this);
-
 
     this.stage.setScene(this.LobbyPresenter.getLobbyView().getLobbyScene());
     this.stage.getScene().getStylesheets().add("style.css");
@@ -117,7 +109,7 @@ public class SceneController {
         loader.setLocation(getClass().getResource("/fxml/BoardView.fxml"));
         boardRoot = loader.load();
         BoardViewImplFx view = loader.getController();
-        boardPresenter= new BoardPresenter(view, this, getLobbyPresenter().getCLTLobby());
+        boardPresenter = new BoardPresenter(view, this, getLobbyPresenter().getCLTLobby());
         view.setBoardPresenter(boardPresenter);
         Scene boardScene = new Scene(boardRoot);
         this.gameStage.setScene(boardScene); // nachher mit fxml wieder ändern
@@ -156,7 +148,7 @@ public class SceneController {
     return this.registrationPresenter;
   }
 
-  public void toggleFullscreen(){
+  public void toggleFullscreen() {
     stage.setFullScreen(!stage.isFullScreen());
   }
 
