@@ -19,5 +19,11 @@ public interface StoneSite {
 
   boolean dockShip(Ship ship);
 
+  boolean isDocked();
+
+  Ship getDockedShip();
+
+
+
   ArrayList<Stone> getStones();
 }

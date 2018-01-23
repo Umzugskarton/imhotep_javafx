@@ -9,9 +9,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
+
 public class CreateViewImpl extends GridPane implements CreateView {
 
   private CreatePresenter createPresenter;
+  private Label message;
 
   public CreateViewImpl(CreatePresenter createPresenter) {
     this.createPresenter = createPresenter;
@@ -29,8 +31,10 @@ public class CreateViewImpl extends GridPane implements CreateView {
     lobbyName.setPromptText("Lobbynamen eingeben");
 
     Label labelSize = new Label("Größe: ");
-    TextField lobbySize = new TextField();
-    lobbySize.setPromptText("Spieleranzahl eingeben");
+    String[] playerCount = {"2", "3", "4"};
+    ComboBox<String> lobbySize = new ComboBox();
+    lobbySize.getItems().addAll(playerCount);
+    lobbySize.setValue("2");
 
     Label labelPassword = new Label("Passwort: ");
     PasswordField passwordUser = new PasswordField();
@@ -38,8 +42,10 @@ public class CreateViewImpl extends GridPane implements CreateView {
 
     Button sendButton = new Button("Senden");
     sendButton.addEventHandler(ActionEvent.ACTION, e ->
-        createPresenter.createLobby(lobbyName.getText(), Integer.parseInt(lobbySize.getText()),
+        createPresenter.createLobby(lobbyName.getText(), Integer.parseInt(lobbySize.getValue()),
             passwordUser.getText()));
+
+    message = new Label();
 
     ColumnConstraints column = new ColumnConstraints();
     column.setFillWidth(true);
@@ -68,6 +74,11 @@ public class CreateViewImpl extends GridPane implements CreateView {
     root.add(labelPassword, 0, 3);
     root.add(passwordUser, 1, 3);
     root.add(sendButton, 2, 2);
+    root.add(message, 0, 4);
+  }
+
+  public void updateStatusLabel(String m) {
+      message.setText(m);
   }
 
 }

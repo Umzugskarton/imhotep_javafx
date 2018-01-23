@@ -16,4 +16,6 @@ abstract class Site {
     return dockedShip;
   }
 
+  boolean isDocked(){ return dockedShip !=null;}
+
 }

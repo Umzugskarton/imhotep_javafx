@@ -1,5 +1,7 @@
 package SRVevents;
 
+import GameEvents.*;
+
 import java.util.HashMap;
 
 public class EventFactory {
@@ -21,6 +23,13 @@ public class EventFactory {
     Dict.put("changeCredential", new changeCredentialEvent());
     Dict.put("changeColor", new changeColorEvent());
     Dict.put("setReady", new setReadyEvent());
+    Dict.put("gameInfo", new GameInfoEvent());
+    Dict.put("turn", new TurnEvent());
+    Dict.put("leaveLobby", new leaveLobbyEvent());
+    Dict.put("FillUpStorage", new FillUpStorageEvent());
+    Dict.put("ShipLoaded", new ShipLoadedEvent());
+    Dict.put("AlreadyAllocatedError", new AlreadyAllocatedError());
+    Dict.put("ShipDocked", new ShipDockedEvent());
   }
 
   public Event getEvent(String command) {

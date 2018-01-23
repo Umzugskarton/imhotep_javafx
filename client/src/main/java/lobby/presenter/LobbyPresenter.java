@@ -1,8 +1,6 @@
 package lobby.presenter;
 
-import CLTrequests.changeColorRequest;
-import CLTrequests.chatRequest;
-import CLTrequests.setReadyRequest;
+import CLTrequests.*;
 import commonLobby.CLTLobby;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -12,6 +10,7 @@ import main.SceneController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import sound.Soundtrack;
 
 import static general.TextBundle.getString;
 
@@ -50,6 +49,7 @@ public class LobbyPresenter {
     this.getSceneController().getClientSocket().send(changeColorRequest);
 
   }
+
 
   public void sendSetReadyRequest() {
     setReadyRequest setReadyRequest = new setReadyRequest();
@@ -92,7 +92,24 @@ public class LobbyPresenter {
   }
 
   public void startGame() {
-    System.out.print("Game Start!");
+    if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
+      Request request = new startGameRequest();
+      sc.getClientSocket().send(request);
+      Soundtrack.imhotepTheme.loop();
+    }
+    else {
+      //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
+    }
+  }
+
+  public void leaveLobbyRequest() {
+    leaveLobbyRequest leaveLobbyRequest = new leaveLobbyRequest(CLTLobby.getLobbyId());
+    this.getSceneController().getClientSocket().send(leaveLobbyRequest);
+  }
+
+  public void resetUserAfterLeaving() {
+    //lobbyView.getChatText().getChildren().clear();
+
   }
 
   public boolean checkHost() {
@@ -115,4 +132,5 @@ public class LobbyPresenter {
   public String getUsername() {
     return this.username;
   }
+
 }

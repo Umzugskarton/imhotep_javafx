@@ -1,5 +1,6 @@
 package main;
 
+import GameEvents.*;
 import SRVevents.*;
 import com.google.common.eventbus.Subscribe;
 import commonLobby.CLTLobby;
@@ -14,21 +15,21 @@ public class EventListener {
     this.sceneController = sc;
   }
 
-  @Subscribe
-  public void loginEventListener(loginEvent e) {
-    Platform.runLater(
-            () -> {
-              this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
-              if (e.getSuccess()) {
-                this.sceneController.getMainmenuPresenter()
-                        .updateUsernameLabel(e.getUsername());
-                this.sceneController.getMainmenuPresenter()
-                        .updateEmailLabel(e.getEmail());
-                this.sceneController.getMainmenuPresenter().setUsername(e.getUsername());
-              }
-            }
-    );
-  }
+    @Subscribe
+    public void loginEventListener(loginEvent e) {
+        Platform.runLater(
+                () -> {
+                    this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
+                    if (e.getSuccess()) {
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                                .updateUsernameLabel(e.getUsername());
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                                .updateEmailLabel(e.getEmail());
+                        this.sceneController.getMainmenuPresenter().setUsername(e.getUsername());
+                    }
+                }
+        );
+    }
 
   @Subscribe
   public void registerEventListener(registerEvent e) {
@@ -40,21 +41,21 @@ public class EventListener {
     );
   }
 
-  @Subscribe
-  public void changeCredentialEventListener(changeCredentialEvent e) {
-    Platform.runLater(
-            () -> {
-              if (e.getType() == 1) {
-                this.sceneController.getMainmenuPresenter()
-                        .updateEmailLabel(e.getCredential());
-              }
-              this.sceneController.getMainmenuPresenter()
-                      .processChangeResponse(e.getSuccess(), e.getMsg());
-              //this.sceneController.getMainmenuPresenter()
-              //this.sceneController.toRegistrationScene();
-            }
-    );
-  }
+    @Subscribe
+    public void changeCredentialEventListener(changeCredentialEvent e) {
+        Platform.runLater(
+                () -> {
+                    if (e.getType() == 1) {
+                        this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                                .updateEmailLabel(e.getCredential());
+                    }
+                    this.sceneController.getMainmenuPresenter().getProfilePresenter()
+                            .processChangeResponse(e.getSuccess(), e.getMsg());
+                    //this.sceneController.getMainmenuPresenter()
+                    //this.sceneController.toRegistrationScene();
+                }
+        );
+    }
 
 
   @Subscribe
@@ -79,33 +80,32 @@ public class EventListener {
     );
   }
 
-  @Subscribe
-  public void chatEventListener(chatEvent e) {
-    Platform.runLater(
-            () -> {
-              if (this.sceneController.getMainmenuPresenter() != null) {
-                if (e.getLobbyId()== null) {
-                  this.sceneController.getMainmenuPresenter()
-                          .addChatMessage(e.getUser(), e.getMsg());
+    @Subscribe
+    public void chatEventListener(chatEvent e) {
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter() != null) {
+                        if (e.getLobbyId() == null) {
+                            this.sceneController.getMainmenuPresenter().getChatPresenter()
+                                    .addChatMessage(e.getUser(), e.getMsg());
+                        } else {
+                            //Hier kann später auch zwischen den Lobbypresentern unterschieden werden wenn mehrere Lobbys möglich sind
+                            if (this.sceneController.getLobbyPresenter() != null) {
+                                this.sceneController.getLobbyPresenter()
+                                        .addChatMessage(e.getUser(), e.getMsg());
+                            }
+                        }
+                    }
                 }
-                else {
-                  //Hier kann später auch zwischen den Lobbypresentern unterschieden werden wenn mehrere Lobbys möglich sind
-                  if (this.sceneController.getLobbyPresenter() != null) {
-                    this.sceneController.getLobbyPresenter()
-                            .addChatMessage(e.getUser(), e.getMsg());
-                  }
-                }
-              }
-            }
-    );
-  }
+        );
+    }
 
   @Subscribe
   public void chatInfoEventListener(chatInfoEvent e) {
     Platform.runLater(
             () -> {
               if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter()
+                this.sceneController.getMainmenuPresenter().getChatPresenter()
                         .addInfoMessage(e.getMsg());
               }
             }
@@ -146,39 +146,107 @@ public class EventListener {
     );
   }
 
-  @Subscribe
-  public void lobbyInfoEventListener(lobbyInfoEvent e) {
-    Platform.runLater(
-            () -> {
-              if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
-                if (this.sceneController.getLobbyPresenter() == null) {
-                  this.sceneController.toLobbyScene();
-                }
-                CLTLobby temp = e.getLobby();
-                this.sceneController.getLobbyPresenter().setCLTLobby(temp);
-              }
-            }
-    );
-  }
-  @Subscribe
-  public void changeColorEventListener(changeColorEvent e){
-    Platform.runLater(
-            () -> {
-              CLTLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
-              temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
-              sceneController.getLobbyPresenter().updateLobby(temp);
-            });
-  }
+    @Subscribe
+    public void lobbyInfoEventListener(lobbyInfoEvent e) {
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
 
-  @Subscribe
-  public void whisperEventListener(whisperEvent e) {
-    Platform.runLater(
-            () -> {
-              if (this.sceneController.getMainmenuPresenter() != null) {
-                this.sceneController.getMainmenuPresenter()
-                        .addWhisper(e.getFrom(), e.getMsg(), true);
+                      this.sceneController.toLobbyScene();
+
+                        CLTLobby temp = e.getLobby();
+                        this.sceneController.getLobbyPresenter().setCLTLobby(temp);
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void changeColorEventListener(changeColorEvent e) {
+        Platform.runLater(
+                () -> {
+                    CLTLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
+                    temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
+                    sceneController.getLobbyPresenter().updateLobby(temp);
+                });
+    }
+
+    @Subscribe
+    public void whisperEventListener(whisperEvent e) {
+        Platform.runLater(
+                () -> {
+                    if (this.sceneController.getMainmenuPresenter() != null) {
+                        this.sceneController.getMainmenuPresenter().getChatPresenter()
+                                .addWhisper(e.getFrom(), e.getMsg(), true);
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void gameInfoEventListener(GameInfoEvent e) {
+        Platform.runLater(
+                () -> {
+                    if (sceneController.getBoardPresenter() == null) {
+                        sceneController.toBoardScene();
+                    }
+                    sceneController.getBoardPresenter().updateBoard(e);
+                }
+        );
+    }
+
+    @Subscribe
+    public void turnEventListener(TurnEvent e) {
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().newTurn(e);
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void fillUpStorageEventListener(FillUpStorageEvent e) {
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().receiveFillUpStorageEvent(e);
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void shipLoadedEventListener(ShipLoadedEvent e){
+      Platform.runLater(
+              () -> {
+                if(sceneController.getBoardPresenter() != null) {
+                  sceneController.getBoardPresenter().receiveShipLoadedEvent(e);
+                }
               }
-            }
-    );
-  }
+      );
+    }
+
+    @Subscribe
+    public void alreadyAllocatedErrorListener(AlreadyAllocatedError e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        System.out.println("alreadyallocatederror");
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void shipDockedListener(ShipDockedEvent e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().shipDocked(e);
+                    }
+                }
+        );
+    }
 }

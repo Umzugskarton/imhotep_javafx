@@ -21,12 +21,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import lobby.presenter.LobbyPresenter;
 
 public class GamesViewImpl extends GridPane implements GamesView {
 
   private GamesPresenter gamesPresenter;
   private TableView<CLTLobby> table = new TableView();
   private int click = 0;
+  private Scene gamesScene;
 
   public GamesViewImpl(GamesPresenter gamesPresenter) {
     this.gamesPresenter = gamesPresenter;
@@ -39,6 +41,8 @@ public class GamesViewImpl extends GridPane implements GamesView {
     root.setVgap(5);
     root.setPadding(new Insets(5));
 
+    gamesScene = new Scene(root);
+
     TableColumn firstNameCol = new TableColumn("CLTLobby Name");
     firstNameCol.setCellValueFactory(new PropertyValueFactory<CLTLobby, String>("name"));
     TableColumn lastNameCol = new TableColumn("Belegung");
@@ -46,46 +50,52 @@ public class GamesViewImpl extends GridPane implements GamesView {
     TableColumn idCol = new TableColumn("id");
     idCol.setCellValueFactory(
         new PropertyValueFactory<CLTLobby, String>("id"));
+
     TableColumn joinCol = new TableColumn(" ");
     joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
-    Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>> cellFactory
-        = new Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>>() {
-      @Override
-      public TableCell call(final TableColumn<CLTLobby, String> param) {
-        final TableCell<CLTLobby, String> cell = new TableCell<CLTLobby, String>() {
-          final Button btn = new Button("Join");
 
-          @Override
-          public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-              setGraphic(null);
-              setText(null);
-            } else {
-              CLTLobby CLTLobby = getTableView().getItems().get(getIndex());
-              HBox hbox = new HBox();
-              ImageView img = new ImageView();
-              img.setFitHeight(20);
-              img.setFitWidth(15);
-              hbox.setSpacing(5);
-              img.setImage(new Image("ank.png"));
-              if (CLTLobby.hasPW()) {
-                hbox.getChildren().addAll(btn, img);
-                btn.setOnAction(event -> popup(CLTLobby));
-                setGraphic(hbox);
+      Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>> cellFactory
+          = new Callback<TableColumn<CLTLobby, String>, TableCell<CLTLobby, String>>() {
+
+        @Override
+        public TableCell call(final TableColumn<CLTLobby, String> param) {
+          final TableCell<CLTLobby, String> cell = new TableCell<CLTLobby, String>() {
+            final Button btn = new Button("Join");
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+              super.updateItem(item, empty);
+              if (empty) {
+                setGraphic(null);
+                setText(null);
               } else {
-                btn.setOnAction(event -> gamesPresenter.joinLobby(CLTLobby.getLobbyId(), null));
-                setGraphic(btn);
+                CLTLobby CLTLobby = getTableView().getItems().get(getIndex());
+
+                HBox hbox = new HBox();
+                ImageView img = new ImageView();
+                img.setFitHeight(20);
+                img.setFitWidth(15);
+                hbox.setSpacing(5);
+                img.setImage(new Image("ank.png"));
+                if (CLTLobby.hasPW()) {
+                  hbox.getChildren().addAll(btn, img);
+                  btn.setOnAction(event -> popup(CLTLobby));
+                  setGraphic(hbox);
+                } else {
+                  btn.setOnAction(event -> gamesPresenter.joinLobby(CLTLobby.getLobbyId(), null));
+                  if (CLTLobby.getSize() > CLTLobby.getUsercount()) {
+                    setGraphic(btn);
+                  }
+                }
+                setText(null);
               }
-              setText(null);
             }
-          }
-        };
-        return cell;
-      }
-    };
-    joinCol.setCellFactory(cellFactory);
+          };
+          return cell;
+        }
+      };
+      joinCol.setCellFactory(cellFactory);
 
     table.setOnMouseClicked(click -> {
       if (click.getClickCount() == 2 && table.getSelectionModel().getSelectedItem() != null) {
@@ -102,6 +112,8 @@ public class GamesViewImpl extends GridPane implements GamesView {
 
     root.add(table, 0, 1);
   }
+
+
 
   public void popup(CLTLobby selectedCLTLobby) {
     // Popup mit Passworteingabe
@@ -127,5 +139,9 @@ public class GamesViewImpl extends GridPane implements GamesView {
   public void initGameList() {
     //Liste der erstellter Spiele
     table.setItems(this.gamesPresenter.getGameList().getGames());
+  }
+
+  public Scene getGamesScene() {
+    return this.gamesScene;
   }
 }
