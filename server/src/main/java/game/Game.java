@@ -205,9 +205,7 @@ public class Game implements Runnable {
   }
 
   private void distributeCards(){
-    ArrayList<Card> cards = new ArrayList<>(cardStack);
-    Collections.shuffle(cards);
-    market.addCards(cards);
+    market.addCards(cardStack);
   }
 
   @Override
