@@ -40,6 +40,7 @@ public class Game implements Runnable {
     private Temple temple;
     private BurialChamber burialChamber;
     private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+    private int[] pyramidsPoints;
 
     private ClientListener clientListener;
     private Move nextMove = null;
@@ -68,6 +69,7 @@ public class Game implements Runnable {
         sites.add(temple);
         sites.add(burialChamber);
         sites.add(obelisks);
+        this.pyramidsPoints = new int[lobby.getSize()];
 
         setStartCards();
     }
@@ -114,7 +116,16 @@ public class Game implements Runnable {
     }
 
     public void updatePyramids(){
-
+        int[] newPoints = new int[lobby.getSize()];
+        int[] sumPoints = pyramids.getPoints();
+        for (int player = 0; player <= this.order.length - 1; player++) {
+            newPoints[player] = sumPoints[player] - pyramidsPoints[player];
+            pyramidsPoints[player] = sumPoints[player];
+        }
+        for (int player = 0; player <= this.order.length - 1; player++) {
+            this.order[player].addPoints(newPoints[player]);
+        }
+        updatePoints();
     }
 
     private void sendTo(User user, Event event) {
