@@ -7,7 +7,7 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
-mainClassName = "main.ClientApplication"
+mainClassName = "app.ClientApplication"
 
 
 repositories {
@@ -20,7 +20,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Imhotep Client',
                 'Implementation-Version': version,
-                'Main-Class': 'main.ServerApplication'
+                'Main-Class': 'app.ServerApplication'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

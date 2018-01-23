@@ -10,11 +10,10 @@ import SRVevents.lobbylistEvent;
 import SRVevents.userListEvent;
 import SRVevents.Event;
 import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import user.User;
+import data.User;
 
 public class Server {
 

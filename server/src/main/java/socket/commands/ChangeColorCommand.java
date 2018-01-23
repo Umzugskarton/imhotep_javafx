@@ -3,11 +3,9 @@ package socket.commands;
 import CLTrequests.changeColorRequest;
 import SRVevents.changeColorEvent;
 import lobby.Lobby;
-import socket.ClientAPI;
 import socket.ClientListener;
-import socket.Server;
 import CLTrequests.Request;
-import user.User;
+import data.User;
 
 import java.util.ArrayList;
 

@@ -23,7 +23,5 @@ public interface StoneSite {
 
   Ship getDockedShip();
 
-
-
   ArrayList<Stone> getStones();
 }

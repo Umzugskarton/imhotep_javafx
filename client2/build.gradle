@@ -1,0 +1,51 @@
+group 'client2'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+mainClassName = "ClientApp"
+
+
+repositories {
+    maven {
+        url "http://uk.maven.org/maven2"
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Imhotep Client2',
+                'Implementation-Version': version,
+                'Main-Class': 'app.ServerApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+dependencies {
+    compile project(":common")
+    compile project(":common2")
+    testCompile 'junit:junit:4.11'
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
+    compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.7'
+
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+

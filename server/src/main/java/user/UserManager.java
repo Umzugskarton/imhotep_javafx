@@ -1,5 +1,6 @@
 package user;
 
+import data.User;
 import database.DBController;
 
 import java.sql.PreparedStatement;

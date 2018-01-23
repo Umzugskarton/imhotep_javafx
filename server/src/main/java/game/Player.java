@@ -1,6 +1,6 @@
 package game;
 
-import user.User;
+import data.User;
 
 public class Player {
 

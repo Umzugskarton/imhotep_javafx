@@ -6,7 +6,6 @@ import SRVevents.chatEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
-import user.User;
 
 public class ChatCommand implements Command {
 

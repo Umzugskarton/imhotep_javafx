@@ -12,11 +12,9 @@ import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
-import user.User;
+import data.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 

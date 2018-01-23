@@ -15,7 +15,6 @@ import java.net.SocketException;
 import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
-import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
@@ -23,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.commands.Invoker;
 import socket.commands.CommandFactory;
-import user.User;
+import data.User;
 
 /**
  * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.

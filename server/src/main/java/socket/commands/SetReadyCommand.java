@@ -5,7 +5,7 @@ import CLTrequests.setReadyRequest;
 import SRVevents.setReadyEvent;
 import lobby.Lobby;
 import socket.ClientListener;
-import user.User;
+import data.User;
 
 /**
  * Created by Slothan on 16.11.2017.
