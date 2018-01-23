@@ -17,7 +17,6 @@ public class lobbyInfoEvent implements Event {
         this.lobby = lobby;
     }
 
-
     public CLTLobby getLobby() {
         return lobby;
     }

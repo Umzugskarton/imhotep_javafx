@@ -19,13 +19,6 @@
   -fx-font-weight: bold;
 }
 
-#startViewRoot {
-  -fx-background-image: url("imhotep.png");
-  -fx-background-repeat: stretch;
-  -fx-background-size: 720 480;
-  -fx-border-width: 5;
-}
-
 #loginroot {
   -fx-background-image: url("imhotep.png");
   -fx-background-repeat: stretch;

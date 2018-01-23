@@ -26,13 +26,13 @@ public class LobbyView implements ILobbyView {
     private URL location;
 
     @FXML
-    private AnchorPane mainViewRoot;
+    private AnchorPane lobbyViewRoot;
 
     @FXML
-    private Pane subParentChat;
+    private Pane subParentLobbyChat;
 
     @FXML
-    private Pane subParentUserList;
+    private Pane subParentLobbyUserList;
 
     @FXML
     private Pane subParentLobbyList;
@@ -76,19 +76,19 @@ public class LobbyView implements ILobbyView {
         this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 
-        setSubParentChat(this.chatView.getRootParent());
-        setSubParentUserList(this.lobbyListView.getRootParent());
+        setSubParentLobbyChat(this.chatView.getRootParent());
+        setSubParentLobbyUserList(this.lobbyListView.getRootParent());
         setSubParentLobbyList(this.userListView.getRootParent());
     }
 
-    public void setSubParentChat(Parent subParent){
-        this.subParentChat.getChildren().clear();
-        this.subParentChat.getChildren().add(subParent);
+    public void setSubParentLobbyChat(Parent subParent){
+        this.subParentLobbyChat.getChildren().clear();
+        this.subParentLobbyChat.getChildren().add(subParent);
     }
 
-    public void setSubParentUserList(Parent subParent){
-        this.subParentUserList.getChildren().clear();
-        this.subParentUserList.getChildren().add(subParent);
+    public void setSubParentLobbyUserList(Parent subParent){
+        this.subParentLobbyUserList.getChildren().clear();
+        this.subParentLobbyUserList.getChildren().add(subParent);
     }
 
     public void setSubParentLobbyList(Parent subParent){

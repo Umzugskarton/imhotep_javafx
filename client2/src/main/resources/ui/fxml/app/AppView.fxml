@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="appViewRoot" minHeight="-1.0" minWidth="-1.0" prefHeight="400.0" prefWidth="600.0" snapToPixel="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane fx:id="appViewRoot" minHeight="-1.0" minWidth="-1.0" prefHeight="400.0" prefWidth="600.0" snapToPixel="false" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <VBox prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
       <children>
@@ -21,9 +17,9 @@
           <children>
             <MenuButton fx:id="appViewMenuButton" mnemonicParsing="false" text="Logo">
               <items>
-                <MenuItem mnemonicParsing="false" text="Dein Profil"/>
-                <MenuItem mnemonicParsing="false" text="Einstellungen"/>
-                <MenuItem mnemonicParsing="false" text="Abmelden"/>
+                <MenuItem mnemonicParsing="false" text="Dein Profil" />
+                <MenuItem mnemonicParsing="false" text="Einstellungen" />
+                <MenuItem mnemonicParsing="false" text="Abmelden" />
               </items>
             </MenuButton>
           </children>
