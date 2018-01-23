@@ -40,7 +40,6 @@ public class Game implements Runnable {
     private Temple temple;
     private BurialChamber burialChamber;
     private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
-    private int[] pyramidsPoints;
 
     private ClientListener clientListener;
     private Move nextMove = null;
@@ -69,7 +68,6 @@ public class Game implements Runnable {
         sites.add(temple);
         sites.add(burialChamber);
         sites.add(obelisks);
-        this.pyramidsPoints = new int[lobby.getSize()];
 
         setStartCards();
     }
@@ -115,14 +113,9 @@ public class Game implements Runnable {
         sendAll(new UpdatePointsEvent(getPointsSum()));
     }
 
-    public void updatePyramids(){
-        int[] newPoints = new int[lobby.getSize()];
-        int[] sumPoints = pyramids.getPoints();
-        for (int player = 0; player <= this.order.length - 1; player++) {
-            newPoints[player] = sumPoints[player] - pyramidsPoints[player];
-            pyramidsPoints[player] = sumPoints[player];
-        }
-        for (int player = 0; player <= this.order.length - 1; player++) {
+    public void updatePyramids() {
+        int[] newPoints = pyramids.getPointsAndFinishTurn();
+        for (int player = 0; player < this.order.length; player++) {
             this.order[player].addPoints(newPoints[player]);
         }
         updatePoints();
@@ -232,7 +225,7 @@ public class Game implements Runnable {
         //Ende des Spiels
         int[] burialChamberPoints = burialChamber.getPoints();
         int[] obelisksPoints = obelisks.getPoints();
-        for (int player = 0; player <= this.order.length - 1; player++) {
+        for (int player = 0; player < this.order.length; player++) {
             this.order[player].addPoints(burialChamberPoints[player]);
             this.order[player].addPoints(obelisksPoints[player]);
         }
