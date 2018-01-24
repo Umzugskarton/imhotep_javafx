@@ -36,8 +36,4 @@ public class registerRequest implements Request {
   public String getPassword() {
     return this.pw;
   }
-
-  public Date getDate() {
-    return this.date;
-  }
 }

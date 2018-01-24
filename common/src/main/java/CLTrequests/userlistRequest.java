@@ -15,7 +15,4 @@ public class userlistRequest implements Request {
     return this.request;
   }
 
-  public Date getDate() {
-    return this.date;
-  }
 }

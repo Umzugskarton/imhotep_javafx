@@ -8,7 +8,6 @@ import java.util.Date;
 public class leaveLobbyRequest implements Request {
 
     private String request = "leaveLobby";
-    private Date date;
     private int id;
 
     public leaveLobbyRequest() {
@@ -24,9 +23,6 @@ public class leaveLobbyRequest implements Request {
         return this.request;
     }
 
-    public Date getDate() {
-        return this.date;
-    }
 
     public Integer getId() {
         return this.id;

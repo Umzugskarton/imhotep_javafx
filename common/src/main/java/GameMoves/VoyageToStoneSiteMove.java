@@ -1,7 +1,6 @@
 package GameMoves;
 
 
-import java.util.Date;
 
 public class VoyageToStoneSiteMove implements Move{
   private String move = "VoyageToStoneSite";
@@ -36,8 +35,4 @@ public class VoyageToStoneSiteMove implements Move{
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

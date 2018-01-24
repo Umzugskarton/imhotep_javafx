@@ -5,7 +5,6 @@ import java.util.Date;
 public class changeCredentialRequest implements Request {
 
   private String request = "changeCredential";
-  private Date date;
   private String credential;
   private String username;
   private Integer crednr;
@@ -24,10 +23,6 @@ public class changeCredentialRequest implements Request {
 
   public String getRequest() {
     return this.request;
-  }
-
-  public Date getDate() {
-    return this.date;
   }
 
   public String getCredential() {

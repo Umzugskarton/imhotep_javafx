@@ -1,6 +1,5 @@
 package GameMoves;
 
-import java.util.Date;
 
 public class ToolCardMove implements Move{
   private String move = "LeadToolCard";
@@ -30,8 +29,5 @@ public class ToolCardMove implements Move{
 
 
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
+
 }

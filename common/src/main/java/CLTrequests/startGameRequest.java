@@ -16,8 +16,4 @@ public class startGameRequest implements Request {
     return this.request;
   }
 
-
-  public Date getDate() {
-    return this.date;
-  }
 }

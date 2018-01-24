@@ -8,13 +8,10 @@ import GameMoves.Move;
 import GameMoves.VoyageToStoneSiteMove;
 import game.Game;
 
-public class SailProtocol implements Protocol {
-    private Game game;
-    private int playerId;
+public class SailProtocol extends Protocol {
 
     public SailProtocol(Game game, int playerId) {
-        this.game = game;
-        this.playerId = playerId;
+      super(game,playerId);
     }
 
     public void exec() {
@@ -38,12 +35,6 @@ public class SailProtocol implements Protocol {
         }
     }
 
-    private Move acquireMove() {
-        game.getExecutor().waitForMove();
-        if (game.getExecutor().getMove() != null)
-            return game.getExecutor().getMove();
-        return null;
-    }
 }
 
 

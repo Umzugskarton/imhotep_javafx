@@ -1,6 +1,5 @@
 package GameMoves;
 
-import java.util.Date;
 
 public class LoadUpShipMove implements Move{
   private String move = "LoadUpShip";
@@ -37,8 +36,5 @@ public class LoadUpShipMove implements Move{
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
+
 }

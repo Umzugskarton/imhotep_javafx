@@ -6,7 +6,6 @@ public class chatRequest implements Request {
 
   private String request = "chat";
   private Integer lobbyId;
-  private Date date;
   private String msg;
 
   public chatRequest() {
@@ -14,7 +13,6 @@ public class chatRequest implements Request {
 
   public chatRequest(String msg) {
     this.msg = msg;
-    this.date = new Date();
     lobbyId = null;
   }
 
@@ -34,7 +32,4 @@ public class chatRequest implements Request {
     return this.request;
   }
 
-  public Date getDate() {
-    return this.date;
-  }
 }

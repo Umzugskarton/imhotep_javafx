@@ -1,17 +1,14 @@
 package GameMoves;
 
 
-/**
- * Created on 16.12.2017.
- */
-public class VoyageToMarketMove implements Move{
+public class VoyageToStoneSiteManualDumpMove implements Move {
   private int shipId;
   private String stonesite;
   private int[] dumpOrder;
 
-  public VoyageToMarketMove(){}
+  public VoyageToStoneSiteManualDumpMove (){}
 
-  public VoyageToMarketMove(int shipId, String stonesite, int[] dumpOrder){
+  public VoyageToStoneSiteManualDumpMove(int shipId, String stonesite, int[] dumpOrder){
     this.shipId = shipId;
     this.stonesite =stonesite;
     this.dumpOrder=dumpOrder;
@@ -28,7 +25,6 @@ public class VoyageToMarketMove implements Move{
 
   @Override
   public String getType() {
-    return "voyageToStoneSite";
+    return "voyageToStoneSiteManualDump";
   }
-
 }

@@ -2,9 +2,6 @@ package CLTrequests;
 
 import java.util.Date;
 
-/**
- * Created by Slothan on 16.11.2017.
- */
 public class setReadyRequest implements Request {
 
     private String request = "setReady";
@@ -16,7 +13,4 @@ public class setReadyRequest implements Request {
         return this.request;
     }
 
-    public Date getDate() {
-        return this.date;
-    }
 }

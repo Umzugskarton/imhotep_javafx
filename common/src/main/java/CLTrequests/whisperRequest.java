@@ -35,7 +35,4 @@ public class whisperRequest implements Request {
     return this.msg;
   }
 
-  public Date getDate() {
-    return this.date;
-  }
 }

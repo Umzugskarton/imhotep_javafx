@@ -1,7 +1,6 @@
 package GameMoves;
 
 
-import java.util.Date;
 
 public class FillUpStorageMove implements Move {
   private String move = "FillUpStorage";
@@ -15,8 +14,4 @@ public class FillUpStorageMove implements Move {
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }
