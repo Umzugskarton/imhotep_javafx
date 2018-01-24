@@ -51,7 +51,10 @@ public class VoyageToStoneSite implements Procedure {
             siteStones.add(stone.getPlayer().getId());
           }
         }
-        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum(), siteStones);
+        if(move.getStonesite().equals("Pyramids")) {
+          game.updatePyramids();
+        }
+        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), siteStones);
       }
       else {
         return new SiteAlreadyDockedError(move.getStonesite());

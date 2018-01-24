@@ -22,12 +22,18 @@ public class BurialChamber extends Site
     for (int i = 0; i < burialChamber.size(); i++) {
       int playerId = burialChamber.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
-      if (size == 1) {
-        points[playerId] += 1;
-      } else if (size == 2) {
-        points[playerId] += 3;
-      } else if (size == 3) {
-        points[playerId] += 6;
+      if (size==1) {
+        points[playerId]+=1;
+      } else if (size==2) {
+        points[playerId]+=3;
+      } else if (size==3) {
+        points[playerId]+=6;
+      } else if (size==4) {
+        points[playerId]+=10;
+      } else if (size==5) {
+        points[playerId] += 15;
+      } else if (size>5) {
+        points[playerId] += 15 + (size - 5) * 2; //2Punkte für jeden weiteren Stein nach dem 5.
       }
     }
     return points;

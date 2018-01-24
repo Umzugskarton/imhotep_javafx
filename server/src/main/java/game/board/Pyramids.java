@@ -9,6 +9,7 @@ public class Pyramids extends Site
   private ArrayList<Stone> pyramid = new ArrayList<>();
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
   private int standardValue = 1;
+  private int currentTurnStones = 0;
 
   public int[] getPositionValues() {
     return positionValues;
@@ -46,10 +47,30 @@ public class Pyramids extends Site
     return points;
   }
 
+  /**
+   * Gibt die Punkte zurück, die im Verlauf der aktuellen Runde gemacht wurden.
+   * Bereitet die Pyramide auf die nächste Runde vor.
+   *
+   * @return Punkte für die aktuelle Runde
+   */
+  public int[] getPointsAndFinishTurn() {
+    int[] points = new int[playerCount];
+    for (int i = pyramid.size() - currentTurnStones; i < pyramid.size(); i++) {
+      if (i < positionValues.length) {
+        points[pyramid.get(i).getPlayer().getId()] += positionValues[i++];
+      } else {
+        points[pyramid.get(i).getPlayer().getId()] += standardValue;
+      }
+    }
+    currentTurnStones = 0;
+    return points;
+  }
+
   @Override
   public void addStones(Stone[] stones) {
-    for (Stone stone : stones){
-      if (stone !=null){
+    for (Stone stone : stones) {
+      if (stone != null) {
+        currentTurnStones++;
         pyramid.add(stone);
       }
     }
@@ -64,8 +85,9 @@ public class Pyramids extends Site
     addStones(ship.getStones());
     return true;
   }
+
   @Override
-  public boolean isDocked(){
+  public boolean isDocked() {
     return this.getDockedShip() != null;
   }
 
