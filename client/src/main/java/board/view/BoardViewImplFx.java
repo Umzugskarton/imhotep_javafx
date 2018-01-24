@@ -201,7 +201,7 @@ public class BoardViewImplFx {
 
   @FXML
   void sendLoadUpShipMove(){
-    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox.getValue() != null){
       boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
     }
   }

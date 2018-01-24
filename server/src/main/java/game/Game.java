@@ -28,6 +28,7 @@ public class Game implements Runnable {
     private Ship[] ships;
     private ArrayList<Integer> storages;
     private Player[] order;
+    private int numberOfShips;
     private int currentPlayer;
     private int round;
 
@@ -51,7 +52,8 @@ public class Game implements Runnable {
         this.executedMoves = new ArrayList<>();
         lobby.show(false);
 
-        this.ships = new Ship[lobby.getSize()];
+        this.numberOfShips = 4;
+        this.ships = new Ship[numberOfShips];
         this.order = new Player[lobby.getSize()];
         this.storages = new ArrayList<>();
         setGame();
@@ -79,10 +81,12 @@ public class Game implements Runnable {
 
     private void setGame() {
         int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
-        for (int i = 0; i <= lobby.getSize() - 1; i++) {
+        for (int i = 0; i < numberOfShips; i++){
             this.ships[i] = new Ship( i , ThreadLocalRandom.current().nextInt(1, 4));
+        }
+        for (int i = 0; i <= lobby.getSize() - 1; i++) {
             this.order[i] = new Player(lobby.getUsers()[seq], i);
-            this.storages.add(i, i+1);
+            this.storages.add(i, i+2);
             seq = (seq + 1) % lobby.getSize();
         }
     }

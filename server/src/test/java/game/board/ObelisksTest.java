@@ -1,11 +1,10 @@
 package game.board;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import game.Player;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -32,12 +31,15 @@ public class ObelisksTest {
     when(p2.getId()).thenReturn(1);
     when(p3.getId()).thenReturn(2);
     when(p4.getId()).thenReturn(3);
-    stones[0] =new Stone(p3);
+    stones[0] = new Stone(p3);
     stones[1] = new Stone(p4);
-    stones[2] =new Stone(p2);
+    stones[2] = new Stone(p2);
     test.addStones(stones);
     int[] points = test.getPoints();
-    assert points.length == 4;
-    System.out.println(Arrays.toString(points));
+    assertEquals(4, points.length);
+    assertEquals(0, points[0]);
+    assertEquals(10, points[1]);
+    assertEquals(10, points[2]);
+    assertEquals(10, points[3]);
   }
 }

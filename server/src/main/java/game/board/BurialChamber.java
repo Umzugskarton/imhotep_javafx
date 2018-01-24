@@ -22,12 +22,12 @@ public class BurialChamber extends Site
     for (int i = 0; i < burialChamber.size(); i++) {
       int playerId = burialChamber.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
-      if (size==1) {
-        points[playerId]+=1;
-      } else if (size==2) {
-        points[playerId]+=3;
-      } else if (size==3) {
-        points[playerId]+=6;
+      if (size == 1) {
+        points[playerId] += 1;
+      } else if (size == 2) {
+        points[playerId] += 3;
+      } else if (size == 3) {
+        points[playerId] += 6;
       }
     }
     return points;
@@ -74,6 +74,7 @@ public class BurialChamber extends Site
     if (this.getDockedShip() != null) {
       return false;
     }
+    setDockedShip(ship);
     addStones(ship.getStones());
     return true;
   }
