@@ -18,6 +18,10 @@ public class CLTLobby {
   private ArrayList<String> colors;
   private boolean[] ready;
 
+  public CLTLobby() {
+
+  }
+
   public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size,
                   boolean ishost, String host, boolean[] ready, ArrayList<String> colors) {
     this.lobbyID = lobbyID;
@@ -30,6 +34,7 @@ public class CLTLobby {
     this.host = host;
     this.ready = ready;
     this.colors = colors;
+    setBelegung();
   }
 
   public void setHost(String host) {
@@ -51,12 +56,13 @@ public class CLTLobby {
     return users;
   }
 
-  public LobbyUser getUserbyName(String name) {
-    int i =0;
-    LobbyUser e= null;
-    while(users.get(i).getUsername()!=name && i<users.size())
-      e=users.get(i);
-    return e;
+  public LobbyUser getUserByName(String name) {
+    for(int i = 0; i < users.size(); i++) {
+      if(users.get(i).getUsername().equals(name)) {
+        return users.get(i);
+      }
+    }
+    return null;
   }
 
   public LobbyUser getUserbyLobbyId(int id) {
@@ -84,7 +90,7 @@ public class CLTLobby {
     return this.belegung;
   }
 
-  public void setBelegung(int usercount) {
+  public void setBelegung() {
     this.belegung = (usercount + " / " + size);
   }
 

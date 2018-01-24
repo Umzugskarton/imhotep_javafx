@@ -40,6 +40,7 @@ public class LobbyViewImpl implements LobbyView {
   private String username;
   private GridPane grid = new GridPane();
   private TextFlow chatText;
+  private Label playerCount;
 
   public LobbyViewImpl() {
     buildLobby();
@@ -54,6 +55,10 @@ public class LobbyViewImpl implements LobbyView {
     grid.setHgap(5);
     grid.setVgap(5);
     grid.setPadding(new Insets(15, 15, 15, 12));
+
+
+    playerCount = new Label();
+    grid.add(playerCount, 4, 4);
 
     HBox nav = new HBox();
     nav.setId("nav");
@@ -165,11 +170,49 @@ public class LobbyViewImpl implements LobbyView {
     nav.getChildren().addAll(min, close);
 
     TableColumn firstNameCol = new TableColumn("Username");
-    firstNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("username"));
+    firstNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
+
+    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
+        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+      @Override
+      public TableCell call(final TableColumn<LobbyUser, String> param) {
+        final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
+          @Override
+          public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+              setGraphic(null);
+              setText(null);
+            } else {
+              LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
+              Text name = new Text(lobbyUser.getUsername());
+              HBox hbox = new HBox();
+              hbox.setSpacing(5);
+              hbox.getChildren().add(name);
+
+              if (lobbyUser.getUsername().equals(lobbyPresenter.getCLTLobby().getHost())) {
+                ImageView img = new ImageView();
+                img.setFitHeight(20);
+                img.setFitWidth(15);
+                hbox.setSpacing(5);
+                img.setImage(new Image("ank.png"));
+                hbox.getChildren().add(img);
+              }
+              setGraphic(hbox);
+            }
+          }
+        };
+        return cell;
+      }
+    };
+    firstNameCol.setCellFactory(cellFactory);
+
+
+
     TableColumn lastNameCol = new TableColumn("Color");
     lastNameCol.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
 
-    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
+    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory2
             = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
       public TableCell call(final TableColumn<LobbyUser, String> param) {
@@ -187,6 +230,7 @@ public class LobbyViewImpl implements LobbyView {
               color.setHeight(15);
               color.setWidth(15);
               hbox.setSpacing(5);
+
 
               //Shit-Button-Lösung. Valve, pls fix
               // Anmerkung: Ja shit Lösung weil er im Callback für die Colorzeile ist
@@ -213,12 +257,12 @@ public class LobbyViewImpl implements LobbyView {
         return cell;
       }
     };
-    lastNameCol.setCellFactory(cellFactory);
+    lastNameCol.setCellFactory(cellFactory2);
 
     TableColumn joinCol = new TableColumn("Bereit");
     joinCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
-    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory2
+    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory3
             = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
       @Override
       public TableCell call(final TableColumn<LobbyUser, String> param) {
@@ -243,7 +287,7 @@ public class LobbyViewImpl implements LobbyView {
         return cell;
       }
     };
-    joinCol.setCellFactory(cellFactory2);
+    joinCol.setCellFactory(cellFactory3);
 
 
     Button setReady = new Button("Bereit");
@@ -259,21 +303,28 @@ public class LobbyViewImpl implements LobbyView {
   }
 
   public void initLobbyInfo() {
-
+    Button startGame = new Button("Start Game");
     if (lobbyPresenter.checkHost()) {
-      Button startGame = new Button("Start Game");
       grid.add(startGame, 5, 1);
       startGame.addEventHandler(ActionEvent.ACTION, e -> {
         if (getLobbyPresenter().checkAllReady()) {
           getLobbyPresenter().startGame();
-          System.out.print("Go!");
         } else {
           System.out.print("Es sind nicht alle bereit!");
         }
       });
+    } else {
+      startGame.setVisible(false);
     }
 
+    Button leaveGame = new Button("Sitzung verlassen");
+    grid.add(leaveGame, 5,2);
+    leaveGame.addEventHandler(ActionEvent.ACTION, e -> {
+      getLobbyPresenter().leaveLobbyRequest();
+    });
+
     table.setItems(this.lobbyPresenter.getCLTLobby().getObservableUsers());
+    playerCount.setText("Players:" +  String.valueOf(this.lobbyPresenter.getCLTLobby().getObservableUsers().size()) + " / " + this.lobbyPresenter.getCLTLobby().getSize());
   }
 
   public void updateTable() {

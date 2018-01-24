@@ -4,9 +4,7 @@ import game.Player;
 
 public class Stone {
 
-  private Player owner = null;
-
-  public Stone(){}
+  private Player owner;
 
   public Stone(Player owner) {
     this.owner = owner;

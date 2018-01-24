@@ -1,0 +1,24 @@
+.button {
+    -fx-text-fill: #fff8ef;
+    -fx-background-color: linear-gradient(to bottom, #c2ab8f 0%, #b8a084 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    -fx-border-radius: 0;
+    -fx-font-weight: bold;
+}
+
+.combo-box {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-border-radius: 0;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+}
+
+#turnTimerProgress {
+    -fx-text-box-border: #e6c59a;
+    -fx-control-inner-background: #e6c59a;
+    -fx-background-color: #e6c59a;
+    -fx-accent: #fddcb2;
+}
+
+#userInterfaceBackdrop {
+    -fx-background-image: url("stoneback.png");
+}

@@ -106,7 +106,11 @@ public class Obelisks extends Site
 
   @Override
   public void addStones(Stone[] stones) {
-    this.obelisks.addAll(Arrays.asList(stones));
+    for (Stone stone : stones){
+      if (stone !=null){
+        obelisks.add(stone);
+      }
+    }
   }
 
   @Override
@@ -116,5 +120,15 @@ public class Obelisks extends Site
     }
     addStones(ship.getStones());
     return true;
+  }
+
+  @Override
+  public boolean isDocked(){
+    return this.getDockedShip() != null;
+  }
+
+  @Override
+  public Ship getDockedShip() {
+    return super.getDockedShip();
   }
 }

@@ -1,5 +1,6 @@
 package socket;
 
+import GameMoves.Move;
 import com.google.gson.Gson;
 import CLTrequests.Request;
 import CLTrequests.RequestFactory;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
+
 import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
@@ -63,7 +66,7 @@ public class ClientListener implements Runnable {
     try {
       String receivedMsg;
       while ((receivedMsg = in.readLine()) != null) {
-        log.info("Nachricht erhalten: " + receivedMsg);
+        log.debug("Nachricht erhalten: " + receivedMsg);
 
         JSONParser parser = new JSONParser();
         try {
@@ -78,14 +81,21 @@ public class ClientListener implements Runnable {
             Invoker invoker = new Invoker(c);
             invoker.call();
           } else if (request.containsKey("move")) {
-            MoveFactory mf = new MoveFactory();
             if (this.lobby != null && !this.lobby.isVisible()) {
-              lobby.getGame().setNextmove(mf.getMove((String) request.get("move")));
+              MoveFactory mf = new MoveFactory();
+              Move move = mf.getMove((String) request.get("move"));
+              lobby.getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
             }
           }
         } catch (ParseException pe) {
           log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
         }
+      }
+    } catch (SocketException ex) {
+      if(this.user != null) {
+        log.error("User " + this.user.getUsername() + " hat die Verbindung unerwartet beendet");
+      } else {
+        log.error("Client hat die Verbindung unerwartet beendet");
       }
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
@@ -100,13 +110,13 @@ public class ClientListener implements Runnable {
       }
 
       this.server.removeClient(this);
-    }
+  }
 
   public void send(Event event) {
     if (this.out != null) {
       Gson gson = new Gson();
       String json = gson.toJson(event);
-      log.info(
+      log.debug(
           "Nachricht gesendet: " + json);
       this.out.println(json);
       this.out.flush();

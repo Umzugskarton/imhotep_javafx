@@ -29,8 +29,12 @@ public class Temple extends Site
   }
 
   @Override
-  public void addStones(Stone[] stones) {
-    temple.addAll(Arrays.asList(stones));
+  public void addStones(Stone[] stones){
+    for (Stone stone : stones){
+      if (stone !=null){
+        temple.add(stone);
+      }
+    }
   }
 
   @Override
@@ -40,5 +44,15 @@ public class Temple extends Site
     }
     addStones(ship.getStones());
     return true;
+  }
+
+  @Override
+  public boolean isDocked(){
+    return this.getDockedShip() != null;
+  }
+
+  @Override
+  public Ship getDockedShip() {
+    return super.getDockedShip();
   }
 }

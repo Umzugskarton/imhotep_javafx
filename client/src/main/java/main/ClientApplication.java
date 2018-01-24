@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import socket.ClientSocket;
 
+
 public class ClientApplication extends Application {
 
   private SceneController sceneController;

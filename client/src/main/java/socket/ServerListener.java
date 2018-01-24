@@ -38,7 +38,7 @@ public class ServerListener implements Runnable {
 
       String receivedMsg;
       while ((receivedMsg = in.readLine()) != null) {
-        log.info("Nachricht erhalten: " + receivedMsg);
+        log.debug("Nachricht erhalten: " + receivedMsg);
 
         JSONParser parser = new JSONParser();
         try {

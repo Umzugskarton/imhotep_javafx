@@ -1,18 +1,53 @@
 group 'server'
 version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
 
 mainClassName = "main.ServerApplication"
+
+repositories {
+    maven {
+        url "http://uk.maven.org/maven2"
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Imhotep Server',
+                'Implementation-Version': version,
+                'Main-Class': 'main.ServerApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 dependencies {
     compile project(":common")
 
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'
+
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile 'mysql:mysql-connector-java:5.1.42'
     compile 'org.mindrot:jbcrypt:0.4'
 
-    testCompile 'junit:junit:4.11'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
     testCompile 'org.mockito:mockito-core:2.12.0'
-
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
     compile 'com.google.code.gson:gson:2.8.2'
+    testCompile 'junit:junit:4.11'
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
 }

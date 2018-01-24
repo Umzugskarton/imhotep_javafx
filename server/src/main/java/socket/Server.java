@@ -65,29 +65,21 @@ public class Server {
   }
 
   public void addClient(Socket clientSocket) {
-    log.info("Ein neuer Client hat sich verbunden");
-
     ClientListener clientListener = new ClientListener(this, clientSocket, this.clientAPI);
     Thread thread = new Thread(clientListener);
     thread.start();
 
-    log.info("Thread " + thread.getId() + " gestartet");
+    log.info("[Thread " + thread.getId() + "] Ein neuer Client hat sich verbunden");
 
     this.connectedClients.add(clientListener);
-
-    log.info(
-            "Thread " + thread.getId() + " zur Liste der verbundenen Clients hinzugefügt");
   }
 
   public void removeClient(ClientListener clientListener) {
-    log.info("Thread " + clientListener.getThread().getId()
-            + ": Client hat die Verbindung beendet");
+    log.info("[Thread " + clientListener.getThread().getId()
+            + "] Client hat die Verbindung beendet");
 
     if (this.connectedClients.contains(clientListener)) {
       this.connectedClients.remove(clientListener);
-
-      log.info("Thread " + clientListener.getThread().getId()
-              + " von der Liste der verbundenen Clients entfernt");
     }
   }
 

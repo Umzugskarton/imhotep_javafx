@@ -22,8 +22,4 @@ public class lobbyInfoEvent implements Event {
         return lobby;
     }
 
-    @Override
-    public Date getDate() {
-        return null;
-    }
 }

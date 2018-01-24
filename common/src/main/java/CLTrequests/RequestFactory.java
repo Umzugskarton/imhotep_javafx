@@ -25,6 +25,7 @@ public class RequestFactory {
     Dict.put("changeColor", new changeColorRequest());
     Dict.put("setReady", new setReadyRequest());
     Dict.put("startGame", new startGameRequest());
+    Dict.put("leaveLobby", new leaveLobbyRequest());
   }
 
   public Request getRequest(String j) {
