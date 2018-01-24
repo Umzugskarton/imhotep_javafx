@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class logoutRequest implements Request {
+public class logoutRequest implements IRequest {
 
   private String request = "logout";
   private Date date;

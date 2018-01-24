@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.setReadyRequest;
 import SRVevents.setReadyEvent;
 import lobby.Lobby;
@@ -20,10 +20,10 @@ public class SetReadyCommand implements Command {
 
     }
 
-    public void put(Request r) { this.request = (setReadyRequest) r;}
+    public void put(IRequest r) { this.request = (setReadyRequest) r;}
 
     public void exec() {
-        Lobby lobby = clientListener.getLobby();
+        Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
         setReadyEvent setReadyEvent = lobby.setReady(clientListener.getUser());
         User[] users = lobby.getUsers();
         for (User tempUser : users) {

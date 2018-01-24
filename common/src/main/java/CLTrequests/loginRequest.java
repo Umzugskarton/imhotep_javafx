@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class loginRequest implements Request {
+public class loginRequest implements IRequest {
 
   private String request = "login";
   private String username;

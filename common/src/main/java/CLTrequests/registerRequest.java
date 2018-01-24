@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class registerRequest implements Request {
+public class registerRequest implements IRequest {
 
   private String request = "register";
   private Date date;

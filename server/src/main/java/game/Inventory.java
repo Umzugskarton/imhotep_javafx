@@ -6,15 +6,12 @@ import game.board.Cards.StatueCard;
 import game.board.Cards.ToolCard;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-/**
- * Created on 16.01.2018.
- */
 public class Inventory {
-  ArrayList<OrnamentCard> ornamentCards = new ArrayList<>();
-  ArrayList<ToolCard> toolCards = new ArrayList<>();
-  ArrayList<StatueCard> statueCards = new ArrayList<>();
+
+  private ArrayList<OrnamentCard> ornamentCards = new ArrayList<>();
+  private ArrayList<ToolCard> toolCards = new ArrayList<>();
+  private ArrayList<StatueCard> statueCards = new ArrayList<>();
 
 
   public Inventory() {
@@ -37,33 +34,35 @@ public class Inventory {
 
     if (card instanceof ToolCard) {
       for (ToolCard tool : toolCards) {
-        if (tool.getName().equals(card.getName()))
+        if (tool.getName().equals(card.getName())) {
           return true;
+        }
       }
       return false;
     } else {
       ArrayList temp = new ArrayList();
-
-      if (card instanceof OrnamentCard)
+      if (card instanceof OrnamentCard) {
         temp = ornamentCards;
-      else if (card instanceof StatueCard)
+      } else if (card instanceof StatueCard) {
         temp = statueCards;
-
+      }
       for (Object object : temp) {
         Card cardInstance = (Card) object;
-        if (cardInstance == card)
+        if (cardInstance == card) {
           return true;
+        }
       }
       return false;
     }
   }
 
   public void addCard(Card card) {
-    if (card instanceof OrnamentCard)
+    if (card instanceof OrnamentCard) {
       ornamentCards.add((OrnamentCard) card);
-    else if (card instanceof ToolCard)
+    } else if (card instanceof ToolCard) {
       toolCards.add((ToolCard) card);
-    else if (card instanceof StatueCard)
+    } else if (card instanceof StatueCard) {
       statueCards.add((StatueCard) card);
+    }
   }
 }

@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.registerRequest;
 import SRVevents.registerEvent;
 import socket.ClientAPI;
@@ -18,7 +18,7 @@ public class RegisterCommand implements Command {
     this.clientAPI = clientListener.getClientAPI();
   }
 
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (registerRequest) r;
   }
 

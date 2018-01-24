@@ -1,7 +1,7 @@
 package GameMoves;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 
-public interface Move extends Request {
-    
+public interface Move extends IRequest {
+    int getLobbyId();
 }

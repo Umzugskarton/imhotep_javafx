@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class whisperRequest implements Request {
+public class whisperRequest implements IRequest {
 
   String request = "whisper";
   private Date date;

@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.logoutRequest;
 import socket.ClientListener;
 
@@ -13,13 +13,13 @@ public class LogoutCommand implements Command {
     this.clientListener = clientListener;
   }
 
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (logoutRequest) r;
   }
 
   public void exec() {
-    if (clientListener.getLobby()!=null){
-      clientListener.getLobby().leave(clientListener.getUser());
+    if (clientListener.getLobbies()!=null){
+      clientListener.getLobbies().leave(clientListener.getUser());
     }
     this.clientListener.setUser(null);
     this.clientListener.getServer().sendToAll(this.clientListener.getServer().getLoggedUsers());

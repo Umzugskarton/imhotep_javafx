@@ -1,8 +1,7 @@
 package CLTrequests;
 
-import java.util.Date;
 
-public class chatRequest implements Request {
+public class chatRequest implements IRequest {
 
   private String request = "chat";
   private Integer lobbyId;
@@ -31,5 +30,4 @@ public class chatRequest implements Request {
   public String getType() {
     return this.request;
   }
-
 }

@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class userlistRequest implements Request {
+public class userlistRequest implements IRequest {
 
   private String request = "userlist";
   private Date date;

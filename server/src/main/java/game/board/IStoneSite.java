@@ -13,9 +13,13 @@ public interface IStoneSite {
   int[] getPoints();
 
   /**
-   * @param stones the stones to add to the IStoneSite
+   * @param stones the stones to add to the StoneSite
    */
   void addStones(Stone[] stones);
 
+  /**
+   * Gibt eine ArrayList aller vorhandenen Steine auf der StoneSite zurück.
+   * @return all stones on the site
+   */
   ArrayList<Stone> getStones();
 }

@@ -2,11 +2,13 @@ package CLTrequests;
 
 
 
-public class changeColorRequest implements Request {
+public class changeColorRequest extends Request {
 
   private String request = "changeColor";
 
-  public changeColorRequest() {
+  public changeColorRequest(){}
+  public changeColorRequest(int lobbyId) {
+    super(lobbyId);
   }
 
   public String getType() {

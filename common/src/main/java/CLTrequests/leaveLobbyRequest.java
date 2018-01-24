@@ -5,17 +5,15 @@ import java.util.Date;
 /**
  * Created by Slothan on 18.12.2017.
  */
-public class leaveLobbyRequest implements Request {
+public class leaveLobbyRequest extends Request {
 
     private String request = "leaveLobby";
-    private int id;
+    private Date date;
 
-    public leaveLobbyRequest() {
+    public leaveLobbyRequest(){}
 
-    }
-
-    public leaveLobbyRequest(int id) {
-        this.id = id;
+    public leaveLobbyRequest(int lobbyId) {
+       super(lobbyId);
 
     }
 
@@ -23,8 +21,8 @@ public class leaveLobbyRequest implements Request {
         return this.request;
     }
 
-
-    public Integer getId() {
-        return this.id;
+    public Date getDate() {
+        return this.date;
     }
+
 }

@@ -1,7 +1,7 @@
 package CLTrequests;
 
 
-public class lobbylistRequest implements Request {
+public class lobbylistRequest implements IRequest {
 
   private String request = "lobbylist";
 

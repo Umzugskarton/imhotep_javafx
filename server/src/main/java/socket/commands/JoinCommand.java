@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.joinRequest;
 import commonLobby.CLTLobby;
 import lobby.Lobby;
@@ -23,24 +23,24 @@ public class JoinCommand implements Command {
   }
 
   @Override
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (joinRequest) r;
   }
 
   @Override
   public void exec() {
-    if (clientListener.getLobby() == null) {
+    if (clientListener.getLobbies() == null) {
       User user = this.clientListener.getUser();
-      Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getId());
+      Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
       joinEvent response;
-      clientListener.setLobby(lobby);
+      clientListener.addLobby(lobby);
       if (lobby.hasPW()) {
         response = lobby.joinPW(user, request.getPassword());
       } else {
         response = lobby.join(user);
       }
       if (response.getSuccess()) {
-        this.clientListener.setLobby(lobby);
+        this.clientListener.addLobby(lobby);
         this.clientListener.getServer()
                 .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
         CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),

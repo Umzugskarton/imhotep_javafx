@@ -1,15 +1,12 @@
 package CLTrequests;
 
-import CLTrequests.*;
-import org.json.simple.JSONObject;
-
 import java.util.HashMap;
 
 /**
  * Created on 10.10.2017.
  */
 public class RequestFactory {
-  private HashMap<String, Request> Dict = new HashMap<>();
+  private HashMap<String, IRequest> Dict = new HashMap<>();
 
   public RequestFactory() {
     Dict.put("register", new registerRequest());
@@ -28,7 +25,7 @@ public class RequestFactory {
     Dict.put("leaveLobby", new leaveLobbyRequest());
   }
 
-  public Request getRequest(String j) {
+  public IRequest getRequest(String j) {
     return Dict.get(j);
   }
 }
