@@ -2,7 +2,7 @@ package chat.presenter;
 
 import static general.TextBundle.getString;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.chatRequest;
 import CLTrequests.whisperRequest;
 import chat.view.ChatView;
@@ -26,7 +26,7 @@ public class ChatPresenter {
   }
 
   public void sendChatMsg(String text) {
-    Request chatCommand = null;
+    IRequest chatCommand = null;
 
     if (text.startsWith("/w") || text.startsWith("@")) {
       Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");

@@ -2,7 +2,7 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class changeCredentialRequest implements Request {
+public class changeCredentialRequest implements IRequest {
 
   private String request = "changeCredential";
   private Date date;

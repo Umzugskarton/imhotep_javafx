@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
 import main.SceneController;
@@ -62,7 +62,7 @@ public class ClientSocket {
     }
   }
 
-  public void send(Request json) {
+  public void send(IRequest json) {
     String jsonString = gson.toJson(json);
 
     this.out.println(jsonString);

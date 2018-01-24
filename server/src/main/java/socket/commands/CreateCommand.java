@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.createRequest;
 import SRVevents.createEvent;
 import SRVevents.lobbyInfoEvent;
@@ -23,14 +23,14 @@ public class CreateCommand implements Command {
     }
 
     @Override
-    public void put(Request r) {
+    public void put(IRequest r) {
         this.request =(createRequest) r;
     }
 
   @Override
   public void exec() {
     Lobby lobby = this.clientAPI.createLobby(request, this.clientListener.getUser());
-    clientListener.setLobby(lobby);
+    clientListener.addLobby(lobby);
     createEvent response = this.clientListener.getServer().addLobby(lobby);
     this.clientListener.send(response);
     if (response.getSuccess()) {

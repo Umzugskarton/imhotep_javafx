@@ -1,12 +1,16 @@
 package CLTrequests;
 
-import java.util.Date;
+/**
+ * Created by Nils on 24.01.18.
+ */
+public abstract class Request implements IRequest{
+    protected int lobbyId;
 
-public interface Request {
+    public Request(int lobbyId){
+        this.lobbyId = lobbyId;
+    }
 
-  String command = null;
-
-  Date getDate();
-
-  String getType();
+    public int getLobbyId(){
+        return lobbyId;
+    }
 }

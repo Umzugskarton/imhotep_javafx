@@ -2,13 +2,13 @@ package CLTrequests;
 
 import java.util.Date;
 
-public class startGameRequest implements Request {
+public class startGameRequest extends Request {
   private String request = "startGame";
   private Date date;
 
 
-  public startGameRequest() {
-    this.date = new Date();
+  public startGameRequest(int lobbyId) {
+    super(lobbyId);
   }
 
 

@@ -2,7 +2,7 @@ package socket;
 
 import GameMoves.Move;
 import com.google.gson.Gson;
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.RequestFactory;
 import socket.commands.Command;
 import java.io.BufferedReader;
@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
-import socket.commands.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
@@ -29,7 +29,7 @@ import user.User;
  * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.
  *  Wartet auf ankommende Nachrichten, und verarbeitet diese dann, mithilfe von Gson
  *  und einer Factory, die Nachrichten werden zu Requests oder Moves zurückgeschlüsselt.
- *  Dafür wird dann bei einer Request der zugehörige Command auch mit einer Factory initiert
+ *  Dafür wird dann bei einer IRequest der zugehörige Command auch mit einer Factory initiert
  *  und durch das Invoker Objekt (Command Pattern) ausgeführt.
  *  ist die eingehende Nachricht ein Move, wird dieser an das GameObjekt in der
  *  zugehörigen Lobby übergeben.
@@ -45,7 +45,7 @@ public class ClientListener implements Runnable {
   private PrintWriter out = null;
   private BufferedReader in = null;
   private User user = null;
-  private Lobby lobby = null;
+  private ArrayList<Lobby> lobbies = new ArrayList<>();
   private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
@@ -75,16 +75,17 @@ public class ClientListener implements Runnable {
           if (request.containsKey("request")) {
             RequestFactory ev = new RequestFactory();
             String command = (String) request.get("request");
-            Request re = ev.getRequest(command);
+            IRequest re = ev.getRequest(command);
             CommandFactory commandFactory = new CommandFactory(this);
             Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
           } else if (request.containsKey("move")) {
-            if (this.lobby != null && !this.lobby.isVisible()) {
               MoveFactory mf = new MoveFactory();
               Move move = mf.getMove((String) request.get("move"));
-              lobby.getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
+              Lobby lobby = getLobbyByID(move.getLobbyId());
+            if (lobby != null && !lobby.isVisible()) {
+              lobby.getGame().getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
             }
           }
         } catch (ParseException pe) {
@@ -101,8 +102,10 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
-        if (lobby != null) {
-          lobby.leave(user);
+        if (lobbies != null) {
+          for (Lobby lobby : lobbies) {
+            lobby.leave(user);
+          }
         }
       }
         this.user = null;
@@ -123,8 +126,17 @@ public class ClientListener implements Runnable {
     }
   }
 
-  public void setLobby(Lobby lobby){
-    this.lobby= lobby;
+  public void addLobby(Lobby lobby){
+    this.lobbies.add(lobby);
+  }
+
+  public Lobby getLobbyByID(int lobbyId){
+    for (Lobby lobby : lobbies){
+      if (lobby.getLobbyID() == lobbyId){
+        return lobby;
+      }
+    }
+    return null;
   }
 
   public boolean isLoggedIn() {
@@ -135,8 +147,8 @@ public class ClientListener implements Runnable {
     return this.user;
   }
 
-  public Lobby getLobby() {
-    return lobby;
+  public ArrayList<Lobby> getLobbies() {
+    return lobbies;
   }
 
   public void setUser(User user){

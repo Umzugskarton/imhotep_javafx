@@ -3,21 +3,16 @@ package CLTrequests;
 import java.util.Date;
 
 
-public class changeColorRequest implements Request {
+public class changeColorRequest extends Request {
 
   private String request = "changeColor";
-  private Date date;
 
-  public changeColorRequest() {
+  public changeColorRequest(int lobbyId) {
+    super(lobbyId);
   }
 
 
   public String getType() {
     return this.request;
   }
-
-  public Date getDate() {
-    return this.date;
-  }
-
 }
