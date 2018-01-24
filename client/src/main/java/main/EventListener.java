@@ -6,6 +6,7 @@ import GameEvents.GameInfoEvent;
 import GameEvents.ShipDockedEvent;
 import GameEvents.ShipLoadedEvent;
 import GameEvents.TurnEvent;
+import GameEvents.UpdatePointsEvent;
 import SRVevents.changeColorEvent;
 import SRVevents.changeCredentialEvent;
 import SRVevents.chatEvent;

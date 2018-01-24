@@ -5,6 +5,7 @@ import GameEvents.GameInfoEvent;
 import GameEvents.ShipDockedEvent;
 import GameEvents.ShipLoadedEvent;
 import GameEvents.TurnEvent;
+import GameEvents.UpdatePointsEvent;
 import GameMoves.FillUpStorageMove;
 import GameMoves.LoadUpShipMove;
 import GameMoves.VoyageToStoneSiteMove;
