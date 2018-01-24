@@ -255,14 +255,25 @@ public class EventListener {
     );
   }
 
-  @Subscribe
-  public void shipDockedListener(ShipDockedEvent e) {
-    Platform.runLater(
-        () -> {
-          if (sceneController.getBoardPresenter() != null) {
-            sceneController.getBoardPresenter().shipDocked(e);
-          }
-        }
-    );
-  }
+    @Subscribe
+    public void shipDockedListener(ShipDockedEvent e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().shipDocked(e);
+                    }
+                }
+        );
+    }
+
+    @Subscribe
+    public void updatePointsListener(UpdatePointsEvent e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().updatePoints(e);
+                    }
+                }
+        );
+    }
 }

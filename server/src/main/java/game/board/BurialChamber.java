@@ -1,7 +1,6 @@
 package game.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BurialChamber extends Site
     implements StoneSite {
@@ -12,9 +11,6 @@ public class BurialChamber extends Site
     super(playerCount);
   }
 
-  // TODO
-  //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
-  //Summieren der Punkte verbesserungsbedürftig; wichtiger: Funktioniert das Prinzip?
   @Override
   public int[] getPoints() {
     boolean[] checked = new boolean[burialChamber.size()];
@@ -22,12 +18,18 @@ public class BurialChamber extends Site
     for (int i = 0; i < burialChamber.size(); i++) {
       int playerId = burialChamber.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
-      if (size==1) {
-        points[playerId]+=1;
-      } else if (size==2) {
-        points[playerId]+=3;
-      } else if (size==3) {
-        points[playerId]+=6;
+      if (size == 1) {
+        points[playerId] += 1;
+      } else if (size == 2) {
+        points[playerId] += 3;
+      } else if (size == 3) {
+        points[playerId] += 6;
+      } else if (size == 4) {
+        points[playerId] += 10;
+      } else if (size == 5) {
+        points[playerId] += 15;
+      } else if (size > 5) {
+        points[playerId] += 15 + (size - 5) * 2;
       }
     }
     return points;
@@ -62,9 +64,9 @@ public class BurialChamber extends Site
   }
 
   @Override
-  public void addStones(Stone[] stones){
-    for (Stone stone : stones){
-      if (stone !=null){
+  public void addStones(Stone[] stones) {
+    for (Stone stone : stones) {
+      if (stone != null) {
         burialChamber.add(stone);
       }
     }
@@ -74,11 +76,13 @@ public class BurialChamber extends Site
     if (this.getDockedShip() != null) {
       return false;
     }
+    setDockedShip(ship);
     addStones(ship.getStones());
     return true;
   }
+
   @Override
-  public boolean isDocked(){
+  public boolean isDocked() {
     return this.getDockedShip() != null;
   }
 

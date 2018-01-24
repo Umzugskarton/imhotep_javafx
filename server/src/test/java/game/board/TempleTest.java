@@ -1,5 +1,6 @@
 package game.board;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,18 +23,19 @@ class TempleTest {
     when(p3.getId()).thenReturn(2);
     when(p4.getId()).thenReturn(3);
 
-    stones.add(new Stone(p3));
-    stones.add(new Stone(p3));
-    stones.add(new Stone(p3));
-    stones.add(new Stone(p4));
-    stones.add(new Stone(p2));
-    stones.add(new Stone(p3));
-    //test.addStones(stones);
+    Stone[] st = new Stone[6];
+    st[0] = new Stone(p3);
+    st[1] = new Stone(p3);
+    st[2] = new Stone(p3);
+    st[3] = new Stone(p4);
+    st[4] = new Stone(p2);
+    st[5] = new Stone(p3);
+    test.addStones(st);
     int[] points = test.getPoints();
-    assert points.length == 4;
-    assert points[0] == 0;
-    assert points[1] == 1;
-    assert points[2] == 3;
-    assert points[3] == 1;
+    assertEquals(4, points.length);
+    assertEquals(0,points[0]);
+    assertEquals(1, points[1]);
+    assertEquals(3, points[2]);
+    assertEquals(1, points[3]);
   }
 }

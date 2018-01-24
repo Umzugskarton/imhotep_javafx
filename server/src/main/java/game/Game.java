@@ -2,6 +2,7 @@ package game;
 
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
+import GameEvents.UpdatePointsEvent;
 import GameMoves.Move;
 import GameMoves.ActionCardMove;
 import SRVevents.Event;
@@ -28,6 +29,7 @@ public class Game implements Runnable {
     private Ship[] ships;
     private ArrayList<Integer> storages;
     private Player[] order;
+    private int numberOfShips;
     private int currentPlayer;
     private int round;
 
@@ -51,7 +53,8 @@ public class Game implements Runnable {
         this.executedMoves = new ArrayList<>();
         lobby.show(false);
 
-        this.ships = new Ship[lobby.getSize()];
+        this.numberOfShips = 4;
+        this.ships = new Ship[numberOfShips];
         this.order = new Player[lobby.getSize()];
         this.storages = new ArrayList<>();
         setGame();
@@ -79,10 +82,12 @@ public class Game implements Runnable {
 
     private void setGame() {
         int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
-        for (int i = 0; i <= lobby.getSize() - 1; i++) {
+        for (int i = 0; i < numberOfShips; i++){
             this.ships[i] = new Ship( i , ThreadLocalRandom.current().nextInt(1, 4));
+        }
+        for (int i = 0; i <= lobby.getSize() - 1; i++) {
             this.order[i] = new Player(lobby.getUsers()[seq], i);
-            this.storages.add(i, i+1);
+            this.storages.add(i, i+2);
             seq = (seq + 1) % lobby.getSize();
         }
     }
@@ -100,19 +105,24 @@ public class Game implements Runnable {
         }
     }
 
-
     public int[] getPointsSum(){
         int[] points = new int[order.length];
-        for (StoneSite site :sites){
-            if (!site.equals(market)) {
-                int[] sitepoints = site.getPoints();
-                log.error(site.getClass().getName());
-                for (int i = 0; i <= points.length - 1; i++) {
-                    points[i] += sitepoints[i];
-                }
-            }
+        for(Player player : this.order){
+            points[player.getId()] = player.getPoints();
         }
         return points;
+    }
+
+    public void updatePoints(){
+        sendAll(new UpdatePointsEvent(getPointsSum()));
+    }
+
+    public void updatePyramids() {
+        int[] newPoints = pyramids.getPointsAndFinishTurn();
+        for (int player = 0; player < this.order.length; player++) {
+            this.order[player].addPoints(newPoints[player]);
+        }
+        updatePoints();
     }
 
     private void sendTo(User user, Event event) {
@@ -207,7 +217,23 @@ public class Game implements Runnable {
                     }
                 }
             resetCurrentShips();
+            //Addiert die Punkte der Spieler aus dem Tempel zu ihren Punktzahlen
+            //Ende jeder Runde
+            int[] templePoints = temple.getPoints();
+            for (int player = 0; player <= this.order.length - 1; player++) {
+              this.order[player].addPoints(templePoints[player]);
+            }
+            updatePoints();
         }
+        //Addiert die Punkte der Spieler aus der Grabkammer und den Obelisken zu ihren Punktzahlen
+        //Ende des Spiels
+        int[] burialChamberPoints = burialChamber.getPoints();
+        int[] obelisksPoints = obelisks.getPoints();
+        for (int player = 0; player < this.order.length; player++) {
+            this.order[player].addPoints(burialChamberPoints[player]);
+            this.order[player].addPoints(obelisksPoints[player]);
+        }
+        updatePoints();
     }
 
     public BurialChamber getBurialChamber() {

@@ -246,14 +246,16 @@ public class BoardPresenter {
     }
   }
 
-  public void shipDocked(ShipDockedEvent event) {
-    shipPresenters.get(event.getShipID()).setLocation(event.getSite());
-    view.getPierByName(event.getSite()).getChildren()
-        .add(view.removeShipPaneById(event.getShipID()));
-    StoneSitePresenter presenter = sitePresenters.get(event.getSite());
-    presenter.setStones(event.getNewstones());
-    updatePoints(event.getNewpoints());
-  }
+    public void shipDocked(ShipDockedEvent event){
+      shipPresenters.get(event.getShipID()).setLocation(event.getSite());
+      view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+      StoneSitePresenter presenter = sitePresenters.get(event.getSite());
+      presenter.setStones(event.getNewstones());
+    }
+
+    public void updatePoints(UpdatePointsEvent event){
+      updatePointsView(event.getPoints());
+    }
 
   public void updateShipCargoById(ShipLoadedEvent e) {
     storagePresenters.get(e.getPlayerId()).setStoneCount(e.getStorage());
@@ -361,16 +363,16 @@ public class BoardPresenter {
     this.view.getUiBannerLabel().setTextFill(textColor);
   }
 
-  public void updatePoints(int[] pointArray) {
-    int highestPoints = 0;
-    int playerWithHighestPoints = 0;
+  public void updatePointsView(int[] pointArray) {
+      int highestPoints = 0;
+      int playerWithHighestPoints = 0;
 
-    // Punktestand aktualisieren
-    for (int i = 0; i < pointArray.length; i++) {
-      int points = pointArray[i];
-      if (points > highestPoints) {
-        highestPoints = points;
-        playerWithHighestPoints = i;
+      // Punktestand aktualisieren
+      for (int i = 0; i < pointArray.length; i++) {
+          int points = pointArray[i];
+          if (points > highestPoints) {
+              highestPoints = points;
+              playerWithHighestPoints = i;
       }
 
       storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(false);
