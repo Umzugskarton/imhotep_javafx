@@ -42,8 +42,4 @@ public class VoyageToStoneSiteMove implements Move{
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

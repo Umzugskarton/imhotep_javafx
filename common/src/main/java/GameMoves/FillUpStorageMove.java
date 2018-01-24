@@ -21,8 +21,4 @@ public class FillUpStorageMove implements Move {
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

@@ -44,8 +44,4 @@ public class LoadUpShipMove implements Move{
     return move;
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

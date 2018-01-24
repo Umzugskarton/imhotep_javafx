@@ -10,6 +10,8 @@ public class leaveLobbyRequest extends Request {
     private String request = "leaveLobby";
     private Date date;
 
+    public leaveLobbyRequest(){}
+
     public leaveLobbyRequest(int lobbyId) {
        super(lobbyId);
 

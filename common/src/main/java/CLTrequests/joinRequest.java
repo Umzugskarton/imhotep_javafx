@@ -9,6 +9,8 @@ public class joinRequest extends Request {
     private String request = "join";;
     private String pw;
 
+    public joinRequest(){}
+
     public joinRequest(int lobbyId, String password) {
         super(lobbyId);
         this.pw = password;

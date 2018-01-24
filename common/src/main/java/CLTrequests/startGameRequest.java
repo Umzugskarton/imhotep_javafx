@@ -6,7 +6,7 @@ public class startGameRequest extends Request {
   private String request = "startGame";
   private Date date;
 
-
+  public startGameRequest(){}
   public startGameRequest(int lobbyId) {
     super(lobbyId);
   }

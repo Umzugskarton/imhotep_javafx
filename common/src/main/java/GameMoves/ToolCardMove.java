@@ -33,9 +33,4 @@ public class ToolCardMove implements Move{
   }
 
 
-
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

@@ -39,10 +39,7 @@ public class VoyageToMarketMove implements Move{
     return "voyageToStoneSite";
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
+
 
 
 }

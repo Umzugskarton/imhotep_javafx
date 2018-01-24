@@ -7,6 +7,7 @@ public class changeColorRequest extends Request {
 
   private String request = "changeColor";
 
+  public changeColorRequest(){}
   public changeColorRequest(int lobbyId) {
     super(lobbyId);
   }
