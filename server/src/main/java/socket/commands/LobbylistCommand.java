@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.lobbylistRequest;
 import SRVevents.lobbylistEvent;
 import socket.ClientListener;
@@ -15,7 +15,7 @@ public class LobbylistCommand implements Command {
 
   }
 
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (lobbylistRequest) r;
   }
 

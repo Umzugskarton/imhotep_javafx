@@ -1,12 +1,11 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.chatRequest;
 import SRVevents.chatEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
-import user.User;
 
 public class ChatCommand implements Command {
 
@@ -21,7 +20,7 @@ public class ChatCommand implements Command {
     this.clientAPI = clientListener.getClientAPI();
   }
 
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (chatRequest) r;
   }
 

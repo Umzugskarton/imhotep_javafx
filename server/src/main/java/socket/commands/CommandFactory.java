@@ -1,7 +1,7 @@
 package socket.commands;
 
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import socket.ClientListener;
 
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class CommandFactory {
         Dict.put("leaveLobby", new leaveLobbyCommand(clientListener));
     }
 
-    public Command getCommand(Request request){
+    public Command getCommand(IRequest request){
         Command c = Dict.get(request.getType());
         c.put(request);
         return c;

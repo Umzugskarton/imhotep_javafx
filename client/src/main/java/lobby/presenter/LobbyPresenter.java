@@ -8,7 +8,6 @@ import javafx.scene.text.Text;
 import lobby.view.LobbyView;
 import main.SceneController;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import sound.Soundtrack;
 
@@ -93,7 +92,7 @@ public class LobbyPresenter {
 
   public void startGame() {
     if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
-      Request request = new startGameRequest();
+      IRequest request = new startGameRequest();
       sc.getClientSocket().send(request);
       Soundtrack.imhotepTheme.loop();
     }

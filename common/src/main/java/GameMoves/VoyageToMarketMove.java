@@ -8,14 +8,19 @@ import java.util.Date;
 public class VoyageToMarketMove implements Move{
   private int shipId;
   private String stonesite;
+  private int lobbyId;
 
   public VoyageToMarketMove(){}
 
-  public VoyageToMarketMove(int shipId, String stonesite){
+  public VoyageToMarketMove(int shipId, String stonesite, int lobbyId){
     this.shipId = shipId;
     this.stonesite =stonesite;
+    this.lobbyId = lobbyId;
   }
 
+  public int getLobbyId() {
+    return lobbyId;
+  }
 
   public int getShipId() {
     return shipId;
@@ -34,8 +39,7 @@ public class VoyageToMarketMove implements Move{
     return "voyageToStoneSite";
   }
 
-  @Override
-  public Date getDate() {
-    return null;
-  }
+
+
+
 }

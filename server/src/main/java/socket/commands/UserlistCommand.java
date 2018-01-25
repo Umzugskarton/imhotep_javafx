@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.userlistRequest;
 import SRVevents.userListEvent;
 import socket.ClientListener;
@@ -16,7 +16,7 @@ public class UserlistCommand implements Command {
 
   }
 
-  public void put(Request r) {
+  public void put(IRequest r) {
     this.request = (userlistRequest) r;
   }
 

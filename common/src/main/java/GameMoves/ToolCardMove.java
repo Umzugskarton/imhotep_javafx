@@ -5,14 +5,18 @@ import java.util.Date;
 public class ToolCardMove implements Move{
   private String move = "LeadToolCard";
   private String name;
+  private int lobbyId;
 
   public ToolCardMove() {
-
   }
 
-  public ToolCardMove(String name) {
+  public ToolCardMove(String name, int lobbyId) {
     this.name = name;
+    this.lobbyId = lobbyId;
+  }
 
+  public int getLobbyId() {
+    return lobbyId;
   }
 
   public void setName(String name) {
@@ -29,9 +33,4 @@ public class ToolCardMove implements Move{
   }
 
 
-
-  @Override
-  public Date getDate() {
-    return null;
-  }
 }

@@ -1,10 +1,10 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 
 public interface Command {
 
   void exec();
 
-  void put(Request r);
+  void put(IRequest r);
 }

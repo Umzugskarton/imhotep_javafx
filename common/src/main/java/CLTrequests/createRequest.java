@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created on 13.10.2017.
  */
-public class createRequest implements Request {
+public class createRequest implements IRequest {
     private String request = "create";
     private Date date;
     private String name;

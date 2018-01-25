@@ -1,7 +1,7 @@
 package socket.commands;
 
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 
 import CLTrequests.startGameRequest;
 import socket.ClientListener;
@@ -14,11 +14,11 @@ public class StartGameCommand implements Command{
     this.clientListener=clientListener;
   }
 
-  public void put(Request r){
+  public void put(IRequest r){
     request =(startGameRequest) r;
   }
 
   public void exec(){
-    clientListener.getLobby().startGame(clientListener);
+    clientListener.getLobbyByID(request.getLobbyId()).startGame(clientListener);
   }
 }

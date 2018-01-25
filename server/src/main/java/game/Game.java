@@ -226,7 +226,7 @@ public class Game implements Runnable {
               tryed++;
             }
           } else {
-            log.error("Kein Spielzug gesetzt!");
+            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt!");
           }
           nextMove = null;
 
@@ -277,6 +277,8 @@ public class Game implements Runnable {
   }
 
   private void executeProcedure(Procedure procedure){
+    log.info("[Game:" + gameID + "] führe Spielzug " + procedure.getClass().getName() + " aus für " + currentPlayer + " (Spieler: " + this.order[currentPlayer].getUser().getUsername() + ")");
+
     //Informiert alle User über den/die ausgeführten Move/s
       sendAll(procedure.exec());
   }
@@ -297,7 +299,7 @@ public class Game implements Runnable {
   }
 
   private void waitForMove(int p) {
-    log.info("[Lobby " + this.lobby.getLobbyID() + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
+    log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
     executor.waitForMove();
     nextMove = executor.getMove();
   }
