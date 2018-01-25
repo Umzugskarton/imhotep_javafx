@@ -1,5 +1,6 @@
 package game;
 
+import game.board.SupplySled;
 import user.User;
 
 /**
@@ -11,6 +12,7 @@ public class Player {
   private int points = 0;
   private User user;
   private Inventory inventory;
+  private SupplySled supplySled = new SupplySled();
 
   /**
    * Erstellt einen neuen Spieler.
@@ -41,5 +43,9 @@ public class Player {
 
   public Inventory getInventory() {
     return inventory;
+  }
+
+  public SupplySled getSupplySled() {
+    return supplySled;
   }
 }

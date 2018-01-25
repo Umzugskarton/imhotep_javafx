@@ -1,7 +1,6 @@
 package GameMoves;
 
 
-import java.util.Date;
 
 public class VoyageToStoneSiteMove implements Move{
   private String move = "VoyageToStoneSite";

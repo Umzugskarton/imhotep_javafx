@@ -5,7 +5,6 @@ import java.util.Date;
 public class loginRequest implements IRequest {
 
   private String request = "login";
-  private Date date;
   private String username;
   private String pw;
 
@@ -15,7 +14,6 @@ public class loginRequest implements IRequest {
   public loginRequest(String username, String password) {
     this.username = username;
     this.pw = password;
-    this.date = new Date();
   }
 
   public String getType() {
@@ -30,7 +28,5 @@ public class loginRequest implements IRequest {
     return this.pw;
   }
 
-  public Date getDate() {
-    return this.date;
-  }
+
 }

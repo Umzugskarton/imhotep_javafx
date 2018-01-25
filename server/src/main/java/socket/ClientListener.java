@@ -1,24 +1,16 @@
 package socket;
 
 import GameMoves.Move;
-import com.google.gson.Gson;
 import CLTrequests.IRequest;
-import CLTrequests.RequestFactory;
 import socket.commands.Command;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.commands.Invoker;
@@ -42,11 +34,10 @@ public class ClientListener implements Runnable {
   private Server server = null;
   private Socket clientSocket = null;
   private ClientAPI clientAPI = null;
-  private PrintWriter out = null;
-  private BufferedReader in = null;
+  private ObjectOutputStream out = null;
+  private ObjectInputStream in = null;
   private User user = null;
   private ArrayList<Lobby> lobbies = new ArrayList<>();
-  private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -54,44 +45,41 @@ public class ClientListener implements Runnable {
     this.clientAPI = clientAPI;
 
     try {
-      this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
-      this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+      this.out = new ObjectOutputStream(this.clientSocket.getOutputStream());
+      this.in = new ObjectInputStream(clientSocket.getInputStream());
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     }
+
   }
 
   @Override
   public void run() {
     try {
-      String receivedMsg;
-      while ((receivedMsg = in.readLine()) != null) {
-        log.debug("Nachricht erhalten: " + receivedMsg);
-
-        JSONParser parser = new JSONParser();
-        try {
-          Object obj = parser.parse(receivedMsg);
-          JSONObject request = (JSONObject) obj;
-          if (request.containsKey("request")) {
-            RequestFactory ev = new RequestFactory();
-            String command = (String) request.get("request");
-            IRequest re = ev.getRequest(command);
+      Object o;
+      while ((o = in.readObject()) != null) {
+        log.info("Nachricht erhalten: " + o.getClass().getSimpleName());
+        if (o instanceof IRequest){
+          if (o instanceof Move){
+            Move move = (Move) o;
+            Lobby lobby = getLobbyByID(move.getLobbyId());
+            if (lobby != null && !lobby.isVisible()) {
+              lobby.getGame().getExecutor().setMove(move);
+            }
+          } else {
+            IRequest request = (IRequest) o;
             CommandFactory commandFactory = new CommandFactory(this);
-            Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
+            Command c = commandFactory.getCommand(request);
             Invoker invoker = new Invoker(c);
             invoker.call();
-          } else if (request.containsKey("move")) {
-              MoveFactory mf = new MoveFactory();
-              Move move = mf.getMove((String) request.get("move"));
-              Lobby lobby = getLobbyByID(move.getLobbyId());
-            if (lobby != null && !lobby.isVisible()) {
-              lobby.getGame().getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
-            }
           }
-        } catch (ParseException pe) {
-          log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
+        } else{
+          log.error("Nachricht konnte nicht gelesen werden");
         }
+
       }
+    } catch (ClassNotFoundException e) {
+      log.error("Klasse wurde nicht gefunden", e);
     } catch (SocketException ex) {
       if(this.user != null) {
         log.error("User " + this.user.getUsername() + " hat die Verbindung unerwartet beendet");
@@ -117,12 +105,13 @@ public class ClientListener implements Runnable {
 
   public void send(Event event) {
     if (this.out != null) {
-      Gson gson = new Gson();
-      String json = gson.toJson(event);
-      log.debug(
-          "Nachricht gesendet: " + json);
-      this.out.println(json);
-      this.out.flush();
+      log.debug("Nachricht gesendet: " + event);
+      try {
+        this.out.writeObject(event);
+        this.out.flush();
+      } catch (IOException e){
+        log.error("IO-Fehler beim senden vom Event", e);
+      }
     }
   }
 

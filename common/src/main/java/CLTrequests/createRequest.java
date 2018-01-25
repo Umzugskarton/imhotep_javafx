@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class createRequest implements IRequest {
     private String request = "create";
-    private Date date;
     private String name;
     private int size;
     private String pw;
@@ -20,7 +19,6 @@ public class createRequest implements IRequest {
         this.size = size;
         this.pw = password;
         this.name = name;
-        this.date = new Date();
     }
 
     public String getName() {
@@ -39,7 +37,4 @@ public class createRequest implements IRequest {
         return this.pw;
     }
 
-    public Date getDate() {
-        return this.date;
-    }
 }

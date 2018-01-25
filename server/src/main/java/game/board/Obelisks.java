@@ -136,4 +136,22 @@ public class Obelisks extends StoneSite {
   public Ship getDockedShip() {
     return super.getDockedShip();
   }
+
+  private class ObeliskHelper {
+    private int player;
+    private int stones;
+
+    private ObeliskHelper(int player, int stones) {
+      this.player = player;
+      this.stones = stones;
+    }
+
+    public int getPlayer() {
+      return player;
+    }
+
+    public int getStones() {
+      return stones;
+    }
+  }
 }

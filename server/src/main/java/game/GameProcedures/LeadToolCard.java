@@ -15,7 +15,7 @@ public class LeadToolCard implements Procedure{
   private ToolCardMove move;
   private int playerId;
   private Game game;
-  HashMap<String, Protocol> protocolHashMap = new HashMap<>();
+  HashMap<String, IProtocol> protocolHashMap = new HashMap<>();
 
 
   LeadToolCard(Game game, int playerId) {
@@ -33,8 +33,8 @@ public class LeadToolCard implements Procedure{
 
   public Event exec() {
     ToolCard dummy = new ToolCard(move.getName());
-    if (game.getOrder()[playerId].getInventory().ownsCard(dummy)) {
-      Protocol protocol = protocolHashMap.get(move.getName());
+    if (game.getPlayer(playerId).getInventory().ownsCard(dummy)) {
+      IProtocol protocol = protocolHashMap.get(move.getName());
       protocol.exec();
       return new ToolCardEvent(move.getName(), playerId, false);
     }

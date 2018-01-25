@@ -1,6 +1,5 @@
 package CLTrequests;
 
-import java.util.Date;
 
 
 public class changeColorRequest extends Request {
@@ -12,8 +11,8 @@ public class changeColorRequest extends Request {
     super(lobbyId);
   }
 
-
   public String getType() {
     return this.request;
   }
+
 }

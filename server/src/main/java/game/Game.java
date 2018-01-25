@@ -3,7 +3,6 @@ package game;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import GameMoves.Move;
-import GameMoves.ToolCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
@@ -18,7 +17,6 @@ import game.board.Pyramids;
 import game.board.Ship;
 import game.board.StoneSite;
 import game.board.Temple;
-import java.util.Collections;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +24,6 @@ import socket.ClientListener;
 import user.User;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
@@ -35,8 +32,7 @@ public class Game implements Runnable {
   private int gameID;
   private Lobby lobby;
   private Ship[] ships;
-  private ArrayList<Integer> storages;
-  private Player[] order;
+  private Player[] players;
   private int currentPlayer;
   private int round;
   private ArrayList<Card> cardStack = new ArrayList<>();
@@ -64,8 +60,7 @@ public class Game implements Runnable {
     lobby.show(false);
 
     this.ships = new Ship[lobby.getSize()];
-    this.order = new Player[lobby.getSize()];
-    this.storages = new ArrayList<>();
+    this.players = new Player[lobby.getSize()];
     setGame();
     executor = new MoveExecutor();
     this.market = new Market(lobby.getSize());
@@ -80,8 +75,8 @@ public class Game implements Runnable {
     sites.add(burialChamber);
     sites.add(obelisks);
 
-    setCards();
-    distributeCards();
+    createCards();
+    market.addCards(cardStack);
   }
 
   public void resetCurrentShips() {
@@ -94,20 +89,20 @@ public class Game implements Runnable {
     int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
-      this.order[i] = new Player(lobby.getUsers()[seq], i);
-      this.storages.add(i, i + 1);
+      this.players[i] = new Player(lobby.getUsers()[seq], i);
+      this.players[i].getSupplySled().addStones(i+1);
       seq = (seq + 1) % lobby.getSize();
     }
   }
 
   public void sendAll(Event event) {
-    for (Player player : this.order) {
+    for (Player player : this.players) {
       sendTo(player.getUser(), event);
     }
   }
 
   public void sendAll(GameInfoEvent event) {
-    for (Player player : this.order) {
+    for (Player player : this.players) {
       event.setMyId(player.getId());
       sendTo(player.getUser(), event);
     }
@@ -115,7 +110,7 @@ public class Game implements Runnable {
 
 
   public int[] getPointsSum() {
-    int[] points = new int[order.length];
+    int[] points = new int[players.length];
     for (StoneSite site : sites) {
       int[] sitepoints = site.getPoints();
       log.error(site.getClass().getName());
@@ -135,7 +130,7 @@ public class Game implements Runnable {
 
     String[] users = new String[this.lobby.getSize()];
     for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
-      users[i] = this.order[i].getUser().getUsername();
+      users[i] = this.players[i].getUser().getUsername();
     }
 
     for (Ship ship : ships) {
@@ -163,7 +158,12 @@ public class Game implements Runnable {
     gameInfo.setOrder(users);
     gameInfo.setTurnTime(executor.getTurnTime());
     gameInfo.setRound(this.round);
-    gameInfo.setStorages(this.storages);
+    // TODO change gameInfo to make this easier
+    ArrayList<Integer> storages = new ArrayList<>();
+    for (Player p : players) {
+      storages.add(p.getSupplySled().getStones());
+    }
+    gameInfo.setStorages(storages);
 
     return gameInfo;
   }
@@ -180,7 +180,7 @@ public class Game implements Runnable {
     return shipInt;
   }
 
-  private void setCards() {
+  private void createCards() {
     for (int i = 0; i < siteString.length; i++) {
       cardStack.add(new OrnamentCard(siteString[i]));
       cardStack.add(new OrnamentCard(siteString[i]));
@@ -204,17 +204,13 @@ public class Game implements Runnable {
     }
   }
 
-  private void distributeCards(){
-    market.addCards(cardStack);
-  }
-
   @Override
   public void run() {
     for (int i = 1; i <= 6; i++) {
       this.round = i;
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
-        for (int player = 0; player <= this.order.length - 1; player++) {
+        for (int player = 0; player <= this.players.length - 1; player++) {
           currentPlayer = player;
           setActivePlayer(player);
           waitForMove(player);
@@ -265,8 +261,8 @@ public class Game implements Runnable {
 
   private void setActivePlayer(int player) {
     pf = new ProcedureFactory(player, this);
-    for (Player p : this.order) {
-      sendTo(p.getUser(), new TurnEvent(p == this.order[player], this.order[player].getUser().getUsername()));
+    for (Player p : this.players) {
+      sendTo(p.getUser(), new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername()));
     }
   }
 
@@ -277,7 +273,7 @@ public class Game implements Runnable {
   }
 
   private void executeProcedure(Procedure procedure){
-    log.info("[Game:" + gameID + "] führe Spielzug " + procedure.getClass().getName() + " aus für " + currentPlayer + " (Spieler: " + this.order[currentPlayer].getUser().getUsername() + ")");
+    log.info("[Game:" + gameID + "] führe Spielzug " + procedure.getClass().getName() + " aus für " + currentPlayer + " (Spieler: " + this.players[currentPlayer].getUser().getUsername() + ")");
 
     //Informiert alle User über den/die ausgeführten Move/s
       sendAll(procedure.exec());
@@ -299,37 +295,13 @@ public class Game implements Runnable {
   }
 
   private void waitForMove(int p) {
-    log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.order[p].getUser().getUsername() + ")");
+    log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: " + this.players[p].getUser().getUsername() + ")");
     executor.waitForMove();
     nextMove = executor.getMove();
   }
 
 
   public MoveExecutor getExecutor(){return executor;}
-
-  public void addStonesToStorage(int playerId) {
-    if (storages.get(playerId) + 3 > 5)
-      storages.set(playerId, 5);
-    else
-      storages.set(playerId, storages.get(playerId) + 3);
-  }
-
-  public int getStorage(int playerID) {
-    return storages.get(playerID);
-  }
-
-  public boolean decrPlayerStorage(int playerID) {
-    if ((storages.get(playerID) - 1) >= 0) {
-      int storage = storages.get(playerID) - 1;
-      storages.set(playerID, storage);
-      return true;
-    }
-    return false;
-  }
-
-  public int getGameID() {
-    return gameID;
-  }
 
   public void updateRound(int round) {
     this.round = round;
@@ -343,7 +315,7 @@ public class Game implements Runnable {
     return ships[shipId];
   }
 
-  public Player[] getOrder() {
-    return order;
+  public Player getPlayer(int id) {
+    return players[id];
   }
 }

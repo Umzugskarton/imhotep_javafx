@@ -8,13 +8,10 @@ import GameMoves.Move;
 import GameMoves.VoyageToStoneSiteMove;
 import game.Game;
 
-public class SailProtocol implements Protocol {
-    private Game game;
-    private int playerId;
+public class SailProtocol extends Protocol {
 
     public SailProtocol(Game game, int playerId) {
-        this.game = game;
-        this.playerId = playerId;
+      super(game,playerId);
     }
 
     public void exec() {
@@ -23,13 +20,13 @@ public class SailProtocol implements Protocol {
         Move move;
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
-                game.sendTo(game.getOrder()[playerId].getUser(), new LoadUpShipExclusiveEvent());
+                game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());
                 move = acquireMove();
                 if (move instanceof LoadUpShipMove) {
                     game.executeMove(move);
                 }
             } else {
-                game.sendTo(game.getOrder()[playerId].getUser(), new VoyageToStoneSiteExclusiveEvent());
+                game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent());
                 move = acquireMove();
                 if (move instanceof VoyageToStoneSiteMove) {
                     game.executeMove(move);
@@ -38,12 +35,6 @@ public class SailProtocol implements Protocol {
         }
     }
 
-    private Move acquireMove() {
-        game.getExecutor().waitForMove();
-        if (game.getExecutor().getMove() != null)
-            return game.getExecutor().getMove();
-        return null;
-    }
 }
 
 
