@@ -64,7 +64,7 @@ public class Game implements Runnable {
     setGame();
     executor = new MoveExecutor();
     this.market = new Market(lobby.getSize());
-    this.pyramids = new Pyramids(lobby.getSize(), 1);
+    this.pyramids = new Pyramids(lobby.getSize());
     this.obelisks = new Obelisks(lobby.getSize());
     this.temple = new Temple(lobby.getSize());
     this.burialChamber = new BurialChamber(lobby.getSize());
@@ -75,8 +75,8 @@ public class Game implements Runnable {
     sites.add(burialChamber);
     sites.add(obelisks);
 
-    setCards();
-    distributeCards();
+    createCards();
+    market.addCards(cardStack);
   }
 
   public void resetCurrentShips() {
@@ -180,7 +180,7 @@ public class Game implements Runnable {
     return shipInt;
   }
 
-  private void setCards() {
+  private void createCards() {
     for (int i = 0; i < siteString.length; i++) {
       cardStack.add(new OrnamentCard(siteString[i]));
       cardStack.add(new OrnamentCard(siteString[i]));
@@ -202,10 +202,6 @@ public class Game implements Runnable {
         cardStack.add(new ToolCard(name));
       }
     }
-  }
-
-  private void distributeCards(){
-    market.addCards(cardStack);
   }
 
   @Override

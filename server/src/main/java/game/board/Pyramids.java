@@ -6,7 +6,7 @@ public class Pyramids extends StoneSite {
 
   private ArrayList<Stone> pyramid = new ArrayList<>();
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
-  private int standardValue = 1;
+  private final static int standardValue = 1;
 
   public int[] getPositionValues() {
     return positionValues;
@@ -14,11 +14,6 @@ public class Pyramids extends StoneSite {
 
   public int getStandardValue() {
     return standardValue;
-  }
-
-  public Pyramids(int playerCount, int standardValue) {
-    super(playerCount);
-    this.standardValue = standardValue;
   }
 
   public Pyramids(int playerCount) {
