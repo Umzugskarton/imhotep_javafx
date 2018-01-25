@@ -2,6 +2,9 @@ package game;
 
 import user.User;
 
+/**
+ * Repräsentiert einen Spieler. Enthält die aktuelle Punktzahl.
+ */
 public class Player {
 
   private int id;
@@ -9,6 +12,11 @@ public class Player {
   private User user;
   private Inventory inventory;
 
+  /**
+   * Erstellt einen neuen Spieler.
+   * @param user der eingeloggte User, dem der Spieler zugeordnet ist
+   * @param id
+   */
   public Player(User user, int id) {
     this.user = user;
     this.id = id;

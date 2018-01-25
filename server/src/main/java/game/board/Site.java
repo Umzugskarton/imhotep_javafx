@@ -1,5 +1,11 @@
 package game.board;
 
+/**
+ * Abstrakte Basisklasse für Sites.
+ *
+ * Klasse, die grundlegende Funktionen für alle Sites bietet, wie das Andocken von Schiffen
+ * und die Anzahl der Spieler im Spiel.
+ */
 public abstract class Site {
 
   private Ship dockedShip = null;

@@ -18,8 +18,8 @@ public class SupplySled {
   }
 
   /**
-   * @param amount the number of stones to add
-   * @return true if the resulting amount does not exceed size. Otherwise false
+   * @param amount die Anzahl der hinzuzufügenden Steine
+   * @return false, wenn nicht genügend Platz für die gegebene Menge Steine ist.
    */
   public boolean addStones(int amount) {
     if (amount + stones > size) {
