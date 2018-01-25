@@ -3,7 +3,7 @@ package events.main;
 import java.util.ArrayList;
 
 public class UserListEvent extends MainEvent {
-    private String event = "userlist";
+    private String event = "userList";
     private ArrayList<String> userList;
 
     public UserListEvent() {

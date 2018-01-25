@@ -149,7 +149,7 @@ public class DebugApp {
     }
 
     private void initUserList(){
-        String initName = "UserList";
+        String initName = "userList";
 
         VBox vBox = new VBox();
 
@@ -159,7 +159,7 @@ public class DebugApp {
         tab.setContent(vBox);
 
         // Buttons 1
-        Button userListButton1 = new Button("UserList Event");
+        Button userListButton1 = new Button("userList Event");
         userListButton1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

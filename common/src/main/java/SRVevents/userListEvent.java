@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 public class userListEvent implements Event {
-    private String event = "userlist";
+    private String event = "userList";
     private Date date;
     private ArrayList<String> userList;
 

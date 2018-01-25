@@ -1,4 +1,4 @@
-package ui.app.chat;
+package ui.app.lobby.chat;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -58,7 +58,7 @@ public class ChatView implements IChatView {
   @Override
   public void initOwnView() {
     if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/chat/chatView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/chat/chatView.fxml", this, eventBus);
   }
 
   @FXML

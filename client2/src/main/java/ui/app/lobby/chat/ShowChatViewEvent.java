@@ -1,4 +1,4 @@
-package ui.app.chat;
+package ui.app.lobby.chat;
 
 import mvp.view.ShowViewEvent;
 

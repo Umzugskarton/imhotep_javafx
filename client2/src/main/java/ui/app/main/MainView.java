@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
-import ui.app.chat.ChatView;
+import ui.app.main.chat.ChatView;
 import ui.app.main.lobbylist.LobbyListView;
 import ui.app.main.userlist.UserListView;
 

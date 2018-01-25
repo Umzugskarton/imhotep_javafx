@@ -1,4 +1,4 @@
-package ui.app.chat;
+package ui.app.main.chat;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
