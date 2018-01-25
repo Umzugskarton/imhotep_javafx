@@ -239,6 +239,30 @@ public class Game implements Runnable {
     }
   }
 
+  public BurialChamber getBurialChamber() {
+    return burialChamber;
+  }
+
+  public Market getMarket() {
+    return market;
+  }
+
+  public Obelisks getObelisks() {
+    return obelisks;
+  }
+
+  public Pyramids getPyramids() {
+    return pyramids;
+  }
+
+  public Temple getTemple() {
+    return temple;
+  }
+
+  public Ship[] getShips() {
+    return ships;
+  }
+
   private void setActivePlayer(int player) {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.order) {
@@ -301,10 +325,6 @@ public class Game implements Runnable {
       return true;
     }
     return false;
-  }
-
-  public int getGameID() {
-    return gameID;
   }
 
   public void updateRound(int round) {

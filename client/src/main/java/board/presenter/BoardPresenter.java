@@ -139,7 +139,7 @@ public class BoardPresenter {
 
   public void sendLoadUpShipMove(int ship, int position) {
     if (storagePresenters.get(myID).getStoneCount() > 0) {
-      LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position);
+      LoadUpShipMove loadUpShipMove = new LoadUpShipMove(ship, position, lobby.getLobbyId());
       sc.getClientSocket().send(loadUpShipMove);
     }
   }
@@ -151,7 +151,7 @@ public class BoardPresenter {
 
   public void sendVoyageToStoneSiteMove(int shipID, String site) {
     if (!shipPresenters.get(shipID).isDocked()) {
-      VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site);
+      VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site, lobby.getLobbyId());
       sc.getClientSocket().send(move);
     }
   }

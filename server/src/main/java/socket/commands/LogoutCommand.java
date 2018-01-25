@@ -19,7 +19,7 @@ public class LogoutCommand implements Command {
 
   public void exec() {
     if (clientListener.getLobbies()!=null){
-      clientListener.getLobbies().leave(clientListener.getUser());
+      clientListener.getLobbyByID(request.getLobbyId()).leave(clientListener.getUser());
     }
     this.clientListener.setUser(null);
     this.clientListener.getServer().sendToAll(this.clientListener.getServer().getLoggedUsers());
