@@ -1,6 +1,7 @@
 package socket;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -27,13 +28,11 @@ public class ClientSocket {
   private int port;
 
   // Writer
-  private PrintWriter out = null;
+  private ObjectOutputStream out = null;
 
   // Eventbus
   private EventBus eventBus;
 
-  // Gson caster
-  private Gson gson = new Gson();
 
   public ClientSocket(SceneController sceneController, EventBus eventBus) {
     this.sceneController = sceneController;
@@ -46,7 +45,7 @@ public class ClientSocket {
   private void init() {
     try {
       this.serverSocket = new Socket(this.host, this.port);
-      this.out = new PrintWriter(this.serverSocket.getOutputStream(), true);
+      this.out = new ObjectOutputStream(this.serverSocket.getOutputStream());
       this.serverListener = new ServerListener(serverSocket, sceneController, eventBus);
       Thread serverThread = new Thread(this.serverListener);
       serverThread.start();
@@ -62,13 +61,14 @@ public class ClientSocket {
     }
   }
 
-  public void send(IRequest json) {
-    String jsonString = gson.toJson(json);
-
-    this.out.println(jsonString);
-    this.out.flush();
-
-    log.debug("Nachricht gesendet: " + jsonString);
+  public void send(IRequest request) {
+    try{
+      this.out.writeObject(request);
+      this.out.flush();
+    } catch (IOException e) {
+      log.error("IO-Fehler beim senden vom Request",e);
+    }
+    log.debug("Nachricht gesendet: " + request.getType());
   }
 
   public void close() {
