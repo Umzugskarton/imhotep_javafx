@@ -11,11 +11,8 @@ public class SetReadyEvent implements Event {
 
 
     public SetReadyEvent(boolean[] readyList, int lobbyid) {
-        /*Übetragen der ready werte funktioniert komischerweise nur so
-        anders sind im Client alle Einträge false*/
-        for (int i = 0 ; i<readyList.length; i++){
-            this.readyList[i] = readyList[i];
-        }
+        this.readyList = new boolean[readyList.length];
+        System.arraycopy(readyList, 0 , this.readyList, 0, readyList.length);
         this.lobbyId = lobbyid;
     }
 
