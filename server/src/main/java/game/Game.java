@@ -75,8 +75,8 @@ public class Game implements Runnable {
     sites.add(burialChamber);
     sites.add(obelisks);
 
-    setCards();
-    distributeCards();
+    createCards();
+    market.addCards(cardStack);
   }
 
   public void resetCurrentShips() {
@@ -180,7 +180,7 @@ public class Game implements Runnable {
     return shipInt;
   }
 
-  private void setCards() {
+  private void createCards() {
     for (int i = 0; i < siteString.length; i++) {
       cardStack.add(new OrnamentCard(siteString[i]));
       cardStack.add(new OrnamentCard(siteString[i]));
@@ -202,10 +202,6 @@ public class Game implements Runnable {
         cardStack.add(new ToolCard(name));
       }
     }
-  }
-
-  private void distributeCards(){
-    market.addCards(cardStack);
   }
 
   @Override
