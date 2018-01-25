@@ -1,6 +1,8 @@
 package CLTrequests;
 
-public interface IRequest {
+import java.io.Serializable;
+
+public interface IRequest extends Serializable{
 
   String command = null;
 
