@@ -64,7 +64,7 @@ public class Game implements Runnable {
     setGame();
     executor = new MoveExecutor();
     this.market = new Market(lobby.getSize());
-    this.pyramids = new Pyramids(lobby.getSize(), 1);
+    this.pyramids = new Pyramids(lobby.getSize());
     this.obelisks = new Obelisks(lobby.getSize());
     this.temple = new Temple(lobby.getSize());
     this.burialChamber = new BurialChamber(lobby.getSize());
