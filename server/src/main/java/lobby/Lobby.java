@@ -1,12 +1,11 @@
 package lobby;
 
+import SRVevents.SetReadyEvent;
 import SRVevents.changeColorEvent;
 import SRVevents.joinEvent;
 import SRVevents.leaveLobbyEvent;
-import SRVevents.setReadyEvent;
 import commonLobby.LobbyUser;
 import game.Game;
-import game.MoveExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
@@ -15,15 +14,16 @@ import user.User;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 public class Lobby {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
     String name;
-    private int LobbyID;
+    private int lobbyID;
     private User[] lobby;
-    private boolean[] ready;
+    private ArrayList<Boolean> readyList;
     private String password;
     private boolean show;
     private int size;
@@ -33,7 +33,10 @@ public class Lobby {
     private Game game;
 
     public Lobby(int size, User host, String name) {
-        this.ready = new boolean[size];
+        readyList = new ArrayList<>();
+        for (int i = 0 ; i < size; i++){
+            readyList.add(false);
+        }
         this.lobby = new User[size];
         this.userColor = new ArrayList<>();
         this.userColor.add(0);
@@ -118,8 +121,8 @@ public class Lobby {
         return new joinEvent("Die Lobby ist voll.", false);
     }
 
-    public boolean[] getReady() {
-        return this.ready;
+    public ArrayList<Boolean> getReady() {
+        return readyList;
     }
 
 
@@ -140,11 +143,11 @@ public class Lobby {
     }
 
     public void setLobbyID(int id) {
-        this.LobbyID = id;
+        this.lobbyID = id;
     }
 
     public int getLobbyID() {
-        return this.LobbyID;
+        return this.lobbyID;
     }
 
     public User[] getUsers() {
@@ -163,10 +166,10 @@ public class Lobby {
         return j;
     }
 
-    public setReadyEvent setReady(User user) {
+    public SetReadyEvent setReady(User user) {
         int userid = Arrays.asList(lobby).indexOf(user);
-        ready[userid] = !ready[userid];
-        return new setReadyEvent(ready);
+        readyList.set(userid, !readyList.get(userid));
+        return new SetReadyEvent(readyList,lobbyID);
     }
 
     public changeColorEvent replaceColor(User user) {
@@ -185,7 +188,7 @@ public class Lobby {
 
         for (User user : this.lobby) {
             if (user != null) {
-                temp.add(new LobbyUser(user.getUsername(), colors.get(userColor.get(i)), ready[i]));
+                temp.add(new LobbyUser(user.getUsername(), colors.get(userColor.get(i)), readyList.get(i)));
                 i++;
             }
         }
@@ -234,7 +237,7 @@ public class Lobby {
 
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
-        Arrays.fill(ready, false);
+        Collections.fill(readyList, false);
         if(getUserCount() == 0) {
             this.show = false;
 

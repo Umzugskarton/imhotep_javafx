@@ -39,7 +39,8 @@ public class ServerListener implements Runnable {
 
           if(event instanceof Event){
             this.eventBus.post(event);
-          } else {
+          }
+          else {
             log.error("Nachricht konnte nicht gelesen werden");
           }
         }

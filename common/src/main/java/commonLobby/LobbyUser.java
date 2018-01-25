@@ -1,6 +1,8 @@
 package commonLobby;
 
-public class LobbyUser {
+import java.io.Serializable;
+
+public class LobbyUser implements Serializable {
 
   private String username;
   private String color;

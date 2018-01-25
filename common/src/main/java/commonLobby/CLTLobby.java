@@ -1,10 +1,13 @@
 package commonLobby;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CLTLobby {
+public class CLTLobby implements Serializable{
 
   private int lobbyID;
   private String name;
@@ -16,14 +19,14 @@ public class CLTLobby {
   private String belegung;
   private ArrayList<LobbyUser> users;
   private ArrayList<String> colors;
-  private boolean[] ready;
+  private ArrayList<Boolean> readyList;
 
   public CLTLobby() {
 
   }
 
   public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size,
-                  boolean ishost, String host, boolean[] ready, ArrayList<String> colors) {
+                  boolean ishost, String host, ArrayList<Boolean> readyList, ArrayList<String> colors) {
     this.lobbyID = lobbyID;
     this.name = name;
     this.users = users;
@@ -32,7 +35,7 @@ public class CLTLobby {
     this.usercount = users.size();
     this.ishost = ishost;
     this.host = host;
-    this.ready = ready;
+    this.readyList = readyList;
     this.colors = colors;
     setBelegung();
   }
@@ -45,11 +48,11 @@ public class CLTLobby {
     this.lobbyID = id;
   }
 
-  public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, ArrayList<String> colors) {
+  public void setUsers(ArrayList<LobbyUser> newUsers, ArrayList<Boolean> readyList, ArrayList<String> colors) {
     users.clear();
     users.addAll(newUsers);
     this.colors = colors;
-    this.ready = ready;
+    this.readyList = readyList;
   }
 
   public ArrayList<LobbyUser> getUsers() {
@@ -102,8 +105,8 @@ public class CLTLobby {
     return this.host;
   }
 
-  public boolean[] getReady() {
-    return ready;
+  public ArrayList<Boolean> getReady() {
+    return readyList;
   }
 
   public ArrayList<String> getColors() {
@@ -128,11 +131,11 @@ public class CLTLobby {
   }
 
 
-  public void setReady(boolean[] ready) {
-    this.ready = ready;
+  public void setReady(ArrayList<Boolean> readyList) {
+    this.readyList = readyList;
 
     for (int i = 0 ; i < users.size(); i++){
-      users.get(i).setReady(ready[i]);
+      users.get(i).setReady(readyList.get(i));
     }
   }
 

@@ -12,7 +12,6 @@ public class loginEvent implements Event {
 
     public loginEvent() {
         this.date = new Date();
-
     }
 
     public void setUsername(String username) {

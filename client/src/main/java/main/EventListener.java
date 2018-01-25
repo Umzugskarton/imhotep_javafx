@@ -58,9 +58,12 @@ public class EventListener {
 
 
     @Subscribe
-    public void setReadyEventListener(setReadyEvent e) {
+    public void setReadyEventListener(SetReadyEvent e) {
         Platform.runLater(
                 () -> {
+                  for (boolean b :e.getReady()){
+                    System.out.println("SPECIAL DEBUG MODE : PING ready  e : " +b);
+                  }
                     CLTLobby lobby = sceneController.getLobbyPresenter().getCLTLobby();
                     lobby.setReady(e.getReady());
                     sceneController.getLobbyPresenter().updateLobby(lobby);

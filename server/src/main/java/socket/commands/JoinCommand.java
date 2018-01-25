@@ -29,19 +29,17 @@ public class JoinCommand implements Command {
 
   @Override
   public void exec() {
-    if (clientListener.getLobbies() == null) {
       User user = this.clientListener.getUser();
       Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
       joinEvent response;
-      clientListener.addLobby(lobby);
       if (lobby.hasPW()) {
         response = lobby.joinPW(user, request.getPassword());
       } else {
         response = lobby.join(user);
       }
       if (response.getSuccess()) {
-        this.clientListener.addLobby(lobby);
-        this.clientListener.getServer()
+        clientListener.addLobby(lobby);
+        clientListener.getServer()
                 .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
         CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
                 lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
@@ -49,6 +47,5 @@ public class JoinCommand implements Command {
         lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
         server.sendToLobby(lobbyInfo, lobby);
       }
-    }
   }
 }

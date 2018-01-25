@@ -2,6 +2,7 @@ package socket;
 
 import GameMoves.Move;
 import CLTrequests.IRequest;
+import SRVevents.SetReadyEvent;
 import socket.commands.Command;
 
 import java.io.*;
@@ -114,6 +115,7 @@ public class ClientListener implements Runnable {
       }
     }
   }
+
 
   public void addLobby(Lobby lobby){
     this.lobbies.add(lobby);

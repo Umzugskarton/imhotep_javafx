@@ -2,14 +2,11 @@ package socket.commands;
 
 import CLTrequests.IRequest;
 import CLTrequests.setReadyRequest;
-import SRVevents.setReadyEvent;
+import SRVevents.SetReadyEvent;
 import lobby.Lobby;
 import socket.ClientListener;
 import user.User;
 
-/**
- * Created by Slothan on 16.11.2017.
- */
 public class SetReadyCommand implements Command {
 
     private ClientListener clientListener;
@@ -24,7 +21,7 @@ public class SetReadyCommand implements Command {
 
     public void exec() {
         Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
-        setReadyEvent setReadyEvent = lobby.setReady(clientListener.getUser());
+        SetReadyEvent setReadyEvent = lobby.setReady(clientListener.getUser());
         User[] users = lobby.getUsers();
         for (User tempUser : users) {
             if (tempUser != null) {

@@ -5,7 +5,7 @@ import GameEvents.*;
 import java.util.HashMap;
 
 public class EventFactory {
-
+/*
   private HashMap<String, Event> Dict = new HashMap<>();
 
   public EventFactory() {
@@ -22,7 +22,7 @@ public class EventFactory {
     Dict.put("create", new createEvent());
     Dict.put("changeCredential", new changeCredentialEvent());
     Dict.put("changeColor", new changeColorEvent());
-    Dict.put("setReady", new setReadyEvent());
+    Dict.put("setReady", new SetReadyEvent());
     Dict.put("gameInfo", new GameInfoEvent());
     Dict.put("turn", new TurnEvent());
     Dict.put("leaveLobby", new leaveLobbyEvent());
@@ -35,6 +35,6 @@ public class EventFactory {
   public Event getEvent(String command) {
     return Dict.get(command);
   }
-
+*/
 
 }
