@@ -2,6 +2,7 @@ package game;
 
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
+import GameEvents.WinEvent;
 import GameMoves.Move;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
@@ -101,13 +102,19 @@ public class Game implements Runnable {
     }
   }
 
-  public void sendAll(GameInfoEvent event) {
+  private void sendAll(GameInfoEvent event) {
     for (Player player : this.players) {
       event.setMyId(player.getId());
       sendTo(player.getUser(), event);
     }
   }
 
+  private void sendAll(WinEvent event){
+    for (Player p : players){
+      event.setWinning(event.getWinner().equals(p.getUser().getUsername()));
+      sendTo(p.getUser() , event);
+    }
+  }
 
   public int[] getPointsSum() {
     int[] points = new int[players.length];
@@ -222,7 +229,7 @@ public class Game implements Runnable {
               tryed++;
             }
           } else {
-            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt!");
+            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "+ players[currentPlayer]+  "! ");
           }
           nextMove = null;
 
@@ -233,6 +240,16 @@ public class Game implements Runnable {
       }
       resetCurrentShips();
     }
+    nominateWinner();
+  }
+
+  private void nominateWinner(){
+    int winner=0;
+    int[] points = getPointsSum();
+    for (int i = 0 ; i < points.length ; i++ )
+      if (points[i] > points[winner])
+        winner = i;
+    sendAll(new WinEvent(players[winner].getUser().getUsername()));
   }
 
   public BurialChamber getBurialChamber() {

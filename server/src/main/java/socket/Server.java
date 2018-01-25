@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Set;
-
 import SRVevents.*;
 import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
