@@ -19,21 +19,14 @@
   -fx-font-weight: bold;
 }
 
-#loginroot {
+#loginregroot {
   -fx-background-image: url("imhotep.png");
   -fx-background-repeat: stretch;
   -fx-background-size: 720 480;
   -fx-border-width: 5;
 }
 
-#regroot {
-  -fx-background-image: url("imhotep.png");
-  -fx-background-repeat: stretch;
-  -fx-background-size: 720 480;
-  -fx-border-width: 5;
-}
-
-#menuroot {
+#mainroot {
   -fx-background-image: url("chat.png");
   -fx-background-repeat: stretch;
   -fx-background-size: 720 480;

@@ -11,16 +11,17 @@ import javafx.collections.ObservableList;
 import mvp.presenter.Presenter;
 import requests.main.JoinRequest;
 
+import javax.swing.table.TableColumn;
 import java.util.ArrayList;
 
-public class LobbyListPresenter extends Presenter<ILobbyListView> {
+public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
 
     private final Connection connection;
     private User user;
     private ObservableList<Lobby> lobbys = FXCollections.observableArrayList();
 
 
-    public LobbyListPresenter(ILobbyListView view, EventBus eventBus, Connection connection, User user) {
+    public LobbyTablePresenter(ILobbyTableView view, EventBus eventBus, Connection connection, User user) {
         super(view, eventBus);
         this.connection = connection;
         this.user = user;

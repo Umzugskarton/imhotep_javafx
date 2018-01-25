@@ -25,11 +25,10 @@ public class ConnectionInput {
     private void init(){
         try{
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
-            //this.inputThread = new ConnectionInputThread(this.objectInputStream);
+            this.inputThread = new ConnectionInputThread(this.objectInputStream, this.eventBus);
             this.inputThread.start();
         } catch (IOException e) {
             this.eventBus.post(new ShowServerSettingsEvent());
         }
-
     }
 }

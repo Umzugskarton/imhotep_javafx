@@ -42,9 +42,10 @@ public class ClientApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        //this.primaryStage.initStyle(StageStyle.UTILITY);
 
         setResizable(false);
-        setWindowSize(1024, 576);
+        this.primaryStage.sizeToScene();
 
         this.startView = new StartView(eventBus, connection);
         setContent(this.startView.getRootParent());
@@ -81,5 +82,6 @@ public class ClientApp extends Application {
             this.appView = new AppView(eventBus, connection, authenticatedUser);
 
         setContent(this.appView.getRootParent());
+        this.primaryStage.sizeToScene();
     }
 }

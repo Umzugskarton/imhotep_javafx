@@ -38,7 +38,6 @@ public class Connection {
     public Connection(EventBus eventBus){
         //this("localhost", 47096, eventBus);
         this.eventBus = eventBus;
-
     }
 
     private void bind(){
@@ -49,7 +48,7 @@ public class Connection {
     private void init() {
         try {
             this.socket = new Socket(this.host, this.port);
-            //this.output = new ConnectionOutput(this.socket ,this.eventBus);
+            this.output = new ConnectionOutput(this.socket);
             this.input = new ConnectionInput(this.socket, this.eventBus);
         } catch (UnknownHostException ex) {
             logger.error(
@@ -60,6 +59,9 @@ public class Connection {
             logger.error("IOException bei Verbindung zu Host bei Host: " + this.host
                     + " und Port: " + this.port, ex);
             this.eventBus.post(new ConnectionErrorExeption());
+        } catch (ConnectionErrorExeption e) {
+            logger.error("Verbindung unterbrochen");
+            closeConnection();
         }
     }
 
@@ -69,7 +71,17 @@ public class Connection {
     }
 
     public void send(Request request){
+        //EventBus für Debug-Zwecke!
         this.eventBus.post(request);
+
+        /*
+        try {
+            this.output.send(request);
+        }catch (ConnectionErrorExeption e){
+            logger.error("Verbindung unterbrochen");
+            closeConnection();
+        }
+        */
     }
 
     @Subscribe

@@ -12,39 +12,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox fx:id="rootParent" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="600.0">
-        <content>
-            <Pane>
-               <children>
-                  <TextFlow fx:id="chatFlow" prefHeight="400.0" prefWidth="600.0" />
-               </children>
-            </Pane>
-        </content>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ScrollPane>
-      <GridPane>
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleSendChatButton" text="Send" GridPane.columnIndex="1" />
-            <TextField fx:id="chatTextField" />
-         </children>
-      </GridPane>
-   </children>
-   <opaqueInsets>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+<VBox id="chatroot" fx:id="rootParent" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane hbarPolicy="NEVER" prefHeight="350.0" prefWidth="300.0">
+            <content>
+                <Pane>
+                    <children>
+                        <TextFlow fx:id="chatFlow" prefHeight="400.0" prefWidth="600.0" />
+                    </children>
+                </Pane>
+            </content>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </ScrollPane>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleSendChatButton" text="Send" GridPane.columnIndex="1" />
+                <TextField fx:id="chatTextField" />
+            </children>
+        </GridPane>
+    </children>
+    <opaqueInsets>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </opaqueInsets>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="60.0" />
+    </padding>
 </VBox>

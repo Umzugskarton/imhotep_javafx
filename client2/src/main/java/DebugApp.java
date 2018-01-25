@@ -168,6 +168,18 @@ public class DebugApp {
                 strings.add("Hans im Glück");
                 strings.add("Peter");
                 strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+                strings.add("What the Fuck!");
+
 
                 myEvent.setUserList(strings);
                 logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");

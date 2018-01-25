@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="lobbyListViewRoot" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="lobbyListViewRoot" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <opaqueInsets>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </opaqueInsets>
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="5.0" left="5.0" right="5.0" top="60.0" />
    </padding>
    <children>
-      <ListView fx:id="lobbyListView" onMouseClicked="#handleLobbyViewClick" />
+      <TableView fx:id="lobbyTableView" maxHeight="190.0" maxWidth="250.0" onMouseClicked="#handleLobbyViewClick">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <columns>
+            <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
+            <TableColumn fx:id="tableColumnName" editable="false" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tableColumnBelegung" editable="false" prefWidth="75.0" text="Belegung" />
+         </columns>
+      </TableView>
    </children>
 </VBox>

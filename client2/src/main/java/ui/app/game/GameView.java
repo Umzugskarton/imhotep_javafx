@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
-import ui.app.main.lobbylist.LobbyListView;
+import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
 
 import java.net.URL;
@@ -47,7 +47,7 @@ public class GameView implements IGameView {
     // Subviews
     private ChatView chatView;
     private UserListView userListView;
-    private LobbyListView lobbyListView;
+    private LobbyTableView lobbyListView;
 
     private final User user;
 
@@ -73,7 +73,7 @@ public class GameView implements IGameView {
     @FXML
     void initialize() {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
-        this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
+        this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getClientSocket(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 
         setSubParentChat(this.chatView.getRootParent());

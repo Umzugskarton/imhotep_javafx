@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
-import ui.app.lobby.userTable.UserTableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,7 +44,7 @@ public class LobbyView implements ILobbyView {
 
     // Subviews
     private ChatView chatView;
-    private UserTableView userTableView;
+   // private UserTableView userTableView;
     //private LobbyListView lobbyListView;
 
     private final User user;
@@ -66,17 +65,17 @@ public class LobbyView implements ILobbyView {
     @Override
     public void initOwnView() {
         if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/MainView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/LobbyView.fxml", this, eventBus);
     }
 
     @FXML
     void initialize() {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
         //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
-        this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
+     //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 
         setSubParentLobbyChat(this.chatView.getRootParent());
-        setSubParentLobbyUserList(this.userTableView.getRootParent());
+       // setSubParentLobbyUserList(this.userTableView.getRootParent());
         //setSubParentLobbyList(this.userTableView.getRootParent());
     }
 
@@ -109,10 +108,9 @@ public class LobbyView implements ILobbyView {
         return null;
     }
 
-
     @Override
     public String getTitle() {
-        return "Main";
+        return "Lobby";
     }
 
     @Override
