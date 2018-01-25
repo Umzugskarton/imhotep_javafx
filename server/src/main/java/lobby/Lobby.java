@@ -23,7 +23,7 @@ public class Lobby {
     String name;
     private int lobbyID;
     private User[] lobby;
-    private ArrayList<Boolean> readyList;
+    private boolean[] readyList;
     private String password;
     private boolean show;
     private int size;
@@ -33,10 +33,7 @@ public class Lobby {
     private Game game;
 
     public Lobby(int size, User host, String name) {
-        readyList = new ArrayList<>();
-        for (int i = 0 ; i < size; i++){
-            readyList.add(false);
-        }
+        readyList = new boolean[size];
         this.lobby = new User[size];
         this.userColor = new ArrayList<>();
         this.userColor.add(0);
@@ -121,7 +118,7 @@ public class Lobby {
         return new joinEvent("Die Lobby ist voll.", false);
     }
 
-    public ArrayList<Boolean> getReady() {
+    public boolean[] getReady() {
         return readyList;
     }
 
@@ -168,7 +165,7 @@ public class Lobby {
 
     public SetReadyEvent setReady(User user) {
         int userid = Arrays.asList(lobby).indexOf(user);
-        readyList.set(userid, !readyList.get(userid));
+        readyList[userid] = !readyList[userid];
         return new SetReadyEvent(readyList,lobbyID);
     }
 
@@ -188,7 +185,7 @@ public class Lobby {
 
         for (User user : this.lobby) {
             if (user != null) {
-                temp.add(new LobbyUser(user.getUsername(), colors.get(userColor.get(i)), readyList.get(i)));
+                temp.add(new LobbyUser(user.getUsername(), colors.get(userColor.get(i)), readyList[i]));
                 i++;
             }
         }
@@ -237,7 +234,7 @@ public class Lobby {
 
 
         log.info("[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
-        Collections.fill(readyList, false);
+        Arrays.fill(readyList, false);
         if(getUserCount() == 0) {
             this.show = false;
 

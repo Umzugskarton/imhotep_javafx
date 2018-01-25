@@ -1,20 +1,27 @@
 package SRVevents;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 
 public class SetReadyEvent implements Event {
 
     private String event = "setReady";
-    private ArrayList<Boolean> readyList;
+    private boolean[] readyList;
     private int lobbyId;
 
-    public SetReadyEvent(ArrayList<Boolean> readyList, int lobbyid) {
-        this.readyList = readyList;
+
+    public SetReadyEvent(boolean[] readyList, int lobbyid) {
+        /*Übetragen der ready werte funktioniert komischerweise nur so
+        anders sind im Client alle Einträge false*/
+        for (int i = 0 ; i<readyList.length; i++){
+            this.readyList[i] = readyList[i];
+        }
         this.lobbyId = lobbyid;
     }
 
+    public int getLobbyId() {
+        return lobbyId;
+    }
 
     public String getEvent() {
         return this.event;
@@ -26,7 +33,7 @@ public class SetReadyEvent implements Event {
 
     public String getMsg() { return this.msg; }
 
-    public ArrayList<Boolean> getReady() { return readyList; }
+    public boolean[] getReady() { return readyList; }
 
 
 }

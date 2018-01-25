@@ -19,14 +19,14 @@ public class CLTLobby implements Serializable{
   private String belegung;
   private ArrayList<LobbyUser> users;
   private ArrayList<String> colors;
-  private ArrayList<Boolean> readyList;
+  private boolean[] readyList;
 
   public CLTLobby() {
 
   }
 
   public CLTLobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size,
-                  boolean ishost, String host, ArrayList<Boolean> readyList, ArrayList<String> colors) {
+                  boolean ishost, String host, boolean[] readyList, ArrayList<String> colors) {
     this.lobbyID = lobbyID;
     this.name = name;
     this.users = users;
@@ -48,7 +48,7 @@ public class CLTLobby implements Serializable{
     this.lobbyID = id;
   }
 
-  public void setUsers(ArrayList<LobbyUser> newUsers, ArrayList<Boolean> readyList, ArrayList<String> colors) {
+  public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] readyList, ArrayList<String> colors) {
     users.clear();
     users.addAll(newUsers);
     this.colors = colors;
@@ -105,7 +105,7 @@ public class CLTLobby implements Serializable{
     return this.host;
   }
 
-  public ArrayList<Boolean> getReady() {
+  public boolean[] getReady() {
     return readyList;
   }
 
@@ -131,11 +131,11 @@ public class CLTLobby implements Serializable{
   }
 
 
-  public void setReady(ArrayList<Boolean> readyList) {
+  public void setReady(boolean[] readyList) {
     this.readyList = readyList;
 
     for (int i = 0 ; i < users.size(); i++){
-      users.get(i).setReady(readyList.get(i));
+      users.get(i).setReady(readyList[i]);
     }
   }
 
