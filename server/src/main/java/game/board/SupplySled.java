@@ -2,15 +2,11 @@ package game.board;
 
 public class SupplySled {
 
-  private int capacity = 5;
+  private static final int CAPACITY = 5;
   private int stones = 0;
 
-  public SupplySled(int capacity) {
-    this.capacity = capacity;
-  }
-
   public int getCapacity() {
-    return capacity;
+    return CAPACITY;
   }
 
   public int getStones() {
@@ -21,7 +17,7 @@ public class SupplySled {
    * @param amount the number of stones to add
    */
   public void addStones(int amount) {
-    stones = Math.max(stones + amount, capacity);
+    stones = Math.max(stones + amount, CAPACITY);
   }
 
   public void addStones() {

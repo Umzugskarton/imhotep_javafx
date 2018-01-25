@@ -27,14 +27,14 @@ public class LoadUpShip implements Procedure {
   }
 
   public Event exec() {
-    if (game.getOrder()[playerId].getSupplySled().removeStone()) {
-      Player player = game.getOrder()[playerId];
+    if (game.getPlayer(playerId).getSupplySled().removeStone()) {
+      Player player = game.getPlayer(playerId);
       Stone stone = new Stone(player);
       Ship ship = game.getShipByID(move.getShipId());
 
       if (ship.addStone(stone, move.getPosition())) {
         return new ShipLoadedEvent(playerId, move.getShipId(), game.getCargoAsIntArrayByShip(ship),
-            game.getOrder()[playerId].getSupplySled().getStones());
+            game.getPlayer(playerId).getSupplySled().getStones());
       } else {
         return new AlreadyAllocatedError(move.getShipId(), move.getPosition());
       }

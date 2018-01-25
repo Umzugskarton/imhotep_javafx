@@ -14,7 +14,7 @@ public class LeverProtocol extends Protocol {
 
   public void exec(){
     game.sendAll(new ToolCardEvent("Lever", playerId, true));
-    game.sendTo(game.getOrder()[playerId].getUser(), new VoyageToStoneSiteManualDumpEvent());
+    game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteManualDumpEvent());
     Move move = acquireMove();
     if (move instanceof VoyageToStoneSiteManualDumpMove) {
       game.executeMove(move);

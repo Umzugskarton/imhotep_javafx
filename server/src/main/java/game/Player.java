@@ -9,7 +9,7 @@ public class Player {
   private int points = 0;
   private User user;
   private Inventory inventory;
-  private SupplySled supplySled;
+  private SupplySled supplySled = new SupplySled();
 
   public Player(User user, int id) {
     this.user = user;
