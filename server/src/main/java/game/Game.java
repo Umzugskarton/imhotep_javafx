@@ -3,7 +3,6 @@ package game;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import GameMoves.Move;
-import GameMoves.ToolCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
@@ -18,7 +17,6 @@ import game.board.Pyramids;
 import game.board.Ship;
 import game.board.StoneSite;
 import game.board.Temple;
-import java.util.Collections;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +24,6 @@ import socket.ClientListener;
 import user.User;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
@@ -35,7 +32,6 @@ public class Game implements Runnable {
   private int gameID;
   private Lobby lobby;
   private Ship[] ships;
-  private ArrayList<Integer> storages;
   private Player[] order;
   private int currentPlayer;
   private int round;
@@ -65,7 +61,6 @@ public class Game implements Runnable {
 
     this.ships = new Ship[lobby.getSize()];
     this.order = new Player[lobby.getSize()];
-    this.storages = new ArrayList<>();
     setGame();
     executor = new MoveExecutor();
     this.market = new Market(lobby.getSize());
@@ -95,7 +90,7 @@ public class Game implements Runnable {
     for (int i = 0; i <= lobby.getSize() - 1; i++) {
       this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
       this.order[i] = new Player(lobby.getUsers()[seq], i);
-      this.storages.add(i, i + 1);
+      this.order[i].getSupplySled().addStones(i+1);
       seq = (seq + 1) % lobby.getSize();
     }
   }
@@ -163,7 +158,12 @@ public class Game implements Runnable {
     gameInfo.setOrder(users);
     gameInfo.setTurnTime(executor.getTurnTime());
     gameInfo.setRound(this.round);
-    gameInfo.setStorages(this.storages);
+    // TODO change gameInfo to make this easier
+    ArrayList<Integer> storages = new ArrayList<>();
+    for (Player p : order) {
+      storages.add(p.getSupplySled().getStones());
+    }
+    gameInfo.setStorages(storages);
 
     return gameInfo;
   }
@@ -306,26 +306,6 @@ public class Game implements Runnable {
 
 
   public MoveExecutor getExecutor(){return executor;}
-
-  public void addStonesToStorage(int playerId) {
-    if (storages.get(playerId) + 3 > 5)
-      storages.set(playerId, 5);
-    else
-      storages.set(playerId, storages.get(playerId) + 3);
-  }
-
-  public int getStorage(int playerID) {
-    return storages.get(playerID);
-  }
-
-  public boolean decrPlayerStorage(int playerID) {
-    if ((storages.get(playerID) - 1) >= 0) {
-      int storage = storages.get(playerID) - 1;
-      storages.set(playerID, storage);
-      return true;
-    }
-    return false;
-  }
 
   public void updateRound(int round) {
     this.round = round;

@@ -2,15 +2,15 @@ package game.board;
 
 public class SupplySled {
 
-  private int size = 5;
+  private int capacity = 5;
   private int stones = 0;
 
-  public SupplySled(int size) {
-    this.size = size;
+  public SupplySled(int capacity) {
+    this.capacity = capacity;
   }
 
-  public int getSize() {
-    return size;
+  public int getCapacity() {
+    return capacity;
   }
 
   public int getStones() {
@@ -19,14 +19,21 @@ public class SupplySled {
 
   /**
    * @param amount the number of stones to add
-   * @return true if the resulting amount does not exceed size. Otherwise false
    */
-  public boolean addStones(int amount) {
-    if (amount + stones > size) {
-      stones = size;
-      return false;
+  public void addStones(int amount) {
+    stones = Math.max(stones + amount, capacity);
+  }
+
+  public void addStones() {
+    int additionalStones = 3;
+    addStones(additionalStones);
+  }
+
+  public boolean removeStone() {
+    if (this.stones > 0) {
+      this.stones--;
+      return true;
     }
-    stones += amount;
-    return true;
+    return false;
   }
 }

@@ -12,6 +12,7 @@ import game.board.Ship;
 import game.board.Stone;
 
 public class LoadUpShip implements Procedure {
+
   private LoadUpShipMove move;
   private Game game;
   private int playerId;
@@ -26,13 +27,14 @@ public class LoadUpShip implements Procedure {
   }
 
   public Event exec() {
-    if (game.decrPlayerStorage(playerId)) {
+    if (game.getOrder()[playerId].getSupplySled().removeStone()) {
       Player player = game.getOrder()[playerId];
       Stone stone = new Stone(player);
       Ship ship = game.getShipByID(move.getShipId());
 
       if (ship.addStone(stone, move.getPosition())) {
-        return new ShipLoadedEvent(playerId, move.getShipId(), game.getCargoAsIntArrayByShip(ship), game.getStorage(playerId));
+        return new ShipLoadedEvent(playerId, move.getShipId(), game.getCargoAsIntArrayByShip(ship),
+            game.getOrder()[playerId].getSupplySled().getStones());
       } else {
         return new AlreadyAllocatedError(move.getShipId(), move.getPosition());
       }
