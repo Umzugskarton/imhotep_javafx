@@ -12,7 +12,7 @@ public class VoyageToStoneSiteMove implements Move{
 
   public VoyageToStoneSiteMove(int shipId, String stonesite, int lobbyId){
     this.shipId = shipId;
-    this.stonesite =stonesite;
+    this.stonesite = stonesite;
     this.lobbyId = lobbyId;
   }
 

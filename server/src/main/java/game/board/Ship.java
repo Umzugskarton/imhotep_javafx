@@ -45,4 +45,15 @@ public class Ship {
     stones[position] =  stone;
     return true;
   }
+
+  public Stone[] sortStones(int[] sortedStones) {
+    for(int i = 0; i < stones.length; i++) {
+      Stone temp;
+      temp = stones[i];
+      stones[i] = stones[sortedStones[i]];
+      stones[sortedStones[i]] = temp;
+    }
+      return stones;
+  }
+
 }

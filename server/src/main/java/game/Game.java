@@ -218,7 +218,7 @@ public class Game implements Runnable {
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
         for (int player = 0; player <= this.players.length - 1; player++) {
-          currentPlayer = player;
+          currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
           waitForMove(player);
 
