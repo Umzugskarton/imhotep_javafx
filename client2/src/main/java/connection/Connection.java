@@ -1,6 +1,5 @@
 package connection;
 
-
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;

@@ -3,6 +3,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
+import events.main.CreateEvent;
 import events.main.login.LoginSuccessfulEvent;
 import javafx.application.Application;
 
@@ -13,6 +14,9 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.app.AppView;
+import ui.popup.PopupView;
+import ui.popup.createLobby.CreateLobbyView;
+import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.StartView;
 
 public class ClientApp extends Application {
@@ -21,7 +25,8 @@ public class ClientApp extends Application {
     private final EventBus eventBus = new EventBus();
 
     private Stage primaryStage;
-    private Scene scene = new Scene(new Group());
+    private Group group = new Group();
+    private Scene scene = new Scene(group);
 
     private StartView startView;
     private AppView appView;
@@ -62,7 +67,8 @@ public class ClientApp extends Application {
     }
 
     private void setContent(Parent parent){
-        scene.setRoot(parent);
+        group.getChildren().clear();
+        group.getChildren().add(parent);
     }
 
     private void setResizable(Boolean resizable){
@@ -83,5 +89,12 @@ public class ClientApp extends Application {
 
         setContent(this.appView.getRootParent());
         this.primaryStage.sizeToScene();
+    }
+
+    @Subscribe
+    public void onPopup(ShowCreateLobbyPopupEvent e){
+        CreateLobbyView createLobbyView = new CreateLobbyView(this.eventBus, this.connection);
+        PopupView popupView = new PopupView(createLobbyView);
+        this.group.getChildren().add(popupView.getRootParent());
     }
 }

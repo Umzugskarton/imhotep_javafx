@@ -8,16 +8,24 @@ import events.main.lobby.LobbyJoinSuccessfulEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import mvp.view.IView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
+import ui.popup.PopupView;
+import ui.popup.createLobby.CreateLobbyView;
+import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.ShowStartViewEvent;
+import ui.start.login.LoginView;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -58,6 +66,9 @@ public class AppView implements IAppView  {
     private MainView mainView;
     private LobbyView lobbyView;
     private GameView gameView;
+
+    //PopupView
+    private PopupView popupView;
 
     public AppView(EventBus eventBus, Connection connection, User user){
         this.eventBus = eventBus;
@@ -100,6 +111,15 @@ public class AppView implements IAppView  {
         return this.appViewMainTabPane.getTabs().add(tab);
     }
 
+    public void openPopup(IView view) {
+        if (this.popupView == null)
+            this.popupView = new PopupView(view);
+
+            //this.popupView.setView(view);
+
+        popupView.show();
+    }
+
     @Override
     public ShowViewEvent getEventToShowThisView() {
         return new ShowStartViewEvent();
@@ -119,4 +139,10 @@ public class AppView implements IAppView  {
     public void onLobbyJoinSuccessfulEvent(LobbyJoinSuccessfulEvent e){
         addTab(new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user));
     }
+
+
+    public void onShowCreateLobbyPopupEvent(ShowCreateLobbyPopupEvent e) {
+        openPopup(new CreateLobbyView(this.eventBus, this.presenter.getConnection()));
+    }
 }
+

@@ -7,6 +7,7 @@ import data.user.User;
 import data.lobby.Lobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
@@ -82,6 +83,11 @@ public class LobbyTableView implements ILobbyTableView {
         if (click.getClickCount() == 2) {
             this.presenter.joinLobby(selectedLobby.getLobbyId(),"");;
         }
+    }
+
+    @FXML
+    void handleCreateLobbyButton(ActionEvent event) {
+
     }
 
     @Override

@@ -19,6 +19,20 @@ public class GenerateFXMLView {
         return INSTANCE;
     }
 
+    public Parent loadView(String local, IView view){
+        Parent startParent;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(local));
+        loader.setController(view);
+
+        try{
+            return loader.load();
+        } catch (IOException e){
+            log.error("Fehler bei laden des Views",e);
+        }
+        return null;
+    }
+
+
     public Parent loadView(String local, IView view, EventBus eventBus){
         Parent startParent;
         FXMLLoader loader = new FXMLLoader(getClass().getResource(local));

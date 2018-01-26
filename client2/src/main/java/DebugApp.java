@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.Request;
 import requests.main.ChatRequest;
+import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +67,7 @@ public class DebugApp {
         initRegister();
         initUserList();
         initLobbyList();
+        initPopup();
         initEventBusSniffer();
 
 
@@ -240,6 +242,29 @@ public class DebugApp {
         //Füge Button im View hinzu!
         vBox.getChildren().add(lobbyListButton1);
         vBox.getChildren().add(lobbyListButton2);
+    }
+
+    private void initPopup(){
+        String initName = "Popup";
+
+        VBox vBox = new VBox();
+
+        Tab tab = new Tab(initName);
+        tabPane.getTabs().add(tab);
+
+        tab.setContent(vBox);
+
+        // Buttons 1
+        Button popupButton1 = new Button("Popup CreateLobby");
+        popupButton1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                getEventBus().post(new ShowCreateLobbyPopupEvent());
+            }
+        });
+
+        //Füge Button im View hinzu!
+        vBox.getChildren().add(popupButton1);
     }
 
     private void initEventBusSniffer(){
