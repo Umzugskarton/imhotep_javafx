@@ -10,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.app.game.board.BoardView;
+import ui.app.game.userinterface.UserInterfaceView;
 import ui.app.main.chat.ChatView;
 import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
@@ -32,6 +34,9 @@ public class GameView implements IGameView {
     private Pane subParentChat;
 
     @FXML
+    private Pane subParentBoard;
+
+    @FXML
     private Pane subParentUserList;
 
     @FXML
@@ -45,6 +50,8 @@ public class GameView implements IGameView {
     private Parent myParent;
 
     // Subviews
+    private BoardView boardView;
+    private UserInterfaceView userInterfaceView;
     private ChatView chatView;
     private UserListView userListView;
     private LobbyTableView lobbyListView;
@@ -75,15 +82,23 @@ public class GameView implements IGameView {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
         this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getClientSocket(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getClientSocket(), user);
+        this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user);
+        this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user);
 
         setSubParentChat(this.chatView.getRootParent());
         setSubParentUserList(this.lobbyListView.getRootParent());
         setSubParentLobbyList(this.userListView.getRootParent());
+        setSubParentBoard(this.userInterfaceView.getRootParent());
     }
 
     public void setSubParentChat(Parent subParent){
         this.subParentChat.getChildren().clear();
         this.subParentChat.getChildren().add(subParent);
+    }
+
+    public void setSubParentBoard(Parent subParent){
+        this.subParentBoard.getChildren().clear();
+        this.subParentBoard.getChildren().add(subParent);
     }
 
     public void setSubParentUserList(Parent subParent){

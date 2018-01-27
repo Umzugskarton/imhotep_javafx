@@ -1,5 +1,6 @@
 package ui.app;
 
+import GameEvents.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
@@ -143,6 +144,15 @@ public class AppView implements IAppView  {
 
     public void onShowCreateLobbyPopupEvent(ShowCreateLobbyPopupEvent e) {
         openPopup(new CreateLobbyView(this.eventBus, this.presenter.getConnection()));
+    }
+
+    @Subscribe     //evtl. durch ein startGameEvent austauschen um die Abfrage
+    public void onStartGameEvent(GameInfoEvent e){
+        if ( this.gameView == null) {
+            GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user);
+            addTab(gameView);
+            this.gameView = gameView;
+        }
     }
 }
 
