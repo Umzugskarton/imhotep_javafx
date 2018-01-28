@@ -30,13 +30,7 @@ public class StoragePresenter {
   }
 
   public void highlightPointsLabel(boolean highlight) {
-    if(highlight) {
-      this.view.getPointsLabel().setUnderline(true);
-      this.view.getPointsLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
-    } else {
-      this.view.getPointsLabel().setUnderline(false);
-      this.view.getPointsLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
-    }
+
   }
 
   public void setPoints(int points) {

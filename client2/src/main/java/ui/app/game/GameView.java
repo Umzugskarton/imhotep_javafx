@@ -2,6 +2,7 @@ package ui.app.game;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
+import data.lobby.Lobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -13,8 +14,6 @@ import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.app.main.chat.ChatView;
-import ui.app.main.lobbylist.LobbyTableView;
-import ui.app.main.userlist.UserListView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,11 +35,9 @@ public class GameView implements IGameView {
     @FXML
     private Pane subParentBoard;
 
-    @FXML
-    private Pane subParentUserList;
 
     @FXML
-    private Pane subParentLobbyList;
+    private Pane subParentUI;
 
     private final INavigateableView parentView;
     private final GamePresenter mainPresenter;
@@ -53,12 +50,11 @@ public class GameView implements IGameView {
     private BoardView boardView;
     private UserInterfaceView userInterfaceView;
     private ChatView chatView;
-    private UserListView userListView;
-    private LobbyTableView lobbyListView;
 
     private final User user;
+    private Lobby lobby;
 
-    public GameView(INavigateableView parentView, EventBus eventBus, Connection connection, User user){
+    public GameView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
         this.parentView = parentView;
         this.eventBus = eventBus;
         this.user = user;
@@ -74,21 +70,18 @@ public class GameView implements IGameView {
     @Override
     public void initOwnView() {
         if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/MainView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/GameView.fxml", this, eventBus);
     }
 
     @FXML
     void initialize() {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
-        this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getClientSocket(), user);
-        this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getClientSocket(), user);
-        this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user);
+        this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
         this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user);
 
         setSubParentChat(this.chatView.getRootParent());
-        setSubParentUserList(this.lobbyListView.getRootParent());
-        setSubParentLobbyList(this.userListView.getRootParent());
-        setSubParentBoard(this.userInterfaceView.getRootParent());
+        setSubParentBoard(this.boardView.getRootParent());
+        setSubParentUI(this.userInterfaceView.getRootParent());
     }
 
     public void setSubParentChat(Parent subParent){
@@ -101,15 +94,11 @@ public class GameView implements IGameView {
         this.subParentBoard.getChildren().add(subParent);
     }
 
-    public void setSubParentUserList(Parent subParent){
-        this.subParentUserList.getChildren().clear();
-        this.subParentUserList.getChildren().add(subParent);
+    public void setSubParentUI(Parent subParent){
+        this.subParentUI.getChildren().clear();
+        this.subParentUI.getChildren().add(subParent);
     }
 
-    public void setSubParentLobbyList(Parent subParent){
-        this.subParentLobbyList.getChildren().clear();
-        this.subParentLobbyList.getChildren().add(subParent);
-    }
 
     @Override
     public INavigateableView getParentView() {
@@ -126,7 +115,7 @@ public class GameView implements IGameView {
 
     @Override
     public String getTitle() {
-        return "Main";
+        return "Game";
     }
 
     @Override

@@ -4,8 +4,8 @@ import com.google.common.eventbus.EventBus;
 import mvp.view.IView;
 
 public class Presenter  <T extends IView> {
-    private T view;
-    private EventBus eventBus;
+    protected T view;
+    protected EventBus eventBus;
 
     public Presenter(){
 

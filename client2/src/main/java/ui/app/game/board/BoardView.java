@@ -2,6 +2,7 @@ package ui.app.game.board;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
+import data.lobby.Lobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -47,21 +48,30 @@ public class BoardView implements IBoardView {
   private final EventBus eventBus;
 
   private final User user;
+  private Lobby lobby;
 
   // Own Parent
   private Parent myParent;
 
-  public BoardView(INavigateableView parentView, EventBus eventBus, Connection connection, User user){
+  public BoardView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
+    this.lobby = lobby;
     this.user = user;
-    this.mainPresenter = new BoardPresenter(this, eventBus, connection, user);
+    this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
     bind();
     initOwnView();
   }
 
   private void bind(){
     eventBus.register(this);
+  }
+
+  @FXML
+  void inizialize(){
+    for (int i = 0 ; i< lobby.getSize(); i++){
+
+    }
   }
 
   @Override
