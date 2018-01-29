@@ -1,36 +1,27 @@
 package game.board.cards;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import game.board.Cards.OrnamentCard;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-/**
- * Created on 27.01.2018.
- */
-public class OrnamentCardTest {
+class OrnamentCardTest {
 
   @Test
-  public void calcTest() {
-    OrnamentCard ornamentCard = new OrnamentCard("pyramid");
-    OrnamentCard ornamentCard2 = new OrnamentCard("temple");
-    OrnamentCard ornamentCard3 = new OrnamentCard("burialchamber");
-    OrnamentCard ornamentCard4 = new OrnamentCard("obelisk");
+  void calc() {
+    OrnamentCard ocp = new OrnamentCard("pyramid");
+    OrnamentCard oct = new OrnamentCard("temple");
+    OrnamentCard ocb = new OrnamentCard("burialchamber");
+    OrnamentCard oco = new OrnamentCard("obelisk");
 
-    int[] stones = {3, 3, 3, 3};
-
-    int newValue = ornamentCard.calc(stones);
-    int newValue2 = ornamentCard2.calc(stones);
-    int newValue3 = ornamentCard3.calc(stones);
-    int newValue4 = ornamentCard4.calc(stones);
-
-    int testValue = 1;
-
-    assertEquals(testValue, newValue);
-    assertEquals(testValue, newValue2);
-    assertEquals(testValue, newValue3);
-    assertEquals(testValue, newValue4);
-
-
+    int[] arr = {13,0,4,21};
+    int pp = ocp.calc(arr);
+    assertEquals(4, pp);
+    int pt = oct.calc(arr);
+    assertEquals(0,pt);
+    int pb = ocb.calc(arr);
+    assertEquals(1,pb);
+    int po = oco.calc(arr);
+    assertEquals(7,po);
   }
 }
