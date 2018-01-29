@@ -6,8 +6,6 @@ import java.util.Comparator;
 
 public class Obelisks extends StoneSite {
 
-  private ArrayList<Stone> obelisks = new ArrayList<>();
-
   private int[] pointsForRank;
 
   public Obelisks(int playerCount) {
@@ -39,15 +37,10 @@ public class Obelisks extends StoneSite {
   }
 
   @Override
-  public ArrayList<Stone> getStones() {
-    return obelisks;
-  }
-
-  @Override
   public int[] getPoints() {
     int[] points = new int[playerCount];
     int[] stonesPerPlayer = new int[playerCount];
-    for (Stone stone : obelisks) {
+    for (Stone stone : stoneSite) {
       stonesPerPlayer[stone.getPlayer().getId()]++;
     }
     ObeliskHelper[] playerRank = new ObeliskHelper[playerCount];
@@ -102,28 +95,6 @@ public class Obelisks extends StoneSite {
     return 0;
   }
 
-  @Override
-  public void addStones(Stone[] stones) {
-    for (Stone stone : stones) {
-      if (stone != null) {
-        obelisks.add(stone);
-      }
-    }
-  }
-
-  @Override
-  public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) {
-      return false;
-    }
-    addStones(ship.getStones());
-    return true;
-  }
-
-  @Override
-  public boolean isDocked() {
-    return this.getDockedShip() != null;
-  }
 
   @Override
   public Ship getDockedShip() {

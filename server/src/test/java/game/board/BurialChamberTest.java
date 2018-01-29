@@ -11,7 +11,7 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mock;
 
-public class BurialChamberTest {
+class BurialChamberTest {
 
   @Mock
   Player p1;
@@ -23,7 +23,7 @@ public class BurialChamberTest {
   Player p2;
 
   @Test
-  public void BurialChamberGetPoints() {
+   void BurialChamberGetPoints() {
     BurialChamber test = new BurialChamber(4);
     Stone[] stones = new Stone[13];
     p1 = mock(Player.class);
@@ -56,4 +56,6 @@ public class BurialChamberTest {
     assertEquals(3, points[2]);
     assertEquals(10, points[3]);
   }
+
+
 }
