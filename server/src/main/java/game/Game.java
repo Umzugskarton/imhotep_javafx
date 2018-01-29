@@ -16,6 +16,7 @@ import game.board.Market;
 import game.board.Obelisks;
 import game.board.Pyramids;
 import game.board.Ship;
+import game.board.Stone;
 import game.board.StoneSite;
 import game.board.Temple;
 import lobby.Lobby;
@@ -121,7 +122,7 @@ public class Game implements Runnable {
     for (StoneSite site : sites) {
       int[] sitepoints = site.getPoints();
       log.error(site.getClass().getName());
-      for (int i = 0; i <= points.length - 1; i++) {
+      for (int i = 0; i < points.length; i++) {
         points[i] += sitepoints[i];
       }
     }
@@ -151,12 +152,14 @@ public class Game implements Runnable {
     } else {
       dockedSites[0] = -1;
     }
-    for (int i = 1; i < sites.size(); i++) {
-      if (sites.get(i).isDocked()) {
-        dockedSites[i] = sites.get(i).getDockedShip().getId();
+    int j = 1;
+    for (StoneSite site : sites) {
+      if (site.isDocked()) {
+        dockedSites[j] = site.getDockedShip().getId();
       } else {
-        dockedSites[i] = -1;
+        dockedSites[j] = -1;
       }
+      j++;
     }
 
     gameInfo.setSiteString(siteString);
