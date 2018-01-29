@@ -92,7 +92,7 @@ public class Game implements Runnable {
     for (int i = 0; i < lobby.getSize(); i++) {
       this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
       this.players[i] = new Player(lobby.getUsers()[seq], i);
-      this.players[i].getSupplySled().addStones(i+1);
+      this.players[i].getSupplySled().addStones(i+2);
       seq = (seq + 1) % lobby.getSize();
     }
   }
