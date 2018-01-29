@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Pyramids extends StoneSite {
 
-  private ArrayList<Stone> pyramid = new ArrayList<>();
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
   private final static int standardValue = 1;
 
@@ -20,16 +19,12 @@ public class Pyramids extends StoneSite {
     super(playerCount);
   }
 
-  @Override
-  public ArrayList<Stone> getStones() {
-    return pyramid;
-  }
 
   @Override
   public int[] getPoints() {
     int[] points = new int[playerCount];
     int i = 0;
-    for (Stone s : pyramid) {
+    for (Stone s : stoneSite) {
       if (i < positionValues.length) {
         points[s.getPlayer().getId()] += positionValues[i++];
       } else {
@@ -37,28 +32,6 @@ public class Pyramids extends StoneSite {
       }
     }
     return points;
-  }
-
-  @Override
-  public void addStones(Stone[] stones) {
-    for (Stone stone : stones){
-      if (stone !=null){
-        pyramid.add(stone);
-      }
-    }
-  }
-
-  @Override
-  public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) {
-      return false;
-    }
-    addStones(ship.getStones());
-    return true;
-  }
-  @Override
-  public boolean isDocked(){
-    return this.getDockedShip() != null;
   }
 
   @Override
