@@ -47,7 +47,7 @@ public class Game implements Runnable {
   private Temple temple;
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
-  private String[] siteString = {"Pyramids", "Temple", "BurialChamber", "Obelisks"};
+  private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
 
   private ClientListener clientListener;
   private Move nextMove = null;
@@ -81,14 +81,14 @@ public class Game implements Runnable {
   }
 
   public void resetCurrentShips() {
-    for (int i = 0; i <= lobby.getSize() - 1; i++) {
+    for (int i = 0; i < lobby.getSize(); i++) {
       this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
     }
   }
 
   private void setGame() {
     int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
-    for (int i = 0; i <= lobby.getSize() - 1; i++) {
+    for (int i = 0; i < lobby.getSize(); i++) {
       this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
       this.players[i] = new Player(lobby.getUsers()[seq], i);
       this.players[i].getSupplySled().addStones(i+1);
@@ -136,7 +136,7 @@ public class Game implements Runnable {
     GameInfoEvent gameInfo = new GameInfoEvent();
 
     String[] users = new String[this.lobby.getSize()];
-    for (int i = 0; i <= this.lobby.getSize() - 1; i++) {
+    for (int i = 0; i < this.lobby.getSize(); i++) {
       users[i] = this.players[i].getUser().getUsername();
     }
 
@@ -159,7 +159,6 @@ public class Game implements Runnable {
       }
     }
 
-    //TODO siteString doesn't contain market anymore
     gameInfo.setSiteString(siteString);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);
@@ -188,7 +187,8 @@ public class Game implements Runnable {
   }
 
   private void createCards() {
-    for (int i = 0; i < siteString.length; i++) {
+    // Anfang mit i = 1 um den market auszuschließen
+    for (int i = 1; i < siteString.length; i++) {
       cardStack.add(new OrnamentCard(siteString[i]));
       cardStack.add(new OrnamentCard(siteString[i]));
     }
@@ -217,7 +217,7 @@ public class Game implements Runnable {
       this.round = i;
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
-        for (int player = 0; player <= this.players.length - 1; player++) {
+        for (int player = 0; player < this.players.length; player++) {
           currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
           waitForMove(player);
