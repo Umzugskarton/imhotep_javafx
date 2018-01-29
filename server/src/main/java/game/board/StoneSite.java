@@ -26,6 +26,7 @@ public abstract class StoneSite extends Site implements IStoneSite {
     if (this.getDockedShip() != null) {
       return false;
     }
+    this.setDockedShip(ship);
     addStones(ship.getStones());
     return true;
   }

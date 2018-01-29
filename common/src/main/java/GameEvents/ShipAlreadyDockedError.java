@@ -13,7 +13,7 @@ public class ShipAlreadyDockedError implements Event {
   private int shipID;
 
   public ShipAlreadyDockedError(int shipID) {
-    this.shipID= shipID;
+    this.shipID = shipID;
     this.date = new Date();
   }
 

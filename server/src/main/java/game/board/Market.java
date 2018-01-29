@@ -79,7 +79,11 @@ public class Market extends Site {
   // TODO
   @Override
   public boolean dockShip(Ship ship) {
-    return false;
+    if (this.getDockedShip() != null) {
+      return false;
+    }
+    this.setDockedShip(ship);
+    return true;
   }
 
   @Override

@@ -1,10 +1,7 @@
 package game.GameProcedures;
 
-import GameEvents.DockingShipError;
-import GameEvents.ShipAlreadyDockedError;
-import GameEvents.ShipDockedEvent;
+import GameEvents.*;
 import GameMoves.Move;
-import GameEvents.SiteAlreadyDockedError;
 import GameMoves.VoyageToStoneSiteMove;
 import SRVevents.Event;
 import game.Game;
@@ -42,21 +39,29 @@ public class VoyageToStoneSite implements Procedure {
     }
 
     if (!ship.isDocked()) {
-      if (site.dockShip(ship)){
-        ship.setDocked(true);
-        ArrayList<Integer> siteStones = new ArrayList<>();
-
-        for (Stone stone : site.getStones()){
-          if (stone != null) {
-            siteStones.add(stone.getPlayer().getId());
-          }
+      int loadedStones = 0;
+      for(Stone stone : ship.getStones()){
+        if (stone != null){
+          loadedStones ++;
         }
-        return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum(), siteStones);
       }
-      else {
-        return new SiteAlreadyDockedError(move.getStonesite());
-      }
+      if(loadedStones >= ship.getMinimumStones()) {
+        if (site.dockShip(ship)) {
+          ship.setDocked(true);
+          ArrayList<Integer> siteStones = new ArrayList<>();
 
+          for (Stone stone : site.getStones()) {
+            if (stone != null) {
+              siteStones.add(stone.getPlayer().getId());
+            }
+          }
+          return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum(), siteStones);
+        } else {
+          return new SiteAlreadyDockedError(move.getStonesite());
+        }
+      } else {
+        return new NotEnoughLoadError(move.getShipId());
+      }
     } else {
       return new ShipAlreadyDockedError(move.getShipId());
     }
