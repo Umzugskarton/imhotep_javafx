@@ -1,17 +1,18 @@
 package GameMoves;
 
+import GameMoves.CardType.Type;
 import java.util.Date;
 
 public class ToolCardMove implements Move{
   private String move = "LeadToolCard";
-  private String name;
+  private Type type;
   private int lobbyId;
 
   public ToolCardMove() {
   }
 
-  public ToolCardMove(String name, int lobbyId) {
-    this.name = name;
+  public ToolCardMove(Type type, int lobbyId) {
+    this.type = type;
     this.lobbyId = lobbyId;
   }
 
@@ -19,12 +20,12 @@ public class ToolCardMove implements Move{
     return lobbyId;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setType(Type type) {
+    this.type = type;
   }
 
-  public String getName(){
-    return this.name;
+  public Type getToolType(){
+    return this.type;
   }
 
   @Override

@@ -34,21 +34,20 @@ public class Inventory {
 
     if (card instanceof ToolCard) {
       for (ToolCard tool : toolCards) {
-        if (tool.getName().equals(card.getName())) {
+        if (tool.getType() == card.getType()) {
           return true;
         }
       }
       return false;
     } else {
-      ArrayList temp = new ArrayList();
+      ArrayList<? extends Card> temp = new ArrayList<>();
       if (card instanceof OrnamentCard) {
         temp = ornamentCards;
       } else if (card instanceof StatueCard) {
         temp = statueCards;
       }
-      for (Object object : temp) {
-        Card cardInstance = (Card) object;
-        if (cardInstance == card) {
+      for (Card c : temp) {
+        if (c.getType() == card.getType()) {
           return true;
         }
       }

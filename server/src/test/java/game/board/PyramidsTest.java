@@ -76,16 +76,14 @@ class PyramidsTest {
   @Test
   void dockShipTest() {
     Pyramids py = new Pyramids(1);
-    Stone[] stones = new Stone[4];
     Player p1 = mock(Player.class);
     when(p1.getId()).thenReturn(0);
-    Ship s1 = mock(Ship.class);
+    Ship s1 = new Ship(0, 4);
 
-    stones[0] = new Stone(p1);
-    stones[1] = new Stone(p1);
-    stones[2] = new Stone(p1);
-    stones[3] = new Stone(p1);
-    py.addStones(stones);
+    s1.addStone(new Stone(p1), 0);
+    s1.addStone(new Stone(p1), 1);
+    s1.addStone(new Stone(p1), 2);
+    s1.addStone(new Stone(p1), 3);
 
     assertEquals(true, py.dockShip(s1));
   }

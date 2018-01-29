@@ -2,6 +2,7 @@ package game.GameProcedures.ToolCardProtocols;
 
 import GameEvents.ToolCardEvent;
 import GameEvents.VoyageToStoneSiteExclusiveEvent;
+import GameMoves.CardType.Type;
 import GameMoves.FillUpStorageMove;
 import GameMoves.Move;
 import GameMoves.VoyageToStoneSiteMove;
@@ -14,7 +15,7 @@ public class HammerProtocol extends Protocol {
   }
 
   public void exec() {
-    game.sendAll(new ToolCardEvent("Hammer", playerId, true));
+    game.sendAll(new ToolCardEvent(Type.HAMMER, playerId, true));
     game.executeMove(new FillUpStorageMove());
     game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent());
     Move move = acquireMove();

@@ -5,10 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import game.Player;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 class BurialChamberTest {
@@ -23,7 +20,7 @@ class BurialChamberTest {
   Player p2;
 
   @Test
-   void BurialChamberGetPoints() {
+  void BurialChamberGetPoints() {
     BurialChamber test = new BurialChamber(4);
     Stone[] stones = new Stone[13];
     p1 = mock(Player.class);

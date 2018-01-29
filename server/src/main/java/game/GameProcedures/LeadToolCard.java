@@ -1,5 +1,6 @@
 package game.GameProcedures;
 
+import GameMoves.CardType.Type;
 import GameEvents.CardNotInPossessionError;
 import GameEvents.ToolCardEvent;
 import GameMoves.Move;
@@ -15,16 +16,16 @@ public class LeadToolCard implements Procedure{
   private ToolCardMove move;
   private int playerId;
   private Game game;
-  HashMap<String, IProtocol> protocolHashMap = new HashMap<>();
+  HashMap<Type, IProtocol> protocolHashMap = new HashMap<>();
 
 
   LeadToolCard(Game game, int playerId) {
     this.playerId = playerId;
     this.game=game;
-    protocolHashMap.put("hammer", new HammerProtocol(game , playerId));
-    protocolHashMap.put("chisel", new ChiselProtocol(game , playerId));
-    protocolHashMap.put("sail", new SailProtocol(game, playerId));
-    protocolHashMap.put("lever", new LeverProtocol(game, playerId));
+    protocolHashMap.put(Type.HAMMER, new HammerProtocol(game , playerId));
+    protocolHashMap.put(Type.CHISEL, new ChiselProtocol(game , playerId));
+    protocolHashMap.put(Type.SAIL, new SailProtocol(game, playerId));
+    protocolHashMap.put(Type.LEVER, new LeverProtocol(game, playerId));
   }
 
   public void put(Move move) {
@@ -32,14 +33,14 @@ public class LeadToolCard implements Procedure{
   }
 
   public Event exec() {
-    ToolCard dummy = new ToolCard(move.getName());
+    ToolCard dummy = new ToolCard(move.getToolType());
     if (game.getPlayer(playerId).getInventory().ownsCard(dummy)) {
-      IProtocol protocol = protocolHashMap.get(move.getName());
+      IProtocol protocol = protocolHashMap.get(move.getToolType());
       protocol.exec();
-      return new ToolCardEvent(move.getName(), playerId, false);
+      return new ToolCardEvent(move.getToolType(), playerId, false);
     }
     else {
-      return new CardNotInPossessionError(move.getName());
+      return new CardNotInPossessionError(move.getToolType());
     }
   }
 }

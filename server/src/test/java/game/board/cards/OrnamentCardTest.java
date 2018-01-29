@@ -2,6 +2,7 @@ package game.board.cards;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import GameMoves.CardType.Type;
 import game.board.Cards.OrnamentCard;
 import org.junit.jupiter.api.Test;
 
@@ -9,10 +10,10 @@ class OrnamentCardTest {
 
   @Test
   void calc() {
-    OrnamentCard ocp = new OrnamentCard("pyramid");
-    OrnamentCard oct = new OrnamentCard("temple");
-    OrnamentCard ocb = new OrnamentCard("burialchamber");
-    OrnamentCard oco = new OrnamentCard("obelisk");
+    OrnamentCard ocp = new OrnamentCard(Type.PYRAMID);
+    OrnamentCard oct = new OrnamentCard(Type.TEMPLE);
+    OrnamentCard ocb = new OrnamentCard(Type.BURIALCHAMBER);
+    OrnamentCard oco = new OrnamentCard(Type.OBELISK);
 
     int[] arr = {13,0,4,21};
     int pp = ocp.calc(arr);

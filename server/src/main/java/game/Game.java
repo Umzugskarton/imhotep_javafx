@@ -3,6 +3,7 @@ package game;
 import GameEvents.GameInfoEvent;
 import GameEvents.TurnEvent;
 import GameEvents.WinEvent;
+import GameMoves.CardType.Type;
 import GameMoves.Move;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
@@ -145,7 +146,8 @@ public class Game implements Runnable {
       gameInfo.setCurrentShips(getCargoAsIntArrayByShip(ship));
     }
 
-    int[] dockedSites = new int[5];
+    int numberOfSites = 5;
+    int[] dockedSites = new int[numberOfSites];
 
     if (market.isDocked()) {
       dockedSites[0] = market.getDockedShip().getId();
@@ -191,25 +193,34 @@ public class Game implements Runnable {
 
   private void createCards() {
     // Anfang mit i = 1 um den market auszuschließen
-    for (int i = 1; i < siteString.length; i++) {
-      cardStack.add(new OrnamentCard(siteString[i]));
-      cardStack.add(new OrnamentCard(siteString[i]));
+
+    //for (int i = 1; i < siteString.length; i++) {
+    //  cardStack.add(new OrnamentCard(siteString[i]));
+    //  cardStack.add(new OrnamentCard(siteString[i]));
+    //}
+    cardStack.add(new OrnamentCard(Type.PYRAMID));
+    cardStack.add(new OrnamentCard(Type.PYRAMID));
+    cardStack.add(new OrnamentCard(Type.TEMPLE));
+    cardStack.add(new OrnamentCard(Type.TEMPLE));
+    cardStack.add(new OrnamentCard(Type.BURIALCHAMBER));
+    cardStack.add(new OrnamentCard(Type.BURIALCHAMBER));
+    cardStack.add(new OrnamentCard(Type.OBELISK));
+    cardStack.add(new OrnamentCard(Type.OBELISK));
+
+    Type[] redCards = {Type.ENTRANCE, Type.SARCOPHAGUS, Type.PAVEDPATH};
+    for (Type type : redCards) {
+      cardStack.add(new LocationCard(type));
+      cardStack.add(new LocationCard(type));
     }
 
-    String[] redcards = {"Eingang", "Sarkophag", "Gepflasterter Pfad"};
-    for (String name : redcards) {
-      cardStack.add(new LocationCard(name));
-      cardStack.add(new LocationCard(name));
-    }
-
-    String[] bluecards = {"lever", "sail", "hammer", "chisel"};
-    for (String name : bluecards) {
+    Type[] blueCards = {Type.LEVER, Type.SAIL, Type.HAMMER, Type.CHISEL};
+    for (Type type : blueCards) {
       int count = 2;
-      if (name.equals("chisel") || name.equals("sail")) {
+      if (type == Type.CHISEL || type == Type.SAIL) {
         count++;
       }
       for (int i = 0; i < count; i++) {
-        cardStack.add(new ToolCard(name));
+        cardStack.add(new ToolCard(type));
       }
     }
   }

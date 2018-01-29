@@ -1,9 +1,10 @@
 package game.board.Cards;
 
-public class ToolCard extends Card {
-  //lever, sail, hammer, chisel
+import GameMoves.CardType.Type;
 
-  public ToolCard(String name) {
-    this.setName(name);
+public class ToolCard extends Card {
+
+  public ToolCard(Type type) {
+    this.setType(type);
   }
 }
