@@ -3,7 +3,6 @@ package GameEvents;
 import SRVevents.Event;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ShipDockedEvent implements Event {
 
@@ -12,11 +11,8 @@ public class ShipDockedEvent implements Event {
   private int shipID;
   private ArrayList<Integer> newstones;
 
-  public ShipDockedEvent() {
-  }
-
   public ShipDockedEvent(int shipID, String site, ArrayList<Integer> newstones) {
-    this.shipID= shipID;
+    this.shipID = shipID;
     this.site = site;
     this.newstones = newstones;
   }

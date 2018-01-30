@@ -1,15 +1,12 @@
 package GameMoves;
 
 import GameMoves.CardType.Type;
-import java.util.Date;
 
-public class ToolCardMove implements Move{
+public class ToolCardMove implements Move {
+
   private String move = "LeadToolCard";
   private Type type;
   private int lobbyId;
-
-  public ToolCardMove() {
-  }
 
   public ToolCardMove(Type type, int lobbyId) {
     this.type = type;
@@ -24,7 +21,7 @@ public class ToolCardMove implements Move{
     this.type = type;
   }
 
-  public Type getToolType(){
+  public Type getToolType() {
     return this.type;
   }
 
@@ -32,6 +29,4 @@ public class ToolCardMove implements Move{
   public String getType() {
     return move;
   }
-
-
 }

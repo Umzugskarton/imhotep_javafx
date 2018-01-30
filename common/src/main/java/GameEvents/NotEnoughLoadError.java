@@ -2,28 +2,20 @@ package GameEvents;
 
 import SRVevents.Event;
 
-import java.util.Date;
-
-
 public class NotEnoughLoadError implements Event {
-    private String event = "NotEnoughLoadError";
-    public Date date;
-    private int shipID;
 
-    public NotEnoughLoadError(int shipID) {
-        this.shipID = shipID;
-        this.date = new Date();
-    }
+  private String event = "NotEnoughLoadError";
+  private int shipID;
 
-    public int getShipID() {
-        return shipID;
-    }
+  public NotEnoughLoadError(int shipID) {
+    this.shipID = shipID;
+  }
 
-    public String getEvent() {
-        return event;
-    }
+  public int getShipID() {
+    return shipID;
+  }
 
-    public Date getDate() {
-        return this.date;
-    }
+  public String getEvent() {
+    return event;
+  }
 }

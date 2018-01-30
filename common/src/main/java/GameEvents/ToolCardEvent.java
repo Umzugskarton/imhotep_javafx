@@ -3,16 +3,17 @@ package GameEvents;
 import GameMoves.CardType.Type;
 import SRVevents.Event;
 
-public class ToolCardEvent implements Event{
+public class ToolCardEvent implements Event {
+
   private String type = "ToolCard";
   private Type toolCard;
   private boolean active;
   private int playerId;
 
-  public ToolCardEvent(Type toolCard, int playerId, boolean active){
-    this.toolCard  = toolCard;
+  public ToolCardEvent(Type toolCard, int playerId, boolean active) {
+    this.toolCard = toolCard;
     this.playerId = playerId;
-    this.active=active;
+    this.active = active;
   }
 
   public int getPlayerId() {

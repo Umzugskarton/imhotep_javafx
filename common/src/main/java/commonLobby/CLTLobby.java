@@ -1,6 +1,5 @@
 package commonLobby;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

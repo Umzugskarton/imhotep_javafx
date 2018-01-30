@@ -2,23 +2,18 @@ package GameEvents;
 
 import SRVevents.Event;
 
-import java.util.Date;
-
-/**
- * Created on 17.12.2017.
- */
 public class AlreadyAllocatedError implements Event {
+
   private String event = "AlreadyAllocatedError";
-  public Date date;
   private int shipID;
   private int position;
 
-  public AlreadyAllocatedError() {}
+  public AlreadyAllocatedError() {
+  }
 
   public AlreadyAllocatedError(int shipID, int position) {
-    this.shipID= shipID;
+    this.shipID = shipID;
     this.position = position;
-    this.date = new Date();
   }
 
   public int getPosition() {
@@ -31,9 +26,5 @@ public class AlreadyAllocatedError implements Event {
 
   public String getEvent() {
     return event;
-  }
-
-  public Date getDate() {
-    return this.date;
   }
 }

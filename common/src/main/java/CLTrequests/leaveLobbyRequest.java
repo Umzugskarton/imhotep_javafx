@@ -1,28 +1,17 @@
 package CLTrequests;
 
-import java.util.Date;
-
-/**
- * Created by Slothan on 18.12.2017.
- */
 public class leaveLobbyRequest extends Request {
 
-    private String request = "leaveLobby";
-    private Date date;
+  private String request = "leaveLobby";
 
-    public leaveLobbyRequest(){}
+  public leaveLobbyRequest() {
+  }
 
-    public leaveLobbyRequest(int lobbyId) {
-       super(lobbyId);
+  public leaveLobbyRequest(int lobbyId) {
+    super(lobbyId);
+  }
 
-    }
-
-    public String getType() {
-        return this.request;
-    }
-
-    public Date getDate() {
-        return this.date;
-    }
-
+  public String getType() {
+    return this.request;
+  }
 }
