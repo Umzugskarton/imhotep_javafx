@@ -1,5 +1,8 @@
 package ui.app.game;
 
+import GameMoves.FillUpStorageMove;
+import GameMoves.LoadUpShipMove;
+import GameMoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
@@ -25,4 +28,8 @@ public class GamePresenter extends Presenter<IGameView> {
         //TODO Überlegen wie das umgesetzt werden soll
         //this.chatPresenter.getChatView().getChatText().getChildren().clear();
     }
+
+
+
+
 }

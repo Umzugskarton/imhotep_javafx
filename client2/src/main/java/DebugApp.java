@@ -5,6 +5,7 @@ import data.lobby.Lobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
+import events.game.StartGameEvent;
 import events.main.*;
 import events.main.lobby.LobbyJoinSuccessfulEvent;
 import events.main.login.LoginFailedEvent;
@@ -23,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.Request;
 import requests.main.ChatRequest;
+import requests.main.StartGameRequest;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 
 import java.util.ArrayList;
@@ -239,9 +241,65 @@ public class DebugApp {
             }
         });
 
+
+        // Buttons 3
+        Button lobbyListButton3 = new Button("LobbyInfo");
+        lobbyListButton3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
+                lobbyUsers.add(new LobbyUser(new User(0 , "testuser", "xyz", "test@test.de" ), "#000", false));
+                boolean[] ready = {false,false};
+                ArrayList<String> colors = new ArrayList<>();
+
+                colors.add("#000");
+                colors.add("#fff");
+
+                Lobby lobby = new Lobby(0, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
+                LobbyInfoEvent lobbyInfoEvent = new LobbyInfoEvent(lobby);
+
+                getEventBus().post(lobbyInfoEvent);
+            }
+        });
+
+        // Buttons 4
+        Button lobbyListButton4 = new Button("LobbyInfo");
+        lobbyListButton4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
+                lobbyUsers.add(new LobbyUser(new User(1 , "testuser", "xyz", "test@test.de" ), "#000", false));
+                boolean[] ready = {false,false};
+                ArrayList<String> colors = new ArrayList<>();
+
+                colors.add("#000");
+                colors.add("#fff");
+
+                Lobby lobby = new Lobby(1, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
+                LobbyInfoEvent lobbyInfoEvent = new LobbyInfoEvent(lobby);
+
+                getEventBus().post(lobbyInfoEvent);
+            }
+        });
+
+        // Buttons 5
+        Button lobbyListButton5 = new Button("LobbyInfo");
+        lobbyListButton5.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                StartGameEvent startGameEvent = new StartGameEvent(0);
+                getEventBus().post(startGameEvent);
+            }
+        });
+
         //Füge Button im View hinzu!
         vBox.getChildren().add(lobbyListButton1);
         vBox.getChildren().add(lobbyListButton2);
+        vBox.getChildren().add(lobbyListButton3);
+        vBox.getChildren().add(lobbyListButton4);
+        vBox.getChildren().add(lobbyListButton5);
     }
 
     private void initPopup(){

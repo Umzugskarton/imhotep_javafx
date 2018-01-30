@@ -49,12 +49,12 @@ public class ShipView implements IShipView {
   // Own Parent
   private Parent myParent;
 
-  public ShipView(INavigateableView parentView, EventBus eventBus, Connection connection, Lobby lobby , int[] cargo){
+  public ShipView(INavigateableView parentView, EventBus eventBus, Connection connection, Lobby lobby , int[] cargo, int shipId){
     this.parentView = parentView;
     this.lobby = lobby;
     this.cargo = cargo;
     this.eventBus = eventBus;
-    this.mainPresenter = new ShipPresenter(this, eventBus, connection, cargo, lobby);
+    this.mainPresenter = new ShipPresenter(this, eventBus, connection, cargo, lobby, shipId);
     initOwnView();
   }
 
@@ -62,7 +62,7 @@ public class ShipView implements IShipView {
   public void initOwnView() {
     if(this.myParent == null) {
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/ShipView.fxml", this, eventBus);
-      getSprite().setId("ship" + cargo.length);
+      sprite.setId("ship" + cargo.length);
       ArrayList<Group> stones = getStones();
       //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen
       for (Group g : stones) {
@@ -98,10 +98,4 @@ public class ShipView implements IShipView {
     }
     return a;
   }
-
-  public Pane getSprite(){
-    return sprite;
-  }
-
-
 }

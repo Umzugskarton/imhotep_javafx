@@ -2,6 +2,7 @@ package data.lobby;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Tab;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class Lobby {
   private ArrayList<LobbyUser> users;
   private ArrayList<String> colors;
   private boolean[] ready;
+  private Tab myTab;
 
   public Lobby(int lobbyID, String name, ArrayList<LobbyUser> users, boolean hasPW, int size,
                boolean ishost, String host, boolean[] ready, ArrayList<String> colors) {
@@ -31,6 +33,14 @@ public class Lobby {
     this.host = host;
     this.ready = ready;
     this.colors = colors;
+  }
+
+  public void setMyTab(Tab tab){
+    myTab = tab;
+  }
+
+  public Tab getMyTab() {
+    return myTab;
   }
 
   public void setHost(String host) {

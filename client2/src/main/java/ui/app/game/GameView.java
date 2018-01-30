@@ -12,10 +12,13 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
+import ui.app.game.board.ship.ShipPresenter;
+import ui.app.game.board.storage.StoragePresenter;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.app.main.chat.ChatView;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
@@ -34,7 +37,6 @@ public class GameView implements IGameView {
 
     @FXML
     private Pane subParentBoard;
-
 
     @FXML
     private Pane subParentUI;
@@ -70,16 +72,16 @@ public class GameView implements IGameView {
     @Override
     public void initOwnView() {
         if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/GameView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/GameView.fxml", this, eventBus);
     }
 
     @FXML
     void initialize() {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
         this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
-        this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user);
+        this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user , lobby);
 
-        setSubParentChat(this.chatView.getRootParent());
+        //setSubParentChat(this.chatView.getRootParent());
         setSubParentBoard(this.boardView.getRootParent());
         setSubParentUI(this.userInterfaceView.getRootParent());
     }
@@ -98,7 +100,6 @@ public class GameView implements IGameView {
         this.subParentUI.getChildren().clear();
         this.subParentUI.getChildren().add(subParent);
     }
-
 
     @Override
     public INavigateableView getParentView() {

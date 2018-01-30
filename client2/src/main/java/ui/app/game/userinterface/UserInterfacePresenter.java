@@ -1,11 +1,20 @@
 package ui.app.game.userinterface;
 
 
+import GameEvents.FillUpStorageEvent;
+import GameEvents.GameInfoEvent;
+import GameEvents.ShipLoadedEvent;
 import GameEvents.TurnEvent;
+import GameMoves.FillUpStorageMove;
+import GameMoves.LoadUpShipMove;
+import GameMoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.Lobby;
 import data.user.User;
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -14,11 +23,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
 
+import java.util.ArrayList;
+
 public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   private final Connection connection;
   private final User user;
   private Lobby lobby;
+
+  private ArrayList<int[]> ships;
+  private int round;
+  private ArrayList<Integer> storages;
 
   private int turnTime;
   private Thread turnTimerThread;
@@ -58,6 +73,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
+
 
 
   public void changeBannerLabels(String text, String subText, Color textColor) {
@@ -100,7 +116,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   public void stopTurnTimer() {
-    this.view.getTurnTimerProgress().setProgress(0.0);
+    Double reset = 0.0;
+    eventBus.post(reset);
     if (this.turnTimerThread != null) {
       this.turnTimer.forceEnd();
       this.turnTimer = null;
@@ -109,11 +126,67 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   public void updateTurnTimer(double seconds) {
-    this.view.getTurnTimerProgress().setProgress(seconds / (double) turnTime);
+    eventBus.post(seconds / (double) turnTime);
 
     if (seconds <= 0.0) {
       this.endTurn(true);
     }
   }
 
+  @Subscribe
+  private void update(GameInfoEvent event){
+    Platform.runLater( () -> {
+              storages = event.getStorages();
+              round = event.getRound();
+              turnTime = event.getTurnTime();
+              if (ships == null) {
+                ships = event.getShips();
+              }
+              setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
+            }
+    );
+  }
+
+  private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites){
+    int i = 0;
+    view.getSelectShipLocationBox().getItems().clear();
+    for (String site : sites) {
+      if (sitesAllocation[i] == -1) {
+        view.getSelectShipLocationBox().getItems().add(site);
+      }
+      i++;
+    }
+  }
+
+  @Subscribe
+  public void updateShipCargoBoxes(ShipLoadedEvent e) {
+    for (int i = 0; i < e.getCargo().length; i++) {
+      this.ships.get(e.getShipID())[i] = e.getCargo()[i];
+    }
+    this.setStoneLocationCBox(e.getShipID());
+  }
+
+
+  public void setStoneLocationCBox(int ship) {
+    view.getSelectStoneLocationBox().getItems().clear();
+    for (int i = 0; i <= ships.get(ship).length - 1; i++) {
+      if (ships.get(ship)[i] == -1)
+        view.getSelectStoneLocationBox().getItems().add(i);
+    }
+  }
+
+
+  //Moves
+
+  public void sendFillUpStorageMove(){
+    eventBus.post(new FillUpStorageMove());
+  }
+
+  public void sendVoyageToStoneSiteMove(int ship, String to){
+    eventBus.post(new VoyageToStoneSiteMove(ship, to));
+  }
+
+  public void sendLoadUpShipMove(int ship, int to){
+    eventBus.post(new LoadUpShipMove(ship, to));
+  }
 }

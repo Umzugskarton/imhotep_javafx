@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.app.game.board.BoardView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane prefHeight="804.0" prefWidth="1920.0" style="-fx-background-color: #74ccf4;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="885.0" minWidth="10.0" prefWidth="458.0" />

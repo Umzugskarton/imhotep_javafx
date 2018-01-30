@@ -1,6 +1,5 @@
 package ui.app.game.board.ship;
 
-
 import GameEvents.ShipLoadedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -11,18 +10,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
 
-
 public class ShipPresenter extends Presenter<IShipView>{
   private Lobby lobby;
   private int[] cargo;
   private boolean docked;
   private String location;
   private final Connection connection;
+  private final int shipId;
 
-  public ShipPresenter(IShipView view, EventBus eventBus, Connection connection, int[] cargo, Lobby lobby) {
+  public ShipPresenter(IShipView view, EventBus eventBus, Connection connection, int[] cargo, Lobby lobby, int shipId) {
     super( view , eventBus);
     this.lobby = lobby;
     docked = false;
+    this.shipId = shipId;
     this.cargo = cargo;
     this.connection= connection;
 

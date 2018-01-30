@@ -1,23 +1,26 @@
 package ui.app.game.userinterface;
 
+import GameMoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.Lobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.app.game.IGameView;
 
 
 public class UserInterfaceView implements IUserInterfaceView {
 
-  // User Interface
   @FXML
   private GridPane userInterfacePane;
 
@@ -28,19 +31,28 @@ public class UserInterfaceView implements IUserInterfaceView {
   public Label uiBannerSmallLabel;
 
   @FXML
-  public Label roundLabel;
-
-  @FXML
   public Label currentPlayerLabel;
-
-  @FXML
-  public ProgressBar turnTimerProgress;
 
   @FXML
   public Rectangle playerColorRectangle;
 
+  @FXML
+  private GridPane holdingArea;
 
-  private final INavigateableView parentView;
+  @FXML
+  private ComboBox<Integer> selectShipBox;
+
+  @FXML
+  private ComboBox<String> selectShipLocationBox;
+
+  @FXML
+  private ComboBox<Integer> selectShipToLocationBox;
+
+  @FXML
+  private ComboBox<Integer> selectStoneLocationBox;
+
+
+  private final IGameView parentView;
   private final UserInterfacePresenter mainPresenter;
   private final EventBus eventBus;
 
@@ -50,7 +62,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   // Own Parent
   private Parent myParent;
 
-  public UserInterfaceView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
+  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.user = user;
@@ -70,8 +82,8 @@ public class UserInterfaceView implements IUserInterfaceView {
   }
 
   @Override
-  public INavigateableView getParentView() {
-    return null;
+  public IGameView getParentView() {
+    return parentView;
   }
 
   @Override
@@ -81,17 +93,21 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @Override
   public String getTitle() {
-    return "Board";
+    return "UserInterface";
   }
 
   @Override
   public Parent getRootParent() {
-    return null;
+    return myParent;
   }
 
-  public ProgressBar getTurnTimerProgress() { return this.turnTimerProgress; }
+  public GridPane getUserInterface() {
+    return userInterfacePane;
+  }
 
-  public Label getRoundLabel() { return this.roundLabel; }
+  public GridPane getHoldingArea() {
+    return holdingArea;
+  }
 
   public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
 
@@ -100,5 +116,45 @@ public class UserInterfaceView implements IUserInterfaceView {
   public Label getUiBannerLabel() { return this.uiBannerLabel; }
 
   public Label getUiBannerSmallLabel() { return this.uiBannerSmallLabel; }
+
+  public ComboBox<Integer> getSelectStoneLocationBox() {
+    return selectStoneLocationBox;
+  }
+
+  public ComboBox<String> getSelectShipLocationBox(){
+    return selectShipLocationBox;
+  }
+
+// TODO Moves richtig mit Parent ausführen
+
+  @FXML
+  public void sendFillUpStorageMove(ActionEvent e) {
+    mainPresenter.sendFillUpStorageMove();
+  }
+
+  @FXML
+  void setStoneLocationCBox(ActionEvent event){
+    if ( selectShipToLocationBox.getValue() != null){
+      mainPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
+    }
+    else {
+      System.out.println("Null");
+    }
+  }
+
+  @FXML
+  void sendVoyageToStoneSiteMove(){
+    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
+      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
+    else
+      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+  }
+
+  @FXML
+  void sendLoadUpShipMove(){
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
+      mainPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
+    }
+  }
 
 }

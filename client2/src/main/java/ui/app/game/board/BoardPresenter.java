@@ -25,11 +25,18 @@ public class BoardPresenter extends Presenter<IBoardView> {
     return this.connection;
   }
 
+  //TODO alle updates zum seten der Sites
   @Subscribe
-  private void setGameInfoEvent(GameInfoEvent event){
+  private void update(GameInfoEvent event){
     Platform.runLater(
             () -> {
-
+              view.setShips(event.getShips());
             });
   }
+
+  @Subscribe
+  private void setProgressbar(Double time){
+    this.view.getTurnTimerProgress().setProgress(time);
+  }
+
 }

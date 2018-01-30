@@ -1,8 +1,14 @@
 package ui.app.game.board.storage;
 
+import GameEvents.GameInfoEvent;
+import GameMoves.FillUpStorageMove;
+import GameMoves.LoadUpShipMove;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import data.User;
 import data.lobby.LobbyUser;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -13,14 +19,26 @@ public class StoragePresenter extends Presenter<IStorageView> {
   private LobbyUser user;
   private int stoneCount;
   private Connection connection;
+  private boolean myStorage;
+  private final int lobbyId;
 
 
-  public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user) {
+  public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId) {
     super(view , eventBus);
+    this.myStorage = myStorage;
     this.user = user;
     this.connection = connection;
+    this.lobbyId = lobbyId;
     this.view.setUserColor(user.getColor());
     bind();
+  }
+
+  @Subscribe
+  public void update(GameInfoEvent e){
+    Platform.runLater(
+            () -> {
+                setStoneCount(e.getStorages().get(lobbyId));
+            });
   }
 
   public void bind(){
@@ -55,4 +73,21 @@ public class StoragePresenter extends Presenter<IStorageView> {
   public int getStoneCount() {
     return stoneCount;
   }
+
+  //Todo Connection
+
+  @Subscribe
+  public void sendFillUpStorageMove(FillUpStorageMove move) {
+    if (myStorage && stoneCount < 5) {
+      eventBus.post(move);
+    }
+  }
+
+  @Subscribe
+  public void sendLoadUpShipMove(LoadUpShipMove move) {
+    if (myStorage && stoneCount > 0) {
+      eventBus.post(move);
+    }
+  }
+
 }

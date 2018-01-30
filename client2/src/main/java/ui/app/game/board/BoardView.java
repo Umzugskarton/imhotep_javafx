@@ -3,6 +3,7 @@ package ui.app.game.board;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.Lobby;
+import data.lobby.LobbyUser;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -14,7 +15,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.app.game.board.ship.ShipPresenter;
+import ui.app.game.board.ship.ShipView;
+import ui.app.game.board.storage.StoragePresenter;
+import ui.app.game.board.storage.StorageView;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class BoardView implements IBoardView {
@@ -43,12 +51,28 @@ public class BoardView implements IBoardView {
   @FXML
   private ProgressBar turnTimerProgress;
 
+  @FXML
+  private Pane berth0;
+
+  @FXML
+  private Pane berth1;
+
+  @FXML
+  private Pane berth2;
+
+  @FXML
+  private Pane berth3;
+
+
   private final INavigateableView parentView;
   private final BoardPresenter mainPresenter;
   private final EventBus eventBus;
+  private final ArrayList<StorageView> storageViews = new ArrayList<>();
+  private final ArrayList<ShipView> shipViews = new ArrayList<>();
 
   private final User user;
   private Lobby lobby;
+  private final Connection connection;
 
   // Own Parent
   private Parent myParent;
@@ -57,8 +81,16 @@ public class BoardView implements IBoardView {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
+    this.connection = connection;
     this.user = user;
     this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
+    for (int i = 0 ; i < lobby.getUsers().size(); i++){
+      StorageView storageView = new StorageView(this, eventBus, connection, lobby.getUsers().get(i),
+              lobby.getUsers().get(i).getUser().getId() == this.user.getId(), i);
+      // TODO evtl. abändern Ich bin nicht glücklich wie bestimmt wird welcher Storage Presenter der deine ist und die LobbyId muss übergeben werden
+      storageViews.add(storageView);
+      storageGridPane.add(storageView.getRootParent(), i, 0);
+    }
     bind();
     initOwnView();
   }
@@ -69,9 +101,35 @@ public class BoardView implements IBoardView {
 
   @FXML
   void inizialize(){
-    for (int i = 0 ; i< lobby.getSize(); i++){
 
+  }
+
+
+  public void setShips(ArrayList<int[]> ships){
+    for (int i = 0; i < ships.size(); i++){
+      ShipView shipView =new ShipView(this, eventBus, connection, lobby , ships.get(i), i);
+      shipViews.add(shipView);
+      getBerths().get(i % 5).getChildren().add(shipView.getRootParent()); // sollte eh nie über 4 sein
     }
+  }
+
+  public ArrayList<StorageView> getStorageViews() {
+    return storageViews;
+  }
+
+  public ArrayList<ShipView> getShipViews() {
+    return shipViews;
+  }
+
+  public ArrayList<Pane> getBerths(){
+    ArrayList<Pane> a = new ArrayList<>();
+    Collections.addAll(a, berth0, berth1, berth2,berth3);
+    return a;
+  }
+
+
+  public ProgressBar getTurnTimerProgress() {
+    return turnTimerProgress;
   }
 
   @Override
@@ -97,6 +155,6 @@ public class BoardView implements IBoardView {
 
   @Override
   public Parent getRootParent() {
-    return null;
+    return myParent;
   }
 }

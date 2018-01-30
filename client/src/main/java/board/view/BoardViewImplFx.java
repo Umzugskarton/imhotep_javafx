@@ -116,6 +116,31 @@ public class BoardViewImplFx {
       this.boardPresenter.sendFillUpStorageMove();
   }
 
+  @FXML
+  void setStoneLocationCBox(ActionEvent event){
+    if ( selectShipToLocationBox.getValue() != null){
+      boardPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
+    }
+    else {
+      System.out.println("Null");
+    }
+  }
+
+  @FXML
+  void sendVoyageToStoneSiteMove(){
+    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
+      boardPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
+    else
+      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+  }
+
+  @FXML
+  void sendLoadUpShipMove(){
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
+      boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
+    }
+  }
+
   Map<String, Pane> piers = new HashMap<String, Pane>(){};
 
   public GridPane getHouses() {
@@ -171,15 +196,6 @@ public class BoardViewImplFx {
     return selectShipLocationBox;
   }
 
-  @FXML
-  void setStoneLocationCBox(ActionEvent event){
-    if ( selectShipToLocationBox.getValue() != null){
-      boardPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
-    }
-    else {
-      System.out.println("Null");
-    }
-  }
 
   public AnchorPane removeShipPaneById(int id){
     AnchorPane ship = (AnchorPane)  getBerths().get(id).getChildren().get(0);
@@ -191,20 +207,6 @@ public class BoardViewImplFx {
     return stoneSiteGrid;
   }
 
-  @FXML
-  void sendVoyageToStoneSiteMove(){
-    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
-      boardPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
-    else
-      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
-  }
-
-  @FXML
-  void sendLoadUpShipMove(){
-    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
-      boardPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
-    }
-  }
   public ProgressBar getTurnTimerProgress() { return this.turnTimerProgress; }
 
   public Label getRoundLabel() { return this.roundLabel; }

@@ -63,15 +63,15 @@ public class AppView implements IAppView {
   private final AppPresenter presenter;
   private final EventBus eventBus;
   private final User user;
-  private ArrayList<Lobby> lobbies;
+  private ArrayList<Lobby> lobbies = new ArrayList<>();
 
   // Own Parent
   private Parent myParent;
 
   //TabSubViews
   private MainView mainView;
-  private ArrayList<LobbyView> lobbyViews;
-  private ArrayList<GameView> gameViews;
+  private ArrayList<LobbyView> lobbyViews =new ArrayList<>();;
+  private ArrayList<GameView> gameViews = new ArrayList<>();
 
   //PopupView
   private PopupView popupView;
@@ -80,7 +80,6 @@ public class AppView implements IAppView {
     this.eventBus = eventBus;
     this.user = user;
     this.presenter = new AppPresenter(this, eventBus, connection);
-    lobbies = new ArrayList<>();
     bind();
     initOwnView();
   }
@@ -107,6 +106,7 @@ public class AppView implements IAppView {
     tab.setText(lobbyView.getTitle());
     tab.setContent(lobbyView.getRootParent());
     tab.setId("Lobby " + lobby.getLobbyId());
+    lobby.setMyTab(tab);
     return this.appViewMainTabPane.getTabs().add(tab);
   }
 
@@ -145,12 +145,12 @@ public class AppView implements IAppView {
   @Subscribe
   public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
     boolean found = false;
-    for (Lobby l : lobbies) {
-      if (l.getLobbyId() == e.getLobby().getLobbyId()) {
-        found = true;
-        break;
+      for (Lobby l : lobbies) {
+        if (l.getLobbyId() == e.getLobby().getLobbyId()) {
+          found = true;
+          break;
+        }
       }
-    }
     if (!found) {
       Lobby lobby = e.getLobby();
       lobbies.add(lobby);
@@ -167,18 +167,18 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onStartGameEvent(StartGameEvent e) {
-    int index = 0;
     Lobby lobby = null;
     for (Lobby l : lobbies) {
       if (l.getLobbyId() == e.getLobbyId()) {
         lobby = l;
         break;
       }
-      index++;
     }
-    appViewMainTabPane.getTabs().remove(index);
     GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
-    addTab(gameView);
+    Tab tab = lobby.getMyTab();
+    tab.setText(gameView.getTitle());
+    tab.setContent(gameView.getRootParent());
+    tab.setId("gameTab");
     gameViews.add(gameView);
   }
 }
