@@ -1,6 +1,10 @@
 package game.GameProcedures;
 
-import GameEvents.*;
+import GameEvents.DockingShipError;
+import GameEvents.NotEnoughLoadError;
+import GameEvents.ShipAlreadyDockedError;
+import GameEvents.ShipDockedEvent;
+import GameEvents.SiteAlreadyDockedError;
 import GameMoves.Move;
 import GameMoves.VoyageToStoneSiteMove;
 import SRVevents.Event;

@@ -4,9 +4,6 @@ import GameMoves.Move;
 import GameMoves.VoyageToMarketMove;
 import game.Game;
 
-/**
- * Created on 16.12.2017.
- */
 public class VoyageToMarket {
   private VoyageToMarketMove move;
   private Game game;

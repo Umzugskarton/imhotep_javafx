@@ -21,8 +21,9 @@ public class ChiselProtocol extends Protocol {
       if (game.getPlayer(playerId).getSupplySled().getStones() > 0) {
         game.getExecutor().waitForMove();
         Move move = acquireMove();
-        if (move instanceof LoadUpShipMove)
+        if (move instanceof LoadUpShipMove) {
           game.executeMove(move);
+        }
       } else {
         game.sendTo(game.getPlayer(playerId).getUser(), new OutOfStonesError(playerId));
         break;

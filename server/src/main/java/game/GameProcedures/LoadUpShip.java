@@ -1,6 +1,5 @@
 package game.GameProcedures;
 
-
 import GameEvents.AlreadyAllocatedError;
 import GameEvents.ShipLoadedEvent;
 import GameMoves.Move;

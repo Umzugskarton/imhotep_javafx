@@ -16,6 +16,7 @@ public class Player {
 
   /**
    * Erstellt einen neuen Spieler.
+   *
    * @param user der eingeloggte User, dem der Spieler zugeordnet ist
    * @param id die ID des Spielers im Spiel; "Spielernummer"
    */

@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import user.User;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -36,7 +35,6 @@ public class Game implements Runnable {
   private int round;
   private CardDeck cardDeck = new CardDeck();
 
-
   //StoneSites
   private ArrayList<StoneSite> sites;
   private Pyramids pyramids;
@@ -46,8 +44,6 @@ public class Game implements Runnable {
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
   private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
-
-  private enum Sites {MARKET, PYRAMIDS, TEMPLE, BURIALCHAMBER, OBELISKS}
 
   private ClientListener clientListener;
   private Move nextMove = null;
@@ -115,14 +111,11 @@ public class Game implements Runnable {
     }
   }
 
+  // TODO sichergehen, dass irgendwo die Punkte der Sites in Player geschrieben werden
   public int[] getPointsSum() {
     int[] points = new int[players.length];
-    for (StoneSite site : sites) {
-      int[] sitepoints = site.getPoints();
-      log.error(site.getClass().getName());
-      for (int i = 0; i < points.length; i++) {
-        points[i] += sitepoints[i];
-      }
+    for (int i = 0; i < players.length; i++) {
+      points[i] = players[i].getPoints();
     }
     return points;
   }
@@ -198,13 +191,8 @@ public class Game implements Runnable {
           currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
           waitForMove(player);
-
           if (this.nextMove != null) {
-            int tryed = 0;
-            while (!executeMove() && tryed < 2) {
-              waitForMove(player);
-              tryed++;
-            }
+            executeMove();
           } else {
             log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
                 + players[currentPlayer] + "! ");
@@ -221,15 +209,15 @@ public class Game implements Runnable {
     nominateWinner();
   }
 
+  // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
   private void nominateWinner() {
-    int winner = 0;
-    int[] points = getPointsSum();
-    for (int i = 0; i < points.length; i++) {
-      if (points[i] > points[winner]) {
-        winner = i;
+    Player winner = null;
+    for (Player p : players) {
+      if (winner == null || p.getPoints() > winner.getPoints()) {
+        winner = p;
       }
     }
-    sendAll(new WinEvent(players[winner].getUser().getUsername()));
+    sendAll(new WinEvent(winner.getUser().getUsername()));
   }
 
   public BurialChamber getBurialChamber() {

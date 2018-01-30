@@ -11,31 +11,26 @@ import game.Game;
 
 public class SailProtocol extends Protocol {
 
-    public SailProtocol(Game game, int playerId) {
-      super(game,playerId);
+  public SailProtocol(Game game, int playerId) {
+    super(game, playerId);
+  }
+
+  public void exec() {
+    game.sendAll(new ToolCardEvent(Type.SAIL, playerId, true));
+
+    Move move;
+    game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());
+    move = acquireMove();
+    if (move instanceof LoadUpShipMove) {
+      game.executeMove(move);
     }
 
-    public void exec() {
-        game.sendAll(new ToolCardEvent(Type.SAIL, playerId, true));
-
-        Move move;
-        for (int i = 0; i < 2; i++) {
-            if (i == 0) {
-                game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());
-                move = acquireMove();
-                if (move instanceof LoadUpShipMove) {
-                    game.executeMove(move);
-                }
-            } else {
-                game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent());
-                move = acquireMove();
-                if (move instanceof VoyageToStoneSiteMove) {
-                    game.executeMove(move);
-                }
-            }
-        }
+    game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent());
+    move = acquireMove();
+    if (move instanceof VoyageToStoneSiteMove) {
+      game.executeMove(move);
     }
-
+  }
 }
 
 

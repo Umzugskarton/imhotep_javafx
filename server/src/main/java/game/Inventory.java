@@ -13,9 +13,7 @@ public class Inventory {
   private ArrayList<ToolCard> toolCards = new ArrayList<>();
   private ArrayList<StatueCard> statueCards = new ArrayList<>();
 
-
   public Inventory() {
-
   }
 
   public ArrayList<OrnamentCard> getOrnamentCards() {
@@ -31,7 +29,6 @@ public class Inventory {
   }
 
   public boolean ownsCard(Card card) {
-
     if (card instanceof ToolCard) {
       for (ToolCard tool : toolCards) {
         if (tool.getType() == card.getType()) {

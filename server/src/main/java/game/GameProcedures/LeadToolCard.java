@@ -7,7 +7,11 @@ import GameMoves.Move;
 import GameMoves.ToolCardMove;
 import SRVevents.Event;
 import game.Game;
-import game.GameProcedures.ToolCardProtocols.*;
+import game.GameProcedures.ToolCardProtocols.ChiselProtocol;
+import game.GameProcedures.ToolCardProtocols.HammerProtocol;
+import game.GameProcedures.ToolCardProtocols.IProtocol;
+import game.GameProcedures.ToolCardProtocols.LeverProtocol;
+import game.GameProcedures.ToolCardProtocols.SailProtocol;
 import game.board.Cards.ToolCard;
 
 import java.util.HashMap;
