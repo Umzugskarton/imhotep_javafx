@@ -91,7 +91,7 @@ public class RegistrationViewImpl implements RegistrationView {
     registrationScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
-        if(event.getCode() == KeyCode.ENTER) {
+        if (event.getCode() == KeyCode.ENTER) {
           register.fire();
         }
       }

@@ -1,8 +1,6 @@
 package board.presenter;
 
-
 import board.view.ObelisksViewImplFx;
-import board.view.PyramidViemImplFx;
 import commonLobby.CLTLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -10,31 +8,28 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-/**
- * Created on 20.12.2017.
- */
-public class ObelisksPresenter implements StoneSitePresenter{
+public class ObelisksPresenter implements StoneSitePresenter {
 
   private ObelisksViewImplFx obelisksController;
   private CLTLobby lobby;
 
-  public ObelisksPresenter(CLTLobby lobby, ObelisksViewImplFx obelisksController){
+  public ObelisksPresenter(CLTLobby lobby, ObelisksViewImplFx obelisksController) {
     this.lobby = lobby;
     this.obelisksController = obelisksController;
   }
 
-  public void setStones(ArrayList<Integer> stones){
+  public void setStones(ArrayList<Integer> stones) {
     int[] playerStones = new int[lobby.getUsers().size()];
-    for (Integer stone : stones){
+    for (Integer stone : stones) {
       playerStones[stone]++;
     }
     int k = 0;
     for (int player : playerStones) {
       ArrayList<Group> stoneGroups = obelisksController.getStones();
-      int playerroot = (player*5);
+      int playerroot = (player * 5);
       for (int i = 0; i < player; i++) {
-        stoneGroups.get(playerroot+i).setVisible(true);
-        Rectangle r = obelisksController.getColorStones(playerroot+i);
+        stoneGroups.get(playerroot + i).setVisible(true);
+        Rectangle r = obelisksController.getColorStones(playerroot + i);
         r.setFill(Color.web(lobby.getUserbyLobbyId(k).getColor()));
       }
       k++;

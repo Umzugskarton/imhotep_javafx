@@ -9,6 +9,7 @@ public class Pyramids extends StoneSite {
 
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
   private final static int standardValue = 1;
+  private int currentTurnStones = 0;
 
   /**
    * Gibt Punktewerte für die verschiedenen Felder zurück.
@@ -46,6 +47,35 @@ public class Pyramids extends StoneSite {
       }
     }
     return points;
+  }
+
+  /**
+   * Gibt die Punkte zurück, die im Verlauf der aktuellen Runde gemacht wurden.
+   * Bereitet die Pyramide auf die nächste Runde vor.
+   *
+   * @return Punkte für die aktuelle Runde
+   */
+  public int[] getPointsAndFinishTurn() {
+    int[] points = new int[playerCount];
+    for (int i = stoneSite.size() - currentTurnStones; i < pyramid.size(); i++) {
+      if (i < positionValues.length) {
+        points[stoneSite.get(i).getPlayer().getId()] += positionValues[i++];
+      } else {
+        points[stoneSite.get(i).getPlayer().getId()] += standardValue;
+      }
+    }
+    currentTurnStones = 0;
+    return points;
+  }
+
+  @Override
+  public void addStones(Stone[] stones) {
+    for (Stone stone : stones){
+      if (stone !=null){
+        currentTurnStones++;
+        pyramid.add(stone);
+      }
+    }
   }
 
   @Override

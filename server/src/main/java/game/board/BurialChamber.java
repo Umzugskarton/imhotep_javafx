@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Repräsentiert eine Grabkammer.
  */
-public class BurialChamber extends StoneSite {
-
+public class BurialChamber extends Site
+    implements StoneSite {
 
   public BurialChamber(int playerCount) {
     super(playerCount);
@@ -17,9 +17,6 @@ public class BurialChamber extends StoneSite {
    *
    * @return Punkte für die jeweiligen Spieler an ihrem entsprechendem Index
    */
-  // TODO
-  //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
-  //Summieren der Punkte verbesserungsbedürftig; wichtiger: Funktioniert das Prinzip?
   @Override
   public int[] getPoints() {
     boolean[] checked = new boolean[stoneSite.size()];
@@ -33,6 +30,12 @@ public class BurialChamber extends StoneSite {
         points[playerId] += 3;
       } else if (size == 3) {
         points[playerId] += 6;
+      } else if (size == 4) {
+        points[playerId] += 10;
+      } else if (size == 5) {
+        points[playerId] += 15;
+      } else if (size > 5) {
+        points[playerId] += 15 + (size - 5) * 2;
       }
     }
     return points;

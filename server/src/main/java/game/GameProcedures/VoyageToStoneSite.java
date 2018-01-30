@@ -11,7 +11,6 @@ import SRVevents.Event;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;
-
 import game.board.StoneSite;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -44,12 +43,12 @@ public class VoyageToStoneSite implements Procedure {
 
     if (!ship.isDocked()) {
       int loadedStones = 0;
-      for(Stone stone : ship.getStones()){
-        if (stone != null){
-          loadedStones ++;
+      for (Stone stone : ship.getStones()) {
+        if (stone != null) {
+          loadedStones++;
         }
       }
-      if(loadedStones >= ship.getMinimumStones()) {
+      if (loadedStones >= ship.getMinimumStones()) {
         if (site.dockShip(ship)) {
           ship.setDocked(true);
           ArrayList<Integer> siteStones = new ArrayList<>();
@@ -59,14 +58,17 @@ public class VoyageToStoneSite implements Procedure {
               siteStones.add(stone.getPlayer().getId());
             }
           }
-          return new ShipDockedEvent(move.getShipId(), move.getStonesite(), game.getPointsSum(), siteStones);
+          if (move.getStonesite().equals("Pyramids")) {
+            game.updatePyramids();
+          }
+          return new ShipDockedEvent(move.getShipId(), move.getStonesite(), siteStones);
         } else {
           return new SiteAlreadyDockedError(move.getStonesite());
         }
       } else {
         return new NotEnoughLoadError(move.getShipId());
       }
-    } else {
+    }else {
       return new ShipAlreadyDockedError(move.getShipId());
     }
   }

@@ -7,10 +7,8 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created on 20.12.2017.
- */
 public class ObelisksViewImplFx {
+
   @FXML
   private Group stone00;
   @FXML
@@ -60,17 +58,17 @@ public class ObelisksViewImplFx {
   @FXML
   private Group stone35;
 
-  public ArrayList<Group> getStones(){
+  public ArrayList<Group> getStones() {
     ArrayList<Group> a = new ArrayList<>();
 
     Collections.addAll(a,
-  stone00, stone01, stone02, stone03, stone04, stone05, stone10, stone11,
-     stone12, stone13, stone14, stone15, stone20, stone21, stone22, stone23, stone24,
-     stone25, stone30, stone31, stone32, stone33, stone34, stone35);
+        stone00, stone01, stone02, stone03, stone04, stone05, stone10, stone11,
+        stone12, stone13, stone14, stone15, stone20, stone21, stone22, stone23, stone24,
+        stone25, stone30, stone31, stone32, stone33, stone34, stone35);
     return a;
   }
 
-  public Rectangle getColorStones(int i){
+  public Rectangle getColorStones(int i) {
     return (Rectangle) getStones().get(i).getChildren().get(0);
   }
 }

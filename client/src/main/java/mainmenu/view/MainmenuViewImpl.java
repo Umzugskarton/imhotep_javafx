@@ -215,4 +215,3 @@ public class MainmenuViewImpl implements MainmenuView {
     return this.mainmenuScene;
   }
 }
-

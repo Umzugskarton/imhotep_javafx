@@ -7,10 +7,8 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created on 20.12.2017.
- */
 public class TempleViewImplFx {
+
   @FXML
   private Group stone0;
   @FXML
@@ -42,13 +40,15 @@ public class TempleViewImplFx {
   @FXML
   private Group stone14;
 
-  public ArrayList<Group> getStones(){
+  public ArrayList<Group> getStones() {
     ArrayList<Group> a = new ArrayList<>();
-    Collections.addAll(a, stone0,stone1,stone2,stone3,stone4,stone5,stone6,stone7,stone8,stone9,stone10,stone11,stone12,stone13, stone14);
+    Collections
+        .addAll(a, stone0, stone1, stone2, stone3, stone4, stone5, stone6, stone7, stone8, stone9,
+            stone10, stone11, stone12, stone13, stone14);
     return a;
   }
 
-  public Rectangle getColorStones(int i){
+  public Rectangle getColorStones(int i) {
     return (Rectangle) getStones().get(i).getChildren().get(0);
   }
 

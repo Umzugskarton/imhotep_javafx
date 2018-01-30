@@ -75,7 +75,7 @@ public class LoginViewImpl implements LoginView {
     loginScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
-        if(event.getCode() == KeyCode.ENTER) {
+        if (event.getCode() == KeyCode.ENTER) {
           loginNow.fire();
         }
       }

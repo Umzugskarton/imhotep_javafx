@@ -263,4 +263,15 @@ public class EventListener {
                 }
         );
     }
+
+    @Subscribe
+    public void updatePointsListener(UpdatePointsEvent e){
+        Platform.runLater(
+                () -> {
+                    if(sceneController.getBoardPresenter() != null) {
+                        sceneController.getBoardPresenter().updatePoints(e);
+                    }
+                }
+        );
+    }
 }
