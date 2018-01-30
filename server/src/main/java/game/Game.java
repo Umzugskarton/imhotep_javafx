@@ -16,6 +16,7 @@ import game.board.Pyramids;
 import game.board.Ship;
 import game.board.StoneSite;
 import game.board.Temple;
+import java.util.Collections;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,14 +81,14 @@ public class Game implements Runnable {
 
   public void resetCurrentShips() {
     for (int i = 0; i < lobby.getSize(); i++) {
-      this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
+      this.ships[i] = new Ship(i);
     }
   }
 
   private void setGame() {
-    int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
+    int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize());
     for (int i = 0; i < numberOfShips; i++) {
-      this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
+      this.ships[i] = new Ship(i);
     }
     for (int i = 0; i < lobby.getSize(); i++) {
       this.players[i] = new Player(lobby.getUsers()[seq], i);
@@ -320,7 +321,6 @@ public class Game implements Runnable {
     executor.waitForMove();
     nextMove = executor.getMove();
   }
-
 
   public MoveExecutor getExecutor() {
     return executor;

@@ -33,8 +33,4 @@ public class VoyageToMarketMove implements Move{
   public String getType() {
     return "voyageToStoneSite";
   }
-
-
-
-
 }

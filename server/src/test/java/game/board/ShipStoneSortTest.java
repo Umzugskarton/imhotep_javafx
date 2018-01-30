@@ -8,11 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * Created on 27.01.2018.
- */
-// VoyageToStoneSideManualDump
 public class ShipStoneSortTest {
+
   //WunschSortierung der Steine
   int sortedstones[] = {1, 2, 0, 3};
 
@@ -24,7 +21,10 @@ public class ShipStoneSortTest {
 
   @Test
   public void VTSManualDump() {
-    Ship test = new Ship(1,4);
+    Ship test = new Ship(1);
+    while (test.getSize() != 4) {
+      test = new Ship(1);
+    }
     Stone[] stones = new Stone[4];
     int[] newOrder = new int[4];
     int[] testOrder = {0, 1, 0, 1};
@@ -46,7 +46,7 @@ public class ShipStoneSortTest {
     test.sortStones(sortedstones);
     Stone[] newStones = test.getStones();
     //Player-ID der Steine wird in newOrder gelegt
-    for(int i = 0; i < newStones.length; i++) {
+    for (int i = 0; i < newStones.length; i++) {
       newOrder[i] = newStones[i].getPlayer().getId();
     }
     assertArrayEquals(testOrder, newOrder);
