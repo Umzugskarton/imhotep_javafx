@@ -2,6 +2,9 @@ package game.board;
 
 import java.util.ArrayList;
 
+/**
+ * Repräsentiert eine StoneSite.
+ */
 public abstract class StoneSite extends Site implements IStoneSite {
 
   protected ArrayList<Stone> stoneSite = new ArrayList<>();

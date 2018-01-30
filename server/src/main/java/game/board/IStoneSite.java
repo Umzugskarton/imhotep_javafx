@@ -2,24 +2,27 @@ package game.board;
 
 import java.util.ArrayList;
 
+/**
+ * Interface für StoneSites. Die hier deklarierten Methoden müssen von jeder StoneSite implementiert werden.
+ */
 public interface IStoneSite {
 
   /**
-   * Returns an array containing each player's points, with the first Player's points
-   * at index 0, the second Player's points at 1 etc.
+   * Gibt ein Array mit den Punkten des Spieler zurück. Die Punkte für den ersten Spieler sind
+   * an Index 0, die für den zweiten an Index 1 usw.
    *
-   * @return an array containing each player's points for the IStoneSite
+   * @return Punkte der Spieler
    */
   int[] getPoints();
 
   /**
-   * @param stones the stones to add to the StoneSite
+   * @param stones Die Steine, die zur StoneSite hinzugefügt werden sollen.
    */
   void addStones(Stone[] stones);
 
   /**
    * Gibt eine ArrayList aller vorhandenen Steine auf der StoneSite zurück.
-   * @return all stones on the site
+   * @return alle Steine auf der StoneSite
    */
   ArrayList<Stone> getStones();
 }

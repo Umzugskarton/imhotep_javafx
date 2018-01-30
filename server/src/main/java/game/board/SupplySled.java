@@ -14,7 +14,7 @@ public class SupplySled {
   }
 
   /**
-   * @param amount the number of stones to add
+   * @param amount die Anzahl der hinzuzufügenden Steine
    */
   public void addStones(int amount) {
     stones = Math.min(stones + amount, CAPACITY);

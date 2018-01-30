@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Respräsentiert einen Obelisken.
+ */
 public class Obelisks extends StoneSite {
 
   private int[] pointsForRank;
 
+  /**
+   * Erstellt einen neuen Obelisken.
+   * @param playerCount Anzahl der Spieler im Spiel
+   */
   public Obelisks(int playerCount) {
     super(playerCount);
     setRankPoints();

@@ -2,6 +2,9 @@ package game.board;
 
 import java.util.ArrayList;
 
+/**
+ * Repräsentiert eine Grabkammer.
+ */
 public class BurialChamber extends StoneSite {
 
 
@@ -9,6 +12,11 @@ public class BurialChamber extends StoneSite {
     super(playerCount);
   }
 
+  /**
+   * Gibt ein Array mit den Punkten zurück, die die durch die BurialChamber bekommen.
+   *
+   * @return Punkte für die jeweiligen Spieler an ihrem entsprechendem Index
+   */
   // TODO
   //IDEE: Rekursives Aufrufen von getFieldSize() auf Nachfolgern
   //Summieren der Punkte verbesserungsbedürftig; wichtiger: Funktioniert das Prinzip?

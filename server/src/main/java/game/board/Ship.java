@@ -8,6 +8,11 @@ public class Ship {
   private Stone[] stones;
   private boolean docked;
 
+  /**
+   * Erstellt ein neues Schiff.
+   * @param id
+   * @param size Anzahl der Steinplätze auf dem Schiff
+   */
   public Ship(int id, int size) {
     this.id = id;
     this.size = size;
@@ -25,8 +30,8 @@ public class Ship {
   }
 
   /**
-   *
-   * @return minimum number of stones needed on the ship to sail
+   * Anzahl der Steine, ab denen das Schiff absegeln darf.
+   * @return Mindestanzahl der Steine auf dem Schiff, damit es absegeln darf.
    */
   public int getMinimumStones() {
     return minimumStones;
@@ -40,6 +45,12 @@ public class Ship {
     return stones;
   }
 
+  /**
+   * Fügt dem Schiff einen Stein hinzu.
+   * @param stone der Stein, der auf das Schiff gesetzt wird.
+   * @param position die Position auf dem Schiff, auf die der Stein gesetzt wird.
+   * @return Erfolg
+   */
   public boolean addStone(Stone stone, int position) {
     if (docked || (position > size || (stones.length > position && stones[position] != null))) return false;
     stones[position] =  stone;

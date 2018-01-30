@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Repräsentiert einen Markt. Wird hier ein Schiff angedockt, können die Spieler mit
+ * Steinen auf den Schiff sich eine der aktuell ausliegenden Karten des Markts aussuchen.
+ */
 public class Market extends Site {
 
   private static final int numberOfCards = 4;
@@ -15,7 +19,7 @@ public class Market extends Site {
   /**
    * Erstellt einen neuen Markt und gibt ihn zurück.
    *
-   * @param playerCount the amount of players in the game
+   * @param playerCount die Anzahl der Spieler im Spiel.
    */
   public Market(int playerCount) {
     super(playerCount);
@@ -23,8 +27,8 @@ public class Market extends Site {
 
   /**
    * Erstellt einen neuen Markt mit den gegebenen Karten und gibt ihn zurück.
-   * @param playerCount the amount of players in the game
-   * @param cards the cards the market will add to its draw pile
+   * @param playerCount die Anzahl der Spieler im Spiel.
+   * @param cards die Karten, die der Markt als Nachziehstapel nutzt.
    */
   public Market(int playerCount, ArrayList<Card> cards) {
     super(playerCount);
@@ -34,7 +38,7 @@ public class Market extends Site {
   /**
    * Fügt die übergebenen Karten dem Kartenvorrat des Markts hinzu.
    *
-   * @param cards the cards the market will add to its draw pile
+   * @param cards die Karten, die der Markt seinem Kartenvorrat hinzufügt
    */
   public void addCards(ArrayList<Card> cards) {
     drawPile.addAll(cards);
@@ -44,8 +48,8 @@ public class Market extends Site {
   /**
    * Gibt die aktive Karte an Index position zurück.
    *
-   * @param position the position of the to be removed card
-   * @return the card
+   * @param position die Position der zu entfernenden Karte
+   * @return die gewählte Karte
    */
   public Card removeCard(int position) {
     // TODO exception handling: activeCards[position] might not hold a card
@@ -58,7 +62,7 @@ public class Market extends Site {
    * Gibt eine begrenzte Anzahl Karten zurück, nämlich genau die, die zum aktuellen
    * Zeitpunkt auf dem Markt angezeigt werden.
    *
-   * @return the currently relevant cards
+   * @return die aktuell angezeigten Karten
    */
   public ArrayList<Card> getActiveCards() {
     return new ArrayList<>(Arrays.asList(activeCards));
