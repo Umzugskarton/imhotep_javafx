@@ -7,12 +7,13 @@ import java.util.ArrayList;
  */
 public abstract class StoneSite extends Site implements IStoneSite {
 
-  protected ArrayList<Stone> stoneSite = new ArrayList<>();
+  ArrayList<Stone> stoneSite = new ArrayList<>();
 
   StoneSite(int playerCount) {
     super(playerCount);
   }
 
+  @Override
   public void addStones(Stone[] stones){
     for (Stone stone : stones){
       if (stone !=null){
@@ -21,10 +22,12 @@ public abstract class StoneSite extends Site implements IStoneSite {
     }
   }
 
+  @Override
   public ArrayList<Stone> getStones() {
     return stoneSite;
   }
 
+  @Override
   public boolean dockShip(Ship ship) {
     if (this.getDockedShip() != null) {
       return false;
@@ -39,6 +42,7 @@ public abstract class StoneSite extends Site implements IStoneSite {
     return this.getDockedShip() != null;
   }
 
+  @Override
   public abstract int[] getPoints();
 
 

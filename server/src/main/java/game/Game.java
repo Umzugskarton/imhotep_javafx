@@ -291,7 +291,6 @@ public class Game implements Runnable {
         return false;
       }
     }
-
     return true;
   }
 
