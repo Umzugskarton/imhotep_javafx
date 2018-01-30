@@ -5,8 +5,7 @@ import java.util.ArrayList;
 /**
  * Repräsentiert eine Grabkammer.
  */
-public class BurialChamber extends Site
-    implements StoneSite {
+public class BurialChamber extends StoneSite {
 
   public BurialChamber(int playerCount) {
     super(playerCount);
@@ -63,6 +62,4 @@ public class BurialChamber extends Site
       stones.add(stones.remove(stones.size())); //is this real life
     }
   }
-
-
 }

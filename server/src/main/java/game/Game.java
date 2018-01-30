@@ -5,7 +5,6 @@ import GameEvents.TurnEvent;
 import GameEvents.UpdatePointsEvent;
 import GameEvents.WinEvent;
 import GameMoves.Move;
-import GameMoves.ActionCardMove;
 import SRVevents.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
@@ -85,17 +84,17 @@ public class Game implements Runnable {
     }
   }
 
-    private void setGame() {
-        int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
-        for (int i = 0; i <numberOfShips; i++) {
-          this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
-        }
-        for (int i = 0; i < lobby.getSize(); i++) {
-            this.players[i] = new Player(lobby.getUsers()[seq], i);
-            this.players[i].getSupplySled().addStones(i + 2);
-            seq = (seq + 1) % lobby.getSize();
-        }
+  private void setGame() {
+    int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize() - 1);
+    for (int i = 0; i < numberOfShips; i++) {
+      this.ships[i] = new Ship(i, ThreadLocalRandom.current().nextInt(1, 4));
     }
+    for (int i = 0; i < lobby.getSize(); i++) {
+      this.players[i] = new Player(lobby.getUsers()[seq], i);
+      this.players[i].getSupplySled().addStones(i + 2);
+      seq = (seq + 1) % lobby.getSize();
+    }
+  }
 
   public void sendAll(Event event) {
     for (Player player : this.players) {
@@ -103,42 +102,43 @@ public class Game implements Runnable {
     }
   }
 
-  private void sendAll(GameInfoEvent event) {
+  public void sendAll(GameInfoEvent event) {
     for (Player player : this.players) {
       event.setMyId(player.getId());
       sendTo(player.getUser(), event);
     }
   }
 
-  private void sendAll(WinEvent event) {
+  public void sendAll(WinEvent event) {
     for (Player p : players) {
       event.setWinning(event.getWinner().equals(p.getUser().getUsername()));
       sendTo(p.getUser(), event);
     }
   }
-    public int[] getPointsSum(){
-        int[] points = new int[players.length];
-        for(Player player : this.players){
-            points[player.getId()] = player.getPoints();
-        }
-        return points;
-    }
 
-    public void updatePoints(){
-        sendAll(new UpdatePointsEvent(getPointsSum()));
+  public int[] getPointsSum() {
+    int[] points = new int[players.length];
+    for (Player player : this.players) {
+      points[player.getId()] = player.getPoints();
     }
+    return points;
+  }
 
-    public void updatePyramids() {
-        int[] newPoints = pyramids.getPointsAndFinishTurn();
-        for (int player = 0; player < this.players.length; player++) {
-            this.players[player].addPoints(newPoints[player]);
-        }
-        updatePoints();
-    }
+  public void updatePoints() {
+    sendAll(new UpdatePointsEvent(getPointsSum()));
+  }
 
-    private void sendTo(User user, Event event) {
-        this.clientListener.getServer().sendTo(event, user.getUsername());
+  public void updatePyramids() {
+    int[] newPoints = pyramids.getPointsAndFinishTurn();
+    for (int player = 0; player < this.players.length; player++) {
+      this.players[player].addPoints(newPoints[player]);
     }
+    updatePoints();
+  }
+
+  public void sendTo(User user, Event event) {
+    this.clientListener.getServer().sendTo(event, user.getUsername());
+  }
 
   private GameInfoEvent getGameInfo() {
     GameInfoEvent gameInfo = new GameInfoEvent();
@@ -215,41 +215,43 @@ public class Game implements Runnable {
           }
           nextMove = null;
 
-                    if (allshipsDocked()) {
-                        break;
-                    }
-                }
-            resetCurrentShips();
-            //Addiert die Punkte der Spieler aus dem Tempel zu ihren Punktzahlen
-            //Ende jeder Runde
-            int[] templePoints = temple.getPoints();
-            for (int player = 0; player < this.players.length; player++) {
-              this.players[player].addPoints(templePoints[player]);
-            }
-            updatePoints();
+          if (allshipsDocked()) {
+            break;
+          }
         }
-        //Addiert die Punkte der Spieler aus der Grabkammer und den Obelisken zu ihren Punktzahlen
-        //Ende des Spiels
-        int[] burialChamberPoints = burialChamber.getPoints();
-        int[] obelisksPoints = obelisks.getPoints();
+        resetCurrentShips();
+        //Addiert die Punkte der Spieler aus dem Tempel zu ihren Punktzahlen
+        //Ende jeder Runde
+        int[] templePoints = temple.getPoints();
         for (int player = 0; player < this.players.length; player++) {
-            this.players[player].addPoints(burialChamberPoints[player]);
-            this.players[player].addPoints(obelisksPoints[player]);
+          this.players[player].addPoints(templePoints[player]);
         }
         updatePoints();
+      }
+      //Addiert die Punkte der Spieler aus der Grabkammer und den Obelisken zu ihren Punktzahlen
+      //Ende des Spiels
+      int[] burialChamberPoints = burialChamber.getPoints();
+      int[] obelisksPoints = obelisks.getPoints();
+      for (int player = 0; player < this.players.length; player++) {
+        this.players[player].addPoints(burialChamberPoints[player]);
+        this.players[player].addPoints(obelisksPoints[player]);
+      }
+      updatePoints();
     }
     nominateWinner();
   }
-    // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
-    private void nominateWinner() {
-      Player winner = null;
-      for (Player p : players) {
-        if (winner == null || p.getPoints() > winner.getPoints()) {
-          winner = p;
-        }
+
+  // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
+  private void nominateWinner() {
+    Player winner = null;
+    for (Player p : players) {
+      if (winner == null || p.getPoints() > winner.getPoints()) {
+        winner = p;
       }
-      sendAll(new WinEvent(winner.getUser().getUsername()));
     }
+    sendAll(new WinEvent(winner.getUser().getUsername()));
+  }
+
   public BurialChamber getBurialChamber() {
     return burialChamber;
   }

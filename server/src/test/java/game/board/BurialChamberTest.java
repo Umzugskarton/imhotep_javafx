@@ -50,7 +50,7 @@ class BurialChamberTest {
     assertEquals(points.length, 4);
     assertEquals(0, points[0]);
     assertEquals(1, points[1]);
-    assertEquals(3, points[2]);
+    assertEquals(13, points[2]);
     assertEquals(10, points[3]);
   }
 
