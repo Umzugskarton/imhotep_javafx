@@ -29,7 +29,6 @@ public class StoragePresenter extends Presenter<IStorageView> {
     this.user = user;
     this.connection = connection;
     this.lobbyId = lobbyId;
-    this.view.setUserColor(user.getColor());
     bind();
   }
 
@@ -64,6 +63,10 @@ public class StoragePresenter extends Presenter<IStorageView> {
       this.view.getPointsLabel().setUnderline(false);
       this.view.getPointsLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
     }
+  }
+
+  public LobbyUser getUser() {
+    return user;
   }
 
   public void setPoints(int points) {

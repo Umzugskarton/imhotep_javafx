@@ -84,13 +84,9 @@ public class BoardView implements IBoardView {
     this.connection = connection;
     this.user = user;
     this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
-    for (int i = 0 ; i < lobby.getUsers().size(); i++){
-      StorageView storageView = new StorageView(this, eventBus, connection, lobby.getUsers().get(i),
-              lobby.getUsers().get(i).getUser().getId() == this.user.getId(), i);
-      // TODO evtl. abändern Ich bin nicht glücklich wie bestimmt wird welcher Storage Presenter der deine ist und die LobbyId muss übergeben werden
-      storageViews.add(storageView);
-      storageGridPane.add(storageView.getRootParent(), i, 0);
-    }
+
+
+
     bind();
     initOwnView();
   }
@@ -100,8 +96,14 @@ public class BoardView implements IBoardView {
   }
 
   @FXML
-  void inizialize(){
-
+  void initialize(){
+    for (int i = 0 ; i < lobby.getUsers().size(); i++){
+      StorageView storageView = new StorageView(this, eventBus, connection, lobby.getUsers().get(i),
+              lobby.getUsers().get(i).getUser().getId() == this.user.getId(), i);
+      // TODO evtl. abändern Ich bin nicht glücklich wie bestimmt wird welcher Storage Presenter der deine ist und die LobbyId muss übergeben werden
+      storageViews.add(storageView);
+      storageGridPane.add(storageView.getRootParent(),  0, i);
+    }
   }
 
 

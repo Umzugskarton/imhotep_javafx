@@ -59,6 +59,11 @@ public class StorageView implements IStorageView{
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/StorageView.fxml", this, eventBus);
   }
 
+  @FXML
+  public void initialize(){
+    setUserColor(mainPresenter.getUser().getColor());
+  }
+
   public void setUserColor(String color) {
     flag.setFill(Color.web(color));
     pointsCircle.setFill(Color.web(color));

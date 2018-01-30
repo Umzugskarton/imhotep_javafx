@@ -28,8 +28,4 @@ public class GamePresenter extends Presenter<IGameView> {
         //TODO Überlegen wie das umgesetzt werden soll
         //this.chatPresenter.getChatView().getChatText().getChildren().clear();
     }
-
-
-
-
 }

@@ -59,6 +59,7 @@ public class GameView implements IGameView {
     public GameView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
         this.parentView = parentView;
         this.eventBus = eventBus;
+        this.lobby = lobby;
         this.user = user;
         this.mainPresenter = new GamePresenter(this, eventBus, connection, user);
         bind();

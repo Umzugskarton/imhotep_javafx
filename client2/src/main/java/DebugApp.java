@@ -249,12 +249,13 @@ public class DebugApp {
             public void handle(ActionEvent event) {
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                lobbyUsers.add(new LobbyUser(new User(0 , "testuser", "xyz", "test@test.de" ), "#000", false));
+                lobbyUsers.add(new LobbyUser(new User(0 , "testuser", "xyz", "test@test.de" ), "#edc3f9", false));
+                lobbyUsers.add(new LobbyUser(new User(1 , "testuser2", "xyz", "test@test.de" ), "#070fa1", false));
                 boolean[] ready = {false,false};
                 ArrayList<String> colors = new ArrayList<>();
 
-                colors.add("#000");
-                colors.add("#fff");
+                colors.add("#edc3f9");
+                colors.add("#070fa1");
 
                 Lobby lobby = new Lobby(0, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
                 LobbyInfoEvent lobbyInfoEvent = new LobbyInfoEvent(lobby);
