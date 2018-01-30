@@ -51,7 +51,7 @@
                             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
                         </children>
                     </GridPane>
-                    <Pane id="havenPane" layoutX="246.0" layoutY="14.0" prefHeight="760.0" prefWidth="362.0">
+                    <Pane fx:id="havenPane" id="haven" layoutX="246.0" layoutY="14.0" prefHeight="760.0" prefWidth="362.0">
                         <children>
                             <Pane fx:id="berth0" layoutX="207.0" layoutY="59.0" prefHeight="118.0" prefWidth="200.0" />
                             <Pane id="docks" layoutX="13.0" layoutY="186.0" prefHeight="102.0" prefWidth="346.0" />

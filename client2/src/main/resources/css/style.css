@@ -94,7 +94,7 @@
   -fx-border-width: 5;
 }
 
-#mainland {
+#background {
   -fx-background-image: url("back.png");
   -fx-background-repeat: stretch;
   -fx-background-size: 458 804;

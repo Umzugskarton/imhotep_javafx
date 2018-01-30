@@ -10,14 +10,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
-
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 public class StorageView implements IStorageView{
 
@@ -37,19 +37,7 @@ public class StorageView implements IStorageView{
   private Circle pointsCircle;
 
   @FXML
-  private Group stone0;
-
-  @FXML
-  private Group stone1;
-
-  @FXML
-  private Group stone2;
-
-  @FXML
-  private Group stone3;
-
-  @FXML
-  private Group stone4;
+  private Pane stonePane;
 
   private final INavigateableView parentView;
   private final StoragePresenter mainPresenter;
@@ -96,7 +84,9 @@ public class StorageView implements IStorageView{
 
   public ArrayList<Group> getStones() {
     ArrayList<Group> a = new ArrayList<>();
-    Collections.addAll(a, stone0, stone1, stone2, stone3, stone4);
+    for(Node node : stonePane.getChildren()){
+      a.add((Group) node);
+    }
     return a;
   }
 
