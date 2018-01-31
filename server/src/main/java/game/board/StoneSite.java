@@ -24,7 +24,7 @@ public abstract class StoneSite extends Site implements IStoneSite {
 
   public void addStone(Stone stone) {
     if(stone != null) {
-      stoneSite.add(stone);
+      stones.add(stone);
     }
   }
 

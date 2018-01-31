@@ -16,12 +16,11 @@ import game.board.Pyramids;
 import game.board.Ship;
 import game.board.StoneSite;
 import game.board.Temple;
-import java.util.Collections;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
-import user.User;
+import data.user.User;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 

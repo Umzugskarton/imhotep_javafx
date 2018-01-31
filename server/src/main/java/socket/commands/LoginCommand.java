@@ -6,7 +6,7 @@ import SRVevents.loginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
-import data.User;
+import data.user.User;
 
 public class LoginCommand implements Command {
 

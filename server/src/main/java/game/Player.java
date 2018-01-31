@@ -1,6 +1,7 @@
 package game;
 
-import data.User;
+import game.board.SupplySled;
+import data.user.User;
 
 /**
  * Repräsentiert einen Spieler. Enthält seine Punktanzahl, seine aktuellen Karten und seine Steine.
@@ -10,6 +11,8 @@ public class Player {
   private int id;
   private int points = 0;
   private User user;
+  private Inventory inventory;
+  private SupplySled supplySled = new SupplySled();
 
   /**
    * Erstellt einen neuen Spieler.
@@ -20,6 +23,7 @@ public class Player {
   public Player(User user, int id) {
     this.user = user;
     this.id = id;
+    inventory = new Inventory();
   }
 
   public int getId() {
@@ -36,5 +40,13 @@ public class Player {
 
   public int getPoints() {
     return points;
+  }
+
+  public Inventory getInventory() {
+    return inventory;
+  }
+
+  public SupplySled getSupplySled() {
+    return supplySled;
   }
 }

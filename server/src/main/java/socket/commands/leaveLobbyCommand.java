@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.Request;
+import CLTrequests.IRequest;
 import CLTrequests.leaveLobbyRequest;
 import SRVevents.leaveLobbyEvent;
 import SRVevents.lobbyInfoEvent;
@@ -8,11 +8,8 @@ import commonLobby.CLTLobby;
 import lobby.Lobby;
 import socket.ClientListener;
 import socket.Server;
-import data.User;
+import data.user.User;
 
-/**
- * Created by Slothan on 18.12.2017.
- */
 public class leaveLobbyCommand implements Command {
 
     private ClientListener clientListener;
@@ -26,19 +23,19 @@ public class leaveLobbyCommand implements Command {
     }
 
     @Override
-    public void put(Request r) {
+    public void put(IRequest r) {
         this.request = (leaveLobbyRequest) r;
     }
 
     @Override
     public void exec() {
         User user = this.clientListener.getUser();
-        Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getId());
-        //clientListener.setLobby(lobby);
+        Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
+        //clientListener.addLobby(lobby);
 
         leaveLobbyEvent response = lobby.leave(user);
         server.sendTo(response, clientListener.getUser().getUsername());
-        this.clientListener.setLobby(null);
+        this.clientListener.addLobby(null);
         if(lobby.getUsers()[0] != null) {
             this.clientListener.getServer()
                     .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
