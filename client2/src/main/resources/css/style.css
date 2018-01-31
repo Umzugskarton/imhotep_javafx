@@ -115,7 +115,7 @@
 
 #house {
   -fx-background-repeat: stretch;
-  -fx-background-size: 255 124;
+  -fx-background-size: 100% 100%;
   -fx-background-image: url("haus.png");
 }
 
@@ -158,7 +158,13 @@
 }
 
 #stonegrid{
-  -fx-background-image: url("stoneback.png");
+  -fx-background-image: url("chat.png");
+  -fx-background-size: 100% 100%;
+  -fx-background-repeat: stretch;
+}
+
+#cardstack{
+  -fx-background-image: url("cardstack.png");
   -fx-background-size: 100% 100%;
   -fx-background-repeat: stretch;
 }

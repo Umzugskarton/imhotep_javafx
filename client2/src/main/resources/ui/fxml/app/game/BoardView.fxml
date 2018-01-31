@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,13 +10,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane prefHeight="673.0" prefWidth="1336.0" style="-fx-background-color: #74ccf4;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane prefHeight="574.0" prefWidth="1257.0" style="-fx-background-color: #74ccf4;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Pane fx:id="piers" prefHeight="739.0" prefWidth="483.0" GridPane.columnIndex="1">
+            <Pane fx:id="piers" prefHeight="623.0" prefWidth="606.0" GridPane.columnIndex="1">
                 <children>
                     <Pane fx:id="marketPier" layoutX="735.0" layoutY="26.0" prefHeight="118.0" prefWidth="200.0" />
                     <Pane fx:id="pyramidsPier" layoutX="729.0" layoutY="184.0" prefHeight="118.0" prefWidth="200.0" />
@@ -26,9 +25,9 @@
                     <Pane fx:id="obelisksPier" layoutX="735.0" layoutY="656.0" prefHeight="118.0" prefWidth="200.0" />
                 </children>
             </Pane>
-            <Pane id="background" prefHeight="673.0" prefWidth="512.0" stylesheets="@../../../../../css/style.css">
+            <Pane id="background" prefHeight="574.0" prefWidth="514.0" stylesheets="@../../../../../css/style.css">
                 <children>
-                    <GridPane fx:id="storageGridPane" layoutY="100.0" prefHeight="472.0" prefWidth="300.0">
+                    <GridPane fx:id="storageGridPane" layoutY="64.0" prefHeight="429.0" prefWidth="255.0" vgap="10.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints />
@@ -46,20 +45,20 @@
                             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
                         </children>
                     </GridPane>
-                    <Pane id="haven" fx:id="havenPane" layoutX="246.0" layoutY="14.0" prefHeight="614.0" prefWidth="288.0">
+                    <Pane id="haven" fx:id="havenPane" layoutX="246.0" layoutY="14.0" prefHeight="518.0" prefWidth="243.0">
                         <children>
-                            <Pane fx:id="berth0" layoutX="207.0" layoutY="59.0" prefHeight="90.0" prefWidth="150.0" translateX="-40.0" />
-                            <Pane id="docks" layoutX="13.0" layoutY="186.0" prefHeight="81.0" prefWidth="275.0" />
-                            <Pane fx:id="berth2" layoutX="207.0" layoutY="335.0" prefHeight="90.0" prefWidth="150.0" translateX="-40.0" />
-                            <Pane fx:id="berth1" layoutX="207.0" layoutY="215.0" prefHeight="90.0" prefWidth="150.0" translateX="-40.0" />
-                            <Pane id="docks" layoutX="13.0" layoutY="376.0" prefHeight="81.0" prefWidth="275.0" />
-                            <Pane fx:id="berth3" layoutX="206.0" layoutY="437.0" prefHeight="90.0" prefWidth="150.0" translateX="-40.0" />
+                            <Pane fx:id="berth0" layoutX="179.0" layoutY="55.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane id="docks" layoutX="13.0" layoutY="161.0" prefHeight="67.0" prefWidth="233.0" />
+                            <Pane fx:id="berth2" layoutX="180.0" layoutY="270.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane fx:id="berth1" layoutX="179.0" layoutY="176.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane id="docks" layoutX="13.0" layoutY="310.0" prefHeight="67.0" prefWidth="233.0" />
+                            <Pane fx:id="berth3" layoutX="181.0" layoutY="409.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
                         </children>
                     </Pane>
-                    <GridPane layoutX="14.0" layoutY="606.0" prefHeight="57.0" prefWidth="435.0">
+                    <GridPane layoutX="14.0" layoutY="511.0" prefHeight="57.0" prefWidth="388.0">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="127.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="103.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.8536834716797" minWidth="10.0" prefWidth="135.61590576171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.88409423828125" minWidth="10.0" prefWidth="252.88409423828125" />
                         </columnConstraints>
                         <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -69,17 +68,17 @@
                         <children>
                             <Label text="RUNDE" textFill="#886d4b">
                                 <font>
-                                    <Font name="Calibri Italic" size="14.0" />
+                                    <Font size="11.0" />
                                 </font>
                             </Label>
                             <Label prefHeight="17.0" prefWidth="125.0" text="AKTUELLER SPIELER" textFill="#886d4b" GridPane.rowIndex="1">
                                 <font>
-                                    <Font name="Calibri Italic" size="14.0" />
+                                    <Font size="11.0" />
                                 </font>
                             </Label>
                             <Label text="VERBLEIBENDE ZEIT" textFill="#886d4b" GridPane.rowIndex="2">
                                 <font>
-                                    <Font name="Calibri Italic" size="14.0" />
+                                    <Font size="11.0" />
                                 </font>
                             </Label>
                             <Label fx:id="roundLabel" textFill="#886d4b" GridPane.columnIndex="1">
@@ -92,7 +91,7 @@
                                     <Font name="Calibri" size="14.0" />
                                 </font>
                             </Label>
-                            <ProgressBar id="turnTimerProgress" fx:id="turnTimerProgress" prefHeight="18.0" prefWidth="238.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <ProgressBar id="turnTimerProgress" fx:id="turnTimerProgress" layoutX="10.0" prefHeight="20.0" prefWidth="223.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                 <stylesheets>
                                     <URL value="@../../../../../css/style.css" />
                                     <URL value="@../../../../../css/gui-style.css" />
@@ -100,12 +99,11 @@
                             </ProgressBar>
                         </children>
                     </GridPane>
-                    <Button layoutX="6.0" layoutY="6.0" mnemonicParsing="false" text="Vollbild" />
                 </children>
             </Pane>
-            <Pane id="background" prefHeight="806.0" prefWidth="379.0" style="-fx-background-color: #edc9af;" GridPane.columnIndex="2">
+            <Pane id="background" prefHeight="574.0" prefWidth="389.0" style="-fx-background-color: #edc9af;" GridPane.columnIndex="2">
                 <children>
-                    <GridPane fx:id="stoneSiteGrid" layoutX="44.0" prefHeight="673.0" prefWidth="349.0">
+                    <GridPane fx:id="stoneSiteGrid" layoutX="74.0" prefHeight="567.0" prefWidth="319.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         </columnConstraints>

@@ -8,17 +8,24 @@ import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
 import ui.app.game.userinterface.UserInterfaceView;
-import ui.app.main.chat.ChatView;
-
+import ui.app.game.chat.ChatView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
+
+    @FXML
+    private Pane black;
+
+    @FXML
+    private Pane dialog;
 
     @FXML
     private ResourceBundle resources;
@@ -27,7 +34,7 @@ public class GameView implements IGameView {
     private URL location;
 
     @FXML
-    private AnchorPane mainViewRoot;
+    private GridPane mainViewRoot;
 
     @FXML
     private Pane subParentChat;
@@ -79,7 +86,7 @@ public class GameView implements IGameView {
         this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
         this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user , lobby);
 
-        //setSubParentChat(this.chatView.getRootParent());
+        setSubParentChat(this.chatView.getRootParent());
         setSubParentBoard(this.boardView.getRootParent());
         setSubParentUI(this.userInterfaceView.getRootParent());
     }
@@ -120,5 +127,13 @@ public class GameView implements IGameView {
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    @FXML
+    public void blackIt(){
+        black.toFront();
+        black.setVisible(true);
+        ChatView nc = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
+        dialog.getChildren().add(nc.getRootParent());
     }
 }

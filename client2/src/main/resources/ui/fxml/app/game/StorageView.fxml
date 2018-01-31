@@ -4,6 +4,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="124.0" prefWidth="255.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="114.0" prefWidth="255.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Pane layoutX="8.0" layoutY="-44.0" prefHeight="124.0" prefWidth="255.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -76,7 +78,7 @@
                                 </Group>
                             </children>
                         </Pane>
-                        <GridPane layoutX="10.0" layoutY="20.0" prefHeight="34.0" prefWidth="34.0">
+                        <GridPane layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="34.0">
                             <columnConstraints>
                                 <ColumnConstraints />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -100,5 +102,14 @@
                 </Pane>
             </children>
         </Pane>
+      <Pane layoutX="8.0" layoutY="47.0" onMouseClicked="#showCardStack">
+         <children>
+            <ImageView fx:id="cardStack" fitHeight="25.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../css/cardstack.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
