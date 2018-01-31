@@ -1,16 +1,19 @@
 package game.board;
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Ship {
 
+  private final Logger log = LoggerFactory.getLogger(getClass().getName());
   private static final int MAX_SLOTS = 4;
   private static final int MIN_SLOTS = 2;
 
-  private int id;
-  private int size;
-  private int minimumStones;
-  private Stone[] stones;
+  private final int id;
+  private final int size;
+  private final int minimumStones;
+  private final Stone[] stones;
   private boolean docked;
 
   /**
@@ -38,7 +41,7 @@ public class Ship {
 
   private static int getRandomSize() {
     //zweiter Parameter muss MAX_SLOTS+1 sein, weil die Rückgabe streng kleiner ist
-    return ThreadLocalRandom.current().nextInt(MIN_SLOTS, MAX_SLOTS+1);
+    return ThreadLocalRandom.current().nextInt(MIN_SLOTS, MAX_SLOTS + 1);
   }
 
   public int getId() {
@@ -78,9 +81,12 @@ public class Ship {
    * @return Erfolg
    */
   public boolean addStone(Stone stone, int position) {
-    if (docked || (position > size || (stones.length > position && stones[position] != null))) {
+    if (docked || (position >= size || (stones.length > position && stones[position] != null))) {
+      log.warn(
+          "not adding stone to ship id:"+id+" position:" + position + " size:" + size);
       return false;
     }
+    log.info("adding stone to ship id:"+id+" position:"+position+" size:"+size);
     stones[position] = stone;
     return true;
   }

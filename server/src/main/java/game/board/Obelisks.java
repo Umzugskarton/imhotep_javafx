@@ -49,7 +49,7 @@ public class Obelisks extends StoneSite {
   public int[] getPoints() {
     int[] points = new int[playerCount];
     int[] stonesPerPlayer = new int[playerCount];
-    for (Stone stone : stoneSite) {
+    for (Stone stone : stones) {
       stonesPerPlayer[stone.getPlayer().getId()]++;
     }
     ObeliskHelper[] playerRank = new ObeliskHelper[playerCount];
@@ -102,12 +102,6 @@ public class Obelisks extends StoneSite {
       return number;
     }
     return 0;
-  }
-
-
-  @Override
-  public Ship getDockedShip() {
-    return super.getDockedShip();
   }
 
   private class ObeliskHelper {
