@@ -65,7 +65,7 @@ public class Lobby {
   public LobbyUser getUserbyName(String name) {
     int i =0;
     LobbyUser e= null;
-    while(users.get(i).getUsername()!=name && i<users.size())
+    while(!users.get(i).getUsername().equals(name) && i<users.size())
       e=users.get(i);
     return e;
   }
