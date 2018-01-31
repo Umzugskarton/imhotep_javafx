@@ -223,7 +223,9 @@ public class DebugApp {
 
                 ArrayList<String> colors = new ArrayList<>();
                 colors.add("Red");
-                lobbys.add(new Lobby(1, "Lobby 1", lobbyUsers, false, 4, true, "Testuser", readyStaus, colors));
+                Lobby lobby = new Lobby(1, "Lobby 1", lobbyUsers, false, 4, true, "Testuser", readyStaus, colors);
+                lobby.setBelegung(2);
+                lobbys.add(lobby);
 
                 myEvent.setLobbies(lobbys);
                 logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");

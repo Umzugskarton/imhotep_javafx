@@ -12,13 +12,10 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
-import ui.app.game.board.ship.ShipPresenter;
-import ui.app.game.board.storage.StoragePresenter;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.app.main.chat.ChatView;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
@@ -73,7 +70,7 @@ public class GameView implements IGameView {
     @Override
     public void initOwnView() {
         if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/GameView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/GameView.fxml", this, eventBus);
     }
 
     @FXML

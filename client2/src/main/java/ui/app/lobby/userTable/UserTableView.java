@@ -7,6 +7,7 @@ import helper.fxml.GenerateFXMLView;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +33,10 @@ public class UserTableView implements IUserTableView {
     @FXML
     private TableView userTableView;
 
+    @FXML
+    private TableColumn username;
+
+
     private Parent myParent;
 
     private final INavigateableView parentView;
@@ -49,8 +54,7 @@ public class UserTableView implements IUserTableView {
 
     @FXML
     void initialize() {
-        //setUserListViewData(this.presenter.getUserList());
-        userTableView.getColumns().add("Test");
+
     }
 
 

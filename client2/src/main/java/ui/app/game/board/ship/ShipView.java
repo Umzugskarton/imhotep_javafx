@@ -3,7 +3,6 @@ package ui.app.game.board.ship;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.Lobby;
-import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -12,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
-import mvp.view.IView;
-import ui.app.game.board.BoardPresenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +58,7 @@ public class ShipView implements IShipView {
   @Override
   public void initOwnView() {
     if(this.myParent == null) {
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/ShipView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/ShipView.fxml", this, eventBus);
       sprite.setId("ship" + cargo.length);
       ArrayList<Group> stones = getStones();
       //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen

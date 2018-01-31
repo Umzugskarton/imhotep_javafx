@@ -45,7 +45,7 @@ public class LobbyView implements ILobbyView {
 
     // Subviews
     private ChatView chatView;
-   // private UserTableView userTableView;
+    // private UserTableView userTableView;
     //private LobbyListView lobbyListView;
 
     private final User user;

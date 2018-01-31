@@ -17,6 +17,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import mvp.view.IView;
@@ -43,7 +44,7 @@ public class AppView implements IAppView {
   private URL location;
 
   @FXML
-  AnchorPane appViewRoot;
+  GridPane appViewRoot;
 
   @FXML
   Pane appViewTopPane;
@@ -149,6 +150,7 @@ public class AppView implements IAppView {
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
       addTab(lobbyView, lobby);
       lobbyViews.add(lobbyView);
+
     }
   }
 
@@ -166,12 +168,15 @@ public class AppView implements IAppView {
         break;
       }
     }
+
     GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
     tab.setText("Game "+lobby.getName());
     tab.setContent(gameView.getRootParent());
     tab.setId("gameTab");
     gameViews.add(gameView);
+    this.appViewMainTabPane.getSelectionModel().select(0);
+    this.appViewMainTabPane.getSelectionModel().select(tab);
   }
 }
 
