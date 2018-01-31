@@ -1,15 +1,12 @@
 package requests.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActionCardMove extends GameRequest{
-  private String move = "actionCard";
-  private int cardID;
   private ArrayList<GameRequest> moves;
 
   public ActionCardMove(int cardID) {
-
-    this.cardID = cardID;
     moves = new ArrayList<>();
   }
 
@@ -17,7 +14,7 @@ public class ActionCardMove extends GameRequest{
     moves.add(move);
   }
 
-  public ArrayList<GameRequest> getMoves() {
+  public List getMoves() {
     return moves;
   }
 }
