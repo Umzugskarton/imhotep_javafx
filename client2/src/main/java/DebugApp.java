@@ -5,6 +5,7 @@ import data.lobby.Lobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
+import events.game.GameInfoEvent;
 import events.game.StartGameEvent;
 import events.main.*;
 import events.main.lobby.LobbyJoinSuccessfulEvent;
@@ -214,7 +215,7 @@ public class DebugApp {
                 ArrayList<Lobby> lobbys = new ArrayList<>();
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                LobbyUser lobbyUser = new LobbyUser(new User(1,"Testuser", "blabla", "testuser@user.de"), "Red", false);
+                LobbyUser lobbyUser = new LobbyUser(new User(1,"Testuser", "blabla", "testuser@user.de"), "Red" ,false);
                 lobbyUsers.add(lobbyUser);
 
                 boolean[] readyStaus = new boolean[3];
@@ -243,7 +244,7 @@ public class DebugApp {
 
 
         // Buttons 3
-        Button lobbyListButton3 = new Button("LobbyInfo");
+        Button lobbyListButton3 = new Button("LobbyInfo 0");
         lobbyListButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -265,7 +266,7 @@ public class DebugApp {
         });
 
         // Buttons 4
-        Button lobbyListButton4 = new Button("LobbyInfo");
+        Button lobbyListButton4 = new Button("LobbyInfo 1");
         lobbyListButton4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -286,12 +287,29 @@ public class DebugApp {
         });
 
         // Buttons 5
-        Button lobbyListButton5 = new Button("LobbyInfo");
+        Button lobbyListButton5 = new Button("Start Game Lobby 0");
         lobbyListButton5.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 StartGameEvent startGameEvent = new StartGameEvent(0);
                 getEventBus().post(startGameEvent);
+            }
+        });
+
+        // Buttons 5
+        Button lobbyListButton6 = new Button("Game Info Lobby 0");
+        lobbyListButton6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GameEvents.GameInfoEvent gameInfo = new GameEvents.GameInfoEvent();
+/*
+                gameInfo.setSiteString({"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"});
+                gameInfo.setSitesAllocation(dockedSites);
+                gameInfo.setOrder(users);
+                gameInfo.setTurnTime(lobby.getExecutor().getTurnTime());
+                gameInfo.setRound(this.round);
+                gameInfo.setStorages(this.storages);
+*/
             }
         });
 

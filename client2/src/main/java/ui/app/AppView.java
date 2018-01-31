@@ -103,18 +103,10 @@ public class AppView implements IAppView {
 
   public boolean addTab(LobbyView lobbyView, Lobby lobby) {
     Tab tab = new Tab();
-    tab.setText(lobbyView.getTitle());
+    tab.setText("Lobby " +lobby.getName());
     tab.setContent(lobbyView.getRootParent());
     tab.setId("Lobby " + lobby.getLobbyId());
     lobby.setMyTab(tab);
-    return this.appViewMainTabPane.getTabs().add(tab);
-  }
-
-  public boolean addTab(GameView gameView) {
-    Tab tab = new Tab();
-    tab.setText(gameView.getTitle());
-    tab.setContent(gameView.getRootParent());
-    tab.setId("gameTab");
     return this.appViewMainTabPane.getTabs().add(tab);
   }
 
@@ -176,7 +168,7 @@ public class AppView implements IAppView {
     }
     GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
-    tab.setText(gameView.getTitle());
+    tab.setText("Game "+lobby.getName());
     tab.setContent(gameView.getRootParent());
     tab.setId("gameTab");
     gameViews.add(gameView);

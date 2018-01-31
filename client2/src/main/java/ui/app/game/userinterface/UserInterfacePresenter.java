@@ -75,7 +75,6 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
 
-
   public void changeBannerLabels(String text, String subText, Color textColor) {
     this.view.getUiBannerLabel().setText(text);
     this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
@@ -134,8 +133,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   @Subscribe
-  private void update(GameInfoEvent event){
-    Platform.runLater( () -> {
+  private void update(GameInfoEvent event) {
+    Platform.runLater(() -> {
               storages = event.getStorages();
               round = event.getRound();
               turnTime = event.getTurnTime();
@@ -147,7 +146,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     );
   }
 
-  private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites){
+  private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites) {
     int i = 0;
     view.getSelectShipLocationBox().getItems().clear();
     for (String site : sites) {
@@ -177,16 +176,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
 
   //Moves
-
-  public void sendFillUpStorageMove(){
+  public void sendFillUpStorageMove() {
     eventBus.post(new FillUpStorageMove());
   }
 
-  public void sendVoyageToStoneSiteMove(int ship, String to){
+  public void sendVoyageToStoneSiteMove(int ship, String to) {
     eventBus.post(new VoyageToStoneSiteMove(ship, to));
   }
 
-  public void sendLoadUpShipMove(int ship, int to){
+  public void sendLoadUpShipMove(int ship, int to) {
     eventBus.post(new LoadUpShipMove(ship, to));
   }
 }

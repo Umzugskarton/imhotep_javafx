@@ -3,6 +3,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
+import events.game.StartGameEvent;
 import events.main.CreateEvent;
 import events.main.login.LoginSuccessfulEvent;
 import javafx.application.Application;
@@ -48,8 +49,6 @@ public class ClientApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         //this.primaryStage.initStyle(StageStyle.UTILITY);
-
-        setResizable(false);
         this.primaryStage.sizeToScene();
 
         this.startView = new StartView(eventBus, connection);

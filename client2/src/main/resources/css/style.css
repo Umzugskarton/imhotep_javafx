@@ -97,19 +97,19 @@
 #background {
   -fx-background-image: url("back.png");
   -fx-background-repeat: stretch;
-  -fx-background-size: 458 804;
+  -fx-background-size: 100% 100%;
   -fx-background-position: center center;
 }
 
 #haven {
   -fx-background-repeat: stretch;
-  -fx-background-size: 360 760;
+  -fx-background-size: 100% 100%;
   -fx-background-image: url("hafen.png");
 }
 
 #docks {
   -fx-background-repeat: stretch;
-  -fx-background-size: 346 102;
+  -fx-background-size: 100% 100%;
   -fx-background-image: url("dock.png");
 }
 

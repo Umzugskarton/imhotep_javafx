@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="1920.0" prefWidth="600.0">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane fx:id="subParentBoard" prefHeight="804.0" prefWidth="1920.0"/>
-        <Pane fx:id="subParentUI"/>
-        <Pane fx:id="subParentChat"/>
+      <Pane prefHeight="800.0" prefWidth="1336.0">
+         <children>
+              <Pane fx:id="subParentBoard" />
+              <Pane fx:id="subParentUI" layoutY="650.0" />
+              <Pane fx:id="subParentChat" layoutX="500.0" layoutY="650.0" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
