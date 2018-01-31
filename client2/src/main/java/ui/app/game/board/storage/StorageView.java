@@ -103,5 +103,10 @@ public class StorageView implements IStorageView{
   public Parent getRootParent() {
     return myParent;
   }
+
+  @FXML
+  public void showCardStack(){
+    System.out.println("Cardstack gedrückt");
+  }
 }
 

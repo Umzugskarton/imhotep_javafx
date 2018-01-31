@@ -18,7 +18,7 @@
             <content>
                 <Pane>
                     <children>
-                        <TextFlow fx:id="chatFlow" prefHeight="174.0" prefWidth="600.0" />
+                        <TextFlow fx:id="chatFlow" prefHeight="85.0" prefWidth="400.0" />
                     </children>
                 </Pane>
             </content>
