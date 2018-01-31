@@ -22,6 +22,12 @@ public abstract class StoneSite extends Site implements IStoneSite {
     }
   }
 
+  public void addStone(Stone stone) {
+    if(stone != null) {
+      stoneSite.add(stone);
+    }
+  }
+
   @Override
   public ArrayList<Stone> getStones() {
     return stones;
