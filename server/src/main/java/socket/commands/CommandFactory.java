@@ -29,6 +29,7 @@ public class CommandFactory {
     }
 
     public Command getCommand(IRequest request){
+        System.out.println("BIN BEI : " +request.getClass().getSimpleName());
         Command c = Dict.get(request.getType());
         c.put(request);
         return c;
