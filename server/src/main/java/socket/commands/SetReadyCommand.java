@@ -5,7 +5,7 @@ import CLTrequests.setReadyRequest;
 import SRVevents.SetReadyEvent;
 import lobby.Lobby;
 import socket.ClientListener;
-import user.User;
+import data.user.User;
 
 public class SetReadyCommand implements Command {
 

@@ -25,7 +25,6 @@ import javafx.util.Callback;
 import commonLobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
-import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 import static general.TextBundle.getString;
 
@@ -104,6 +103,7 @@ public class LobbyViewImpl implements LobbyView {
         }
       }
     });
+
     ColumnConstraints column = new ColumnConstraints();
     column.setFillWidth(true);
     column.setHgrow(Priority.ALWAYS);

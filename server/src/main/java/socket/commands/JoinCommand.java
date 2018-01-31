@@ -8,7 +8,7 @@ import socket.ClientListener;
 import socket.Server;
 import SRVevents.joinEvent;
 import SRVevents.lobbyInfoEvent;
-import user.User;
+import data.user.User;
 
 public class JoinCommand implements Command {
 

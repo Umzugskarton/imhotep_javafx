@@ -9,12 +9,10 @@ import game.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
-import user.User;
-
+import data.user.User;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 
 public class Lobby {

@@ -8,11 +8,8 @@ import commonLobby.CLTLobby;
 import lobby.Lobby;
 import socket.ClientListener;
 import socket.Server;
-import user.User;
+import data.user.User;
 
-/**
- * Created by Slothan on 18.12.2017.
- */
 public class leaveLobbyCommand implements Command {
 
     private ClientListener clientListener;

@@ -9,7 +9,7 @@ import commonLobby.CLTLobby;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import user.User;
+import data.user.User;
 
 public class Server {
 

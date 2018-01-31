@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane id="stonegrid" fx:id="appViewRoot" alignment="CENTER" stylesheets="@../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
+  <children>
+    <VBox spacing="5.0">
+      <children>
+        <Pane fx:id="appViewTopPane" VBox.vgrow="ALWAYS">
+          <children>
+            <MenuButton fx:id="appViewMenuButton" mnemonicParsing="false" text="Logo">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Dein Profil" />
+                <MenuItem mnemonicParsing="false" text="Einstellungen" />
+                <MenuItem mnemonicParsing="false" text="Abmelden" />
+              </items>
+            </MenuButton>
+          </children>
+        </Pane>
+        <TabPane fx:id="appViewMainTabPane" rotateGraphic="false" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
+          <tabs>
+            <Tab fx:id="appViewMainTab" closable="false" disable="false" text="Main">
+              <content>
+                <Pane />
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+        <Pane fx:id="appViewBottomPane" VBox.vgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+    </VBox>
+  </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

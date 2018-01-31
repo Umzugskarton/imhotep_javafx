@@ -3,7 +3,7 @@ package socket;
 import CLTrequests.*;
 import SRVevents.*;
 import lobby.Lobby;
-import user.User;
+import data.user.User;
 import user.UserIdentifier;
 import database.userdata.DBUserDataSource;
 

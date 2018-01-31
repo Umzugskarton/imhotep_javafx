@@ -5,7 +5,7 @@ import CLTrequests.changeColorRequest;
 import SRVevents.changeColorEvent;
 import lobby.Lobby;
 import socket.ClientListener;
-import user.User;
+import data.user.User;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,4 @@ public class ChangeColorCommand implements Command {
             }
         }
     }
-
-
-
 }

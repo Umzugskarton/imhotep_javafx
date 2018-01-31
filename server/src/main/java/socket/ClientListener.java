@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.commands.Invoker;
 import socket.commands.CommandFactory;
-import user.User;
+import data.user.User;
 
 /**
  * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.
