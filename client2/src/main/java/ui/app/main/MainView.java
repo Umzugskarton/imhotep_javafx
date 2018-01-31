@@ -7,12 +7,14 @@ import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
 import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
+import ui.popup.PopupView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +39,9 @@ public class MainView implements IMainView {
     @FXML
     private Pane subParentLobbyList;
 
+    @FXML
+    private Pane popupPane;
+
     private final INavigateableView parentView;
     private final MainPresenter mainPresenter;
     private final EventBus eventBus;
@@ -48,6 +53,9 @@ public class MainView implements IMainView {
     private ChatView chatView;
     private UserListView userListView;
     private LobbyTableView lobbyListView;
+
+    //Popup
+    private PopupView popupView;
 
     private final User user;
 
@@ -76,9 +84,16 @@ public class MainView implements IMainView {
         this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getConnection(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getConnection(), user);
 
+//        this.popupView = new PopupView("Test", eventBus,mainPresenter.getConnection());
+
+  //      this.mainViewRoot.add(this.popupView.getRootParent(),0,0);
+    //    this.popupView.setView(new CreateLobbyView(eventBus,this.mainPresenter.getConnection()));
+      //  this.popupView.show();
+
         setSubParentChat(this.chatView.getRootParent());
         setSubParentUserList(this.lobbyListView.getRootParent());
         setSubParentLobbyList(this.userListView.getRootParent());
+        showPopup(true);
     }
 
     public void setSubParentChat(Parent subParent){
@@ -117,5 +132,9 @@ public class MainView implements IMainView {
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    public void showPopup(boolean show) {
+        this.popupPane.setVisible(show);
     }
 }

@@ -77,7 +77,7 @@ public class GameView implements IGameView {
     @Override
     public void initOwnView() {
         if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/GameView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/GameView.fxml", this, eventBus);
     }
 
     @FXML

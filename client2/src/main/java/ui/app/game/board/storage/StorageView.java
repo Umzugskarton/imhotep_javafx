@@ -56,7 +56,7 @@ public class StorageView implements IStorageView{
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/StorageView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/StorageView.fxml", this, eventBus);
   }
 
   @FXML

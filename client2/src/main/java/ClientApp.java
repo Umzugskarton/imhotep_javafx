@@ -87,7 +87,7 @@ public class ClientApp extends Application {
             this.appView = new AppView(eventBus, connection, authenticatedUser);
 
         setContent(this.appView.getRootParent());
-        this.primaryStage.sizeToScene();
+        this.primaryStage.setMaximized(true);
     }
 
     @Subscribe

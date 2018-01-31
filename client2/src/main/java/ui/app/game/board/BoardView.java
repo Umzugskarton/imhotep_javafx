@@ -3,7 +3,6 @@ package ui.app.game.board;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.Lobby;
-import data.lobby.LobbyUser;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -15,11 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
-import ui.app.game.board.ship.ShipPresenter;
 import ui.app.game.board.ship.ShipView;
-import ui.app.game.board.storage.StoragePresenter;
 import ui.app.game.board.storage.StorageView;
-import java.lang.reflect.Array;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,7 +134,7 @@ public class BoardView implements IBoardView {
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/BoardView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/BoardView.fxml", this, eventBus);
   }
 
   @Override

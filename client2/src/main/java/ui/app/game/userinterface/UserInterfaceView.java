@@ -1,6 +1,5 @@
 package ui.app.game.userinterface;
 
-import GameMoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.Lobby;
@@ -11,10 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.IGameView;
 
@@ -78,7 +75,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/game/UserInterfaceView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/UserInterfaceView.fxml", this, eventBus);
   }
 
   @Override
