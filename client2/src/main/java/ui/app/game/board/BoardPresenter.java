@@ -19,6 +19,11 @@ public class BoardPresenter extends Presenter<IBoardView> {
     this.connection = connection;
     this.user = user;
     this.lobby= lobby;
+    bind();
+  }
+
+  public void bind(){
+    eventBus.register(this);
   }
 
   public Connection getClientSocket() {

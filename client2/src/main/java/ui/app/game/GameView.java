@@ -8,6 +8,8 @@ import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
@@ -20,13 +22,19 @@ import java.util.ResourceBundle;
 public class GameView implements IGameView {
 
     @FXML
+    private Pane black;
+
+    @FXML
+    private Pane dialog;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
 
     @FXML
-    private AnchorPane mainViewRoot;
+    private GridPane mainViewRoot;
 
     @FXML
     private Pane subParentChat;
@@ -119,5 +127,13 @@ public class GameView implements IGameView {
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    @FXML
+    public void blackIt(){
+        black.toFront();
+        black.setVisible(true);
+        ChatView nc = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
+        dialog.getChildren().add(nc.getRootParent());
     }
 }

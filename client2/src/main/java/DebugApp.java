@@ -1,3 +1,5 @@
+import GameEvents.GameInfoEvent;
+import GameEvents.TurnEvent;
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -5,7 +7,6 @@ import data.lobby.Lobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
-import events.game.GameInfoEvent;
 import events.game.StartGameEvent;
 import events.main.*;
 import events.main.lobby.LobbyJoinSuccessfulEvent;
@@ -296,20 +297,41 @@ public class DebugApp {
             }
         });
 
-        // Buttons 5
+        // Buttons 6
         Button lobbyListButton6 = new Button("Game Info Lobby 0");
         lobbyListButton6.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                GameEvents.GameInfoEvent gameInfo = new GameEvents.GameInfoEvent();
-/*
-                gameInfo.setSiteString({"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"});
-                gameInfo.setSitesAllocation(dockedSites);
-                gameInfo.setOrder(users);
-                gameInfo.setTurnTime(lobby.getExecutor().getTurnTime());
-                gameInfo.setRound(this.round);
-                gameInfo.setStorages(this.storages);
-*/
+                GameInfoEvent gameInfo = new GameInfoEvent();
+                int[] sitesAllo = {-1,-1,-1,-1,-1};
+                String[] x = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+                String[] y = {"test", "test2"};
+                ArrayList<Integer> storages = new ArrayList<>();
+                storages.add(1);
+                storages.add(2);
+                gameInfo.setSiteString(x);
+                gameInfo.setSitesAllocation(sitesAllo);
+                gameInfo.setOrder(y);
+                gameInfo.setTurnTime(20);
+                gameInfo.setRound(0);
+                gameInfo.setStorages(storages);
+                for (int i = 0 ; i < 4; i++) {
+                    int[] f = new int[i];
+                    gameInfo.setCurrentShips(f);
+                }
+
+                eventBus.post(gameInfo);
+
+            }
+        });
+
+        // Buttons 7
+        Button lobbyListButton7 = new Button("Turn Event 0");
+        lobbyListButton7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TurnEvent e = new TurnEvent(true, "testuser");
+                eventBus.post(e);
             }
         });
 
@@ -319,6 +341,8 @@ public class DebugApp {
         vBox.getChildren().add(lobbyListButton3);
         vBox.getChildren().add(lobbyListButton4);
         vBox.getChildren().add(lobbyListButton5);
+        vBox.getChildren().add(lobbyListButton6);
+        vBox.getChildren().add(lobbyListButton7);
     }
 
     private void initPopup(){

@@ -1,5 +1,6 @@
 package ui.app.game.board.ship;
 
+import GameEvents.GameInfoEvent;
 import GameEvents.ShipLoadedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -25,13 +26,17 @@ public class ShipPresenter extends Presenter<IShipView>{
     this.shipId = shipId;
     this.cargo = cargo;
     this.connection= connection;
-
-    updateCargo();
   }
 
   @Subscribe
   public void setCargo(ShipLoadedEvent e) {
     this.cargo = e.getCargo();
+    updateCargo();
+  }
+
+  @Subscribe
+  public void initCargo(GameInfoEvent e){
+    cargo = e.getShips().get(shipId);
     updateCargo();
   }
 

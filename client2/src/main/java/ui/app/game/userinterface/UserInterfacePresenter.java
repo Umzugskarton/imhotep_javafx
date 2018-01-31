@@ -45,6 +45,11 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.connection = connection;
     this.user = user;
     this.lobby = lobby;
+    bind();
+  }
+
+  public void bind(){
+    eventBus.register(this);
   }
 
   public Connection getClientSocket() {
@@ -81,7 +86,9 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.view.getUiBannerLabel().setTextFill(textColor);
   }
 
+  @Subscribe
   public void newTurn(TurnEvent e) {
+    System.out.println("GETURNED");
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
     Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
