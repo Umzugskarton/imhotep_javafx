@@ -5,10 +5,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ShipStoneSortTest {
+public class ShipTest {
 
   //WunschSortierung der Steine
   int sortedstones[] = {1, 2, 0, 3};
@@ -20,7 +21,7 @@ public class ShipStoneSortTest {
 
 
   @Test
-  public void VTSManualDump() {
+  public void sortStonesTest() {
     Ship test = new Ship(1);
     while (test.getSize() != 4) {
       test = new Ship(1);
@@ -37,7 +38,7 @@ public class ShipStoneSortTest {
     stones[1] = new Stone(p1);
     stones[2] = new Stone(p2);
     stones[3] = new Stone(p2);
-    test.addStone(stones[0], 0);
+    assertEquals(true, test.addStone(stones[0], 0));
     test.addStone(stones[1], 1);
     test.addStone(stones[2], 2);
     test.addStone(stones[3], 3);
@@ -51,5 +52,7 @@ public class ShipStoneSortTest {
     }
     assertArrayEquals(testOrder, newOrder);
   }
+
+
 
 }
