@@ -255,7 +255,6 @@ public class DebugApp {
                 lobbyUsers.add(new LobbyUser(new User(1 , "testuser2", "xyz", "test@test.de" ), "#070fa1", false));
                 boolean[] ready = {false,false};
                 ArrayList<String> colors = new ArrayList<>();
-
                 colors.add("#edc3f9");
                 colors.add("#070fa1");
 
@@ -273,7 +272,7 @@ public class DebugApp {
             public void handle(ActionEvent event) {
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                lobbyUsers.add(new LobbyUser(new User(1 , "testuser", "xyz", "test@test.de" ), "#000", false));
+                lobbyUsers.add(new LobbyUser(new User(2 , "testuser3", "xyz", "test@test.de" ), "#000", false));
                 boolean[] ready = {false,false};
                 ArrayList<String> colors = new ArrayList<>();
 

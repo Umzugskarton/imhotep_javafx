@@ -91,6 +91,13 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     System.out.println("GETURNED");
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
+    if (lobby == null ){
+      System.out.println("NULLL DU NULLPE ");
+    }
+    System.out.println("e.getUsername:  " + e.getUsername());
+    System.out.println("e.getUsername:  " + lobby.getUserbyName(e.getUsername()).getUsername());
+    System.out.println("e.getUsername:  " + lobby.getUserbyName(e.getUsername()).getColor());
+
     Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
 
     this.view.getCurrentPlayerLabel().setText(e.getUsername());
