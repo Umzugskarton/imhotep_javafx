@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class userlistRequest implements IRequest {
 
-  private String request = "userlist";
+  private String request = "userList";
   private Date date;
 
   public userlistRequest() {

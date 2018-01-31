@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="mainroot" fx:id="mainViewRoot" prefHeight="485.0" prefWidth="722.0" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <HBox alignment="CENTER">
+    <children>
+      <Pane fx:id="subParentChat">
+        <padding>
+          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+      </Pane>
+      <AnchorPane>
+        <children>
+          <VBox>
+            <children>
+              <Pane fx:id="subParentUserList" />
+              <Pane fx:id="subParentLobbyList" />
+            </children>
+          </VBox>
+        </children>
+      </AnchorPane>
+    </children>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+  </HBox>
+   <Pane fx:id="popupPane">
+      <children>
+         <Label text="Show that fucking Text!" />
+      </children></Pane>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</AnchorPane>

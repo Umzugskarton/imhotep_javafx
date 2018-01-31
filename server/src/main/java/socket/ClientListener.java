@@ -1,28 +1,34 @@
 package socket;
 
 import GameMoves.Move;
-import CLTrequests.IRequest;
-import SRVevents.SetReadyEvent;
+import com.google.gson.Gson;
+import CLTrequests.Request;
+import CLTrequests.RequestFactory;
 import socket.commands.Command;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 
+import GameMoves.MoveFactory;
 import SRVevents.Event;
 import lobby.Lobby;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.commands.Invoker;
 import socket.commands.CommandFactory;
-import user.User;
+import data.User;
 
 /**
  * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.
  *  Wartet auf ankommende Nachrichten, und verarbeitet diese dann, mithilfe von Gson
  *  und einer Factory, die Nachrichten werden zu Requests oder Moves zurückgeschlüsselt.
- *  Dafür wird dann bei einer IRequest der zugehörige Command auch mit einer Factory initiert
+ *  Dafür wird dann bei einer Request der zugehörige Command auch mit einer Factory initiert
  *  und durch das Invoker Objekt (Command Pattern) ausgeführt.
  *  ist die eingehende Nachricht ein Move, wird dieser an das GameObjekt in der
  *  zugehörigen Lobby übergeben.
@@ -35,10 +41,11 @@ public class ClientListener implements Runnable {
   private Server server = null;
   private Socket clientSocket = null;
   private ClientAPI clientAPI = null;
-  private ObjectOutputStream out = null;
-  private ObjectInputStream in = null;
+  private PrintWriter out = null;
+  private BufferedReader in = null;
   private User user = null;
-  private ArrayList<Lobby> lobbies = new ArrayList<>();
+  private Lobby lobby = null;
+  private Gson gson= new Gson();
 
   public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
     this.server = server;
@@ -46,41 +53,43 @@ public class ClientListener implements Runnable {
     this.clientAPI = clientAPI;
 
     try {
-      this.out = new ObjectOutputStream(this.clientSocket.getOutputStream());
-      this.in = new ObjectInputStream(clientSocket.getInputStream());
+      this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+      this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     }
-
   }
 
   @Override
   public void run() {
     try {
-      Object o;
-      while ((o = in.readObject()) != null) {
-        log.info("Nachricht erhalten: " + o.getClass().getSimpleName());
-        if (o instanceof IRequest){
-          if (o instanceof Move){
-            Move move = (Move) o;
-            Lobby lobby = getLobbyByID(move.getLobbyId());
-            if (lobby != null && !lobby.isVisible()) {
-              lobby.getGame().getExecutor().setMove(move);
-            }
-          } else {
-            IRequest request = (IRequest) o;
+      String receivedMsg;
+      while ((receivedMsg = in.readLine()) != null) {
+        log.debug("Nachricht erhalten: " + receivedMsg);
+
+        JSONParser parser = new JSONParser();
+        try {
+          Object obj = parser.parse(receivedMsg);
+          JSONObject request = (JSONObject) obj;
+          if (request.containsKey("request")) {
+            RequestFactory ev = new RequestFactory();
+            String command = (String) request.get("request");
+            Request re = ev.getRequest(command);
             CommandFactory commandFactory = new CommandFactory(this);
-            Command c = commandFactory.getCommand(request);
+            Command c = commandFactory.getCommand(gson.fromJson(request.toJSONString(), re.getClass()));
             Invoker invoker = new Invoker(c);
             invoker.call();
+          } else if (request.containsKey("move")) {
+            if (this.lobby != null && !this.lobby.isVisible()) {
+              MoveFactory mf = new MoveFactory();
+              Move move = mf.getMove((String) request.get("move"));
+              lobby.getExecutor().setMove(gson.fromJson(request.toJSONString(), move.getClass()));
+            }
           }
-        } else{
-          log.error("Nachricht konnte nicht gelesen werden");
+        } catch (ParseException pe) {
+          log.error("Ungültige Nachricht erhalten " + receivedMsg, pe);
         }
-
       }
-    } catch (ClassNotFoundException e) {
-      log.error("Klasse wurde nicht gefunden", e);
     } catch (SocketException ex) {
       if(this.user != null) {
         log.error("User " + this.user.getUsername() + " hat die Verbindung unerwartet beendet");
@@ -91,10 +100,8 @@ public class ClientListener implements Runnable {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
       if (this.isLoggedIn()) {
-        if (lobbies != null) {
-          for (Lobby lobby : lobbies) {
-            lobby.leave(user);
-          }
+        if (lobby != null) {
+          lobby.leave(user);
         }
       }
         this.user = null;
@@ -106,28 +113,17 @@ public class ClientListener implements Runnable {
 
   public void send(Event event) {
     if (this.out != null) {
-      log.debug("Nachricht gesendet: " + event);
-      try {
-        this.out.writeObject(event);
-        this.out.flush();
-      } catch (IOException e){
-        log.error("IO-Fehler beim senden vom Event", e);
-      }
+      Gson gson = new Gson();
+      String json = gson.toJson(event);
+      log.debug(
+          "Nachricht gesendet: " + json);
+      this.out.println(json);
+      this.out.flush();
     }
   }
 
-
-  public void addLobby(Lobby lobby){
-    this.lobbies.add(lobby);
-  }
-
-  public Lobby getLobbyByID(int lobbyId){
-    for (Lobby lobby : lobbies){
-      if (lobby.getLobbyID() == lobbyId){
-        return lobby;
-      }
-    }
-    return null;
+  public void setLobby(Lobby lobby){
+    this.lobby= lobby;
   }
 
   public boolean isLoggedIn() {
@@ -138,8 +134,8 @@ public class ClientListener implements Runnable {
     return this.user;
   }
 
-  public ArrayList<Lobby> getLobbies() {
-    return lobbies;
+  public Lobby getLobby() {
+    return lobby;
   }
 
   public void setUser(User user){
