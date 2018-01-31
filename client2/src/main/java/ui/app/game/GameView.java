@@ -12,13 +12,9 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
-import ui.app.game.board.ship.ShipPresenter;
-import ui.app.game.board.storage.StoragePresenter;
 import ui.app.game.userinterface.UserInterfaceView;
-import ui.app.main.chat.ChatView;
-
+import ui.app.game.chat.ChatView;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
@@ -82,7 +78,7 @@ public class GameView implements IGameView {
         this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
         this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user , lobby);
 
-        //setSubParentChat(this.chatView.getRootParent());
+        setSubParentChat(this.chatView.getRootParent());
         setSubParentBoard(this.boardView.getRootParent());
         setSubParentUI(this.userInterfaceView.getRootParent());
     }

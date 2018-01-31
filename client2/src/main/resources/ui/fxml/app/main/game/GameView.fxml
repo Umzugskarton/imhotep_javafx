@@ -8,8 +8,8 @@
       <Pane prefHeight="800.0" prefWidth="1336.0">
          <children>
               <Pane fx:id="subParentBoard" />
-              <Pane fx:id="subParentUI" layoutY="650.0" />
-              <Pane fx:id="subParentChat" layoutX="500.0" layoutY="650.0" />
+              <Pane fx:id="subParentUI" layoutY="525.0" />
+              <Pane fx:id="subParentChat" layoutX="670.0" layoutY="525.0" maxHeight="100.0"/>
          </children>
       </Pane>
     </children>

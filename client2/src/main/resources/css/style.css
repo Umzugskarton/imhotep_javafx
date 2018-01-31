@@ -115,7 +115,7 @@
 
 #house {
   -fx-background-repeat: stretch;
-  -fx-background-size: 255 124;
+  -fx-background-size: 100% 100%;
   -fx-background-image: url("haus.png");
 }
 
