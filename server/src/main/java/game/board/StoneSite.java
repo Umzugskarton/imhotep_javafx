@@ -14,17 +14,17 @@ public abstract class StoneSite extends Site implements IStoneSite {
   }
 
   @Override
-  public void addStones(Stone[] stones){
-    for (Stone stone : stones){
-      if (stone !=null){
+  public void addStones(Stone[] stones) {
+    for (Stone stone : stones) {
+      if (stone != null) {
         this.stones.add(stone);
       }
     }
   }
 
   public void addStone(Stone stone) {
-    if(stone != null) {
-      stoneSite.add(stone);
+    if (stone != null) {
+      stones.add(stone);
     }
   }
 
@@ -44,7 +44,7 @@ public abstract class StoneSite extends Site implements IStoneSite {
   }
 
   @Override
-  public boolean isDocked(){
+  public boolean isDocked() {
     return this.getDockedShip() != null;
   }
 

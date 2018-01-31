@@ -17,7 +17,7 @@ public class Temple extends StoneSite {
   @Override
   public int[] getPoints() {
     int[] points = new int[this.playerCount];
-    int size = Math.min(stones.size(), this.playerCount<3?4:5);
+    int size = Math.min(stones.size(), this.playerCount < 3 ? 4 : 5);
     for (int i = 0; i < size; i++) {
       points[stones.get(stones.size() - 1 - i).getPlayer().getId()]++;
     }
