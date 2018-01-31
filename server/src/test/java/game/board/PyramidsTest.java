@@ -78,12 +78,10 @@ class PyramidsTest {
     Pyramids py = new Pyramids(1);
     Player p1 = mock(Player.class);
     when(p1.getId()).thenReturn(0);
-    Ship s1 = new Ship(0, 4);
-
-    s1.addStone(new Stone(p1), 0);
-    s1.addStone(new Stone(p1), 1);
-    s1.addStone(new Stone(p1), 2);
-    s1.addStone(new Stone(p1), 3);
+    Ship s1 = new Ship(0);
+    for (int i = 0; i < s1.getSize(); i++) {
+      s1.addStone(new Stone(p1), i);
+    }
 
     assertEquals(true, py.dockShip(s1));
   }
