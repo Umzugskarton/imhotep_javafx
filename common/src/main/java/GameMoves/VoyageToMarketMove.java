@@ -1,10 +1,5 @@
 package GameMoves;
 
-import java.util.Date;
-
-/**
- * Created on 16.12.2017.
- */
 public class VoyageToMarketMove implements Move{
   private int shipId;
   private String stonesite;
@@ -38,8 +33,4 @@ public class VoyageToMarketMove implements Move{
   public String getType() {
     return "voyageToStoneSite";
   }
-
-
-
-
 }

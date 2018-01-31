@@ -1,22 +1,14 @@
 package CLTrequests;
 
-import java.util.Date;
-
 public class whisperRequest implements IRequest {
 
   String request = "whisper";
-  private Date date;
   private String to;
   private String msg;
-
-  public whisperRequest() {
-
-  }
 
   public whisperRequest(String to, String msg) {
     this.to = to;
     this.msg = msg;
-    this.date = new Date();
   }
 
   public String getType() {

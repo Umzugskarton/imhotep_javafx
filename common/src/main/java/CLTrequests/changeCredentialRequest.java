@@ -1,7 +1,5 @@
 package CLTrequests;
 
-import java.util.Date;
-
 public class changeCredentialRequest implements IRequest {
 
   private String request = "changeCredential";
@@ -9,15 +7,13 @@ public class changeCredentialRequest implements IRequest {
   private String username;
   private Integer crednr;
 
-  public changeCredentialRequest() {
-  }
 
   public changeCredentialRequest(String credential, Integer crednr) {
     this.credential = credential;
-    this.crednr= crednr;
+    this.crednr = crednr;
   }
 
-  public Integer getTypeOfC(){
+  public Integer getTypeOfC() {
     return crednr;
   }
 
@@ -37,7 +33,7 @@ public class changeCredentialRequest implements IRequest {
     return this.request;
   }
 
-  public Integer getCrednr(){
+  public Integer getCrednr() {
     return crednr;
   }
 

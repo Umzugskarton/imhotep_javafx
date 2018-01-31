@@ -9,7 +9,6 @@ import java.util.List;
 import create.presenter.CreatePresenter;
 import games.presenter.GamesPresenter;
 import javafx.scene.paint.Color;
-import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 import mainmenu.model.PlayerList;
 import mainmenu.model.PlayerListImpl;
@@ -121,7 +120,11 @@ public class MainmenuPresenter {
     return this.profilePresenter;
   }
 
-  public void setUsername(String username) { this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-  public String getUsername() { return username; }
+  public String getUsername() {
+    return username;
+  }
 }

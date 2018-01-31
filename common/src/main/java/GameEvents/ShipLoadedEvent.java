@@ -2,12 +2,8 @@ package GameEvents;
 
 import SRVevents.Event;
 
-import java.util.Date;
+public class ShipLoadedEvent implements Event {
 
-/**
- * Created on 17.12.2017.
- */
-public class ShipLoadedEvent implements Event{
   private String event = "ShipLoaded";
 
   private int playerId;
@@ -15,10 +11,7 @@ public class ShipLoadedEvent implements Event{
   private int[] cargo;
   private int storage;
 
-  public ShipLoadedEvent() {
-
-  }
-  public ShipLoadedEvent(int playerId,int shipID, int[] cargo, int storage) {
+  public ShipLoadedEvent(int playerId, int shipID, int[] cargo, int storage) {
     this.playerId = playerId;
     this.shipID = shipID;
     this.cargo = cargo;

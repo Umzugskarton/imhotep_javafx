@@ -1,13 +1,13 @@
 package GameEvents;
 
-
 import SRVevents.Event;
 
-public class WinEvent implements Event{
+public class WinEvent implements Event {
+
   private String winner;
   private boolean winning;
 
-  public WinEvent(String winner){
+  public WinEvent(String winner) {
     this.winner = winner;
   }
 

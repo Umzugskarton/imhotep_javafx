@@ -1,17 +1,19 @@
 package GameEvents;
 
+import GameMoves.CardType.Type;
 import SRVevents.Event;
 
-public class ToolCardEvent implements Event{
+public class ToolCardEvent implements Event {
+
   private String type = "ToolCard";
-  private String toolCard;
+  private Type toolCard;
   private boolean active;
   private int playerId;
 
-  public ToolCardEvent(String toolCard, int playerId, boolean active){
-    this.toolCard  = toolCard;
+  public ToolCardEvent(Type toolCard, int playerId, boolean active) {
+    this.toolCard = toolCard;
     this.playerId = playerId;
-    this.active=active;
+    this.active = active;
   }
 
   public int getPlayerId() {
@@ -22,7 +24,7 @@ public class ToolCardEvent implements Event{
     return active;
   }
 
-  public String getToolCard() {
+  public Type getToolCard() {
     return toolCard;
   }
 

@@ -1,6 +1,5 @@
 package game.GameProcedures;
 
-
 import GameMoves.Move;
 import game.Game;
 

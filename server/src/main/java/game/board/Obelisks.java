@@ -1,15 +1,22 @@
 package game.board;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Respräsentiert einen Obelisken.
+ *
+ * Punkte am Ende des Spiels.
+ */
 public class Obelisks extends StoneSite {
-
-  private ArrayList<Stone> obelisks = new ArrayList<>();
 
   private int[] pointsForRank;
 
+  /**
+   * Erstellt einen neuen Obelisken.
+   *
+   * @param playerCount Anzahl der Spieler im Spiel
+   */
   public Obelisks(int playerCount) {
     super(playerCount);
     setRankPoints();
@@ -39,15 +46,10 @@ public class Obelisks extends StoneSite {
   }
 
   @Override
-  public ArrayList<Stone> getStones() {
-    return obelisks;
-  }
-
-  @Override
   public int[] getPoints() {
     int[] points = new int[playerCount];
     int[] stonesPerPlayer = new int[playerCount];
-    for (Stone stone : obelisks) {
+    for (Stone stone : stones) {
       stonesPerPlayer[stone.getPlayer().getId()]++;
     }
     ObeliskHelper[] playerRank = new ObeliskHelper[playerCount];
@@ -102,35 +104,8 @@ public class Obelisks extends StoneSite {
     return 0;
   }
 
-  @Override
-  public void addStones(Stone[] stones) {
-    for (Stone stone : stones) {
-      if (stone != null) {
-        obelisks.add(stone);
-      }
-    }
-  }
-
-  @Override
-  public boolean dockShip(Ship ship) {
-    if (this.getDockedShip() != null) {
-      return false;
-    }
-    addStones(ship.getStones());
-    return true;
-  }
-
-  @Override
-  public boolean isDocked() {
-    return this.getDockedShip() != null;
-  }
-
-  @Override
-  public Ship getDockedShip() {
-    return super.getDockedShip();
-  }
-
   private class ObeliskHelper {
+
     private int player;
     private int stones;
 

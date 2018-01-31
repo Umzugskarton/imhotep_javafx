@@ -5,13 +5,10 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import game.Player;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-public class BurialChamberTest {
+class BurialChamberTest {
 
   @Mock
   Player p1;
@@ -23,7 +20,7 @@ public class BurialChamberTest {
   Player p2;
 
   @Test
-  public void BurialChamberGetPoints() {
+  void BurialChamberGetPoints() {
     BurialChamber test = new BurialChamber(4);
     Stone[] stones = new Stone[13];
     p1 = mock(Player.class);
@@ -53,7 +50,9 @@ public class BurialChamberTest {
     assertEquals(points.length, 4);
     assertEquals(0, points[0]);
     assertEquals(1, points[1]);
-    assertEquals(3, points[2]);
+    assertEquals(13, points[2]);
     assertEquals(10, points[3]);
   }
+
+
 }

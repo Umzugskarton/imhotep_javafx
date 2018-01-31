@@ -1,18 +1,18 @@
 package GameMoves;
 
+public class VoyageToStoneSiteMove implements Move {
 
-
-public class VoyageToStoneSiteMove implements Move{
   private String move = "VoyageToStoneSite";
   private int shipId;
   private String stonesite;
   private int lobbyId;
 
-  public VoyageToStoneSiteMove(){}
+  public VoyageToStoneSiteMove() {
+  }
 
-  public VoyageToStoneSiteMove(int shipId, String stonesite, int lobbyId){
+  public VoyageToStoneSiteMove(int shipId, String stonesite, int lobbyId) {
     this.shipId = shipId;
-    this.stonesite =stonesite;
+    this.stonesite = stonesite;
     this.lobbyId = lobbyId;
   }
 

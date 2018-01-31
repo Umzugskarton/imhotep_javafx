@@ -5,9 +5,7 @@ import SRVevents.Event;
 
 public class VoyageToStoneSiteManualDumpEvent implements Event {
 
-  public VoyageToStoneSiteManualDumpEvent(){}
-
-  public String getType(){
+  public String getType() {
     return "VoyageToStoneSiteManualDump";
   }
 }

@@ -1,11 +1,22 @@
 package board.presenter;
 
-import GameEvents.*;
+import GameEvents.FillUpStorageEvent;
+import GameEvents.GameInfoEvent;
+import GameEvents.ShipDockedEvent;
+import GameEvents.ShipLoadedEvent;
+import GameEvents.TurnEvent;
+import GameEvents.UpdatePointsEvent;
 import GameMoves.FillUpStorageMove;
 import GameMoves.LoadUpShipMove;
 import GameMoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
-import board.view.*;
+import board.view.BoardViewImplFx;
+import board.view.BurialChamberViewImplFx;
+import board.view.ObelisksViewImplFx;
+import board.view.PyramidViemImplFx;
+import board.view.ShipViewImplFx;
+import board.view.StorageViewImplFx;
+import board.view.TempleViewImplFx;
 import commonLobby.CLTLobby;
 import commonLobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class BoardPresenter {
+
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   private BoardViewImplFx view;
@@ -73,7 +85,7 @@ public class BoardPresenter {
       PyramidViemImplFx pyramidController = loader.getController();
       pyramidsPresenter = new PyramidPresenter(lobby, pyramidController);
 
-      view.getStoneSiteGrid().add(pyramid, 0, 1 );
+      view.getStoneSiteGrid().add(pyramid, 0, 1);
 
       AnchorPane temple;
       FXMLLoader loader1 = new FXMLLoader();
@@ -82,7 +94,7 @@ public class BoardPresenter {
       TempleViewImplFx templeController = loader1.getController();
       templePresenter = new TemplePresenter(lobby, templeController);
 
-      view.getStoneSiteGrid().add(temple, 0, 2 );
+      view.getStoneSiteGrid().add(temple, 0, 2);
 
       AnchorPane burial;
       FXMLLoader loader2 = new FXMLLoader();
@@ -90,7 +102,7 @@ public class BoardPresenter {
       burial = loader2.load();
       BurialChamberViewImplFx burialFx = loader2.getController();
       burialPresenter = new BurialChamberPresenter(lobby, burialFx);
-      view.getStoneSiteGrid().add(burial, 0, 3 );
+      view.getStoneSiteGrid().add(burial, 0, 3);
 
       AnchorPane obelisks;
       FXMLLoader loader3 = new FXMLLoader();
@@ -98,7 +110,7 @@ public class BoardPresenter {
       obelisks = loader3.load();
       ObelisksViewImplFx obelisksFx = loader3.getController();
       obelisksPresenter = new ObelisksPresenter(lobby, obelisksFx);
-      view.getStoneSiteGrid().add(obelisks, 0, 4 );
+      view.getStoneSiteGrid().add(obelisks, 0, 4);
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -120,10 +132,10 @@ public class BoardPresenter {
       }
     }
 
-    sitePresenters.put("Pyramids",pyramidsPresenter);
-    sitePresenters.put("Temple",templePresenter);
+    sitePresenters.put("Pyramids", pyramidsPresenter);
+    sitePresenters.put("Temple", templePresenter);
     sitePresenters.put("BurialChamber", burialPresenter);
-    sitePresenters.put("Obelisks",obelisksPresenter);
+    sitePresenters.put("Obelisks", obelisksPresenter);
   }
 
   // Moves
@@ -170,7 +182,7 @@ public class BoardPresenter {
     order = event.getOrder();
     turnTime = event.getTurnTime();
 
-    for(Pane pierPane : this.view.getPiers().values()) {
+    for (Pane pierPane : this.view.getPiers().values()) {
       pierPane.getChildren().clear();
       ships = null;
     }
@@ -236,11 +248,14 @@ public class BoardPresenter {
   }
 
     public void shipDocked(ShipDockedEvent event){
-        shipPresenters.get(event.getShipID()).setLocation(event.getSite());
-        view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
-        StoneSitePresenter presenter = sitePresenters.get(event.getSite());
-        presenter.setStones(event.getNewstones());
-        updatePoints(event.getNewpoints());
+      shipPresenters.get(event.getShipID()).setLocation(event.getSite());
+      view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+      StoneSitePresenter presenter = sitePresenters.get(event.getSite());
+      presenter.setStones(event.getNewstones());
+    }
+
+    public void updatePoints(UpdatePointsEvent event){
+      updatePointsView(event.getPoints());
     }
 
   public void updateShipCargoById(ShipLoadedEvent e) {
@@ -262,7 +277,8 @@ public class BoardPresenter {
     if (noTimeLeft) {
       this.stopTurnTimer();
 
-      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
+      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
+          Color.web("#cdb39c"));
       this.changeBgGradient(Color.web("#cdb39c"));
     }
   }
@@ -315,8 +331,9 @@ public class BoardPresenter {
   public void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1)
+      if (ships.get(ship)[i] == -1) {
         view.getSelectStoneLocationBox().getItems().add(i);
+      }
     }
   }
 
@@ -332,39 +349,39 @@ public class BoardPresenter {
 
   public void changeBgGradient(Color color) {
     Stop[] stops = new Stop[]{
-            new Stop(0, color),
-            new Stop(1, Color.TRANSPARENT)};
+        new Stop(0, color),
+        new Stop(1, Color.TRANSPARENT)};
 
     LinearGradient linearGradient =
-            new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
+        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
 
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
 
-    public void changeBannerLabels(String text, String subText, Color textColor) {
-        this.view.getUiBannerLabel().setText(text);
-        this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
-        this.view.getUiBannerLabel().setTextFill(textColor);
+  public void changeBannerLabels(String text, String subText, Color textColor) {
+    this.view.getUiBannerLabel().setText(text);
+    this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
+    this.view.getUiBannerLabel().setTextFill(textColor);
+  }
+
+  public void updatePointsView(int[] pointArray) {
+      int highestPoints = 0;
+      int playerWithHighestPoints = 0;
+
+      // Punktestand aktualisieren
+      for (int i = 0; i < pointArray.length; i++) {
+          int points = pointArray[i];
+          if (points > highestPoints) {
+              highestPoints = points;
+              playerWithHighestPoints = i;
+      }
+
+      storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(false);
+      storagePresenters.get(i).setPoints(points);
     }
 
-    public void updatePoints(int[] pointArray) {
-        int highestPoints = 0;
-        int playerWithHighestPoints = 0;
-
-        // Punktestand aktualisieren
-        for(int i = 0; i < pointArray.length; i++) {
-            int points = pointArray[i];
-            if(points > highestPoints) {
-                highestPoints = points;
-                playerWithHighestPoints = i;
-            }
-
-            storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(false);
-            storagePresenters.get(i).setPoints(points);
-        }
-
-        if(highestPoints != 0) {
-            storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(true);
-        }
+    if (highestPoints != 0) {
+      storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(true);
     }
+  }
 }

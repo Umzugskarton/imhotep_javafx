@@ -24,8 +24,8 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request loginRequest, das User-Daten für Login enthält;
-   * @param loggedUsers ArrayList<String>, Liste eingeloggter User
+   * @param request loginRequest, das User-Daten für Login enthält
+   * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
   public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {

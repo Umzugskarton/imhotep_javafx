@@ -1,7 +1,7 @@
 package GameMoves;
 
 
-public class VoyageToStoneSiteManualDumpMove implements Move {
+public class VoyageToStoneSiteManualDumpMove implements Move  {
   private int shipId;
   private String stonesite;
   private int[] dumpOrder;

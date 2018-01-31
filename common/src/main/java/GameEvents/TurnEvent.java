@@ -2,15 +2,11 @@ package GameEvents;
 
 import SRVevents.Event;
 
-import java.util.Date;
-
 public class TurnEvent implements Event {
-  private String event = "turn";
-  boolean myturn;
-  String username;
 
-  // Dummy
-  public TurnEvent() { }
+  private String event = "turn";
+  private boolean myturn;
+  private String username;
 
   public TurnEvent(boolean myturn, String username) {
     this.myturn = myturn;

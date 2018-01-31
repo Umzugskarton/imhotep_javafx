@@ -2,26 +2,52 @@ package game.board;
 
 import java.util.ArrayList;
 
-public interface StoneSite {
+/**
+ * Repräsentiert eine StoneSite.
+ */
+public abstract class StoneSite extends Site implements IStoneSite {
 
-  /**
-   * Returns an array containing each player's points, with the first Player's points
-   * at index 0, the second Player's points at 1 etc.
-   *
-   * @return an array containing each player's points for the StoneSite
-   */
-  int[] getPoints();
+  ArrayList<Stone> stones = new ArrayList<>();
 
-  /**
-   * @param stones the stones to add to the StoneSite
-   */
-  void addStones(Stone[] stones);
+  StoneSite(int playerCount) {
+    super(playerCount);
+  }
 
-  boolean dockShip(Ship ship);
+  @Override
+  public void addStones(Stone[] stones){
+    for (Stone stone : stones){
+      if (stone !=null){
+        this.stones.add(stone);
+      }
+    }
+  }
 
-  boolean isDocked();
+  public void addStone(Stone stone) {
+    if(stone != null) {
+      stoneSite.add(stone);
+    }
+  }
 
-  Ship getDockedShip();
+  @Override
+  public ArrayList<Stone> getStones() {
+    return stones;
+  }
 
-  ArrayList<Stone> getStones();
+  @Override
+  public boolean dockShip(Ship ship) {
+    if (this.getDockedShip() != null) {
+      return false;
+    }
+    this.setDockedShip(ship);
+    addStones(ship.getStones());
+    return true;
+  }
+
+  @Override
+  public boolean isDocked(){
+    return this.getDockedShip() != null;
+  }
+
+  @Override
+  public abstract int[] getPoints();
 }

@@ -1,12 +1,12 @@
 package game.GameProcedures;
 
-
 import GameEvents.FillUpStorageEvent;
 import GameMoves.Move;
 import GameMoves.FillUpStorageMove;
 import game.Game;
 
 public class FillUpStorage implements Procedure {
+
   private FillUpStorageMove move;
   private Game game;
   private int playerId;
@@ -22,7 +22,6 @@ public class FillUpStorage implements Procedure {
 
   public FillUpStorageEvent exec() {
     this.game.getPlayer(playerId).getSupplySled().addStones();
-
     return new FillUpStorageEvent(playerId, game.getPlayer(playerId).getSupplySled().getStones());
   }
 }

@@ -1,12 +1,10 @@
 package GameEvents;
 
-
 import SRVevents.Event;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class GameInfoEvent implements Event {
+
   private String event = "gameInfo";
   private int myId;
   private ArrayList<int[]> ships = new ArrayList<>();
@@ -14,13 +12,8 @@ public class GameInfoEvent implements Event {
   private ArrayList<Integer> storages;
   private String[] order;
   private String[] siteString;
-  private Date date;
   private int turnTime;
   private int[] sitesAllocation;
-
-  public GameInfoEvent() {
-    this.date = new Date();
-  }
 
   public void setMyId(int id) {
     this.myId = id;
@@ -58,9 +51,13 @@ public class GameInfoEvent implements Event {
     return round;
   }
 
-  public void setTurnTime(int seconds) { this.turnTime = seconds; }
+  public void setTurnTime(int seconds) {
+    this.turnTime = seconds;
+  }
 
-  public int getTurnTime() { return turnTime; }
+  public int getTurnTime() {
+    return turnTime;
+  }
 
   public ArrayList<int[]> getShips() {
     return ships;
@@ -82,11 +79,7 @@ public class GameInfoEvent implements Event {
     this.round = round;
   }
 
-  public void setStorages(ArrayList storages) {
+  public void setStorages(ArrayList<Integer> storages) {
     this.storages = storages;
-  }
-
-  public Date getDate() {
-    return this.date;
   }
 }
