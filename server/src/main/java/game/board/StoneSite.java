@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public abstract class StoneSite extends Site implements IStoneSite {
 
-  ArrayList<Stone> stoneSite = new ArrayList<>();
+  ArrayList<Stone> stones = new ArrayList<>();
 
   StoneSite(int playerCount) {
     super(playerCount);
@@ -17,14 +17,14 @@ public abstract class StoneSite extends Site implements IStoneSite {
   public void addStones(Stone[] stones){
     for (Stone stone : stones){
       if (stone !=null){
-        stoneSite.add(stone);
+        this.stones.add(stone);
       }
     }
   }
 
   @Override
   public ArrayList<Stone> getStones() {
-    return stoneSite;
+    return stones;
   }
 
   @Override
@@ -44,6 +44,4 @@ public abstract class StoneSite extends Site implements IStoneSite {
 
   @Override
   public abstract int[] getPoints();
-
-
 }

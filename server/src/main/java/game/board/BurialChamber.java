@@ -1,7 +1,5 @@
 package game.board;
 
-import java.util.ArrayList;
-
 /**
  * Repräsentiert eine Grabkammer.
  */
@@ -18,10 +16,10 @@ public class BurialChamber extends StoneSite {
    */
   @Override
   public int[] getPoints() {
-    boolean[] checked = new boolean[stoneSite.size()];
+    boolean[] checked = new boolean[stones.size()];
     int[] points = new int[playerCount];
-    for (int i = 0; i < stoneSite.size(); i++) {
-      int playerId = stoneSite.get(i).getPlayer().getId();
+    for (int i = 0; i < stones.size(); i++) {
+      int playerId = stones.get(i).getPlayer().getId();
       int size = getFieldSize(i, playerId, checked);
       if (size == 1) {
         points[playerId] += 1;
@@ -41,8 +39,8 @@ public class BurialChamber extends StoneSite {
   }
 
   private int getFieldSize(int position, int playerId, boolean[] checked) {
-    if (position >= stoneSite.size()
-        || stoneSite.get(position).getPlayer().getId() != playerId
+    if (position >= stones.size()
+        || stones.get(position).getPlayer().getId() != playerId
         || checked[position]) {
       return 0;
     }
@@ -53,13 +51,5 @@ public class BurialChamber extends StoneSite {
     }
     number += getFieldSize(position + 3, playerId, checked);
     return number;
-  }
-
-  private void addPlayerStone(int sinceLast, ArrayList<Integer> stones) {
-    if (sinceLast > 2) {
-      stones.add(1);
-    } else {
-      stones.add(stones.remove(stones.size())); //is this real life
-    }
   }
 }

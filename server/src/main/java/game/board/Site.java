@@ -22,8 +22,12 @@ public abstract class Site {
     return dockedShip;
   }
 
-  public void setDockedShip(Ship dockedShip) { this.dockedShip = dockedShip; }
+  void setDockedShip(Ship dockedShip) {
+    this.dockedShip = dockedShip;
+  }
 
-  public boolean isDocked(){ return dockedShip !=null;}
+  public boolean isDocked() {
+    return dockedShip != null;
+  }
 
 }

@@ -89,9 +89,4 @@ public class Market extends Site {
     this.setDockedShip(ship);
     return true;
   }
-
-  @Override
-  public boolean isDocked() {
-    return this.getDockedShip() != null;
-  }
 }

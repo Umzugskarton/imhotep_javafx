@@ -1,7 +1,5 @@
 package game.board;
 
-import java.util.ArrayList;
-
 /**
  * Repräsentiert eine Pyramide.
  */
@@ -42,7 +40,7 @@ public class Pyramids extends StoneSite {
   public int[] getPoints() {
     int[] points = new int[playerCount];
     int i = 0;
-    for (Stone s : stoneSite) {
+    for (Stone s : stones) {
       if (i < positionValues.length) {
         points[s.getPlayer().getId()] += positionValues[i++];
       } else {
@@ -60,11 +58,11 @@ public class Pyramids extends StoneSite {
    */
   public int[] getPointsAndFinishTurn() {
     int[] points = new int[playerCount];
-    for (int i = stoneSite.size() - currentTurnStones; i < stoneSite.size(); i++) {
+    for (int i = stones.size() - currentTurnStones; i < stones.size(); i++) {
       if (i < positionValues.length) {
-        points[stoneSite.get(i).getPlayer().getId()] += positionValues[i++];
+        points[stones.get(i).getPlayer().getId()] += positionValues[i++];
       } else {
-        points[stoneSite.get(i).getPlayer().getId()] += standardValue;
+        points[stones.get(i).getPlayer().getId()] += standardValue;
       }
     }
     currentTurnStones = 0;
@@ -76,13 +74,8 @@ public class Pyramids extends StoneSite {
     for (Stone stone : stones) {
       if (stone != null) {
         currentTurnStones++;
-        stoneSite.add(stone);
+        this.stones.add(stone);
       }
     }
-  }
-
-  @Override
-  public Ship getDockedShip() {
-    return super.getDockedShip();
   }
 }
