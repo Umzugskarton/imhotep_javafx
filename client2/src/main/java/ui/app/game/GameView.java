@@ -34,7 +34,7 @@ public class GameView implements IGameView {
     private URL location;
 
     @FXML
-    private GridPane mainViewRoot;
+    private AnchorPane mainViewRoot;
 
     @FXML
     private Pane subParentChat;

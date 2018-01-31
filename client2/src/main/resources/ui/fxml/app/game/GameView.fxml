@@ -6,21 +6,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" prefHeight="736.0" prefWidth="1262.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-   </rowConstraints>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="black" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <Pane opacity="0.48" prefHeight="802.0" prefWidth="1335.0" style="-fx-background-color: #000;" />
-            <Pane fx:id="dialog" layoutX="510.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="dialog" layoutX="500" layoutY="250" />
          </children>
       </Pane>
-      <Pane prefHeight="736.0" prefWidth="1306.0">
+      <Pane prefHeight="730.0" prefWidth="1300.0">
          <children>
               <Pane fx:id="subParentBoard" />
               <Pane fx:id="subParentUI" layoutY="525.0" />
@@ -29,4 +24,4 @@
          </children>
       </Pane>
    </children>
-</GridPane>
+</AnchorPane>
