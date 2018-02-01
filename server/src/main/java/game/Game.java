@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import data.user.User;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -244,12 +246,16 @@ public class Game implements Runnable {
   // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
   private void nominateWinner() {
     Player winner = null;
+    String[][] playerResult = new String[2][players.length];
+    int i = 0;
     for (Player p : players) {
       if (winner == null || p.getPoints() > winner.getPoints()) {
         winner = p;
       }
+      playerResult[0][i] = p.getUser().getUsername();
+      playerResult[1][i] = String.valueOf(p.getPoints());
     }
-    sendAll(new WinEvent(winner.getUser().getUsername()));
+    sendAll(new WinEvent(winner.getUser().getUsername(),playerResult));
   }
 
   public BurialChamber getBurialChamber() {
