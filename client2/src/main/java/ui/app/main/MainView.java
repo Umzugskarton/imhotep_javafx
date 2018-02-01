@@ -91,16 +91,9 @@ public class MainView implements IMainView {
         this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getConnection(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getConnection(), user);
 
-//        this.popupView = new PopupView("Test", eventBus,mainPresenter.getConnection());
-
-  //      this.mainViewRoot.add(this.popupView.getRootParent(),0,0);
-    //    this.popupView.setView(new CreateLobbyView(eventBus,this.mainPresenter.getConnection()));
-      //  this.popupView.show();
-
         setSubParentChat(this.chatView.getRootParent());
         setSubParentUserList(this.lobbyListView.getRootParent());
         setSubParentLobbyList(this.userListView.getRootParent());
-        showPopup(true);
     }
 
     public void setSubParentChat(Parent subParent){
@@ -139,10 +132,6 @@ public class MainView implements IMainView {
     @Override
     public Parent getRootParent() {
         return this.myParent;
-    }
-
-    public void showPopup(boolean show) {
-        this.popupPane.setVisible(show);
     }
 
     public void showDialog(IDialogView view){
