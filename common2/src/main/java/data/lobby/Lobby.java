@@ -63,11 +63,12 @@ public class Lobby {
   }
 
   public LobbyUser getUserbyName(String name) {
-    int i =0;
-    LobbyUser e= null;
-    while(!users.get(i).getUsername().equals(name) && i<users.size())
-      e=users.get(i);
-    return e;
+    for(int i = 0; i < users.size(); i++) {
+      if(users.get(i).getUsername().equals(name)) {
+        return users.get(i);
+      }
+    }
+    return null;
   }
 
   public LobbyUser getUserbyLobbyId(int id) {
@@ -122,11 +123,6 @@ public class Lobby {
   public void setUsers(ArrayList<LobbyUser> users) {
     this.users.addAll(users);
   }
-
-  public void setLobbyId(int lobbyId) {
-    this.lobbyID = lobbyId;
-  }
-
 
   public int getLobbyId() {
     return lobbyID;
