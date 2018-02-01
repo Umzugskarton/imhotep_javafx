@@ -2,13 +2,18 @@ package GameEvents;
 
 import SRVevents.Event;
 
+import java.util.ArrayList;
+
 public class WinEvent implements Event {
 
   private String winner;
   private boolean winning;
+  private String[][] playersResult;
 
-  public WinEvent(String winner) {
+  public WinEvent(String winner, String[][] playersResult) {
     this.winner = winner;
+    this.playersResult = playersResult;
+
   }
 
   public String getWinner() {
@@ -22,4 +27,10 @@ public class WinEvent implements Event {
   public void setWinning(boolean winning) {
     this.winning = winning;
   }
+
+  public String[][] getResults() {
+    return playersResult;
+  }
+
+
 }
