@@ -1,12 +1,12 @@
 package ui.app.game.board;
 
+import events.app.game.TurnEvent;
+import events.app.game.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
-import events.app.game.GameInfoEvent;
-import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -156,7 +156,7 @@ public class BoardView implements IBoardView {
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/BoardView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/BoardView.fxml", this, eventBus);
   }
 
   @Override

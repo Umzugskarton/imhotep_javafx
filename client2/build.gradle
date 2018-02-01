@@ -29,7 +29,6 @@ task fatJar(type: Jar) {
 
 dependencies {
     compile project(":common")
-//    compile project(":common2")
     testCompile 'junit:junit:4.11'
     compile group: 'com.google.guava', name: 'guava', version: '22.0'
 

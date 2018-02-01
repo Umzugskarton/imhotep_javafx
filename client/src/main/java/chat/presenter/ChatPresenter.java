@@ -7,8 +7,10 @@ import requests.chatRequest;
 import requests.whisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;

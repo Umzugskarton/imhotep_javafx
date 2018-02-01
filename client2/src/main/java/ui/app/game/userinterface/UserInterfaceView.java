@@ -76,7 +76,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/UserInterfaceView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/UserInterfaceView.fxml", this, eventBus);
   }
 
   @Override

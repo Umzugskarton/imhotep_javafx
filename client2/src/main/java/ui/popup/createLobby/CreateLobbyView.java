@@ -14,64 +14,64 @@ import java.util.ResourceBundle;
 
 public class CreateLobbyView implements ICreateLobbyView {
 
-    @FXML
-    private ResourceBundle resources;
+  @FXML
+  private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+  @FXML
+  private URL location;
 
-    @FXML
-    private GridPane createLobbyRoot;
+  @FXML
+  private GridPane createLobbyRoot;
 
-    @FXML
-    private ChoiceBox<String> choiseBox;
+  @FXML
+  private ChoiceBox<String> choiseBox;
 
-    private final CreateLobbyPresenter presenter;
-    private final EventBus eventBus;
+  private final CreateLobbyPresenter presenter;
+  private final EventBus eventBus;
 
-    // Own Parent
-    private Parent myParent;
+  // Own Parent
+  private Parent myParent;
 
-    public CreateLobbyView(EventBus eventBus, Connection connection){
-        this.eventBus = eventBus;
-        this.presenter = new CreateLobbyPresenter(this, eventBus, connection);
-        bind();
-        initOwnView();
-    }
+  public CreateLobbyView(EventBus eventBus, Connection connection) {
+    this.eventBus = eventBus;
+    this.presenter = new CreateLobbyPresenter(this, eventBus, connection);
+    bind();
+    initOwnView();
+  }
 
-    private void bind() {
-        eventBus.register(this);
-    }
+  private void bind() {
+    eventBus.register(this);
+  }
 
-    @Override
-    public void initOwnView() {
-        if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/popup/createLobby/CreateLobbyView.fxml", this, eventBus);
+  @Override
+  public void initOwnView() {
+    if (this.myParent == null)
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/popup/createLobby/CreateLobbyView.fxml", this, eventBus);
     System.out.println("CreateLobbyView " + this.myParent);
-    }
+  }
 
-    @FXML
-    void initialize() {
-        this.choiseBox.getItems().setAll("2","3","4");
-    }
+  @FXML
+  void initialize() {
+    this.choiseBox.getItems().setAll("2", "3", "4");
+  }
 
-    @FXML
-    public void handleSendButtonAction(){
+  @FXML
+  public void handleSendButtonAction() {
 
-    }
+  }
 
-    @Override
-    public ShowViewEvent getEventToShowThisView() {
-        return null;
-    }
+  @Override
+  public ShowViewEvent getEventToShowThisView() {
+    return null;
+  }
 
-    @Override
-    public String getTitle() {
-        return "createLobby";
-    }
+  @Override
+  public String getTitle() {
+    return "createLobby";
+  }
 
-    @Override
-    public Parent getRootParent() {
-        return this.myParent;
-    }
+  @Override
+  public Parent getRootParent() {
+    return this.myParent;
+  }
 }

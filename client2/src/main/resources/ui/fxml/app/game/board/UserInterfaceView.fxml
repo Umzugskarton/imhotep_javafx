@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
-    <Pane id="userInterfaceBackdrop" layoutY="46.0" prefHeight="175.0" prefWidth="703.0" stylesheets="@../../../../css/style.css" />
+    <Pane id="userInterfaceBackdrop" layoutY="46.0" prefHeight="175.0" prefWidth="703.0" stylesheets="@../../../../../css/style.css" />
     <Rectangle fx:id="playerColorRectangle" arcHeight="5.0" arcWidth="5.0" height="160.0" layoutY="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="703.0">
     <fill>
         <LinearGradient endX="1.0" endY="0.07619047619047623">
@@ -91,12 +91,12 @@
          </Text>
          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-               <ComboBox fx:id="selectShipBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Boot auswählen" styleClass="gui-combobox" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" />
-               <ComboBox fx:id="selectShipLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Ort auswählen" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" />
+               <ComboBox fx:id="selectShipBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Boot auswählen" styleClass="gui-combobox" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" />
+               <ComboBox fx:id="selectShipLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Ort auswählen" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" />
                <Button id="moveShipToLocationButton" fx:id="moveShipToLocationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendVoyageToStoneSiteMove" prefHeight="50.0" prefWidth="100.0" styleClass="gui-button" text="Boot zum Ort schicken">
                   <stylesheets>
-                     <URL value="@../../../../../../../../client/src/main/resources/style.css" />
-                     <URL value="@../../../../../../../../client/src/main/resources/gui-style.css" />
+                     <URL value="@../../../../../../../../../client/src/main/resources/style.css" />
+                     <URL value="@../../../../../../../../../client/src/main/resources/gui-style.css" />
                   </stylesheets>
                </Button>
             </children>
@@ -106,7 +106,7 @@
          </VBox>
          <VBox GridPane.rowIndex="1">
             <children>
-               <Button id="getNewStonesButton" fx:id="getNewStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendFillUpStorageMove" prefHeight="50.0" prefWidth="100" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" text="Neue Steine anfordern" />
+               <Button id="getNewStonesButton" fx:id="getNewStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendFillUpStorageMove" prefHeight="50.0" prefWidth="100" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" text="Neue Steine anfordern" />
             </children>
             <GridPane.margin>
                <Insets />
@@ -114,14 +114,14 @@
          </VBox>
          <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <children>
-               <ComboBox fx:id="selectShipToLocationBox" maxWidth="1.7976931348623157E308" onAction="#setStoneLocationCBox" prefHeight="54.0" prefWidth="100" promptText="Boot auswählen" stylesheets="@../../../../../../.././../client/src/main/resources/gui-style.css" />
-               <ComboBox fx:id="selectStoneLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Position auswählen" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" />
-               <Button id="placeStonesButton" fx:id="placeStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendLoadUpShipMove" prefHeight="50.0" prefWidth="100" styleClass="gui-button" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" text="Stein Auf Boot platzieren" />
+               <ComboBox fx:id="selectShipToLocationBox" maxWidth="1.7976931348623157E308" onAction="#setStoneLocationCBox" prefHeight="54.0" prefWidth="100" promptText="Boot auswählen" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" />
+               <ComboBox fx:id="selectStoneLocationBox" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="464.0" promptText="Position auswählen" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" />
+               <Button id="placeStonesButton" fx:id="placeStonesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendLoadUpShipMove" prefHeight="50.0" prefWidth="100" styleClass="gui-button" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" text="Stein Auf Boot platzieren" />
             </children>
          </VBox>
          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
             <children>
-               <Button id="playCardButton" fx:id="playCardButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100" styleClass="gui-button" stylesheets="@../../../../../../../../client/src/main/resources/gui-style.css" text="Markt-Karte ausspielen" />
+               <Button id="playCardButton" fx:id="playCardButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="50.0" prefWidth="100" styleClass="gui-button" stylesheets="@../../../../../../../../../client/src/main/resources/gui-style.css" text="Markt-Karte ausspielen" />
             </children>
          </VBox>
       </children>
