@@ -41,7 +41,6 @@ public class ClientApp extends Application {
     @Override
     public void init() {
         eventBus.register(this);
-        eventBus.post(new TurnEvent());
         logger.info("EventBus registriert");
     }
 

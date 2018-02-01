@@ -1,6 +1,9 @@
 package ui.app.game.board;
 
+import GameEvents.GameInfoEvent;
+import GameEvents.TurnEvent;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.Lobby;
 import data.user.User;
@@ -12,6 +15,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.ship.ShipView;
@@ -129,6 +135,23 @@ public class BoardView implements IBoardView {
 
   public ProgressBar getTurnTimerProgress() {
     return turnTimerProgress;
+  }
+
+  @Subscribe
+  private void setCurrentPlayer(TurnEvent event){
+    currentPlayerLabel.setText(event.getUsername());
+
+    // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
+    if (event.isMyTurn()) {
+      currentPlayerLabel.setFont(Font.font("Calibri", FontWeight.BOLD, 14));
+    } else {
+      currentPlayerLabel.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
+    }
+  }
+
+  @Subscribe
+  private void setRoundLabel(GameInfoEvent event){
+    roundLabel.setText(String.valueOf(event.getRound()));
   }
 
   @Override

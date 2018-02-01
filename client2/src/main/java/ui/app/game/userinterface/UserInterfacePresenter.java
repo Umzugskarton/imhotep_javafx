@@ -12,6 +12,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.Lobby;
+import data.lobby.LobbyUser;
 import data.user.User;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -88,30 +89,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   @Subscribe
   public void newTurn(TurnEvent e) {
-    System.out.println("GETURNED");
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
-    if (lobby == null ){
-      System.out.println("NULLL DU NULLPE ");
-    }
-    System.out.println("e.getUsername:  " + e.getUsername());
-    System.out.println("e.getUsername:  " + lobby.getUserbyName(e.getUsername()).getUsername());
-    System.out.println("e.getUsername:  " + lobby.getUserbyName(e.getUsername()).getColor());
-
     Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
-
-    this.view.getCurrentPlayerLabel().setText(e.getUsername());
     this.changeBgGradient(userColor);
-
-    // Aktuellen Spielernamen fettgedruckt anzeigen wenn der Client der aktuelle Spieler ist
     if (e.isMyTurn()) {
-      this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.BOLD, 14));
       this.changeBannerLabels("", "", Color.TRANSPARENT);
     } else {
-      this.view.getCurrentPlayerLabel().setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
       this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
     }
-
     this.startTurnTimer();
   }
 
@@ -195,10 +181,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   public void sendVoyageToStoneSiteMove(int ship, String to) {
-    eventBus.post(new VoyageToStoneSiteMove(ship, to));
+    eventBus.post(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
   }
 
   public void sendLoadUpShipMove(int ship, int to) {
-    eventBus.post(new LoadUpShipMove(ship, to));
+    eventBus.post(new LoadUpShipMove(ship, to, lobby.getLobbyId()));
   }
 }

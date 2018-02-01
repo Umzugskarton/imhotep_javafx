@@ -174,7 +174,7 @@ public class Game implements Runnable {
     gameInfo.setSiteString(siteString);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);
-    gameInfo.setTurnTime(executor.getTurnTime());
+    gameInfo.setTurnTime(MoveExecutor.TURN_TIME);
     gameInfo.setRound(this.round);
     // TODO change gameInfo to make this easier
     ArrayList<Integer> storages = new ArrayList<>();

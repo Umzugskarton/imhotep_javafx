@@ -62,6 +62,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
+    this.lobby = lobby;
     this.user = user;
     this.mainPresenter = new UserInterfacePresenter(this, eventBus, connection, user, lobby);
     bind();
@@ -106,7 +107,7 @@ public class UserInterfaceView implements IUserInterfaceView {
     return holdingArea;
   }
 
-  public Label getCurrentPlayerLabel() { return this.currentPlayerLabel; }
+  public Label getCurrentPlayerLabel() { return currentPlayerLabel; }
 
   public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
 
