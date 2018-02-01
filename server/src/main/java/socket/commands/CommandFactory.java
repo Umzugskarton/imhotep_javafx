@@ -1,13 +1,14 @@
 package socket.commands;
 
-
 import CLTrequests.IRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 
 import java.util.HashMap;
 
 public class CommandFactory {
-
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
     private HashMap<String, Command> Dict = new HashMap<>();
 
@@ -29,7 +30,7 @@ public class CommandFactory {
     }
 
     public Command getCommand(IRequest request){
-        System.out.println("BIN BEI : " +request.getClass().getSimpleName());
+        log.debug("BIN BEI: " +request.getClass().getSimpleName());
         Command c = Dict.get(request.getType());
         c.put(request);
         return c;

@@ -32,26 +32,19 @@ public class ClientListener implements Runnable {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-  private Server server = null;
-  private Socket clientSocket = null;
-  private ClientAPI clientAPI = null;
-  private ObjectOutputStream out = null;
-  private ObjectInputStream in = null;
+  private Server server;
+  private ClientAPI clientAPI;
+  private ObjectOutputStream out;
+  private ObjectInputStream in;
   private User user = null;
   private ArrayList<Lobby> lobbies = new ArrayList<>();
 
-  public ClientListener(Server server, Socket clientSocket, ClientAPI clientAPI) {
+  public ClientListener(Server server, ObjectOutputStream os, ObjectInputStream is,
+      ClientAPI clientAPI) {
     this.server = server;
-    this.clientSocket = clientSocket;
+    this.out = os;
+    this.in = is;
     this.clientAPI = clientAPI;
-
-    try {
-      this.out = new ObjectOutputStream(this.clientSocket.getOutputStream());
-      this.in = new ObjectInputStream(clientSocket.getInputStream());
-    } catch (IOException ex) {
-      log.error("Ein Fehler ist aufgetreten", ex);
-    }
-
   }
 
   @Override
@@ -100,7 +93,6 @@ public class ClientListener implements Runnable {
       this.user = null;
       this.server.sendToAll(server.getLoggedUsers());
     }
-
     this.server.removeClient(this);
   }
 

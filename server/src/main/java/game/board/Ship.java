@@ -86,7 +86,6 @@ public class Ship {
           "not adding stone to ship id:"+id+" position:" + position + " size:" + size);
       return false;
     }
-    log.info("adding stone to ship id:"+id+" position:"+position+" size:"+size);
     stones[position] = stone;
     return true;
   }

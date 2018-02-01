@@ -20,7 +20,7 @@ public class LeadToolCard implements Procedure{
   private ToolCardMove move;
   private int playerId;
   private Game game;
-  HashMap<Type, IProtocol> protocolHashMap = new HashMap<>();
+  private HashMap<Type, IProtocol> protocolHashMap = new HashMap<>();
 
 
   LeadToolCard(Game game, int playerId) {

@@ -1,6 +1,8 @@
 package socket;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class Server {
 
   private int port;
   private ServerSocket serverSocket = null;
-  private ClientAPI clientAPI = null;
+  private ClientAPI clientAPI;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
   private ArrayList<Lobby> openLobby = new ArrayList<>();
 
@@ -50,7 +52,6 @@ public class Server {
     while (true) {
       try {
         Socket clientSocket = this.serverSocket.accept();
-
         this.addClient(clientSocket);
       } catch (IOException e) {
         log.error("Anfrage auf Port " + this.port + " konnte nicht verarbeitet werden", e);
@@ -59,13 +60,20 @@ public class Server {
     }
   }
 
-  public void addClient(Socket clientSocket) {
-    ClientListener clientListener = new ClientListener(this, clientSocket, this.clientAPI);
+  private void addClient(Socket clientSocket) {
+    ObjectOutputStream os;
+    ObjectInputStream is;
+    ClientListener clientListener = null;
+    try {
+      is = new ObjectInputStream(clientSocket.getInputStream());
+      os = new ObjectOutputStream(clientSocket.getOutputStream());
+      clientListener = new ClientListener(this, os, is, this.clientAPI);
+    } catch (IOException e) {
+      log.error("Fehler: ", e);
+    }
     Thread thread = new Thread(clientListener);
     thread.start();
-
     log.info("[Thread " + thread.getId() + "] Ein neuer Client hat sich verbunden");
-
     this.connectedClients.add(clientListener);
   }
 
