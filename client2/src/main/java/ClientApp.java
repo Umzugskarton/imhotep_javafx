@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.app.AppView;
+import ui.layout.StageLayout;
 import ui.popup.PopupView;
 import ui.popup.createLobby.CreateLobbyView;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
@@ -29,6 +30,9 @@ public class ClientApp extends Application {
     private StartView startView;
     private AppView appView;
 
+    //Layout
+    private StageLayout stageLayout;
+
     DebugApp debugApp = new DebugApp(this.eventBus);
 
     private Connection connection = new Connection(this.eventBus);
@@ -38,28 +42,29 @@ public class ClientApp extends Application {
     @Override
     public void init() {
         eventBus.register(this);
-        //eventBus.post(new TurnEvent());
         logger.info("EventBus registriert");
     }
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        //this.primaryStage.initStyle(StageStyle.UTILITY);
-        this.primaryStage.sizeToScene();
+        this.stageLayout = new StageLayout(primaryStage, this.scene, this.eventBus);
 
-        this.startView = new StartView(eventBus, connection);
+        this.primaryStage = primaryStage;
+
+        this.startView = new StartView(eventBus, connection, stageLayout);
+
         setContent(this.startView.getRootParent());
+        this.stageLayout.setWindowSize(720, 480);
 
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        //Zu Debug-Zwecken
         debugApp.getStage().show();
     }
 
     @Override
     public void stop(){
-        this.debugApp.getStage().close();
     }
 
     private void setContent(Parent parent){
@@ -67,24 +72,17 @@ public class ClientApp extends Application {
         group.getChildren().add(parent);
     }
 
-    private void setResizable(Boolean resizable){
-        primaryStage.setResizable(resizable);
-    }
-
-    private void setWindowSize(int width, int height){
-        primaryStage.setWidth(width);
-        primaryStage.setHeight(height);
-    }
 
     @Subscribe
     public void onLoginSuccessfulEvent(LoginSuccessfulEvent e){
         this.authenticatedUser = e.getUser();
 
         if(this.appView == null)
-            this.appView = new AppView(eventBus, connection, authenticatedUser);
+            this.appView = new AppView(eventBus, connection, authenticatedUser, stageLayout);
 
         setContent(this.appView.getRootParent());
-        this.primaryStage.setMaximized(true);
+
+        this.stageLayout.setWindowSize(1300, 700);
     }
 
     @Subscribe

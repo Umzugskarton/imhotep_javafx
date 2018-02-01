@@ -14,15 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import mvp.view.IView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
+import ui.layout.StageLayout;
 import ui.popup.PopupView;
 import ui.popup.createLobby.CreateLobbyView;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
@@ -42,22 +41,22 @@ public class AppView implements IAppView {
   private URL location;
 
   @FXML
-  GridPane appViewRoot;
+  private BorderPane appViewRoot;
 
   @FXML
-  Pane appViewTopPane;
+  private HBox navigation;
 
   @FXML
-  MenuButton appViewMenuButton;
+  private MenuButton appViewMenuButton;
 
   @FXML
-  TabPane appViewMainTabPane;
+  private TabPane appViewMainTabPane;
 
   @FXML
-  Tab appViewMainTab;
+  private Tab appViewMainTab;
 
   @FXML
-  Pane appViewBottomPane;
+  private Pane appViewBottomPane;
 
   private final AppPresenter presenter;
   private final EventBus eventBus;
@@ -75,12 +74,13 @@ public class AppView implements IAppView {
   //PopupView
   private PopupView popupView;
 
-  public AppView(EventBus eventBus, Connection connection, User user) {
+  public AppView(EventBus eventBus, Connection connection, User user, StageLayout stageLayout) {
     this.eventBus = eventBus;
     this.user = user;
     this.presenter = new AppPresenter(this, eventBus, connection);
     bind();
     initOwnView();
+    stageLayout.configNavigation(this.navigation, true);
   }
 
   private void bind() {
