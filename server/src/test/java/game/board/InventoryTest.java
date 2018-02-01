@@ -1,6 +1,6 @@
 package game.board;
 
-import GameMoves.CardType.Type;
+import requests.GameMoves.CardType.Type;
 import game.Inventory;
 import game.board.Cards.OrnamentCard;
 import game.board.Cards.StatueCard;

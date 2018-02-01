@@ -1,10 +1,10 @@
 package lobby;
 
-import SRVevents.SetReadyEvent;
-import SRVevents.changeColorEvent;
-import SRVevents.joinEvent;
-import SRVevents.leaveLobbyEvent;
-import commonLobby.LobbyUser;
+import events.app.lobby.SetReadyToPlayEvent;
+import events.app.lobby.ChangeLobbyUserColorEvent;
+import events.app.lobby.JoinLobbyEvent;
+import events.app.lobby.LeaveLobbyEvent;
+import data.lobby.LobbyUser;
 import game.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,15 +90,15 @@ public class Lobby {
         return this.name;
     }
 
-    public joinEvent joinPW(User user, String password) {
+    public JoinLobbyEvent joinPW(User user, String password) {
         if (password.equals(this.password)) {
             return join(user);
         }
 
-        return new joinEvent("Das Passwort ist falsch.", false);
+        return new JoinLobbyEvent("Das Passwort ist falsch.", false);
     }
 
-    public joinEvent join(User user) {
+    public JoinLobbyEvent join(User user) {
         if (vacancy) {
             for (int i = 0; i < lobby.length; i++) {
                 if (lobby[i] == null) {
@@ -108,12 +108,12 @@ public class Lobby {
                         c++;
                     }
                     userColor.add(c);
-                    return new joinEvent("Erfolgreich beigetreten!", true);
+                    return new JoinLobbyEvent("Erfolgreich beigetreten!", true);
                 }
             }
         }
         this.vacancy = false;
-        return new joinEvent("Die Lobby ist voll.", false);
+        return new JoinLobbyEvent("Die Lobby ist voll.", false);
     }
 
     public boolean[] getReady() {
@@ -161,20 +161,20 @@ public class Lobby {
         return j;
     }
 
-    public SetReadyEvent setReady(User user) {
+    public SetReadyToPlayEvent setReady(User user) {
         int userid = Arrays.asList(lobby).indexOf(user);
         readyList[userid] = !readyList[userid];
-        return new SetReadyEvent(readyList,lobbyID);
+        return new SetReadyToPlayEvent(readyList,lobbyID);
     }
 
-    public changeColorEvent replaceColor(User user) {
+    public ChangeLobbyUserColorEvent replaceColor(User user) {
         int userid = Arrays.asList(lobby).indexOf(user);
         int newcolor = userColor.get(userid);
         do {
             newcolor = (newcolor + 1) % 10;
         } while (userColor.contains(newcolor));
         userColor.set(userid, newcolor);
-        return new changeColorEvent(userid, colors.get(newcolor));
+        return new ChangeLobbyUserColorEvent(userid, colors.get(newcolor));
     }
 
     public ArrayList<LobbyUser> getLobbyUserArrayList() {
@@ -183,7 +183,7 @@ public class Lobby {
 
         for (User user : this.lobby) {
             if (user != null) {
-                temp.add(new LobbyUser(user.getUsername(), colors.get(userColor.get(i)), readyList[i]));
+                temp.add(new LobbyUser(user, colors.get(userColor.get(i)), readyList[i]));
                 i++;
             }
         }
@@ -217,7 +217,7 @@ public class Lobby {
         return show;
     }
 
-    public leaveLobbyEvent leave(User user) {
+    public LeaveLobbyEvent leave(User user) {
         if(user == lobby[0] && getUserCount() != 1) {
             swapHost();
         }
@@ -242,7 +242,7 @@ public class Lobby {
 
 
         this.vacancy = true;
-        return new leaveLobbyEvent(true);
+        return new LeaveLobbyEvent(true);
 
     }
 

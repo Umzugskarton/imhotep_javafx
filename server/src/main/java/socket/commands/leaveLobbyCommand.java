@@ -1,10 +1,10 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.leaveLobbyRequest;
-import SRVevents.leaveLobbyEvent;
-import SRVevents.lobbyInfoEvent;
-import commonLobby.CLTLobby;
+import requests.IRequest;
+import requests.leaveLobbyRequest;
+import events.app.lobby.LeaveLobbyEvent;
+import events.app.lobby.LobbyInfoEvent;
+import data.lobby.CommonLobby;
 import lobby.Lobby;
 import socket.ClientListener;
 import socket.Server;
@@ -14,7 +14,7 @@ public class leaveLobbyCommand implements Command {
 
     private ClientListener clientListener;
     private leaveLobbyRequest request;
-    private CLTLobby cltLobby;
+    private CommonLobby cltLobby;
     private Server server;
 
     public leaveLobbyCommand(ClientListener clientListener) {
@@ -33,20 +33,20 @@ public class leaveLobbyCommand implements Command {
         Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
         //clientListener.addLobby(lobby);
 
-        leaveLobbyEvent response = lobby.leave(user);
+        LeaveLobbyEvent response = lobby.leave(user);
         server.sendTo(response, clientListener.getUser().getUsername());
         this.clientListener.addLobby(null);
         if(lobby.getUsers()[0] != null) {
             this.clientListener.getServer()
                     .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
 
-            CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
+            CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
                     lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
                     lobby.getHostName(), lobby.getReady(), lobby.getColors());
-            lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
+            LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
             server.sendToLobby(lobbyInfo, lobby);
         } else {
-            lobbyInfoEvent lobbyInfoEmpty = new lobbyInfoEvent();
+            LobbyInfoEvent lobbyInfoEmpty = new LobbyInfoEvent();
             server.sendToLobby(lobbyInfoEmpty, lobby);
 
         }

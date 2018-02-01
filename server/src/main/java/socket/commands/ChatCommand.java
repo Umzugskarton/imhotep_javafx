@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.chatRequest;
-import SRVevents.chatEvent;
+import requests.IRequest;
+import requests.chatRequest;
+import events.app.chat.ChatMessageEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
@@ -25,7 +25,7 @@ public class ChatCommand implements Command {
   }
 
   public void exec() {
-    chatEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
+    ChatMessageEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
     if(request.getLobbyId() != null){
        server.sendToLobby(chatMessage, server.getLobbybyID(request.getLobbyId()));
     }

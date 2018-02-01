@@ -1,11 +1,11 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.createRequest;
-import SRVevents.CreateEvent;
-import SRVevents.lobbyInfoEvent;
-import SRVevents.lobbylistEvent;
-import commonLobby.CLTLobby;
+import requests.IRequest;
+import requests.createRequest;
+import events.app.lobby.CreateLobbyEvent;
+import events.app.lobby.LobbyInfoEvent;
+import events.app.lobby.LobbyListEvent;
+import data.lobby.CommonLobby;
 import lobby.Lobby;
 import socket.ClientAPI;
 import socket.ClientListener;
@@ -31,16 +31,16 @@ public class CreateCommand implements Command {
   public void exec() {
     Lobby lobby = this.clientAPI.createLobby(request, this.clientListener.getUser());
     clientListener.addLobby(lobby);
-    CreateEvent response = this.clientListener.getServer().addLobby(lobby);
+    CreateLobbyEvent response = this.clientListener.getServer().addLobby(lobby);
     this.clientListener.send(response);
     if (response.getSuccess()) {
-      CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
+      CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
               lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(),
               lobby.isHost(this.clientListener.getUser()), lobby.getHostName(), lobby.getReady(),
               lobby.getColors());
-      lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
+      LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
       this.clientListener.send(lobbyInfo);
-      lobbylistEvent lobbyList = this.clientListener.getServer()
+      LobbyListEvent lobbyList = this.clientListener.getServer()
               .getLobbies(clientListener.getUser());
       this.clientListener.getServer().sendToLoggedIn(lobbyList);
     }

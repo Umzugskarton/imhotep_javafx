@@ -1,20 +1,20 @@
 package ui.app.game.board;
 
-import GameEvents.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.GameInfoEvent;
 import javafx.application.Platform;
 import mvp.presenter.Presenter;
 
 public class BoardPresenter extends Presenter<IBoardView> {
   private final Connection connection;
   private final User user;
-  private Lobby lobby;
+  private CommonLobby lobby;
 
-  public BoardPresenter(IBoardView view, EventBus eventBus, Connection connection, User user, Lobby lobby) {
+  public BoardPresenter(IBoardView view, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;

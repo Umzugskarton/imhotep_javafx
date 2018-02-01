@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.changeCredentialRequest;
-import SRVevents.changeCredentialEvent;
+import requests.IRequest;
+import requests.changeCredentialRequest;
+import events.app.profil.ChangeProfilDataEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
@@ -22,7 +22,7 @@ public class ChangeCredentialCommand implements Command {
   }
 
   public void exec() {
-    changeCredentialEvent response = this.clientAPI
+    ChangeProfilDataEvent response = this.clientAPI
         .changeCredential(this.request, this.clientListener.getUser());
     response.setCredential(request.getCredential());
     response.setType(request.getCrednr());

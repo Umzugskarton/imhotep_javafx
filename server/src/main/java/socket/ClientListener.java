@@ -1,8 +1,8 @@
 package socket;
 
-import GameMoves.Move;
-import CLTrequests.IRequest;
-import SRVevents.SetReadyEvent;
+import events.Event;
+import requests.GameMoves.Move;
+import requests.IRequest;
 import socket.commands.Command;
 
 import java.io.*;
@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-import SRVevents.Event;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

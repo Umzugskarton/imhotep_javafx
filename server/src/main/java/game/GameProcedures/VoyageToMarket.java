@@ -1,10 +1,14 @@
 package game.GameProcedures;
 
-import GameEvents.*;
-import GameMoves.CardType;
-import GameMoves.Move;
-import GameMoves.VoyageToMarketMove;
-import SRVevents.Event;
+import events.app.game.ChooseCardEvent;
+import events.app.game.NotEnoughLoadError;
+import events.app.game.ShipAlreadyDockedError;
+import events.app.game.ShipDockedEvent;
+import events.app.game.SiteAlreadyDockedError;
+import requests.GameMoves.CardType;
+import requests.GameMoves.Move;
+import requests.GameMoves.VoyageToMarketMove;
+import events.Event;
 import game.Game;
 import game.board.Cards.Card;
 import game.board.Cards.LocationCard;
@@ -12,7 +16,6 @@ import game.board.Market;
 import game.board.Ship;
 import game.board.Stone;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class VoyageToMarket {

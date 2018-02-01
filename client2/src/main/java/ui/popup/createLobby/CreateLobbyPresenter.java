@@ -2,9 +2,7 @@ package ui.popup.createLobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.user.User;
 import mvp.presenter.Presenter;
-import requests.main.LogoutRequest;
 
 public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
 

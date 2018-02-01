@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.TempleViewImplFx;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class TemplePresenter implements StoneSitePresenter {
 
   private TempleViewImplFx templeController;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
 
-  public TemplePresenter(CLTLobby lobby, TempleViewImplFx templeController) {
+  public TemplePresenter(CommonLobby lobby, TempleViewImplFx templeController) {
     this.lobby = lobby;
     this.templeController = templeController;
   }

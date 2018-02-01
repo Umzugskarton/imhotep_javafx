@@ -1,13 +1,13 @@
 package game.GameProcedures;
 
-import GameEvents.DockingShipError;
-import GameEvents.NotEnoughLoadError;
-import GameEvents.ShipAlreadyDockedError;
-import GameEvents.ShipDockedEvent;
-import GameEvents.SiteAlreadyDockedError;
-import GameMoves.Move;
-import GameMoves.VoyageToStoneSiteMove;
-import SRVevents.Event;
+import events.app.game.DockingShipError;
+import events.app.game.NotEnoughLoadError;
+import events.app.game.ShipAlreadyDockedError;
+import events.app.game.ShipDockedEvent;
+import events.app.game.SiteAlreadyDockedError;
+import requests.GameMoves.Move;
+import requests.GameMoves.VoyageToStoneSiteMove;
+import events.Event;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;

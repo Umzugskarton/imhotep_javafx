@@ -1,9 +1,9 @@
 package socket.commands;
 
 
-import CLTrequests.IRequest;
+import requests.IRequest;
 
-import CLTrequests.startGameRequest;
+import requests.startGameRequest;
 import socket.ClientListener;
 
 public class StartGameCommand implements Command{

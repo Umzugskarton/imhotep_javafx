@@ -1,6 +1,6 @@
 package registration.presenter;
 
-import CLTrequests.registerRequest;
+import requests.registerRequest;
 import main.SceneController;
 import registration.view.RegistrationView;
 

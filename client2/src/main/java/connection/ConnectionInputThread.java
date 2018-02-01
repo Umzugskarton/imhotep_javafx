@@ -17,6 +17,7 @@ public class ConnectionInputThread extends Thread {
     private final EventBus eventBus;
 
     public ConnectionInputThread(ObjectInputStream ois, EventBus eventBus){
+        this.setDaemon(true);
         this.objectInputStream = ois;
         this.eventBus = eventBus;
     }

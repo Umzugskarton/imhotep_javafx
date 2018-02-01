@@ -1,13 +1,13 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.joinRequest;
-import commonLobby.CLTLobby;
+import requests.IRequest;
+import requests.joinRequest;
+import data.lobby.CommonLobby;
 import lobby.Lobby;
 import socket.ClientListener;
 import socket.Server;
-import SRVevents.joinEvent;
-import SRVevents.lobbyInfoEvent;
+import events.app.lobby.JoinLobbyEvent;
+import events.app.lobby.LobbyInfoEvent;
 import data.user.User;
 
 public class JoinCommand implements Command {
@@ -31,7 +31,7 @@ public class JoinCommand implements Command {
   public void exec() {
       User user = this.clientListener.getUser();
       Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
-      joinEvent response;
+      JoinLobbyEvent response;
       if (lobby.hasPW()) {
         response = lobby.joinPW(user, request.getPassword());
       } else {
@@ -41,10 +41,10 @@ public class JoinCommand implements Command {
         clientListener.addLobby(lobby);
         clientListener.getServer()
                 .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
-        CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),
+        CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
                 lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
                 lobby.getHostName(), lobby.getReady(), lobby.getColors());
-        lobbyInfoEvent lobbyInfo = new lobbyInfoEvent(cltLobby);
+        LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
         server.sendToLobby(lobbyInfo, lobby);
       }
   }

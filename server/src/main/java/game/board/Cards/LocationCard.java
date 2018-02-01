@@ -1,6 +1,6 @@
 package game.board.Cards;
 
-import GameMoves.CardType.Type;
+import requests.GameMoves.CardType.Type;
 
 public class LocationCard extends Card {
 

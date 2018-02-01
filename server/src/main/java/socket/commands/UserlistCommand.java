@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.userlistRequest;
-import SRVevents.userListEvent;
+import requests.IRequest;
+import requests.userlistRequest;
+import events.app.main.UserListEvent;
 import socket.ClientListener;
 
 public class UserlistCommand implements Command {
@@ -21,7 +21,7 @@ public class UserlistCommand implements Command {
   }
 
   public void exec() {
-    userListEvent response = this.clientListener.getServer().getLoggedUsers();
+    UserListEvent response = this.clientListener.getServer().getLoggedUsers();
     if (response != null) {
       this.clientListener.send(response);
     }

@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.ShipViewImplFx;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class ShipPresenter {
 
   private ShipViewImplFx view;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
   private int[] cargo;
   private boolean docked;
   private String location;
 
-  public ShipPresenter(CLTLobby lobby, ShipViewImplFx view, int[] placement) {
+  public ShipPresenter(CommonLobby lobby, ShipViewImplFx view, int[] placement) {
     this.view = view;
     this.lobby = lobby;
     docked = false;

@@ -1,6 +1,6 @@
 package main;
 
-import CLTrequests.lobbylistRequest;
+import requests.lobbylistRequest;
 import board.presenter.BoardPresenter;
 import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;

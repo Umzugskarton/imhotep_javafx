@@ -2,6 +2,7 @@ package connection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.IRequest;
 import requests.Request;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ConnectionOutput {
         }
     }
 
-    public void send(Request request) throws ConnectionErrorExeption {
+    public void send(IRequest request) throws ConnectionErrorExeption {
         try{
             this.oos.writeObject(request);
             this.oos.flush();
