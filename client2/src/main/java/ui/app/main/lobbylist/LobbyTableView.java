@@ -3,7 +3,7 @@ package ui.app.main.lobbylist;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
@@ -35,13 +35,13 @@ public class LobbyTableView implements ILobbyTableView {
     private TableView lobbyTableView;
 
     @FXML
-    private TableColumn<Lobby, String> tableColumnId;
+    private TableColumn<CommonLobby, String> tableColumnId;
 
     @FXML
-    private TableColumn<Lobby, String> tableColumnName;
+    private TableColumn<CommonLobby, String> tableColumnName;
 
     @FXML
-    private TableColumn<Lobby, String> tableColumnBelegung;
+    private TableColumn<CommonLobby, String> tableColumnBelegung;
 
 
 
@@ -69,19 +69,19 @@ public class LobbyTableView implements ILobbyTableView {
         if (this.myParent == null){
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/lobbyList/LobbyListView.fxml", this, eventBus);
 
-            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<Lobby, String>("lobbyID"));
-            this.tableColumnName.setCellValueFactory(new PropertyValueFactory<Lobby, String>("name"));
-            this.tableColumnBelegung.setCellValueFactory(new PropertyValueFactory<Lobby, String>("belegung"));
+            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("lobbyID"));
+            this.tableColumnName.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("name"));
+            this.tableColumnBelegung.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("belegung"));
 
-            TableColumn<Lobby, Lobby> tableColumnJoinButton;
+            TableColumn<CommonLobby, CommonLobby> tableColumnJoinButton;
             tableColumnJoinButton = new TableColumn<>("");
             tableColumnJoinButton.setMinWidth(40);
             tableColumnJoinButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            tableColumnJoinButton.setCellFactory(param -> new TableCell<Lobby, Lobby>() {
+            tableColumnJoinButton.setCellFactory(param -> new TableCell<CommonLobby, CommonLobby>() {
                 private final Button joinButton = new Button("Join");
 
                 @Override
-                protected void updateItem(Lobby lobby, boolean empty) {
+                protected void updateItem(CommonLobby lobby, boolean empty) {
                     super.updateItem(lobby, empty);
 
                     if (lobby == null) {
@@ -106,7 +106,7 @@ public class LobbyTableView implements ILobbyTableView {
     @FXML
     private void handleLobbyViewClick(MouseEvent click){
         System.out.println("Lobby doubleclick");
-        Lobby selectedLobby = (Lobby) this.lobbyTableView.getFocusModel().getFocusedItem();
+        CommonLobby selectedLobby = (CommonLobby) this.lobbyTableView.getFocusModel().getFocusedItem();
 
         if (click.getClickCount() == 2) {
             this.presenter.joinLobby(selectedLobby.getLobbyId(),"");;
@@ -139,7 +139,7 @@ public class LobbyTableView implements ILobbyTableView {
     }
 
     @Override
-    public void setLobbyListViewData(ObservableList<Lobby> datasource){
+    public void setLobbyListViewData(ObservableList<CommonLobby> datasource){
         this.lobbyTableView.setItems(datasource);
     }
 

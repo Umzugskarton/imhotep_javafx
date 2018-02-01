@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import SRVevents.*;
-import commonLobby.CLTLobby;
+
+import data.lobby.CommonLobby;
+import events.Event;
+import events.app.main.UserListEvent;
+import events.app.lobby.CreateLobbyEvent;
+import events.app.lobby.LobbyListEvent;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,13 +82,13 @@ public class Server {
     }
   }
 
-  public void sendToAll(Event json) {
+  public void sendToAll(Event event) {
     for (ClientListener clientListener : connectedClients) {
-      clientListener.send(json);
+      clientListener.send(event);
     }
   }
 
-  public boolean sendTo(Event json, String to) {
+  public boolean sendTo(Event event, String to) {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
@@ -95,19 +99,19 @@ public class Server {
     }
     if (toClient != null) {
       found = true;
-      toClient.send(json);
+      toClient.send(event);
     }
 
     return found;
   }
 
-  public createEvent addLobby(Lobby lobby) {
+  public CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
     lobby.setLobbyID(openLobby.size() - 1);
 
-    createEvent j = new createEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
-    return j;
+    CreateLobbyEvent e = new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
+    return e;
   }
 
   public Lobby getLobbybyID(int id) {
@@ -119,12 +123,12 @@ public class Server {
     return null;
   }
 
-  public lobbylistEvent getLobbies(User user) {
-    lobbylistEvent lobbies = new lobbylistEvent();
-    ArrayList<CLTLobby> CLTLobbies = new ArrayList<>();
+  public LobbyListEvent getLobbies(User user) {
+    LobbyListEvent lobbies = new LobbyListEvent();
+    ArrayList<CommonLobby> CLTLobbies = new ArrayList<>();
     for (Lobby lobby : openLobby) {
       if (lobby.isVisible()) {
-        CLTLobby tempLobby = new CLTLobby(
+        CommonLobby tempLobby = new CommonLobby(
                 lobby.getLobbyID(),
                 lobby.getName(),
                 lobby.getLobbyUserArrayList(),
@@ -152,8 +156,8 @@ public class Server {
     }
   }
 
-  public userListEvent getLoggedUsers() {
-    userListEvent event = new userListEvent();
+  public UserListEvent getLoggedUsers() {
+    UserListEvent event = new UserListEvent();
     ArrayList<String> users = new ArrayList<>();
     for (ClientListener client : connectedClients) {
       if (client.isLoggedIn()) {

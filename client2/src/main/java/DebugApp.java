@@ -1,17 +1,23 @@
-import GameEvents.GameInfoEvent;
-import GameEvents.TurnEvent;
+
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
-import events.game.StartGameEvent;
-import events.main.*;
-import events.main.lobby.LobbyJoinSuccessfulEvent;
-import events.main.login.LoginFailedEvent;
-import events.main.login.LoginSuccessfulEvent;
+import events.app.chat.ChatMessageEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.StartGameEvent;
+import events.app.game.TurnEvent;
+import events.app.lobby.LobbyInfoEvent;
+import events.app.lobby.LobbyJoinSuccessfulEvent;
+import events.app.lobby.LobbyListEvent;
+import events.app.main.UserListEvent;
+import events.start.login.LoginEvent;
+import events.start.login.LoginFailedEvent;
+import events.start.login.LoginSuccessfulEvent;
+import events.start.registration.RegistrationEvent;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,8 +31,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.Request;
-import requests.main.ChatRequest;
-import requests.main.StartGameRequest;
+import requests.chatRequest;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 
 import java.util.ArrayList;
@@ -144,7 +149,7 @@ public class DebugApp {
         registerEvent1Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                RegisterEvent myEvent = new RegisterEvent();
+                RegistrationEvent myEvent = new RegistrationEvent();
                 logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
                 getEventBus().post(myEvent);
             }
@@ -212,11 +217,12 @@ public class DebugApp {
         lobbyListButton1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                LobbylistEvent myEvent = new LobbylistEvent();
-                ArrayList<Lobby> lobbys = new ArrayList<>();
+                LobbyListEvent myEvent = new LobbyListEvent();
+                ArrayList<CommonLobby> lobbys = new ArrayList<>();
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                LobbyUser lobbyUser = new LobbyUser(new User(1,"Testuser", "blabla", "testuser@user.de"), "Red" ,false);
+                User user = new User(1,"Testuser", "blabla", "testuser@user.de");
+                LobbyUser lobbyUser = new LobbyUser(user, "Red" ,false);
                 lobbyUsers.add(lobbyUser);
 
                 boolean[] readyStaus = new boolean[3];
@@ -224,8 +230,7 @@ public class DebugApp {
 
                 ArrayList<String> colors = new ArrayList<>();
                 colors.add("Red");
-                Lobby lobby = new Lobby(1, "Lobby 1", lobbyUsers, false, 4, true, "Testuser", readyStaus, colors);
-                lobby.setBelegung(2);
+                CommonLobby lobby = new CommonLobby(1, "Lobby 1", lobbyUsers, false, 4, true, "Testuser", readyStaus, colors);
                 lobbys.add(lobby);
 
                 myEvent.setLobbies(lobbys);
@@ -253,14 +258,16 @@ public class DebugApp {
             public void handle(ActionEvent event) {
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                lobbyUsers.add(new LobbyUser(new User(0 , "testuser", "xyz", "test@test.de" ), "#edc3f9", false));
-                lobbyUsers.add(new LobbyUser(new User(1 , "testuser2", "xyz", "test@test.de" ), "#070fa1", false));
+                User user1 = new User(0 , "testuser", "xyz", "test@test.de" );
+                User user2 = new User(1 , "testuser2", "xyz", "test@test.de" );
+                lobbyUsers.add(new LobbyUser(user1, "#edc3f9", false));
+                lobbyUsers.add(new LobbyUser(user2, "#070fa1", false));
                 boolean[] ready = {false,false};
                 ArrayList<String> colors = new ArrayList<>();
                 colors.add("#edc3f9");
                 colors.add("#070fa1");
 
-                Lobby lobby = new Lobby(0, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
+                CommonLobby lobby = new CommonLobby(0, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
                 LobbyInfoEvent lobbyInfoEvent = new LobbyInfoEvent(lobby);
 
                 getEventBus().post(lobbyInfoEvent);
@@ -274,14 +281,15 @@ public class DebugApp {
             public void handle(ActionEvent event) {
 
                 ArrayList<LobbyUser> lobbyUsers = new ArrayList<>();
-                lobbyUsers.add(new LobbyUser(new User(2 , "testuser3", "xyz", "test@test.de" ), "#000", false));
+                User user1 = new User(2 , "testuser3", "xyz", "test@test.de" );
+                lobbyUsers.add(new LobbyUser(user1, "#000", false));
                 boolean[] ready = {false,false};
                 ArrayList<String> colors = new ArrayList<>();
 
                 colors.add("#000");
                 colors.add("#fff");
 
-                Lobby lobby = new Lobby(1, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
+                CommonLobby lobby = new CommonLobby(1, "test", lobbyUsers, false,2,true, "testuser", ready,colors);
                 LobbyInfoEvent lobbyInfoEvent = new LobbyInfoEvent(lobby);
 
                 getEventBus().post(lobbyInfoEvent);
@@ -438,8 +446,8 @@ public class DebugApp {
         //this.eventBusSnifferListView.scrollTo(this.eventBusSnifferListView.getFocusModel().getFocusedIndex());
     }
 
-    @Subscribe void gotChatRequest(ChatRequest request) {
-        ChatEvent event = new ChatEvent();
+    @Subscribe void gotChatRequest(chatRequest request) {
+        ChatMessageEvent event = new ChatMessageEvent();
         event.setMsg(request.getMsg());
         this.eventBus.post(event);
     }

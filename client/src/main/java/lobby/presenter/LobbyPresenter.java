@@ -1,7 +1,7 @@
 package lobby.presenter;
 
-import CLTrequests.*;
-import commonLobby.CLTLobby;
+import requests.*;
+import data.lobby.CommonLobby;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,7 +17,7 @@ public class LobbyPresenter {
 
   private SceneController sc;
   private LobbyView lobbyView;
-  private CLTLobby CLTLobby;
+  private CommonLobby CLTLobby;
   private String username;
 
   public LobbyPresenter(LobbyView lobbyView, SceneController sc) {
@@ -27,16 +27,16 @@ public class LobbyPresenter {
     setUsername(this.sc.getMainmenuPresenter().getUsername());
   }
 
-  public CLTLobby getCLTLobby() {
+  public CommonLobby getCLTLobby() {
     return this.CLTLobby;
   }
 
-  public void updateLobby(CLTLobby lobby) {
+  public void updateLobby(CommonLobby lobby) {
     CLTLobby = lobby;
     lobbyView.updateTable();
   }
 
-  public void setCLTLobby(CLTLobby CLTLobby) {
+  public void setCLTLobby(CommonLobby CLTLobby) {
     this.CLTLobby = CLTLobby;
     lobbyView.initLobbyInfo();
     addInfoMessage("Welcome to Lobby " + CLTLobby.getName());

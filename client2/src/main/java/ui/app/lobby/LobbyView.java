@@ -2,7 +2,7 @@ package ui.app.lobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -50,7 +50,7 @@ public class LobbyView implements ILobbyView {
 
     private final User user;
 
-    public LobbyView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
+    public LobbyView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
         this.parentView = parentView;
         this.eventBus = eventBus;
         this.user = user;

@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.changeColorRequest;
-import SRVevents.changeColorEvent;
+import requests.IRequest;
+import requests.changeColorRequest;
+import events.app.lobby.ChangeLobbyUserColorEvent;
 import lobby.Lobby;
 import socket.ClientListener;
 import data.user.User;
@@ -24,7 +24,7 @@ public class ChangeColorCommand implements Command {
 
     public void exec() {
         Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
-        changeColorEvent changeColorEvent = lobby.replaceColor(clientListener.getUser());
+        ChangeLobbyUserColorEvent changeColorEvent = lobby.replaceColor(clientListener.getUser());
         User[] users = lobby.getUsers();
         for (User tempUser : users) {
             if (tempUser != null) {

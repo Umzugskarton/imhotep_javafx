@@ -1,20 +1,19 @@
 package ui.app.game.userinterface;
 
 
-import GameEvents.FillUpStorageEvent;
-import GameEvents.GameInfoEvent;
-import GameEvents.ShipLoadedEvent;
-import GameEvents.TurnEvent;
-import GameMoves.FillUpStorageMove;
-import GameMoves.LoadUpShipMove;
-import GameMoves.VoyageToStoneSiteMove;
+import events.app.game.FillUpStorageEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
+import events.app.game.TurnEvent;
+import requests.GameMoves.FillUpStorageMove;
+import requests.GameMoves.LoadUpShipMove;
+import requests.GameMoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
 import javafx.application.Platform;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -29,7 +28,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   private final Connection connection;
   private final User user;
-  private Lobby lobby;
+  private CommonLobby lobby;
 
   private ArrayList<int[]> ships;
   private int round;
@@ -40,7 +39,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private TurnTimerThread turnTimer;
 
 
-  public UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection, User user, Lobby lobby) {
+  public UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
@@ -195,10 +194,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   public void sendVoyageToStoneSiteMove(int ship, String to) {
-    eventBus.post(new VoyageToStoneSiteMove(ship, to));
+    eventBus.post(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
   }
 
   public void sendLoadUpShipMove(int ship, int to) {
-    eventBus.post(new LoadUpShipMove(ship, to));
+    eventBus.post(new LoadUpShipMove(ship, to, lobby.getLobbyId()));
   }
 }

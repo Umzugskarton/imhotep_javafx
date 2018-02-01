@@ -1,7 +1,7 @@
 package socket.commands;
 
 
-import CLTrequests.IRequest;
+import requests.IRequest;
 import socket.ClientListener;
 
 import java.util.HashMap;

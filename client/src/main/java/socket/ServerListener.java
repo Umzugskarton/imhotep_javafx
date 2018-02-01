@@ -1,6 +1,6 @@
 package socket;
 
-import SRVevents.Event;
+import events.Event;
 import com.google.common.eventbus.EventBus;
 
 import java.io.IOException;

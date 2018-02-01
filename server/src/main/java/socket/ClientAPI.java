@@ -1,7 +1,11 @@
 package socket;
 
-import CLTrequests.*;
-import SRVevents.*;
+import events.app.chat.WhisperChatEvent;
+import events.app.profil.ChangeProfilDataEvent;
+import events.app.chat.ChatMessageEvent;
+import events.start.login.LoginEvent;
+import events.start.registration.RegistrationEvent;
+import requests.*;
 import lobby.Lobby;
 import data.user.User;
 import user.UserIdentifier;
@@ -28,8 +32,8 @@ public class ClientAPI {
    * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
-  public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
-    loginEvent event = new loginEvent();
+  public LoginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
+    LoginEvent event = new LoginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
     if (username != null && password != null) {
@@ -64,8 +68,8 @@ public class ClientAPI {
    * @param request registerRequest, das User-Daten für Registrierung enthält
    * @return registerEvent, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public registerEvent register(registerRequest request) {
-    registerEvent event = new registerEvent();
+  public RegistrationEvent register(registerRequest request) {
+    RegistrationEvent event = new RegistrationEvent();
     String username = request.getUsername();
     String password = request.getPassword();
     String email = request.getEmail();
@@ -88,8 +92,8 @@ public class ClientAPI {
   }
 
 
-  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
-    changeCredentialEvent event = new changeCredentialEvent();
+  public ChangeProfilDataEvent changeCredential(changeCredentialRequest request, User user) {
+    ChangeProfilDataEvent event = new ChangeProfilDataEvent();
     String newCred = request.getCredential();
     Integer type = request.getCrednr();
     if (newCred != null) {
@@ -134,8 +138,8 @@ public class ClientAPI {
 
 
 
-  public chatEvent chat(chatRequest request, User user) {
-    chatEvent event = new chatEvent();
+  public ChatMessageEvent chat(chatRequest request, User user) {
+    ChatMessageEvent event = new ChatMessageEvent();
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
@@ -146,8 +150,8 @@ public class ClientAPI {
     return event;
   }
 
-  public whisperEvent whisper(whisperRequest request, User user) {
-    whisperEvent event = new whisperEvent();
+  public WhisperChatEvent whisper(whisperRequest request, User user) {
+    WhisperChatEvent event = new WhisperChatEvent();
     if (request.getMsg() != null && request.getTo() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setFrom(user.getUsername());

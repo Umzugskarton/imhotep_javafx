@@ -1,11 +1,8 @@
-import GameEvents.TurnEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
-import events.game.StartGameEvent;
-import events.main.CreateEvent;
-import events.main.login.LoginSuccessfulEvent;
+import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
 
 import javafx.scene.Group;
@@ -41,7 +38,7 @@ public class ClientApp extends Application {
     @Override
     public void init() {
         eventBus.register(this);
-        eventBus.post(new TurnEvent());
+        //eventBus.post(new TurnEvent());
         logger.info("EventBus registriert");
     }
 

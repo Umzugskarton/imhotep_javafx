@@ -1,10 +1,10 @@
 package ui.app.game.board.sites.defaultSites;
 
-import GameEvents.ShipDockedEvent;
+import events.app.game.ShipDockedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class DefaultSitePresenter extends Presenter<ISiteView> implements ISitePresenter {
   private final Connection connection;
-  private Lobby lobby;
+  private CommonLobby lobby;
 
-  public DefaultSitePresenter(ISiteView view, EventBus eventBus, Connection connection, Lobby lobby) {
+  public DefaultSitePresenter(ISiteView view, EventBus eventBus, Connection connection, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.lobby = lobby;

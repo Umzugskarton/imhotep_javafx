@@ -2,9 +2,9 @@ package chat.presenter;
 
 import static general.TextBundle.getString;
 
-import CLTrequests.IRequest;
-import CLTrequests.chatRequest;
-import CLTrequests.whisperRequest;
+import requests.IRequest;
+import requests.chatRequest;
+import requests.whisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 import java.util.regex.Matcher;

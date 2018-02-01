@@ -1,14 +1,12 @@
 package ui.app;
 
-import GameEvents.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
-import events.game.StartGameEvent;
-import events.main.LobbyInfoEvent;
-import events.main.lobby.LobbyJoinSuccessfulEvent;
+import events.app.game.StartGameEvent;
+import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -64,7 +62,7 @@ public class AppView implements IAppView {
   private final AppPresenter presenter;
   private final EventBus eventBus;
   private final User user;
-  private ArrayList<Lobby> lobbies = new ArrayList<>();
+  private ArrayList<CommonLobby> lobbies = new ArrayList<>();
 
   // Own Parent
   private Parent myParent;
@@ -102,7 +100,7 @@ public class AppView implements IAppView {
     mainViewPane.getChildren().add(this.mainView.getRootParent());
   }
 
-  public boolean addTab(LobbyView lobbyView, Lobby lobby) {
+  public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
     Tab tab = new Tab();
     tab.setText("Lobby " +lobby.getName());
     tab.setContent(lobbyView.getRootParent());
@@ -138,14 +136,14 @@ public class AppView implements IAppView {
   @Subscribe
   public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
     boolean found = false;
-      for (Lobby l : lobbies) {
+      for (CommonLobby l : lobbies) {
         if (l.getLobbyId() == e.getLobby().getLobbyId()) {
           found = true;
           break;
         }
       }
     if (!found) {
-      Lobby lobby = e.getLobby();
+      CommonLobby lobby = e.getLobby();
       lobbies.add(lobby);
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
       addTab(lobbyView, lobby);
@@ -161,8 +159,8 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onStartGameEvent(StartGameEvent e) {
-    Lobby lobby = null;
-    for (Lobby l : lobbies) {
+    CommonLobby lobby = null;
+    for (CommonLobby l : lobbies) {
       if (l.getLobbyId() == e.getLobbyId()) {
         lobby = l;
         break;

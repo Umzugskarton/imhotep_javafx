@@ -2,7 +2,7 @@ package ui.app.game.userinterface;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
@@ -54,12 +54,12 @@ public class UserInterfaceView implements IUserInterfaceView {
   private final EventBus eventBus;
 
   private final User user;
-  private Lobby lobby;
+  private CommonLobby lobby;
 
   // Own Parent
   private Parent myParent;
 
-  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
+  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.user = user;

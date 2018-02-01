@@ -1,10 +1,10 @@
 package game.GameProcedures;
 
-import GameEvents.AlreadyAllocatedError;
-import GameEvents.ShipLoadedEvent;
-import GameMoves.Move;
-import GameMoves.LoadUpShipMove;
-import SRVevents.Event;
+import events.app.game.AlreadyAllocatedError;
+import events.app.game.ShipLoadedEvent;
+import requests.GameMoves.Move;
+import requests.GameMoves.LoadUpShipMove;
+import events.Event;
 import game.Game;
 import game.Player;
 import game.board.Ship;

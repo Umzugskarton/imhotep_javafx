@@ -1,10 +1,10 @@
 package games.presenter;
 
 
-import CLTrequests.joinRequest;
+import requests.joinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import games.view.GamesView;
 import games.view.GamesViewImpl;
 import main.SceneController;
@@ -29,10 +29,10 @@ public class GamesPresenter {
         return this.view;
     }
 
-    public void updateLobbylist(ArrayList<CLTLobby> gamesArray){
+    public void updateLobbylist(ArrayList<CommonLobby> gamesArray){
         gamesList.getGames().clear();
 
-        for (CLTLobby lobby: gamesArray){
+        for (CommonLobby lobby: gamesArray){
             gamesList.getGames().add(lobby);
         }
 

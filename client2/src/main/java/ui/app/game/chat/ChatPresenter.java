@@ -4,16 +4,17 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
-import events.main.ChatEvent;
-import events.main.ChatInfoEvent;
-import events.main.WhisperEvent;
+import events.app.chat.ChatMessageEvent;
+import events.app.chat.ChatInfoEvent;
+import events.app.chat.WhisperChatEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mvp.presenter.Presenter;
+import requests.IRequest;
 import requests.Request;
-import requests.main.ChatRequest;
-import requests.main.WhisperRequest;
+import requests.chatRequest;
+import requests.whisperRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +36,7 @@ public class ChatPresenter extends Presenter<IChatView> {
   }
 
   public void sendChatMsg(String text) {
-    Request chatCommand = null;
+    IRequest chatCommand = null;
 
     if (text.startsWith("/w") || text.startsWith("@")) {
       Pattern whisperPattern = Pattern.compile("(\\/w |@)([^\\s]+) (.+)");
@@ -44,13 +45,13 @@ public class ChatPresenter extends Presenter<IChatView> {
         String receiver = whisperMatcher.group(2);
         String message = whisperMatcher.group(3);
 
-        chatCommand = new WhisperRequest(receiver, message);
+        chatCommand = new whisperRequest(receiver, message);
         addWhisper(receiver, message, false);
       } else {
         addInfoMessage("invalidWhisperSyntax");
       }
     } else if (!text.isEmpty()) {
-      chatCommand = new ChatRequest(text);
+      chatCommand = new chatRequest(text);
     } else if (text.isEmpty()) {
       addInfoMessage("enterMessageToChat");
     }
@@ -100,7 +101,7 @@ public class ChatPresenter extends Presenter<IChatView> {
   }
 
   @Subscribe
-  public void onChatEvent(ChatEvent e) {
+  public void onChatEvent(ChatMessageEvent e) {
     addChatMessage(e.getUser(), e.getMsg());
   }
 
@@ -114,7 +115,7 @@ public class ChatPresenter extends Presenter<IChatView> {
   }
 
   @Subscribe
-  public void onWhisperEvent(WhisperEvent e) {
+  public void onWhisperEvent(WhisperChatEvent e) {
     addWhisper(e.getFrom(), e.getMsg(), true);
   }
 }

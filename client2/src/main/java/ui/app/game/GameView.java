@@ -2,7 +2,7 @@ package ui.app.game;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -58,9 +58,9 @@ public class GameView implements IGameView {
     private ChatView chatView;
 
     private final User user;
-    private Lobby lobby;
+    private CommonLobby lobby;
 
-    public GameView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
+    public GameView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
         this.parentView = parentView;
         this.eventBus = eventBus;
         this.lobby = lobby;

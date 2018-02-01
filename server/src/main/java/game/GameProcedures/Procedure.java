@@ -1,7 +1,7 @@
 package game.GameProcedures;
 
-import GameMoves.Move;
-import SRVevents.Event;
+import requests.GameMoves.Move;
+import events.Event;
 
 public interface Procedure {
 

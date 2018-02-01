@@ -1,7 +1,7 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.logoutRequest;
+import requests.IRequest;
+import requests.logoutRequest;
 import socket.ClientListener;
 
 public class LogoutCommand implements Command {

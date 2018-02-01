@@ -1,12 +1,11 @@
 package ui.app.game.board.storage;
 
-import GameEvents.GameInfoEvent;
-import GameMoves.FillUpStorageMove;
-import GameMoves.LoadUpShipMove;
+import events.app.game.GameInfoEvent;
+import requests.GameMoves.FillUpStorageMove;
+import requests.GameMoves.LoadUpShipMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.User;
 import data.lobby.LobbyUser;
 import javafx.application.Platform;
 import javafx.scene.Group;

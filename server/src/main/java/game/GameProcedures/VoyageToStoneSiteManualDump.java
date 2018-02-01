@@ -1,9 +1,9 @@
 package game.GameProcedures;
 
-import GameEvents.VoyageToStoneSiteManualDumpEvent;
-import GameMoves.Move;
-import GameMoves.VoyageToStoneSiteManualDumpMove;
-import SRVevents.Event;
+import events.app.game.VoyageToStoneSiteManualDumpEvent;
+import requests.GameMoves.Move;
+import requests.GameMoves.VoyageToStoneSiteManualDumpMove;
+import events.Event;
 import game.Game;
 import game.board.Ship;
 

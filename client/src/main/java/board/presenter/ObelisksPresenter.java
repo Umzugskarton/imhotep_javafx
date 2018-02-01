@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.ObelisksViewImplFx;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class ObelisksPresenter implements StoneSitePresenter {
 
   private ObelisksViewImplFx obelisksController;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
 
-  public ObelisksPresenter(CLTLobby lobby, ObelisksViewImplFx obelisksController) {
+  public ObelisksPresenter(CommonLobby lobby, ObelisksViewImplFx obelisksController) {
     this.lobby = lobby;
     this.obelisksController = obelisksController;
   }

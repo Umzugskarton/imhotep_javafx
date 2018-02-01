@@ -1,11 +1,11 @@
 package game;
 
-import GameEvents.GameInfoEvent;
-import GameEvents.TurnEvent;
-import GameEvents.UpdatePointsEvent;
-import GameEvents.WinEvent;
-import GameMoves.Move;
-import SRVevents.Event;
+import events.app.game.GameInfoEvent;
+import events.app.game.TurnEvent;
+import events.app.game.UpdatePointsEvent;
+import events.app.game.WinEvent;
+import requests.GameMoves.Move;
+import events.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
 import game.board.BurialChamber;
@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import socket.ClientListener;
 import data.user.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 

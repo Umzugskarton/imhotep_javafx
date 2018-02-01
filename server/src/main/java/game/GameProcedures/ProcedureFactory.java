@@ -1,6 +1,6 @@
 package game.GameProcedures;
 
-import GameMoves.Move;
+import requests.GameMoves.Move;
 import game.Game;
 
 import java.util.HashMap;
