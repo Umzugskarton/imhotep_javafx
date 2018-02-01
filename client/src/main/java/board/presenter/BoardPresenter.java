@@ -1,14 +1,14 @@
 package board.presenter;
 
-import GameEvents.FillUpStorageEvent;
-import GameEvents.GameInfoEvent;
-import GameEvents.ShipDockedEvent;
-import GameEvents.ShipLoadedEvent;
-import GameEvents.TurnEvent;
-import GameEvents.UpdatePointsEvent;
-import GameMoves.FillUpStorageMove;
-import GameMoves.LoadUpShipMove;
-import GameMoves.VoyageToStoneSiteMove;
+import events.app.game.FillUpStorageEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipDockedEvent;
+import events.app.game.ShipLoadedEvent;
+import events.app.game.TurnEvent;
+import events.app.game.UpdatePointsEvent;
+import requests.GameMoves.FillUpStorageMove;
+import requests.GameMoves.LoadUpShipMove;
+import requests.GameMoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
 import board.view.BoardViewImplFx;
 import board.view.BurialChamberViewImplFx;
@@ -17,8 +17,8 @@ import board.view.PyramidViemImplFx;
 import board.view.ShipViewImplFx;
 import board.view.StorageViewImplFx;
 import board.view.TempleViewImplFx;
-import commonLobby.CLTLobby;
-import commonLobby.LobbyUser;
+import data.lobby.CommonLobby;
+import data.lobby.LobbyUser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class BoardPresenter {
 
@@ -45,7 +44,7 @@ public class BoardPresenter {
 
   private BoardViewImplFx view;
   private SceneController sc;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
   private ArrayList<StoragePresenter> storagePresenters = new ArrayList<>();
   private ArrayList<ShipPresenter> shipPresenters = new ArrayList<>();
 
@@ -68,7 +67,7 @@ public class BoardPresenter {
   private TurnTimerThread turnTimer;
 
   // Konstruktor
-  public BoardPresenter(BoardViewImplFx view, SceneController sc, CLTLobby legacy) {
+  public BoardPresenter(BoardViewImplFx view, SceneController sc, CommonLobby legacy) {
     this.lobby = legacy;
     this.view = view;
     this.sc = sc;
@@ -286,7 +285,7 @@ public class BoardPresenter {
   public void newTurn(TurnEvent e) {
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
-    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+    Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
 
     this.view.getCurrentPlayerLabel().setText(e.getUsername());
     this.changeBgGradient(userColor);

@@ -2,7 +2,7 @@ package ui.app.game.board.ship;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -15,9 +15,7 @@ import mvp.view.INavigateableView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created on 28.01.2018.
- */
+
 public class ShipView implements IShipView {
 
   @FXML
@@ -40,13 +38,13 @@ public class ShipView implements IShipView {
   private final ShipPresenter mainPresenter;
   private final EventBus eventBus;
 
-  private Lobby lobby;
+  private CommonLobby lobby;
   private int[] cargo;
 
   // Own Parent
   private Parent myParent;
 
-  public ShipView(INavigateableView parentView, EventBus eventBus, Connection connection, Lobby lobby , int[] cargo, int shipId){
+  public ShipView(INavigateableView parentView, EventBus eventBus, Connection connection, CommonLobby lobby , int[] cargo, int shipId){
     this.parentView = parentView;
     this.lobby = lobby;
     this.cargo = cargo;

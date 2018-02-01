@@ -1,7 +1,6 @@
 package lobby.view;
 
 import general.Delta;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +21,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import commonLobby.LobbyUser;
+import data.lobby.LobbyUser;
 import lobby.presenter.LobbyPresenter;
 import main.SceneController;
 

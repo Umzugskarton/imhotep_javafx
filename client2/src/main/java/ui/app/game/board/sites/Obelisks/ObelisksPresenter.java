@@ -1,10 +1,10 @@
 package ui.app.game.board.sites.Obelisks;
 
-import GameEvents.ShipDockedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
+import events.app.game.ShipDockedEvent;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePresenter {
   private final Connection connection;
-  private Lobby lobby;
+  private CommonLobby lobby;
 
 
-  public ObelisksPresenter(ISiteView view, EventBus eventBus, Connection connection, Lobby lobby) {
+  public ObelisksPresenter(ISiteView view, EventBus eventBus, Connection connection, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.lobby = lobby;

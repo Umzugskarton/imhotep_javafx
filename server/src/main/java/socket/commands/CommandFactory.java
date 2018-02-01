@@ -1,8 +1,10 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import requests.IRequest;
 import socket.ClientListener;
 
 import java.util.HashMap;

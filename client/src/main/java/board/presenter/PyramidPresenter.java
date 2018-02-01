@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.PyramidViemImplFx;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class PyramidPresenter implements StoneSitePresenter {
 
   private PyramidViemImplFx pyramidController;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
 
-  public PyramidPresenter(CLTLobby lobby, PyramidViemImplFx pyramidController) {
+  public PyramidPresenter(CommonLobby lobby, PyramidViemImplFx pyramidController) {
     this.lobby = lobby;
     this.pyramidController = pyramidController;
   }

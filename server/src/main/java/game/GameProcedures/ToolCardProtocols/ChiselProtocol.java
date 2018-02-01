@@ -1,11 +1,11 @@
 package game.GameProcedures.ToolCardProtocols;
 
-import GameEvents.LoadUpShipExclusiveEvent;
-import GameEvents.OutOfStonesError;
-import GameEvents.ToolCardEvent;
-import GameMoves.CardType.Type;
-import GameMoves.LoadUpShipMove;
-import GameMoves.Move;
+import events.app.game.LoadUpShipExclusiveEvent;
+import events.app.game.OutOfStonesError;
+import events.app.game.ToolCardEvent;
+import requests.GameMoves.CardType.Type;
+import requests.GameMoves.LoadUpShipMove;
+import requests.GameMoves.Move;
 import game.Game;
 
 public class ChiselProtocol extends Protocol {

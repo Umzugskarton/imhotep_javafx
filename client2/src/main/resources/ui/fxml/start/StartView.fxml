@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="startViewRoot" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Pane fx:id="subPane" />
-  </children>
-</AnchorPane>
+<BorderPane id="startView" fx:id="startViewRoot" stylesheets="@../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
+   <top>
+      <HBox fx:id="navigation" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding></HBox>
+   </top>
+   <center>
+      <Pane fx:id="subPane" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

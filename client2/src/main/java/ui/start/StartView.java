@@ -6,8 +6,11 @@ import connection.Connection;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
+import ui.layout.StageLayout;
 import ui.start.login.LoginView;
 import ui.start.login.ShowLoginViewEvent;
 import ui.start.register.RegistrationView;
@@ -25,7 +28,10 @@ public class StartView implements IStartView {
     private URL location;
 
     @FXML
-    private Pane startViewRoot;
+    private BorderPane startViewRoot;
+
+    @FXML
+    private HBox navigation;
 
     @FXML
     private Pane subPane;
@@ -41,11 +47,12 @@ public class StartView implements IStartView {
     private RegistrationView registrationView;
 
 
-    public StartView(EventBus eventBus, Connection connection){
+    public StartView(EventBus eventBus, Connection connection, StageLayout stageLayout){
         this.eventBus = eventBus;
         this.presenter = new StartPresenter(this, eventBus, connection);
         bind();
         initOwnView();
+        stageLayout.configNavigation(this.navigation, false);
     }
 
     private void bind() {

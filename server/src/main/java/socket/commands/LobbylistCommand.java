@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.lobbylistRequest;
-import SRVevents.lobbylistEvent;
+import requests.IRequest;
+import requests.lobbylistRequest;
+import events.app.lobby.LobbyListEvent;
 import socket.ClientListener;
 
 public class LobbylistCommand implements Command {
@@ -20,7 +20,7 @@ public class LobbylistCommand implements Command {
   }
 
   public void exec() {
-    lobbylistEvent response = this.clientListener.getServer().getLobbies(clientListener.getUser());
+    LobbyListEvent response = this.clientListener.getServer().getLobbies(clientListener.getUser());
     if (response != null) {
       this.clientListener.send(response);
     }

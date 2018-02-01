@@ -1,6 +1,6 @@
 package profile.presenter;
 
-import CLTrequests.changeCredentialRequest;
+import requests.changeCredentialRequest;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;

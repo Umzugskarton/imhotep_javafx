@@ -28,7 +28,7 @@ task fatJar(type: Jar) {
 
 dependencies {
     compile project(":common")
-    compile project(":common2")
+//    compile project(":common2")
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'

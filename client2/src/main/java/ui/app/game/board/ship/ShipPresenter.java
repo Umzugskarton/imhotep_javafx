@@ -1,25 +1,25 @@
 package ui.app.game.board.ship;
 
-import GameEvents.GameInfoEvent;
-import GameEvents.ShipLoadedEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
 
 public class ShipPresenter extends Presenter<IShipView>{
-  private Lobby lobby;
+  private CommonLobby lobby;
   private int[] cargo;
   private boolean docked;
   private String location;
   private final Connection connection;
   private final int shipId;
 
-  public ShipPresenter(IShipView view, EventBus eventBus, Connection connection, int[] cargo, Lobby lobby, int shipId) {
+  public ShipPresenter(IShipView view, EventBus eventBus, Connection connection, int[] cargo, CommonLobby lobby, int shipId) {
     super( view , eventBus);
     this.lobby = lobby;
     docked = false;

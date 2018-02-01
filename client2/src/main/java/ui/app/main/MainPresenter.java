@@ -4,7 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
 import mvp.presenter.Presenter;
-import requests.main.LogoutRequest;
+import requests.logoutRequest;
 
 public class MainPresenter extends Presenter<IMainView> {
 
@@ -22,7 +22,7 @@ public class MainPresenter extends Presenter<IMainView> {
     }
 
     public void logout() {
-        this.connection.send(new LogoutRequest());
+        this.connection.send(new logoutRequest());
         //TODO Überlegen wie das umgesetzt werden soll
         //this.chatPresenter.getChatView().getChatText().getChildren().clear();
     }

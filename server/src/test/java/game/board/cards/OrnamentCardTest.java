@@ -2,7 +2,7 @@ package game.board.cards;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import GameMoves.CardType.Type;
+import requests.GameMoves.CardType.Type;
 import game.board.Cards.OrnamentCard;
 import org.junit.jupiter.api.Test;
 

@@ -19,21 +19,25 @@
   -fx-font-weight: bold;
 }
 
-#loginregroot {
+#startView {
   -fx-background-image: url("imhotep.png");
   -fx-background-repeat: stretch;
   -fx-background-size: 720 480;
   -fx-border-width: 5;
 }
 
-#mainroot {
-  /*
-  -fx-background-image: url("chat.png");
+#appView{
+  -fx-background-image: url("appView.png");
+  -fx-background-size: 100% 100%;
   -fx-background-repeat: stretch;
-  -fx-background-size: 720 480;
+}
+
+#mainroot {
+  -fx-background-image: url("stoneback.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 1300 700;
   -fx-border-width: 5;
   -fx-padding: 5 15 15 15;
-  */
 }
 
 .tab {

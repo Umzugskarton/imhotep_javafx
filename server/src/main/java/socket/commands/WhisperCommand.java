@@ -1,9 +1,9 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.whisperRequest;
-import SRVevents.userNotFoundError;
-import SRVevents.Event;
+import requests.IRequest;
+import requests.whisperRequest;
+import events.app.chat.UserNotFoundErrorEvent;
+import events.Event;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
@@ -33,7 +33,7 @@ public class WhisperCommand implements Command {
       this.server
           .sendTo(this.clientAPI.whisper(request, this.clientListener.getUser()), receiverUsername);
     } else {
-      userNotFoundError error = new userNotFoundError();
+      UserNotFoundErrorEvent error = new UserNotFoundErrorEvent();
       error.setMsg(request.getTo());
       response = error;
     }

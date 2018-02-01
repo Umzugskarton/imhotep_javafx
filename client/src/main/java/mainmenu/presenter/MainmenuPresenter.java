@@ -1,7 +1,7 @@
 package mainmenu.presenter;
 
-import CLTrequests.logoutRequest;
-import CLTrequests.userlistRequest;
+import requests.logoutRequest;
+import requests.userlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;

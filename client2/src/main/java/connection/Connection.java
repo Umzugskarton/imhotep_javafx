@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.IRequest;
 import requests.Request;
 import ui.popup.serversetting.ShowServerSettingsEvent;
 
@@ -35,6 +36,7 @@ public class Connection {
     }
 
     public Connection(EventBus eventBus){
+        //Für Debug Zwecke
         //this("localhost", 47096, eventBus);
         this.eventBus = eventBus;
     }
@@ -60,6 +62,7 @@ public class Connection {
             this.eventBus.post(new ConnectionErrorExeption());
         } catch (ConnectionErrorExeption e) {
             logger.error("Verbindung unterbrochen");
+            this.eventBus.post(e);
             closeConnection();
         }
     }
@@ -69,11 +72,11 @@ public class Connection {
         this.output = null;
     }
 
-    public void send(Request request){
+    public void send(IRequest request){
         //EventBus für Debug-Zwecke!
         this.eventBus.post(request);
-
         /*
+
         try {
             this.output.send(request);
         }catch (ConnectionErrorExeption e){
@@ -85,6 +88,7 @@ public class Connection {
 
     @Subscribe
     public void onConnectionErrorExeption(ConnectionErrorExeption e) {
+        logger.error("ConnectionErrorExeption über EventBus angenommen");
         closeConnection();
         this.eventBus.post(new ShowServerSettingsEvent());
     }

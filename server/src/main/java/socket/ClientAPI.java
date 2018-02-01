@@ -1,16 +1,11 @@
 package socket;
 
-import CLTrequests.changeCredentialRequest;
-import CLTrequests.chatRequest;
-import CLTrequests.createRequest;
-import CLTrequests.loginRequest;
-import CLTrequests.registerRequest;
-import CLTrequests.whisperRequest;
-import SRVevents.changeCredentialEvent;
-import SRVevents.chatEvent;
-import SRVevents.loginEvent;
-import SRVevents.registerEvent;
-import SRVevents.whisperEvent;
+import events.app.chat.WhisperChatEvent;
+import events.app.profil.ChangeProfilDataEvent;
+import events.app.chat.ChatMessageEvent;
+import events.start.login.LoginEvent;
+import events.start.registration.RegistrationEvent;
+import requests.*;
 import lobby.Lobby;
 import data.user.User;
 import user.UserIdentifier;
@@ -37,8 +32,8 @@ public class ClientAPI {
    * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
-  public loginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
-    loginEvent event = new loginEvent();
+  public LoginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
+    LoginEvent event = new LoginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
     if (username != null && password != null) {
@@ -73,15 +68,18 @@ public class ClientAPI {
    * @param request registerRequest, das User-Daten für Registrierung enthält
    * @return registerEvent, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public registerEvent register(registerRequest request) {
-    registerEvent event = new registerEvent();
+  public RegistrationEvent register(registerRequest request) {
+    RegistrationEvent event = new RegistrationEvent();
     String username = request.getUsername();
     String password = request.getPassword();
     String email = request.getEmail();
     if (username != null && password != null && email != null) {
+
       boolean createUser = this.dbUserDataSource.createUser(username, password, email);
+
       if (createUser) {
         event.setMsg("Registrierung erfolgreich!");
+        event.setSuccess(createUser);
       } else {
         event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
       }
@@ -94,8 +92,8 @@ public class ClientAPI {
   }
 
 
-  public changeCredentialEvent changeCredential(changeCredentialRequest request, User user) {
-    changeCredentialEvent event = new changeCredentialEvent();
+  public ChangeProfilDataEvent changeCredential(changeCredentialRequest request, User user) {
+    ChangeProfilDataEvent event = new ChangeProfilDataEvent();
     String newCred = request.getCredential();
     Integer type = request.getCrednr();
     if (newCred != null) {
@@ -111,7 +109,7 @@ public class ClientAPI {
       }
       if (type == 2) {
         boolean changeCredential = dbUserDataSource
-            .changeUser(user, UserIdentifier.PASSWORD, newCred);
+                .changeUser(user, UserIdentifier.PASSWORD, newCred);
         if (changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -122,7 +120,7 @@ public class ClientAPI {
       }
       if (type == 3) {
         boolean changeCredential = dbUserDataSource
-            .changeUser(user, UserIdentifier.USERNAME, newCred);
+                .changeUser(user, UserIdentifier.USERNAME, newCred);
         if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -139,8 +137,9 @@ public class ClientAPI {
   }
 
 
-  public chatEvent chat(chatRequest request, User user) {
-    chatEvent event = new chatEvent();
+
+  public ChatMessageEvent chat(chatRequest request, User user) {
+    ChatMessageEvent event = new ChatMessageEvent();
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
@@ -151,14 +150,15 @@ public class ClientAPI {
     return event;
   }
 
-  public whisperEvent whisper(whisperRequest request, User user) {
-    whisperEvent event = new whisperEvent();
+  public WhisperChatEvent whisper(whisperRequest request, User user) {
+    WhisperChatEvent event = new WhisperChatEvent();
     if (request.getMsg() != null && request.getTo() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setFrom(user.getUsername());
     }
     return event;
   }
+
 
 
   /**
@@ -185,9 +185,11 @@ public class ClientAPI {
     String name = request.getName();
     int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
+
     if (request.getPassword() != null && !request.getPassword().isEmpty()) {
       lobby.setPassword(request.getPassword());
     }
+
     return lobby;
   }
 }

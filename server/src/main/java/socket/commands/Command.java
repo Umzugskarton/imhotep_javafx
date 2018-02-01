@@ -1,6 +1,6 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
+import requests.IRequest;
 
 public interface Command {
 

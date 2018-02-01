@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.registerRequest;
-import SRVevents.registerEvent;
+import requests.IRequest;
+import requests.registerRequest;
+import events.start.registration.RegistrationEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
@@ -23,7 +23,7 @@ public class RegisterCommand implements Command {
   }
 
   public void exec() {
-    registerEvent response = this.clientAPI.register(this.request);
+    RegistrationEvent response = this.clientAPI.register(this.request);
     if (response != null) {
       this.clientListener.send(response);
     }

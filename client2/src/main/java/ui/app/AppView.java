@@ -1,14 +1,12 @@
 package ui.app;
 
-import GameEvents.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
-import events.game.StartGameEvent;
-import events.main.LobbyInfoEvent;
-import events.main.lobby.LobbyJoinSuccessfulEvent;
+import events.app.game.StartGameEvent;
+import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -16,15 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import mvp.view.IView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
+import ui.layout.StageLayout;
 import ui.popup.PopupView;
 import ui.popup.createLobby.CreateLobbyView;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
@@ -44,27 +41,27 @@ public class AppView implements IAppView {
   private URL location;
 
   @FXML
-  GridPane appViewRoot;
+  private BorderPane appViewRoot;
 
   @FXML
-  Pane appViewTopPane;
+  private HBox navigation;
 
   @FXML
-  MenuButton appViewMenuButton;
+  private MenuButton appViewMenuButton;
 
   @FXML
-  TabPane appViewMainTabPane;
+  private TabPane appViewMainTabPane;
 
   @FXML
-  Tab appViewMainTab;
+  private Tab appViewMainTab;
 
   @FXML
-  Pane appViewBottomPane;
+  private Pane appViewBottomPane;
 
   private final AppPresenter presenter;
   private final EventBus eventBus;
   private final User user;
-  private ArrayList<Lobby> lobbies = new ArrayList<>();
+  private ArrayList<CommonLobby> lobbies = new ArrayList<>();
 
   // Own Parent
   private Parent myParent;
@@ -77,12 +74,13 @@ public class AppView implements IAppView {
   //PopupView
   private PopupView popupView;
 
-  public AppView(EventBus eventBus, Connection connection, User user) {
+  public AppView(EventBus eventBus, Connection connection, User user, StageLayout stageLayout) {
     this.eventBus = eventBus;
     this.user = user;
     this.presenter = new AppPresenter(this, eventBus, connection);
     bind();
     initOwnView();
+    stageLayout.configNavigation(this.navigation, true);
   }
 
   private void bind() {
@@ -102,7 +100,7 @@ public class AppView implements IAppView {
     mainViewPane.getChildren().add(this.mainView.getRootParent());
   }
 
-  public boolean addTab(LobbyView lobbyView, Lobby lobby) {
+  public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
     Tab tab = new Tab();
     tab.setText("Lobby " +lobby.getName());
     tab.setContent(lobbyView.getRootParent());
@@ -138,14 +136,14 @@ public class AppView implements IAppView {
   @Subscribe
   public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
     boolean found = false;
-      for (Lobby l : lobbies) {
+      for (CommonLobby l : lobbies) {
         if (l.getLobbyId() == e.getLobby().getLobbyId()) {
           found = true;
           break;
         }
       }
     if (!found) {
-      Lobby lobby = e.getLobby();
+      CommonLobby lobby = e.getLobby();
       lobbies.add(lobby);
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
       addTab(lobbyView, lobby);
@@ -161,8 +159,8 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onStartGameEvent(StartGameEvent e) {
-    Lobby lobby = null;
-    for (Lobby l : lobbies) {
+    CommonLobby lobby = null;
+    for (CommonLobby l : lobbies) {
       if (l.getLobbyId() == e.getLobbyId()) {
         lobby = l;
         break;

@@ -2,13 +2,11 @@ package socket;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import CLTrequests.IRequest;
+import requests.IRequest;
 import com.google.common.eventbus.EventBus;
-import com.google.gson.Gson;
 import main.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

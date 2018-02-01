@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.BurialChamberViewImplFx;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class BurialChamberPresenter implements StoneSitePresenter {
 
   private BurialChamberViewImplFx burialChamberController;
-  private CLTLobby lobby;
+  private CommonLobby lobby;
 
-  public BurialChamberPresenter(CLTLobby lobby, BurialChamberViewImplFx burialChamberController) {
+  public BurialChamberPresenter(CommonLobby lobby, BurialChamberViewImplFx burialChamberController) {
     this.lobby = lobby;
     this.burialChamberController = burialChamberController;
   }

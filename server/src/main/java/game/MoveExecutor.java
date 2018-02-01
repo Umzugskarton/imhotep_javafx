@@ -1,6 +1,6 @@
 package game;
 
-import GameMoves.Move;
+import requests.GameMoves.Move;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

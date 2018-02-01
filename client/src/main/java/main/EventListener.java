@@ -1,9 +1,16 @@
 package main;
 
-import GameEvents.*;
-import SRVevents.*;
 import com.google.common.eventbus.Subscribe;
-import commonLobby.CLTLobby;
+import data.lobby.CommonLobby;
+import events.app.chat.WhisperChatEvent;
+import events.app.game.*;
+import events.app.main.UserListEvent;
+import events.app.lobby.*;
+import events.app.profil.ChangeProfilDataEvent;
+import events.app.chat.ChatMessageEvent;
+import events.app.chat.ChatInfoEvent;
+import events.start.login.LoginEvent;
+import events.start.registration.RegistrationEvent;
 import javafx.application.Platform;
 
 public class EventListener {
@@ -15,7 +22,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void loginEventListener(loginEvent e) {
+    public void loginEventListener(LoginEvent e) {
         Platform.runLater(
                 () -> {
                     this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
@@ -31,7 +38,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void registerEventListener(registerEvent e) {
+    public void registerEventListener(RegistrationEvent e) {
         Platform.runLater(
                 () -> {
                     this.sceneController.getRegistrationPresenter()
@@ -41,7 +48,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void changeCredentialEventListener(changeCredentialEvent e) {
+    public void changeCredentialEventListener(ChangeProfilDataEvent e) {
         Platform.runLater(
                 () -> {
                     if (e.getType() == 1) {
@@ -58,13 +65,13 @@ public class EventListener {
 
 
     @Subscribe
-    public void setReadyEventListener(SetReadyEvent e) {
+    public void setReadyEventListener(SetReadyToPlayEvent e) {
         Platform.runLater(
                 () -> {
                   for (boolean b :e.getReady()){
                     System.out.println("SPECIAL DEBUG MODE : PING ready  e : " +b);
                   }
-                    CLTLobby lobby = sceneController.getLobbyPresenter().getCLTLobby();
+                    CommonLobby lobby = sceneController.getLobbyPresenter().getCLTLobby();
                     lobby.setReady(e.getReady());
                     sceneController.getLobbyPresenter().updateLobby(lobby);
                 }
@@ -72,7 +79,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void userListEventListener(userListEvent e) {
+    public void userListEventListener(UserListEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
@@ -83,7 +90,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void chatEventListener(chatEvent e) {
+    public void chatEventListener(ChatMessageEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
@@ -103,7 +110,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void chatInfoEventListener(chatInfoEvent e) {
+    public void chatInfoEventListener(ChatInfoEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
@@ -115,7 +122,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void joinEventListener(joinEvent e) {
+    public void joinEventListener(JoinLobbyEvent e) {
         Platform.runLater(
                 () -> {
                     if (e.getSuccess()) {
@@ -126,7 +133,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void leaveLobbyEventListener(leaveLobbyEvent e) {
+    public void leaveLobbyEventListener(LeaveLobbyEvent e) {
         Platform.runLater(
                 () -> {
                     if(e.getSuccess()) {
@@ -138,7 +145,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void lobbylistEventListener(lobbylistEvent e) {
+    public void lobbylistEventListener(LobbyListEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {
@@ -150,7 +157,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void createEventListener(CreateEvent e) {
+    public void createEventListener(CreateLobbyEvent e) {
         Platform.runLater(
                 () -> {
                     if (e.getSuccess()) {
@@ -161,14 +168,14 @@ public class EventListener {
     }
 
     @Subscribe
-    public void lobbyInfoEventListener(lobbyInfoEvent e) {
+    public void lobbyInfoEventListener(LobbyInfoEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter().getGamesPresenter() != null) {
 
                       this.sceneController.toLobbyScene();
 
-                        CLTLobby temp = e.getLobby();
+                        CommonLobby temp = e.getLobby();
                         this.sceneController.getLobbyPresenter().setCLTLobby(temp);
                     }
                 }
@@ -176,17 +183,17 @@ public class EventListener {
     }
 
     @Subscribe
-    public void changeColorEventListener(changeColorEvent e) {
+    public void changeColorEventListener(ChangeLobbyUserColorEvent e) {
         Platform.runLater(
                 () -> {
-                    CLTLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
+                    CommonLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
                     temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
                     sceneController.getLobbyPresenter().updateLobby(temp);
                 });
     }
 
     @Subscribe
-    public void whisperEventListener(whisperEvent e) {
+    public void whisperEventListener(WhisperChatEvent e) {
         Platform.runLater(
                 () -> {
                     if (this.sceneController.getMainmenuPresenter() != null) {

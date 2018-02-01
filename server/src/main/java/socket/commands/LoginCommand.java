@@ -1,8 +1,8 @@
 package socket.commands;
 
-import CLTrequests.IRequest;
-import CLTrequests.loginRequest;
-import SRVevents.loginEvent;
+import requests.IRequest;
+import requests.loginRequest;
+import events.start.login.LoginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
@@ -26,7 +26,7 @@ public class LoginCommand implements Command {
   }
 
   public void exec() {
-    loginEvent response = this.clientListener.getClientAPI()
+    LoginEvent response = this.clientListener.getClientAPI()
         .login(request, this.server.getLoggedUsers().getUserList());
     if (response.getSuccess()) {
       User user = this.clientAPI.getUser(request.getUsername());

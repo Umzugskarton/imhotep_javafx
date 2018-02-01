@@ -36,6 +36,7 @@ public class LoginViewImpl implements LoginView {
   public void buildLogin() {
     BorderPane main = new BorderPane();
     main.setId("loginroot");
+
     GridPane grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
     grid.setPadding(new Insets(5));
@@ -48,12 +49,14 @@ public class LoginViewImpl implements LoginView {
     nav.setAlignment(Pos.CENTER_RIGHT);
     nav.setPadding(new Insets(15, 15, 15, 12));
     main.setTop(nav);
+
     main.setCenter(grid);
 
     Rectangle rect = new Rectangle(720, 480);
     rect.setArcHeight(30.0);
     rect.setArcWidth(30.0);
     main.setClip(rect);
+
     loginScene = new Scene(main);
     loginScene.setFill(Color.TRANSPARENT);
 

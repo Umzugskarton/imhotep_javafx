@@ -1,11 +1,11 @@
 package game.GameProcedures;
 
-import GameMoves.CardType.Type;
-import GameEvents.CardNotInPossessionError;
-import GameEvents.ToolCardEvent;
-import GameMoves.Move;
-import GameMoves.ToolCardMove;
-import SRVevents.Event;
+import requests.GameMoves.CardType.Type;
+import events.app.game.CardNotInPossessionError;
+import events.app.game.ToolCardEvent;
+import requests.GameMoves.Move;
+import requests.GameMoves.ToolCardMove;
+import events.Event;
 import game.Game;
 import game.GameProcedures.ToolCardProtocols.ChiselProtocol;
 import game.GameProcedures.ToolCardProtocols.HammerProtocol;

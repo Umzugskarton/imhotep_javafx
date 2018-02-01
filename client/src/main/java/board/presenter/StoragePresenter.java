@@ -1,7 +1,7 @@
 package board.presenter;
 
 import board.view.StorageViewImplFx;
-import commonLobby.LobbyUser;
+import data.lobby.LobbyUser;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 

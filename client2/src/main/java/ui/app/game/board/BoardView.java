@@ -5,7 +5,7 @@ import GameEvents.TurnEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
-import data.lobby.Lobby;
+import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
@@ -73,13 +73,13 @@ public class BoardView implements IBoardView {
   private final ArrayList<ShipView> shipViews = new ArrayList<>();
 
   private final User user;
-  private Lobby lobby;
+  private CommonLobby lobby;
   private final Connection connection;
 
   // Own Parent
   private Parent myParent;
 
-  public BoardView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, Lobby lobby){
+  public BoardView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
