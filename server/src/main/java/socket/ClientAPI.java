@@ -1,7 +1,16 @@
 package socket;
 
-import CLTrequests.*;
-import SRVevents.*;
+import CLTrequests.changeCredentialRequest;
+import CLTrequests.chatRequest;
+import CLTrequests.createRequest;
+import CLTrequests.loginRequest;
+import CLTrequests.registerRequest;
+import CLTrequests.whisperRequest;
+import SRVevents.changeCredentialEvent;
+import SRVevents.chatEvent;
+import SRVevents.loginEvent;
+import SRVevents.registerEvent;
+import SRVevents.whisperEvent;
 import lobby.Lobby;
 import data.user.User;
 import user.UserIdentifier;
@@ -70,16 +79,13 @@ public class ClientAPI {
     String password = request.getPassword();
     String email = request.getEmail();
     if (username != null && password != null && email != null) {
-
       boolean createUser = this.dbUserDataSource.createUser(username, password, email);
-
       if (createUser) {
         event.setMsg("Registrierung erfolgreich!");
-        event.setSuccess(createUser);
       } else {
         event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
-        event.setSuccess(createUser);
       }
+      event.setSuccess(createUser);
     } else {
       event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
       event.setSuccess(false);
@@ -105,7 +111,7 @@ public class ClientAPI {
       }
       if (type == 2) {
         boolean changeCredential = dbUserDataSource
-                .changeUser(user, UserIdentifier.PASSWORD, newCred);
+            .changeUser(user, UserIdentifier.PASSWORD, newCred);
         if (changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -116,7 +122,7 @@ public class ClientAPI {
       }
       if (type == 3) {
         boolean changeCredential = dbUserDataSource
-                .changeUser(user, UserIdentifier.USERNAME, newCred);
+            .changeUser(user, UserIdentifier.USERNAME, newCred);
         if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
           event.setSuccess(changeCredential);
@@ -131,7 +137,6 @@ public class ClientAPI {
     }
     return event;
   }
-
 
 
   public chatEvent chat(chatRequest request, User user) {
@@ -154,7 +159,6 @@ public class ClientAPI {
     }
     return event;
   }
-
 
 
   /**
@@ -181,11 +185,9 @@ public class ClientAPI {
     String name = request.getName();
     int size = request.getSize();
     Lobby lobby = new Lobby(size, user, name);
-
     if (request.getPassword() != null && !request.getPassword().isEmpty()) {
       lobby.setPassword(request.getPassword());
     }
-
     return lobby;
   }
 }

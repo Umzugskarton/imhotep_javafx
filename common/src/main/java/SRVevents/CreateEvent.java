@@ -1,13 +1,13 @@
 package SRVevents;
 
-public class createEvent implements Event {
+public class CreateEvent implements Event {
 
   private String event = "create";
   private int id;
   private String msg;
   private boolean success;
 
-  public createEvent(boolean success, int lobbyID, String msg) {
+  public CreateEvent(boolean success, int lobbyID, String msg) {
     this.success = success;
     this.id = lobbyID;
     this.msg = msg;

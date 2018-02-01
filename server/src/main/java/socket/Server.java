@@ -35,10 +35,11 @@ public class Server {
       log.info("Server auf Port " + this.port + " gestartet");
     } catch (IOException e) {
       log.error(
-              "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
+          "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
       System.exit(-1);
     }
   }
+
   public void sendToLobby(Event e, Lobby lobby) {
     User[] users = lobby.getUsers();
     for (User tempUser : users) {
@@ -79,11 +80,8 @@ public class Server {
 
   public void removeClient(ClientListener clientListener) {
     log.info("[Thread " + clientListener.getThread().getId()
-            + "] Client hat die Verbindung beendet");
-
-    if (this.connectedClients.contains(clientListener)) {
-      this.connectedClients.remove(clientListener);
-    }
+        + "] Client hat die Verbindung beendet");
+    this.connectedClients.remove(clientListener);
   }
 
   public void sendToAll(Event json) {
@@ -105,17 +103,14 @@ public class Server {
       found = true;
       toClient.send(json);
     }
-
     return found;
   }
 
-  public createEvent addLobby(Lobby lobby) {
+  public CreateEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
     lobby.setLobbyID(openLobby.size() - 1);
-
-    createEvent j = new createEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
-    return j;
+    return new CreateEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {
@@ -133,20 +128,19 @@ public class Server {
     for (Lobby lobby : openLobby) {
       if (lobby.isVisible()) {
         CLTLobby tempLobby = new CLTLobby(
-                lobby.getLobbyID(),
-                lobby.getName(),
-                lobby.getLobbyUserArrayList(),
-                lobby.hasPW(),
-                lobby.getSize(),
-                lobby.isHost(user),
-                lobby.getHostName(),
-                lobby.getReady(),
-                lobby.getColors()
+            lobby.getLobbyID(),
+            lobby.getName(),
+            lobby.getLobbyUserArrayList(),
+            lobby.hasPW(),
+            lobby.getSize(),
+            lobby.isHost(user),
+            lobby.getHostName(),
+            lobby.getReady(),
+            lobby.getColors()
         );
         CLTLobbies.add(tempLobby);
       }
     }
-
     lobbies.setLobbies(CLTLobbies);
     return lobbies;
   }
@@ -180,7 +174,6 @@ public class Server {
         }
       }
     }
-
     return null;
   }
 }

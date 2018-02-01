@@ -2,7 +2,7 @@ package socket.commands;
 
 import CLTrequests.IRequest;
 import CLTrequests.createRequest;
-import SRVevents.createEvent;
+import SRVevents.CreateEvent;
 import SRVevents.lobbyInfoEvent;
 import SRVevents.lobbylistEvent;
 import commonLobby.CLTLobby;
@@ -31,7 +31,7 @@ public class CreateCommand implements Command {
   public void exec() {
     Lobby lobby = this.clientAPI.createLobby(request, this.clientListener.getUser());
     clientListener.addLobby(lobby);
-    createEvent response = this.clientListener.getServer().addLobby(lobby);
+    CreateEvent response = this.clientListener.getServer().addLobby(lobby);
     this.clientListener.send(response);
     if (response.getSuccess()) {
       CLTLobby cltLobby = new CLTLobby(lobby.getLobbyID(), lobby.getName(),

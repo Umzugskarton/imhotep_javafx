@@ -150,7 +150,7 @@ public class EventListener {
     }
 
     @Subscribe
-    public void createEventListener(createEvent e) {
+    public void createEventListener(CreateEvent e) {
         Platform.runLater(
                 () -> {
                     if (e.getSuccess()) {

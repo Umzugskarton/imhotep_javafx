@@ -19,7 +19,7 @@ public class EventFactory {
     Dict.put("lobbylist", new lobbylistEvent());
     Dict.put("lobbyInfo", new lobbyInfoEvent());
     Dict.put("join", new joinEvent());
-    Dict.put("create", new createEvent());
+    Dict.put("create", new CreateEvent());
     Dict.put("changeCredential", new changeCredentialEvent());
     Dict.put("changeColor", new changeColorEvent());
     Dict.put("setReady", new SetReadyEvent());
