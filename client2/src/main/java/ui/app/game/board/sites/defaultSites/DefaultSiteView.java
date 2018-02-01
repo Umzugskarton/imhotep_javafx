@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.Obelisks;
+package ui.app.game.board.sites.defaultSites;
 
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,8 +7,7 @@ import ui.app.game.board.sites.ISiteView;
 
 import java.util.ArrayList;
 
-public class ObelisksView implements ISiteView {
-
+public class DefaultSiteView implements ISiteView {
 
 
   @Override

@@ -15,7 +15,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
@@ -157,7 +156,7 @@ public class BoardView implements IBoardView {
   @Override
   public void initOwnView() {
     if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/BoardView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/BoardView.fxml", this, eventBus);
   }
 
   @Override

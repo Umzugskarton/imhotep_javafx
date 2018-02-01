@@ -58,7 +58,7 @@ public class ShipView implements IShipView {
   @Override
   public void initOwnView() {
     if(this.myParent == null) {
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/ShipView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/ShipView.fxml", this, eventBus);
       sprite.setId("ship" + cargo.length);
       ArrayList<Group> stones = getStones();
       //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen
