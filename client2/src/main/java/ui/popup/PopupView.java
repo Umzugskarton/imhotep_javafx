@@ -17,71 +17,71 @@ import java.util.ResourceBundle;
 
 public class PopupView implements IView {
 
-    @FXML
-    private ResourceBundle resources;
+  @FXML
+  private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+  @FXML
+  private URL location;
 
-    @FXML
-    private Pane popupViewRoot;
+  @FXML
+  private Pane popupViewRoot;
 
-    private Parent myParent;
+  private Parent myParent;
 
-    //Subview
-    IView view;
+  //Subview
+  IView view;
 
-    private EventBus eventBus;
+  private EventBus eventBus;
 
-    private Stage stage;
+  private Stage stage;
 
-    public PopupView(IView view) {
-        this.view = view;
-        this.stage = new Stage();
+  public PopupView(IView view) {
+    this.view = view;
+    this.stage = new Stage();
 
-        initOwnView();
-    }
+    initOwnView();
+  }
 
-    public PopupView(String msg, EventBus eventBus, Connection connection) {
-        this.eventBus = eventBus;
-        initOwnView();
-    }
+  public PopupView(String msg, EventBus eventBus, Connection connection) {
+    this.eventBus = eventBus;
+    initOwnView();
+  }
 
-    @FXML
-    void initialize() {
-        System.out.println("PopupView " + this.view.getRootParent());
-        this.popupViewRoot.getChildren().add(this.view.getRootParent());
-    }
+  @FXML
+  void initialize() {
+    System.out.println("PopupView " + this.view.getRootParent());
+    this.popupViewRoot.getChildren().add(this.view.getRootParent());
+  }
 
 
-    @Override
-    public void initOwnView() {
-        if (this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/popup/popupView2.fxml", this, eventBus);
-    }
+  @Override
+  public void initOwnView() {
+    if (this.myParent == null)
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/popup/popupView2.fxml", this, eventBus);
+  }
 
-    @FXML
-    void handleListViewClick(MouseEvent click){
+  @FXML
+  void handleListViewClick(MouseEvent click) {
 
-    }
+  }
 
-    public void show(){
-        this.stage.setScene(new Scene(this.getRootParent()));
-        stage.show();
-    }
+  public void show() {
+    this.stage.setScene(new Scene(this.getRootParent()));
+    stage.show();
+  }
 
-    public void setView(IView view){
-        this.view = view;
-        this.popupViewRoot.getChildren().clear();
-        this.popupViewRoot.getChildren().add(this.view.getRootParent());
-    }
+  public void setView(IView view) {
+    this.view = view;
+    this.popupViewRoot.getChildren().clear();
+    this.popupViewRoot.getChildren().add(this.view.getRootParent());
+  }
 
-    public ShowViewEvent getEventToShowThisView() {
-        return null;
-    }
+  public ShowViewEvent getEventToShowThisView() {
+    return null;
+  }
 
-    @Override
-    public Parent getRootParent() {
-        return this.myParent;
-    }
+  @Override
+  public Parent getRootParent() {
+    return this.myParent;
+  }
 }

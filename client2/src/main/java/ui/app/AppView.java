@@ -68,7 +68,8 @@ public class AppView implements IAppView {
 
   //TabSubViews
   private MainView mainView;
-  private ArrayList<LobbyView> lobbyViews =new ArrayList<>();;
+  private ArrayList<LobbyView> lobbyViews = new ArrayList<>();
+  ;
   private ArrayList<GameView> gameViews = new ArrayList<>();
 
   //PopupView
@@ -102,7 +103,7 @@ public class AppView implements IAppView {
 
   public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
     Tab tab = new Tab();
-    tab.setText("Lobby " +lobby.getName());
+    tab.setText("Lobby " + lobby.getName());
     tab.setContent(lobbyView.getRootParent());
     tab.setId("Lobby " + lobby.getLobbyId());
     lobby.setMyTab(tab);
@@ -136,12 +137,12 @@ public class AppView implements IAppView {
   @Subscribe
   public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
     boolean found = false;
-      for (CommonLobby l : lobbies) {
-        if (l.getLobbyId() == e.getLobby().getLobbyId()) {
-          found = true;
-          break;
-        }
+    for (CommonLobby l : lobbies) {
+      if (l.getLobbyId() == e.getLobby().getLobbyId()) {
+        found = true;
+        break;
       }
+    }
     if (!found) {
       CommonLobby lobby = e.getLobby();
       lobbies.add(lobby);
@@ -169,7 +170,7 @@ public class AppView implements IAppView {
 
     GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
-    tab.setText("Game "+lobby.getName());
+    tab.setText("Game " + lobby.getName());
     tab.setContent(gameView.getRootParent());
     tab.setId("gameTab");
     gameViews.add(gameView);

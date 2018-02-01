@@ -18,77 +18,77 @@ import java.util.ResourceBundle;
 
 public class LobbyView implements ILobbyView {
 
-    @FXML
-    private ResourceBundle resources;
+  @FXML
+  private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+  @FXML
+  private URL location;
 
-    @FXML
-    private AnchorPane lobbyViewRoot;
+  @FXML
+  private AnchorPane lobbyViewRoot;
 
-    @FXML
-    private Pane subParentLobbyChat;
+  @FXML
+  private Pane subParentLobbyChat;
 
-    @FXML
-    private Pane subParentLobbyUserList;
+  @FXML
+  private Pane subParentLobbyUserList;
 
-    //@FXML
-    //private Pane subParentLobbyList;
+  //@FXML
+  //private Pane subParentLobbyList;
 
-    private final INavigateableView parentView;
-    private final LobbyPresenter mainPresenter;
-    private final EventBus eventBus;
+  private final INavigateableView parentView;
+  private final LobbyPresenter mainPresenter;
+  private final EventBus eventBus;
 
-    // Own Parent
-    private Parent myParent;
+  // Own Parent
+  private Parent myParent;
 
-    // Subviews
-    private ChatView chatView;
-    // private UserTableView userTableView;
-    //private LobbyListView lobbyListView;
+  // Subviews
+  private ChatView chatView;
+  // private UserTableView userTableView;
+  //private LobbyListView lobbyListView;
 
-    private final User user;
+  private final User user;
 
-    public LobbyView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
-        this.parentView = parentView;
-        this.eventBus = eventBus;
-        this.user = user;
-        this.mainPresenter = new LobbyPresenter(this, eventBus, connection, user, lobby);
-        bind();
-        initOwnView();
-    }
+  public LobbyView(INavigateableView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
+    this.parentView = parentView;
+    this.eventBus = eventBus;
+    this.user = user;
+    this.mainPresenter = new LobbyPresenter(this, eventBus, connection, user, lobby);
+    bind();
+    initOwnView();
+  }
 
-    private void bind() {
-        eventBus.register(this);
-    }
+  private void bind() {
+    eventBus.register(this);
+  }
 
-    @Override
-    public void initOwnView() {
-        if(this.myParent == null)
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/LobbyView.fxml", this, eventBus);
-    }
+  @Override
+  public void initOwnView() {
+    if (this.myParent == null)
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/LobbyView.fxml", this, eventBus);
+  }
 
-    @FXML
-    void initialize() {
-        this.chatView = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
-        //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
-     //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
+  @FXML
+  void initialize() {
+    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), user);
+    //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
+    //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 
-        setSubParentLobbyChat(this.chatView.getRootParent());
-       // setSubParentLobbyUserList(this.userTableView.getRootParent());
-        //setSubParentLobbyList(this.userTableView.getRootParent());
-    }
+    setSubParentLobbyChat(this.chatView.getRootParent());
+    // setSubParentLobbyUserList(this.userTableView.getRootParent());
+    //setSubParentLobbyList(this.userTableView.getRootParent());
+  }
 
-    public void setSubParentLobbyChat(Parent subParent){
-        this.subParentLobbyChat.getChildren().clear();
-        this.subParentLobbyChat.getChildren().add(subParent);
-    }
+  public void setSubParentLobbyChat(Parent subParent) {
+    this.subParentLobbyChat.getChildren().clear();
+    this.subParentLobbyChat.getChildren().add(subParent);
+  }
 
-    public void setSubParentLobbyUserList(Parent subParent){
-        this.subParentLobbyUserList.getChildren().clear();
-        this.subParentLobbyUserList.getChildren().add(subParent);
-    }
+  public void setSubParentLobbyUserList(Parent subParent) {
+    this.subParentLobbyUserList.getChildren().clear();
+    this.subParentLobbyUserList.getChildren().add(subParent);
+  }
 
     /*
     public void setSubParentLobbyList(Parent subParent){
@@ -97,25 +97,25 @@ public class LobbyView implements ILobbyView {
     }
     */
 
-    @Override
-    public INavigateableView getParentView() {
-        //return AppView
-        return this.parentView;
-    }
+  @Override
+  public INavigateableView getParentView() {
+    //return AppView
+    return this.parentView;
+  }
 
-    //TODO Main-Tab in AppView soll angezeigt werden durch diese Methode.
-    @Override
-    public ShowViewEvent getEventToShowThisView() {
-        return null;
-    }
+  //TODO Main-Tab in AppView soll angezeigt werden durch diese Methode.
+  @Override
+  public ShowViewEvent getEventToShowThisView() {
+    return null;
+  }
 
-    @Override
-    public String getTitle() {
-        return "Lobby";
-    }
+  @Override
+  public String getTitle() {
+    return "Lobby";
+  }
 
-    @Override
-    public Parent getRootParent() {
-        return this.myParent;
-    }
+  @Override
+  public Parent getRootParent() {
+    return this.myParent;
+  }
 }

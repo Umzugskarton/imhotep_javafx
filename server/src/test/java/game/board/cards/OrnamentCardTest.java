@@ -15,14 +15,14 @@ class OrnamentCardTest {
     OrnamentCard ocb = new OrnamentCard(Type.BURIALCHAMBER);
     OrnamentCard oco = new OrnamentCard(Type.OBELISK);
 
-    int[] arr = {13,0,4,21};
+    int[] arr = {13, 0, 4, 21};
     int pp = ocp.calc(arr);
     assertEquals(4, pp);
     int pt = oct.calc(arr);
-    assertEquals(0,pt);
+    assertEquals(0, pt);
     int pb = ocb.calc(arr);
-    assertEquals(1,pb);
+    assertEquals(1, pb);
     int po = oco.calc(arr);
-    assertEquals(7,po);
+    assertEquals(7, po);
   }
 }

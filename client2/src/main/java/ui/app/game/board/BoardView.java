@@ -1,7 +1,7 @@
 package ui.app.game.board;
 
-import GameEvents.GameInfoEvent;
-import GameEvents.TurnEvent;
+import events.app.game.TurnEvent;
+import events.app.game.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
