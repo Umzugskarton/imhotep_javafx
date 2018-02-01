@@ -65,6 +65,7 @@ public class ClientApp extends Application {
 
   @Override
   public void stop() {
+
   }
 
   private void setContent(Parent parent) {
