@@ -6,7 +6,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="mainroot" fx:id="mainViewRoot" prefHeight="535.0" prefWidth="1235.0" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="mainroot" fx:id="mainViewRoot" prefHeight="730.0" prefWidth="1235.0" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <children>
+        <Pane opacity="0.48" prefHeight="730.0" prefWidth="1235.0" style="-fx-background-color: #000;" />
+        <Pane fx:id="dialog" layoutX="500" layoutY="250" />
+      </children>
+    </Pane>
   <HBox alignment="CENTER">
     <children>
       <Pane fx:id="subParentChat">
@@ -29,7 +36,7 @@
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding>
   </HBox>
-   <Pane fx:id="popupPane" />
+  </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>

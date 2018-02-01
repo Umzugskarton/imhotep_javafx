@@ -35,7 +35,7 @@
 #mainroot {
   -fx-background-image: url("stoneback.png");
   -fx-background-repeat: stretch;
-  -fx-background-size: 1300 700;
+  -fx-background-size: 1235 730;
   -fx-border-width: 5;
   -fx-padding: 5 15 15 15;
 }

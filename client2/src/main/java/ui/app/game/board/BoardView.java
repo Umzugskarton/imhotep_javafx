@@ -1,12 +1,12 @@
 package ui.app.game.board;
 
-import GameEvents.GameInfoEvent;
-import GameEvents.TurnEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.GameInfoEvent;
+import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -15,7 +15,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;

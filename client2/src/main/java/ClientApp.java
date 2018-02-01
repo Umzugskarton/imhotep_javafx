@@ -82,7 +82,7 @@ public class ClientApp extends Application {
 
         setContent(this.appView.getRootParent());
 
-        this.stageLayout.setWindowSize(1300, 700);
+        this.stageLayout.setWindowSize(1300, 900);
     }
 
     @Subscribe

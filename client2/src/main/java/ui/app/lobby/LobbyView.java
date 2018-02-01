@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import mvp.view.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
@@ -26,6 +27,12 @@ public class LobbyView implements ILobbyView {
 
     @FXML
     private AnchorPane lobbyViewRoot;
+
+    @FXML
+    private Pane dialogBackground;
+
+    @FXML
+    private Pane dialog;
 
     @FXML
     private Pane subParentLobbyChat;
@@ -117,5 +124,17 @@ public class LobbyView implements ILobbyView {
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    public void showDialog(IDialogView view){
+        dialogBackground.toFront();
+        dialogBackground.setVisible(true);
+        dialog.getChildren().add(view.getRootParent());
+    }
+
+    public void hideDialog(){
+        dialogBackground.toBack();
+        dialogBackground.setVisible(false);
+        dialog.getChildren().clear();
     }
 }

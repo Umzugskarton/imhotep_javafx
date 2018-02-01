@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import mvp.view.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
@@ -22,16 +23,16 @@ import java.util.ResourceBundle;
 public class GameView implements IGameView {
 
     @FXML
-    private Pane black;
-
-    @FXML
-    private Pane dialog;
-
-    @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private Pane dialogBackground;
+
+    @FXML
+    private Pane dialog;
 
     @FXML
     private AnchorPane mainViewRoot;
@@ -129,11 +130,15 @@ public class GameView implements IGameView {
         return this.myParent;
     }
 
-    @FXML
-    public void blackIt(){
-        black.toFront();
-        black.setVisible(true);
-        ChatView nc = new ChatView(this,eventBus, mainPresenter.getClientSocket(), user);
-        dialog.getChildren().add(nc.getRootParent());
+    public void showDialog(IDialogView view){
+        dialogBackground.toFront();
+        dialogBackground.setVisible(true);
+        dialog.getChildren().add(view.getRootParent());
+    }
+
+    public void hideDialog(){
+        dialogBackground.toBack();
+        dialogBackground.setVisible(false);
+        dialog.getChildren().clear();
     }
 }

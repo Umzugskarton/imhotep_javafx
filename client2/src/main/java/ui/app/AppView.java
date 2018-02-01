@@ -16,6 +16,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import mvp.view.IDialogView;
 import mvp.view.IView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
@@ -42,6 +43,12 @@ public class AppView implements IAppView {
 
   @FXML
   private BorderPane appViewRoot;
+
+  @FXML
+  private Pane dialogBackground;
+
+  @FXML
+  private Pane dialog;
 
   @FXML
   private HBox navigation;
@@ -175,6 +182,18 @@ public class AppView implements IAppView {
     gameViews.add(gameView);
     this.appViewMainTabPane.getSelectionModel().select(0);
     this.appViewMainTabPane.getSelectionModel().select(tab);
+  }
+
+  public void showDialog(IDialogView view){
+    dialogBackground.toFront();
+    dialogBackground.setVisible(true);
+    dialog.getChildren().add(view.getRootParent());
+  }
+
+  public void hideDialog(){
+    dialogBackground.toBack();
+    dialogBackground.setVisible(false);
+    dialog.getChildren().clear();
   }
 }
 
