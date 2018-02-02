@@ -1,15 +1,15 @@
 package requests.gamemoves;
 
-import requests.gamemoves.CardType.Type;
+import requests.RequestType;
 
 public class ToolCardMove implements Move {
 
-  private String move = "LeadToolCard";
-  private Type type;
+  private RequestType move = RequestType.LEAD_TOOL_CARD;
+  private CardType cardType;
   private int lobbyId;
 
-  public ToolCardMove(Type type, int lobbyId) {
-    this.type = type;
+  public ToolCardMove(CardType cardType, int lobbyId) {
+    this.cardType = cardType;
     this.lobbyId = lobbyId;
   }
 
@@ -17,16 +17,12 @@ public class ToolCardMove implements Move {
     return lobbyId;
   }
 
-  public void setType(Type type) {
-    this.type = type;
-  }
-
-  public Type getToolType() {
-    return this.type;
+  public CardType getToolType() {
+    return this.cardType;
   }
 
   @Override
-  public String getType() {
+  public RequestType getType() {
     return move;
   }
 }

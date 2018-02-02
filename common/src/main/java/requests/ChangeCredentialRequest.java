@@ -2,7 +2,7 @@ package requests;
 
 public class ChangeCredentialRequest implements IRequest {
 
-  private String request = "changeCredential";
+  private RequestType request = RequestType.CHANGE_CREDENTIAL;
   private String credential;
   private String username;
   private Integer crednr;
@@ -10,10 +10,6 @@ public class ChangeCredentialRequest implements IRequest {
   public ChangeCredentialRequest(String credential, Integer crednr) {
     this.credential = credential;
     this.crednr = crednr;
-  }
-
-  public String getRequest() {
-    return this.request;
   }
 
   public String getCredential() {
@@ -24,7 +20,7 @@ public class ChangeCredentialRequest implements IRequest {
     return this.username;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

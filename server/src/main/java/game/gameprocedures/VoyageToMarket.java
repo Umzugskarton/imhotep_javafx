@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.*;
 import requests.gamemoves.CardType;
@@ -55,14 +55,14 @@ public class VoyageToMarket {
                         if (card instanceof LocationCard) {
                             Stone newStone = new Stone(stone.getPlayer());
                             //Je nach Karte wird ein Stein aus dem Steinbruch auf den entsprechnenden Ort gesetzt
-                            if (card.getType() == CardType.Type.ENTRANCE) {
+                            if (card.getType() == CardType.ENTRANCE) {
                                 //TODO: Event einfügen
                                 game.getPyramids().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(0);
-                            } else if (card.getType() == CardType.Type.SARCOPHAGUS) {
+                            } else if (card.getType() == CardType.SARCOPHAGUS) {
                                 game.getBurialChamber().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(1);
-                            } else if (card.getType() == CardType.Type.PAVEDPATH) {
+                            } else if (card.getType() == CardType.PAVEDPATH) {
                                 game.getObelisks().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(2);
                             }

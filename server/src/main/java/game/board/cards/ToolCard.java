@@ -1,10 +1,10 @@
 package game.board.cards;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 
 public class ToolCard extends Card {
 
-  public ToolCard(Type type) {
-    this.setType(type);
+  public ToolCard(CardType cardType) {
+    this.setType(cardType);
   }
 }

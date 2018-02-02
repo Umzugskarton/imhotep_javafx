@@ -2,7 +2,7 @@ package requests;
 
 public class WhisperRequest implements IRequest {
 
-  String request = "whisper";
+  RequestType request = RequestType.WHISPER;
   private String to;
   private String msg;
 
@@ -11,15 +11,11 @@ public class WhisperRequest implements IRequest {
     this.msg = msg;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 
   public String getTo() {
-    return this.to;
-  }
-
-  public String getRecipient() {
     return this.to;
   }
 

@@ -1,18 +1,18 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import java.util.EnumMap;
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 import events.app.game.CardNotInPossessionError;
 import events.app.game.ToolCardEvent;
 import requests.gamemoves.Move;
 import requests.gamemoves.ToolCardMove;
 import events.Event;
 import game.Game;
-import game.GameProcedures.ToolCardProtocols.ChiselProtocol;
-import game.GameProcedures.ToolCardProtocols.HammerProtocol;
-import game.GameProcedures.ToolCardProtocols.IProtocol;
-import game.GameProcedures.ToolCardProtocols.LeverProtocol;
-import game.GameProcedures.ToolCardProtocols.SailProtocol;
+import game.gameprocedures.toolcardprotocols.ChiselProtocol;
+import game.gameprocedures.toolcardprotocols.HammerProtocol;
+import game.gameprocedures.toolcardprotocols.IProtocol;
+import game.gameprocedures.toolcardprotocols.LeverProtocol;
+import game.gameprocedures.toolcardprotocols.SailProtocol;
 import game.board.cards.ToolCard;
 
 public class LeadToolCard implements Procedure {
@@ -20,16 +20,16 @@ public class LeadToolCard implements Procedure {
   private ToolCardMove move;
   private int playerId;
   private Game game;
-  private EnumMap<Type, IProtocol> protocolMap = new EnumMap<>(Type.class);
+  private EnumMap<CardType, IProtocol> protocolMap = new EnumMap<>(CardType.class);
 
 
   LeadToolCard(Game game, int playerId) {
     this.playerId = playerId;
     this.game = game;
-    protocolMap.put(Type.HAMMER, new HammerProtocol(game, playerId));
-    protocolMap.put(Type.CHISEL, new ChiselProtocol(game, playerId));
-    protocolMap.put(Type.SAIL, new SailProtocol(game, playerId));
-    protocolMap.put(Type.LEVER, new LeverProtocol(game, playerId));
+    protocolMap.put(CardType.HAMMER, new HammerProtocol(game, playerId));
+    protocolMap.put(CardType.CHISEL, new ChiselProtocol(game, playerId));
+    protocolMap.put(CardType.SAIL, new SailProtocol(game, playerId));
+    protocolMap.put(CardType.LEVER, new LeverProtocol(game, playerId));
   }
 
   public void put(Move move) {

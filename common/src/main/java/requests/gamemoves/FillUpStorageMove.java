@@ -1,8 +1,9 @@
 package requests.gamemoves;
 
+import requests.RequestType;
+
 public class FillUpStorageMove implements Move {
 
-  private String move = "FillUpStorage";
   private int lobbyId;
 
   public FillUpStorageMove(int lobbyId) {
@@ -14,7 +15,7 @@ public class FillUpStorageMove implements Move {
   }
 
   @Override
-  public String getType() {
-    return move;
+  public RequestType getType() {
+    return RequestType.RESUPPLY_STORAGE;
   }
 }

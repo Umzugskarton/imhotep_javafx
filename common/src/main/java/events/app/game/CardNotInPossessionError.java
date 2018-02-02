@@ -1,11 +1,11 @@
 package events.app.game;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 
 public class CardNotInPossessionError extends GameEvent {
 
   String card;
 
-  public CardNotInPossessionError(Type card) {
+  public CardNotInPossessionError(CardType card) {
   }
 }

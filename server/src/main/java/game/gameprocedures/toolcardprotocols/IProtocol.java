@@ -1,4 +1,4 @@
-package game.GameProcedures.ToolCardProtocols;
+package game.gameprocedures.toolcardprotocols;
 
 public interface IProtocol {
 

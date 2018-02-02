@@ -2,13 +2,13 @@ package requests;
 
 public class LeaveLobbyRequest extends Request {
 
-  private String request = "leaveLobby";
+  private RequestType request = RequestType.LEAVE_LOBBY;
 
   public LeaveLobbyRequest(int lobbyId) {
     super(lobbyId);
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 }

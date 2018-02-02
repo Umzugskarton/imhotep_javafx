@@ -2,7 +2,7 @@ package requests;
 
 public class LoginRequest implements IRequest {
 
-  private String request = "login";
+  private RequestType request = RequestType.LOGIN;
   private String username;
   private String pw;
 
@@ -11,7 +11,8 @@ public class LoginRequest implements IRequest {
     this.pw = password;
   }
 
-  public String getType() {
+  @Override
+  public RequestType getType() {
     return this.request;
   }
 
