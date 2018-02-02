@@ -4,6 +4,7 @@ package ui.app.game.userinterface;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
+import javafx.scene.control.ComboBox;
 import requests.GameMoves.FillUpStorageMove;
 import requests.GameMoves.LoadUpShipMove;
 import requests.GameMoves.VoyageToStoneSiteMove;
@@ -37,7 +38,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
-      User user, CommonLobby lobby) {
+                         User user, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
@@ -59,17 +60,17 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     if (noTimeLeft) {
       this.stopTurnTimer();
       this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-          Color.web("#cdb39c"));
+              Color.web("#cdb39c"));
       this.changeBgGradient(Color.web("#cdb39c"));
     }
   }
 
   private void changeBgGradient(Color color) {
     Stop[] stops = new Stop[]{
-        new Stop(0, color),
-        new Stop(1, Color.TRANSPARENT)};
+            new Stop(0, color),
+            new Stop(1, Color.TRANSPARENT)};
     LinearGradient linearGradient =
-        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
+            new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
 
@@ -128,15 +129,21 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   @Subscribe
   private void update(GameInfoEvent event) {
     Platform.runLater(() -> {
-          storages = event.getStorages();
-          round = event.getRound();
-          turnTime = event.getTurnTime();
-          if (ships == null) {
-            ships = event.getShips();
-          }
-          setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
+      storages = event.getStorages();
+      round = event.getRound();
+      turnTime = event.getTurnTime();
+      if (ships == null) {
+        ships = event.getShips();
+      }
+      for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
+        shipBox.getItems().clear();
+        for (int i = 0; i <= ships.size() - 1; i++) {
+          shipBox.getItems().add(i);
         }
-    );
+      }
+      setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
+
+    });
   }
 
   private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites) {

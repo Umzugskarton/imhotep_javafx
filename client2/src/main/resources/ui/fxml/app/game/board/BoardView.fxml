@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane prefHeight="570.0" prefWidth="1235.0" style="-fx-background-color: #74ccf4;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,12 +47,12 @@
                     </GridPane>
                     <Pane id="haven" fx:id="havenPane" layoutX="246.0" layoutY="14.0" prefHeight="518.0" prefWidth="243.0">
                         <children>
-                            <Pane fx:id="berth0" layoutX="179.0" layoutY="55.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane fx:id="berth0" layoutX="179.0" layoutY="42.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
                             <Pane id="docks" layoutX="13.0" layoutY="161.0" prefHeight="67.0" prefWidth="233.0" />
-                            <Pane fx:id="berth2" layoutX="180.0" layoutY="270.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
-                            <Pane fx:id="berth1" layoutX="179.0" layoutY="176.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane fx:id="berth1" layoutX="179.0" layoutY="162.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane fx:id="berth2" layoutX="180.0" layoutY="236.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
                             <Pane id="docks" layoutX="13.0" layoutY="310.0" prefHeight="67.0" prefWidth="233.0" />
-                            <Pane fx:id="berth3" layoutX="181.0" layoutY="409.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
+                            <Pane fx:id="berth3" layoutX="180.0" layoutY="315.0" prefHeight="75.0" prefWidth="125.0" translateX="-40.0" />
                         </children>
                     </Pane>
                     <GridPane layoutX="14.0" layoutY="511.0" prefHeight="57.0" prefWidth="388.0">
