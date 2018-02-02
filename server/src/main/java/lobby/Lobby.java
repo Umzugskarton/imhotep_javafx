@@ -56,6 +56,14 @@ public class Lobby {
     }
   }
 
+  private void swapHost(User user) {
+    if(user != null && user != lobby[0]) {
+      User temp = lobby[0];
+      lobby[0] = user;
+      user = temp;
+    }
+  }
+
   public void startGame(ClientListener cl) {
     game = new Game(this, cl);
     Thread thread = new Thread(game);
