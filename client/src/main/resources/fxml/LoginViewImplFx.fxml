@@ -10,8 +10,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" styleClass="loginroot" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.view.LoginViewImplFx">
    <children>
       <TextField fx:id="nameField1" alignment="CENTER_LEFT" layoutX="375.0" layoutY="87.0" prefHeight="27.0" prefWidth="174.0" promptText="Benutzernamen eingeben" />
-      <Text layoutX="167.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benutzername:" />
-      <Text layoutX="167.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwort: " />
+      <Text layoutX="167.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%username" />
+      <Text layoutX="167.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%password" />
       <PasswordField fx:id="passwordField2" layoutX="375.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="174.0" promptText="Passwort eingeben" stylesheets="@../style.css" />
       <Button fx:id="login1" layoutX="167.0" layoutY="251.0" mnemonicParsing="false" onAction="#login1_handle" stylesheets="@../style.css" text="Login" />
       <Button fx:id="register1" layoutX="379.0" layoutY="251.0" mnemonicParsing="false" onAction="#register1_handle" text="Zur Registrierung wechseln" />
