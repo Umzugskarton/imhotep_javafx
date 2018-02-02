@@ -82,8 +82,6 @@ class PyramidsTest {
     for (int i = 0; i < s1.getSize(); i++) {
       s1.addStone(new Stone(p1), i);
     }
-
     assertEquals(true, py.dockShip(s1));
   }
-
 }

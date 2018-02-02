@@ -1,7 +1,5 @@
 package ui.app.game.userinterface;
 
-
-import events.app.game.FillUpStorageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
@@ -12,15 +10,12 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
-import data.lobby.LobbyUser;
 import data.user.User;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
 
 import java.util.ArrayList;
@@ -40,7 +35,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private TurnTimerThread turnTimer;
 
 
-  public UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
+  UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
+      User user, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
@@ -48,7 +44,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     bind();
   }
 
-  public void bind(){
+  public void bind() {
     eventBus.register(this);
   }
 
@@ -57,30 +53,27 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   // Turns
-  public void endTurn(boolean noTimeLeft) {
+  private void endTurn(boolean noTimeLeft) {
     this.toggleUserInterface(false);
-
     if (noTimeLeft) {
       this.stopTurnTimer();
-
-      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...", Color.web("#cdb39c"));
+      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
+          Color.web("#cdb39c"));
       this.changeBgGradient(Color.web("#cdb39c"));
     }
   }
 
-  public void changeBgGradient(Color color) {
+  private void changeBgGradient(Color color) {
     Stop[] stops = new Stop[]{
-            new Stop(0, color),
-            new Stop(1, Color.TRANSPARENT)};
-
+        new Stop(0, color),
+        new Stop(1, Color.TRANSPARENT)};
     LinearGradient linearGradient =
-            new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
-
+        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
 
 
-  public void changeBannerLabels(String text, String subText, Color textColor) {
+  private void changeBannerLabels(String text, String subText, Color textColor) {
     this.view.getUiBannerLabel().setText(text);
     this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
     this.view.getUiBannerLabel().setTextFill(textColor);
@@ -90,7 +83,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   public void newTurn(TurnEvent e) {
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
-    Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
+    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
     this.changeBgGradient(userColor);
     if (e.isMyTurn()) {
       this.changeBannerLabels("", "", Color.TRANSPARENT);
@@ -100,7 +93,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.startTurnTimer();
   }
 
-  public void toggleUserInterface(boolean show) {
+  private void toggleUserInterface(boolean show) {
     view.getHoldingArea().setVisible(!show);
     view.getHoldingArea().toBack();
     view.getUserInterface().setVisible(show);
@@ -113,7 +106,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.turnTimerThread.start();
   }
 
-  public void stopTurnTimer() {
+  private void stopTurnTimer() {
     Double reset = 0.0;
     eventBus.post(reset);
     if (this.turnTimerThread != null) {
@@ -134,14 +127,14 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   @Subscribe
   private void update(GameInfoEvent event) {
     Platform.runLater(() -> {
-              storages = event.getStorages();
-              round = event.getRound();
-              turnTime = event.getTurnTime();
-              if (ships == null) {
-                ships = event.getShips();
-              }
-              setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
-            }
+          storages = event.getStorages();
+          round = event.getRound();
+          turnTime = event.getTurnTime();
+          if (ships == null) {
+            ships = event.getShips();
+          }
+          setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
+        }
     );
   }
 
@@ -164,15 +157,14 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.setStoneLocationCBox(e.getShipID());
   }
 
-
   public void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1)
+      if (ships.get(ship)[i] == -1) {
         view.getSelectStoneLocationBox().getItems().add(i);
+      }
     }
   }
-
 
   //Moves
   public void sendFillUpStorageMove() {

@@ -12,12 +12,12 @@ import static org.mockito.Mockito.when;
 public class ShipTest {
 
   //WunschSortierung der Steine
-  int sortedstones[] = {1, 2, 0, 3};
+  private int sortedstones[] = {1, 2, 0, 3};
 
   @Mock
-  Player p1;
+  private Player p1;
   @Mock
-  Player p2;
+  private Player p2;
 
 
   @Test
@@ -52,7 +52,4 @@ public class ShipTest {
     }
     assertArrayEquals(testOrder, newOrder);
   }
-
-
-
 }

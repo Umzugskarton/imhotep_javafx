@@ -2,9 +2,6 @@ package game.board;
 
 import org.junit.Test;
 
-/**
- * Created by Lindt on 01.02.2018.
- */
 public class LobbyTest {
 
 
