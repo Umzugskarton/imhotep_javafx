@@ -24,7 +24,6 @@ public class DefaultSitePresenter extends Presenter<ISiteView> implements ISiteP
   }
 
   @Subscribe
-  @Override
   public void setStones(ShipDockedEvent e) {
     ArrayList<Group> stoneGroups = getView().getStones();
     for (int i = 0; i < e.getNewstones().size() ; i++){

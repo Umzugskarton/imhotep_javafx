@@ -175,3 +175,27 @@
   -fx-background-repeat: stretch;
 }
 
+.site{
+  -fx-background-size: 100% 100%;
+  -fx-background-repeat: stretch;
+}
+
+#BurialChamber{
+  -fx-background-image: url("grabkammer.png");
+}
+
+#Pyramids{
+  -fx-background-image: url("pyramide.png");
+}
+
+#Market{
+  -fx-background-image: url("marketplace.png");
+}
+
+#Temple{
+  -fx-background-image: url("temple.png");
+}
+
+#Obelisks{
+  -fx-background-image: url("obelisk.png");
+}

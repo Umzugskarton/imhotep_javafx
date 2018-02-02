@@ -7,17 +7,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="163.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.PyramidViemImplFx">
+<AnchorPane prefHeight="113.0" prefWidth="319.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="63.0" layoutY="-37.0" prefHeight="163.0" prefWidth="432.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane id="Pyramids" layoutX="63.0" layoutY="-37.0" prefHeight="163.0" prefWidth="432.0" styleClass="site" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="22.0" layoutY="14.0" text="Pyramide">
                <font>
                   <Font name="Calibri" size="21.0" />
                </font>
             </Label>
-            <Pane fx:id="stonewrap" layoutX="116.0" prefHeight="163.0" prefWidth="200.0">
+            <Pane fx:id="stonePane" layoutX="116.0"  prefHeight="113.0" prefWidth="319.0">
                <children>
                   <Group fx:id="stone0" layoutX="59.0" layoutY="48.0" visible="false">
                      <children>

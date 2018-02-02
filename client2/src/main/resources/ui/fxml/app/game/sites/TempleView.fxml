@@ -7,15 +7,14 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="163.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane id="Temple" prefHeight="113.0" prefWidth="319.0" styleClass="site" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label layoutX="37.0" layoutY="19.0" text="Tempel">
+        <Label layoutX="39.0" layoutY="5.0" text="Tempel">
             <font>
                 <Font name="Calibri" size="21.0" />
             </font>
         </Label>
-        <Pane layoutX="101.0" prefHeight="200.0" prefWidth="262.0">
+        <Pane fx:id="stonePane" layoutX="101.0" prefHeight="113.0" prefWidth="319.0">
             <children>
                 <Group fx:id="stone0" layoutX="39.0" layoutY="84.0" visible="false">
                     <children>

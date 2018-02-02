@@ -7,12 +7,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="163.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="board.view.ObelisksViewImplFx">
+<AnchorPane id="Obelisks" prefHeight="113.0" prefWidth="319.0" styleClass="site" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="182.0" layoutY="31.0" prefHeight="231.0" prefWidth="432.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="102.0" prefHeight="163.0" prefWidth="271.0">
+            <Pane fx:id="stonePane" layoutX="102.0" prefHeight="113.0" prefWidth="319.0">
                <children>
                   <Group fx:id="stone00" layoutX="31.0" layoutY="130.0" visible="false">
                      <children>
@@ -162,7 +161,7 @@
             </Pane>
          </children>
       </Pane>
-      <Label layoutX="42.0" layoutY="29.0" text="Obelisks">
+      <Label layoutX="42.0" layoutY="14.0" text="Obelisks">
          <font>
             <Font name="Calibri" size="21.0" />
          </font>

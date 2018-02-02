@@ -126,7 +126,7 @@ public class UserInterfaceView implements IUserInterfaceView {
 // TODO Moves richtig mit Parent ausführen
 
   @FXML
-  public void sendFillUpStorageMove(ActionEvent e) {
+  public void sendFillUpStorageMove() {
     mainPresenter.sendFillUpStorageMove();
   }
 

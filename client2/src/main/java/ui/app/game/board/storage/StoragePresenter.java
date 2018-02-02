@@ -81,14 +81,14 @@ public class StoragePresenter extends Presenter<IStorageView> {
   @Subscribe
   public void sendFillUpStorageMove(FillUpStorageMove move) {
     if (myStorage && stoneCount < 5) {
-      eventBus.post(move);
+      System.out.println("Will send "+ move.getType() + " from " + user.getUsername() +"`s Storage." );
     }
   }
 
   @Subscribe
   public void sendLoadUpShipMove(LoadUpShipMove move) {
     if (myStorage && stoneCount > 0) {
-      eventBus.post(move);
+      System.out.println("Will send "+ move.getType() + " from " + user.getUsername() +"`s Storage." );
     }
   }
 

@@ -20,6 +20,8 @@ import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.ship.ShipView;
+import ui.app.game.board.sites.ISiteView;
+import ui.app.game.board.sites.defaultSites.DefaultSiteView;
 import ui.app.game.board.storage.StorageView;
 
 import java.net.URL;
@@ -65,12 +67,16 @@ public class BoardView implements IBoardView {
   @FXML
   private Pane berth3;
 
+  @FXML
+  private GridPane stoneSiteGrid;
+
 
   private final INavigateableView parentView;
   private final BoardPresenter mainPresenter;
   private final EventBus eventBus;
   private final ArrayList<StorageView> storageViews = new ArrayList<>();
   private final ArrayList<ShipView> shipViews = new ArrayList<>();
+  private final ArrayList<ISiteView> siteViews = new ArrayList<>();
 
   private final User user;
   private CommonLobby lobby;
@@ -105,6 +111,15 @@ public class BoardView implements IBoardView {
       // TODO evtl. abändern Ich bin nicht glücklich wie bestimmt wird welcher Storage Presenter der deine ist und die LobbyId muss übergeben werden
       storageViews.add(storageView);
       storageGridPane.add(storageView.getRootParent(),  0, i);
+    }
+
+    String[] sitesString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+    int i = 0;
+    for (String site : sitesString){
+      DefaultSiteView siteView = new DefaultSiteView(this, eventBus, connection,site,lobby);
+      siteViews.add(siteView);
+      stoneSiteGrid.add(siteView.getRootParent(), 0, i);
+      i++;
     }
   }
 

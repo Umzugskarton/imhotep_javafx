@@ -1,7 +1,6 @@
 package ui.app.game.userinterface;
 
 
-import events.app.game.FillUpStorageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
@@ -12,15 +11,12 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
-import data.lobby.LobbyUser;
 import data.user.User;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
 
 import java.util.ArrayList;
@@ -173,10 +169,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     }
   }
 
-
   //Moves
+
   public void sendFillUpStorageMove() {
-    eventBus.post(new FillUpStorageMove());
+    eventBus.post(new FillUpStorageMove(lobby.getLobbyId()));
   }
 
   public void sendVoyageToStoneSiteMove(int ship, String to) {
