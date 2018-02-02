@@ -2,7 +2,7 @@ package requests;
 
 public class SetReadyRequest extends Request {
 
-  private String request = "setReady";
+  private RequestType request = RequestType.SET_READY;
 
   public SetReadyRequest() {
   }
@@ -11,7 +11,7 @@ public class SetReadyRequest extends Request {
     super(lobbyId);
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

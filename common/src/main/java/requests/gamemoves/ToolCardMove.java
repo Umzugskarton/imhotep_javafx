@@ -1,8 +1,10 @@
 package requests.gamemoves;
 
+import requests.RequestType;
+
 public class ToolCardMove implements Move {
 
-  private String move = "LeadToolCard";
+  private RequestType move = RequestType.LEAD_TOOL_CARD;
   private CardType cardType;
   private int lobbyId;
 
@@ -20,12 +22,7 @@ public class ToolCardMove implements Move {
   }
 
   @Override
-  public MoveType getMoveType() {
-    return MoveType.LEAD_TOOL_CARD;
-  }
-
-  @Override
-  public String getType() {
+  public RequestType getType() {
     return move;
   }
 }

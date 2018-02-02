@@ -2,7 +2,7 @@ package requests;
 
 public class CreateRequest implements IRequest {
 
-  private String request = "create";
+  private RequestType request = RequestType.CREATE;
   private String name;
   private int size;
   private String pw;
@@ -17,7 +17,7 @@ public class CreateRequest implements IRequest {
     return this.name;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

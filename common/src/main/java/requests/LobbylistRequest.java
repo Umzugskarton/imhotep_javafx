@@ -1,14 +1,13 @@
 package requests;
 
-
 public class LobbylistRequest implements IRequest {
 
-  private String request = "lobbylist";
+  private RequestType request = RequestType.LOBBYLIST;
 
   public LobbylistRequest() {
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 }
