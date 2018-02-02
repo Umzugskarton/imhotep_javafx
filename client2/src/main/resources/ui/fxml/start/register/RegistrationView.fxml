@@ -36,14 +36,15 @@
       <Button onAction="#handleRegisterButtonAction" text="Register" />
       <Button onAction="#handleToLoginButtonAction" text="To Login" />
    </HBox>
-
-   <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   <Label fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="8" />
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />

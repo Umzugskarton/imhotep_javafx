@@ -65,7 +65,7 @@ public class GameView implements IGameView {
     this.eventBus = eventBus;
     this.lobby = lobby;
     this.user = user;
-    this.mainPresenter = new GamePresenter(this, eventBus, connection, user);
+    this.mainPresenter = new GamePresenter(this, eventBus, connection, lobby, user);
     bind();
     initOwnView();
   }
@@ -82,7 +82,7 @@ public class GameView implements IGameView {
 
   @FXML
   void initialize() {
-    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), user);
+    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), this.lobby, user);
     this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
     this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
 

@@ -64,7 +64,7 @@ public class UserListView implements IUserListView {
     void handleListViewClick(MouseEvent click){
         if (click.getClickCount() == 2) {
             String selectedUser = (String) userListView.getSelectionModel().getSelectedItem();
-            TextField messageInput = chatView.getMessageInput();
+            TextField messageInput = chatView.getChatTextField();
             messageInput.setText("@" + selectedUser + " ");
             messageInput.requestFocus();
             messageInput.end();

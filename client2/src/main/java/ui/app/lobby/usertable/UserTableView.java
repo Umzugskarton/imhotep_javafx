@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
 import ui.app.lobby.chat.ChatView;
+import ui.app.lobby.usertable.IUserTableView;
+import ui.app.lobby.usertable.UserTablePresenter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -68,7 +70,7 @@ public class UserTableView implements IUserTableView {
     void handleListViewClick(MouseEvent click){
         if (click.getClickCount() == 2) {
             String selectedUser = (String) userTableView.getSelectionModel().getSelectedItem();
-            TextField messageInput = chatView.getMessageInput();
+            TextField messageInput = chatView.getChatTextField();
             messageInput.setText("@" + selectedUser + " ");
             messageInput.requestFocus();
             messageInput.end();

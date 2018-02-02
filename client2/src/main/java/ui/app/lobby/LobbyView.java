@@ -78,7 +78,7 @@ public class LobbyView implements ILobbyView {
 
   @FXML
   void initialize() {
-    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), user);
+    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), mainPresenter.getLobby(), user);
     //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
     //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 

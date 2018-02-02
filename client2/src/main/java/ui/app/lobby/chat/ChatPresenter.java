@@ -3,6 +3,7 @@ package ui.app.lobby.chat;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.chat.ChatMessageEvent;
 import events.app.chat.ChatInfoEvent;
@@ -22,11 +23,13 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   private final Connection connection;
   private User user;
+  private CommonLobby lobby;
 
-  public ChatPresenter(IChatView view, EventBus eventBus, Connection connection, User user) {
+  public ChatPresenter(IChatView view, EventBus eventBus, Connection connection, CommonLobby lobby, User user) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
+    this.lobby = lobby;
     bind();
   }
 
@@ -45,14 +48,15 @@ public class ChatPresenter extends Presenter<IChatView> {
         String message = whisperMatcher.group(3);
 
         chatCommand = new WhisperRequest(receiver, message);
-        addWhisper(receiver, message, false);
+        getView().addWhisper(receiver, message, false);
       } else {
-        addInfoMessage("invalidWhisperSyntax");
+        getView().addInfoMessage("invalidWhisperSyntax", Color.GRAY);
       }
     } else if (!text.isEmpty()) {
       chatCommand = new ChatRequest(text);
+      ((ChatRequest) chatCommand).setLobbyId(this.lobby.getLobbyId());
     } else if (text.isEmpty()) {
-      addInfoMessage("enterMessageToChat");
+      getView().addInfoMessage("enterMessageToChat", Color.GRAY);
     }
 
     if (chatCommand != null) {
@@ -60,61 +64,23 @@ public class ChatPresenter extends Presenter<IChatView> {
     }
   }
 
-  public void addChatMessage(String user, String msg) {
-    Text userText = new Text(user + ": ");
-    userText.setStyle("-fx-font-weight: bold");
-    Text messageText = new Text(msg + "\n");
-
-    getView().getChatText().getChildren().addAll(userText, messageText);
-  }
-
-  public void addWhisper(String user, String msg, boolean isClientReceiver) {
-    String recipientText = "from";
-    Color color = Color.web("#8A2BE2");
-
-    if (!isClientReceiver) {
-      recipientText = "to";
-      color = Color.web("#9c31ff");
-    }
-
-    Text userText = new Text(recipientText + " @" + user + ": ");
-    userText.setStyle("-fx-font-weight: bold");
-    userText.setFill(color);
-    Text messageText = new Text(msg + "\n");
-    messageText.setFill(color);
-
-    getView().getChatText().getChildren().addAll(userText, messageText);
-  }
-
-  public void addInfoMessage(String msg, Color color) {
-    Text text = new Text(msg.toUpperCase() + "\n");
-    text.setFill(color);
-    text.setFont(new Font(null, 10));
-
-    getView().getChatText().getChildren().add(text);
-  }
-
-  public void addInfoMessage(String msg) {
-
-    addInfoMessage(msg, Color.GRAY);
-  }
-
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
-    addChatMessage(e.getUser(), e.getMsg());
+    if(e.getLobbyId() == this.lobby.getLobbyId() && e.getLobbyId() != null){
+      getView().addChatMessage(e.getUser(),e.getMsg());
+    }
   }
 
   @Subscribe
   public void onChatInfoEvent(ChatInfoEvent e) {
     if(e.getTextColor() == null)
-      addInfoMessage(e.getMsg());
+      getView().addInfoMessage(e.getMsg(), Color.GRAY);
     else
-      addInfoMessage(e.getMsg(), e.getTextColor());
-
+      getView().addInfoMessage(e.getMsg(), e.getTextColor());
   }
 
   @Subscribe
   public void onWhisperEvent(WhisperChatEvent e) {
-    addWhisper(e.getFrom(), e.getMsg(), true);
+    getView().addWhisper(e.getFrom(), e.getMsg(), true);
   }
 }

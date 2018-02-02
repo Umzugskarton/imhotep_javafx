@@ -15,7 +15,7 @@
   <top>
     <HBox fx:id="navigation" alignment="TOP_RIGHT" prefHeight="69.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
           <children>
-            <MenuButton fx:id="appViewMenuButton" mnemonicParsing="false" text="Logo">
+            <MenuButton fx:id="appViewMenuButton" focusTraversable="false" mnemonicParsing="false" text="Logo">
               <items>
                 <MenuItem mnemonicParsing="false" text="Dein Profil" />
                 <MenuItem mnemonicParsing="false" text="Einstellungen" />
@@ -37,7 +37,7 @@
           </children>
       </Pane>
 
-      <TabPane fx:id="appViewMainTabPane" rotateGraphic="false" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
+      <TabPane fx:id="appViewMainTabPane" rotateGraphic="false" focusTraversable="false" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
       <tabs>
         <Tab fx:id="appViewMainTab" closable="false" disable="false" text="Main">
           <content>

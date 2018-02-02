@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="lobbyListViewRoot" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="lobbyListViewRoot" focusTraversable="false" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <opaqueInsets>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </opaqueInsets>
@@ -15,7 +15,7 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="60.0" />
    </padding>
    <children>
-      <TableView fx:id="lobbyTableView" maxHeight="190.0" maxWidth="250.0" onMouseClicked="#handleLobbyViewClick">
+      <TableView fx:id="lobbyTableView" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleLobbyViewClick" prefHeight="275.0" prefWidth="485.0">
          <VBox.margin>
             <Insets />
          </VBox.margin>

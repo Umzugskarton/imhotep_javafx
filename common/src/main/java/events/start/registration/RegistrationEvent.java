@@ -14,6 +14,10 @@ public class RegistrationEvent extends Event {
         this.validate = validate;
     }
 
+    public Boolean isSuccess(){
+        return this.validate;
+    }
+
     public String getMsg() {
         return this.msg;
     }
