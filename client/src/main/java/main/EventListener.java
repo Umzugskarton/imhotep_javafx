@@ -41,7 +41,7 @@ public class EventListener {
     public void loginEventListener(LoginFailedEvent e) {
         Platform.runLater(
                 () -> {
-                    this.sceneController.getLoginPresenter().processLoginResponse(false, e.getReason());
+                    this.sceneController.getLoginPresenter().processLoginResponse(false, e.getReason().toString());
                 }
         );
     }
