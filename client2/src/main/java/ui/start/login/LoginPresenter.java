@@ -11,7 +11,6 @@ public class LoginPresenter extends Presenter<ILoginView> {
 
   private final Connection connection;
 
-
   public LoginPresenter(ILoginView view, EventBus eventBus, Connection connection) {
     super(view, eventBus);
     this.connection = connection;
@@ -30,7 +29,7 @@ public class LoginPresenter extends Presenter<ILoginView> {
 
   @Subscribe
   public void onLoginFailedEvent(LoginFailedEvent event){
-      getView().showLoginFailed(event.getReason());
+      getView().showLoginFailed(event.getReason().toString());
   }
 
   private boolean validate(String username, String password) {

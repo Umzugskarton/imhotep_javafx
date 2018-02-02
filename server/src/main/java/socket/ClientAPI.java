@@ -1,5 +1,7 @@
 package socket;
 
+import events.Event;
+import events.EventReason;
 import events.app.chat.WhisperChatEvent;
 import events.app.profil.ChangeProfilDataEvent;
 import events.app.chat.ChatMessageEvent;
@@ -42,20 +44,19 @@ public class ClientAPI {
     String password = request.getPassword();
     if (username != null && password != null) {
       if (loggedUsers.contains(username)) {
-        event.setMsg("Login fehlgeschlagen: Bereits eingeloggt!");
+        event.setReason(EventReason.ALREADY_LOGGED_IN);
         event.setSuccess(false);
       } else {
         boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
         if (isLoginValid) {
-          event.setMsg("Login erfolgreich!");
-          event.setSuccess(true);
+          event.setReason(EventReason.LOGIN_SUCCESSFUL);
         } else {
-          event.setMsg("Login fehlgeschlagen: Username oder Passwort inkorrekt");
-          event.setSuccess(false);
+          event.setReason(EventReason.NAME_OR_PASSWORD_WRONG);
         }
+        event.setSuccess(isLoginValid);
       }
     } else {
-      event.setMsg("Login fehlgeschlagen: Ungültige Anfrage");
+      event.setReason(EventReason.INVALID_REQUEST);
       event.setSuccess(false);
     }
     return event;
@@ -79,13 +80,13 @@ public class ClientAPI {
     if (username != null && password != null && email != null) {
       boolean createUser = this.dbUserDataSource.createUser(username, password, email);
       if (createUser) {
-        event.setMsg("Registrierung erfolgreich!");
+        event.setReason(EventReason.REGISTRATION_SUCCESSFUL);
       } else {
-        event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
+        event.setReason(EventReason.REGISTRATION_FAILED_USER_OR_EMAIL_EXISTS);
       }
       event.setSuccess(createUser);
     } else {
-      event.setMsg("Registrierung fehlgeschlagen: Ungültige Anfrage");
+      event.setReason(EventReason.INVALID_REQUEST);
       event.setSuccess(false);
     }
     return event;
