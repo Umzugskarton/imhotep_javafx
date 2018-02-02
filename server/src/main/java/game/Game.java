@@ -345,4 +345,8 @@ public class Game implements Runnable {
   public Player getPlayer(int id) {
     return players[id];
   }
+
+  public int getGameID() {
+    return gameID;
+  }
 }

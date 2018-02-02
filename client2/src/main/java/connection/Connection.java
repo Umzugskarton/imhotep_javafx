@@ -36,9 +36,7 @@ public class Connection {
     }
 
     public Connection(EventBus eventBus){
-        //Für Debug Zwecke
-        //this("localhost", 47096, eventBus);
-        this.eventBus = eventBus;
+        this("localhost", 47096, eventBus);
     }
 
     private void bind(){
