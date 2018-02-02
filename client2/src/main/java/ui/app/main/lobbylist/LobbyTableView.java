@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.dialog.createLobby.CreateLobbyView;
+import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -116,7 +118,7 @@ public class LobbyTableView implements ILobbyTableView {
 
     @FXML
     private void handleCreateLobbyButton(ActionEvent event) {
-        this.parentView.showDialog(new CreateLobbyView(this.eventBus, getPresenter().getConnection()));
+        this.eventBus.post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN));
     }
 
     @Override

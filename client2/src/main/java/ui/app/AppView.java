@@ -15,15 +15,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import ui.dialog.IDialogView;
-import mvp.view.IView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
 import ui.layout.StageLayout;
 import ui.dialog.DialogView;
-import ui.dialog.createLobby.CreateLobbyView;
-import ui.dialog.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.ShowStartViewEvent;
 
 import java.net.URL;

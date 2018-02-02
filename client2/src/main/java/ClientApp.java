@@ -13,9 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.app.AppView;
 import ui.layout.StageLayout;
-import ui.dialog.DialogView;
-import ui.dialog.createLobby.CreateLobbyView;
-import ui.dialog.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.StartView;
 
 public class ClientApp extends Application {

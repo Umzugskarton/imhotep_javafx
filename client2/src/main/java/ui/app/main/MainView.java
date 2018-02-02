@@ -1,6 +1,7 @@
 package ui.app.main;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
@@ -8,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import mvp.view.IDialogableView;
+import ui.dialog.misc.IDialogableView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
@@ -16,6 +17,9 @@ import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
 import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
+import ui.dialog.createLobby.CreateLobbyView;
+import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -139,17 +143,21 @@ public class MainView implements IMainView, IDialogableView {
 
     @Override
     public void showDialog(IDialogView view){
-        System.out.println("MainView showDialog()");
+        this.dialogView.showDialog(view);
         dialogBackground.toFront();
         dialogBackground.setVisible(true);
-        this.dialogView.showDialog(view);
     }
 
     @Override
     public void hideDialog(){
-        System.out.println("MainView hideDialog()");
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
-        //dialog.getChildren().clear();
+    }
+
+    @Subscribe
+    public void onShowCreateLoobyDialogEvent(ShowCreateLobbyDialogEvent e) {
+        if(e.getViewIdentifier() == ViewIdentifier.MAIN){
+            showDialog(new CreateLobbyView(this.eventBus, this.mainPresenter.getConnection()));
+        }
     }
 }

@@ -9,8 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.IDialogableView;
 import mvp.view.ShowViewEvent;
+import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.misc.IDialogableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,19 +65,20 @@ public class DialogView implements IDialogView {
     if (this.myParent == null)
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/DialogView.fxml", this, eventBus);
 
+    //TODO Schöne umrandung einfügen
+    //Keine Ahnung wie man die Größe von einem Parent erhausbekomment
     //Umrandung rund machen
-    this.edgeRect.setArcHeight(30.0);
-    this.edgeRect.setArcWidth(30.0);
-
+    //this.edgeRect.setArcHeight(30.0);
+    //this.edgeRect.setArcWidth(30.0);
     //this.edgeRect.widthProperty().bind(this.parentView);
     //this.edgeRect.heightProperty().bind(this.myParent.getScene().heightProperty());
-
     //this.myParent.setClip(this.edgeRect);
   }
 
   @FXML
   private void handleCloseButton(ActionEvent event){
     this.parentView.hideDialog();
+    this.dialogView.getChildren().clear();
   }
 
   public void setView(IDialogView view) {
@@ -84,10 +86,6 @@ public class DialogView implements IDialogView {
     this.titel = this.view.getTitle();
     this.dialogView.getChildren().clear();
     this.dialogView.getChildren().add(this.view.getRootParent());
-  }
-
-  public ShowViewEvent getEventToShowThisView() {
-    return null;
   }
 
   @Override
