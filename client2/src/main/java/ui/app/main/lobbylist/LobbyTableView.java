@@ -116,7 +116,7 @@ public class LobbyTableView implements ILobbyTableView {
 
     @FXML
     private void handleCreateLobbyButton(ActionEvent event) {
-        this.eventBus.post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN));
+        this.eventBus.post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN_VIEW));
     }
 
     @Override

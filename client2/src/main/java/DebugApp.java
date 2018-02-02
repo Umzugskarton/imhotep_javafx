@@ -6,6 +6,7 @@ import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
+import events.EventReason;
 import events.app.chat.ChatMessageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
@@ -125,7 +126,7 @@ public class DebugApp {
     loginEvent3Button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        LoginFailedEvent myEvent = new LoginFailedEvent("Test fail message");
+        LoginFailedEvent myEvent = new LoginFailedEvent(EventReason.ALREADY_LOGGED_IN);
         logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
         getEventBus().post(myEvent);
       }
@@ -389,7 +390,7 @@ public class DebugApp {
     popupButton1.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        getEventBus().post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN));
+        getEventBus().post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN_VIEW));
       }
     });
 
