@@ -74,12 +74,9 @@ public class ClientAPI {
     String password = request.getPassword();
     String email = request.getEmail();
     if (username != null && password != null && email != null) {
-
       boolean createUser = this.dbUserDataSource.createUser(username, password, email);
-
       if (createUser) {
         event.setMsg("Registrierung erfolgreich!");
-        event.setSuccess(createUser);
       } else {
         event.setMsg("Registrierung fehlgeschlagen: Username oder E-Mail existiert bereits");
       }
@@ -91,6 +88,9 @@ public class ClientAPI {
     return event;
   }
 
+  private boolean changeCredential(User user, UserIdentifier ui, String newCred) {
+    return dbUserDataSource.changeUser(user, ui, newCred);
+  }
 
   public ChangeProfilDataEvent changeCredential(changeCredentialRequest request, User user) {
     ChangeProfilDataEvent event = new ChangeProfilDataEvent();
@@ -98,36 +98,31 @@ public class ClientAPI {
     Integer type = request.getCrednr();
     if (newCred != null) {
       if (type == 1) {
-        boolean changeCredential = dbUserDataSource.changeUser(user, UserIdentifier.EMAIL, newCred);
+        boolean changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
         if (changeCredential) {
           event.setMsg("E-Mail wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
         } else {
           event.setMsg("E-Mail wurde nicht geändert!");
-          event.setSuccess(changeCredential);
         }
+        event.setSuccess(changeCredential);
       }
       if (type == 2) {
-        boolean changeCredential = dbUserDataSource
-                .changeUser(user, UserIdentifier.PASSWORD, newCred);
+        boolean changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
         if (changeCredential) {
           event.setMsg("Passwort wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
         } else {
           event.setMsg("Passwort wurde nicht geändert");
-          event.setSuccess(changeCredential);
         }
+        event.setSuccess(changeCredential);
       }
       if (type == 3) {
-        boolean changeCredential = dbUserDataSource
-                .changeUser(user, UserIdentifier.USERNAME, newCred);
+        boolean changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
         if (changeCredential) {
           event.setMsg("Username wurde erfolgreich geändert");
-          event.setSuccess(changeCredential);
         } else {
           event.setMsg("Username wurde nicht geändert");
-          event.setSuccess(changeCredential);
         }
+        event.setSuccess(changeCredential);
       }
     } else {
       event.setMsg("Fehler aufgetreten");
@@ -135,8 +130,6 @@ public class ClientAPI {
     }
     return event;
   }
-
-
 
   public ChatMessageEvent chat(chatRequest request, User user) {
     ChatMessageEvent event = new ChatMessageEvent();
@@ -158,7 +151,6 @@ public class ClientAPI {
     }
     return event;
   }
-
 
 
   /**
@@ -184,12 +176,10 @@ public class ClientAPI {
   public Lobby createLobby(createRequest request, User user) {
     String name = request.getName();
     int size = request.getSize();
-    Lobby lobby = new Lobby(size, user, name);
-
-    if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-      lobby.setPassword(request.getPassword());
+    String password = request.getPassword();
+    if (password == null) {
+      password = "";
     }
-
-    return lobby;
+    return new Lobby(size, user, name, password);
   }
 }

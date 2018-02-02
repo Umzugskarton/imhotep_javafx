@@ -109,7 +109,6 @@ public class Server {
       found = true;
       toClient.send(event);
     }
-
     return found;
   }
 
@@ -117,9 +116,7 @@ public class Server {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
     lobby.setLobbyID(openLobby.size() - 1);
-
-    CreateLobbyEvent e = new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
-    return e;
+    return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {
@@ -137,15 +134,15 @@ public class Server {
     for (Lobby lobby : openLobby) {
       if (lobby.isVisible()) {
         CommonLobby tempLobby = new CommonLobby(
-                lobby.getLobbyID(),
-                lobby.getName(),
-                lobby.getLobbyUserArrayList(),
-                lobby.hasPW(),
-                lobby.getSize(),
-                lobby.isHost(user),
-                lobby.getHostName(),
-                lobby.getReady(),
-                lobby.getColors()
+            lobby.getLobbyID(),
+            lobby.getName(),
+            lobby.getLobbyUserArrayList(),
+            lobby.hasPW(),
+            lobby.getSize(),
+            lobby.isHost(user),
+            lobby.getHostName(),
+            lobby.getReady(),
+            lobby.getColors()
         );
         CLTLobbies.add(tempLobby);
       }
@@ -184,7 +181,6 @@ public class Server {
         }
       }
     }
-
     return null;
   }
 }

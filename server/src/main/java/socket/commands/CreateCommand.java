@@ -10,22 +10,21 @@ import lobby.Lobby;
 import socket.ClientAPI;
 import socket.ClientListener;
 
-
 public class CreateCommand implements Command {
-    private ClientListener clientListener;
-    private createRequest request;
-    private ClientAPI clientAPI;
 
+  private ClientListener clientListener;
+  private createRequest request;
+  private ClientAPI clientAPI;
 
-    public CreateCommand(ClientListener clientListener){
-        this.clientListener= clientListener;
-        this.clientAPI = clientListener.getClientAPI();
-    }
+  CreateCommand(ClientListener clientListener) {
+    this.clientListener = clientListener;
+    this.clientAPI = clientListener.getClientAPI();
+  }
 
-    @Override
-    public void put(IRequest r) {
-        this.request =(createRequest) r;
-    }
+  @Override
+  public void put(IRequest r) {
+    this.request = (createRequest) r;
+  }
 
   @Override
   public void exec() {
@@ -35,13 +34,13 @@ public class CreateCommand implements Command {
     this.clientListener.send(response);
     if (response.getSuccess()) {
       CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
-              lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(),
-              lobby.isHost(this.clientListener.getUser()), lobby.getHostName(), lobby.getReady(),
-              lobby.getColors());
+          lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(),
+          lobby.isHost(this.clientListener.getUser()), lobby.getHostName(), lobby.getReady(),
+          lobby.getColors());
       LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
       this.clientListener.send(lobbyInfo);
       LobbyListEvent lobbyList = this.clientListener.getServer()
-              .getLobbies(clientListener.getUser());
+          .getLobbies(clientListener.getUser());
       this.clientListener.getServer().sendToLoggedIn(lobbyList);
     }
   }
