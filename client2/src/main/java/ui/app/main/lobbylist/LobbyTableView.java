@@ -36,13 +36,13 @@ public class LobbyTableView implements ILobbyTableView {
     private TableView lobbyTableView;
 
     @FXML
-    private TableColumn<CommonLobby, String> tableColumnId;
+    private TableColumn<LobbyTableData, String> tableColumnId;
 
     @FXML
-    private TableColumn<CommonLobby, String> tableColumnName;
+    private TableColumn<LobbyTableData, String> tableColumnName;
 
     @FXML
-    private TableColumn<CommonLobby, String> tableColumnBelegung;
+    private TableColumn<LobbyTableData, String> tableColumnBelegung;
 
 
 
@@ -70,22 +70,22 @@ public class LobbyTableView implements ILobbyTableView {
         if (this.myParent == null){
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/lobbyList/LobbyListView.fxml", this, eventBus);
 
-            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("lobbyID"));
-            this.tableColumnName.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("name"));
-            this.tableColumnBelegung.setCellValueFactory(new PropertyValueFactory<CommonLobby, String>("belegung"));
+            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("lobbyId"));
+            this.tableColumnName.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("name"));
+            this.tableColumnBelegung.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("belegung"));
 
-            TableColumn<CommonLobby, CommonLobby> tableColumnJoinButton;
+            TableColumn<LobbyTableData, LobbyTableData> tableColumnJoinButton;
             tableColumnJoinButton = new TableColumn<>("");
             tableColumnJoinButton.setMinWidth(40);
             tableColumnJoinButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            tableColumnJoinButton.setCellFactory(param -> new TableCell<CommonLobby, CommonLobby>() {
+            tableColumnJoinButton.setCellFactory(param -> new TableCell<LobbyTableData, LobbyTableData>() {
                 private final Button joinButton = new Button("Join");
 
                 @Override
-                protected void updateItem(CommonLobby lobby, boolean empty) {
-                    super.updateItem(lobby, empty);
+                protected void updateItem(LobbyTableData data, boolean empty) {
+                    super.updateItem(data, empty);
 
-                    if (lobby == null) {
+                    if (data == null) {
                         setGraphic(null);
                         return;
                     }
@@ -126,7 +126,7 @@ public class LobbyTableView implements ILobbyTableView {
 
 
     @Override
-    public void setLobbyListViewData(ObservableList<CommonLobby> datasource){
+    public void setLobbyListViewData(ObservableList<LobbyTableData> datasource){
         this.lobbyTableView.setItems(datasource);
     }
 
