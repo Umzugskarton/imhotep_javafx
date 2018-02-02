@@ -18,11 +18,11 @@
 
     <Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Label text="%username" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
     <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <Label text="%password" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
     <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 

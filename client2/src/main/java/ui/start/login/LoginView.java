@@ -59,8 +59,9 @@ public class LoginView implements ILoginView {
 
     @Override
     public void initOwnView() {
-        if(this.myParent == null)
+        if(this.myParent == null) {
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/start/login/LoginView.fxml", this, eventBus);
+        }
     }
 
     @FXML

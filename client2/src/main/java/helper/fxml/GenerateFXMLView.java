@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class GenerateFXMLView {
 
@@ -19,9 +21,12 @@ public class GenerateFXMLView {
     return INSTANCE;
   }
 
+  private static Locale currentLocale = new Locale("de", "DE");
+  private static ResourceBundle textBundle = ResourceBundle.getBundle("TextBundle", currentLocale);
+
   public Parent loadView(String local, IView view) {
     Parent startParent;
-    FXMLLoader loader = new FXMLLoader(getClass().getResource(local));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource(local), textBundle);
     loader.setController(view);
 
     try {
@@ -35,7 +40,7 @@ public class GenerateFXMLView {
 
   public Parent loadView(String local, IView view, EventBus eventBus) {
     Parent startParent;
-    FXMLLoader loader = new FXMLLoader(getClass().getResource(local));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource(local), textBundle);
     loader.setController(view);
 
     try {
