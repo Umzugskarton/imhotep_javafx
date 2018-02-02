@@ -10,10 +10,8 @@ public class UserlistCommand implements Command {
   private userlistRequest request;
   private ClientListener clientListener;
 
-
-  public UserlistCommand(ClientListener clientListener) {
+  UserlistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
   }
 
   public void put(IRequest r) {

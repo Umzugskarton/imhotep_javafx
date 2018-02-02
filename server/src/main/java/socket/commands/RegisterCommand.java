@@ -12,9 +12,8 @@ public class RegisterCommand implements Command {
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public RegisterCommand(ClientListener clientListener) {
+  RegisterCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
     this.clientAPI = clientListener.getClientAPI();
   }
 

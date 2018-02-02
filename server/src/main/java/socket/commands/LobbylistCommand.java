@@ -10,9 +10,8 @@ public class LobbylistCommand implements Command {
   private lobbylistRequest request;
   private ClientListener clientListener;
 
-  public LobbylistCommand(ClientListener clientListener) {
+  LobbylistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
   }
 
   public void put(IRequest r) {

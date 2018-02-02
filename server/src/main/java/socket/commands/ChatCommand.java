@@ -14,7 +14,7 @@ public class ChatCommand implements Command {
   private Server server;
   private ClientAPI clientAPI;
 
-  public ChatCommand(ClientListener clientListener) {
+  ChatCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();
@@ -26,10 +26,9 @@ public class ChatCommand implements Command {
 
   public void exec() {
     ChatMessageEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
-    if(request.getLobbyId() != null){
-       server.sendToLobby(chatMessage, server.getLobbybyID(request.getLobbyId()));
-    }
-    else {
+    if (request.getLobbyId() != null) {
+      server.sendToLobby(chatMessage, server.getLobbybyID(request.getLobbyId()));
+    } else {
       this.server.sendToLoggedIn(chatMessage);
     }
   }

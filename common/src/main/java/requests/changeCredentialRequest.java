@@ -7,7 +7,6 @@ public class changeCredentialRequest implements IRequest {
   private String username;
   private Integer crednr;
 
-
   public changeCredentialRequest(String credential, Integer crednr) {
     this.credential = credential;
     this.crednr = crednr;

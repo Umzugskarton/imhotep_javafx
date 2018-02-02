@@ -16,7 +16,6 @@ public class JoinCommand implements Command {
   private joinRequest request;
   private Server server;
 
-
   JoinCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();

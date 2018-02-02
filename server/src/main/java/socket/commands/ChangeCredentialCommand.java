@@ -12,7 +12,7 @@ public class ChangeCredentialCommand implements Command {
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public ChangeCredentialCommand(ClientListener clientListener) {
+  ChangeCredentialCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.clientAPI = clientListener.getClientAPI();
   }

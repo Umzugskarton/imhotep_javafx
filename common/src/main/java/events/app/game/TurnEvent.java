@@ -10,6 +10,8 @@ public class TurnEvent extends GameEvent {
     this.username = username;
   }
 
+  public TurnEvent(){}
+
   public boolean isMyTurn() {
     return myturn;
   }

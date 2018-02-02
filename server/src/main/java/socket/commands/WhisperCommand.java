@@ -15,7 +15,7 @@ public class WhisperCommand implements Command {
   private Server server;
   private ClientAPI clientAPI;
 
-  public WhisperCommand(ClientListener clientListener) {
+  WhisperCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();

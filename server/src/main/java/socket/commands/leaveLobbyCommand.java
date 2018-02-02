@@ -14,7 +14,6 @@ public class leaveLobbyCommand implements Command {
 
   private ClientListener clientListener;
   private leaveLobbyRequest request;
-  private CommonLobby cltLobby;
   private Server server;
 
   leaveLobbyCommand(ClientListener clientListener) {

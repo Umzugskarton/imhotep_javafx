@@ -17,7 +17,7 @@ public class LoginCommand implements Command {
   private Server server;
   private ClientAPI clientAPI;
 
-  public LoginCommand(ClientListener clientListener) {
+  LoginCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();
@@ -41,7 +41,5 @@ public class LoginCommand implements Command {
     } else {
       this.clientListener.send(new LoginFailedEvent(response.getMsg()));
     }
-
-
   }
 }

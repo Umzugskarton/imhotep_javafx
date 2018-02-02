@@ -5,13 +5,17 @@ import events.app.profil.ChangeProfilDataEvent;
 import events.app.chat.ChatMessageEvent;
 import events.start.login.LoginEvent;
 import events.start.registration.RegistrationEvent;
-import requests.*;
+import java.util.List;
 import lobby.Lobby;
 import data.user.User;
+import requests.changeCredentialRequest;
+import requests.chatRequest;
+import requests.createRequest;
+import requests.loginRequest;
+import requests.registerRequest;
+import requests.whisperRequest;
 import user.UserIdentifier;
 import database.userdata.DBUserDataSource;
-
-import java.util.ArrayList;
 
 public class ClientAPI {
 
@@ -32,7 +36,7 @@ public class ClientAPI {
    * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
-  public LoginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
+  public LoginEvent login(loginRequest request, List<String> loggedUsers) {
     LoginEvent event = new LoginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
@@ -42,7 +46,6 @@ public class ClientAPI {
         event.setSuccess(false);
       } else {
         boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
-
         if (isLoginValid) {
           event.setMsg("Login erfolgreich!");
           event.setSuccess(true);
@@ -96,34 +99,23 @@ public class ClientAPI {
     ChangeProfilDataEvent event = new ChangeProfilDataEvent();
     String newCred = request.getCredential();
     Integer type = request.getCrednr();
-    if (newCred != null) {
+    String what = "";
+    boolean changeCredential = false;
+    if (newCred != null && type == 1 || type == 2 || type == 3) {
       if (type == 1) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
-        if (changeCredential) {
-          event.setMsg("E-Mail wurde erfolgreich geändert");
-        } else {
-          event.setMsg("E-Mail wurde nicht geändert!");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.EMAIL.toString();
+        changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
       }
       if (type == 2) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
-        if (changeCredential) {
-          event.setMsg("Passwort wurde erfolgreich geändert");
-        } else {
-          event.setMsg("Passwort wurde nicht geändert");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.PASSWORD.toString();
+        changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
       }
       if (type == 3) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
-        if (changeCredential) {
-          event.setMsg("Username wurde erfolgreich geändert");
-        } else {
-          event.setMsg("Username wurde nicht geändert");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.USERNAME.toString();
+        changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
       }
+      event.setSuccess(changeCredential);
+      event.setMsg(what + " wurde " + (changeCredential?"erfolgreich":"nicht")+" geändert");
     } else {
       event.setMsg("Fehler aufgetreten");
       event.setSuccess(false);
