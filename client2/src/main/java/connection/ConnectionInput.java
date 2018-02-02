@@ -1,7 +1,7 @@
 package connection;
 
 import com.google.common.eventbus.EventBus;
-import ui.popup.serversetting.ShowServerSettingsEvent;
+import ui.dialog.serversetting.ShowServerSettingsEvent;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

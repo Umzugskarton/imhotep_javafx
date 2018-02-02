@@ -1,4 +1,4 @@
-package ui.popup.serversetting;
+package ui.dialog.serversetting;
 
 import mvp.view.ShowViewEvent;
 

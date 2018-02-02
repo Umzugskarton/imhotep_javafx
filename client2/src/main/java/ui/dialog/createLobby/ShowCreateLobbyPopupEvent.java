@@ -1,4 +1,4 @@
-package ui.popup.createLobby;
+package ui.dialog.createLobby;
 
 import mvp.view.ShowViewEvent;
 

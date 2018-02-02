@@ -1,4 +1,4 @@
-package ui.popup.createLobby;
+package ui.dialog.createLobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -46,7 +46,7 @@ public class CreateLobbyView implements ICreateLobbyView {
   @Override
   public void initOwnView() {
     if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/popup/createLobby/CreateLobbyView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/createLobby/CreateLobbyView.fxml", this, eventBus);
     System.out.println("CreateLobbyView " + this.myParent);
   }
 

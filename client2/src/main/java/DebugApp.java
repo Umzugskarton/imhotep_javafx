@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.Request;
 import requests.chatRequest;
-import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
+import ui.dialog.createLobby.ShowCreateLobbyPopupEvent;
 
 import java.util.ArrayList;
 import java.util.Date;

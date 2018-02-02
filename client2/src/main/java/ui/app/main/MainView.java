@@ -7,20 +7,20 @@ import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import mvp.view.IDialogView;
+import mvp.view.INeedDialogView;
+import ui.dialog.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
 import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
-import ui.popup.PopupView;
+import ui.dialog.DialogView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainView implements IMainView {
+public class MainView implements IMainView, INeedDialogView {
 
     @FXML
     private ResourceBundle resources;
@@ -61,8 +61,8 @@ public class MainView implements IMainView {
     private UserListView userListView;
     private LobbyTableView lobbyListView;
 
-    //Popup
-    private PopupView popupView;
+    //Dialog
+    private DialogView dialogView;
 
     private final User user;
 
@@ -86,7 +86,7 @@ public class MainView implements IMainView {
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         this.chatView = new ChatView(this,eventBus, mainPresenter.getConnection(), user);
         this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getConnection(), user);
         this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getConnection(), user);
@@ -94,6 +94,14 @@ public class MainView implements IMainView {
         setSubParentChat(this.chatView.getRootParent());
         setSubParentUserList(this.lobbyListView.getRootParent());
         setSubParentLobbyList(this.userListView.getRootParent());
+
+        this.dialogView = new DialogView(this, this.eventBus);
+        this.dialog.getChildren().add(this.dialogView.getRootParent());
+    }
+
+    @FXML
+    private void handleDialogButton(){
+        showDialog();
     }
 
     public void setSubParentChat(Parent subParent){
@@ -134,15 +142,19 @@ public class MainView implements IMainView {
         return this.myParent;
     }
 
-    public void showDialog(IDialogView view){
+    @Override
+    public void showDialog(){
+        System.out.println("MainView showDialog()");
         dialogBackground.toFront();
         dialogBackground.setVisible(true);
-        dialog.getChildren().add(view.getRootParent());
+        //dialogView.setView(view);
     }
 
+    @Override
     public void hideDialog(){
+        System.out.println("MainView hideDialog()");
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
-        dialog.getChildren().clear();
+        //dialog.getChildren().clear();
     }
 }

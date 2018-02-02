@@ -1,6 +1,5 @@
-package ui.popup.createLobby;
+package ui.dialog.createLobby;
 
-import mvp.view.INavigateableSubView;
 import mvp.view.IPopupView;
 
 public interface ICreateLobbyView extends IPopupView {

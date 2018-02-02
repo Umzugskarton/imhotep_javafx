@@ -5,8 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.IRequest;
-import requests.Request;
-import ui.popup.serversetting.ShowServerSettingsEvent;
 
 import java.io.IOException;
 import java.net.Socket;

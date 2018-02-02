@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.app.AppView;
 import ui.layout.StageLayout;
-import ui.popup.PopupView;
-import ui.popup.createLobby.CreateLobbyView;
-import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
+import ui.dialog.DialogView;
+import ui.dialog.createLobby.CreateLobbyView;
+import ui.dialog.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.StartView;
 
 public class ClientApp extends Application {
@@ -81,10 +81,13 @@ public class ClientApp extends Application {
     this.stageLayout.setWindowSize(1300, 900);
   }
 
+  /*
   @Subscribe
   public void onPopup(ShowCreateLobbyPopupEvent e) {
     CreateLobbyView createLobbyView = new CreateLobbyView(this.eventBus, this.connection);
-    PopupView popupView = new PopupView(createLobbyView);
+    DialogView popupView = new DialogView(createLobbyView);
     this.group.getChildren().add(popupView.getRootParent());
   }
+
+  */
 }
