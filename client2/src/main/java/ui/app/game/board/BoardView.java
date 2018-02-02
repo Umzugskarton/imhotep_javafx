@@ -1,13 +1,17 @@
 package ui.app.game.board;
 
-import events.app.game.TurnEvent;
-import events.app.game.GameInfoEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.GameInfoEvent;
+import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -22,11 +26,6 @@ import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.defaultsites.DefaultSiteView;
 import ui.app.game.board.storage.StorageView;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ResourceBundle;
 
 public class BoardView implements IBoardView {
 

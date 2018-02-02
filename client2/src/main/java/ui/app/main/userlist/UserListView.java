@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -12,11 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
-import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class UserListView implements IUserListView {
 

@@ -1,11 +1,10 @@
 package languageSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TextBundle {
 
@@ -22,5 +21,4 @@ public class TextBundle {
     }
     return result;
   }
-
 }

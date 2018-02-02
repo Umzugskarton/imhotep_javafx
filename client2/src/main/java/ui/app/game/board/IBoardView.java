@@ -1,12 +1,10 @@
 package ui.app.game.board;
 
+import java.util.ArrayList;
 import javafx.scene.control.ProgressBar;
-import mvp.view.INavigateableSubView;
 import mvp.view.IView;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.storage.StorageView;
-
-import java.util.ArrayList;
 
 public interface IBoardView extends IView {
   ProgressBar getTurnTimerProgress();

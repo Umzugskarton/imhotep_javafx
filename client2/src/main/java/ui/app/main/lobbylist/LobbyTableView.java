@@ -2,24 +2,26 @@ package ui.app.main.lobbylist;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.user.User;
 import data.lobby.CommonLobby;
+import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
 import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LobbyTableView implements ILobbyTableView {
 

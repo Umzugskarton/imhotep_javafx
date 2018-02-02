@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -16,9 +18,6 @@ import ui.start.login.LoginView;
 import ui.start.login.ShowLoginViewEvent;
 import ui.start.register.RegistrationView;
 import ui.start.register.ShowRegisterViewEvent;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class StartView implements IStartView {
 

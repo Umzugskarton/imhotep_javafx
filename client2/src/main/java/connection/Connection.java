@@ -2,13 +2,12 @@ package connection;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import requests.IRequest;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import requests.IRequest;
 
 public class Connection {
 

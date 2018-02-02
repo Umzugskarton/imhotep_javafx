@@ -6,13 +6,12 @@ import connection.Connection;
 import data.user.User;
 import events.app.chat.ChatInfoEvent;
 import events.app.main.UserListEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import mvp.presenter.Presenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserListPresenter extends Presenter<IUserListView> {
 

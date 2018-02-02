@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,9 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import mvp.view.INavigateableView;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ChatView implements IChatView {
 

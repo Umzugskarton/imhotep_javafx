@@ -1,17 +1,17 @@
 package ui.app.game.board.sites.defaultsites;
 
-import events.app.game.ShipDockedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import events.app.game.ShipDockedEvent;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
-import java.util.ArrayList;
 
 public class DefaultSitePresenter extends Presenter<ISiteView> implements ISitePresenter {
   private final Connection connection;

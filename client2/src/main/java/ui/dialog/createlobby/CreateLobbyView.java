@@ -3,6 +3,8 @@ package ui.dialog.createlobby;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -11,9 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CreateLobbyView implements ICreateLobbyView {
 

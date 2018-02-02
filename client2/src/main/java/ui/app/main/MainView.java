@@ -5,11 +5,12 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ui.dialog.misc.IDialogableView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
@@ -19,10 +20,8 @@ import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
 import ui.dialog.createlobby.CreateLobbyView;
 import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.misc.IDialogableView;
 import ui.dialog.misc.ViewIdentifier;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MainView implements IMainView, IDialogableView {
 
