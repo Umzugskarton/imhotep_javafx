@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.DockingShipError;
 import events.app.game.NotEnoughLoadError;

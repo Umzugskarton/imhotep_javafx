@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.*;
 import requests.gamemoves.CardType;

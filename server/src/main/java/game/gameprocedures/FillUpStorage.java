@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.FillUpStorageEvent;
 import requests.gamemoves.Move;

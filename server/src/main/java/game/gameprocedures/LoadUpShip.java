@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.AlreadyAllocatedError;
 import events.app.game.ShipLoadedEvent;

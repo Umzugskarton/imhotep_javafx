@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import java.util.EnumMap;
 import requests.gamemoves.Move;

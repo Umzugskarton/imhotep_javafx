@@ -1,4 +1,4 @@
-package game.GameProcedures.ToolCardProtocols;
+package game.gameprocedures.toolcardprotocols;
 
 import requests.gamemoves.Move;
 import game.Game;

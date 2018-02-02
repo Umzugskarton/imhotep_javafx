@@ -1,4 +1,4 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import java.util.EnumMap;
 import requests.gamemoves.CardType;
@@ -8,11 +8,11 @@ import requests.gamemoves.Move;
 import requests.gamemoves.ToolCardMove;
 import events.Event;
 import game.Game;
-import game.GameProcedures.ToolCardProtocols.ChiselProtocol;
-import game.GameProcedures.ToolCardProtocols.HammerProtocol;
-import game.GameProcedures.ToolCardProtocols.IProtocol;
-import game.GameProcedures.ToolCardProtocols.LeverProtocol;
-import game.GameProcedures.ToolCardProtocols.SailProtocol;
+import game.gameprocedures.toolcardprotocols.ChiselProtocol;
+import game.gameprocedures.toolcardprotocols.HammerProtocol;
+import game.gameprocedures.toolcardprotocols.IProtocol;
+import game.gameprocedures.toolcardprotocols.LeverProtocol;
+import game.gameprocedures.toolcardprotocols.SailProtocol;
 import game.board.cards.ToolCard;
 
 public class LeadToolCard implements Procedure {

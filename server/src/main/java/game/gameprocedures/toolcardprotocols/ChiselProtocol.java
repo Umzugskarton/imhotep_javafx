@@ -1,4 +1,4 @@
-package game.GameProcedures.ToolCardProtocols;
+package game.gameprocedures.toolcardprotocols;
 
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.OutOfStonesError;
