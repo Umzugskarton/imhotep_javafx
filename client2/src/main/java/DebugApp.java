@@ -32,7 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.Request;
 import requests.chatRequest;
-import ui.dialog.createLobby.ShowCreateLobbyPopupEvent;
+import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -369,7 +370,7 @@ public class DebugApp {
     popupButton1.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        getEventBus().post(new ShowCreateLobbyPopupEvent());
+        getEventBus().post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN));
       }
     });
 
