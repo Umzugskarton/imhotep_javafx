@@ -13,10 +13,6 @@ public class changeCredentialRequest implements IRequest {
     this.crednr = crednr;
   }
 
-  public Integer getTypeOfC() {
-    return crednr;
-  }
-
   public String getRequest() {
     return this.request;
   }
