@@ -3,9 +3,13 @@ package ui.dialog.createLobby;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import mvp.view.ShowViewEvent;
 
@@ -24,7 +28,16 @@ public class CreateLobbyView implements ICreateLobbyView {
   private GridPane createLobbyRoot;
 
   @FXML
-  private ChoiceBox<String> choiseBox;
+  private ChoiceBox<Integer> choiseBox;
+
+  @FXML
+  private TextField lobbyNameField;
+
+  @FXML
+  private PasswordField passwordField;
+
+  @FXML
+  private Label statusMessageLabel;
 
   private final CreateLobbyPresenter presenter;
   private final EventBus eventBus;
@@ -52,17 +65,22 @@ public class CreateLobbyView implements ICreateLobbyView {
 
   @FXML
   void initialize() {
-    this.choiseBox.getItems().setAll("2", "3", "4");
+    this.choiseBox.getItems().setAll(2, 3, 4);
   }
 
   @FXML
-  public void handleSendButtonAction() {
+  public void handleSendButtonAction(ActionEvent event) {
+    this.presenter.createLobby(this.lobbyNameField.getText(), this.choiseBox.getValue(), this.passwordField.getText());
+  }
 
+  @Override
+  public void updateStatusLabel(String m) {
+    this.statusMessageLabel.setText(m);
   }
 
   @Override
   public String getTitle() {
-    return "createLobby";
+    return "CreateLobby";
   }
 
   @Override
