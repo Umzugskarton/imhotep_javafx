@@ -139,7 +139,7 @@ public class BoardPresenter {
 
   // Moves
   public void sendFillUpStorageMove() {
-    FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
+    FillUpStorageMove fillUpStorageMove = new FillUpStorageMove(this.lobby.getLobbyId());
     this.sc.getClientSocket().send(fillUpStorageMove);
   }
 
@@ -285,7 +285,7 @@ public class BoardPresenter {
   public void newTurn(TurnEvent e) {
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
-    Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
+    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
 
     this.view.getCurrentPlayerLabel().setText(e.getUsername());
     this.changeBgGradient(userColor);
