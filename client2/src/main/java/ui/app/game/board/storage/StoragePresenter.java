@@ -14,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
-
 import java.util.ArrayList;
 
 public class StoragePresenter extends Presenter<IStorageView> {
@@ -98,7 +97,5 @@ public class StoragePresenter extends Presenter<IStorageView> {
       System.out.println("Will send " + move.getType() + " from " + user.getUsername() + "`s Storage.");
     }
   }
-
-
 
 }

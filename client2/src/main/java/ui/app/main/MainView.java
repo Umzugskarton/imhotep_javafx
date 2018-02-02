@@ -17,8 +17,8 @@ import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
 import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
-import ui.dialog.createLobby.CreateLobbyView;
-import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.createlobby.CreateLobbyView;
+import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;

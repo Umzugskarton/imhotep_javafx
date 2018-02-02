@@ -31,9 +31,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.ChatRequest;
 import requests.Request;
-import requests.chatRequest;
-import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
@@ -467,7 +467,7 @@ public class DebugApp {
   }
 
   @Subscribe
-  void gotChatRequest(chatRequest request) {
+  void gotChatRequest(ChatRequest request) {
     ChatMessageEvent event = new ChatMessageEvent();
     event.setMsg(request.getMsg());
     this.eventBus.post(event);

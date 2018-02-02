@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.chatRequest;
+import requests.ChatRequest;
 import events.app.chat.ChatMessageEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
@@ -9,7 +9,7 @@ import socket.Server;
 
 public class ChatCommand implements Command {
 
-  private chatRequest request;
+  private ChatRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
@@ -21,7 +21,7 @@ public class ChatCommand implements Command {
   }
 
   public void put(IRequest r) {
-    this.request = (chatRequest) r;
+    this.request = (ChatRequest) r;
   }
 
   public void exec() {

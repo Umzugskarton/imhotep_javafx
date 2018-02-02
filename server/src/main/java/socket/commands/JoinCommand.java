@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.joinRequest;
+import requests.JoinRequest;
 import data.lobby.CommonLobby;
 import lobby.Lobby;
 import socket.ClientListener;
@@ -13,7 +13,7 @@ import data.user.User;
 public class JoinCommand implements Command {
 
   private ClientListener clientListener;
-  private joinRequest request;
+  private JoinRequest request;
   private Server server;
 
   JoinCommand(ClientListener clientListener) {
@@ -23,7 +23,7 @@ public class JoinCommand implements Command {
 
   @Override
   public void put(IRequest r) {
-    this.request = (joinRequest) r;
+    this.request = (JoinRequest) r;
   }
 
   @Override

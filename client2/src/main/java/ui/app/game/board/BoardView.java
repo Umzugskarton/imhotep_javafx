@@ -18,10 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
-import mvp.view.ShowViewEvent;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.sites.ISiteView;
-import ui.app.game.board.sites.defaultSites.DefaultSiteView;
+import ui.app.game.board.sites.defaultsites.DefaultSiteView;
 import ui.app.game.board.storage.StorageView;
 
 import java.net.URL;

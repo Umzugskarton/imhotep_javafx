@@ -1,6 +1,6 @@
 package main;
 
-import requests.lobbylistRequest;
+import requests.LobbylistRequest;
 import board.presenter.BoardPresenter;
 import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;
@@ -81,7 +81,7 @@ public class SceneController {
       this.MainmenuPresenter = new MainmenuPresenter(new MainmenuViewImpl(), this);
     }
 
-    this.clientSocket.send(new lobbylistRequest());
+    this.clientSocket.send(new LobbylistRequest());
     this.stage.setScene(this.MainmenuPresenter.getMainmenuView().getMainmenuScene());
     this.stage.getScene().getStylesheets().add("style.css");
   }

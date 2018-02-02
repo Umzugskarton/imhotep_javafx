@@ -1,6 +1,6 @@
 package login.presenter;
 
-import requests.loginRequest;
+import requests.LoginRequest;
 import login.view.LoginView;
 import main.SceneController;
 
@@ -18,7 +18,7 @@ public class LoginPresenter {
   public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       this.view.updateStatusLabel("");
-      loginRequest loginCommand = new loginRequest(username, password);
+      LoginRequest loginCommand = new LoginRequest(username, password);
       this.sceneController.getClientSocket().send(loginCommand);
     } else {
       this.view.updateStatusLabel("Benutzername und Passwort dürfen nicht leer sein");

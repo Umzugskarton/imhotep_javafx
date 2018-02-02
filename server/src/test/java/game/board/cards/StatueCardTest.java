@@ -2,7 +2,6 @@ package game.board.cards;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import game.board.Cards.StatueCard;
 import org.junit.jupiter.api.Test;
 
 class StatueCardTest {

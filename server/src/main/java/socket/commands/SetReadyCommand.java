@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.setReadyRequest;
+import requests.SetReadyRequest;
 import events.app.lobby.SetReadyToPlayEvent;
 import lobby.Lobby;
 import socket.ClientListener;
@@ -10,14 +10,14 @@ import data.user.User;
 public class SetReadyCommand implements Command {
 
   private ClientListener clientListener;
-  private setReadyRequest request;
+  private SetReadyRequest request;
 
   SetReadyCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
   }
 
   public void put(IRequest r) {
-    this.request = (setReadyRequest) r;
+    this.request = (SetReadyRequest) r;
   }
 
   public void exec() {

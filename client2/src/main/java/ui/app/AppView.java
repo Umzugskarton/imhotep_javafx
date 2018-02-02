@@ -70,7 +70,6 @@ public class AppView implements IAppView {
   //TabSubViews
   private MainView mainView;
   private ArrayList<LobbyView> lobbyViews = new ArrayList<>();
-  ;
   private ArrayList<GameView> gameViews = new ArrayList<>();
 
   //PopupView

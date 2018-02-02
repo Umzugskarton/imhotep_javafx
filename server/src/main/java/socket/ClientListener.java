@@ -1,12 +1,14 @@
 package socket;
 
 import events.Event;
-import requests.GameMoves.Move;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
+import requests.gamemoves.Move;
 import requests.IRequest;
 import socket.commands.Command;
 
-import java.io.*;
-import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
@@ -82,11 +84,9 @@ public class ClientListener implements Runnable {
     } catch (IOException ex) {
       log.error("Ein Fehler ist aufgetreten", ex);
     } finally {
-      if (this.isLoggedIn()) {
-        if (lobbies != null) {
-          for (Lobby lobby : lobbies) {
-            lobby.leave(user);
-          }
+      if (this.isLoggedIn() && lobbies != null) {
+        for (Lobby lobby : lobbies) {
+          lobby.leave(user);
         }
       }
       this.user = null;
@@ -97,7 +97,7 @@ public class ClientListener implements Runnable {
 
   public void send(Event event) {
     if (this.out != null) {
-      log.debug("Nachricht gesendet: " + event);
+      log.debug("Nachricht gesendet: {0}", event);
       try {
         this.out.writeObject(event);
         this.out.flush();
@@ -106,7 +106,6 @@ public class ClientListener implements Runnable {
       }
     }
   }
-
 
   public void addLobby(Lobby lobby) {
     this.lobbies.add(lobby);
@@ -129,7 +128,7 @@ public class ClientListener implements Runnable {
     return this.user;
   }
 
-  public ArrayList<Lobby> getLobbies() {
+  public List<Lobby> getLobbies() {
     return lobbies;
   }
 

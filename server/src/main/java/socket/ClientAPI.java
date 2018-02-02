@@ -8,12 +8,12 @@ import events.start.registration.RegistrationEvent;
 import java.util.List;
 import lobby.Lobby;
 import data.user.User;
-import requests.changeCredentialRequest;
-import requests.chatRequest;
-import requests.createRequest;
-import requests.loginRequest;
-import requests.registerRequest;
-import requests.whisperRequest;
+import requests.ChatRequest;
+import requests.LoginRequest;
+import requests.RegisterRequest;
+import requests.ChangeCredentialRequest;
+import requests.CreateRequest;
+import requests.WhisperRequest;
 import user.UserIdentifier;
 import database.userdata.DBUserDataSource;
 
@@ -32,11 +32,11 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request loginRequest, das User-Daten für Login enthält
+   * @param request LoginRequest, das User-Daten für Login enthält
    * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
-  public LoginEvent login(loginRequest request, List<String> loggedUsers) {
+  public LoginEvent login(LoginRequest request, List<String> loggedUsers) {
     LoginEvent event = new LoginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
@@ -68,10 +68,10 @@ public class ClientAPI {
    * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request registerRequest, das User-Daten für Registrierung enthält
+   * @param request RegisterRequest, das User-Daten für Registrierung enthält
    * @return registerEvent, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public RegistrationEvent register(registerRequest request) {
+  public RegistrationEvent register(RegisterRequest request) {
     RegistrationEvent event = new RegistrationEvent();
     String username = request.getUsername();
     String password = request.getPassword();
@@ -95,7 +95,7 @@ public class ClientAPI {
     return dbUserDataSource.changeUser(user, ui, newCred);
   }
 
-  public ChangeProfilDataEvent changeCredential(changeCredentialRequest request, User user) {
+  public ChangeProfilDataEvent changeCredential(ChangeCredentialRequest request, User user) {
     ChangeProfilDataEvent event = new ChangeProfilDataEvent();
     String newCred = request.getCredential();
     Integer type = request.getCrednr();
@@ -123,7 +123,7 @@ public class ClientAPI {
     return event;
   }
 
-  public ChatMessageEvent chat(chatRequest request, User user) {
+  public ChatMessageEvent chat(ChatRequest request, User user) {
     ChatMessageEvent event = new ChatMessageEvent();
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
@@ -135,7 +135,7 @@ public class ClientAPI {
     return event;
   }
 
-  public WhisperChatEvent whisper(whisperRequest request, User user) {
+  public WhisperChatEvent whisper(WhisperRequest request, User user) {
     WhisperChatEvent event = new WhisperChatEvent();
     if (request.getMsg() != null && request.getTo() != null && user != null) {
       event.setMsg(request.getMsg());
@@ -161,11 +161,11 @@ public class ClientAPI {
    * Wenn ein Client eine Anfrage zur Erstellung einer Lobby schickt
    * wird hier das Lobby-Objekt erstellt und an den ClientListener zurückgegeben
    *
-   * @param request createRequest, enthält alle Daten der zu erstellenden Lobby
+   * @param request CreateRequest, enthält alle Daten der zu erstellenden Lobby
    * @param user User, der die Lobby erstellen möchte
    * @return Lobby die gerade erstellt wurde und gibt diese an den Clientlistener Thread
    */
-  public Lobby createLobby(createRequest request, User user) {
+  public Lobby createLobby(CreateRequest request, User user) {
     String name = request.getName();
     int size = request.getSize();
     String password = request.getPassword();

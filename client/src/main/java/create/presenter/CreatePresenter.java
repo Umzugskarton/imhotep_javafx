@@ -1,6 +1,6 @@
 package create.presenter;
 
-import requests.createRequest;
+import requests.CreateRequest;
 import create.view.CreateView;
 import create.view.CreateViewImpl;
 import main.SceneController;
@@ -22,7 +22,7 @@ public class CreatePresenter {
     } else if(pass.length() >= 16) {
       this.view.updateStatusLabel("Passwort zu lang. (Maximal 16 Zeichen)");
     } else {
-      createRequest j = new createRequest(name, size, pass);
+      CreateRequest j = new CreateRequest(name, size, pass);
       this.sceneController.getClientSocket().send(j);
     }
   }

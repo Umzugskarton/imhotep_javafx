@@ -44,20 +44,20 @@ public class LobbyPresenter {
 
   public void sendChangeColorRequest() {
     //this.lobbyView.updateColorRectangle();
-    changeColorRequest changeColorRequest = new changeColorRequest();
+    ChangeColorRequest changeColorRequest = new ChangeColorRequest();
     this.getSceneController().getClientSocket().send(changeColorRequest);
 
   }
 
 
   public void sendSetReadyRequest() {
-    setReadyRequest setReadyRequest = new setReadyRequest();
+    SetReadyRequest setReadyRequest = new SetReadyRequest();
     this.getSceneController().getClientSocket().send(setReadyRequest);
   }
 
   public void sendChatMsg(String text) {
     if (!text.isEmpty()) {
-      chatRequest request = new chatRequest(text);
+      ChatRequest request = new ChatRequest(text);
       request.setLobbyId(CLTLobby.getLobbyId());
       sc.getClientSocket().send(request);
 
@@ -92,7 +92,7 @@ public class LobbyPresenter {
 
   public void startGame() {
     if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
-      IRequest request = new startGameRequest();
+      IRequest request = new StartGameRequest();
       sc.getClientSocket().send(request);
       Soundtrack.imhotepTheme.loop();
     }
@@ -102,7 +102,7 @@ public class LobbyPresenter {
   }
 
   public void leaveLobbyRequest() {
-    leaveLobbyRequest leaveLobbyRequest = new leaveLobbyRequest(CLTLobby.getLobbyId());
+    LeaveLobbyRequest leaveLobbyRequest = new LeaveLobbyRequest(CLTLobby.getLobbyId());
     this.getSceneController().getClientSocket().send(leaveLobbyRequest);
   }
 

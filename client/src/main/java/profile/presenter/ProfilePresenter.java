@@ -1,6 +1,6 @@
 package profile.presenter;
 
-import requests.changeCredentialRequest;
+import requests.ChangeCredentialRequest;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
@@ -39,20 +39,20 @@ public class ProfilePresenter {
     if (type == 1) {
       if (this.validate(credential)) {
         this.view.updateStatusLabel("");
-        changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+        ChangeCredentialRequest changeCredentialsCommand = new ChangeCredentialRequest(credential,
             type);
         this.sceneController.getClientSocket().send(changeCredentialsCommand);
       }
     }
     if (type == 2) {
       this.view.updateStatusLabel("");
-      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+      ChangeCredentialRequest changeCredentialsCommand = new ChangeCredentialRequest(credential,
           type);
       this.sceneController.getClientSocket().send(changeCredentialsCommand);
     }
     if (type == 3) {
       this.view.updateStatusLabel("");
-      changeCredentialRequest changeCredentialsCommand = new changeCredentialRequest(credential,
+      ChangeCredentialRequest changeCredentialsCommand = new ChangeCredentialRequest(credential,
           type);
       this.sceneController.getClientSocket().send(changeCredentialsCommand);
     }

@@ -1,11 +1,12 @@
 package game;
 
-import game.board.Cards.Card;
-import game.board.Cards.OrnamentCard;
-import game.board.Cards.StatueCard;
-import game.board.Cards.ToolCard;
+import game.board.cards.Card;
+import game.board.cards.OrnamentCard;
+import game.board.cards.StatueCard;
+import game.board.cards.ToolCard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
 
@@ -13,18 +14,15 @@ public class Inventory {
   private ArrayList<ToolCard> toolCards = new ArrayList<>();
   private ArrayList<StatueCard> statueCards = new ArrayList<>();
 
-  public Inventory() {
-  }
-
-  public ArrayList<OrnamentCard> getOrnamentCards() {
+  public List<OrnamentCard> getOrnamentCards() {
     return ornamentCards;
   }
 
-  public ArrayList<StatueCard> getStatueCards() {
+  public List<StatueCard> getStatueCards() {
     return statueCards;
   }
 
-  public ArrayList<ToolCard> getToolCards() {
+  public List<ToolCard> getToolCards() {
     return toolCards;
   }
 
