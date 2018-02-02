@@ -325,7 +325,7 @@ public class DebugApp {
         gameInfo.setTurnTime(20);
         gameInfo.setRound(0);
         gameInfo.setStorages(storages);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 5; i++) {
           int[] f = new int[i];
           gameInfo.setCurrentShips(f);
         }

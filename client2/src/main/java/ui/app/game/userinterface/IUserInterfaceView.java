@@ -8,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableSubView;
 import mvp.view.IView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public interface IUserInterfaceView extends IView {
 
   Label getCurrentPlayerLabel();
@@ -25,4 +28,6 @@ public interface IUserInterfaceView extends IView {
   GridPane getUserInterface();
 
   GridPane getHoldingArea();
+
+  ArrayList<ComboBox<Integer>> getShipCBoxes();
 }
