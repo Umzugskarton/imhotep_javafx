@@ -11,8 +11,6 @@ import connection.Connection;
 import data.lobby.LobbyUser;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
 import java.util.ArrayList;
 
