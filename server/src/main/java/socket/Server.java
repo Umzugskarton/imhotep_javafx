@@ -47,6 +47,7 @@ public class Server {
     User[] users = lobby.getUsers();
     for (User tempUser : users) {
       if (tempUser != null) {
+        log.debug("SendToLobby " + tempUser.getUsername());
         sendTo(e, tempUser.getUsername());
       }
     }
@@ -91,6 +92,7 @@ public class Server {
 
   public void sendToAll(Event event) {
     for (ClientListener clientListener : connectedClients) {
+      log.debug("SendToAll " + clientListener.getUser().getUsername());
       clientListener.send(event);
     }
   }
@@ -106,6 +108,7 @@ public class Server {
     }
     if (toClient != null) {
       found = true;
+      log.debug("SendTo " + toClient.getUser().getUsername());
       toClient.send(event);
     }
     return found;
@@ -114,8 +117,8 @@ public class Server {
   public CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size() - 1);
-    return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
+    lobby.setLobbyID(openLobby.size());
+    return new CreateLobbyEvent(true, openLobby.size(), "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {
@@ -153,6 +156,7 @@ public class Server {
   public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
+        log.debug("SendToLoggedIn " + clientListener.getUser().getUsername());
         clientListener.send(event);
       }
     }

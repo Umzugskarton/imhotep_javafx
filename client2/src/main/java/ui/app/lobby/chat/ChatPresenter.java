@@ -63,8 +63,9 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
-    if(e.getLobbyId() == this.lobby.getLobbyId() && e.getLobbyId() != null){
-      getView().addChatMessage(e.getUser(),e.getMsg());
+    if(!(e.getLobbyId() == null)){
+      if(e.getLobbyId().equals(lobby.getLobbyId()))
+        getView().addChatMessage(e.getUser(),e.getMsg());
     }
   }
 
@@ -79,5 +80,9 @@ public class ChatPresenter extends Presenter<IChatView> {
   @Subscribe
   public void onWhisperEvent(WhisperChatEvent e) {
     getView().addWhisper(e.getFrom(), e.getMsg(), true);
+  }
+
+  public CommonLobby getLobby() {
+    return lobby;
   }
 }

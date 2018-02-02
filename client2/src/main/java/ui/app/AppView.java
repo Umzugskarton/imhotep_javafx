@@ -37,7 +37,7 @@ public class AppView implements IAppView {
   private URL location;
 
   @FXML
-  private BorderPane appViewRoot;
+  private AnchorPane appViewRoot;
 
   @FXML
   private Pane dialogBackground;

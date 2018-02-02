@@ -16,14 +16,14 @@
    </padding>
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LobbyList" />
-      <TableView fx:id="lobbyTableView" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleLobbyViewClick" prefHeight="250.0" prefWidth="485.0">
+      <TableView fx:id="lobbyTableView" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleLobbyViewClick" prefHeight="250.0" prefWidth="485.0" stylesheets="@../../../../../css/style.css">
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <columns>
-            <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
-            <TableColumn fx:id="tableColumnName" editable="false" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="tableColumnBelegung" editable="false" prefWidth="75.0" text="Belegung" />
+            <TableColumn fx:id="tableColumnId" editable="false" prefWidth="45.0" resizable="false" text="Id" />
+            <TableColumn fx:id="tableColumnName" editable="false" prefWidth="266.0" resizable="false" text="Name" />
+            <TableColumn fx:id="tableColumnBelegung" editable="false" minWidth="0.0" prefWidth="90.0" resizable="false" text="Belegung" />
          </columns>
       </TableView>
       <Pane>

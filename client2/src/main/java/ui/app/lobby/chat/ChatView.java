@@ -66,7 +66,8 @@ public class ChatView implements IChatView {
   void initialize() {
     this.chatTextField.requestFocus();
     this.chatFlow.setId("#msg");
-    addInfoMessage("Willkommen " + this.user.getUsername(), Color.GRAY);
+    addInfoMessage("Lobby [" + this.chatPresenter.getLobby().getLobbyId() + "] " +
+            this.chatPresenter.getLobby().getName() + " beigetreten", Color.GRAY);
   }
 
   @FXML

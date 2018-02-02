@@ -5,52 +5,57 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane id="appView" fx:id="appViewRoot" prefHeight="900" prefWidth="1300.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
 
-  <top>
-    <HBox fx:id="navigation" alignment="TOP_RIGHT" prefHeight="69.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
-          <children>
-            <MenuButton fx:id="appViewMenuButton" focusTraversable="false" mnemonicParsing="false" text="Logo">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Dein Profil" />
-                <MenuItem mnemonicParsing="false" text="Einstellungen" />
-                <MenuItem mnemonicParsing="false" text="Abmelden" />
-              </items>
-            </MenuButton>
-          </children>
-         <padding>
-            <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
-         </padding>
-        </HBox>
-  </top>
+<AnchorPane id="appView" fx:id="appViewRoot" prefHeight="900" prefWidth="1300.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <children>
+            <Pane opacity="0.48" prefHeight="730.0" prefWidth="1235.0" style="-fx-background-color: #000;" />
+            <Pane fx:id="dialog" layoutX="500" layoutY="250" />
+        </children>
+    </Pane>
 
-  <center>
-      <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">
-          <children>
-              <Pane opacity="0.48" prefHeight="730.0" prefWidth="1235.0" style="-fx-background-color: #000;" />
-              <Pane fx:id="dialog" layoutX="500" layoutY="250" />
-          </children>
-      </Pane>
+    <BorderPane fx:id="appViewboarderPane" prefHeight="900" prefWidth="1300.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+        <top>
+            <HBox fx:id="navigation" alignment="TOP_RIGHT" prefHeight="69.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
+                <children>
+                    <MenuButton fx:id="appViewMenuButton" focusTraversable="false" mnemonicParsing="false" text="Logo">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Dein Profil" />
+                            <MenuItem mnemonicParsing="false" text="Einstellungen" />
+                            <MenuItem mnemonicParsing="false" text="Abmelden" />
+                        </items>
+                    </MenuButton>
+                </children>
+                <padding>
+                    <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
+                </padding>
+            </HBox>
+        </top>
 
-      <TabPane fx:id="appViewMainTabPane" rotateGraphic="false" focusTraversable="false" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
-      <tabs>
-        <Tab fx:id="appViewMainTab" closable="false" disable="false" text="Main">
-          <content>
-            <Pane />
-          </content>
-        </Tab>
-      </tabs>
-         <padding>
-            <Insets left="30.0" />
-         </padding>
-    </TabPane>
-  </center>
+        <center>
+            <TabPane fx:id="appViewMainTabPane" rotateGraphic="false" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
+                <tabs>
+                    <Tab fx:id="appViewMainTab" closable="false" disable="false" text="Main">
+                        <content>
+                            <Pane />
+                        </content>
+                    </Tab>
+                </tabs>
+                <padding>
+                    <Insets left="30.0" />
+                </padding>
+            </TabPane>
+        </center>
 
-  <bottom>
-    <Pane fx:id="appViewBottomPane" VBox.vgrow="NEVER" />
-  </bottom>
-</BorderPane>
+        <bottom>
+            <Pane fx:id="appViewBottomPane" VBox.vgrow="NEVER" />
+        </bottom>
+    </BorderPane>
+</children>
+</AnchorPane>

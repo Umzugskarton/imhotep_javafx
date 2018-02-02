@@ -95,7 +95,7 @@ public class ClientListener implements Runnable {
 
   public void send(Event event) {
     if (this.out != null) {
-      log.debug("Nachricht gesendet: {0}", event);
+      log.debug("Nachricht wird an " + this.user.getUsername() + " gesendet: {" + event.getClass().getSimpleName() + "}", event);
       try {
         this.out.writeObject(event);
         this.out.flush();
