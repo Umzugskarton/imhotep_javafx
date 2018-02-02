@@ -8,6 +8,7 @@ import data.user.User;
 import events.Event;
 import events.app.chat.ChatMessageEvent;
 import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
 import events.app.game.StartGameEvent;
 import events.app.game.TurnEvent;
 import events.app.lobby.LobbyInfoEvent;
@@ -36,6 +37,8 @@ import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 public class DebugApp {
@@ -327,6 +330,9 @@ public class DebugApp {
         gameInfo.setStorages(storages);
         for (int i = 1; i < 5; i++) {
           int[] f = new int[i];
+          for (int l = 0 ; l < f.length ; l++){
+            f[l] = -1;
+          }
           gameInfo.setCurrentShips(f);
         }
 
@@ -345,6 +351,18 @@ public class DebugApp {
       }
     });
 
+
+    // Buttons 8
+    Button lobbyListButton8 = new Button("Turn Event 0");
+    lobbyListButton8.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        int[] cargo = {0};
+        ShipLoadedEvent e = new ShipLoadedEvent(0, 0, cargo ,0);
+        eventBus.post(e);
+      }
+    });
+
     //Füge Button im View hinzu!
     vBox.getChildren().add(lobbyListButton1);
     vBox.getChildren().add(lobbyListButton2);
@@ -353,6 +371,7 @@ public class DebugApp {
     vBox.getChildren().add(lobbyListButton5);
     vBox.getChildren().add(lobbyListButton6);
     vBox.getChildren().add(lobbyListButton7);
+    vBox.getChildren().add(lobbyListButton8);
   }
 
   private void initPopup() {

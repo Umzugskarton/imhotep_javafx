@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import mvp.view.IView;
 
@@ -88,6 +90,22 @@ public class StorageView implements IStorageView{
     }
     return a;
   }
+
+
+  public void highlightPointsLabel(boolean highlight) {
+    if (highlight) {
+     pointsLabel.setUnderline(true);
+     pointsLabel.setFont(Font.font("Calibri", FontWeight.BOLD, 14));
+    } else {
+      pointsLabel.setUnderline(false);
+      pointsLabel.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
+    }
+  }
+
+  public void setPoints(int points) {
+    pointsLabel.setText(points + "");
+  }
+
 
   public ArrayList<Group> getStones() {
     ArrayList<Group> a = new ArrayList<>();
