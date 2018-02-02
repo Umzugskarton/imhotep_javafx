@@ -36,10 +36,10 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
 
         for (CommonLobby lobby: lobbys){
             LobbyTableData lobbyTableData = new LobbyTableData(
-                    String.valueOf(lobby.getLobbyId()),
+                    lobby.getLobbyId(),
                     lobby.getName(),
-                    String.valueOf(lobby.getUsercount()),
-                    String.valueOf(lobby.getSize()));
+                    lobby.getUsercount(),
+                    lobby.getSize());
 
             this.lobbys.add(lobbyTableData);
         }

@@ -70,7 +70,7 @@ public class LobbyTableView implements ILobbyTableView {
         if (this.myParent == null){
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/lobbyList/LobbyListView.fxml", this, eventBus);
 
-            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("lobbyId"));
+            this.tableColumnId.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("lobbyIdString"));
             this.tableColumnName.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("name"));
             this.tableColumnBelegung.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("belegung"));
 
@@ -91,7 +91,7 @@ public class LobbyTableView implements ILobbyTableView {
                     }
 
                     setGraphic(joinButton);
-                    joinButton.setOnAction(event -> System.out.println("Push the Button"));
+                    joinButton.setOnAction(event -> getPresenter().joinLobby(data.getLobbyId(),""));
                 }
             });
 
