@@ -1,18 +1,18 @@
 package lobby;
 
-import events.app.lobby.SetReadyToPlayEvent;
+import data.lobby.LobbyUser;
+import data.user.User;
 import events.app.lobby.ChangeLobbyUserColorEvent;
 import events.app.lobby.JoinLobbyEvent;
 import events.app.lobby.LeaveLobbyEvent;
-import data.lobby.LobbyUser;
+import events.app.lobby.SetReadyToPlayEvent;
 import game.Game;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
-import data.user.User;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Lobby {
 

@@ -1,7 +1,7 @@
 package game.board.cards;
 
-import requests.gamemoves.CardType;
 import java.util.EnumMap;
+import requests.gamemoves.CardType;
 
 public class OrnamentCard extends Card {
 

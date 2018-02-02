@@ -3,11 +3,11 @@ package game.gameprocedures.toolcardprotocols;
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteExclusiveEvent;
+import game.Game;
 import requests.gamemoves.CardType;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteMove;
-import game.Game;
 
 public class SailProtocol extends Protocol {
 

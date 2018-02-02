@@ -1,7 +1,7 @@
 package game.gameprocedures;
 
-import requests.gamemoves.Move;
 import events.Event;
+import requests.gamemoves.Move;
 
 public interface Procedure {
 

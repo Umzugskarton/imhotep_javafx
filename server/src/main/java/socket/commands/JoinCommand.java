@@ -1,14 +1,14 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.JoinRequest;
 import data.lobby.CommonLobby;
-import lobby.Lobby;
-import socket.ClientListener;
-import socket.Server;
+import data.user.User;
 import events.app.lobby.JoinLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
-import data.user.User;
+import lobby.Lobby;
+import requests.IRequest;
+import requests.JoinRequest;
+import socket.ClientListener;
+import socket.Server;
 
 public class JoinCommand implements Command {
 

@@ -1,8 +1,8 @@
 package socket.commands;
 
+import events.start.registration.RegistrationEvent;
 import requests.IRequest;
 import requests.RegisterRequest;
-import events.start.registration.RegistrationEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 

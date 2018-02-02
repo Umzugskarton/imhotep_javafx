@@ -1,19 +1,23 @@
 package game.gameprocedures;
 
-import events.app.game.*;
-import requests.gamemoves.CardType;
-import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToMarketMove;
 import events.Event;
+import events.app.game.ChooseCardEvent;
+import events.app.game.LocationCardEvent;
+import events.app.game.NotEnoughLoadError;
+import events.app.game.ShipAlreadyDockedError;
+import events.app.game.ShipDockedEvent;
+import events.app.game.SiteAlreadyDockedError;
 import game.Game;
-import game.board.cards.Card;
-import game.board.cards.LocationCard;
 import game.board.Market;
 import game.board.Ship;
 import game.board.Stone;
-
+import game.board.cards.Card;
+import game.board.cards.LocationCard;
 import java.util.ArrayList;
 import java.util.List;
+import requests.gamemoves.CardType;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageToMarketMove;
 
 public class VoyageToMarket {
     private VoyageToMarketMove move;

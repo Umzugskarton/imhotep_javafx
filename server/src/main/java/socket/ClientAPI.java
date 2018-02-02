@@ -1,23 +1,22 @@
 package socket;
 
-import events.Event;
+import data.user.User;
+import database.userdata.DBUserDataSource;
 import events.EventReason;
+import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
 import events.app.profil.ChangeProfilDataEvent;
-import events.app.chat.ChatMessageEvent;
 import events.start.login.LoginEvent;
 import events.start.registration.RegistrationEvent;
 import java.util.List;
 import lobby.Lobby;
-import data.user.User;
+import requests.ChangeCredentialRequest;
 import requests.ChatRequest;
+import requests.CreateRequest;
 import requests.LoginRequest;
 import requests.RegisterRequest;
-import requests.ChangeCredentialRequest;
-import requests.CreateRequest;
 import requests.WhisperRequest;
 import user.UserIdentifier;
-import database.userdata.DBUserDataSource;
 
 public class ClientAPI {
 

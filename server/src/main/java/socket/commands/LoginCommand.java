@@ -1,14 +1,14 @@
 package socket.commands;
 
+import data.user.User;
+import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import requests.IRequest;
 import requests.LoginRequest;
-import events.start.login.LoginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
-import data.user.User;
 
 public class LoginCommand implements Command {
 

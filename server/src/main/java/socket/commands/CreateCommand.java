@@ -1,12 +1,12 @@
 package socket.commands;
 
-import requests.CreateRequest;
-import requests.IRequest;
+import data.lobby.CommonLobby;
 import events.app.lobby.CreateLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.LobbyListEvent;
-import data.lobby.CommonLobby;
 import lobby.Lobby;
+import requests.CreateRequest;
+import requests.IRequest;
 import socket.ClientAPI;
 import socket.ClientListener;
 
