@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.ChatRequest;
 import requests.Request;
-import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;

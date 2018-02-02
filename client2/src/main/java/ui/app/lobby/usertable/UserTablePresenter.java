@@ -1,4 +1,4 @@
-package ui.app.lobby.userTable;
+package ui.app.lobby.usertable;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;

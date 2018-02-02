@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.Obelisks;
+package ui.app.game.board.sites.obelisks;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;

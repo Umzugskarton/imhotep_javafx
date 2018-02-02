@@ -1,6 +1,6 @@
-package requests.GameMoves;
+package requests.gamemoves;
 
-import requests.GameMoves.CardType.Type;
+import requests.gamemoves.CardType.Type;
 
 public class ToolCardMove implements Move {
 

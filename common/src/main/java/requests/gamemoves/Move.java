@@ -1,4 +1,4 @@
-package requests.GameMoves;
+package requests.gamemoves;
 
 import requests.IRequest;
 

@@ -1,4 +1,4 @@
-package ui.app.lobby.userTable;
+package ui.app.lobby.usertable;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
-import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
 
 import java.net.URL;

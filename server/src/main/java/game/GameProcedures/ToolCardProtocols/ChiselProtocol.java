@@ -3,9 +3,9 @@ package game.GameProcedures.ToolCardProtocols;
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.OutOfStonesError;
 import events.app.game.ToolCardEvent;
-import requests.GameMoves.CardType.Type;
-import requests.GameMoves.LoadUpShipMove;
-import requests.GameMoves.Move;
+import requests.gamemoves.CardType.Type;
+import requests.gamemoves.LoadUpShipMove;
+import requests.gamemoves.Move;
 import game.Game;
 
 public class ChiselProtocol extends Protocol {

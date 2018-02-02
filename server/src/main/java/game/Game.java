@@ -4,7 +4,7 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import requests.GameMoves.Move;
+import requests.gamemoves.Move;
 import events.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;

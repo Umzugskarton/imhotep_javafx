@@ -1,8 +1,8 @@
 package ui.app.game.board.storage;
 
 import events.app.game.GameInfoEvent;
-import requests.GameMoves.FillUpStorageMove;
-import requests.GameMoves.LoadUpShipMove;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.LoadUpShipMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;

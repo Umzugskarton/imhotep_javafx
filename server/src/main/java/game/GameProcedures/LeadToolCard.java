@@ -1,11 +1,11 @@
 package game.GameProcedures;
 
 import java.util.EnumMap;
-import requests.GameMoves.CardType.Type;
+import requests.gamemoves.CardType.Type;
 import events.app.game.CardNotInPossessionError;
 import events.app.game.ToolCardEvent;
-import requests.GameMoves.Move;
-import requests.GameMoves.ToolCardMove;
+import requests.gamemoves.Move;
+import requests.gamemoves.ToolCardMove;
 import events.Event;
 import game.Game;
 import game.GameProcedures.ToolCardProtocols.ChiselProtocol;

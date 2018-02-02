@@ -1,6 +1,6 @@
 package game.board.cards;
 
-import requests.GameMoves.CardType.Type;
+import requests.gamemoves.CardType.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -2,8 +2,8 @@ package game.GameProcedures;
 
 import events.app.game.AlreadyAllocatedError;
 import events.app.game.ShipLoadedEvent;
-import requests.GameMoves.Move;
-import requests.GameMoves.LoadUpShipMove;
+import requests.gamemoves.Move;
+import requests.gamemoves.LoadUpShipMove;
 import events.Event;
 import game.Game;
 import game.Player;

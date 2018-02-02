@@ -1,6 +1,6 @@
 package events.app.game;
 
-import requests.GameMoves.CardType.Type;
+import requests.gamemoves.CardType.Type;
 
 public class ToolCardEvent extends GameEvent {
 

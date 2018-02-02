@@ -1,4 +1,4 @@
-package requests.GameMoves;
+package requests.gamemoves;
 
 public class LoadUpShipMove implements Move{
   private String move = "LoadUpShip";

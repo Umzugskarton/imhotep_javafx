@@ -1,6 +1,6 @@
 package game.board.cards;
 
-import requests.GameMoves.CardType.Type;
+import requests.gamemoves.CardType.Type;
 
 public class ToolCard extends Card {
 

@@ -1,4 +1,4 @@
-package ui.dialog.createLobby;
+package ui.dialog.createlobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;

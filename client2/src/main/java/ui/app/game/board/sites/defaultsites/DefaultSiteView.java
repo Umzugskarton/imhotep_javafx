@@ -1,9 +1,8 @@
-package ui.app.game.board.sites.defaultSites;
+package ui.app.game.board.sites.defaultsites;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
-import data.lobby.LobbyUser;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -11,13 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.INavigateableView;
 import mvp.view.IView;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
-import ui.app.game.board.sites.Obelisks.ObelisksPresenter;
+import ui.app.game.board.sites.obelisks.ObelisksPresenter;
 import ui.app.game.board.sites.market.MarketPresenter;
-import ui.app.game.board.storage.StoragePresenter;
 
 import java.util.ArrayList;
 
