@@ -1,10 +1,10 @@
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import connection.ConnectionDebug;
 import data.user.User;
 import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
-
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ import ui.popup.createLobby.CreateLobbyView;
 import ui.popup.createLobby.ShowCreateLobbyPopupEvent;
 import ui.start.StartView;
 
-public class ClientApp extends Application {
+public class ClientAppDebug extends Application {
 
   private final Logger logger = LoggerFactory.getLogger(getClass().getName());
   private final EventBus eventBus = new EventBus();
@@ -33,7 +33,9 @@ public class ClientApp extends Application {
   //Layout
   private StageLayout stageLayout;
 
-  private Connection connection = new Connection(this.eventBus);
+  DebugApp debugApp = new DebugApp(this.eventBus);
+
+  private Connection connection = new ConnectionDebug(this.eventBus);
 
   private User authenticatedUser;
 
@@ -56,6 +58,9 @@ public class ClientApp extends Application {
 
     primaryStage.setScene(scene);
     primaryStage.show();
+
+    //Zu Debug-Zwecken
+    debugApp.getStage().show();
   }
 
   @Override

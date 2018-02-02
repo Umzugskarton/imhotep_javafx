@@ -3,7 +3,9 @@ package ui.start.login;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.start.login.LoginFailedEvent;
 import mvp.presenter.Presenter;
+import requests.loginRequest;
 
 public class LoginPresenter extends Presenter<ILoginView> {
 
@@ -19,25 +21,17 @@ public class LoginPresenter extends Presenter<ILoginView> {
   public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       getView().showLoginFailed("");
-      //LoginRequest loginCommand = new LoginRequest(username, password);
-      //connection.send(loginCommand);
+      loginRequest loginCommand = new loginRequest(username, password);
+      connection.send(loginCommand);
     } else {
-      getView().showLoginFailed("Benutzername und Passwort dürfen nicht leer sein");
+      getView().showLoginFailed("Falsche Anmeldung");
     }
   }
-
-  /*
 
   @Subscribe
-  public void onLoginEvent(LoginEvent event){
-    if(event.getSuccess()){
-      //getEventBus().post(ShowMainEvent);
-    } else {
-      getView().showLoginFailed(event.getMsg());
-    }
+  public void onLoginFailedEvent(LoginFailedEvent event){
+      getView().showLoginFailed(event.getReason());
   }
-
-  */
 
   private boolean validate(String username, String password) {
     return !password.isEmpty() && !username.isEmpty();

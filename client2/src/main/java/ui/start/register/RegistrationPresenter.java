@@ -3,7 +3,9 @@ package ui.start.register;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.start.registration.RegistrationEvent;
 import mvp.presenter.Presenter;
+import requests.registerRequest;
 
 public class RegistrationPresenter extends Presenter<IRegistrationView> {
 
@@ -20,18 +22,16 @@ public class RegistrationPresenter extends Presenter<IRegistrationView> {
       String email) {
     if (this.validate(password1, password2, username, email)) {
       getView().updateStatusLabel("");
-      //RegisterRequest registerCommand = new RegisterRequest(username, password1, email);
-      //this.connection.send(registerCommand);
+      registerRequest registerCommand = new registerRequest(username, password1, email);
+      this.connection.send(registerCommand);
     }
   }
 
-  /*
+
   @Subscribe
-  public void onRegisterEvent(RegisterEvent e) {
+  public void onRegisterEvent(RegistrationEvent e) {
     getView().updateStatusLabel(e.getMsg());
   }
-
-  */
 
   public void processRegisterResponse(String message) {
     getView().updateStatusLabel(message);

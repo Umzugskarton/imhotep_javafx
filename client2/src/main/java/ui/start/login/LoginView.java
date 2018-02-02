@@ -6,14 +6,16 @@ import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.start.register.ShowRegisterViewEvent;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,6 +36,9 @@ public class LoginView implements ILoginView {
 
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    Button signInButton;
 
     @FXML
     private Text actiontarget;
@@ -58,17 +63,24 @@ public class LoginView implements ILoginView {
     }
 
     @FXML
-    void handleToRegisterButtonAction(ActionEvent event) {
+    private void handleToRegisterButtonAction(ActionEvent event) {
         eventBus.post(new ShowRegisterViewEvent(this.userField.getText(), this.passwordField.getText()));
         clearForm();
     }
 
     @FXML
-    void handleSubmitButtonAction(ActionEvent event) {
+    private void handleSubmitButtonAction(ActionEvent event) {
         String username = userField.getText();
         String password = passwordField.getText();
 
         loginPresenter.sendLoginRequest(username, password);
+    }
+
+    @FXML
+    private void handlePressedKeyAction(KeyEvent event) {
+        if(KeyCode.ENTER == event.getCode() ){
+            signInButton.fire();
+        }
     }
 
     //@Override

@@ -33,7 +33,6 @@ public class UserListPresenter extends Presenter<IUserListView> {
     }
 
     public void updateUserlist(ArrayList<String> userArray) {
-        System.out.print("Start updateUserList");
         // Im Chat informieren wer gejoined/leaved ist
         boolean notifyInChat = true;
         if (users.isEmpty()) {

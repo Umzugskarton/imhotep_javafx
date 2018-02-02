@@ -1,5 +1,7 @@
 package socket.commands;
 
+import events.start.login.LoginFailedEvent;
+import events.start.login.LoginSuccessfulEvent;
 import requests.IRequest;
 import requests.loginRequest;
 import events.start.login.LoginEvent;
@@ -28,13 +30,18 @@ public class LoginCommand implements Command {
   public void exec() {
     LoginEvent response = this.clientListener.getClientAPI()
         .login(request, this.server.getLoggedUsers().getUserList());
+
     if (response.getSuccess()) {
       User user = this.clientAPI.getUser(request.getUsername());
       this.clientListener.setUser(user);
       response.setUsername(user.getUsername());
       response.setEmail(user.getEmail());
+      this.clientListener.send(new LoginSuccessfulEvent(user));
       this.server.sendToLoggedIn(this.server.getLoggedUsers());
+    } else {
+      this.clientListener.send(new LoginFailedEvent(response.getMsg()));
     }
-    this.clientListener.send(response);
+
+
   }
 }

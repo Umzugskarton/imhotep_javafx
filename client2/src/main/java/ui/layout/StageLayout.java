@@ -4,7 +4,6 @@ import com.google.common.eventbus.EventBus;
 import events.start.LogoutEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,9 +55,11 @@ public class StageLayout {
         });
 
         Button close = new Button("x");
+        close.setFocusTraversable(false);
         close.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
 
         Button min = new Button("_");
+        min.setFocusTraversable(false);
         min.addEventHandler(ActionEvent.ACTION, e ->
                 this.stage.setIconified(true));
 
@@ -68,6 +69,7 @@ public class StageLayout {
         if(withLogout) {
             Button logoutButton = new Button();
             logoutButton.setId("logout-button");
+            logoutButton.setFocusTraversable(false);
             logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent event) {
                     eventBus.post(new LogoutEvent());

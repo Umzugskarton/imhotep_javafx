@@ -27,6 +27,10 @@ public class Connection {
     private String host = null;
     private int port;
 
+    public Connection(){
+        this.eventBus = new EventBus();
+    }
+
     public Connection(String host, Integer port, EventBus eventBus){
         this.host = host;
         this.port = port;
@@ -61,7 +65,7 @@ public class Connection {
         } catch (ConnectionErrorExeption e) {
             logger.error("Verbindung unterbrochen");
             this.eventBus.post(e);
-            closeConnection();
+            //closeConnection();
         }
     }
 
@@ -71,23 +75,18 @@ public class Connection {
     }
 
     public void send(IRequest request){
-        //EventBus für Debug-Zwecke!
-        this.eventBus.post(request);
-        /*
-
         try {
             this.output.send(request);
         }catch (ConnectionErrorExeption e){
             logger.error("Verbindung unterbrochen");
             closeConnection();
         }
-        */
     }
 
     @Subscribe
     public void onConnectionErrorExeption(ConnectionErrorExeption e) {
         logger.error("ConnectionErrorExeption über EventBus angenommen");
-        closeConnection();
-        this.eventBus.post(new ShowServerSettingsEvent());
+        //closeConnection();
+        //this.eventBus.post(new ShowServerSettingsEvent());
     }
 }

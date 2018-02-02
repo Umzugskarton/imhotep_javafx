@@ -3,6 +3,7 @@ package ui.app.main.chat;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
+import events.app.chat.ChatInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import mvp.view.INavigateableView;
@@ -65,7 +67,7 @@ public class ChatView implements IChatView {
   void initialize() {
     this.chatTextField.requestFocus();
     this.chatFlow.setId("#msg");
-    this.chatFlow.getChildren().add(new Text("Willkommen " + this.user.getUsername() + "\n"));
+    this.eventBus.post(new ChatInfoEvent("Willkommen " + this.user.getUsername(), Color.BLACK));
   }
 
   @FXML
