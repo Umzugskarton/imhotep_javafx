@@ -1,18 +1,18 @@
 package game.board.cards;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 import java.util.EnumMap;
 
 public class OrnamentCard extends Card {
 
-  private static EnumMap<Type, Integer> typeMap;
+  private static EnumMap<CardType, Integer> typeMap;
 
   static {
-    typeMap = new EnumMap<>(Type.class);
-    typeMap.put(Type.PYRAMID, 0);
-    typeMap.put(Type.TEMPLE, 1);
-    typeMap.put(Type.BURIALCHAMBER, 2);
-    typeMap.put(Type.OBELISK, 3);
+    typeMap = new EnumMap<>(CardType.class);
+    typeMap.put(CardType.PYRAMID, 0);
+    typeMap.put(CardType.TEMPLE, 1);
+    typeMap.put(CardType.BURIALCHAMBER, 2);
+    typeMap.put(CardType.OBELISK, 3);
   }
 
   /**
@@ -20,10 +20,10 @@ public class OrnamentCard extends Card {
    * zur Pyramide, dem Tempel, der Grabkammer oder dem Obelisken gehört. Sie wird am Ende des
    * Spiels gültig.
    *
-   * @param type Art der Verzierung; Pyramide, Tempel, Burialchamber oder Obelisk
+   * @param cardType Art der Verzierung; Pyramide, Tempel, Burialchamber oder Obelisk
    */
-  public OrnamentCard(Type type) {
-    this.setType(type);
+  public OrnamentCard(CardType cardType) {
+    this.setType(cardType);
   }
 
   /**

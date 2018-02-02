@@ -3,7 +3,7 @@ package game.GameProcedures.ToolCardProtocols;
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteExclusiveEvent;
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteMove;
@@ -16,7 +16,7 @@ public class SailProtocol extends Protocol {
   }
 
   public void exec() {
-    game.sendAll(new ToolCardEvent(Type.SAIL, playerId, true));
+    game.sendAll(new ToolCardEvent(CardType.SAIL, playerId, true));
 
     Move move;
     game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());

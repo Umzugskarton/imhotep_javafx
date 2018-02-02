@@ -125,7 +125,7 @@ public class Game implements Runnable {
     return points;
   }
 
-  public void updatePoints() {
+  private void updatePoints() {
     sendAll(new UpdatePointsEvent(getPointsSum()));
   }
 
@@ -200,7 +200,8 @@ public class Game implements Runnable {
 
   @Override
   public void run() {
-    for (int i = 1; i <= 6; i++) {
+    int numberOfRounds = 6;
+    for (int i = 1; i <= numberOfRounds; i++) {
       this.round = i;
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
@@ -215,31 +216,34 @@ public class Game implements Runnable {
                 + players[currentPlayer] + "! ");
           }
           nextMove = null;
-
           if (allshipsDocked()) {
             break;
           }
         }
         resetCurrentShips();
-        //Addiert die Punkte der Spieler aus dem Tempel zu ihren Punktzahlen
-        //Ende jeder Runde
-        int[] templePoints = temple.getPoints();
-        for (int player = 0; player < this.players.length; player++) {
-          this.players[player].addPoints(templePoints[player]);
-        }
-        updatePoints();
+        addPointsEndOfRound();
       }
-      //Addiert die Punkte der Spieler aus der Grabkammer und den Obelisken zu ihren Punktzahlen
-      //Ende des Spiels
-      int[] burialChamberPoints = burialChamber.getPoints();
-      int[] obelisksPoints = obelisks.getPoints();
-      for (int player = 0; player < this.players.length; player++) {
-        this.players[player].addPoints(burialChamberPoints[player]);
-        this.players[player].addPoints(obelisksPoints[player]);
-      }
-      updatePoints();
+      addPointsEndOfGame();
     }
     nominateWinner();
+  }
+
+  private void addPointsEndOfGame() {
+    int[] burialChamberPoints = burialChamber.getPoints();
+    int[] obelisksPoints = obelisks.getPoints();
+    for (int player = 0; player < this.players.length; player++) {
+      this.players[player].addPoints(burialChamberPoints[player]);
+      this.players[player].addPoints(obelisksPoints[player]);
+    }
+    updatePoints();
+  }
+
+  private void addPointsEndOfRound() {
+    int[] templePoints = temple.getPoints();
+    for (int player = 0; player < this.players.length; player++) {
+      this.players[player].addPoints(templePoints[player]);
+    }
+    updatePoints();
   }
 
   // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten

@@ -17,4 +17,9 @@ public class FillUpStorageMove implements Move {
   public String getType() {
     return move;
   }
+
+  @Override
+  public MoveType getMoveType() {
+    return MoveType.RESUPPLY_STORAGE;
+  }
 }

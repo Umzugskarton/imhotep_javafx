@@ -1,6 +1,6 @@
 package requests.gamemoves;
 
-public class VoyageToMarketMove implements Move{
+public class VoyageToMarketMove implements Move {
   private int shipId;
   private String stonesite;
   private int lobbyId;
@@ -32,5 +32,10 @@ public class VoyageToMarketMove implements Move{
   @Override
   public String getType() {
     return "voyageToStoneSite";
+  }
+
+  @Override
+  public MoveType getMoveType() {
+    return MoveType.VOYAGE_TO_MARKET;
   }
 }

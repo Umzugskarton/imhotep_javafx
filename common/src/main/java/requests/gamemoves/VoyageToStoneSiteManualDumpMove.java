@@ -33,4 +33,9 @@ public class VoyageToStoneSiteManualDumpMove implements Move  {
   public String getType() {
     return "voyageToStoneSiteManualDump";
   }
+
+  @Override
+  public MoveType getMoveType() {
+    return MoveType.VOYAGE_TO_STONE_SITE_MANUAL_DUMP;
+  }
 }

@@ -1,16 +1,16 @@
 package game.board.cards;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 
 public abstract class Card {
 
-  private Type type;
+  private CardType cardType;
 
-  public Type getType() {
-    return type;
+  public CardType getType() {
+    return cardType;
   }
 
-  public void setType(Type type) {
-    this.type = type;
+  public void setType(CardType cardType) {
+    this.cardType = cardType;
   }
 }

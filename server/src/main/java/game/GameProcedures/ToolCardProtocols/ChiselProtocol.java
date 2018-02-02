@@ -3,7 +3,7 @@ package game.GameProcedures.ToolCardProtocols;
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.OutOfStonesError;
 import events.app.game.ToolCardEvent;
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.Move;
 import game.Game;
@@ -15,7 +15,7 @@ public class ChiselProtocol extends Protocol {
   }
 
   public void exec() {
-    game.sendAll(new ToolCardEvent(Type.CHISEL, playerId, true));
+    game.sendAll(new ToolCardEvent(CardType.CHISEL, playerId, true));
     for (int i = 0; i < 2; i++) {
       game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());
       if (game.getPlayer(playerId).getSupplySled().getStones() > 0) {

@@ -1,23 +1,22 @@
 package game.GameProcedures;
 
+import java.util.EnumMap;
 import requests.gamemoves.Move;
 import game.Game;
 
-import java.util.HashMap;
+import requests.gamemoves.MoveType;
 
 public class ProcedureFactory {
-  private HashMap<String, Procedure> Dict = new HashMap<>();
+  private EnumMap<MoveType, Procedure> procedures = new EnumMap<>(MoveType.class);
 
   public ProcedureFactory(int playerId, Game game) {
-    Dict.put("FillUpStorage", new FillUpStorage(game, playerId));
-    Dict.put("LoadUpShip", new LoadUpShip(game, playerId));
-    Dict.put("VoyageToStoneSite", new VoyageToStoneSite(game, playerId));
-    Dict.put("LeadToolCard", new LeadToolCard(game, playerId));
+    procedures.put(MoveType.RESUPPLY_STORAGE, new FillUpStorage(game, playerId));
+    procedures.put(MoveType.LOAD_UP_SHIP, new LoadUpShip(game, playerId));
+    procedures.put(MoveType.VOYAGE_TO_STONE_SITE, new VoyageToStoneSite(game, playerId));
+    procedures.put(MoveType.LEAD_TOOL_CARD, new LeadToolCard(game, playerId));
   }
 
   public Procedure getProcedure(Move move) {
-    Procedure p = Dict.get(move.getType());
-    p.put(move);
-    return p;
+    return procedures.get(move.getMoveType());
   }
 }

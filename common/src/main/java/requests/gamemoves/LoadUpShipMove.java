@@ -28,13 +28,13 @@ public class LoadUpShipMove implements Move{
     this.position = position;
   }
 
-  public void setShipId(int shipId) {
-    this.shipId = shipId;
-  }
-
   @Override
   public String getType() {
     return move;
+  }
+
+  public MoveType getMoveType() {
+    return MoveType.LOAD_UP_SHIP;
   }
 
 }

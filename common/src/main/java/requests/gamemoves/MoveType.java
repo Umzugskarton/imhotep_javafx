@@ -1,0 +1,10 @@
+package requests.gamemoves;
+
+public enum MoveType {
+  RESUPPLY_STORAGE,
+  LEAD_TOOL_CARD,
+  LOAD_UP_SHIP,
+  VOYAGE_TO_STONE_SITE,
+  VOYAGE_TO_STONE_SITE_MANUAL_DUMP,
+  VOYAGE_TO_MARKET
+}

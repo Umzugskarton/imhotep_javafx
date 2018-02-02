@@ -41,4 +41,8 @@ public class VoyageToStoneSiteMove implements Move {
     return move;
   }
 
+  @Override
+  public MoveType getMoveType() {
+    return MoveType.VOYAGE_TO_STONE_SITE;
+  }
 }
