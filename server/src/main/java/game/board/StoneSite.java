@@ -1,6 +1,7 @@
 package game.board;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Repräsentiert eine StoneSite.
@@ -29,7 +30,7 @@ public abstract class StoneSite extends Site implements IStoneSite {
   }
 
   @Override
-  public ArrayList<Stone> getStones() {
+  public List<Stone> getStones() {
     return stones;
   }
 
@@ -47,7 +48,4 @@ public abstract class StoneSite extends Site implements IStoneSite {
   public boolean isDocked() {
     return this.getDockedShip() != null;
   }
-
-  @Override
-  public abstract int[] getPoints();
 }

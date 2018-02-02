@@ -3,7 +3,7 @@ package ui.dialog.createLobby;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import mvp.presenter.Presenter;
-import requests.createRequest;
+import requests.CreateRequest;
 
 public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
 
@@ -24,7 +24,7 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
     } else if(pass.length() >= 16) {
       this.view.updateStatusLabel("Passwort zu lang. (Maximal 16 Zeichen)");
     } else {
-      createRequest j = new createRequest(name, size, pass);
+      CreateRequest j = new CreateRequest(name, size, pass);
       this.connection.send(j);
     }
   }

@@ -9,7 +9,7 @@ import events.app.lobby.LobbyListEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mvp.presenter.Presenter;
-import requests.joinRequest;
+import requests.JoinRequest;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
     }
 
     public void joinLobby(int id, String pw){
-        joinRequest join = new joinRequest(id, pw);
+        JoinRequest join = new JoinRequest(id, pw);
         this.connection.send(join);
     }
 

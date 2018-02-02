@@ -1,16 +1,16 @@
 package requests;
 
 
-public class chatRequest implements IRequest {
+public class ChatRequest implements IRequest {
 
   private String request = "chat";
   private Integer lobbyId;
   private String msg;
 
-  public chatRequest() {
+  public ChatRequest() {
   }
 
-  public chatRequest(String msg) {
+  public ChatRequest(String msg) {
     this.msg = msg;
     lobbyId = null;
   }

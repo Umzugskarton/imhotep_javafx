@@ -1,12 +1,12 @@
 package requests;
 
-public class whisperRequest implements IRequest {
+public class WhisperRequest implements IRequest {
 
   String request = "whisper";
   private String to;
   private String msg;
 
-  public whisperRequest(String to, String msg) {
+  public WhisperRequest(String to, String msg) {
     this.to = to;
     this.msg = msg;
   }

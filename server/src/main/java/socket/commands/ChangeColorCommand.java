@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.changeColorRequest;
+import requests.ChangeColorRequest;
 import events.app.lobby.ChangeLobbyUserColorEvent;
 import lobby.Lobby;
 import socket.ClientListener;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ChangeColorCommand implements Command {
 
-  private changeColorRequest request;
+  private ChangeColorRequest request;
   private ClientListener clientListener;
   private ArrayList<String> colors;
 
@@ -20,7 +20,7 @@ public class ChangeColorCommand implements Command {
   }
 
   public void put(IRequest r) {
-    this.request = (changeColorRequest) r;
+    this.request = (ChangeColorRequest) r;
   }
 
   public void exec() {

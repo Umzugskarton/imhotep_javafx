@@ -82,8 +82,7 @@ public class Ship {
    */
   public boolean addStone(Stone stone, int position) {
     if (docked || (position >= size || (stones.length > position && stones[position] != null))) {
-      log.warn(
-          "not adding stone to ship id:"+id+" position:" + position + " size:" + size);
+      log.warn("not adding stone to ship. id:{0} position:{1} size:{2}", id, position, size);
       return false;
     }
     stones[position] = stone;

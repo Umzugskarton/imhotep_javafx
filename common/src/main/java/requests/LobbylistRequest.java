@@ -1,11 +1,11 @@
 package requests;
 
 
-public class lobbylistRequest implements IRequest {
+public class LobbylistRequest implements IRequest {
 
   private String request = "lobbylist";
 
-  public lobbylistRequest() {
+  public LobbylistRequest() {
 
   }
 

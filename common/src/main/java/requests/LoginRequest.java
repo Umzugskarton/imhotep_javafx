@@ -1,12 +1,12 @@
 package requests;
 
-public class loginRequest implements IRequest {
+public class LoginRequest implements IRequest {
 
   private String request = "login";
   private String username;
   private String pw;
 
-  public loginRequest(String username, String password) {
+  public LoginRequest(String username, String password) {
     this.username = username;
     this.pw = password;
   }

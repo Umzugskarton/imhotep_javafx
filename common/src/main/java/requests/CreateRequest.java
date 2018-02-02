@@ -1,13 +1,13 @@
 package requests;
 
-public class createRequest implements IRequest {
+public class CreateRequest implements IRequest {
 
   private String request = "create";
   private String name;
   private int size;
   private String pw;
 
-  public createRequest(String name, int size, String password) {
+  public CreateRequest(String name, int size, String password) {
     this.size = size;
     this.pw = password;
     this.name = name;

@@ -147,11 +147,9 @@ public class Server {
         CLTLobbies.add(tempLobby);
       }
     }
-
     lobbies.setLobbies(CLTLobbies);
     return lobbies;
   }
-
 
   public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {

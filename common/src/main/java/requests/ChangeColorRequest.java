@@ -2,12 +2,12 @@ package requests;
 
 
 
-public class changeColorRequest extends Request {
+public class ChangeColorRequest extends Request {
 
   private String request = "changeColor";
 
-  public changeColorRequest(){}
-  public changeColorRequest(int lobbyId) {
+  public ChangeColorRequest(){}
+  public ChangeColorRequest(int lobbyId) {
     super(lobbyId);
   }
 

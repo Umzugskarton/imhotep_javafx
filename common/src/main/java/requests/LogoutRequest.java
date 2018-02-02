@@ -1,13 +1,13 @@
 package requests;
 
-public class logoutRequest extends Request {
+public class LogoutRequest extends Request {
 
   private String request = "logout";
 
-  public logoutRequest() {
+  public LogoutRequest() {
   }
 
-  public logoutRequest(int lobbyId) {
+  public LogoutRequest(int lobbyId) {
     super(lobbyId);
   }
 

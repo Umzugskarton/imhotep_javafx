@@ -1,6 +1,6 @@
 package requests;
 
-public class userlistRequest implements IRequest {
+public class UserlistRequest implements IRequest {
 
   private String request = "userList";
 

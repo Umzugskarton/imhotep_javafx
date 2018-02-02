@@ -1,8 +1,8 @@
-package game.board.Cards;
+package game.board.cards;
 
 public class StatueCard extends Card {
 
-  private static final int additionalStatuePoints = 2;
+  private static final int ADDITIONAL_STATUE_POINTS = 2;
 
   private int[] points = {1, 3, 6, 10, 15};
 
@@ -12,6 +12,6 @@ public class StatueCard extends Card {
     if (numberOfCards > points.length) {
       additional = numberOfCards - points.length;
     }
-    return points[numberOfCards - 1 - additional] + additional * additionalStatuePoints;
+    return points[numberOfCards - 1 - additional] + additional * ADDITIONAL_STATUE_POINTS;
   }
 }

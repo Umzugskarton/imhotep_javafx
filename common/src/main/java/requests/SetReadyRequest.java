@@ -1,13 +1,13 @@
 package requests;
 
-public class setReadyRequest extends Request {
+public class SetReadyRequest extends Request {
 
   private String request = "setReady";
 
-  public setReadyRequest() {
+  public SetReadyRequest() {
   }
 
-  public setReadyRequest(int lobbyId) {
+  public SetReadyRequest(int lobbyId) {
     super(lobbyId);
   }
 

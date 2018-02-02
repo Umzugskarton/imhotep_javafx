@@ -30,5 +30,4 @@ public class ChiselProtocol extends Protocol {
       }
     }
   }
-
 }

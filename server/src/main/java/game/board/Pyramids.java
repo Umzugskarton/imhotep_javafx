@@ -6,7 +6,7 @@ package game.board;
 public class Pyramids extends StoneSite {
 
   private int[] positionValues = {2, 1, 3, 2, 4, 3, 2, 1, 3, 2, 3, 1, 3, 4};
-  private final static int standardValue = 1;
+  private static final int STANDARD_VALUE = 1;
   private int currentTurnStones = 0;
 
   /**
@@ -24,7 +24,7 @@ public class Pyramids extends StoneSite {
    * @return Standard-Punktewert
    */
   public int getStandardValue() {
-    return standardValue;
+    return STANDARD_VALUE;
   }
 
   /**
@@ -44,7 +44,7 @@ public class Pyramids extends StoneSite {
       if (i < positionValues.length) {
         points[s.getPlayer().getId()] += positionValues[i++];
       } else {
-        points[s.getPlayer().getId()] += standardValue;
+        points[s.getPlayer().getId()] += STANDARD_VALUE;
       }
     }
     return points;
@@ -62,7 +62,7 @@ public class Pyramids extends StoneSite {
       if (i < positionValues.length) {
         points[stones.get(i).getPlayer().getId()] += positionValues[i++];
       } else {
-        points[stones.get(i).getPlayer().getId()] += standardValue;
+        points[stones.get(i).getPlayer().getId()] += STANDARD_VALUE;
       }
     }
     currentTurnStones = 0;

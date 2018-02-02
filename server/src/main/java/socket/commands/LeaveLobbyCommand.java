@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.leaveLobbyRequest;
+import requests.LeaveLobbyRequest;
 import events.app.lobby.LeaveLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import data.lobby.CommonLobby;
@@ -10,20 +10,20 @@ import socket.ClientListener;
 import socket.Server;
 import data.user.User;
 
-public class leaveLobbyCommand implements Command {
+public class LeaveLobbyCommand implements Command {
 
   private ClientListener clientListener;
-  private leaveLobbyRequest request;
+  private LeaveLobbyRequest request;
   private Server server;
 
-  leaveLobbyCommand(ClientListener clientListener) {
+  LeaveLobbyCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
   }
 
   @Override
   public void put(IRequest r) {
-    this.request = (leaveLobbyRequest) r;
+    this.request = (LeaveLobbyRequest) r;
   }
 
   @Override

@@ -1,13 +1,13 @@
 package requests;
 
-public class startGameRequest extends Request {
+public class StartGameRequest extends Request {
 
   private String request = "startGame";
 
-  public startGameRequest() {
+  public StartGameRequest() {
   }
 
-  public startGameRequest(int lobbyId) {
+  public StartGameRequest(int lobbyId) {
     super(lobbyId);
   }
 

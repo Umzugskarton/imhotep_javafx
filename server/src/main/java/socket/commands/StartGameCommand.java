@@ -1,12 +1,12 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.startGameRequest;
+import requests.StartGameRequest;
 import socket.ClientListener;
 
 public class StartGameCommand implements Command {
 
-  private startGameRequest request;
+  private StartGameRequest request;
   private ClientListener clientListener;
 
   StartGameCommand(ClientListener clientListener) {
@@ -14,7 +14,7 @@ public class StartGameCommand implements Command {
   }
 
   public void put(IRequest r) {
-    request = (startGameRequest) r;
+    request = (StartGameRequest) r;
   }
 
   public void exec() {

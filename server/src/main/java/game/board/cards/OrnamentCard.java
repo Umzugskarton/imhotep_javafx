@@ -1,4 +1,4 @@
-package game.board.Cards;
+package game.board.cards;
 
 import requests.GameMoves.CardType.Type;
 import java.util.EnumMap;

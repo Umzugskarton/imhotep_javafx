@@ -1,6 +1,6 @@
 package game.board;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface für StoneSites. Die hier deklarierten Methoden müssen von jeder StoneSite implementiert werden.
@@ -24,5 +24,5 @@ public interface IStoneSite {
    * Gibt eine ArrayList aller vorhandenen Steine auf der StoneSite zurück.
    * @return alle Steine auf der StoneSite
    */
-  ArrayList<Stone> getStones();
+  List<Stone> getStones();
 }

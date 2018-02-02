@@ -1,11 +1,11 @@
 package requests;
 
-public class joinRequest extends Request {
+public class JoinRequest extends Request {
 
   private String request = "join";
   private String pw;
 
-  public joinRequest(int lobbyId, String password) {
+  public JoinRequest(int lobbyId, String password) {
     super(lobbyId);
     this.pw = password;
   }

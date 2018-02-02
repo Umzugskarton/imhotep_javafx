@@ -2,9 +2,9 @@ package game.board;
 
 import requests.GameMoves.CardType.Type;
 import game.Inventory;
-import game.board.Cards.OrnamentCard;
-import game.board.Cards.StatueCard;
-import game.board.Cards.ToolCard;
+import game.board.cards.OrnamentCard;
+import game.board.cards.StatueCard;
+import game.board.cards.ToolCard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

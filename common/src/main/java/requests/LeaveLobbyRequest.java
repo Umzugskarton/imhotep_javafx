@@ -1,13 +1,10 @@
 package requests;
 
-public class leaveLobbyRequest extends Request {
+public class LeaveLobbyRequest extends Request {
 
   private String request = "leaveLobby";
 
-  public leaveLobbyRequest() {
-  }
-
-  public leaveLobbyRequest(int lobbyId) {
+  public LeaveLobbyRequest(int lobbyId) {
     super(lobbyId);
   }
 

@@ -9,7 +9,7 @@ import events.Event;
 import game.GameProcedures.Procedure;
 import game.GameProcedures.ProcedureFactory;
 import game.board.BurialChamber;
-import game.board.Cards.CardDeck;
+import game.board.cards.CardDeck;
 import game.board.Market;
 import game.board.Obelisks;
 import game.board.Pyramids;

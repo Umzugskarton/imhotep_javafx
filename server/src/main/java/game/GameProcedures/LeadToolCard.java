@@ -1,5 +1,6 @@
 package game.GameProcedures;
 
+import java.util.EnumMap;
 import requests.GameMoves.CardType.Type;
 import events.app.game.CardNotInPossessionError;
 import events.app.game.ToolCardEvent;
@@ -12,24 +13,23 @@ import game.GameProcedures.ToolCardProtocols.HammerProtocol;
 import game.GameProcedures.ToolCardProtocols.IProtocol;
 import game.GameProcedures.ToolCardProtocols.LeverProtocol;
 import game.GameProcedures.ToolCardProtocols.SailProtocol;
-import game.board.Cards.ToolCard;
+import game.board.cards.ToolCard;
 
-import java.util.HashMap;
+public class LeadToolCard implements Procedure {
 
-public class LeadToolCard implements Procedure{
   private ToolCardMove move;
   private int playerId;
   private Game game;
-  private HashMap<Type, IProtocol> protocolHashMap = new HashMap<>();
+  private EnumMap<Type, IProtocol> protocolMap = new EnumMap<>(Type.class);
 
 
   LeadToolCard(Game game, int playerId) {
     this.playerId = playerId;
-    this.game=game;
-    protocolHashMap.put(Type.HAMMER, new HammerProtocol(game , playerId));
-    protocolHashMap.put(Type.CHISEL, new ChiselProtocol(game , playerId));
-    protocolHashMap.put(Type.SAIL, new SailProtocol(game, playerId));
-    protocolHashMap.put(Type.LEVER, new LeverProtocol(game, playerId));
+    this.game = game;
+    protocolMap.put(Type.HAMMER, new HammerProtocol(game, playerId));
+    protocolMap.put(Type.CHISEL, new ChiselProtocol(game, playerId));
+    protocolMap.put(Type.SAIL, new SailProtocol(game, playerId));
+    protocolMap.put(Type.LEVER, new LeverProtocol(game, playerId));
   }
 
   public void put(Move move) {
@@ -39,11 +39,10 @@ public class LeadToolCard implements Procedure{
   public Event exec() {
     ToolCard dummy = new ToolCard(move.getToolType());
     if (game.getPlayer(playerId).getInventory().ownsCard(dummy)) {
-      IProtocol protocol = protocolHashMap.get(move.getToolType());
+      IProtocol protocol = protocolMap.get(move.getToolType());
       protocol.exec();
       return new ToolCardEvent(move.getToolType(), playerId, false);
-    }
-    else {
+    } else {
       return new CardNotInPossessionError(move.getToolType());
     }
   }
