@@ -11,6 +11,7 @@ public class Stone {
 
   /**
    * Erstellt einen neuen Stein mit einem Besitzer.
+   *
    * @param owner der besitzende Spieler
    */
   public Stone(Player owner) {

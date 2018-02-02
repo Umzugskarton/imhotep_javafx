@@ -1,7 +1,7 @@
 package mainmenu.presenter;
 
-import requests.logoutRequest;
-import requests.userlistRequest;
+import requests.LogoutRequest;
+import requests.UserlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class MainmenuPresenter {
     this.profilePresenter = new ProfilePresenter(this.sceneController);
     view.initProfile(this.profilePresenter.getProfileView());
 
-    this.sceneController.getClientSocket().send(new userlistRequest());
+    this.sceneController.getClientSocket().send(new UserlistRequest());
   }
 
   public MainmenuView getMainmenuView() {
@@ -100,7 +100,7 @@ public class MainmenuPresenter {
   }
 
   public void logout() {
-    this.sceneController.getClientSocket().send(new logoutRequest());
+    this.sceneController.getClientSocket().send(new LogoutRequest());
     this.chatPresenter.getChatView().getChatText().getChildren().clear();
   }
 

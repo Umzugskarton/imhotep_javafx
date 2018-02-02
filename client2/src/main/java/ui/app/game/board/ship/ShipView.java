@@ -62,8 +62,8 @@ public class ShipView implements IShipView {
       ArrayList<Group> stones = getStones();
       //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen
       for (Group g : stones) {
-        g.setLayoutX(g.getLayoutX() - (4 - cargo.length) * 2);
-        g.setLayoutY(g.getLayoutY() - (4 - cargo.length) * 10);
+        g.setLayoutX(g.getLayoutX() - (4 - cargo.length) * 2.5);
+        g.setLayoutY(g.getLayoutY()- (4 - cargo.length) * 3);
       }
     }
   }

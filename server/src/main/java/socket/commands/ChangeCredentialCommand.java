@@ -1,24 +1,24 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.changeCredentialRequest;
+import requests.ChangeCredentialRequest;
 import events.app.profil.ChangeProfilDataEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
 public class ChangeCredentialCommand implements Command {
 
-  private changeCredentialRequest request;
+  private ChangeCredentialRequest request;
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public ChangeCredentialCommand(ClientListener clientListener) {
+  ChangeCredentialCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.clientAPI = clientListener.getClientAPI();
   }
 
   public void put(IRequest r) {
-    this.request = (changeCredentialRequest) r;
+    this.request = (ChangeCredentialRequest) r;
   }
 
   public void exec() {

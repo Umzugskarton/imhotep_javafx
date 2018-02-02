@@ -1,22 +1,21 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.lobbylistRequest;
+import requests.LobbylistRequest;
 import events.app.lobby.LobbyListEvent;
 import socket.ClientListener;
 
 public class LobbylistCommand implements Command {
 
-  private lobbylistRequest request;
+  private LobbylistRequest request;
   private ClientListener clientListener;
 
-  public LobbylistCommand(ClientListener clientListener) {
+  LobbylistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
   }
 
   public void put(IRequest r) {
-    this.request = (lobbylistRequest) r;
+    this.request = (LobbylistRequest) r;
   }
 
   public void exec() {

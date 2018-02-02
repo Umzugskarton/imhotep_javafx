@@ -1,7 +1,7 @@
 package socket.commands;
 
+import requests.CreateRequest;
 import requests.IRequest;
-import requests.createRequest;
 import events.app.lobby.CreateLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.LobbyListEvent;
@@ -13,7 +13,7 @@ import socket.ClientListener;
 public class CreateCommand implements Command {
 
   private ClientListener clientListener;
-  private createRequest request;
+  private CreateRequest request;
   private ClientAPI clientAPI;
 
   CreateCommand(ClientListener clientListener) {
@@ -23,7 +23,7 @@ public class CreateCommand implements Command {
 
   @Override
   public void put(IRequest r) {
-    this.request = (createRequest) r;
+    this.request = (CreateRequest) r;
   }
 
   @Override

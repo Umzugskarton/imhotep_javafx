@@ -3,7 +3,7 @@ package socket.commands;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import requests.IRequest;
-import requests.loginRequest;
+import requests.LoginRequest;
 import events.start.login.LoginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
@@ -12,19 +12,19 @@ import data.user.User;
 
 public class LoginCommand implements Command {
 
-  private loginRequest request;
+  private LoginRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
 
-  public LoginCommand(ClientListener clientListener) {
+  LoginCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();
   }
 
   public void put(IRequest r) {
-    this.request = (loginRequest) r;
+    this.request = (LoginRequest) r;
   }
 
   public void exec() {
@@ -41,7 +41,5 @@ public class LoginCommand implements Command {
     } else {
       this.clientListener.send(new LoginFailedEvent(response.getMsg()));
     }
-
-
   }
 }

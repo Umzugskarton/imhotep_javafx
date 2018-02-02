@@ -15,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 import mvp.view.ShowViewEvent;
 import ui.app.game.IGameView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class UserInterfaceView implements IUserInterfaceView {
 
@@ -125,6 +128,11 @@ public class UserInterfaceView implements IUserInterfaceView {
     }
   }
 
+  public ArrayList<ComboBox<Integer>> getShipCBoxes() {
+    ArrayList<ComboBox<Integer>> a = new ArrayList<>();
+    Collections.addAll(a, selectShipBox, selectShipToLocationBox);
+    return a;
+  }
   @FXML
   void sendVoyageToStoneSiteMove(){
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)

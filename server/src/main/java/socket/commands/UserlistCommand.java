@@ -1,23 +1,21 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.userlistRequest;
+import requests.UserlistRequest;
 import events.app.main.UserListEvent;
 import socket.ClientListener;
 
 public class UserlistCommand implements Command {
 
-  private userlistRequest request;
+  private UserlistRequest request;
   private ClientListener clientListener;
 
-
-  public UserlistCommand(ClientListener clientListener) {
+  UserlistCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
   }
 
   public void put(IRequest r) {
-    this.request = (userlistRequest) r;
+    this.request = (UserlistRequest) r;
   }
 
   public void exec() {

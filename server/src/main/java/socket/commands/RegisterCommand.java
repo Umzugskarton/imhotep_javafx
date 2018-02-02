@@ -1,25 +1,24 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.registerRequest;
+import requests.RegisterRequest;
 import events.start.registration.RegistrationEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 
 public class RegisterCommand implements Command {
 
-  private registerRequest request;
+  private RegisterRequest request;
   private ClientListener clientListener;
   private ClientAPI clientAPI;
 
-  public RegisterCommand(ClientListener clientListener) {
+  RegisterCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
-
     this.clientAPI = clientListener.getClientAPI();
   }
 
   public void put(IRequest r) {
-    this.request = (registerRequest) r;
+    this.request = (RegisterRequest) r;
   }
 
   public void exec() {

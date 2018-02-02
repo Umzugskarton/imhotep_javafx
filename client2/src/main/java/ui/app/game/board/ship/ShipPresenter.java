@@ -6,6 +6,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -26,17 +27,25 @@ public class ShipPresenter extends Presenter<IShipView>{
     this.shipId = shipId;
     this.cargo = cargo;
     this.connection= connection;
+    bind();
   }
 
+  public void bind(){
+    eventBus.register(this);
+  }
   @Subscribe
   public void setCargo(ShipLoadedEvent e) {
-    this.cargo = e.getCargo();
-    updateCargo();
+    Platform.runLater(() -> {
+      this.cargo = e.getCargo();
+      updateCargo();
+    });
   }
 
   @Subscribe
   public void initCargo(GameInfoEvent e){
     cargo = e.getShips().get(shipId);
+    System.out.println(" done that " + cargo[0]);
+
     updateCargo();
   }
 
@@ -58,6 +67,7 @@ public class ShipPresenter extends Presenter<IShipView>{
 
   private void updateCargo(){
     int i = 0;
+    System.out.println("Been there done that");
     for (int owner : cargo){
       if (owner != -1){
         Group p = view.getStones().get(i);

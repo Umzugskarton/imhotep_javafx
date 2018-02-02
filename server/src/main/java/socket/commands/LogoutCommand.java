@@ -1,24 +1,24 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.logoutRequest;
+import requests.LogoutRequest;
 import socket.ClientListener;
 
 public class LogoutCommand implements Command {
 
-  private logoutRequest request;
+  private LogoutRequest request;
   private ClientListener clientListener;
 
-  public LogoutCommand(ClientListener clientListener) {
+  LogoutCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
   }
 
   public void put(IRequest r) {
-    this.request = (logoutRequest) r;
+    this.request = (LogoutRequest) r;
   }
 
   public void exec() {
-    if (clientListener.getLobbies()!=null){
+    if (clientListener.getLobbies() != null) {
       clientListener.getLobbyByID(request.getLobbyId()).leave(clientListener.getUser());
     }
     this.clientListener.setUser(null);

@@ -1,9 +1,10 @@
 package game.board;
 
-import game.board.Cards.Card;
+import game.board.cards.Card;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Repräsentiert einen Markt. Wird hier ein Schiff angedockt, können die Spieler mit
@@ -11,10 +12,10 @@ import java.util.Collections;
  */
 public class Market extends Site {
 
-  private static final int numberOfCards = 4;
+  private static final int VISIBLE_CARDS = 4;
 
   private ArrayList<Card> drawPile = new ArrayList<>();
-  private Card[] activeCards = new Card[numberOfCards];
+  private Card[] activeCards = new Card[VISIBLE_CARDS];
 
   /**
    * Erstellt einen neuen Markt und gibt ihn zurück.
@@ -30,7 +31,7 @@ public class Market extends Site {
    * @param playerCount die Anzahl der Spieler im Spiel.
    * @param cards die Karten, die der Markt als Nachziehstapel nutzt.
    */
-  public Market(int playerCount, ArrayList<Card> cards) {
+  public Market(int playerCount, List<Card> cards) {
     super(playerCount);
     addCards(cards);
   }
@@ -40,7 +41,7 @@ public class Market extends Site {
    *
    * @param cards die Karten, die der Markt seinem Kartenvorrat hinzufügt
    */
-  public void addCards(ArrayList<Card> cards) {
+  public void addCards(List<Card> cards) {
     drawPile.addAll(cards);
     Collections.shuffle(drawPile);
   }
@@ -64,7 +65,7 @@ public class Market extends Site {
    *
    * @return die aktuell angezeigten Karten
    */
-  public ArrayList<Card> getActiveCards() {
+  public List<Card> getActiveCards() {
     return new ArrayList<>(Arrays.asList(activeCards));
   }
 
@@ -73,7 +74,7 @@ public class Market extends Site {
    * und aus dem Pool werden neue Karten gezogen.
    */
   public void newRound() {
-    for (int i = 0; i < numberOfCards; i++) {
+    for (int i = 0; i < VISIBLE_CARDS; i++) {
       if (!drawPile.isEmpty()) {
         activeCards[i] = drawPile.get(0);
       }

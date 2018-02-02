@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.start.login.LoginFailedEvent;
 import mvp.presenter.Presenter;
-import requests.loginRequest;
+import requests.LoginRequest;
 
 public class LoginPresenter extends Presenter<ILoginView> {
 
@@ -21,7 +21,7 @@ public class LoginPresenter extends Presenter<ILoginView> {
   public void sendLoginRequest(String username, String password) {
     if (this.validate(username, password)) {
       getView().showLoginFailed("");
-      loginRequest loginCommand = new loginRequest(username, password);
+      LoginRequest loginCommand = new LoginRequest(username, password);
       connection.send(loginCommand);
     } else {
       getView().showLoginFailed("Falsche Anmeldung");

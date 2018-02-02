@@ -2,9 +2,9 @@ package game.GameProcedures.ToolCardProtocols;
 
 import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteManualDumpEvent;
-import requests.GameMoves.CardType.Type;
-import requests.GameMoves.Move;
-import requests.GameMoves.VoyageToStoneSiteManualDumpMove;
+import requests.gamemoves.CardType.Type;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
 import game.Game;
 
 public class LeverProtocol extends Protocol {

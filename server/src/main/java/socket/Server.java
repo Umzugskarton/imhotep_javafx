@@ -27,9 +27,9 @@ public class Server {
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
   private ArrayList<Lobby> openLobby = new ArrayList<>();
 
-  public Server() {
-    this.port = 47096;
-    this.clientAPI = new ClientAPI();
+  public Server(ClientAPI clientApi, int port) {
+    this.port = port;
+    this.clientAPI = clientApi;
     this.init();
   }
 
@@ -147,11 +147,9 @@ public class Server {
         CLTLobbies.add(tempLobby);
       }
     }
-
     lobbies.setLobbies(CLTLobbies);
     return lobbies;
   }
-
 
   public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {
@@ -175,10 +173,8 @@ public class Server {
 
   public String getLoggedInUsername(String username) {
     for (ClientListener client : connectedClients) {
-      if (client.isLoggedIn()) {
-        if (client.getUser().getUsername().toLowerCase().equals(username.toLowerCase())) {
-          return client.getUser().getUsername();
-        }
+      if (client.isLoggedIn() && client.getUser().getUsername().equalsIgnoreCase(username)) {
+        return client.getUser().getUsername();
       }
     }
     return null;

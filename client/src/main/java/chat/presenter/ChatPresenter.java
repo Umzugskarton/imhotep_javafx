@@ -3,8 +3,8 @@ package chat.presenter;
 import static general.TextBundle.getString;
 
 import requests.IRequest;
-import requests.chatRequest;
-import requests.whisperRequest;
+import requests.ChatRequest;
+import requests.WhisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 
@@ -37,13 +37,13 @@ public class ChatPresenter {
         String receiver = whisperMatcher.group(2);
         String message = whisperMatcher.group(3);
 
-        chatCommand = new whisperRequest(receiver, message);
+        chatCommand = new WhisperRequest(receiver, message);
         addWhisper(receiver, message, false);
       } else {
         addInfoMessage(getString("invalidWhisperSyntax"));
       }
     } else if (!text.isEmpty()) {
-      chatCommand = new chatRequest(text);
+      chatCommand = new ChatRequest(text);
     } else if (text.isEmpty()) {
       addInfoMessage(getString("enterMessageToChat"));
     }

@@ -1,7 +1,7 @@
 package socket.commands;
 
 import requests.IRequest;
-import requests.whisperRequest;
+import requests.WhisperRequest;
 import events.app.chat.UserNotFoundErrorEvent;
 import events.Event;
 import socket.ClientAPI;
@@ -10,19 +10,19 @@ import socket.Server;
 
 public class WhisperCommand implements Command {
 
-  private whisperRequest request;
+  private WhisperRequest request;
   private ClientListener clientListener;
   private Server server;
   private ClientAPI clientAPI;
 
-  public WhisperCommand(ClientListener clientListener) {
+  WhisperCommand(ClientListener clientListener) {
     this.clientListener = clientListener;
     this.server = clientListener.getServer();
     this.clientAPI = clientListener.getClientAPI();
   }
 
   public void put(IRequest r) {
-    this.request = (whisperRequest) r;
+    this.request = (WhisperRequest) r;
   }
 
   public void exec() {

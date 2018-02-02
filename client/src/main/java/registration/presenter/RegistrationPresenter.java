@@ -1,6 +1,6 @@
 package registration.presenter;
 
-import requests.registerRequest;
+import requests.RegisterRequest;
 import main.SceneController;
 import registration.view.RegistrationView;
 
@@ -19,7 +19,7 @@ public class RegistrationPresenter {
       String email) {
     if (this.validate(password1, password2, username, email)) {
       this.view.updateStatusLabel("");
-      registerRequest registerCommand = new registerRequest(username, password1, email);
+      RegisterRequest registerCommand = new RegisterRequest(username, password1, email);
       this.sceneController.getClientSocket().send(registerCommand);
     }
   }

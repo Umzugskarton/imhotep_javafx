@@ -12,9 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mvp.presenter.Presenter;
 import requests.IRequest;
-import requests.Request;
-import requests.chatRequest;
-import requests.whisperRequest;
+import requests.ChatRequest;
+import requests.WhisperRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,13 +44,13 @@ public class ChatPresenter extends Presenter<IChatView> {
         String receiver = whisperMatcher.group(2);
         String message = whisperMatcher.group(3);
 
-        chatCommand = new whisperRequest(receiver, message);
+        chatCommand = new WhisperRequest(receiver, message);
         addWhisper(receiver, message, false);
       } else {
         addInfoMessage("invalidWhisperSyntax");
       }
     } else if (!text.isEmpty()) {
-      chatCommand = new chatRequest(text);
+      chatCommand = new ChatRequest(text);
     } else if (text.isEmpty()) {
       addInfoMessage("enterMessageToChat");
     }

@@ -1,6 +1,5 @@
 package socket.commands;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ public class CommandFactory {
         Dict.put("changeColor", new ChangeColorCommand(clientListener));
         Dict.put("setReady", new SetReadyCommand(clientListener));
         Dict.put("startGame", new StartGameCommand(clientListener));
-        Dict.put("leaveLobby", new leaveLobbyCommand(clientListener));
+        Dict.put("leaveLobby", new LeaveLobbyCommand(clientListener));
     }
 
     public Command getCommand(IRequest request){

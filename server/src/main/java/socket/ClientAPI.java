@@ -5,13 +5,17 @@ import events.app.profil.ChangeProfilDataEvent;
 import events.app.chat.ChatMessageEvent;
 import events.start.login.LoginEvent;
 import events.start.registration.RegistrationEvent;
-import requests.*;
+import java.util.List;
 import lobby.Lobby;
 import data.user.User;
+import requests.ChatRequest;
+import requests.LoginRequest;
+import requests.RegisterRequest;
+import requests.ChangeCredentialRequest;
+import requests.CreateRequest;
+import requests.WhisperRequest;
 import user.UserIdentifier;
 import database.userdata.DBUserDataSource;
-
-import java.util.ArrayList;
 
 public class ClientAPI {
 
@@ -28,11 +32,11 @@ public class ClientAPI {
    * Wenn Logindaten inkorrekt sind, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request loginRequest, das User-Daten für Login enthält
+   * @param request LoginRequest, das User-Daten für Login enthält
    * @param loggedUsers Liste eingeloggter User
    * @return loginEvent, welches den genauen Status der Verarbeitung der Anfrage enthält
    */
-  public LoginEvent login(loginRequest request, ArrayList<String> loggedUsers) {
+  public LoginEvent login(LoginRequest request, List<String> loggedUsers) {
     LoginEvent event = new LoginEvent();
     String username = request.getUsername();
     String password = request.getPassword();
@@ -42,7 +46,6 @@ public class ClientAPI {
         event.setSuccess(false);
       } else {
         boolean isLoginValid = this.dbUserDataSource.validateLogin(username, password);
-
         if (isLoginValid) {
           event.setMsg("Login erfolgreich!");
           event.setSuccess(true);
@@ -65,10 +68,10 @@ public class ClientAPI {
    * Wenn die Erstellung nicht erfolgreich war, wird eine Fehlermeldung an den
    * Client gesendet.
    *
-   * @param request registerRequest, das User-Daten für Registrierung enthält
+   * @param request RegisterRequest, das User-Daten für Registrierung enthält
    * @return registerEvent, das entweder Erfolg oder Misserfolg als Nachricht enthält
    */
-  public RegistrationEvent register(registerRequest request) {
+  public RegistrationEvent register(RegisterRequest request) {
     RegistrationEvent event = new RegistrationEvent();
     String username = request.getUsername();
     String password = request.getPassword();
@@ -92,38 +95,27 @@ public class ClientAPI {
     return dbUserDataSource.changeUser(user, ui, newCred);
   }
 
-  public ChangeProfilDataEvent changeCredential(changeCredentialRequest request, User user) {
+  public ChangeProfilDataEvent changeCredential(ChangeCredentialRequest request, User user) {
     ChangeProfilDataEvent event = new ChangeProfilDataEvent();
     String newCred = request.getCredential();
     Integer type = request.getCrednr();
-    if (newCred != null) {
+    String what = "";
+    boolean changeCredential = false;
+    if (newCred != null && type == 1 || type == 2 || type == 3) {
       if (type == 1) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
-        if (changeCredential) {
-          event.setMsg("E-Mail wurde erfolgreich geändert");
-        } else {
-          event.setMsg("E-Mail wurde nicht geändert!");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.EMAIL.toString();
+        changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
       }
       if (type == 2) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
-        if (changeCredential) {
-          event.setMsg("Passwort wurde erfolgreich geändert");
-        } else {
-          event.setMsg("Passwort wurde nicht geändert");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.PASSWORD.toString();
+        changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
       }
       if (type == 3) {
-        boolean changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
-        if (changeCredential) {
-          event.setMsg("Username wurde erfolgreich geändert");
-        } else {
-          event.setMsg("Username wurde nicht geändert");
-        }
-        event.setSuccess(changeCredential);
+        what = UserIdentifier.USERNAME.toString();
+        changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
       }
+      event.setSuccess(changeCredential);
+      event.setMsg(what + " wurde " + (changeCredential?"erfolgreich":"nicht")+" geändert");
     } else {
       event.setMsg("Fehler aufgetreten");
       event.setSuccess(false);
@@ -131,7 +123,7 @@ public class ClientAPI {
     return event;
   }
 
-  public ChatMessageEvent chat(chatRequest request, User user) {
+  public ChatMessageEvent chat(ChatRequest request, User user) {
     ChatMessageEvent event = new ChatMessageEvent();
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
@@ -143,7 +135,7 @@ public class ClientAPI {
     return event;
   }
 
-  public WhisperChatEvent whisper(whisperRequest request, User user) {
+  public WhisperChatEvent whisper(WhisperRequest request, User user) {
     WhisperChatEvent event = new WhisperChatEvent();
     if (request.getMsg() != null && request.getTo() != null && user != null) {
       event.setMsg(request.getMsg());
@@ -169,11 +161,11 @@ public class ClientAPI {
    * Wenn ein Client eine Anfrage zur Erstellung einer Lobby schickt
    * wird hier das Lobby-Objekt erstellt und an den ClientListener zurückgegeben
    *
-   * @param request createRequest, enthält alle Daten der zu erstellenden Lobby
+   * @param request CreateRequest, enthält alle Daten der zu erstellenden Lobby
    * @param user User, der die Lobby erstellen möchte
    * @return Lobby die gerade erstellt wurde und gibt diese an den Clientlistener Thread
    */
-  public Lobby createLobby(createRequest request, User user) {
+  public Lobby createLobby(CreateRequest request, User user) {
     String name = request.getName();
     int size = request.getSize();
     String password = request.getPassword();

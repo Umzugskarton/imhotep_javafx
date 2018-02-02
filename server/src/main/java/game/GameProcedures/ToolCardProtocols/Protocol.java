@@ -1,6 +1,6 @@
 package game.GameProcedures.ToolCardProtocols;
 
-import requests.GameMoves.Move;
+import requests.gamemoves.Move;
 import game.Game;
 
 public abstract class Protocol implements IProtocol {

@@ -15,9 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
-import mvp.view.ShowViewEvent;
-import ui.dialog.createLobby.CreateLobbyView;
-import ui.dialog.createLobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;

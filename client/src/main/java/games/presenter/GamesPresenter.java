@@ -1,7 +1,7 @@
 package games.presenter;
 
 
-import requests.joinRequest;
+import requests.JoinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
 import data.lobby.CommonLobby;
@@ -39,7 +39,7 @@ public class GamesPresenter {
     }
 
     public void joinLobby(int id, String pw){
-            joinRequest join = new joinRequest(id, pw);
+            JoinRequest join = new JoinRequest(id, pw);
             sc.getClientSocket().send(join);
     }
 
