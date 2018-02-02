@@ -77,21 +77,6 @@ public class UserTableView implements IUserTableView {
     }
 
     @Override
-    public INavigateableView getParentView() {
-        return null;
-    }
-
-    @Override
-    public String getTitle() {
-        return null;
-    }
-
-    @Override
-    public ShowViewEvent getEventToShowThisView() {
-        return null;
-    }
-
-    @Override
     public Parent getRootParent() {
         return this.myParent;
     }

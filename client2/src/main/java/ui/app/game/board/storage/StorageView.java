@@ -16,6 +16,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
+import mvp.view.IView;
+
 import java.util.ArrayList;
 
 
@@ -39,14 +41,14 @@ public class StorageView implements IStorageView{
   @FXML
   private Pane stonePane;
 
-  private final INavigateableView parentView;
+  private final IView parentView;
   private final StoragePresenter mainPresenter;
   private final EventBus eventBus;
 
   // Own Parent
   private Parent myParent;
 
-  public StorageView(INavigateableView parentView, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId){
+  public StorageView(IView parentView, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId){
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.mainPresenter = new StoragePresenter(this, eventBus, connection, user, myStorage, lobbyId);

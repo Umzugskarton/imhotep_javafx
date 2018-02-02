@@ -52,7 +52,9 @@ public class ClientApp extends Application {
     this.startView = new StartView(eventBus, connection, stageLayout);
 
     setContent(this.startView.getRootParent());
+
     this.stageLayout.setWindowSize(720, 480);
+    this.stageLayout.setResizable(true);
 
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -80,14 +82,4 @@ public class ClientApp extends Application {
 
     this.stageLayout.setWindowSize(1300, 900);
   }
-
-  /*
-  @Subscribe
-  public void onPopup(ShowCreateLobbyPopupEvent e) {
-    CreateLobbyView createLobbyView = new CreateLobbyView(this.eventBus, this.connection);
-    DialogView popupView = new DialogView(createLobbyView);
-    this.group.getChildren().add(popupView.getRootParent());
-  }
-
-  */
 }

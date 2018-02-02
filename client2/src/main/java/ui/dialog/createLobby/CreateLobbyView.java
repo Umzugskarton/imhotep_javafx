@@ -61,11 +61,6 @@ public class CreateLobbyView implements ICreateLobbyView {
   }
 
   @Override
-  public ShowViewEvent getEventToShowThisView() {
-    return null;
-  }
-
-  @Override
   public String getTitle() {
     return "createLobby";
   }

@@ -175,21 +175,6 @@ public class BoardView implements IBoardView {
   }
 
   @Override
-  public INavigateableView getParentView() {
-    return null;
-  }
-
-  @Override
-  public ShowViewEvent getEventToShowThisView() {
-    return null;
-  }
-
-  @Override
-  public String getTitle() {
-    return "Board";
-  }
-
-  @Override
   public Parent getRootParent() {
     return myParent;
   }

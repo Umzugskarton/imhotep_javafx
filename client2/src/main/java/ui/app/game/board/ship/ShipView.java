@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
+import mvp.view.IView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class ShipView implements IShipView {
   private Pane sprite;
 
 
-  private final INavigateableView parentView;
+  private final IView parentView;
   private final ShipPresenter mainPresenter;
   private final EventBus eventBus;
 
@@ -44,7 +45,7 @@ public class ShipView implements IShipView {
   // Own Parent
   private Parent myParent;
 
-  public ShipView(INavigateableView parentView, EventBus eventBus, Connection connection, CommonLobby lobby , int[] cargo, int shipId){
+  public ShipView(IView parentView, EventBus eventBus, Connection connection, CommonLobby lobby , int[] cargo, int shipId){
     this.parentView = parentView;
     this.lobby = lobby;
     this.cargo = cargo;

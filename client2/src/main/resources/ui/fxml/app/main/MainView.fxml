@@ -28,11 +28,6 @@
             <children>
               <Pane fx:id="subParentUserList" />
               <Pane fx:id="subParentLobbyList" />
-              <Pane fx:id="subParentButton">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleDialogButton" text="DialogButton" />
-                           </children>
-              </Pane>
             </children>
           </VBox>
         </children>

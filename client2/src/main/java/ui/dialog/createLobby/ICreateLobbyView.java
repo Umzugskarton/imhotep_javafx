@@ -1,6 +1,6 @@
 package ui.dialog.createLobby;
 
-import mvp.view.IPopupView;
+import ui.dialog.IDialogView;
 
-public interface ICreateLobbyView extends IPopupView {
+public interface ICreateLobbyView extends IDialogView {
 }

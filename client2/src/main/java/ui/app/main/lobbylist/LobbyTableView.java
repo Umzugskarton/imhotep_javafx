@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.dialog.createLobby.CreateLobbyView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -115,28 +116,14 @@ public class LobbyTableView implements ILobbyTableView {
 
     @FXML
     private void handleCreateLobbyButton(ActionEvent event) {
-        System.out.println("handleCreateLobbyButton");
-    }
-
-    @Override
-    public INavigateableView getParentView() {
-        return null;
-    }
-
-    @Override
-    public String getTitle() {
-        return null;
-    }
-
-    @Override
-    public ShowViewEvent getEventToShowThisView() {
-        return null;
+        this.parentView.showDialog(new CreateLobbyView(this.eventBus, getPresenter().getConnection()));
     }
 
     @Override
     public Parent getRootParent() {
         return this.myParent;
     }
+
 
     @Override
     public void setLobbyListViewData(ObservableList<CommonLobby> datasource){

@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
+import ui.dialog.IDialogView;
 import ui.layout.StageLayout;
 import ui.start.login.LoginView;
 import ui.start.login.ShowLoginViewEvent;
@@ -108,5 +109,15 @@ public class StartView implements IStartView {
 
         this.registrationView.setNameField(e.getUsername());
         this.registrationView.setPasswordField(e.getPasswort());
+    }
+
+    @Override
+    public void hideDialog() {
+
+    }
+
+    @Override
+    public void showDialog(IDialogView view) {
+
     }
 }

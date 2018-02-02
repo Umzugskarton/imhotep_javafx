@@ -2,6 +2,8 @@ package ui.layout;
 
 import com.google.common.eventbus.EventBus;
 import events.start.LogoutEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -31,6 +33,10 @@ public class StageLayout {
         //Umrandung rund machen
         this.edgeRect.setArcHeight(30.0);
         this.edgeRect.setArcWidth(30.0);
+
+        this.edgeRect.widthProperty().bind(this.stage.widthProperty());
+        this.edgeRect.heightProperty().bind(this.stage.heightProperty());
+
         this.scene.getRoot().setClip(this.edgeRect);
 
         this.scene.setFill(Color.TRANSPARENT);
@@ -91,8 +97,6 @@ public class StageLayout {
     }
 
     public void setWindowSize(int width, int height){
-        this.edgeRect.setWidth(width);
-        this.edgeRect.setHeight(height);
         stage.setWidth(width);
         stage.setHeight(height);
     }

@@ -8,19 +8,19 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import mvp.view.INeedDialogView;
-import ui.dialog.IDialogView;
+import mvp.view.IDialogableView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
 import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
 import ui.dialog.DialogView;
+import ui.dialog.IDialogView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainView implements IMainView, INeedDialogView {
+public class MainView implements IMainView, IDialogableView {
 
     @FXML
     private ResourceBundle resources;
@@ -99,11 +99,6 @@ public class MainView implements IMainView, INeedDialogView {
         this.dialog.getChildren().add(this.dialogView.getRootParent());
     }
 
-    @FXML
-    private void handleDialogButton(){
-        showDialog();
-    }
-
     public void setSubParentChat(Parent subParent){
         this.subParentChat.getChildren().clear();
         this.subParentChat.getChildren().add(subParent);
@@ -121,7 +116,6 @@ public class MainView implements IMainView, INeedDialogView {
 
     @Override
     public INavigateableView getParentView() {
-        //return AppView
         return this.parentView;
     }
 
@@ -142,12 +136,13 @@ public class MainView implements IMainView, INeedDialogView {
         return this.myParent;
     }
 
+
     @Override
-    public void showDialog(){
+    public void showDialog(IDialogView view){
         System.out.println("MainView showDialog()");
         dialogBackground.toFront();
         dialogBackground.setVisible(true);
-        //dialogView.setView(view);
+        this.dialogView.showDialog(view);
     }
 
     @Override

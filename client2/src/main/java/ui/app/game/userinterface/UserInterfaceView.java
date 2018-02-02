@@ -80,21 +80,6 @@ public class UserInterfaceView implements IUserInterfaceView {
   }
 
   @Override
-  public IGameView getParentView() {
-    return parentView;
-  }
-
-  @Override
-  public ShowViewEvent getEventToShowThisView() {
-    return null;
-  }
-
-  @Override
-  public String getTitle() {
-    return "UserInterface";
-  }
-
-  @Override
   public Parent getRootParent() {
     return myParent;
   }

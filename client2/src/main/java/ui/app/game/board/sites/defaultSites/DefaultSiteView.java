@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableView;
+import mvp.view.IView;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.Obelisks.ObelisksPresenter;
@@ -25,7 +26,7 @@ public class DefaultSiteView implements ISiteView {
   @FXML
   private Pane stonePane;
 
-  private final INavigateableView parentView;
+  private final IView parentView;
   private final ISitePresenter mainPresenter;
   private final EventBus eventBus;
   private String site;
@@ -33,7 +34,7 @@ public class DefaultSiteView implements ISiteView {
   // Own Parent
   private Parent myParent;
 
-  public DefaultSiteView(INavigateableView parentView, EventBus eventBus, Connection connection, String site, CommonLobby lobby){
+  public DefaultSiteView(IView parentView, EventBus eventBus, Connection connection, String site, CommonLobby lobby){
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.site=site;

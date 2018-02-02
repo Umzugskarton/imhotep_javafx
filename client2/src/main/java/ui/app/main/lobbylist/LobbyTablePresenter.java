@@ -49,6 +49,10 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
         return this.lobbys;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     @Subscribe
     public void onLobbyListEvent(LobbyListEvent e) {
         updateLobbylist(e.getLobbies());

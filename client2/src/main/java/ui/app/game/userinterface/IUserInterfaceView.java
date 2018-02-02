@@ -6,8 +6,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.INavigateableSubView;
+import mvp.view.IView;
 
-public interface IUserInterfaceView extends INavigateableSubView {
+public interface IUserInterfaceView extends IView {
 
   Label getCurrentPlayerLabel();
 

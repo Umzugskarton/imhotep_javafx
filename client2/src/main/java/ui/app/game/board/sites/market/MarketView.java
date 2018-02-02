@@ -13,23 +13,9 @@ public class MarketView implements IMarketView{
   }
 
   @Override
-  public String getTitle() {
-    return null;
-  }
-
-  @Override
-  public ShowViewEvent getEventToShowThisView() {
-    return null;
-  }
-
-  @Override
   public Parent getRootParent() {
     return null;
   }
 
-  @Override
-  public INavigateableView getParentView() {
-    return null;
-  }
 }
 

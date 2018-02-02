@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.dialog.IDialogView;
 import ui.start.login.ShowLoginViewEvent;
 
 import java.net.URL;
@@ -118,4 +119,13 @@ public class RegistrationView implements IRegistrationView {
     }
 
 
+    @Override
+    public void hideDialog() {
+
+    }
+
+    @Override
+    public void showDialog(IDialogView view) {
+
+    }
 }

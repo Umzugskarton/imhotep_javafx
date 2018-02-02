@@ -1,19 +1,15 @@
 package ui.dialog;
 
 import com.google.common.eventbus.EventBus;
-import connection.Connection;
-import events.Event;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import mvp.view.INeedDialogView;
-import mvp.view.IView;
+import javafx.scene.shape.Rectangle;
+import mvp.view.IDialogableView;
 import mvp.view.ShowViewEvent;
 
 import java.net.URL;
@@ -42,44 +38,44 @@ public class DialogView implements IDialogView {
   private String titel;
 
   //ParentView
-  INeedDialogView parentView;
+  IDialogableView parentView;
 
   //Subview
-  IDialogView view;
+  private IDialogView view;
+
+
+  private Rectangle edgeRect = new Rectangle();
 
   private EventBus eventBus;
 
-  private Stage stage;
-
-  public DialogView(INeedDialogView view, EventBus eventBus) {
+  public DialogView(IDialogableView view, EventBus eventBus) {
     this.parentView = view;
     this.eventBus = eventBus;
     initOwnView();
   }
 
-  /*
-  public DialogView(String msg, EventBus eventBus, Connection connection) {
-    this.eventBus = eventBus;
-    initOwnView();
-  }
-
-  */
-
   @FXML
   void initialize() {
-
   }
 
 
   @Override
   public void initOwnView() {
     if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/dialogView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/DialogView.fxml", this, eventBus);
+
+    //Umrandung rund machen
+    this.edgeRect.setArcHeight(30.0);
+    this.edgeRect.setArcWidth(30.0);
+
+    //this.edgeRect.widthProperty().bind(this.parentView);
+    //this.edgeRect.heightProperty().bind(this.myParent.getScene().heightProperty());
+
+    //this.myParent.setClip(this.edgeRect);
   }
 
   @FXML
   private void handleCloseButton(ActionEvent event){
-    System.out.println("Push Close Button");
     this.parentView.hideDialog();
   }
 
@@ -102,5 +98,9 @@ public class DialogView implements IDialogView {
   @Override
   public String getTitle() {
     return "Dialog - " + this.titel;
+  }
+
+  public void showDialog(IDialogView view) {
+    setView(view);
   }
 }

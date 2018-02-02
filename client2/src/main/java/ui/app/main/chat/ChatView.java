@@ -105,19 +105,4 @@ public class ChatView implements IChatView {
   public TextField getMessageInput() {
     return this.chatTextField;
   }
-
-  @Override
-  public INavigateableView getParentView() {
-    return this.parentView;
-  }
-
-  @Override
-  public String getTitle() {
-    return "Login";
-  }
-
-  @Override
-  public ShowViewEvent getEventToShowThisView() {
-    return new ShowChatViewEvent();
-  }
 }

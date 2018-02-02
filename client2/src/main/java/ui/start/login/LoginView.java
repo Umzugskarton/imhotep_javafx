@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
+import ui.dialog.IDialogView;
 import ui.start.register.ShowRegisterViewEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -112,5 +113,15 @@ public class LoginView implements ILoginView {
     @Override
     public ShowViewEvent getEventToShowThisView() {
         return new ShowLoginViewEvent();
+    }
+
+    @Override
+    public void hideDialog() {
+
+    }
+
+    @Override
+    public void showDialog(IDialogView view) {
+
     }
 }
