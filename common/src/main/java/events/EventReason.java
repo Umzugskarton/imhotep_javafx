@@ -1,6 +1,8 @@
 package events;
 
-public enum EventReason {
+import java.io.Serializable;
+
+public enum EventReason implements Serializable{
   ALREADY_LOGGED_IN,
   LOGIN_SUCCESSFUL,
   NAME_OR_PASSWORD_WRONG,

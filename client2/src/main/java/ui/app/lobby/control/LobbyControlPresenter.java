@@ -3,7 +3,6 @@ package ui.app.lobby.control;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
-import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
 import requests.ChangeColorRequest;
 import requests.IRequest;
@@ -39,7 +38,7 @@ public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
     if (lobby.getUsers().size() == lobby.getSize()) {
       IRequest request = new StartGameRequest();
       connection.send(request);
-      Soundtrack.imhotepTheme.loop();
+//      Soundtrack.imhotepTheme.loop();
     }
     else {
       //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
