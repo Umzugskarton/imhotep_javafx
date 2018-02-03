@@ -8,15 +8,11 @@ import events.app.chat.WhisperChatEvent;
 import events.app.profil.ChangeProfilDataEvent;
 import events.start.login.LoginEvent;
 import events.start.registration.RegistrationEvent;
-import java.util.List;
 import lobby.Lobby;
-import requests.ChangeCredentialRequest;
-import requests.ChatRequest;
-import requests.CreateRequest;
-import requests.LoginRequest;
-import requests.RegisterRequest;
-import requests.WhisperRequest;
+import requests.*;
 import user.UserIdentifier;
+
+import java.util.List;
 
 public class ClientAPI {
 

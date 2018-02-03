@@ -5,8 +5,6 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +21,9 @@ import mvp.view.INavigateableView;
 import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.lobby.joinlobby.ShowJoinLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LobbyTableView implements ILobbyTableView {
 

@@ -1,11 +1,11 @@
 package game.board;
 
-import requests.gamemoves.CardType;
 import game.Inventory;
 import game.board.cards.OrnamentCard;
 import game.board.cards.StatueCard;
 import game.board.cards.ToolCard;
 import org.junit.jupiter.api.Test;
+import requests.gamemoves.CardType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -11,5 +11,6 @@ public enum CardType {
   OBELISK,
   ENTRANCE,
   SARCOPHAGUS,
-  PAVEDPATH
+  PAVEDPATH,
+  STATUE
 }

@@ -9,7 +9,6 @@ import data.user.User;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
-import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
@@ -20,6 +19,8 @@ import mvp.presenter.Presenter;
 import requests.gamemoves.FillUpStorageMove;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.VoyageToStoneSiteMove;
+
+import java.util.ArrayList;
 
 public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 

@@ -200,6 +200,23 @@
   -fx-background-image: url("obelisk.png");
 }
 
+
+#blue{
+  -fx-background-color: darkblue;
+}
+
+#green{
+  -fx-background-color: darkgreen;
+}
+
+#yellow{
+  -fx-background-color: lightcoral;
+}
+
+#red{
+  -fx-background-color: darkred;
+}
+
 /* Allgemeiner .table-view Code */
 
 .table-view:focused{

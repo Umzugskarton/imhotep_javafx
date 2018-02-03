@@ -5,8 +5,6 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +16,9 @@ import ui.app.lobby.control.LobbyControlPresenter;
 import ui.app.lobby.control.LobbyControlView;
 import ui.app.lobby.usertable.UserTableView;
 import ui.dialog.IDialogView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LobbyView implements ILobbyView {
 

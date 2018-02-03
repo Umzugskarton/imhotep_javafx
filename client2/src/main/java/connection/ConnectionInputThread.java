@@ -2,11 +2,12 @@ package connection;
 
 import com.google.common.eventbus.EventBus;
 import events.Event;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class ConnectionInputThread extends Thread {
 

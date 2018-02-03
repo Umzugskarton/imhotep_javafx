@@ -6,23 +6,19 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.BurialChamber;
-import game.board.Market;
-import game.board.Obelisks;
-import game.board.Pyramids;
-import game.board.Ship;
-import game.board.StoneSite;
-import game.board.Temple;
+import game.board.*;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
-import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import socket.ClientListener;
+
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
 
@@ -45,7 +41,7 @@ public class Game implements Runnable {
   private Temple temple;
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
-  private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+  private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "obelisks"};
 
   private ClientListener clientListener;
   private Move nextMove = null;
@@ -169,7 +165,10 @@ public class Game implements Runnable {
       }
       j++;
     }
+    ArrayList<CardType> cards = new ArrayList<>();
+    market.getActiveCards().forEach(card -> cards.add(card.getType()));
 
+    gameInfo.setCards(cards);
     gameInfo.setSiteString(siteString);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);

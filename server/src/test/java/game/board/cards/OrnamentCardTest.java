@@ -1,9 +1,9 @@
 package game.board.cards;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import requests.gamemoves.CardType;
 import org.junit.jupiter.api.Test;
+import requests.gamemoves.CardType;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrnamentCardTest {
 

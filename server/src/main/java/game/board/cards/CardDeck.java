@@ -1,9 +1,10 @@
 package game.board.cards;
 
+import requests.gamemoves.CardType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import requests.gamemoves.CardType;
 
 public class CardDeck {
 

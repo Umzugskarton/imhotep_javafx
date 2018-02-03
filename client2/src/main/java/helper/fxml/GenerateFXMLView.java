@@ -1,14 +1,15 @@
 package helper.fxml;
 
 import com.google.common.eventbus.EventBus;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import mvp.view.IView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class GenerateFXMLView {
 

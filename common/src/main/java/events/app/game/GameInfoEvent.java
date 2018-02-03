@@ -1,6 +1,9 @@
 package events.app.game;
 
+import requests.gamemoves.CardType;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameInfoEvent extends GameEvent {
 
@@ -12,6 +15,7 @@ public class GameInfoEvent extends GameEvent {
   private String[] siteString;
   private int turnTime;
   private int[] sitesAllocation;
+  private ArrayList<CardType> cards = new ArrayList<>();
 
   public void setMyId(int id) {
     this.myId = id;
@@ -43,6 +47,14 @@ public class GameInfoEvent extends GameEvent {
 
   public ArrayList<Integer> getStorages() {
     return storages;
+  }
+
+  public void setCards(List<CardType> type){
+    cards = (ArrayList<CardType>) type;
+  }
+
+  public List<CardType> getCards(){
+    return cards;
   }
 
   public int getRound() {

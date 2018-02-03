@@ -1,12 +1,11 @@
 package ui.app.game;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -14,9 +13,13 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
+import ui.app.game.board.sites.market.CardView;
 import ui.app.game.chat.ChatView;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.dialog.IDialogView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
 
@@ -105,6 +108,11 @@ public class GameView implements IGameView {
     this.subParentUI.getChildren().add(subParent);
   }
 
+  @Subscribe
+  private void showIViewInDialog(CardView view){
+    showDialog(view);
+  }
+
   @Override
   public INavigateableView getParentView() {
     //return AppView
@@ -134,7 +142,10 @@ public class GameView implements IGameView {
         dialogBackground.setVisible(true);
 
         dialog.getChildren().add(view.getRootParent());
-    }public void hideDialog(){
+    }
+
+    @FXML
+    public void hideDialog(){
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
         dialog.getChildren().clear();

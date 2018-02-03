@@ -2,12 +2,6 @@ package socket;
 
 import data.user.User;
 import events.Event;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +10,13 @@ import requests.gamemoves.Move;
 import socket.commands.Command;
 import socket.commands.CommandFactory;
 import socket.commands.Invoker;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Enthält alle wichtigen Objekte zur und über die Kommunikation mit dem dazugehörigen Client.

@@ -7,12 +7,13 @@ import events.app.lobby.JoinLobbyEvent;
 import events.app.lobby.LeaveLobbyEvent;
 import events.app.lobby.SetReadyToPlayEvent;
 import game.Game;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Lobby {
 

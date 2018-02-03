@@ -1,19 +1,16 @@
 package game.gameprocedures;
 
 import events.Event;
-import events.app.game.DockingShipError;
-import events.app.game.NotEnoughLoadError;
-import events.app.game.ShipAlreadyDockedError;
-import events.app.game.ShipDockedEvent;
-import events.app.game.SiteAlreadyDockedError;
+import events.app.game.*;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;
 import game.board.StoneSite;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteMove;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class VoyageToStoneSite implements Procedure {
   private VoyageToStoneSiteMove move;

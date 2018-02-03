@@ -8,10 +8,6 @@ import data.user.User;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -24,8 +20,16 @@ import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.sites.ISiteView;
-import ui.app.game.board.sites.defaultsites.DefaultSiteView;
+import ui.app.game.board.sites.defaultSites.DefaultSiteView;
+import ui.app.game.board.sites.market.MarketView;
 import ui.app.game.board.storage.StorageView;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 
 public class BoardView implements IBoardView {
 
@@ -66,6 +70,21 @@ public class BoardView implements IBoardView {
   private Pane berth3;
 
   @FXML
+  private Pane marketPier;
+
+  @FXML
+  private Pane burialChamberPier;
+
+  @FXML
+  private Pane templePier;
+
+  @FXML
+  private Pane obelisksPier;
+
+  @FXML
+  private Pane pyramidsPier;
+
+  @FXML
   private GridPane stoneSiteGrid;
 
 
@@ -75,6 +94,8 @@ public class BoardView implements IBoardView {
   private final ArrayList<StorageView> storageViews = new ArrayList<>();
   private final ArrayList<ShipView> shipViews = new ArrayList<>();
   private final ArrayList<ISiteView> siteViews = new ArrayList<>();
+  private MarketView marketView;
+  private HashMap<String, Pane> piers = new HashMap<>();
 
   private final User user;
   private CommonLobby lobby;
@@ -90,11 +111,17 @@ public class BoardView implements IBoardView {
     this.connection = connection;
     this.user = user;
     this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
-
-
-
+    initPiers();
     bind();
     initOwnView();
+  }
+
+  public void initPiers() {
+    piers.put("Market", marketPier);
+    piers.put("obelisks", obelisksPier);
+    piers.put("Pyramids", pyramidsPier);
+    piers.put("Temple", templePier);
+    piers.put("BurialChamber", burialChamberPier);
   }
 
   private void bind(){
@@ -111,8 +138,10 @@ public class BoardView implements IBoardView {
       storageGridPane.add(storageView.getRootParent(),  0, i);
     }
 
-    String[] sitesString = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
-    int i = 0;
+    String[] sitesString = {"Pyramids", "Temple", "BurialChamber", "obelisks"};
+    this.marketView =  new MarketView(this, eventBus, connection);
+    stoneSiteGrid.add(marketView.getRootParent(), 0, 0);
+    int i = 1;
     for (String site : sitesString){
       DefaultSiteView siteView = new DefaultSiteView(this, eventBus, connection,site,lobby);
       siteViews.add(siteView);
@@ -121,6 +150,15 @@ public class BoardView implements IBoardView {
     }
   }
 
+  public Pane getPierByName(String name) {
+    return piers.get(name);
+  }
+
+  public AnchorPane removeShipPaneById(int id) {
+    AnchorPane ship = (AnchorPane) getBerths().get(id).getChildren().get(0);
+    getBerths().get(id).getChildren().remove(0);
+    return ship;
+  }
 
   public void setShips(ArrayList<int[]> ships){
     for (int i = 0; i < ships.size(); i++){

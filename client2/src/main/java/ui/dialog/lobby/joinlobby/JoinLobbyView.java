@@ -2,12 +2,10 @@ package ui.dialog.lobby.joinlobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

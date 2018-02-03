@@ -2,11 +2,12 @@ package socket.commands;
 
 import data.user.User;
 import events.app.lobby.ChangeLobbyUserColorEvent;
-import java.util.ArrayList;
 import lobby.Lobby;
 import requests.ChangeColorRequest;
 import requests.IRequest;
 import socket.ClientListener;
+
+import java.util.ArrayList;
 
 public class ChangeColorCommand implements Command {
 

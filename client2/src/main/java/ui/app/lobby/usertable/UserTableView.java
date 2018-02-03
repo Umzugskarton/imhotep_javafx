@@ -6,8 +6,6 @@ import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +23,9 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import mvp.view.INavigateableView;
 import ui.app.lobby.chat.ChatView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class UserTableView implements IUserTableView {
 

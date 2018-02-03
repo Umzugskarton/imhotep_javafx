@@ -152,7 +152,7 @@ public class BoardViewImplFx {
 
   public void initPiers() {
     piers.put("Market", marketPier);
-    piers.put("Obelisks", obelisksPier);
+    piers.put("obelisks", obelisksPier);
     piers.put("Pyramids", pyramidsPier);
     piers.put("Temple", templePier);
     piers.put("BurialChamber", burialChamberPier);

@@ -2,14 +2,13 @@ package main;
 
 import com.google.common.eventbus.Subscribe;
 import data.lobby.CommonLobby;
+import events.app.chat.ChatInfoEvent;
+import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
 import events.app.game.*;
-import events.app.main.UserListEvent;
 import events.app.lobby.*;
+import events.app.main.UserListEvent;
 import events.app.profil.ChangeProfilDataEvent;
-import events.app.chat.ChatMessageEvent;
-import events.app.chat.ChatInfoEvent;
-import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import events.start.registration.RegistrationEvent;

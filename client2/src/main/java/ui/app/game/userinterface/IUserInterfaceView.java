@@ -1,11 +1,12 @@
 package ui.app.game.userinterface;
 
-import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.IView;
+
+import java.util.ArrayList;
 
 public interface IUserInterfaceView extends IView {
 

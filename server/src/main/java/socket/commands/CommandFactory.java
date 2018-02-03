@@ -1,11 +1,12 @@
 package socket.commands;
 
-import java.util.EnumMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.IRequest;
 import requests.RequestType;
 import socket.ClientListener;
+
+import java.util.EnumMap;
 
 public class CommandFactory {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());

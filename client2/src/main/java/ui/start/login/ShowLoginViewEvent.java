@@ -1,7 +1,8 @@
 package ui.start.login;
 
-import java.util.Date;
 import mvp.view.ShowViewEvent;
+
+import java.util.Date;
 
 public class ShowLoginViewEvent extends ShowViewEvent {
 

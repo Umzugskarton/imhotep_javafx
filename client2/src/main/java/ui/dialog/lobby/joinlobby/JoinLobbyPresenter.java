@@ -2,9 +2,7 @@ package ui.dialog.lobby.joinlobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import data.lobby.CommonLobby;
 import mvp.presenter.Presenter;
-import requests.CreateRequest;
 import requests.JoinRequest;
 import ui.app.main.lobbylist.LobbyTableData;
 

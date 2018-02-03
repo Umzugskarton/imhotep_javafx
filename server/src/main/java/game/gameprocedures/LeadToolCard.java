@@ -5,15 +5,12 @@ import events.app.game.CardNotInPossessionError;
 import events.app.game.ToolCardEvent;
 import game.Game;
 import game.board.cards.ToolCard;
-import game.gameprocedures.toolcardprotocols.ChiselProtocol;
-import game.gameprocedures.toolcardprotocols.HammerProtocol;
-import game.gameprocedures.toolcardprotocols.IProtocol;
-import game.gameprocedures.toolcardprotocols.LeverProtocol;
-import game.gameprocedures.toolcardprotocols.SailProtocol;
-import java.util.EnumMap;
+import game.gameprocedures.toolcardprotocols.*;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import requests.gamemoves.ToolCardMove;
+
+import java.util.EnumMap;
 
 public class LeadToolCard implements Procedure {
 

@@ -7,13 +7,14 @@ import data.user.User;
 import events.app.chat.ChatInfoEvent;
 import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.scene.paint.Color;
 import mvp.presenter.Presenter;
 import requests.ChatRequest;
 import requests.IRequest;
 import requests.WhisperRequest;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatPresenter extends Presenter<IChatView> {
 
