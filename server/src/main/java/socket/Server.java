@@ -48,11 +48,8 @@ public class Server {
   public void sendToLobby(Event e, Lobby lobby) {
     log.debug("SendToLobby " + lobby.getName());
     Arrays.asList(lobby.getUsers()).forEach(user -> {
-      if (user != null) {
-        log.debug("Trying to send for: " +
-                user.getUsername());
+      if (user != null)
         sendTo(e, user.getUsername());
-      }
     });
   }
 
@@ -111,7 +108,6 @@ public class Server {
     }
     if (toClient != null) {
       found = true;
-      log.debug("SendTo " + toClient.getUser().getUsername());
       toClient.send(event);
     }
     return found;

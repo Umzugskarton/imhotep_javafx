@@ -47,7 +47,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
 
     public void updateLobby(CommonLobby lobby) {
         this.lobby  = lobby;
-        getView().updateTable();
+        view.updateTable();
     }
 
     public void setLobby(CommonLobby lobby) {

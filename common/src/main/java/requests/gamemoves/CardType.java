@@ -1,8 +1,6 @@
 package requests.gamemoves;
 
-import java.io.Serializable;
-
-public enum CardType implements Serializable{
+public enum CardType {
   CHISEL,
   LEVER,
   HAMMER,
