@@ -1,15 +1,15 @@
 package ui.app.game.chat;
 
-import javafx.scene.control.TextField;
-import javafx.scene.text.TextFlow;
-import mvp.view.INavigateableSubView;
+import javafx.scene.paint.Color;
 import mvp.view.IView;
 
 public interface IChatView extends IView {
 
-  TextFlow getChatText();
+  void addChatMessage(String user, String msg);
 
-  TextField getMessageInput();
+  void addInfoMessage(String msg, Color color);
+
+  void addWhisper(String user, String msg, boolean isClientReceiver);
 
   void clearForm();
 }

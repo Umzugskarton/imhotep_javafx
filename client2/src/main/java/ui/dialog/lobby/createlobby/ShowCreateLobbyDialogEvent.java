@@ -1,4 +1,4 @@
-package ui.dialog.createlobby;
+package ui.dialog.lobby.createlobby;
 
 
 import ui.dialog.ShowDialogEvent;

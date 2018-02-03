@@ -1,11 +1,11 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.SetReadyRequest;
+import data.user.User;
 import events.app.lobby.SetReadyToPlayEvent;
 import lobby.Lobby;
+import requests.IRequest;
+import requests.SetReadyRequest;
 import socket.ClientListener;
-import data.user.User;
 
 public class SetReadyCommand implements Command {
 

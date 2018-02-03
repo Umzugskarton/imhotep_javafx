@@ -10,14 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import mvp.view.IView;
-import ui.app.game.board.sites.market.CardView;
-import ui.dialog.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
-import ui.app.game.userinterface.UserInterfaceView;
+import ui.app.game.board.sites.market.CardView;
 import ui.app.game.chat.ChatView;
+import ui.app.game.userinterface.UserInterfaceView;
+import ui.dialog.IDialogView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -68,7 +67,7 @@ public class GameView implements IGameView {
     this.eventBus = eventBus;
     this.lobby = lobby;
     this.user = user;
-    this.mainPresenter = new GamePresenter(this, eventBus, connection, user);
+    this.mainPresenter = new GamePresenter(this, eventBus, connection, lobby, user);
     bind();
     initOwnView();
   }
@@ -85,7 +84,7 @@ public class GameView implements IGameView {
 
   @FXML
   void initialize() {
-    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), user);
+    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), this.lobby, user);
     this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
     this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
 

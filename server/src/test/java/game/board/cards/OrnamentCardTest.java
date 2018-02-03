@@ -1,18 +1,18 @@
 package game.board.cards;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import requests.gamemoves.CardType.Type;
 import org.junit.jupiter.api.Test;
+import requests.gamemoves.CardType;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrnamentCardTest {
 
   @Test
   void calc() {
-    OrnamentCard ocp = new OrnamentCard(Type.PYRAMID);
-    OrnamentCard oct = new OrnamentCard(Type.TEMPLE);
-    OrnamentCard ocb = new OrnamentCard(Type.BURIALCHAMBER);
-    OrnamentCard oco = new OrnamentCard(Type.OBELISK);
+    OrnamentCard ocp = new OrnamentCard(CardType.PYRAMID);
+    OrnamentCard oct = new OrnamentCard(CardType.TEMPLE);
+    OrnamentCard ocb = new OrnamentCard(CardType.BURIALCHAMBER);
+    OrnamentCard oco = new OrnamentCard(CardType.OBELISK);
 
     int[] arr = {13, 0, 4, 21};
     int pp = ocp.calc(arr);

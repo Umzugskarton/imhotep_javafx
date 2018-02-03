@@ -23,6 +23,10 @@ public class LobbyPresenter extends Presenter<ILobbyView> {
     return this.connection;
   }
 
+  public CommonLobby getLobby() {
+    return lobby;
+  }
+
   public void logout() {
     //getClientSocket().send(new LogoutRequest());
     //TODO Überlegen wie das umgesetzt werden soll

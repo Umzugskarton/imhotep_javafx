@@ -1,24 +1,24 @@
 package ui.app.game.userinterface;
 
 
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipLoadedEvent;
-import events.app.game.TurnEvent;
-import javafx.scene.control.ComboBox;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
-import requests.gamemoves.VoyageToStoneSiteMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
+import events.app.game.TurnEvent;
 import javafx.application.Platform;
+import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.LoadUpShipMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,6 @@ package ui.dialog.serversetting;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
-import ui.dialog.DialogView;
 
 public class ServerSettingsPopupView {
 

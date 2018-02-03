@@ -1,14 +1,14 @@
 package socket.commands;
 
+import data.user.User;
+import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import requests.IRequest;
 import requests.LoginRequest;
-import events.start.login.LoginEvent;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
-import data.user.User;
 
 public class LoginCommand implements Command {
 
@@ -30,16 +30,15 @@ public class LoginCommand implements Command {
   public void exec() {
     LoginEvent response = this.clientListener.getClientAPI()
         .login(request, this.server.getLoggedUsers().getUserList());
-
     if (response.getSuccess()) {
       User user = this.clientAPI.getUser(request.getUsername());
       this.clientListener.setUser(user);
-      response.setUsername(user.getUsername());
-      response.setEmail(user.getEmail());
       this.clientListener.send(new LoginSuccessfulEvent(user));
       this.server.sendToLoggedIn(this.server.getLoggedUsers());
+      //LobbylistCommand command = new LobbylistCommand(this.clientListener);
+      //command.exec();
     } else {
-      this.clientListener.send(new LoginFailedEvent(response.getMsg()));
+      this.clientListener.send(new LoginFailedEvent(response.getReason()));
     }
   }
 }

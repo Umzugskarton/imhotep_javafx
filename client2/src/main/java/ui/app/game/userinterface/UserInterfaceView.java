@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.ShowViewEvent;
 import ui.app.game.IGameView;
 
 import java.util.ArrayList;

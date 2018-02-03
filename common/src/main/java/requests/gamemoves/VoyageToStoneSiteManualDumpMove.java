@@ -1,7 +1,10 @@
 package requests.gamemoves;
 
 
+import requests.RequestType;
+
 public class VoyageToStoneSiteManualDumpMove implements Move  {
+  private RequestType move = RequestType.VOYAGE_TO_STONE_SITE_MANUAL_DUMP;
   private int shipId;
   private String stonesite;
   private int[] dumpOrder;
@@ -30,7 +33,7 @@ public class VoyageToStoneSiteManualDumpMove implements Move  {
   }
 
   @Override
-  public String getType() {
-    return "voyageToStoneSiteManualDump";
+  public RequestType getType() {
+    return this.move;
   }
 }

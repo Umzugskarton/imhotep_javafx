@@ -1,16 +1,11 @@
 package events.start.login;
 
 import events.Event;
+import events.EventReason;
 
 public class LoginFailedEvent extends Event {
 
-    private final String reason;
-
-    public LoginFailedEvent(String reason) {
-        this.reason = reason;
-    }
-
-    public String getReason() {
-        return reason;
+    public LoginFailedEvent(EventReason reason) {
+        this.setReason(reason);
     }
 }

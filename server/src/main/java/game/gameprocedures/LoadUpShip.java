@@ -1,14 +1,14 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
+import events.Event;
 import events.app.game.AlreadyAllocatedError;
 import events.app.game.ShipLoadedEvent;
-import requests.gamemoves.Move;
-import requests.gamemoves.LoadUpShipMove;
-import events.Event;
 import game.Game;
 import game.Player;
 import game.board.Ship;
 import game.board.Stone;
+import requests.gamemoves.LoadUpShipMove;
+import requests.gamemoves.Move;
 
 public class LoadUpShip implements Procedure {
 

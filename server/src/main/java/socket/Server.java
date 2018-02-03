@@ -1,21 +1,21 @@
 package socket;
 
+import data.lobby.CommonLobby;
+import data.user.User;
+import events.Event;
+import events.app.lobby.CreateLobbyEvent;
+import events.app.lobby.LobbyListEvent;
+import events.app.main.UserListEvent;
+import lobby.Lobby;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import data.lobby.CommonLobby;
-import events.Event;
-import events.app.main.UserListEvent;
-import events.app.lobby.CreateLobbyEvent;
-import events.app.lobby.LobbyListEvent;
-import lobby.Lobby;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import data.user.User;
 
 public class Server {
 
@@ -48,6 +48,7 @@ public class Server {
     User[] users = lobby.getUsers();
     for (User tempUser : users) {
       if (tempUser != null) {
+        log.debug("SendToLobby " + tempUser.getUsername());
         sendTo(e, tempUser.getUsername());
       }
     }
@@ -65,7 +66,7 @@ public class Server {
     }
   }
 
-  private void addClient(Socket clientSocket) {
+  private synchronized void addClient(Socket clientSocket) {
     ObjectOutputStream os;
     ObjectInputStream is;
     ClientListener clientListener = null;
@@ -84,7 +85,7 @@ public class Server {
     this.connectedClients.add(clientListener);
   }
 
-  public void removeClient(ClientListener clientListener) {
+  public synchronized void removeClient(ClientListener clientListener) {
     log.info("[Thread " + clientListener.getThread().getId()
         + "] Client hat die Verbindung beendet");
     this.connectedClients.remove(clientListener);
@@ -92,6 +93,7 @@ public class Server {
 
   public void sendToAll(Event event) {
     for (ClientListener clientListener : connectedClients) {
+      log.debug("SendToAll " + clientListener.getUser().getUsername());
       clientListener.send(event);
     }
   }
@@ -107,16 +109,17 @@ public class Server {
     }
     if (toClient != null) {
       found = true;
+      log.debug("SendTo " + toClient.getUser().getUsername());
       toClient.send(event);
     }
     return found;
   }
 
-  public CreateLobbyEvent addLobby(Lobby lobby) {
+  public synchronized CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size() - 1);
-    return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
+    lobby.setLobbyID(openLobby.size());
+    return new CreateLobbyEvent(true, openLobby.size(), "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {
@@ -154,6 +157,7 @@ public class Server {
   public void sendToLoggedIn(Event event) {
     for (ClientListener clientListener : connectedClients) {
       if (clientListener.isLoggedIn()) {
+        log.debug("SendToLoggedIn " + clientListener.getUser().getUsername());
         clientListener.send(event);
       }
     }

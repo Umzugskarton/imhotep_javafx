@@ -1,7 +1,6 @@
 package ui.app.game.board.sites.market;
 
 import com.google.common.eventbus.EventBus;
-import connection.Connection;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -11,6 +10,7 @@ import javafx.scene.layout.Pane;
 import mvp.view.IView;
 import requests.gamemoves.CardType;
 import ui.dialog.IDialogView;
+
 import static languageSupport.TextBundle.getString;
 
 public class CardView implements IDialogView{
@@ -29,7 +29,7 @@ public class CardView implements IDialogView{
   private final IView parentView;
   private final EventBus eventBus;
 
-  private CardType.Type type;
+  private CardType type;
 
   // Own Parent
   private Parent myParent;
@@ -46,7 +46,7 @@ public class CardView implements IDialogView{
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/CardView.fxml", this, eventBus);
   }
 
-  void setCardType(CardType.Type type){
+  void setCardType(CardType type){
     this.type = type;
     cardBack.setId(getType(type));
     cardClass.setText(getTypeClass());
@@ -59,7 +59,7 @@ public class CardView implements IDialogView{
     return myParent;
   }
 
-  String getType(CardType.Type type){
+  String getType(CardType type){
     switch (type){
       case SAIL:
       case LEVER:

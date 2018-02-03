@@ -1,7 +1,9 @@
 package requests.gamemoves;
 
+import requests.RequestType;
+
 public class LoadUpShipMove implements Move{
-  private String move = "LoadUpShip";
+  private RequestType type = RequestType.LOAD_UP_SHIP;
   private int shipId;
   private int position;
   private int lobbyId;
@@ -28,13 +30,8 @@ public class LoadUpShipMove implements Move{
     this.position = position;
   }
 
-  public void setShipId(int shipId) {
-    this.shipId = shipId;
-  }
-
   @Override
-  public String getType() {
-    return move;
+  public RequestType getType() {
+    return type;
   }
-
 }

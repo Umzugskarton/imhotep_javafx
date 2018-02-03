@@ -4,7 +4,6 @@ import connection.Connection;
 import data.user.User;
 import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
-
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -78,5 +77,7 @@ public class ClientApp extends Application {
     setContent(this.appView.getRootParent());
 
     this.stageLayout.setWindowSize(1300, 900);
+    this.primaryStage.setX(100);
+    this.primaryStage.setY(100);
   }
 }

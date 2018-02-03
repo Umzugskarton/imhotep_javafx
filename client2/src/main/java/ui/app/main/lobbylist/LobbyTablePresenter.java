@@ -17,7 +17,7 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
 
     private final Connection connection;
     private User user;
-    private ObservableList<CommonLobby> lobbys = FXCollections.observableArrayList();
+    private ObservableList<LobbyTableData> lobbys = FXCollections.observableArrayList();
 
 
     public LobbyTablePresenter(ILobbyTableView view, EventBus eventBus, Connection connection, User user) {
@@ -35,7 +35,13 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
         this.lobbys.clear();
 
         for (CommonLobby lobby: lobbys){
-            this.lobbys.add(lobby);
+            LobbyTableData lobbyTableData = new LobbyTableData(
+                    lobby.getLobbyId(),
+                    lobby.getName(),
+                    lobby.getUsercount(),
+                    lobby.getSize());
+
+            this.lobbys.add(lobbyTableData);
         }
 
     }
@@ -45,7 +51,7 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
         this.connection.send(join);
     }
 
-    public ObservableList<CommonLobby> getLobbyList() {
+    public ObservableList<LobbyTableData> getLobbyList() {
         return this.lobbys;
     }
 

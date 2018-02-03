@@ -68,7 +68,7 @@ public class UserTableView implements IUserTableView {
     void handleListViewClick(MouseEvent click){
         if (click.getClickCount() == 2) {
             String selectedUser = (String) userTableView.getSelectionModel().getSelectedItem();
-            TextField messageInput = chatView.getMessageInput();
+            TextField messageInput = chatView.getChatTextField();
             messageInput.setText("@" + selectedUser + " ");
             messageInput.requestFocus();
             messageInput.end();

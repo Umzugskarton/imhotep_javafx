@@ -15,7 +15,7 @@ public class GameInfoEvent extends GameEvent {
   private String[] siteString;
   private int turnTime;
   private int[] sitesAllocation;
-  private ArrayList<CardType.Type> cards = new ArrayList<>();
+  private ArrayList<CardType> cards = new ArrayList<>();
 
   public void setMyId(int id) {
     this.myId = id;
@@ -49,11 +49,11 @@ public class GameInfoEvent extends GameEvent {
     return storages;
   }
 
-  public void setCards(List<CardType.Type> type){
-    cards = (ArrayList<CardType.Type>) type;
+  public void setCards(List<CardType> type){
+    cards = (ArrayList<CardType>) type;
   }
 
-  public List<CardType.Type> getCards(){
+  public List<CardType> getCards(){
     return cards;
   }
 

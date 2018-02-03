@@ -9,10 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ui.dialog.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
+import ui.dialog.IDialogView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,7 +78,7 @@ public class LobbyView implements ILobbyView {
 
   @FXML
   void initialize() {
-    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), user);
+    this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), mainPresenter.getLobby(), user);
     //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
     //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
 

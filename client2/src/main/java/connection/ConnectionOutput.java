@@ -3,7 +3,6 @@ package connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.IRequest;
-import requests.Request;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

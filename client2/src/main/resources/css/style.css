@@ -216,3 +216,23 @@
 #red{
   -fx-background-color: darkred;
 }
+
+/* Allgemeiner .table-view Code */
+
+.table-view:focused{
+  -fx-background-color: transparent;
+}
+
+
+.table-view .column-header, .table-view .filler {
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%);
+}
+
+.table-view .column-header-background .label{
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%);
+  -fx-text-fill: #f4c933;
+}
+
+.table-view .column-header {
+  -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%);
+}

@@ -1,8 +1,8 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.ChangeCredentialRequest;
 import events.app.profil.ChangeProfilDataEvent;
+import requests.ChangeCredentialRequest;
+import requests.IRequest;
 import socket.ClientAPI;
 import socket.ClientListener;
 

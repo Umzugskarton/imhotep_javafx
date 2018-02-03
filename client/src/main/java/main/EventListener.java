@@ -2,14 +2,15 @@ package main;
 
 import com.google.common.eventbus.Subscribe;
 import data.lobby.CommonLobby;
+import events.app.chat.ChatInfoEvent;
+import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
 import events.app.game.*;
-import events.app.main.UserListEvent;
 import events.app.lobby.*;
+import events.app.main.UserListEvent;
 import events.app.profil.ChangeProfilDataEvent;
-import events.app.chat.ChatMessageEvent;
-import events.app.chat.ChatInfoEvent;
-import events.start.login.LoginEvent;
+import events.start.login.LoginFailedEvent;
+import events.start.login.LoginSuccessfulEvent;
 import events.start.registration.RegistrationEvent;
 import javafx.application.Platform;
 
@@ -22,17 +23,24 @@ public class EventListener {
     }
 
     @Subscribe
-    public void loginEventListener(LoginEvent e) {
+    public void loginEventListener(LoginSuccessfulEvent e) {
         Platform.runLater(
                 () -> {
-                    this.sceneController.getLoginPresenter().processLoginResponse(e.getSuccess(), e.getMsg());
-                    if (e.getSuccess()) {
+                    this.sceneController.getLoginPresenter().processLoginResponse(true, "");
                         this.sceneController.getMainmenuPresenter().getProfilePresenter()
-                                .updateUsernameLabel(e.getUsername());
+                                .updateUsernameLabel(e.getUser().getUsername());
                         this.sceneController.getMainmenuPresenter().getProfilePresenter()
-                                .updateEmailLabel(e.getEmail());
-                        this.sceneController.getMainmenuPresenter().setUsername(e.getUsername());
-                    }
+                                .updateEmailLabel(e.getUser().getEmail());
+                        this.sceneController.getMainmenuPresenter().setUsername(e.getUser().getUsername());
+                }
+        );
+    }
+
+    @Subscribe
+    public void loginEventListener(LoginFailedEvent e) {
+        Platform.runLater(
+                () -> {
+                    this.sceneController.getLoginPresenter().processLoginResponse(false, e.getReason().toString());
                 }
         );
     }

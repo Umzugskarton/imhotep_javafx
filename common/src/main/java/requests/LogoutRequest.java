@@ -2,7 +2,7 @@ package requests;
 
 public class LogoutRequest extends Request {
 
-  private String request = "logout";
+  private RequestType request = RequestType.LOGOUT;
 
   public LogoutRequest() {
   }
@@ -11,7 +11,8 @@ public class LogoutRequest extends Request {
     super(lobbyId);
   }
 
-  public String getType() {
+  @Override
+  public RequestType getType() {
     return this.request;
   }
 

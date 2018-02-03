@@ -3,6 +3,7 @@ package database;
 import database.jdbc.JDBC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,14 +20,14 @@ public abstract class DBHelper {
     private String jdbcDriver = jdbc.getJdbcDriver();
     // URL zur DB
     private String jdbcUrlPrefix = jdbc.getJdbcUrlPrefix();
-    private final String dbUrl = "duemmer.informatik.uni-oldenburg.de";
-    private final String dbPort = ":47099";
-    private final String dbTable = "/db_test";
-    private final String db = jdbcUrlPrefix + dbUrl + dbPort + dbTable;
+    private static final String DATABASE_URL = "duemmer.informatik.uni-oldenburg.de";
+    private static final String DATABASE_PORT = ":47099";
+    private static final String DATABASE_TABLE = "/db_test";
+    private final String db = jdbcUrlPrefix + DATABASE_URL + DATABASE_PORT + DATABASE_TABLE;
 
     //  DB-Daten
-    private final String username = "safariman";
-    private final String password = "blablabla";
+    private static final String USERNAME = "safariman";
+    private static final String PASSWORD = "blablabla";
 
     public DBHelper(){
         try {
@@ -51,7 +52,7 @@ public abstract class DBHelper {
 
     public Connection getConnection(){
         try {
-            this.conn = DriverManager.getConnection(db, username, password);
+            this.conn = DriverManager.getConnection(db, USERNAME, PASSWORD);
             if (this.onConnection()) {
                 log.info("Verbindung zur DB wurde erfolgreich hergestellt");
                 return this.conn;
@@ -81,6 +82,5 @@ public abstract class DBHelper {
 
     //TODO Für später. Wenn Tabelen noch nicht angelegt sind.
     //public abstract void onCreate(JDBC db);
-
 
 }

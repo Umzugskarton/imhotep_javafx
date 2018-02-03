@@ -1,11 +1,11 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.ChangeColorRequest;
+import data.user.User;
 import events.app.lobby.ChangeLobbyUserColorEvent;
 import lobby.Lobby;
+import requests.ChangeColorRequest;
+import requests.IRequest;
 import socket.ClientListener;
-import data.user.User;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,11 @@
 package ui.app.game.board.ship;
 
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipLoadedEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;

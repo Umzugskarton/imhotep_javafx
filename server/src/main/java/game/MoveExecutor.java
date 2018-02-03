@@ -1,8 +1,8 @@
 package game;
 
-import requests.gamemoves.Move;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.gamemoves.Move;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;

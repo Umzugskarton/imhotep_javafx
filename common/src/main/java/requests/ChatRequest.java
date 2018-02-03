@@ -3,7 +3,7 @@ package requests;
 
 public class ChatRequest implements IRequest {
 
-  private String request = "chat";
+  private RequestType request = RequestType.CHAT;
   private Integer lobbyId;
   private String msg;
 
@@ -27,7 +27,7 @@ public class ChatRequest implements IRequest {
     return this.msg;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 }

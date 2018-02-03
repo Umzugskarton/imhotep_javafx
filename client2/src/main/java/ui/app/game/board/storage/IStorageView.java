@@ -1,6 +1,5 @@
 package ui.app.game.board.storage;
 
-
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import mvp.view.IView;

@@ -1,14 +1,14 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.LeaveLobbyRequest;
+import data.lobby.CommonLobby;
+import data.user.User;
 import events.app.lobby.LeaveLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
-import data.lobby.CommonLobby;
 import lobby.Lobby;
+import requests.IRequest;
+import requests.LeaveLobbyRequest;
 import socket.ClientListener;
 import socket.Server;
-import data.user.User;
 
 public class LeaveLobbyCommand implements Command {
 

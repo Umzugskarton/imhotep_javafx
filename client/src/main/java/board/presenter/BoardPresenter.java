@@ -1,24 +1,10 @@
 package board.presenter;
 
-import events.app.game.FillUpStorageEvent;
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipDockedEvent;
-import events.app.game.ShipLoadedEvent;
-import events.app.game.TurnEvent;
-import events.app.game.UpdatePointsEvent;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
-import requests.gamemoves.VoyageToStoneSiteMove;
 import board.model.TurnTimerThread;
-import board.view.BoardViewImplFx;
-import board.view.BurialChamberViewImplFx;
-import board.view.ObelisksViewImplFx;
-import board.view.PyramidViemImplFx;
-import board.view.ShipViewImplFx;
-import board.view.StorageViewImplFx;
-import board.view.TempleViewImplFx;
+import board.view.*;
 import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
+import events.app.game.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +18,9 @@ import javafx.scene.text.FontWeight;
 import main.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.LoadUpShipMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,7 +128,7 @@ public class BoardPresenter {
 
   // Moves
   public void sendFillUpStorageMove() {
-    FillUpStorageMove fillUpStorageMove = new FillUpStorageMove();
+    FillUpStorageMove fillUpStorageMove = new FillUpStorageMove(this.lobby.getLobbyId());
     this.sc.getClientSocket().send(fillUpStorageMove);
   }
 
@@ -285,7 +274,7 @@ public class BoardPresenter {
   public void newTurn(TurnEvent e) {
     // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
     this.toggleUserInterface(e.isMyTurn());
-    Color userColor = Color.web(lobby.getUserbyName(e.getUsername()).getColor(), 0.75F);
+    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
 
     this.view.getCurrentPlayerLabel().setText(e.getUsername());
     this.changeBgGradient(userColor);

@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.TextFlow?>
-
-<VBox id="chatroot" fx:id="rootParent" onKeyPressed="#handleKeyPressed" prefHeight="196.0" prefWidth="430.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="chatroot" fx:id="rootParent" onKeyPressed="#handleKeyPressed" focusTraversable="false" prefHeight="196.0" prefWidth="500.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ScrollPane hbarPolicy="NEVER" prefHeight="93.0" prefWidth="348.0">
             <content>

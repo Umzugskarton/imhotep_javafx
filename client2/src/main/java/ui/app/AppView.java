@@ -8,19 +8,24 @@ import data.user.User;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.*;
-import ui.dialog.IDialogView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
+import requests.LeaveLobbyRequest;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
-import ui.layout.StageLayout;
 import ui.dialog.DialogView;
+import ui.dialog.IDialogView;
+import ui.layout.StageLayout;
 import ui.start.ShowStartViewEvent;
 
 import java.net.URL;
@@ -36,7 +41,7 @@ public class AppView implements IAppView {
   private URL location;
 
   @FXML
-  private BorderPane appViewRoot;
+  private AnchorPane appViewRoot;
 
   @FXML
   private Pane dialogBackground;
@@ -103,10 +108,18 @@ public class AppView implements IAppView {
 
   public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
     Tab tab = new Tab();
-    tab.setText("Lobby " + lobby.getName());
+    tab.setText("Lobby #" + lobby.getLobbyId());
     tab.setContent(lobbyView.getRootParent());
-    tab.setId("Lobby " + lobby.getLobbyId());
+    tab.setId("lobbyTab");
     lobby.setMyTab(tab);
+
+    tab.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
+      }
+    });
+
     return this.appViewMainTabPane.getTabs().add(tab);
   }
 
@@ -156,7 +169,7 @@ public class AppView implements IAppView {
 
     GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
-    tab.setText("Game " + lobby.getName());
+    tab.setText("Game #" + lobby.getLobbyId());
     tab.setContent(gameView.getRootParent());
     tab.setId("gameTab");
     gameViews.add(gameView);

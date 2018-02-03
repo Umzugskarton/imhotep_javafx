@@ -7,11 +7,9 @@ import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipDockedEvent;
-import events.app.game.ShipLoadedEvent;
 import events.app.game.UpdatePointsEvent;
 import javafx.application.Platform;
 import mvp.presenter.Presenter;
-import ui.app.game.board.sites.ISitePresenter;
 
 public class BoardPresenter extends Presenter<IBoardView> {
   private final Connection connection;

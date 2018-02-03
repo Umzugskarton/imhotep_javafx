@@ -2,7 +2,7 @@ package requests;
 
 public class StartGameRequest extends Request {
 
-  private String request = "startGame";
+  private RequestType request = RequestType.START_GAME;
 
   public StartGameRequest() {
   }
@@ -11,7 +11,7 @@ public class StartGameRequest extends Request {
     super(lobbyId);
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

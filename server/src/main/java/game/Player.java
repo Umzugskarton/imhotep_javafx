@@ -1,7 +1,7 @@
 package game;
 
-import game.board.SupplySled;
 import data.user.User;
+import game.board.SupplySled;
 
 /**
  * Repräsentiert einen Spieler. Enthält seine Punktanzahl, seine aktuellen Karten und seine Steine.

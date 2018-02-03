@@ -1,8 +1,8 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.ChatRequest;
 import events.app.chat.ChatMessageEvent;
+import requests.ChatRequest;
+import requests.IRequest;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;

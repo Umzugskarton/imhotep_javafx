@@ -2,7 +2,7 @@ package requests;
 
 public class RegisterRequest implements IRequest {
 
-  private String request = "register";
+  private RequestType request = RequestType.REGISTER;
   private String username;
   private String pw;
   private String email;
@@ -13,7 +13,7 @@ public class RegisterRequest implements IRequest {
     this.email = email;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

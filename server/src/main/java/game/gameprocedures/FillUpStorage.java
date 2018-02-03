@@ -1,9 +1,9 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
 import events.app.game.FillUpStorageEvent;
-import requests.gamemoves.Move;
-import requests.gamemoves.FillUpStorageMove;
 import game.Game;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.Move;
 
 public class FillUpStorage implements Procedure {
 

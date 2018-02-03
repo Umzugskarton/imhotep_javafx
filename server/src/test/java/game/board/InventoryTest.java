@@ -1,11 +1,11 @@
 package game.board;
 
-import requests.gamemoves.CardType.Type;
 import game.Inventory;
 import game.board.cards.OrnamentCard;
 import game.board.cards.StatueCard;
 import game.board.cards.ToolCard;
 import org.junit.jupiter.api.Test;
+import requests.gamemoves.CardType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,8 +15,8 @@ class InventoryTest {
   void ownsCardTest() {
     Inventory inventory = new Inventory();
 
-    Type cardO = Type.TEMPLE;
-    Type cardT = Type.LEVER;
+    CardType cardO = CardType.TEMPLE;
+    CardType cardT = CardType.LEVER;
 
     OrnamentCard card1 = new OrnamentCard(cardO);
     ToolCard card2 = new ToolCard(cardT);

@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
-import mvp.view.ShowViewEvent;
 import ui.app.main.chat.ChatView;
 
 import java.net.URL;
@@ -64,7 +63,7 @@ public class UserListView implements IUserListView {
     void handleListViewClick(MouseEvent click){
         if (click.getClickCount() == 2) {
             String selectedUser = (String) userListView.getSelectionModel().getSelectedItem();
-            TextField messageInput = chatView.getMessageInput();
+            TextField messageInput = chatView.getChatTextField();
             messageInput.setText("@" + selectedUser + " ");
             messageInput.requestFocus();
             messageInput.end();

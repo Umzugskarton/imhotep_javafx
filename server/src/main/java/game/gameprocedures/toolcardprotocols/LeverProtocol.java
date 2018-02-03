@@ -1,11 +1,11 @@
-package game.GameProcedures.ToolCardProtocols;
+package game.gameprocedures.toolcardprotocols;
 
 import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteManualDumpEvent;
-import requests.gamemoves.CardType.Type;
+import game.Game;
+import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
-import game.Game;
 
 public class LeverProtocol extends Protocol {
 
@@ -14,7 +14,7 @@ public class LeverProtocol extends Protocol {
   }
 
   public void exec() {
-    game.sendAll(new ToolCardEvent(Type.LEVER, playerId, true));
+    game.sendAll(new ToolCardEvent(CardType.LEVER, playerId, true));
     game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteManualDumpEvent());
     Move move = acquireMove();
     if (move instanceof VoyageToStoneSiteManualDumpMove) {

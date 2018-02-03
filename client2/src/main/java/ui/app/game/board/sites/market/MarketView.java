@@ -8,17 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import mvp.view.INavigateableSubView;
-import mvp.view.INavigateableView;
 import mvp.view.IView;
-import mvp.view.ShowViewEvent;
 import ui.dialog.IDialogView;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class MarketView implements IMarketView{
+public class MarketView implements IMarketView {
 
   @FXML
   private Pane cardPane;

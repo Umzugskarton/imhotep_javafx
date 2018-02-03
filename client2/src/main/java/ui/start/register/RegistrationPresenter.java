@@ -6,6 +6,7 @@ import connection.Connection;
 import events.start.registration.RegistrationEvent;
 import mvp.presenter.Presenter;
 import requests.RegisterRequest;
+import ui.app.ShowAppViewEvent;
 
 public class RegistrationPresenter extends Presenter<IRegistrationView> {
 
@@ -27,10 +28,12 @@ public class RegistrationPresenter extends Presenter<IRegistrationView> {
     }
   }
 
-
   @Subscribe
   public void onRegisterEvent(RegistrationEvent e) {
-    getView().updateStatusLabel(e.getMsg());
+    getView().updateStatusLabel(e.getReason().toString());
+    if(e.isSuccess()){
+      this.eventBus.post(new ShowAppViewEvent());
+    }
   }
 
   public void processRegisterResponse(String message) {

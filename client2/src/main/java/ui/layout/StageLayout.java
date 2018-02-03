@@ -2,8 +2,6 @@ package ui.layout;
 
 import com.google.common.eventbus.EventBus;
 import events.start.LogoutEvent;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

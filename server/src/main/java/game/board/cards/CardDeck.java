@@ -1,21 +1,23 @@
 package game.board.cards;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CardDeck {
 
   private ArrayList<Card> deck = new ArrayList<>();
-  private Type[] ornamentCards = {Type.PYRAMID, Type.TEMPLE, Type.BURIALCHAMBER, Type.OBELISK};
-  private Type[] locationCards = {Type.ENTRANCE, Type.SARCOPHAGUS, Type.PAVEDPATH};
-  private Type[] toolCards = {Type.LEVER, Type.SAIL, Type.HAMMER, Type.CHISEL};
+  private CardType[] ornamentCards = {CardType.PYRAMID, CardType.TEMPLE, CardType.BURIALCHAMBER, CardType.OBELISK};
+  private CardType[] locationCards = {CardType.ENTRANCE, CardType.SARCOPHAGUS, CardType.PAVEDPATH};
+  private CardType[] toolCards = {CardType.LEVER, CardType.SAIL, CardType.HAMMER, CardType.CHISEL};
 
   public CardDeck() {
     createCards();
   }
 
-  public ArrayList<Card> getDeck() {
+  public List<Card> getDeck() {
     return this.deck;
   }
 
@@ -25,18 +27,17 @@ public class CardDeck {
       deck.add(new OrnamentCard(type));
     });
 
-    for (Type type : locationCards) {
-      deck.add(new LocationCard(type));
-      deck.add(new LocationCard(type));
+    for (CardType cardType : locationCards) {
+      deck.add(new LocationCard(cardType));
+      deck.add(new LocationCard(cardType));
     }
 
     Arrays.stream(toolCards).forEach(type -> {
       deck.add(new ToolCard(type));
       deck.add(new ToolCard(type));
-      if (type == Type.CHISEL || type == Type.SAIL) {
+      if (type == CardType.CHISEL || type == CardType.SAIL) {
         deck.add(new ToolCard(type));
       }
     });
   }
-
 }

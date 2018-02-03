@@ -2,9 +2,9 @@ package requests;
 
 public class UserlistRequest implements IRequest {
 
-  private String request = "userList";
+  private RequestType request = RequestType.USERLIST;
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

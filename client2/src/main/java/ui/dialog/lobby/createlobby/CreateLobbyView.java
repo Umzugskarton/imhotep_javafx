@@ -1,4 +1,4 @@
-package ui.dialog.createlobby;
+package ui.dialog.lobby.createlobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -64,6 +64,8 @@ public class CreateLobbyView implements ICreateLobbyView {
 
   @FXML
   void initialize() {
+    this.lobbyNameField.requestFocus();
+    this.choiseBox.setValue(2);
     this.choiseBox.getItems().setAll(2, 3, 4);
   }
 

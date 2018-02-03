@@ -1,14 +1,14 @@
 package events.app.game;
 
-import requests.gamemoves.CardType.Type;
+import requests.gamemoves.CardType;
 
 public class ToolCardEvent extends GameEvent {
 
-  private Type toolCard;
+  private CardType toolCard;
   private boolean active;
   private int playerId;
 
-  public ToolCardEvent(Type toolCard, int playerId, boolean active) {
+  public ToolCardEvent(CardType toolCard, int playerId, boolean active) {
     this.toolCard = toolCard;
     this.playerId = playerId;
     this.active = active;
@@ -22,7 +22,7 @@ public class ToolCardEvent extends GameEvent {
     return active;
   }
 
-  public Type getToolCard() {
+  public CardType getToolCard() {
     return toolCard;
   }
 }

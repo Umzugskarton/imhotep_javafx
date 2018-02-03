@@ -1,22 +1,19 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
-import events.app.game.ChooseCardEvent;
-import events.app.game.NotEnoughLoadError;
-import events.app.game.ShipAlreadyDockedError;
-import events.app.game.ShipDockedEvent;
-import events.app.game.SiteAlreadyDockedError;
-import requests.gamemoves.CardType;
-import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToMarketMove;
 import events.Event;
+import events.app.game.*;
 import game.Game;
-import game.board.cards.Card;
-import game.board.cards.LocationCard;
 import game.board.Market;
 import game.board.Ship;
 import game.board.Stone;
+import game.board.cards.Card;
+import game.board.cards.LocationCard;
+import requests.gamemoves.CardType;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageToMarketMove;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VoyageToMarket {
     private VoyageToMarketMove move;
@@ -53,16 +50,21 @@ public class VoyageToMarket {
 
                     for (Stone stone : ship.getStones()) {
                         //Spieler, die eine Stein auf dem Boot haben, können pro Stein eine Karte vom Markt wählen
+                        //TODO: Make me beautiful~
                         card = playerCardSelect(stone.getPlayer().getId());
                         if (card instanceof LocationCard) {
                             Stone newStone = new Stone(stone.getPlayer());
                             //Je nach Karte wird ein Stein aus dem Steinbruch auf den entsprechnenden Ort gesetzt
-                            if (card.getType() == CardType.Type.ENTRANCE) {
+                            if (card.getType() == CardType.ENTRANCE) {
+                                //TODO: Event einfügen
                                 game.getPyramids().addStone(newStone);
-                            } else if (card.getType() == CardType.Type.SARCOPHAGUS) {
+                                LocationCardEvent e = new LocationCardEvent(0);
+                            } else if (card.getType() == CardType.SARCOPHAGUS) {
                                 game.getBurialChamber().addStone(newStone);
-                            } else if (card.getType() == CardType.Type.PAVEDPATH) {
+                                LocationCardEvent e = new LocationCardEvent(1);
+                            } else if (card.getType() == CardType.PAVEDPATH) {
                                 game.getObelisks().addStone(newStone);
+                                LocationCardEvent e = new LocationCardEvent(2);
                             }
                         } else {
                             stone.getPlayer().getInventory().addCard(card);
@@ -82,10 +84,12 @@ public class VoyageToMarket {
     }
 
     private Card playerCardSelect(int playerId) {
+        List<Card> activeCards = game.getMarket().getActiveCards();
         //TODO: Player-ID sucht sich eine Karte aus
-        ChooseCardEvent chooseCardEvent = new ChooseCardEvent(playerId);
-        Card card = null;
-        return card;
+        int choosenCard = 0;
+        ChooseCardEvent chooseCardEvent = new ChooseCardEvent(playerId, choosenCard);
+        game.sendAll(chooseCardEvent);
+        return activeCards.get(choosenCard);
     }
 
 }

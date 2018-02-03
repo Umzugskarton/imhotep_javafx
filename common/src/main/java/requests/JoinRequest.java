@@ -2,7 +2,7 @@ package requests;
 
 public class JoinRequest extends Request {
 
-  private String request = "join";
+  private RequestType request = RequestType.JOIN;
   private String pw;
 
   public JoinRequest(int lobbyId, String password) {
@@ -10,7 +10,7 @@ public class JoinRequest extends Request {
     this.pw = password;
   }
 
-  public String getType() {
+  public RequestType getType() {
     return this.request;
   }
 

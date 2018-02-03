@@ -2,37 +2,37 @@ package socket.commands;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import requests.IRequest;
+import requests.RequestType;
 import socket.ClientListener;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class CommandFactory {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-    private HashMap<String, Command> Dict = new HashMap<>();
+    private EnumMap<RequestType, Command> commandMap = new EnumMap<>(RequestType.class);
 
     public CommandFactory(ClientListener clientListener){
-        Dict.put("register", new RegisterCommand(clientListener));
-        Dict.put("login", new LoginCommand(clientListener));
-        Dict.put("logout", new LogoutCommand(clientListener));
-        Dict.put("userList", new UserlistCommand(clientListener));
-        Dict.put("whisper", new WhisperCommand(clientListener));
-        Dict.put("chat", new ChatCommand(clientListener));
-        Dict.put("create", new CreateCommand(clientListener));
-        Dict.put("join", new JoinCommand(clientListener));
-        Dict.put("lobbylist", new LobbylistCommand(clientListener));
-        Dict.put("changeCredential", new ChangeCredentialCommand(clientListener));
-        Dict.put("changeColor", new ChangeColorCommand(clientListener));
-        Dict.put("setReady", new SetReadyCommand(clientListener));
-        Dict.put("startGame", new StartGameCommand(clientListener));
-        Dict.put("leaveLobby", new LeaveLobbyCommand(clientListener));
+        commandMap.put(RequestType.REGISTER, new RegisterCommand(clientListener));
+        commandMap.put(RequestType.LOGIN, new LoginCommand(clientListener));
+        commandMap.put(RequestType.LOGOUT, new LogoutCommand(clientListener));
+        commandMap.put(RequestType.USERLIST, new UserlistCommand(clientListener));
+        commandMap.put(RequestType.WHISPER, new WhisperCommand(clientListener));
+        commandMap.put(RequestType.CHAT, new ChatCommand(clientListener));
+        commandMap.put(RequestType.CREATE, new CreateCommand(clientListener));
+        commandMap.put(RequestType.JOIN, new JoinCommand(clientListener));
+        commandMap.put(RequestType.LOBBYLIST, new LobbylistCommand(clientListener));
+        commandMap.put(RequestType.CHANGE_CREDENTIAL, new ChangeCredentialCommand(clientListener));
+        commandMap.put(RequestType.CHANGE_COLOR, new ChangeColorCommand(clientListener));
+        commandMap.put(RequestType.SET_READY, new SetReadyCommand(clientListener));
+        commandMap.put(RequestType.START_GAME, new StartGameCommand(clientListener));
+        commandMap.put(RequestType.LEAVE_LOBBY, new LeaveLobbyCommand(clientListener));
     }
 
     public Command getCommand(IRequest request){
         log.debug("BIN BEI: " +request.getClass().getSimpleName());
-        Command c = Dict.get(request.getType());
+        Command c = commandMap.get(request.getType());
         c.put(request);
         return c;
     }

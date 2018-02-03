@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.INavigateableView;
 import mvp.view.IView;
 
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
-package game.GameProcedures;
+package game.gameprocedures;
 
-import events.app.game.VoyageToStoneSiteManualDumpEvent;
-import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
 import events.Event;
+import events.app.game.VoyageToStoneSiteManualDumpEvent;
 import game.Game;
 import game.board.Ship;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
 
 public class VoyageToStoneSiteManualDump extends Voyage {
 

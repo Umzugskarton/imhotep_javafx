@@ -1,4 +1,3 @@
-
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -6,6 +5,7 @@ import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
+import events.EventReason;
 import events.app.chat.ChatMessageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
@@ -24,7 +24,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -34,12 +37,10 @@ import org.slf4j.LoggerFactory;
 import requests.ChatRequest;
 import requests.Request;
 import requests.gamemoves.CardType;
-import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 
 public class DebugApp {
@@ -126,7 +127,7 @@ public class DebugApp {
     loginEvent3Button.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        LoginFailedEvent myEvent = new LoginFailedEvent("Test fail message");
+        LoginFailedEvent myEvent = new LoginFailedEvent(EventReason.ALREADY_LOGGED_IN);
         logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
         getEventBus().post(myEvent);
       }
@@ -323,11 +324,11 @@ public class DebugApp {
         ArrayList<Integer> storages = new ArrayList<>();
         storages.add(1);
         storages.add(2);
-        ArrayList<CardType.Type> type = new ArrayList<>();
-        type.add(CardType.Type.BURIALCHAMBER);
-        type.add(CardType.Type.CHISEL);
-        type.add(CardType.Type.PAVEDPATH);
-        type.add(CardType.Type.STATUE);
+        ArrayList<CardType> type = new ArrayList<>();
+        type.add(CardType.BURIALCHAMBER);
+        type.add(CardType.CHISEL);
+        type.add(CardType.PAVEDPATH);
+        type.add(CardType.STATUE);
         gameInfo.setCards(type);
         gameInfo.setSiteString(x);
         gameInfo.setSitesAllocation(sitesAllo);
@@ -396,7 +397,7 @@ public class DebugApp {
     popupButton1.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        getEventBus().post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN));
+        getEventBus().post(new ShowCreateLobbyDialogEvent(ViewIdentifier.MAIN_VIEW));
       }
     });
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CommonLobby implements Serializable {
 
-  private int lobbyID;
+  private final int lobbyID;
   private String name;
   private String host;
   private boolean isHost;
@@ -46,9 +46,9 @@ public class CommonLobby implements Serializable {
     this.host = host;
   }
 
-  public void setLobbyID(int id) {
-    this.lobbyID = id;
-  }
+  //public void setLobbyID(int id) {
+    //this.lobbyID = id;
+  //}
 
   public void setUsers(ArrayList<LobbyUser> newUsers, boolean[] ready, ArrayList<String> colors) {
     users.clear();
@@ -122,9 +122,9 @@ public class CommonLobby implements Serializable {
     this.users.addAll(users);
   }
 
-  public void setLobbyId(int lobbyId) {
-    this.lobbyID = lobbyId;
-  }
+  //public void setLobbyId(int lobbyId) {
+  //  this.lobbyID = lobbyId;
+  //}
 
   public int getLobbyId() {
     return lobbyID;
