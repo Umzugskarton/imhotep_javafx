@@ -4,7 +4,6 @@ import connection.Connection;
 import data.user.User;
 import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
-
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

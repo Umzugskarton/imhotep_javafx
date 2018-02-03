@@ -1,21 +1,20 @@
 package socket;
 
+import data.lobby.CommonLobby;
+import data.user.User;
+import events.Event;
+import events.app.lobby.CreateLobbyEvent;
+import events.app.lobby.LobbyListEvent;
+import events.app.main.UserListEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import data.lobby.CommonLobby;
-import events.Event;
-import events.app.main.UserListEvent;
-import events.app.lobby.CreateLobbyEvent;
-import events.app.lobby.LobbyListEvent;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import data.user.User;
 
 public class Server {
 

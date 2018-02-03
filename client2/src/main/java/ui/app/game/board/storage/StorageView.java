@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.LobbyUser;
 import helper.fxml.GenerateFXMLView;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -17,10 +18,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import mvp.view.INavigateableView;
 import mvp.view.IView;
-
-import java.util.ArrayList;
 
 
 public class StorageView implements IStorageView{

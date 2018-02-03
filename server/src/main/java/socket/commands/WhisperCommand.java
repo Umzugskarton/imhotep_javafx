@@ -1,9 +1,9 @@
 package socket.commands;
 
+import events.Event;
+import events.app.chat.UserNotFoundErrorEvent;
 import requests.IRequest;
 import requests.WhisperRequest;
-import events.app.chat.UserNotFoundErrorEvent;
-import events.Event;
 import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;

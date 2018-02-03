@@ -1,8 +1,8 @@
 package socket.commands;
 
+import events.app.lobby.LobbyListEvent;
 import requests.IRequest;
 import requests.LobbylistRequest;
-import events.app.lobby.LobbyListEvent;
 import socket.ClientListener;
 
 public class LobbylistCommand implements Command {

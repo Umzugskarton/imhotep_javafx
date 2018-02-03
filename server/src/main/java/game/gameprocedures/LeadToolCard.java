@@ -1,19 +1,19 @@
 package game.gameprocedures;
 
-import java.util.EnumMap;
-import requests.gamemoves.CardType;
+import events.Event;
 import events.app.game.CardNotInPossessionError;
 import events.app.game.ToolCardEvent;
-import requests.gamemoves.Move;
-import requests.gamemoves.ToolCardMove;
-import events.Event;
 import game.Game;
+import game.board.cards.ToolCard;
 import game.gameprocedures.toolcardprotocols.ChiselProtocol;
 import game.gameprocedures.toolcardprotocols.HammerProtocol;
 import game.gameprocedures.toolcardprotocols.IProtocol;
 import game.gameprocedures.toolcardprotocols.LeverProtocol;
 import game.gameprocedures.toolcardprotocols.SailProtocol;
-import game.board.cards.ToolCard;
+import java.util.EnumMap;
+import requests.gamemoves.CardType;
+import requests.gamemoves.Move;
+import requests.gamemoves.ToolCardMove;
 
 public class LeadToolCard implements Procedure {
 

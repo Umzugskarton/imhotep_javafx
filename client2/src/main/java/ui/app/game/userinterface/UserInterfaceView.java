@@ -5,6 +5,8 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.util.ArrayList;
+import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -12,11 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import mvp.view.ShowViewEvent;
 import ui.app.game.IGameView;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class UserInterfaceView implements IUserInterfaceView {

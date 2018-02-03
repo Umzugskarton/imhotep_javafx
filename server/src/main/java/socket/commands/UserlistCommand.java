@@ -1,8 +1,8 @@
 package socket.commands;
 
+import events.app.main.UserListEvent;
 import requests.IRequest;
 import requests.UserlistRequest;
-import events.app.main.UserListEvent;
 import socket.ClientListener;
 
 public class UserlistCommand implements Command {

@@ -1,18 +1,18 @@
 package ui.app.game.board.storage;
 
-import events.app.game.FillUpStorageEvent;
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipLoadedEvent;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.LobbyUser;
+import events.app.game.FillUpStorageEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipLoadedEvent;
+import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import mvp.presenter.Presenter;
-import java.util.ArrayList;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.LoadUpShipMove;
 
 public class StoragePresenter extends Presenter<IStorageView> {
   private LobbyUser user;

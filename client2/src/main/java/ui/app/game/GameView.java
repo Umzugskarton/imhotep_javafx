@@ -5,19 +5,18 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ui.dialog.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
-import ui.app.game.userinterface.UserInterfaceView;
 import ui.app.game.chat.ChatView;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import ui.app.game.userinterface.UserInterfaceView;
+import ui.dialog.IDialogView;
 
 public class GameView implements IGameView {
 

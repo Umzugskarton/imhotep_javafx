@@ -1,13 +1,12 @@
 package game;
 
-import requests.gamemoves.Move;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import requests.gamemoves.Move;
 
 public class MoveExecutor {
 

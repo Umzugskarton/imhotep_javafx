@@ -6,7 +6,6 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.game.GameInfoEvent;
-import events.app.game.ShipLoadedEvent;
 import events.app.game.UpdatePointsEvent;
 import javafx.application.Platform;
 import mvp.presenter.Presenter;

@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
 <AnchorPane id="appView" fx:id="appViewRoot" prefHeight="900" prefWidth="1300.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
 <children>
     <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">

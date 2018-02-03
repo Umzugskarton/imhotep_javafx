@@ -1,29 +1,28 @@
 package game;
 
+import data.user.User;
+import events.Event;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import requests.gamemoves.Move;
-import events.Event;
-import game.gameprocedures.Procedure;
-import game.gameprocedures.ProcedureFactory;
 import game.board.BurialChamber;
-import game.board.cards.CardDeck;
 import game.board.Market;
 import game.board.Obelisks;
 import game.board.Pyramids;
 import game.board.Ship;
 import game.board.StoneSite;
 import game.board.Temple;
+import game.board.cards.CardDeck;
+import game.gameprocedures.Procedure;
+import game.gameprocedures.ProcedureFactory;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.gamemoves.Move;
 import socket.ClientListener;
-import data.user.User;
-
-import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
 
@@ -79,7 +78,7 @@ public class Game implements Runnable {
     market.addCards(cardDeck.getDeck());
   }
 
-  public void resetCurrentShips() {
+  private void resetCurrentShips() {
     for (int i = 0; i < lobby.getSize(); i++) {
       this.ships[i] = new Ship(i);
     }

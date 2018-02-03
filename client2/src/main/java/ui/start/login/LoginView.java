@@ -3,6 +3,8 @@ package ui.start.login;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,8 +19,6 @@ import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.dialog.IDialogView;
 import ui.start.register.ShowRegisterViewEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class LoginView implements ILoginView {

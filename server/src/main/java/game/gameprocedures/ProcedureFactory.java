@@ -1,9 +1,9 @@
 package game.gameprocedures;
 
+import game.Game;
 import java.util.EnumMap;
 import requests.RequestType;
 import requests.gamemoves.Move;
-import game.Game;
 
 public class ProcedureFactory {
   private EnumMap<RequestType, Procedure> procedures = new EnumMap<>(RequestType.class);

@@ -3,10 +3,10 @@ package game.gameprocedures.toolcardprotocols;
 import events.app.game.LoadUpShipExclusiveEvent;
 import events.app.game.OutOfStonesError;
 import events.app.game.ToolCardEvent;
+import game.Game;
 import requests.gamemoves.CardType;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.Move;
-import game.Game;
 
 public class ChiselProtocol extends Protocol {
 

@@ -1,13 +1,12 @@
 package socket.commands;
 
-import requests.IRequest;
-import requests.ChangeColorRequest;
-import events.app.lobby.ChangeLobbyUserColorEvent;
-import lobby.Lobby;
-import socket.ClientListener;
 import data.user.User;
-
+import events.app.lobby.ChangeLobbyUserColorEvent;
 import java.util.ArrayList;
+import lobby.Lobby;
+import requests.ChangeColorRequest;
+import requests.IRequest;
+import socket.ClientListener;
 
 public class ChangeColorCommand implements Command {
 

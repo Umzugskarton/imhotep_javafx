@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -13,10 +14,8 @@ import javafx.scene.shape.Rectangle;
 import mvp.view.IView;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
-import ui.app.game.board.sites.obelisks.ObelisksPresenter;
 import ui.app.game.board.sites.market.MarketPresenter;
-
-import java.util.ArrayList;
+import ui.app.game.board.sites.obelisks.ObelisksPresenter;
 
 public class DefaultSiteView implements ISiteView {
 

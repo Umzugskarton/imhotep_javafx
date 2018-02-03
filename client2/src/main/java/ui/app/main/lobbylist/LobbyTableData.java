@@ -1,7 +1,5 @@
 package ui.app.main.lobbylist;
 
-import ui.app.lobby.LobbyView;
-
 public class LobbyTableData {
     private int lobbyId, userSize, lobbySize;
     private String lobbyIdString, name, belegung, userSizeString, lobbySizeString;

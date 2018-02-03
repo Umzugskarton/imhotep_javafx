@@ -2,11 +2,11 @@ package game.gameprocedures.toolcardprotocols;
 
 import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteExclusiveEvent;
+import game.Game;
 import requests.gamemoves.CardType;
 import requests.gamemoves.FillUpStorageMove;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteMove;
-import game.Game;
 
 public class HammerProtocol extends Protocol {
 

@@ -6,12 +6,11 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.lobby.LobbyListEvent;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mvp.presenter.Presenter;
 import requests.JoinRequest;
-
-import java.util.ArrayList;
 
 public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
 

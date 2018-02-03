@@ -1,4 +1,3 @@
-
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -20,12 +19,17 @@ import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import events.start.registration.RegistrationEvent;
+import java.util.ArrayList;
+import java.util.Date;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -36,9 +40,6 @@ import requests.ChatRequest;
 import requests.Request;
 import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 public class DebugApp {
 

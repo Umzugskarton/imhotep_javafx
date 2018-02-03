@@ -1,11 +1,10 @@
 package connection;
 
 import com.google.common.eventbus.EventBus;
-import ui.dialog.serversetting.ShowServerSettingsEvent;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import ui.dialog.serversetting.ShowServerSettingsEvent;
 
 public class ConnectionInput {
 
