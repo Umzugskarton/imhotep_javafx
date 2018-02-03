@@ -118,7 +118,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     }
   }
 
-  public void updateTurnTimer(double seconds) {
+  void updateTurnTimer(double seconds) {
     eventBus.post(seconds / (double) turnTime);
 
     if (seconds <= 0.0) {
@@ -165,7 +165,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.setStoneLocationCBox(e.getShipID());
   }
 
-  public void setStoneLocationCBox(int ship) {
+  void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
       if (ships.get(ship)[i] == -1) {
@@ -175,15 +175,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   //Moves
-  public void sendFillUpStorageMove() {
+  void sendFillUpStorageMove() {
     eventBus.post(new FillUpStorageMove(lobby.getLobbyId()));
   }
 
-  public void sendVoyageToStoneSiteMove(int ship, String to) {
-    eventBus.post(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
+  void sendVoyageToStoneSiteMove(int ship, String to) {
+    this.connection.send(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
   }
 
-  public void sendLoadUpShipMove(int ship, int to) {
+  void sendLoadUpShipMove(int ship, int to) {
     eventBus.post(new LoadUpShipMove(ship, to, lobby.getLobbyId()));
   }
 }

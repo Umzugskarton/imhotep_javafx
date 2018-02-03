@@ -40,23 +40,20 @@ public class Server {
       log.info("Server auf Port " + this.port + " gestartet");
     } catch (IOException e) {
       log.error(
-          "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
+              "Server konnte auf Port " + this.port + " nicht gestartet werden", e);
       System.exit(-1);
     }
   }
 
   public void sendToLobby(Event e, Lobby lobby) {
+    log.debug("SendToLobby " + lobby.getName());
     Arrays.asList(lobby.getUsers()).forEach(user -> {
-      log.debug("SendToLobby " + user.getUsername());
-      sendTo(e, user.getUsername());
-    });
-   /* User[] users = lobby.getUsers();
-    for (User tempUser : users) {
-      if (tempUser != null) {
-
-        sendTo(e, tempUser.getUsername());
+      if (user != null) {
+        log.debug("Trying to send for: " +
+                user.getUsername());
+        sendTo(e, user.getUsername());
       }
-    }*/
+    });
   }
 
   public void run() {
@@ -92,13 +89,13 @@ public class Server {
 
   public synchronized void removeClient(ClientListener clientListener) {
     log.info("[Thread " + clientListener.getThread().getId()
-        + "] Client hat die Verbindung beendet");
+            + "] Client hat die Verbindung beendet");
     this.connectedClients.remove(clientListener);
   }
 
   public void sendToAll(Event event) {
     for (ClientListener clientListener : connectedClients) {
-      log.debug("SendToAll " + clientListener.getUser().getUsername());
+      log.debug("SendToAll " + (clientListener.getUser() == null ? "[UNLOGGED USER]" : clientListener.getUser().getUsername()));
       clientListener.send(event);
     }
   }
@@ -107,9 +104,9 @@ public class Server {
     boolean found = false;
     ClientListener toClient = null;
     for (ClientListener clientListener : connectedClients) {
-      if (clientListener.getUser().getUsername().equals(to)) {
-        toClient = clientListener;
-        break;
+      if (clientListener.getUser() != null && clientListener.getUser().getUsername().equals(to)) {
+          toClient = clientListener;
+          break;
       }
     }
     if (toClient != null) {
@@ -123,8 +120,8 @@ public class Server {
   public synchronized CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size() -1);
-    return new CreateLobbyEvent(true, openLobby.size()-1, "Lobby Erfolgreich erstellt!");
+    lobby.setLobbyID(openLobby.size() - 1);
+    return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {
@@ -142,15 +139,15 @@ public class Server {
     for (Lobby lobby : openLobby) {
       if (lobby.isVisible()) {
         CommonLobby tempLobby = new CommonLobby(
-            lobby.getLobbyID(),
-            lobby.getName(),
-            lobby.getLobbyUserArrayList(),
-            lobby.hasPW(),
-            lobby.getSize(),
-            lobby.isHost(user),
-            lobby.getHostName(),
-            lobby.getReady(),
-            lobby.getColors()
+                lobby.getLobbyID(),
+                lobby.getName(),
+                lobby.getLobbyUserArrayList(),
+                lobby.hasPW(),
+                lobby.getSize(),
+                lobby.isHost(user),
+                lobby.getHostName(),
+                lobby.getReady(),
+                lobby.getColors()
         );
         CLTLobbies.add(tempLobby);
       }
