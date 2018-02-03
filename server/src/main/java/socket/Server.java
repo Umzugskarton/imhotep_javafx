@@ -66,7 +66,7 @@ public class Server {
     }
   }
 
-  private void addClient(Socket clientSocket) {
+  private synchronized void addClient(Socket clientSocket) {
     ObjectOutputStream os;
     ObjectInputStream is;
     ClientListener clientListener = null;
@@ -85,7 +85,7 @@ public class Server {
     this.connectedClients.add(clientListener);
   }
 
-  public void removeClient(ClientListener clientListener) {
+  public synchronized void removeClient(ClientListener clientListener) {
     log.info("[Thread " + clientListener.getThread().getId()
         + "] Client hat die Verbindung beendet");
     this.connectedClients.remove(clientListener);
@@ -115,7 +115,7 @@ public class Server {
     return found;
   }
 
-  public CreateLobbyEvent addLobby(Lobby lobby) {
+  public synchronized CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
     lobby.setLobbyID(openLobby.size());

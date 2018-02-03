@@ -1,7 +1,8 @@
-package ui.dialog.createlobby;
+package ui.dialog.lobby.joinlobby;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
+import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,11 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import ui.app.main.lobbylist.LobbyTableData;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CreateLobbyView implements ICreateLobbyView {
+public class JoinLobbyView implements IJoinLobbyView {
 
   @FXML
   private ResourceBundle resources;
@@ -24,10 +26,7 @@ public class CreateLobbyView implements ICreateLobbyView {
   private URL location;
 
   @FXML
-  private GridPane createLobbyRoot;
-
-  @FXML
-  private ChoiceBox<Integer> choiseBox;
+  private GridPane joinLobbyRoot;
 
   @FXML
   private TextField lobbyNameField;
@@ -38,15 +37,15 @@ public class CreateLobbyView implements ICreateLobbyView {
   @FXML
   private Label statusMessageLabel;
 
-  private final CreateLobbyPresenter presenter;
+  private final JoinLobbyPresenter presenter;
   private final EventBus eventBus;
 
   // Own Parent
   private Parent myParent;
 
-  public CreateLobbyView(EventBus eventBus, Connection connection) {
+  public JoinLobbyView(EventBus eventBus, LobbyTableData lobbydata, Connection connection) {
     this.eventBus = eventBus;
-    this.presenter = new CreateLobbyPresenter(this, eventBus, connection);
+    this.presenter = new JoinLobbyPresenter(this, lobbydata, eventBus, connection);
     bind();
     initOwnView();
   }
@@ -58,20 +57,19 @@ public class CreateLobbyView implements ICreateLobbyView {
   @Override
   public void initOwnView() {
     if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/createLobby/CreateLobbyView.fxml", this, eventBus);
-    System.out.println("CreateLobbyView " + this.myParent);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/dialog/joinlobby/JoinLobbyView.fxml", this, eventBus);
+
+    this.lobbyNameField.setText("[" + presenter.getLobbyData().getLobbyId() + "] - " + presenter.getLobbyData().getName());
   }
 
   @FXML
   void initialize() {
     this.lobbyNameField.requestFocus();
-    this.choiseBox.setValue(2);
-    this.choiseBox.getItems().setAll(2, 3, 4);
   }
 
   @FXML
-  public void handleSendButtonAction(ActionEvent event) {
-    this.presenter.createLobby(this.lobbyNameField.getText(), this.choiseBox.getValue(), this.passwordField.getText());
+  public void handleJoinButtonAction(ActionEvent event) {
+    this.presenter.joinLobby(this.passwordField.getText());
   }
 
   @Override
@@ -81,7 +79,7 @@ public class CreateLobbyView implements ICreateLobbyView {
 
   @Override
   public String getTitle() {
-    return "CreateLobby";
+    return "JoinLobby";
   }
 
   @Override

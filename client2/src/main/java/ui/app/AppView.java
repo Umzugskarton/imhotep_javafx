@@ -8,12 +8,16 @@ import data.user.User;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
+import requests.LeaveLobbyRequest;
 import ui.dialog.IDialogView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.GameView;
@@ -107,6 +111,14 @@ public class AppView implements IAppView {
     tab.setContent(lobbyView.getRootParent());
     tab.setId("lobbyTab");
     lobby.setMyTab(tab);
+
+    tab.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
+      }
+    });
+
     return this.appViewMainTabPane.getTabs().add(tab);
   }
 

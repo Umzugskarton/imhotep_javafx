@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ui.dialog.lobby.joinlobby.JoinLobbyView;
+import ui.dialog.lobby.joinlobby.ShowJoinLobbyDialogEvent;
 import ui.dialog.misc.IDialogableView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
@@ -17,8 +19,8 @@ import ui.app.main.lobbylist.LobbyTableView;
 import ui.app.main.userlist.UserListView;
 import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
-import ui.dialog.createlobby.CreateLobbyView;
-import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.lobby.createlobby.CreateLobbyView;
+import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;
@@ -158,6 +160,13 @@ public class MainView implements IMainView, IDialogableView {
     public void onShowCreateLoobyDialogEvent(ShowCreateLobbyDialogEvent e) {
         if(e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW){
             showDialog(new CreateLobbyView(this.eventBus, this.mainPresenter.getConnection()));
+        }
+    }
+
+    @Subscribe
+    public void onShowJoinLobbyDialogEvent(ShowJoinLobbyDialogEvent e) {
+        if(e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW){
+            showDialog(new JoinLobbyView(this.eventBus, e.getLobbyData(), this.mainPresenter.getConnection()));
         }
     }
 }

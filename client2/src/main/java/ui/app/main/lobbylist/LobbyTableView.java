@@ -15,7 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mvp.view.INavigateableView;
-import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.lobby.joinlobby.ShowJoinLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.net.URL;
@@ -91,7 +92,8 @@ public class LobbyTableView implements ILobbyTableView {
                     }
 
                     setGraphic(joinButton);
-                    joinButton.setOnAction(event -> getPresenter().joinLobby(data.getLobbyId(),""));
+
+                    joinButton.setOnAction(event -> eventBus.post(new ShowJoinLobbyDialogEvent(data, ViewIdentifier.MAIN_VIEW)));
                 }
             });
 

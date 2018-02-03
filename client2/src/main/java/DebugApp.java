@@ -34,12 +34,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.ChatRequest;
 import requests.Request;
-import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
+import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 
 public class DebugApp {
