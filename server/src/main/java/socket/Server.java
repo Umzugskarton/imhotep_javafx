@@ -118,8 +118,8 @@ public class Server {
   public synchronized CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size());
-    return new CreateLobbyEvent(true, openLobby.size(), "Lobby Erfolgreich erstellt!");
+    lobby.setLobbyID(openLobby.size() -1);
+    return new CreateLobbyEvent(true, openLobby.size()-1, "Lobby Erfolgreich erstellt!");
   }
 
   public Lobby getLobbybyID(int id) {

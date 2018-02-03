@@ -25,6 +25,7 @@ public class ChangeColorCommand implements Command {
 
   public void exec() {
     Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
+    System.out.println(lobby.getLobbyID());
     ChangeLobbyUserColorEvent changeColorEvent = lobby.replaceColor(clientListener.getUser());
     User[] users = lobby.getUsers();
     for (User tempUser : users) {

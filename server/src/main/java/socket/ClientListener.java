@@ -91,10 +91,9 @@ public class ClientListener implements Runnable {
       if (this.user != null) {
         this.user = null;
       }
-      this.server.removeClient(this);
-
       this.server.sendToAll(server.getLoggedUsers());
     }
+    this.server.removeClient(this);
 
   }
 
