@@ -46,9 +46,7 @@ public class LobbyPresenter {
     //this.lobbyView.updateColorRectangle();
     ChangeColorRequest changeColorRequest = new ChangeColorRequest();
     this.getSceneController().getClientSocket().send(changeColorRequest);
-
   }
-
 
   public void sendSetReadyRequest() {
     SetReadyRequest setReadyRequest = new SetReadyRequest();

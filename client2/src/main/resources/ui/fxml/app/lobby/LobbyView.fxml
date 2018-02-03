@@ -26,7 +26,7 @@
         <VBox>
           <children>
             <Pane fx:id="subParentLobbyUserList" />
-            <Pane fx:id="subParentLobbyInfo" />
+            <Pane fx:id="subParentLobbyControl" />
           </children>
         </VBox>
       </children>

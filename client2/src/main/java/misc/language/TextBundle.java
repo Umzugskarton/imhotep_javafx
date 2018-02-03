@@ -1,4 +1,4 @@
-package languageSupport;
+package misc.language;
 
 import java.text.MessageFormat;
 import java.util.EnumMap;

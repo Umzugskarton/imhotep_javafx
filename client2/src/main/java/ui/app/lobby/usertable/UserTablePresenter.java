@@ -3,86 +3,86 @@ package ui.app.lobby.usertable;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import data.lobby.CommonLobby;
+import data.lobby.LobbyUser;
 import data.user.User;
-import events.app.chat.ChatInfoEvent;
-import events.app.main.UserListEvent;
-import java.util.ArrayList;
-import java.util.List;
+import events.app.lobby.SetReadyToPlayEvent;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
+import requests.*;
 
 public class UserTablePresenter extends Presenter<IUserTableView> {
 
     private final Connection connection;
     private User user;
-    private ObservableList<String> users = FXCollections.observableArrayList();
+    private CommonLobby lobby;
+    private ObservableList<LobbyUser> lobbies = FXCollections.observableArrayList();
 
 
-    public UserTablePresenter(IUserTableView view, EventBus eventBus, Connection connection, User user) {
+    public UserTablePresenter(IUserTableView view, EventBus eventBus, Connection connection, CommonLobby lobby, User user) {
         super(view, eventBus);
         this.connection = connection;
         this.user = user;
+        this.lobby = lobby;
         bind();
+
+        LobbyUser lobbyUser = new LobbyUser(user, Color.RED.toString(), false);
+        lobbies.add(lobbyUser);
     }
 
     private void bind() {
         getEventBus().register(this);
     }
 
-    public void updateUserlist(ArrayList<String> userArray) {
-        System.out.print("Start updateUserList");
-        // Im Chat informieren wer gejoined/leaved ist
-        boolean notifyInChat = true;
-        if (users.isEmpty()) {
-            notifyInChat = false;
+    public CommonLobby getLobby() {
+        return lobby;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void sendChangeColorRequest() {
+        //this.lobbyView.updateColorRectangle();
+        ChangeColorRequest changeColorRequest = new ChangeColorRequest();
+        this.connection.send(changeColorRequest);
+    }
+
+    public void sendSetReadyRequest() {
+        SetReadyRequest setReadyRequest = new SetReadyRequest();
+        this.connection.send(setReadyRequest);
+    }
+
+    public void startGame() {
+        if (lobby.getUsers().size() == lobby.getSize()) {
+            IRequest request = new StartGameRequest();
+            this.connection.send(request);
+            Soundtrack.imhotepTheme.loop();
         }
-
-        if (notifyInChat) {
-            List<String> list = users;
-            List<String> joinedList = new ArrayList<>();
-            List<String> leftList = new ArrayList<>();
-
-            for (Object user : userArray) {
-                joinedList.add(user.toString());
-                leftList.add(user.toString());
-            }
-
-            joinedList.removeAll(list);
-            list.removeAll(leftList);
-
-            for (String username : list) {
-                ChatInfoEvent event = new ChatInfoEvent();
-                event.setMsg("- " + username + " hat den Chat verlassen");
-                getEventBus().post(new ChatInfoEvent("- " + username + " hat den Chat verlassen", Color.RED));
-            }
-
-            for (String username : joinedList) {
-                getEventBus().post(new ChatInfoEvent("+ " + username + " hat den Chat betreten", Color.GREEN));
-            }
-
-            users.toString();
-        }
-
-        // Userliste leeren und neu füllen
-        users.clear();
-
-        for (Object user : userArray) {
-            users.add(user.toString());
+        else {
+            //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
         }
     }
 
-    public ObservableList<String> getUserList() {
-        System.out.println("UserTablePresenter");
-        System.out.println(users.toString());
-        System.out.println("getUserList");
-
-        return users;
+    public void leaveLobbyRequest() {
+        LeaveLobbyRequest leaveLobbyRequest = new LeaveLobbyRequest(lobby.getLobbyId());
+        this.connection.send(leaveLobbyRequest);
     }
 
     @Subscribe
-    public void onUserListEvent(UserListEvent e) {
-        updateUserlist(e.getUserList());
+    public void setReadyEventListener(SetReadyToPlayEvent e) {
+        for (boolean b :e.getReady()){
+            System.out.println("SPECIAL DEBUG MODE : PING ready  e : " +b);
+        }
+        lobby.setReady(e.getReady());
     }
+
+    public ObservableList<LobbyUser> getLobbyList() {
+        return lobbies;
+    }
+
 }

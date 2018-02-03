@@ -14,6 +14,9 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
+import ui.app.lobby.control.LobbyControlPresenter;
+import ui.app.lobby.control.LobbyControlView;
+import ui.app.lobby.usertable.UserTableView;
 import ui.dialog.IDialogView;
 
 public class LobbyView implements ILobbyView {
@@ -28,19 +31,19 @@ public class LobbyView implements ILobbyView {
   private AnchorPane lobbyViewRoot;
 
   @FXML
-    private Pane dialogBackground;
+  private Pane dialogBackground;
 
-    @FXML
-    private Pane dialog;
+  @FXML
+  private Pane dialog;
 
-    @FXML
+  @FXML
   private Pane subParentLobbyChat;
 
   @FXML
   private Pane subParentLobbyUserList;
 
-  //@FXML
-  //private Pane subParentLobbyList;
+  @FXML
+  private Pane subParentLobbyControl;
 
   private final INavigateableView parentView;
   private final LobbyPresenter mainPresenter;
@@ -51,8 +54,8 @@ public class LobbyView implements ILobbyView {
 
   // Subviews
   private ChatView chatView;
-  // private UserTableView userTableView;
-  //private LobbyListView lobbyListView;
+  private UserTableView userTableView;
+  private LobbyControlView lobbyControlView;
 
   private final User user;
 
@@ -78,12 +81,12 @@ public class LobbyView implements ILobbyView {
   @FXML
   void initialize() {
     this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), mainPresenter.getLobby(), user);
-    //this.lobbyListView = new LobbyListView(this, eventBus, mainPresenter.getClientSocket(), user);
-    //   this.userTableView = new UserTableView(this, this.chatView, eventBus, mainPresenter.getClientSocket(), user);
+    this.userTableView = new UserTableView(this, this.chatView, this.mainPresenter.getLobby(), eventBus, mainPresenter.getClientSocket(), user);
+    this.lobbyControlView = new LobbyControlView(this,this.eventBus, mainPresenter.getClientSocket());
 
     setSubParentLobbyChat(this.chatView.getRootParent());
-    // setSubParentLobbyUserList(this.userTableView.getRootParent());
-    //setSubParentLobbyList(this.userTableView.getRootParent());
+    setSubParentLobbyUserList(this.userTableView.getRootParent());
+    setSubParentControl(this.lobbyControlView.getRootParent());
   }
 
   public void setSubParentLobbyChat(Parent subParent) {
@@ -96,12 +99,12 @@ public class LobbyView implements ILobbyView {
     this.subParentLobbyUserList.getChildren().add(subParent);
   }
 
-    /*
-    public void setSubParentLobbyList(Parent subParent){
-        this.subParentLobbyList.getChildren().clear();
-        this.subParentLobbyList.getChildren().add(subParent);
+
+    public void setSubParentControl(Parent subParent){
+        this.subParentLobbyControl.getChildren().clear();
+      this.subParentLobbyControl.getChildren().add(subParent);
     }
-    */
+
 
   @Override
   public INavigateableView getParentView() {

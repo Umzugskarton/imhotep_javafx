@@ -1,4 +1,4 @@
-package languageSupport;
+package misc.language;
 
 public enum Language {
   ENGLISH,
