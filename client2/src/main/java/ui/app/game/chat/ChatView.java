@@ -60,7 +60,7 @@ public class ChatView implements IChatView {
   @Override
   public void initOwnView() {
     if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/chat/chatView.fxml", this, eventBus);
+      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/chat/GameChatView.fxml", this, eventBus);
   }
 
   @FXML

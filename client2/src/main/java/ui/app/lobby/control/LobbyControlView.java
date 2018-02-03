@@ -3,11 +3,11 @@ package ui.app.lobby.control;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mvp.view.INavigateableView;
@@ -28,13 +28,16 @@ public class LobbyControlView implements ILobbyControlView {
     private GridPane rootParent;
 
     @FXML
-    private TextField userField;
+    private Label userSizeLabel;
 
     @FXML
-    private PasswordField passwordField;
+    Button setReadyButton;
 
     @FXML
-    Button signInButton;
+    Button startGameButton;
+
+    @FXML
+    Button changeColorButton;
 
     @FXML
     private Text actiontarget;
@@ -42,12 +45,12 @@ public class LobbyControlView implements ILobbyControlView {
     private Parent myParent = rootParent;
 
     private final INavigateableView parentView;
-    private final LobbyControlPresenter loginPresenter;
+    private final LobbyControlPresenter presenter;
     private final EventBus eventBus;
 
     public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket){
         this.parentView = parentView;
-        this.loginPresenter = new LobbyControlPresenter(this, eventBus, clientSocket);
+        this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket);
         this.eventBus = eventBus;
         initOwnView();
     }
@@ -55,13 +58,27 @@ public class LobbyControlView implements ILobbyControlView {
     @Override
     public void initOwnView() {
         if(this.myParent == null) {
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/control/ControlView.fxml", this, eventBus);
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/control/LobbyControlView.fxml", this, eventBus);
         }
     }
-
 
     @Override
     public Parent getRootParent() {
         return this.myParent;
+    }
+
+    @FXML
+    private void handlesetReadyButtonAction(ActionEvent event) {
+        System.out.println("Push handlesetReadyButtonAction");
+    }
+
+    @FXML
+    private void handlestartGameButtonAction(ActionEvent event){
+        System.out.println("Push handlestartGameButtonAction");
+    }
+
+    @FXML
+    private void handlechangeColorButtonAction(ActionEvent event) {
+        System.out.println("Push handlechangeColorButtonAction");
     }
 }
