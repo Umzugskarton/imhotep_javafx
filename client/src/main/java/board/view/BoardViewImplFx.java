@@ -1,6 +1,8 @@
 package board.view;
 
 import board.presenter.BoardPresenter;
+import events.SiteType;
+import java.util.EnumMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -115,7 +117,7 @@ public class BoardViewImplFx {
     this.boardPresenter.sendFillUpStorageMove();
   }
 
-  Map<String, Pane> piers = new HashMap<String, Pane>() {
+  EnumMap<SiteType, Pane> piers = new EnumMap<SiteType, Pane>(SiteType.class) {
   };
 
   public GridPane getHouses() {
@@ -134,7 +136,7 @@ public class BoardViewImplFx {
     return selectStoneLocationBox;
   }
 
-  public Pane getPierByName(String name) {
+  public Pane getPierByName(SiteType name) {
     if (this.piers.isEmpty()) {
       initPiers();
     }
@@ -142,7 +144,7 @@ public class BoardViewImplFx {
     return piers.get(name);
   }
 
-  public Map<String, Pane> getPiers() {
+  public Map<SiteType, Pane> getPiers() {
     if (this.piers.isEmpty()) {
       initPiers();
     }
@@ -151,11 +153,11 @@ public class BoardViewImplFx {
   }
 
   public void initPiers() {
-    piers.put("Market", marketPier);
-    piers.put("obelisks", obelisksPier);
-    piers.put("Pyramids", pyramidsPier);
-    piers.put("Temple", templePier);
-    piers.put("BurialChamber", burialChamberPier);
+    piers.put(SiteType.MARKET, marketPier);
+    piers.put(SiteType.OBELISKS, obelisksPier);
+    piers.put(SiteType.PYRAMID, pyramidsPier);
+    piers.put(SiteType.TEMPLE, templePier);
+    piers.put(SiteType.BURIAL_CHAMBER, burialChamberPier);
   }
 
   public ArrayList<ComboBox<Integer>> getShipCBoxes() {
@@ -196,7 +198,7 @@ public class BoardViewImplFx {
   void sendVoyageToStoneSiteMove() {
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
       boardPresenter
-          .sendVoyageToStoneSiteMove(selectShipBox.getValue(), selectShipLocationBox.getValue());
+          .sendVoyageToStoneSiteMove(selectShipBox.getValue(), SiteType.valueOf(selectShipLocationBox.getValue()));
     } else {
       System.out
           .println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());

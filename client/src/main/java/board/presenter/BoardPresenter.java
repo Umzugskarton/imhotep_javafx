@@ -4,6 +4,7 @@ import board.model.TurnTimerThread;
 import board.view.*;
 import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
+import events.SiteType;
 import events.app.game.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -149,7 +150,7 @@ public class BoardPresenter {
     this.endTurn(false);
   }
 
-  public void sendVoyageToStoneSiteMove(int shipID, String site) {
+  public void sendVoyageToStoneSiteMove(int shipID, SiteType site) {
     if (!shipPresenters.get(shipID).isDocked()) {
       VoyageToStoneSiteMove move = new VoyageToStoneSiteMove(shipID, site, lobby.getLobbyId());
       sc.getClientSocket().send(move);
@@ -184,9 +185,9 @@ public class BoardPresenter {
 
     int i = 0;
     view.getSelectShipLocationBox().getItems().clear();
-    for (String site : event.getSiteTypes()) {
+    for (SiteType site : event.getSiteTypes()) {
       if (event.getSitesAllocation()[i] == -1) {
-        view.getSelectShipLocationBox().getItems().add(site);
+        view.getSelectShipLocationBox().getItems().add(site.toString());
       }
       i++;
     }

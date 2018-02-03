@@ -2,6 +2,7 @@ package board.presenter;
 
 import board.view.ShipViewImplFx;
 import data.lobby.CommonLobby;
+import events.SiteType;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,7 +15,7 @@ public class ShipPresenter {
   private CommonLobby lobby;
   private int[] cargo;
   private boolean docked;
-  private String location;
+  private SiteType location;
 
   public ShipPresenter(CommonLobby lobby, ShipViewImplFx view, int[] placement) {
     this.view = view;
@@ -44,7 +45,7 @@ public class ShipPresenter {
     this.docked = docked;
   }
 
-  public void setLocation(String site) {
+  public void setLocation(SiteType site) {
     for (Group p : view.getStones()) {
       p.setVisible(false);
     }
