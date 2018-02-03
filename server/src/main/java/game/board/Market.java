@@ -90,4 +90,11 @@ public class Market extends Site {
     this.setDockedShip(ship);
     return true;
   }
+
+  public List<Card> getDrawpile() {
+    return this.drawPile;
+  }
+
 }
+
+
