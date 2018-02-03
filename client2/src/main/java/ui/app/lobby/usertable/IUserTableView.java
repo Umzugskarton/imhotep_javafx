@@ -8,4 +8,8 @@ import mvp.view.IView;
 public interface IUserTableView extends IView {
 
     void setUserListViewData(ObservableList<LobbyUser> datasource);
+
+    public void updateTable();
+
+    void initLobbyInfo();
 }

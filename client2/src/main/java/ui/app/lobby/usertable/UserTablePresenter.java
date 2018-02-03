@@ -6,14 +6,21 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
+import events.app.lobby.ChangeLobbyUserColorEvent;
+import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.SetReadyToPlayEvent;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
 import requests.*;
+
+import java.util.Arrays;
 
 public class UserTablePresenter extends Presenter<IUserTableView> {
 
@@ -39,22 +46,22 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
     }
 
     public CommonLobby getLobby() {
-        return lobby;
+        return this.lobby;
     }
 
-    public User getUser(){
-        return user;
+    public void updateLobby(CommonLobby lobby) {
+        this.lobby  = lobby;
+        getView().updateTable();
     }
 
-    public void sendChangeColorRequest() {
-        //this.lobbyView.updateColorRectangle();
-        ChangeColorRequest changeColorRequest = new ChangeColorRequest();
-        this.connection.send(changeColorRequest);
+    public void setLobby(CommonLobby lobby) {
+        this.lobby = lobby;
+        getView().initLobbyInfo();
+
     }
 
-    public void sendSetReadyRequest() {
-        SetReadyRequest setReadyRequest = new SetReadyRequest();
-        this.connection.send(setReadyRequest);
+    public boolean checkAllReady() {
+        return !Arrays.asList(lobby.getReady()).contains(false);
     }
 
     public void startGame() {
@@ -68,9 +75,8 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
         }
     }
 
-    public void leaveLobbyRequest() {
-        LeaveLobbyRequest leaveLobbyRequest = new LeaveLobbyRequest(lobby.getLobbyId());
-        this.connection.send(leaveLobbyRequest);
+    public boolean checkHost() {
+        return this.lobby.getHost().equals(user.getUsername());
     }
 
     @Subscribe
@@ -78,11 +84,23 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
         for (boolean b :e.getReady()){
             System.out.println("SPECIAL DEBUG MODE : PING ready  e : " +b);
         }
-        lobby.setReady(e.getReady());
+        updateLobby(lobby);
     }
 
-    public ObservableList<LobbyUser> getLobbyList() {
-        return lobbies;
+    @Subscribe
+    public void changeColorEventListener(ChangeLobbyUserColorEvent e) {
+        this.lobby.getUserbyLobbyId(e.getId()).setColor(e.getColor());
+        updateLobby(lobby);
     }
 
+    @Subscribe
+    public void lobbyInfoEventListener(LobbyInfoEvent e) {
+        if(lobby.getLobbyId() == e.getLobby().getLobbyId()) {
+            updateLobby(e.getLobby());
+        }
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

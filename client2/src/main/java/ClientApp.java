@@ -2,6 +2,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
+import events.app.lobby.LeaveLobbyEvent;
 import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
 import javafx.scene.Group;

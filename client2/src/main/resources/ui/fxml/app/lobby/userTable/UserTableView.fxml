@@ -15,11 +15,6 @@
    </padding>
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LobbyUser" />
-      <TableView fx:id="userTableView" prefHeight="250.0" prefWidth="485.0" onMouseClicked="#handleUserTableViewClick">
-         <columns>
-            <TableColumn fx:id="username" editable="false" prefWidth="99.0" text="Username" />
-            <TableColumn fx:id="color" editable="false" prefWidth="67.0" text="Color" />
-            <TableColumn fx:id="ready" editable="false" prefWidth="53.0" text="Ready" />
-         </columns></TableView>
+      <TableView fx:id="userTableView" prefHeight="250.0" prefWidth="485.0" onMouseClicked="#handleUserTableViewClick" />
    </children>
 </VBox>

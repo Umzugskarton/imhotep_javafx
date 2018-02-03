@@ -6,6 +6,7 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.game.StartGameEvent;
+import events.app.lobby.LeaveLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.Event;
@@ -154,6 +155,7 @@ public class AppView implements IAppView {
       addTab(lobbyView, lobby);
       lobbyViews.add(lobbyView);
 
+      lobbyView.updateUserTableView(lobby);
     }
   }
 

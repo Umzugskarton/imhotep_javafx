@@ -2,6 +2,7 @@ package ui.app.lobby.control;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
+import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,9 +49,9 @@ public class LobbyControlView implements ILobbyControlView {
     private final LobbyControlPresenter presenter;
     private final EventBus eventBus;
 
-    public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket){
+    public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket, CommonLobby lobby){
         this.parentView = parentView;
-        this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket);
+        this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket, lobby);
         this.eventBus = eventBus;
         initOwnView();
     }
@@ -69,16 +70,33 @@ public class LobbyControlView implements ILobbyControlView {
 
     @FXML
     private void handlesetReadyButtonAction(ActionEvent event) {
-        System.out.println("Push handlesetReadyButtonAction");
+        presenter.sendSetReadyRequest();
     }
 
     @FXML
     private void handlestartGameButtonAction(ActionEvent event){
-        System.out.println("Push handlestartGameButtonAction");
+        System.out.println("Ich starte das Spiel!");
+        presenter.startGame();
     }
 
     @FXML
     private void handlechangeColorButtonAction(ActionEvent event) {
-        System.out.println("Push handlechangeColorButtonAction");
+        presenter.sendChangeColorRequest();
+    }
+
+    public Button getSetReadyButton() {
+        return setReadyButton;
+    }
+
+    public Button getStartGameButton() {
+        return startGameButton;
+    }
+
+    public Button getChangeColorButton() {
+        return changeColorButton;
+    }
+
+    public Label getUserSizeLabel() {
+        return userSizeLabel;
     }
 }

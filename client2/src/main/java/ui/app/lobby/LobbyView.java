@@ -12,7 +12,6 @@ import javafx.scene.layout.Pane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.lobby.chat.ChatView;
-import ui.app.lobby.control.LobbyControlPresenter;
 import ui.app.lobby.control.LobbyControlView;
 import ui.app.lobby.usertable.UserTableView;
 import ui.dialog.IDialogView;
@@ -82,8 +81,8 @@ public class LobbyView implements ILobbyView {
   @FXML
   void initialize() {
     this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), mainPresenter.getLobby(), user);
-    this.userTableView = new UserTableView(this, this.chatView, this.mainPresenter.getLobby(), eventBus, mainPresenter.getClientSocket(), user);
-    this.lobbyControlView = new LobbyControlView(this,this.eventBus, mainPresenter.getClientSocket());
+    this.lobbyControlView = new LobbyControlView(this,this.eventBus, mainPresenter.getClientSocket(), mainPresenter.getLobby());
+    this.userTableView = new UserTableView(this, this.chatView, this.mainPresenter.getLobby(),this.lobbyControlView, eventBus, mainPresenter.getClientSocket(), user);
 
     setSubParentLobbyChat(this.chatView.getRootParent());
     setSubParentLobbyUserList(this.userTableView.getRootParent());
@@ -139,5 +138,9 @@ public class LobbyView implements ILobbyView {
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
         dialog.getChildren().clear();
+    }
+
+    public void updateUserTableView(CommonLobby lobby){
+    this.userTableView.updateLobby(lobby);
     }
 }

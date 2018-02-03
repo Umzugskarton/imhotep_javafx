@@ -4,7 +4,10 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
+import requests.IRequest;
+import requests.StartGameRequest;
 
 public class LobbyPresenter extends Presenter<ILobbyView> {
 
@@ -27,9 +30,4 @@ public class LobbyPresenter extends Presenter<ILobbyView> {
     return lobby;
   }
 
-  public void logout() {
-    //getClientSocket().send(new LogoutRequest());
-    //TODO Überlegen wie das umgesetzt werden soll
-    //this.chatPresenter.getChatView().getChatText().getChildren().clear();
-  }
 }
