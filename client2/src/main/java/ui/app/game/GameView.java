@@ -1,6 +1,7 @@
 package ui.app.game;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
@@ -9,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import mvp.view.IView;
+import ui.app.game.board.sites.market.CardView;
 import ui.dialog.IDialogView;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
@@ -106,6 +109,11 @@ public class GameView implements IGameView {
     this.subParentUI.getChildren().add(subParent);
   }
 
+  @Subscribe
+  private void showIViewInDialog(CardView view){
+    showDialog(view);
+  }
+
   @Override
   public INavigateableView getParentView() {
     //return AppView
@@ -135,7 +143,10 @@ public class GameView implements IGameView {
         dialogBackground.setVisible(true);
 
         dialog.getChildren().add(view.getRootParent());
-    }public void hideDialog(){
+    }
+
+    @FXML
+    public void hideDialog(){
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
         dialog.getChildren().clear();

@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.defaultsites;
+package ui.app.game.board.sites.defaultSites;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -14,7 +14,6 @@ import mvp.view.IView;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.obelisks.ObelisksPresenter;
-import ui.app.game.board.sites.market.MarketPresenter;
 
 import java.util.ArrayList;
 
@@ -35,14 +34,11 @@ public class DefaultSiteView implements ISiteView {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.site=site;
-    if (site.equals("Market")){
-      mainPresenter = new MarketPresenter();
-    }
-    else if (site.equals("Obelisks")){
+    if (site.equals("obelisks")){
       mainPresenter = new ObelisksPresenter(this,  eventBus, connection, lobby);
     }
     else {
-      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby);
+      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby ,site);
     }
     initOwnView();
   }

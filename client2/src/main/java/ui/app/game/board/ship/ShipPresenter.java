@@ -35,10 +35,12 @@ public class ShipPresenter extends Presenter<IShipView>{
   }
   @Subscribe
   public void setCargo(ShipLoadedEvent e) {
-    Platform.runLater(() -> {
-      this.cargo = e.getCargo();
-      updateCargo();
-    });
+    if (shipId == e.getShipID()) {
+      Platform.runLater(() -> {
+        this.cargo = e.getCargo();
+        updateCargo();
+      });
+    }
   }
 
   @Subscribe

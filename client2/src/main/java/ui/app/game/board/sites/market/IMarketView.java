@@ -1,10 +1,11 @@
 package ui.app.game.board.sites.market;
 
-import mvp.view.INavigateableSubView;
+import javafx.scene.layout.Pane;
 import mvp.view.IView;
 
-/**
- * Created on 28.01.2018.
- */
+import java.util.ArrayList;
+
 public interface IMarketView extends IView {
+  ArrayList<CardView> getCardViews();
+  ArrayList<Pane> getCards();
 }

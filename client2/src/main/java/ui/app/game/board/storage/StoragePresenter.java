@@ -3,17 +3,15 @@ package ui.app.game.board.storage;
 import events.app.game.FillUpStorageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
-import requests.GameMoves.FillUpStorageMove;
-import requests.GameMoves.LoadUpShipMove;
+import requests.gamemoves.FillUpStorageMove;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.LobbyUser;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import mvp.presenter.Presenter;
+import requests.gamemoves.LoadUpShipMove;
 import java.util.ArrayList;
 
 public class StoragePresenter extends Presenter<IStorageView> {

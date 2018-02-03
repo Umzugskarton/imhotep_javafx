@@ -134,7 +134,7 @@ public class BoardPresenter {
     sitePresenters.put("Pyramids", pyramidsPresenter);
     sitePresenters.put("Temple", templePresenter);
     sitePresenters.put("BurialChamber", burialPresenter);
-    sitePresenters.put("Obelisks", obelisksPresenter);
+    sitePresenters.put("obelisks", obelisksPresenter);
   }
 
   // Moves

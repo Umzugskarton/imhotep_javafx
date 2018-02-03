@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.ChatRequest;
 import requests.Request;
+import requests.gamemoves.CardType;
 import ui.dialog.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
@@ -317,11 +318,17 @@ public class DebugApp {
       public void handle(ActionEvent event) {
         GameInfoEvent gameInfo = new GameInfoEvent();
         int[] sitesAllo = {-1, -1, -1, -1, -1};
-        String[] x = {"Market", "Pyramids", "Temple", "BurialChamber", "Obelisks"};
+        String[] x = {"Market", "Pyramids", "Temple", "BurialChamber", "obelisks"};
         String[] y = {"test", "test2"};
         ArrayList<Integer> storages = new ArrayList<>();
         storages.add(1);
         storages.add(2);
+        ArrayList<CardType.Type> type = new ArrayList<>();
+        type.add(CardType.Type.BURIALCHAMBER);
+        type.add(CardType.Type.CHISEL);
+        type.add(CardType.Type.PAVEDPATH);
+        type.add(CardType.Type.STATUE);
+        gameInfo.setCards(type);
         gameInfo.setSiteString(x);
         gameInfo.setSitesAllocation(sitesAllo);
         gameInfo.setOrder(y);
@@ -353,7 +360,7 @@ public class DebugApp {
 
 
     // Buttons 8
-    Button lobbyListButton8 = new Button("Turn Event 0");
+    Button lobbyListButton8 = new Button("ShipLoaded Event 0");
     lobbyListButton8.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
