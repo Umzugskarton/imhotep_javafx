@@ -166,7 +166,7 @@ public class Game implements Runnable {
       j++;
     }
     ArrayList<CardType> cards = new ArrayList<>();
-    market.getActiveCards().forEach(card -> cards.add(card.getType()));
+    //market.getActiveCards().forEach(card -> cards.add(card.getType()));
 
     gameInfo.setCards(cards);
     gameInfo.setSiteString(siteString);

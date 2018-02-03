@@ -9,16 +9,13 @@ import data.user.User;
 import events.app.lobby.ChangeLobbyUserColorEvent;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.SetReadyToPlayEvent;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
-import requests.*;
+import requests.IRequest;
+import requests.StartGameRequest;
 
 import java.util.Arrays;
 
@@ -81,10 +78,10 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
 
     @Subscribe
     public void setReadyEventListener(SetReadyToPlayEvent e) {
-        for (boolean b :e.getReady()){
-            System.out.println("SPECIAL DEBUG MODE : PING ready  e : " +b);
+        if (e.getLobbyId() == lobby.getLobbyId()) {
+            lobby.setReady(e.getReady());
+            updateLobby(lobby);
         }
-        updateLobby(lobby);
     }
 
     @Subscribe

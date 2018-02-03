@@ -1,13 +1,14 @@
 package ui.app.lobby.control;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
-import events.start.login.LoginFailedEvent;
 import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
-import requests.*;
+import requests.ChangeColorRequest;
+import requests.IRequest;
+import requests.SetReadyRequest;
+import requests.StartGameRequest;
 
 public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
 
@@ -42,6 +43,7 @@ public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
     }
     else {
       //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
+      System.out.println("Nicht genug Spieler sind in der Lobby");
     }
   }
 }

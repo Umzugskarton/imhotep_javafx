@@ -13,6 +13,7 @@ import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToMarketMove;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VoyageToMarket {
@@ -34,7 +35,6 @@ public class VoyageToMarket {
         Market market = game.getMarket();
         Card card;
 
-
         if (!ship.isDocked()) {
             int loadedStones = 0;
             for (Stone stone : ship.getStones()) {
@@ -42,6 +42,7 @@ public class VoyageToMarket {
                     loadedStones++;
                 }
             }
+            Arrays.asList(ship.getStones()).size();
 
             if (loadedStones >= ship.getMinimumStones()) {
                 if (market.dockShip(ship)) {

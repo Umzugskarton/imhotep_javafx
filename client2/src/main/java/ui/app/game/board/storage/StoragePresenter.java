@@ -10,6 +10,7 @@ import events.app.game.ShipLoadedEvent;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import mvp.presenter.Presenter;
+import requests.gamemoves.CardType;
 import requests.gamemoves.FillUpStorageMove;
 import requests.gamemoves.LoadUpShipMove;
 
@@ -21,6 +22,7 @@ public class StoragePresenter extends Presenter<IStorageView> {
   private Connection connection;
   private boolean myStorage;
   private final int lobbyId;
+  private ArrayList<CardType> cards = new ArrayList<>();
 
 
   public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId) {
