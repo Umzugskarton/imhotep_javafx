@@ -36,4 +36,9 @@ public class JoinLobbyPresenter extends Presenter<IJoinLobbyView> {
       this.connection.send(r);
     }
   }
+
+  @Override
+  public EventBus getEventBus() {
+    return super.getEventBus();
+  }
 }
