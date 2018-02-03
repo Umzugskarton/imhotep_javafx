@@ -15,7 +15,7 @@ public class MoveExecutor {
   private final Condition notSet = lock.newCondition();
   private Move move;
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
-  public static final int TURN_TIME = 20;
+  static final int TURN_TIME = 20;
   private static final int TURN_TIME_BUFFER = 3;
 
   public void waitForMove() {
@@ -29,7 +29,6 @@ public class MoveExecutor {
       lock.unlock();
     }
   }
-
 
   public Move getMove() {
     return move;

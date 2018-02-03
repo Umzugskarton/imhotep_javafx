@@ -30,17 +30,19 @@ public class JoinCommand implements Command {
   public void exec() {
     User user = this.clientListener.getUser();
     Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
-    JoinLobbyEvent response;
-    response = lobby.join(user, request.getPassword());
-    if (response.getSuccess()) {
-      clientListener.addLobby(lobby);
-      clientListener.getServer()
-          .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
-      CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
-          lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
-          lobby.getHostName(), lobby.getReady(), lobby.getColors());
-      LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
-      server.sendToLobby(lobbyInfo, lobby);
+    if (!clientListener.getLobbies().contains(lobby)) {
+      JoinLobbyEvent response;
+      response = lobby.join(user, request.getPassword());
+      if (response.getSuccess()) {
+        clientListener.addLobby(lobby);
+        clientListener.getServer()
+                .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
+        CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
+                lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(), lobby.isHost(user),
+                lobby.getHostName(), lobby.getReady(), lobby.getColors());
+        LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
+        server.sendToLobby(lobbyInfo, lobby);
+      }
     }
   }
 }
