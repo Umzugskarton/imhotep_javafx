@@ -7,9 +7,6 @@ public class ChatRequest implements IRequest {
   private Integer lobbyId;
   private String msg;
 
-  public ChatRequest() {
-  }
-
   public ChatRequest(String msg) {
     this.msg = msg;
     lobbyId = null;

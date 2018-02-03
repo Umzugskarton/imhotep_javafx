@@ -354,7 +354,7 @@ public class DebugApp {
     lobbyListButton7.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        TurnEvent e = new TurnEvent(true, "testuser");
+        TurnEvent e = new TurnEvent(true, "testuser", 0);
         eventBus.post(e);
       }
     });

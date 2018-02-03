@@ -1,6 +1,7 @@
 package game.board;
 
 import game.board.cards.Card;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,6 +45,9 @@ public class Market extends Site {
   public void addCards(List<Card> cards) {
     drawPile.addAll(cards);
     Collections.shuffle(drawPile);
+    for (int i = 0 ; i < 4 ; i++){
+      activeCards[i] = drawPile.get(i);
+    }
   }
 
   /**

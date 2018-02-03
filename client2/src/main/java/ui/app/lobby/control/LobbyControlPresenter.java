@@ -24,19 +24,19 @@ public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
 
   public void sendChangeColorRequest() {
     //this.lobbyView.updateColorRectangle();
-    ChangeColorRequest changeColorRequest = new ChangeColorRequest();
+    ChangeColorRequest changeColorRequest = new ChangeColorRequest(lobby.getLobbyId());
     this.connection.send(changeColorRequest);
   }
 
   public void sendSetReadyRequest() {
-    SetReadyRequest setReadyRequest = new SetReadyRequest();
+    SetReadyRequest setReadyRequest = new SetReadyRequest(lobby.getLobbyId());
     this.connection.send(setReadyRequest);
   }
 
   public void startGame() {
     System.out.println("Ich starte das Spiel ist im Presenter " + lobby.getUsers().size() + " " + lobby.getSize());
     if (lobby.getUsers().size() == lobby.getSize()) {
-      IRequest request = new StartGameRequest();
+      IRequest request = new StartGameRequest(lobby.getLobbyId());
       connection.send(request);
 //      Soundtrack.imhotepTheme.loop();
     }

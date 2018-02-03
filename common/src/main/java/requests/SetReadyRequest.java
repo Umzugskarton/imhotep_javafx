@@ -4,8 +4,6 @@ public class SetReadyRequest extends Request {
 
   private RequestType request = RequestType.SET_READY;
 
-  public SetReadyRequest() {
-  }
 
   public SetReadyRequest(int lobbyId) {
     super(lobbyId);

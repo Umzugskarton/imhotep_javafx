@@ -61,7 +61,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   // Own Parent
   private Parent myParent;
 
-  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby){
+  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
@@ -71,13 +71,13 @@ public class UserInterfaceView implements IUserInterfaceView {
     initOwnView();
   }
 
-  private void bind(){
+  private void bind() {
     eventBus.register(this);
   }
 
   @Override
   public void initOwnView() {
-    if(this.myParent == null)
+    if (this.myParent == null)
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/UserInterfaceView.fxml", this, eventBus);
   }
 
@@ -94,19 +94,27 @@ public class UserInterfaceView implements IUserInterfaceView {
     return holdingArea;
   }
 
-  public Label getCurrentPlayerLabel() { return currentPlayerLabel; }
+  public Label getCurrentPlayerLabel() {
+    return currentPlayerLabel;
+  }
 
-  public Rectangle getPlayerColorRectangle() { return this.playerColorRectangle; }
+  public Rectangle getPlayerColorRectangle() {
+    return this.playerColorRectangle;
+  }
 
-  public Label getUiBannerLabel() { return this.uiBannerLabel; }
+  public Label getUiBannerLabel() {
+    return this.uiBannerLabel;
+  }
 
-  public Label getUiBannerSmallLabel() { return this.uiBannerSmallLabel; }
+  public Label getUiBannerSmallLabel() {
+    return this.uiBannerSmallLabel;
+  }
 
   public ComboBox<Integer> getSelectStoneLocationBox() {
     return selectStoneLocationBox;
   }
 
-  public ComboBox<String> getSelectShipLocationBox(){
+  public ComboBox<String> getSelectShipLocationBox() {
     return selectShipLocationBox;
   }
 
@@ -118,11 +126,10 @@ public class UserInterfaceView implements IUserInterfaceView {
   }
 
   @FXML
-  void setStoneLocationCBox(ActionEvent event){
-    if ( selectShipToLocationBox.getValue() != null){
+  void setStoneLocationCBox(ActionEvent event) {
+    if (selectShipToLocationBox.getValue() != null) {
       mainPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
-    }
-    else {
+    } else {
       System.out.println("Null");
     }
   }
@@ -132,17 +139,19 @@ public class UserInterfaceView implements IUserInterfaceView {
     Collections.addAll(a, selectShipBox, selectShipToLocationBox);
     return a;
   }
+
   @FXML
-  void sendVoyageToStoneSiteMove(){
+  void sendVoyageToStoneSiteMove() {
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
-      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),selectShipLocationBox.getValue());
+      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(), selectShipLocationBox.getValue());
     else
-      System.out.println("A: " +selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+      System.out.println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
   }
 
   @FXML
-  void sendLoadUpShipMove(){
-    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox != null){
+  void sendLoadUpShipMove() {
+    if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox.getValue() != null) {
+      System.out.println("A: " + selectShipToLocationBox.getValue() + "B: " + selectStoneLocationBox.getValue());
       mainPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
     }
   }

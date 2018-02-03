@@ -166,7 +166,7 @@ public class Game implements Runnable {
       j++;
     }
     ArrayList<CardType> cards = new ArrayList<>();
-//    market.getActiveCards().forEach(card -> cards.add(card.getType()));
+    market.getActiveCards().forEach(card -> cards.add(card.getType()));
 
     gameInfo.setCards(cards);
     gameInfo.setSiteString(siteString);
@@ -287,7 +287,7 @@ public class Game implements Runnable {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.players) {
       sendTo(p.getUser(),
-          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername()));
+          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(),  gameID));
     }
   }
 

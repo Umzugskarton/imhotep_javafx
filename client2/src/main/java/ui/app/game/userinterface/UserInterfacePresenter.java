@@ -9,7 +9,6 @@ import data.user.User;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
-import javafx.application.Platform;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -83,16 +82,18 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   @Subscribe
   public void newTurn(TurnEvent e) {
-    // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-    this.toggleUserInterface(e.isMyTurn());
-    Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
-    this.changeBgGradient(userColor);
-    if (e.isMyTurn()) {
-      this.changeBannerLabels("", "", Color.TRANSPARENT);
-    } else {
-      this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
+    if (e.getLobbyId() == lobby.getLobbyId()) {
+      // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
+      this.toggleUserInterface(e.isMyTurn());
+      Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+      this.changeBgGradient(userColor);
+      if (e.isMyTurn()) {
+        this.changeBannerLabels("", "", Color.TRANSPARENT);
+      } else {
+        this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
+      }
+      this.startTurnTimer();
     }
-    this.startTurnTimer();
   }
 
   private void toggleUserInterface(boolean show) {
@@ -128,22 +129,19 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   @Subscribe
   private void update(GameInfoEvent event) {
-    Platform.runLater(() -> {
-      storages = event.getStorages();
-      round = event.getRound();
-      turnTime = event.getTurnTime();
-      if (ships == null) {
-        ships = event.getShips();
+    storages = event.getStorages();
+    round = event.getRound();
+    turnTime = event.getTurnTime();
+    if (ships == null) {
+      ships = event.getShips();
+    }
+    for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
+      shipBox.getItems().clear();
+      for (int i = 0; i <= ships.size() - 1; i++) {
+        shipBox.getItems().add(i);
       }
-      for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
-        shipBox.getItems().clear();
-        for (int i = 0; i <= ships.size() - 1; i++) {
-          shipBox.getItems().add(i);
-        }
-      }
-      setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
-
-    });
+    }
+    setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
   }
 
   private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites) {

@@ -21,7 +21,7 @@ public class StartGameCommand implements Command {
 
   public void exec() {
     Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
-    lobby.startGame(clientListener);
     clientListener.getServer().sendToLobby(new StartGameEvent(lobby.getLobbyID()), lobby);
+    lobby.startGame(clientListener);
   }
 }

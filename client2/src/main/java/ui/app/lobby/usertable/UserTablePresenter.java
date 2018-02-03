@@ -62,7 +62,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
 
     public void startGame() {
         if (lobby.getUsers().size() == lobby.getSize()) {
-            IRequest request = new StartGameRequest();
+            IRequest request = new StartGameRequest(lobby.getLobbyId());
             this.connection.send(request);
             // Soundtrack.imhotepTheme.loop();
         }
