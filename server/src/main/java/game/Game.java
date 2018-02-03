@@ -206,6 +206,7 @@ public class Game implements Runnable {
     int numberOfRounds = 6;
     for (int i = 1; i <= numberOfRounds; i++) {
       this.round = i;
+      this.market.newRound();
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
         for (int player = 0; player < this.players.length; player++) {

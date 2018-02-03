@@ -45,9 +45,6 @@ public class Market extends Site {
   public void addCards(List<Card> cards) {
     drawPile.addAll(cards);
     Collections.shuffle(drawPile);
-    for (int i = 0 ; i < 4 ; i++){
-      activeCards[i] = drawPile.get(i);
-    }
   }
 
   /**
@@ -80,7 +77,7 @@ public class Market extends Site {
   public void newRound() {
     for (int i = 0; i < VISIBLE_CARDS; i++) {
       if (!drawPile.isEmpty()) {
-        activeCards[i] = drawPile.get(0);
+        activeCards[i] = drawPile.remove(0);
       }
     }
   }
