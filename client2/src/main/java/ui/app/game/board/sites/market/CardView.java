@@ -11,7 +11,7 @@ import mvp.view.IView;
 import requests.gamemoves.CardType;
 import ui.dialog.IDialogView;
 
-import static languageSupport.TextBundle.getString;
+import static misc.language.TextBundle.getString;
 
 public class CardView implements IDialogView{
 

@@ -88,10 +88,14 @@ public class ClientListener implements Runnable {
           lobby.leave(user);
         }
       }
-      this.user = null;
+      if (this.user != null) {
+        this.user = null;
+      }
+      this.server.removeClient(this);
+
       this.server.sendToAll(server.getLoggedUsers());
     }
-    this.server.removeClient(this);
+
   }
 
   public void send(Event event) {
