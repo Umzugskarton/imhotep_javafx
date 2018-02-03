@@ -1,5 +1,7 @@
 package socket.commands;
 
+import events.app.game.StartGameEvent;
+import lobby.Lobby;
 import requests.IRequest;
 import requests.StartGameRequest;
 import socket.ClientListener;
@@ -18,6 +20,8 @@ public class StartGameCommand implements Command {
   }
 
   public void exec() {
-    clientListener.getLobbyByID(request.getLobbyId()).startGame(clientListener);
+    Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
+    lobby.startGame(clientListener);
+    clientListener.getServer().sendToLobby(new StartGameEvent(lobby.getLobbyID()), lobby);
   }
 }

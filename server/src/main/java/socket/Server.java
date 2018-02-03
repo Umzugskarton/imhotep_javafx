@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Server {
 
@@ -45,13 +46,17 @@ public class Server {
   }
 
   public void sendToLobby(Event e, Lobby lobby) {
-    User[] users = lobby.getUsers();
+    Arrays.asList(lobby.getUsers()).forEach(user -> {
+      log.debug("SendToLobby " + user.getUsername());
+      sendTo(e, user.getUsername());
+    });
+   /* User[] users = lobby.getUsers();
     for (User tempUser : users) {
       if (tempUser != null) {
-        log.debug("SendToLobby " + tempUser.getUsername());
+
         sendTo(e, tempUser.getUsername());
       }
-    }
+    }*/
   }
 
   public void run() {

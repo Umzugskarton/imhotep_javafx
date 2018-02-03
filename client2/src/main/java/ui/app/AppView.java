@@ -6,7 +6,6 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.app.game.StartGameEvent;
-import events.app.lobby.LeaveLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.Event;
@@ -145,6 +144,7 @@ public class AppView implements IAppView {
     for (CommonLobby l : lobbies) {
       if (l.getLobbyId() == e.getLobby().getLobbyId()) {
         found = true;
+        l.setUsers(e.getLobby().getUsers(),  e.getLobby().getReady(),e.getLobby().getColors() );
         break;
       }
     }

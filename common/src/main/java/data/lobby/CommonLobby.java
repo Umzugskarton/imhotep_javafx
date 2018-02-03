@@ -118,10 +118,6 @@ public class CommonLobby implements Serializable {
     this.colors = colors;
   }
 
-  public void setUsers(ArrayList<LobbyUser> users) {
-    this.users.addAll(users);
-  }
-
   //public void setLobbyId(int lobbyId) {
   //  this.lobbyID = lobbyId;
   //}
