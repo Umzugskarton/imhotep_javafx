@@ -30,10 +30,10 @@ public class DefaultSitePresenter extends Presenter<ISiteView> implements ISiteP
   public void setStones(ShipDockedEvent e) {
     if (site.equals(e.getSite())) {
       ArrayList<Group> stoneGroups = getView().getStones();
-      for (int i = 0; i < e.getNewstones().size(); i++) {
+      for (int i = 0; i < e.getNewStones().size(); i++) {
         stoneGroups.get(i).setVisible(true);
         Rectangle r = getView().getColorStones(i);
-        r.setFill(Color.web(lobby.getUserbyLobbyId(e.getNewstones().get(i)).getColor()));
+        r.setFill(Color.web(lobby.getUserbyLobbyId(e.getNewStones().get(i)).getColor()));
       }
     }
   }

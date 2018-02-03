@@ -47,7 +47,7 @@ public class BoardPresenter extends Presenter<IBoardView> {
 
   @Subscribe
   private void onShipDockedEvent(ShipDockedEvent event){
-      view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+      view.getPierByType(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
   }
 
   @Subscribe

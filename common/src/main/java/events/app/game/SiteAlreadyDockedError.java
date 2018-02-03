@@ -1,14 +1,16 @@
 package events.app.game;
 
+import events.SiteType;
+
 public class SiteAlreadyDockedError extends GameEvent {
 
-  private String site;
+  private SiteType site;
 
-  public SiteAlreadyDockedError(String site) {
+  public SiteAlreadyDockedError(SiteType site) {
     this.site = site;
   }
 
-  public String getSite() {
+  public SiteType getSite() {
     return site;
   }
 }

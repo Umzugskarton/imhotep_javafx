@@ -6,9 +6,11 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.SiteType;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
+import java.util.List;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -141,15 +143,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
         shipBox.getItems().add(i);
       }
     }
-    setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteString());
+    setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteTypes());
   }
 
-  private void setSelectShipLocationBox(int[] sitesAllocation, String[] sites) {
+  private void setSelectShipLocationBox(int[] sitesAllocation, List<SiteType> sites) {
     int i = 0;
     view.getSelectShipLocationBox().getItems().clear();
-    for (String site : sites) {
+    for (SiteType site : sites) {
       if (sitesAllocation[i] == -1) {
-        view.getSelectShipLocationBox().getItems().add(site);
+        view.getSelectShipLocationBox().getItems().add(site.toString());
       }
       i++;
     }
@@ -177,7 +179,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     eventBus.post(new FillUpStorageMove(lobby.getLobbyId()));
   }
 
-  void sendVoyageToStoneSiteMove(int ship, String to) {
+  void sendVoyageToStoneSiteMove(int ship, SiteType to) {
     this.connection.send(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
   }
 

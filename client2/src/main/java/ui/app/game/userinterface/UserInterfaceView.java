@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.SiteType;
 import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -143,7 +144,10 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   void sendVoyageToStoneSiteMove() {
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
-      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(), selectShipLocationBox.getValue());
+      // TODO SiteType.valueOf() gibt zu nem String die passende enum-Konstante. Aber:
+      // die LocationBox hat nicht den Names des enums, sondern das Ergebnis von toString().
+      // Daher kann es sein, dass hier kein enum gefunden wird, wenn die toString()-Methode überschrieben wird.
+      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(), SiteType.valueOf(selectShipLocationBox.getValue()));
     else
       System.out.println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
   }

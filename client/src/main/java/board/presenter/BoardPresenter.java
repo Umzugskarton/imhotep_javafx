@@ -184,7 +184,7 @@ public class BoardPresenter {
 
     int i = 0;
     view.getSelectShipLocationBox().getItems().clear();
-    for (String site : event.getSiteString()) {
+    for (String site : event.getSiteTypes()) {
       if (event.getSitesAllocation()[i] == -1) {
         view.getSelectShipLocationBox().getItems().add(site);
       }
@@ -239,7 +239,7 @@ public class BoardPresenter {
       shipPresenters.get(event.getShipID()).setLocation(event.getSite());
       view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
       StoneSitePresenter presenter = sitePresenters.get(event.getSite());
-      presenter.setStones(event.getNewstones());
+      presenter.setStones(event.getNewStones());
     }
 
     public void updatePoints(UpdatePointsEvent event){

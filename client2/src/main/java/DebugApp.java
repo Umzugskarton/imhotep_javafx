@@ -6,6 +6,7 @@ import data.lobby.LobbyUser;
 import data.user.User;
 import events.Event;
 import events.EventReason;
+import events.SiteType;
 import events.app.chat.ChatMessageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
@@ -19,6 +20,8 @@ import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import events.start.registration.RegistrationEvent;
+import java.util.Arrays;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -319,7 +322,10 @@ public class DebugApp {
       public void handle(ActionEvent event) {
         GameInfoEvent gameInfo = new GameInfoEvent();
         int[] sitesAllo = {-1, -1, -1, -1, -1};
-        String[] x = {"Market", "Pyramids", "Temple", "BurialChamber", "obelisks"};
+        SiteType[] st = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
+            SiteType.BURIAL_CHAMBER, SiteType.OBELISKS};
+        List<SiteType> x = new ArrayList<>(Arrays.asList(st));
+        Arrays.asList();
         String[] y = {"test", "test2"};
         ArrayList<Integer> storages = new ArrayList<>();
         storages.add(1);
@@ -330,7 +336,7 @@ public class DebugApp {
         type.add(CardType.PAVEDPATH);
         type.add(CardType.STATUE);
         gameInfo.setCards(type);
-        gameInfo.setSiteString(x);
+        gameInfo.setSiteTypes(x);
         gameInfo.setSitesAllocation(sitesAllo);
         gameInfo.setOrder(y);
         gameInfo.setTurnTime(20);

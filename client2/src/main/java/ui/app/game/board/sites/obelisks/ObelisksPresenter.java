@@ -31,7 +31,7 @@ public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePres
   public void setStones(ShipDockedEvent e) {
     if (site.equals(e.getSite())) {
       int[] playerStones = new int[lobby.getUsers().size()];
-      for (Integer stone : e.getNewstones()) {
+      for (Integer stone : e.getNewStones()) {
         playerStones[stone]++;
       }
       int k = 0;

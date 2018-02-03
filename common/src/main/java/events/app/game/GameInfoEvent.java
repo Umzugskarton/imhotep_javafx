@@ -1,5 +1,6 @@
 package events.app.game;
 
+import events.SiteType;
 import requests.gamemoves.CardType;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class GameInfoEvent extends GameEvent {
   private int round;
   private ArrayList<Integer> storages;
   private String[] order;
-  private String[] siteString;
+  private List<SiteType> siteTypes;
   private int turnTime;
   private int[] sitesAllocation;
   private ArrayList<CardType> cards = new ArrayList<>();
@@ -33,12 +34,12 @@ public class GameInfoEvent extends GameEvent {
     this.sitesAllocation = sitesAllocation;
   }
 
-  public String[] getSiteString() {
-    return siteString;
+  public List<SiteType> getSiteTypes() {
+    return siteTypes;
   }
 
-  public void setSiteString(String[] siteString) {
-    this.siteString = siteString;
+  public void setSiteTypes(List<SiteType> siteTypes) {
+    this.siteTypes = siteTypes;
   }
 
   public void setCurrentShips(int[] ship) {

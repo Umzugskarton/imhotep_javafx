@@ -1,6 +1,7 @@
 package game.gameprocedures;
 
 import events.Event;
+import events.SiteType;
 import events.app.game.*;
 import game.Game;
 import game.board.Market;
@@ -72,9 +73,9 @@ public class VoyageToMarket {
                         }
                         marketStones.add(stone.getPlayer().getId());
                     }
-                    return new ShipDockedEvent(move.getShipId(), market.toString(), marketStones);
+                    return new ShipDockedEvent(move.getShipId(), SiteType.MARKET, marketStones);
                 } else {
-                    return new SiteAlreadyDockedError("Market");
+                    return new SiteAlreadyDockedError(SiteType.MARKET);
                 }
             } else {
                 return new NotEnoughLoadError(move.getShipId());

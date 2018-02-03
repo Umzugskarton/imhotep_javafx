@@ -5,9 +5,11 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.SiteType;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
+import java.util.EnumMap;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -95,7 +97,7 @@ public class BoardView implements IBoardView {
   private final ArrayList<ShipView> shipViews = new ArrayList<>();
   private final ArrayList<ISiteView> siteViews = new ArrayList<>();
   private MarketView marketView;
-  private HashMap<String, Pane> piers = new HashMap<>();
+  private EnumMap<SiteType, Pane> piers = new EnumMap<>(SiteType.class);
 
   private final User user;
   private CommonLobby lobby;
@@ -117,11 +119,11 @@ public class BoardView implements IBoardView {
   }
 
   public void initPiers() {
-    piers.put("Market", marketPier);
-    piers.put("obelisks", obelisksPier);
-    piers.put("Pyramids", pyramidsPier);
-    piers.put("Temple", templePier);
-    piers.put("BurialChamber", burialChamberPier);
+    piers.put(SiteType.MARKET, marketPier);
+    piers.put(SiteType.OBELISKS, obelisksPier);
+    piers.put(SiteType.PYRAMID, pyramidsPier);
+    piers.put(SiteType.TEMPLE, templePier);
+    piers.put(SiteType.BURIAL_CHAMBER, burialChamberPier);
   }
 
   private void bind(){
@@ -150,8 +152,9 @@ public class BoardView implements IBoardView {
     }
   }
 
-  public Pane getPierByName(String name) {
-    return piers.get(name);
+  @Override
+  public Pane getPierByType(SiteType type) {
+    return piers.get(type);
   }
 
   public AnchorPane removeShipPaneById(int id) {

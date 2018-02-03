@@ -1,20 +1,21 @@
 package events.app.game;
 
+import events.SiteType;
 import java.util.ArrayList;
 
 public class ShipDockedEvent extends GameEvent {
 
-  private String site;
+  private SiteType site;
   private int shipID;
   private ArrayList<Integer> newstones;
 
-  public ShipDockedEvent(int shipID, String site, ArrayList<Integer> newstones) {
+  public ShipDockedEvent(int shipID, SiteType site, ArrayList<Integer> newstones) {
     this.shipID = shipID;
     this.site = site;
     this.newstones = newstones;
   }
 
-  public ArrayList<Integer> getNewstones() {
+  public ArrayList<Integer> getNewStones() {
     return newstones;
   }
 
@@ -22,7 +23,7 @@ public class ShipDockedEvent extends GameEvent {
     return shipID;
   }
 
-  public String getSite() {
+  public SiteType getSite() {
     return site;
   }
 }

@@ -1,5 +1,6 @@
 package ui.app.game.board;
 
+import events.SiteType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -15,5 +16,5 @@ public interface IBoardView extends IView {
   ArrayList<ShipView> getShipViews();
   void setShips(ArrayList<int[]> ships);
   AnchorPane removeShipPaneById(int id);
-  Pane getPierByName(String name);
+  Pane getPierByType(SiteType type);
 }

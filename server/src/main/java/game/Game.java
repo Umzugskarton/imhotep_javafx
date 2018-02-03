@@ -2,6 +2,7 @@ package game;
 
 import data.user.User;
 import events.Event;
+import events.SiteType;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
@@ -10,6 +11,8 @@ import game.board.*;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
+import java.util.Arrays;
+import java.util.List;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +44,9 @@ public class Game implements Runnable {
   private Temple temple;
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
-  private String[] siteString = {"Market", "Pyramids", "Temple", "BurialChamber", "obelisks"};
+  private SiteType[] siteTypesArray = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
+      SiteType.BURIAL_CHAMBER, SiteType.OBELISKS};
+  private ArrayList<SiteType> siteTypes = new ArrayList<>(Arrays.asList(siteTypesArray));
 
   private ClientListener clientListener;
   private Move nextMove = null;
@@ -169,7 +174,7 @@ public class Game implements Runnable {
     market.getActiveCards().forEach(card -> cards.add(card.getType()));
 
     gameInfo.setCards(cards);
-    gameInfo.setSiteString(siteString);
+    gameInfo.setSiteTypes(siteTypes);
     gameInfo.setSitesAllocation(dockedSites);
     gameInfo.setOrder(users);
     gameInfo.setTurnTime(MoveExecutor.TURN_TIME);
