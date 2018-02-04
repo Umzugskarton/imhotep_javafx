@@ -24,6 +24,11 @@ public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePres
       CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
+    bind();
+  }
+
+  private void bind(){
+    eventBus.register(this);
   }
 
   @Subscribe

@@ -9,7 +9,9 @@ import events.SiteType;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import helper.fxml.GenerateFXMLView;
-import java.util.EnumMap;
+
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -27,9 +29,6 @@ import ui.app.game.board.sites.market.MarketView;
 import ui.app.game.board.storage.StorageView;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ResourceBundle;
 
 
 public class BoardView implements IBoardView {
@@ -93,7 +92,7 @@ public class BoardView implements IBoardView {
   private final BoardPresenter mainPresenter;
   private final EventBus eventBus;
   private final ArrayList<StorageView> storageViews = new ArrayList<>();
-  private final ArrayList<ShipView> shipViews = new ArrayList<>();
+  private ArrayList<ShipView> shipViews = new ArrayList<>();
   private final ArrayList<ISiteView> siteViews = new ArrayList<>();
   private MarketView marketView;
   private EnumMap<SiteType, Pane> piers = new EnumMap<>(SiteType.class);
@@ -163,6 +162,11 @@ public class BoardView implements IBoardView {
   }
 
   public void setShips(ArrayList<int[]> ships){
+    List<Pane> piers = new ArrayList<>(this.piers.values());
+    shipViews.removeAll(shipViews);
+    for (Pane pierPane : piers) {
+      pierPane.getChildren().clear();
+    }
     for (int i = 0; i < ships.size(); i++){
       ShipView shipView =new ShipView(this, eventBus, connection, lobby , ships.get(i), i);
       shipViews.add(shipView);
