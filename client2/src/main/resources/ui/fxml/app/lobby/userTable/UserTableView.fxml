@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="userTableRoot" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="userTableRoot" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
    <opaqueInsets>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </opaqueInsets>

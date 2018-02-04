@@ -41,6 +41,7 @@ public class Lobby {
     this.name = name;
     this.size = size;
     this.password = password;
+    this.server = server;
     generateColors();
   }
 

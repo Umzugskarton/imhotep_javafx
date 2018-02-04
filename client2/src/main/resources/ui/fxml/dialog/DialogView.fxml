@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="dialogViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #fa65;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="dialogViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #fa65;" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleCloseButton" style="-fx-background-color: #753b64;" text="x" BorderPane.alignment="CENTER_RIGHT" />
    </top>

@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.lobby.LobbylistRequest;
+import requests.main.UserlistRequest;
 import ui.app.AppView;
 import ui.layout.StageLayout;
 import ui.start.StartView;
@@ -80,5 +82,7 @@ public class ClientApp extends Application {
     this.stageLayout.setWindowSize(1300, 900);
     this.primaryStage.setX(100);
     this.primaryStage.setY(100);
+    this.connection.send(new UserlistRequest());
+    this.connection.send(new LobbylistRequest());
   }
 }

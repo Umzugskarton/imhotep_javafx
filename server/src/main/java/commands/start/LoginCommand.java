@@ -36,9 +36,12 @@ public class LoginCommand implements Command {
       User user = this.clientAPI.getUser(request.getUsername());
       this.clientListener.setUser(user);
       this.clientListener.send(new LoginSuccessfulEvent(user));
-      this.server.sendToLoggedIn(this.server.getLoggedUsers());
-      LobbylistCommand command = new LobbylistCommand(this.clientListener);
-      command.exec();
+
+      // SOllte der Client über UserListRequest oder LobbyListRequest
+      // selber anfordern.
+      //this.server.sendToLoggedIn(this.server.getLoggedUsers());
+      //LobbylistCommand command = new LobbylistCommand(this.clientListener);
+      //command.exec();
     } else {
       this.clientListener.send(new LoginFailedEvent(response.getReason()));
     }
