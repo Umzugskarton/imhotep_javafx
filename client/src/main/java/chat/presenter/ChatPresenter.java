@@ -3,8 +3,8 @@ package chat.presenter;
 import static general.TextBundle.getString;
 
 import requests.IRequest;
-import requests.ChatRequest;
-import requests.WhisperRequest;
+import requests.chat.ChatRequest;
+import requests.chat.WhisperRequest;
 import chat.view.ChatView;
 import chat.view.ChatViewImpl;
 

@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import mvp.presenter.Presenter;
 import requests.IRequest;
-import requests.StartGameRequest;
+import requests.lobby.StartGameRequest;
 
 import java.util.Arrays;
 

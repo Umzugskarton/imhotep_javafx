@@ -3,7 +3,7 @@ package ui.dialog.lobby.createlobby;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import mvp.presenter.Presenter;
-import requests.CreateRequest;
+import requests.lobby.CreateRequest;
 
 public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
 

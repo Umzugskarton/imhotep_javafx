@@ -4,10 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
-import misc.soundtrack.Soundtrack;
 import mvp.presenter.Presenter;
-import requests.IRequest;
-import requests.StartGameRequest;
 
 public class LobbyPresenter extends Presenter<ILobbyView> {
 

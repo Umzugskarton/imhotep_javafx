@@ -3,7 +3,7 @@ package ui.dialog.lobby.joinlobby;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import mvp.presenter.Presenter;
-import requests.JoinRequest;
+import requests.lobby.JoinRequest;
 import ui.app.main.lobbylist.LobbyTableData;
 
 public class JoinLobbyPresenter extends Presenter<IJoinLobbyView> {

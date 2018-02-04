@@ -1,7 +1,7 @@
 package games.presenter;
 
 
-import requests.JoinRequest;
+import requests.lobby.JoinRequest;
 import games.model.GameList;
 import games.model.GameListImpl;
 import data.lobby.CommonLobby;

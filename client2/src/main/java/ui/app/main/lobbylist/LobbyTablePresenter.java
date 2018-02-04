@@ -9,7 +9,7 @@ import events.app.lobby.LobbyListEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mvp.presenter.Presenter;
-import requests.JoinRequest;
+import requests.lobby.JoinRequest;
 
 import java.util.ArrayList;
 

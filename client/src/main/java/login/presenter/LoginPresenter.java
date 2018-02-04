@@ -1,6 +1,6 @@
 package login.presenter;
 
-import requests.LoginRequest;
+import requests.start.login.LoginRequest;
 import login.view.LoginView;
 import main.SceneController;
 

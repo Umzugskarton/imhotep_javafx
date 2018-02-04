@@ -19,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
-import requests.LeaveLobbyRequest;
+import requests.lobby.LeaveLobbyRequest;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;

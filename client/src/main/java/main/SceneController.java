@@ -1,6 +1,6 @@
 package main;
 
-import requests.LobbylistRequest;
+import requests.lobby.LobbylistRequest;
 import board.presenter.BoardPresenter;
 import board.view.BoardViewImplFx;
 import com.google.common.eventbus.EventBus;

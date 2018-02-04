@@ -6,12 +6,10 @@ import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.IRequest;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.Move;
-import socket.commands.Command;
-import socket.commands.CommandFactory;
-import socket.commands.Invoker;
+import commands.Command;
+import commands.CommandFactory;
+import commands.Invoker;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

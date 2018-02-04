@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.start.registration.RegistrationEvent;
 import mvp.presenter.Presenter;
-import requests.RegisterRequest;
+import requests.start.registration.RegisterRequest;
 import ui.app.ShowAppViewEvent;
 
 public class RegistrationPresenter extends Presenter<IRegistrationView> {

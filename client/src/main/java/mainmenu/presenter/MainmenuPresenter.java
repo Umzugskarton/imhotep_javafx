@@ -1,7 +1,7 @@
 package mainmenu.presenter;
 
-import requests.LogoutRequest;
-import requests.UserlistRequest;
+import requests.main.LogoutRequest;
+import requests.main.UserlistRequest;
 import chat.presenter.ChatPresenter;
 import java.util.ArrayList;
 import java.util.List;

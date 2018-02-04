@@ -5,7 +5,12 @@ import lobby.Lobby;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import requests.*;
+import requests.chat.ChatRequest;
+import requests.chat.WhisperRequest;
+import requests.lobby.CreateRequest;
+import requests.profil.ChangeCredentialRequest;
+import requests.start.login.LoginRequest;
+import requests.start.registration.RegisterRequest;
 import socket.ClientAPI;
 import user.UserIdentifier;
 

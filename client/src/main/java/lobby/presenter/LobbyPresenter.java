@@ -9,6 +9,12 @@ import lobby.view.LobbyView;
 import main.SceneController;
 
 import java.util.Arrays;
+
+import requests.chat.ChatRequest;
+import requests.lobby.ChangeColorRequest;
+import requests.lobby.LeaveLobbyRequest;
+import requests.lobby.SetReadyRequest;
+import requests.lobby.StartGameRequest;
 import sound.Soundtrack;
 
 import static general.TextBundle.getString;
@@ -44,12 +50,12 @@ public class LobbyPresenter {
 
   public void sendChangeColorRequest() {
     //this.lobbyView.updateColorRectangle();
-    ChangeColorRequest changeColorRequest = new ChangeColorRequest();
+    ChangeColorRequest changeColorRequest = new ChangeColorRequest(getCLTLobby().getLobbyId());
     this.getSceneController().getClientSocket().send(changeColorRequest);
   }
 
   public void sendSetReadyRequest() {
-    SetReadyRequest setReadyRequest = new SetReadyRequest();
+    SetReadyRequest setReadyRequest = new SetReadyRequest(getCLTLobby().getLobbyId());
     this.getSceneController().getClientSocket().send(setReadyRequest);
   }
 
@@ -90,7 +96,7 @@ public class LobbyPresenter {
 
   public void startGame() {
     if (CLTLobby.getUsers().size() == CLTLobby.getSize()) {
-      IRequest request = new StartGameRequest();
+      IRequest request = new StartGameRequest(this.getCLTLobby().getLobbyId());
       sc.getClientSocket().send(request);
       Soundtrack.imhotepTheme.loop();
     }

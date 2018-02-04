@@ -3,7 +3,7 @@ package profile.presenter;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
-import requests.ChangeCredentialRequest;
+import requests.profil.ChangeCredentialRequest;
 
 public class ProfilePresenter {
 

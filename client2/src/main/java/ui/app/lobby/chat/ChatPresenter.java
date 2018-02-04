@@ -10,9 +10,9 @@ import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
 import javafx.scene.paint.Color;
 import mvp.presenter.Presenter;
-import requests.ChatRequest;
+import requests.chat.ChatRequest;
 import requests.IRequest;
-import requests.WhisperRequest;
+import requests.chat.WhisperRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -4,7 +4,7 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.user.User;
 import mvp.presenter.Presenter;
-import requests.LogoutRequest;
+import requests.main.LogoutRequest;
 
 public class MainPresenter extends Presenter<IMainView> {
 

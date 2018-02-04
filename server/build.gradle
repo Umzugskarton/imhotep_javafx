@@ -7,7 +7,7 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
-mainClassName = "app.ServerApplication"
+mainClassName = "ServerApplication"
 
 repositories {
     maven {
@@ -28,7 +28,6 @@ task fatJar(type: Jar) {
 
 dependencies {
     compile project(":common")
-//    compile project(":common2")
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'

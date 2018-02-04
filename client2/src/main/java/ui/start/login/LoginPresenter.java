@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.start.login.LoginFailedEvent;
 import mvp.presenter.Presenter;
-import requests.LoginRequest;
+import requests.start.login.LoginRequest;
 
 public class LoginPresenter extends Presenter<ILoginView> {
 

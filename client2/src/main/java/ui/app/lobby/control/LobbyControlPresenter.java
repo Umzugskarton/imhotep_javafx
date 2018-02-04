@@ -4,10 +4,10 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import mvp.presenter.Presenter;
-import requests.ChangeColorRequest;
+import requests.lobby.ChangeColorRequest;
 import requests.IRequest;
-import requests.SetReadyRequest;
-import requests.StartGameRequest;
+import requests.lobby.SetReadyRequest;
+import requests.lobby.StartGameRequest;
 
 public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
 

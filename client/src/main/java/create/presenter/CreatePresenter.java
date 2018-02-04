@@ -1,6 +1,6 @@
 package create.presenter;
 
-import requests.CreateRequest;
+import requests.lobby.CreateRequest;
 import create.view.CreateView;
 import create.view.CreateViewImpl;
 import main.SceneController;
