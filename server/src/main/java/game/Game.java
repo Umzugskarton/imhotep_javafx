@@ -7,20 +7,24 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.*;
+import game.board.BurialChamber;
+import game.board.Market;
+import game.board.Obelisks;
+import game.board.Pyramids;
+import game.board.Ship;
+import game.board.StoneSite;
+import game.board.Temple;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
+import java.util.ArrayList;
 import java.util.Arrays;
-
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import socket.ClientListener;
-
-import java.util.ArrayList;
 
 public class Game implements Runnable {
 
@@ -245,7 +249,6 @@ public class Game implements Runnable {
     updatePoints();
   }
 
-  // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
   private void nominateWinner() {
     Player winner = null;
     String[][] playerResult = new String[2][players.length];
