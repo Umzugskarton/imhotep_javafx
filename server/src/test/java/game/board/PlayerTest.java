@@ -34,9 +34,13 @@ class PlayerTest {
     boolean result1 = player.ownsCard(card1);
     boolean result2 = player.ownsCard(card2);
     boolean result3 = player.ownsCard(card3);
+    boolean result4 = player.ownsCard(new StatueCard());
+    boolean result5 = player.ownsCard(new OrnamentCard(cardO));
 
     assertEquals(true, result1);
     assertEquals(true, result2);
     assertEquals(true, result3);
+    assertEquals(true, result4);
+    assertEquals(true, result5);
   }
 }

@@ -13,4 +13,18 @@ public abstract class Card {
   public void setType(CardType cardType) {
     this.cardType = cardType;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null) {
+      return false;
+    }
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Card)) {
+      return false;
+    }
+    return ((Card) o).getType() == this.getType();
+  }
 }
