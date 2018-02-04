@@ -22,14 +22,13 @@ import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.sites.ISiteView;
-import ui.app.game.board.sites.defaultSites.DefaultSiteView;
+import ui.app.game.board.sites.defaultsites.DefaultSiteView;
 import ui.app.game.board.sites.market.MarketView;
 import ui.app.game.board.storage.StorageView;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
@@ -140,7 +139,7 @@ public class BoardView implements IBoardView {
       storageGridPane.add(storageView.getRootParent(),  0, i);
     }
 
-    String[] sitesString = {"Pyramids", "Temple", "BurialChamber", "obelisks"};
+    String[] sitesString = {"Pyramids", "Temple", "BurialChamber", "Obelisks"};
     this.marketView =  new MarketView(this, eventBus, connection);
     stoneSiteGrid.add(marketView.getRootParent(), 0, 0);
     int i = 1;

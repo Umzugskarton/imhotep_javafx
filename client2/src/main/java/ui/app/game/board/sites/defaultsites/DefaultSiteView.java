@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.defaultSites;
+package ui.app.game.board.sites.defaultsites;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;

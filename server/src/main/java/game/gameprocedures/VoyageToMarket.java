@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class VoyageToMarket {
+public class VoyageToMarket implements Procedure{
     private VoyageToMarketMove move;
     private Game game;
     private int playerId;

@@ -86,14 +86,14 @@ public class Game implements Runnable {
   }
 
   private void setGame() {
-    int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize());
+    //int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize());
     for (int i = 0; i < numberOfShips; i++) {
       this.ships[i] = new Ship(i);
     }
     for (int i = 0; i < lobby.getSize(); i++) {
-      this.players[i] = new Player(lobby.getUsers()[seq], i);
+      this.players[i] = new Player(lobby.getUsers()[i], i);
       this.players[i].getSupplySled().addStones(i + 2);
-      seq = (seq + 1) % lobby.getSize();
+      //seq = (seq + 1) % lobby.getSize();
     }
   }
 
@@ -332,6 +332,10 @@ public class Game implements Runnable {
         + this.players[p].getUser().getUsername() + ")");
     executor.waitForMove();
     nextMove = executor.getMove();
+  }
+
+  public int getCurrentPlayer() {
+    return currentPlayer;
   }
 
   public MoveExecutor getExecutor() {
