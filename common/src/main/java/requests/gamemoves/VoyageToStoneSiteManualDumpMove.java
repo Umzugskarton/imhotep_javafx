@@ -10,8 +10,6 @@ public class VoyageToStoneSiteManualDumpMove implements Move  {
   private int[] dumpOrder;
   private int lobbyId;
 
-  public VoyageToStoneSiteManualDumpMove (){}
-
   public VoyageToStoneSiteManualDumpMove(int shipId, String stonesite, int[] dumpOrder, int lobbyId){
     this.lobbyId=lobbyId;
     this.shipId = shipId;

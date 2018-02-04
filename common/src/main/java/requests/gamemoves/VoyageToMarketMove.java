@@ -9,8 +9,6 @@ public class VoyageToMarketMove implements Move {
   private String stonesite;
   private int lobbyId;
 
-  public VoyageToMarketMove(){}
-
   public VoyageToMarketMove(int shipId, String stonesite, int lobbyId){
     this.shipId = shipId;
     this.stonesite =stonesite;

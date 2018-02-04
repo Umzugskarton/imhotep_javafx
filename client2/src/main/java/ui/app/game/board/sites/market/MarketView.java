@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import mvp.view.IView;
+import ui.app.game.board.sites.market.cards.CardView;
 import ui.dialog.IDialogView;
 
 import java.util.ArrayList;

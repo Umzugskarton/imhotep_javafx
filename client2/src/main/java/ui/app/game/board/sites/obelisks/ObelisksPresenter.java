@@ -23,6 +23,7 @@ public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePres
   public ObelisksPresenter(ISiteView view, EventBus eventBus, Connection connection,
       CommonLobby lobby) {
     super(view, eventBus);
+    this.lobby                                                  = lobby;
     this.connection = connection;
     bind();
   }

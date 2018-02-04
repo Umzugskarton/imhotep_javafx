@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.market;
+package ui.app.game.board.sites.market.cards;
 
 import com.google.common.eventbus.EventBus;
 import helper.fxml.GenerateFXMLView;
@@ -28,6 +28,7 @@ public class CardView implements IDialogView{
 
   private final IView parentView;
   private final EventBus eventBus;
+  private boolean available;
 
   private CardType type;
 
@@ -37,7 +38,16 @@ public class CardView implements IDialogView{
   public CardView(IView parentView, EventBus eventBus){
     this.parentView = parentView;
     this.eventBus = eventBus;
+    available = true;
     initOwnView();
+  }
+
+  public void setAvailable(boolean available) {
+    this.available = available;
+  }
+
+  public boolean isAvailable() {
+    return available;
   }
 
   @Override
@@ -46,7 +56,7 @@ public class CardView implements IDialogView{
       this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/CardView.fxml", this, eventBus);
   }
 
-  void setCardType(CardType type){
+  public void setCardType(CardType type){
     this.type = type;
     cardBack.setId(getType(type));
     cardClass.setText(getTypeClass());
@@ -59,7 +69,7 @@ public class CardView implements IDialogView{
     return myParent;
   }
 
-  String getType(CardType type){
+  public String getType(CardType type){
     switch (type){
       case SAIL:
       case LEVER:

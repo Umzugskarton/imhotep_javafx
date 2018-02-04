@@ -10,9 +10,6 @@ public class VoyageToStoneSiteMove implements Move {
   private SiteType stoneSite;
   private int lobbyId;
 
-  public VoyageToStoneSiteMove() {
-  }
-
   public VoyageToStoneSiteMove(int shipId, SiteType stoneSite, int lobbyId) {
     this.shipId = shipId;
     this.stoneSite = stoneSite;
