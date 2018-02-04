@@ -166,13 +166,13 @@ public class ClientAPI {
    * @param user User, der die Lobby erstellen möchte
    * @return Lobby die gerade erstellt wurde und gibt diese an den Clientlistener Thread
    */
-  public Lobby createLobby(CreateRequest request, User user) {
+  public Lobby createLobby(CreateRequest request, User user, Server server) {
     String name = request.getName();
     int size = request.getSize();
     String password = request.getPassword();
     if (password == null) {
       password = "";
     }
-    return new Lobby(size, user, name, password);
+    return new Lobby(size, user, name, password, server);
   }
 }

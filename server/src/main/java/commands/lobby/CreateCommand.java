@@ -29,7 +29,7 @@ public class CreateCommand implements Command {
 
   @Override
   public void exec() {
-    Lobby lobby = this.clientAPI.createLobby(request, this.clientListener.getUser());
+    Lobby lobby = this.clientAPI.createLobby(request, this.clientListener.getUser(), this.clientListener.getServer());
     clientListener.addLobby(lobby);
     CreateLobbyEvent response = this.clientListener.getServer().addLobby(lobby);
     this.clientListener.send(response);

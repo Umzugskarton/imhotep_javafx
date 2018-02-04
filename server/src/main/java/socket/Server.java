@@ -120,6 +120,11 @@ public class Server {
     return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
   }
 
+  public synchronized boolean delLobby(Lobby lobby) {
+    log.info("Eine Lobby wurde geloescht");
+    return this.openLobby.remove(lobby);
+  }
+
   public Lobby getLobbybyID(int id) {
     for (Lobby lobby : openLobby) {
       if (lobby.getLobbyID() == id) {

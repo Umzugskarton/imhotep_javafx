@@ -10,6 +10,7 @@ import game.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import socket.ClientListener;
+import socket.Server;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Lobby {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
+  private Server server;
   private String name;
   private int lobbyID;
   private User[] users;
@@ -31,7 +33,7 @@ public class Lobby {
   private ArrayList<String> colors = new ArrayList<>();
   private Game game;
 
-  public Lobby(int size, User host, String name, String password) {
+  public Lobby(int size, User host, String name, String password, Server server) {
     readyList = new boolean[size];
     this.users = new User[size];
     this.userColor.add(0);
@@ -229,6 +231,8 @@ public class Lobby {
     if (getUserCount() == 0) {
       //Lobby wird unsichtbar gesetzt, wenn alle diese verlassen haben
       this.show = false;
+      //Löschen der Lobby
+      this.server.delLobby(this);
     }
     this.vacancy = true;
     return new LeaveLobbyEvent(true);
