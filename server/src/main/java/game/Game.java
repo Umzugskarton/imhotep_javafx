@@ -176,13 +176,11 @@ public class Game implements Runnable {
     gameInfo.setOrder(users);
     gameInfo.setTurnTime(MoveExecutor.TURN_TIME);
     gameInfo.setRound(this.round);
-    // TODO change gameInfo to make this easier
     ArrayList<Integer> storages = new ArrayList<>();
     for (Player p : players) {
       storages.add(p.getSupplySled().getStones());
     }
     gameInfo.setStorages(storages);
-
     return gameInfo;
   }
 
@@ -213,8 +211,8 @@ public class Game implements Runnable {
           if (this.nextMove != null) {
             executeMove();
           } else {
-            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
-                + players[currentPlayer] + "! ");
+            log.error("[ Game: {} ] Kein Spielzug gesetzt von Spieler {}! ", gameID,
+                players[currentPlayer].getId());
           }
           nextMove = null;
           if (allshipsDocked()) {
@@ -258,8 +256,9 @@ public class Game implements Runnable {
       }
       playerResult[0][i] = p.getUser().getUsername();
       playerResult[1][i] = String.valueOf(p.getPoints());
+      i++;
     }
-    sendAll(new WinEvent(winner.getUser().getUsername(),playerResult));
+    sendAll(new WinEvent(winner.getUser().getUsername(), playerResult));
   }
 
   public BurialChamber getBURIALCHAMBER() {
@@ -290,7 +289,8 @@ public class Game implements Runnable {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.players) {
       sendTo(p.getUser(),
-          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(),  gameID));
+          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(),
+              gameID));
     }
   }
 
@@ -359,28 +359,29 @@ public class Game implements Runnable {
     return gameID;
   }
 
-private int testRound = 0;
+  private int testRound = 0;
+
   public void runOneRoundTest(Move[] moves) {
     testRound++;
-      this.market.newRound();
-      sendAll(getGameInfo());
-        for (int player = 0; player < this.players.length; player++) {
-          currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
-          pf = new ProcedureFactory(player, this);
-          nextMove = setTestMove(moves[player]);
-          if (this.nextMove != null) {
-            executeMove();
-          } else {
-            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
-                    + players[currentPlayer] + "! ");
-          }
-        }
-          addPointsEndOfRound();
-          addPointsEndOfGame();
-          if(testRound == 3) {
-            nominateWinner();
-            log.info("geschafft");
-          }
+    this.market.newRound();
+    sendAll(getGameInfo());
+    for (int player = 0; player < this.players.length; player++) {
+      currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
+      pf = new ProcedureFactory(player, this);
+      nextMove = setTestMove(moves[player]);
+      if (this.nextMove != null) {
+        executeMove();
+      } else {
+        log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
+            + players[currentPlayer] + "! ");
+      }
+    }
+    addPointsEndOfRound();
+    addPointsEndOfGame();
+    if (testRound == 3) {
+      nominateWinner();
+      log.info("geschafft");
+    }
 
 
   }
