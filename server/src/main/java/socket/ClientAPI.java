@@ -8,11 +8,15 @@ import events.app.chat.WhisperChatEvent;
 import events.app.profil.ChangeProfilDataEvent;
 import events.start.login.LoginEvent;
 import events.start.registration.RegistrationEvent;
-import lobby.Lobby;
-import requests.*;
-import user.UserIdentifier;
-
 import java.util.List;
+import lobby.Lobby;
+import requests.ChangeCredentialRequest;
+import requests.ChatRequest;
+import requests.CreateRequest;
+import requests.LoginRequest;
+import requests.RegisterRequest;
+import requests.WhisperRequest;
+import user.UserIdentifier;
 
 public class ClientAPI {
 
@@ -102,7 +106,7 @@ public class ClientAPI {
     Integer type = request.getCrednr();
     String what = "";
     boolean changeCredential = false;
-    if (newCred != null && type == 1 || type == 2 || type == 3) {
+    if (newCred != null && type == 1 || type == 2) {
       if (type == 1) {
         what = UserIdentifier.EMAIL.toString();
         changeCredential = changeCredential(user, UserIdentifier.EMAIL, newCred);
@@ -111,13 +115,8 @@ public class ClientAPI {
         what = UserIdentifier.PASSWORD.toString();
         changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
       }
-      //TODO: Unzulässig machen, es würde das Spiel kaputtmachen, wenn der User seinen Namen ändern kann
-      if (type == 3) {
-        what = UserIdentifier.USERNAME.toString();
-        changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
-      }
       event.setSuccess(changeCredential);
-      event.setMsg(what + " wurde " + (changeCredential?"erfolgreich":"nicht")+" geändert");
+      event.setMsg(what + " wurde " + (changeCredential ? "erfolgreich" : "nicht") + " geändert");
     } else {
       event.setMsg("Fehler aufgetreten");
       event.setSuccess(false);
