@@ -1,5 +1,6 @@
 package game.board;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +87,20 @@ public class Ship {
       return false;
     }
     stones[position] = stone;
+    log.warn("PUT ON SHIP " + id +" STONE ID " + stones[position].getPlayer().getId());
     return true;
+  }
+
+  public int getLoadedStones(){
+    int stoneCount = 0;
+    for (Stone stone : stones) {
+      log.warn("Try to count");
+      if (stone != null){
+        stoneCount++;
+      }
+    }
+    log.warn("Counted " + stoneCount + "Stones on Ship " + id);
+    return stoneCount;
   }
 
   public Stone[] sortStones(int[] sortedStones) {

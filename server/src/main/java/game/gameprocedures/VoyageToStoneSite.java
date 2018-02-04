@@ -32,20 +32,14 @@ public class VoyageToStoneSite implements Procedure {
     Method method;
 
     try {
-      method = game.getClass().getMethod("get" + move.getStoneSite());
+      method = game.getClass().getMethod("get" + move.getStoneSite().toString());
       site = (StoneSite) method.invoke(game);
     } catch (Exception e) {
       return new DockingShipError();
     }
 
     if (!ship.isDocked()) {
-      int loadedStones = 0;
-      for (Stone stone : ship.getStones()) {
-        if (stone != null) {
-          loadedStones++;
-        }
-      }
-      if (loadedStones >= ship.getMinimumStones()) {
+      if (ship.getLoadedStones() >= ship.getMinimumStones()) {
         if (site.dockShip(ship)) {
           ship.setDocked(true);
           ArrayList<Integer> siteStones = new ArrayList<>();
@@ -55,7 +49,7 @@ public class VoyageToStoneSite implements Procedure {
               siteStones.add(stone.getPlayer().getId());
             }
           }
-          if (move.getStoneSite().equals("Pyramids")) {
+          if (move.getStoneSite().toString().equals("PYRAMIDS")) {
             game.updatePyramids();
           }
           return new ShipDockedEvent(move.getShipId(), move.getStoneSite(), siteStones);

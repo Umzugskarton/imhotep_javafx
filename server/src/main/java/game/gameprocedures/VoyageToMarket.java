@@ -33,7 +33,7 @@ public class VoyageToMarket implements Procedure{
 
     public Event exec() {
         Ship ship = game.getShipByID(move.getShipId());
-        Market market = game.getMarket();
+        Market market = game.getMARKET();
         Card card;
 
         if (!ship.isDocked()) {
@@ -59,13 +59,13 @@ public class VoyageToMarket implements Procedure{
                             //Je nach Karte wird ein Stein aus dem Steinbruch auf den entsprechnenden Ort gesetzt
                             if (card.getType() == CardType.ENTRANCE) {
                                 //TODO: Event einfügen
-                                game.getPyramids().addStone(newStone);
+                                game.getPYRAMID().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(0);
                             } else if (card.getType() == CardType.SARCOPHAGUS) {
-                                game.getBurialChamber().addStone(newStone);
+                                game.getBURIALCHAMBER().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(1);
                             } else if (card.getType() == CardType.PAVEDPATH) {
-                                game.getObelisks().addStone(newStone);
+                                game.getOBELISKS().addStone(newStone);
                                 LocationCardEvent e = new LocationCardEvent(2);
                             }
                         } else {
@@ -86,7 +86,7 @@ public class VoyageToMarket implements Procedure{
     }
 
     private Card playerCardSelect(int playerId) {
-        List<Card> activeCards = game.getMarket().getActiveCards();
+        List<Card> activeCards = game.getMARKET().getActiveCards();
         //TODO: Player-ID sucht sich eine Karte aus
         int choosenCard = 0;
         ChooseCardEvent chooseCardEvent = new ChooseCardEvent(playerId, choosenCard);

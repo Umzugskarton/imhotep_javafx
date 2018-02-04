@@ -224,11 +224,11 @@ public class Game implements Runnable {
             break;
           }
         }
-        resetCurrentShips();
-        addPointsEndOfRound();
       }
-      addPointsEndOfGame();
+      resetCurrentShips();
+      addPointsEndOfRound();
     }
+    addPointsEndOfGame();
     nominateWinner();
   }
 
@@ -265,23 +265,23 @@ public class Game implements Runnable {
     sendAll(new WinEvent(winner.getUser().getUsername(),playerResult));
   }
 
-  public BurialChamber getBurialChamber() {
+  public BurialChamber getBURIALCHAMBER() {
     return burialChamber;
   }
 
-  public Market getMarket() {
+  public Market getMARKET() {
     return market;
   }
 
-  public Obelisks getObelisks() {
+  public Obelisks getOBELISKS() {
     return obelisks;
   }
 
-  public Pyramids getPyramids() {
+  public Pyramids getPYRAMID() {
     return pyramids;
   }
 
-  public Temple getTemple() {
+  public Temple getTEMPLE() {
     return temple;
   }
 

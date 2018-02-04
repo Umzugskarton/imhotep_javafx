@@ -34,10 +34,7 @@ public class BoardPresenter extends Presenter<IBoardView> {
 
   @Subscribe
   private void update(GameInfoEvent event){
-    Platform.runLater(
-            () -> {
               view.setShips(event.getShips());
-            });
   }
 
   @Subscribe
