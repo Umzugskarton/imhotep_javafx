@@ -2,22 +2,23 @@ package board.presenter;
 
 import board.view.BurialChamberViewImplFx;
 import data.lobby.CommonLobby;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
 
 public class BurialChamberPresenter implements StoneSitePresenter {
 
   private BurialChamberViewImplFx burialChamberController;
   private CommonLobby lobby;
 
-  public BurialChamberPresenter(CommonLobby lobby, BurialChamberViewImplFx burialChamberController) {
+  public BurialChamberPresenter(CommonLobby lobby,
+      BurialChamberViewImplFx burialChamberController) {
     this.lobby = lobby;
     this.burialChamberController = burialChamberController;
   }
 
+  @Override
   public void setStones(ArrayList<Integer> stones) {
     ArrayList<Group> stoneGroups = burialChamberController.getStones();
     for (int i = 0; i < stones.size(); i++) {

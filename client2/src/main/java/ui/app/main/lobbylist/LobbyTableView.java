@@ -115,7 +115,7 @@ public class LobbyTableView implements ILobbyTableView {
         CommonLobby selectedLobby = (CommonLobby) this.lobbyTableView.getFocusModel().getFocusedItem();
 
         if (click.getClickCount() == 2) {
-            this.presenter.joinLobby(selectedLobby.getLobbyId(),"");;
+            this.presenter.joinLobby(selectedLobby.getLobbyId(),"");
         }
     }
 

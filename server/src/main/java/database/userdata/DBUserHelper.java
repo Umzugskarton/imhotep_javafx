@@ -25,9 +25,6 @@ class DBUserHelper extends DBHelper {
 
     public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_USERS;
 
-    DBUserHelper(){
-        super();
-    }
     /**
      * Die onCreate-Methode wird nur aufgerufen, falls die Datenbank noch nicht existiert
      * Noch nicht umgesetzt

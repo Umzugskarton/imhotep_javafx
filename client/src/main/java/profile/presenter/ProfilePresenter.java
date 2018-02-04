@@ -1,9 +1,9 @@
 package profile.presenter;
 
-import requests.ChangeCredentialRequest;
 import main.SceneController;
 import profile.view.ProfileView;
 import profile.view.ProfileViewImpl;
+import requests.ChangeCredentialRequest;
 
 public class ProfilePresenter {
 
@@ -44,30 +44,21 @@ public class ProfilePresenter {
         this.sceneController.getClientSocket().send(changeCredentialsCommand);
       }
     }
-    if (type == 2) {
+    if (type == 2 || type == 3) {
       this.view.updateStatusLabel("");
       ChangeCredentialRequest changeCredentialsCommand = new ChangeCredentialRequest(credential,
           type);
       this.sceneController.getClientSocket().send(changeCredentialsCommand);
     }
-    if (type == 3) {
-      this.view.updateStatusLabel("");
-      ChangeCredentialRequest changeCredentialsCommand = new ChangeCredentialRequest(credential,
-          type);
-      this.sceneController.getClientSocket().send(changeCredentialsCommand);
-    }
-
   }
 
   private boolean validate(String email) {
-    String msg = "";
     if (!email.isEmpty()) {
       return true;
     } else {
-      msg += "Bitte eine E-Mail eingeben. \n";
+      this.view.updateStatusLabel("Bitte eine E-Mail eingeben. \n");
+      return false;
     }
-    this.view.updateStatusLabel(msg);
-    return false;
   }
 
 }

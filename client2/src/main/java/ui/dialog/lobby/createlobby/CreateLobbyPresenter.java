@@ -19,10 +19,8 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
   }
 
   public void createLobby(String name, int size, String pass) {
-    if(name.equals("")) {
+    if(name.isEmpty()) {
       this.view.updateStatusLabel("Bitte geben Sie einen Namen für die Lobby ein!");
-    } else if(pass.length() >= 16) {
-      this.view.updateStatusLabel("Passwort zu lang. (Maximal 16 Zeichen)");
     } else {
       CreateRequest j = new CreateRequest(name, size, pass);
       this.connection.send(j);

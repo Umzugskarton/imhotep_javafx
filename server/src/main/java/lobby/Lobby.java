@@ -21,9 +21,9 @@ public class Lobby {
 
   private String name;
   private int lobbyID;
-  private User[] lobby;
+  private User[] users;
   private boolean[] readyList;
-  private String password = null;
+  private String password;
   private boolean show = true;
   private int size;
   private boolean vacancy = true;
@@ -33,9 +33,9 @@ public class Lobby {
 
   public Lobby(int size, User host, String name, String password) {
     readyList = new boolean[size];
-    this.lobby = new User[size];
+    this.users = new User[size];
     this.userColor.add(0);
-    this.lobby[0] = host;
+    this.users[0] = host;
     this.name = name;
     this.size = size;
     this.password = password;
@@ -43,24 +43,24 @@ public class Lobby {
   }
 
   public boolean isHost(User user) {
-    return user == lobby[0];
+    return user == users[0];
   }
 
   private void swapHost() {
-    for (int i = 0; i < lobby.length; i++) {
-      if (lobby[i] != lobby[0]) {
-        User temp = lobby[0];
-        lobby[0] = lobby[i];
-        lobby[i] = temp;
+    for (int i = 0; i < users.length; i++) {
+      if (users[i] != users[0]) {
+        User temp = users[0];
+        users[0] = users[i];
+        users[i] = temp;
         break;
       }
     }
   }
 
   private void swapHost(User user) {
-    if(user != null && user != lobby[0]) {
-      User temp = lobby[0];
-      lobby[0] = user;
+    if(user != null && user != users[0]) {
+      User temp = users[0];
+      users[0] = user;
       user = temp;
     }
   }
@@ -80,10 +80,10 @@ public class Lobby {
   }
 
   public String getHostName() {
-    if (lobby[0] == null) {
+    if (users[0] == null) {
       return "Kein User vorhanden";
     } else {
-      return this.lobby[0].getUsername();
+      return this.users[0].getUsername();
     }
   }
 
@@ -96,9 +96,9 @@ public class Lobby {
       return new JoinLobbyEvent("Das Passwort ist falsch.", false);
     }
     if (vacancy) {
-      for (int i = 0; i < lobby.length; i++) {
-        if (lobby[i] == null) {
-          lobby[i] = user;
+      for (int i = 0; i < users.length; i++) {
+        if (users[i] == null) {
+          users[i] = user;
           int c = i;
           while (userColor.contains(c)) {
             c++;
@@ -117,7 +117,7 @@ public class Lobby {
   }
 
   public boolean hasPW() {
-    return !this.password.equals("");
+    return !this.password.isEmpty();
   }
 
   public int getSize() {
@@ -141,13 +141,13 @@ public class Lobby {
   }
 
   public User[] getUsers() {
-    return this.lobby;
+    return this.users;
   }
 
   public String[] getUsersStringArray() {
-    String[] j = new String[this.lobby.length];
+    String[] j = new String[this.users.length];
     int i = 0;
-    for (User user : this.lobby) {
+    for (User user : this.users) {
       if (user != null) {
         j[i] = user.getUsername();
         i++;
@@ -157,13 +157,13 @@ public class Lobby {
   }
 
   public SetReadyToPlayEvent setReady(User user) {
-    int userid = Arrays.asList(lobby).indexOf(user);
+    int userid = Arrays.asList(users).indexOf(user);
     readyList[userid] = !readyList[userid];
     return new SetReadyToPlayEvent(readyList, lobbyID);
   }
 
   public ChangeLobbyUserColorEvent replaceColor(User user) {
-    int userid = Arrays.asList(lobby).indexOf(user);
+    int userid = Arrays.asList(users).indexOf(user);
     int newcolor = userColor.get(userid);
     do {
       newcolor = (newcolor + 1) % 10;
@@ -175,7 +175,7 @@ public class Lobby {
   public ArrayList<LobbyUser> getLobbyUserArrayList() {
     ArrayList<LobbyUser> temp = new ArrayList<>();
     int i = 0;
-    for (User user : this.lobby) {
+    for (User user : this.users) {
       if (user != null) {
         temp.add(new LobbyUser(user, colors.get(userColor.get(i)), readyList[i]));
         i++;
@@ -186,7 +186,7 @@ public class Lobby {
 
   private int getUserCount() {
     int users = 0;
-    for (User user : this.lobby) {
+    for (User user : this.users) {
       if (user != null) {
         users++;
       }
@@ -213,12 +213,12 @@ public class Lobby {
   }
 
   public LeaveLobbyEvent leave(User user) {
-    if (user == lobby[0] && getUserCount() != 1) {
+    if (user == users[0] && getUserCount() != 1) {
       swapHost();
     }
-    for (int i = 0; i < lobby.length; i++) {
-      if (lobby[i] == user) {
-        lobby[i] = null;
+    for (int i = 0; i < users.length; i++) {
+      if (users[i] == user) {
+        users[i] = null;
         userColor.remove(i);
         break;
       }

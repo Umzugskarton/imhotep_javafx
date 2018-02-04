@@ -2,11 +2,10 @@ package board.presenter;
 
 import board.view.TempleViewImplFx;
 import data.lobby.CommonLobby;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
 
 public class TemplePresenter implements StoneSitePresenter {
 
@@ -18,6 +17,7 @@ public class TemplePresenter implements StoneSitePresenter {
     this.templeController = templeController;
   }
 
+  @Override
   public void setStones(ArrayList<Integer> stones) {
     ArrayList<Group> stoneGroups = templeController.getStones();
     for (int i = 0; i < stones.size(); i++) {

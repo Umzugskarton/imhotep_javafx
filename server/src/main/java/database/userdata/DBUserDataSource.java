@@ -150,14 +150,14 @@ public class DBUserDataSource {
       }
 
       // Wenn das zu ändernde Objekt die Email ist, prüfen ob diese noch nicht vergeben ist
-      if (identifier.equals(UserIdentifier.EMAIL) && userExists(UserIdentifier.EMAIL, value)) {
+      if (identifier == UserIdentifier.EMAIL && userExists(UserIdentifier.EMAIL, value)) {
         log.warn(identifier.getColumnName() + " des Users mit der ID " + id
             + " konnte nicht geändert werden, da die gewünschte E-Mail bereits benutzt wird.");
         return false;
       }
 
       // Wenn das zu ändernde Objekt das Passwort ist, hashen
-      if (identifier.equals(UserIdentifier.PASSWORD)) {
+      if (identifier == UserIdentifier.PASSWORD) {
         // Wenn der Wert ein String ist
         if (value instanceof String) {
           value = BCrypt.hashpw((String) value, BCrypt.gensalt());

@@ -2,11 +2,10 @@ package board.presenter;
 
 import board.view.ObelisksViewImplFx;
 import data.lobby.CommonLobby;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
 
 public class ObelisksPresenter implements StoneSitePresenter {
 
@@ -18,6 +17,7 @@ public class ObelisksPresenter implements StoneSitePresenter {
     this.obelisksController = obelisksController;
   }
 
+  @Override
   public void setStones(ArrayList<Integer> stones) {
     int[] playerStones = new int[lobby.getUsers().size()];
     for (Integer stone : stones) {

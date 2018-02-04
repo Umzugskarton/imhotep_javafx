@@ -50,10 +50,6 @@ public class StorageViewImplFx {
   @FXML
   private Group stone4;
 
-  public StorageViewImplFx() {
-
-  }
-
   public void setUserColor(String color) {
     flag.setFill(Color.web(color));
     pointsCircle.setFill(Color.web(color));
