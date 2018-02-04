@@ -31,7 +31,7 @@ public class TextBundle {
     try {
       result = resourceBundle.getString(string);
     } catch (MissingResourceException mre) {
-      log.error("MissingResourceException aufgetreten fÃ¼r Key " + string, mre);
+      log.error("MissingResourceException aufgetreten für Key " + string, mre);
     }
     return result;
   }

@@ -39,7 +39,5 @@ class InventoryTest {
     assertEquals(test1, result1);
     assertEquals(test2, result2);
     assertEquals(test3, result3);
-
-
   }
 }
