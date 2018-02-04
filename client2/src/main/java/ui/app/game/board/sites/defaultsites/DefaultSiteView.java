@@ -1,4 +1,4 @@
-package ui.app.game.board.sites.defaultSites;
+package ui.app.game.board.sites.defaultsites;
 
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
@@ -31,15 +31,15 @@ public class DefaultSiteView implements ISiteView {
   // Own Parent
   private Parent myParent;
 
-  public DefaultSiteView(IView parentView, EventBus eventBus, Connection connection, String site, CommonLobby lobby){
+  public DefaultSiteView(IView parentView, EventBus eventBus, Connection connection, String site,
+      CommonLobby lobby) {
     this.parentView = parentView;
     this.eventBus = eventBus;
-    this.site=site;
-    if (site.equals("obelisks")){
-      mainPresenter = new ObelisksPresenter(this,  eventBus, connection, lobby);
-    }
-    else {
-      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby ,site);
+    this.site = site;
+    if (site.equals("Obelisks")) {
+      mainPresenter = new ObelisksPresenter(this, eventBus, connection, lobby);
+    } else {
+      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby, site);
     }
     initOwnView();
   }
@@ -47,14 +47,16 @@ public class DefaultSiteView implements ISiteView {
 
   @Override
   public void initOwnView() {
-    if(this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/sites/" + site + "View.fxml", this, eventBus);
+    if (this.myParent == null) {
+      this.myParent = GenerateFXMLView.getINSTANCE()
+          .loadView("/ui/fxml/app/game/sites/" + site + "View.fxml", this, eventBus);
+    }
   }
 
   @Override
   public ArrayList<Group> getStones() {
     ArrayList<Group> stones = new ArrayList<>();
-    for (Node node : stonePane.getChildren()){
+    for (Node node : stonePane.getChildren()) {
       stones.add((Group) node);
     }
     return stones;
