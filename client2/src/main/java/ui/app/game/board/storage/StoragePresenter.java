@@ -94,6 +94,7 @@ public class StoragePresenter extends Presenter<IStorageView> {
   @Subscribe
   public void sendLoadUpShipMove(LoadUpShipMove move) {
     if (myStorage && stoneCount > 0)
+      System.out.println("Load : "  +move.getShipId());
       connection.send(move);
   }
 
