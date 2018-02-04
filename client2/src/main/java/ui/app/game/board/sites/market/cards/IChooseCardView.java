@@ -1,9 +1,9 @@
 package ui.app.game.board.sites.market.cards;
-
+import javafx.scene.layout.GridPane;
 import ui.dialog.IDialogView;
+import java.util.List;
 
-/**
- * Created on 04.02.2018.
- */
 public interface IChooseCardView extends IDialogView {
+  List<CardView> getCardViews();
+  GridPane getCardGrid();
 }

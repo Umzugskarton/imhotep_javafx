@@ -139,7 +139,7 @@ public class BoardView implements IBoardView {
     }
 
     SiteType[] sites = {SiteType.PYRAMID, SiteType.TEMPLE, SiteType.BURIALCHAMBER, SiteType.OBELISKS};
-    this.marketView =  new MarketView(this, eventBus, connection);
+    this.marketView =  new MarketView(this, eventBus, connection, lobby);
     stoneSiteGrid.add(marketView.getRootParent(), 0, 0);
     int i = 1;
     for (SiteType site : sites){

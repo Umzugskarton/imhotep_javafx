@@ -12,6 +12,10 @@ public class ChooseCardMove implements Move{
     this.cardId = cardId;
   }
 
+  public int getCardId() {
+    return cardId;
+  }
+
   @Override
   public int getLobbyId() {
     return lobbyId;

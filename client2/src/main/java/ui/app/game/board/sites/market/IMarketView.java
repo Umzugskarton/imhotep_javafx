@@ -9,5 +9,5 @@ import java.util.ArrayList;
 public interface IMarketView extends IView {
   ArrayList<CardView> getCardViews();
   ArrayList<Pane> getCards();
-
+  void initChooseCardView();
 }

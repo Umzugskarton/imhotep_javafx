@@ -8,26 +8,44 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
-import mvp.view.INavigateableView;
+import mvp.view.IView;
 import ui.dialog.IDialogView;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChooseCardView implements IChooseCardView{
 
+  @FXML
+  private GridPane cardGrid;
+
   private final ChooseCardPresenter mainPresenter;
-  private final INavigateableView parentview;
+  private final IView parentview;
   private final EventBus eventBus;
   private final Connection connection;
+  private ArrayList<CardView> cardViews;
 
   private Parent myParent;
 
-  public ChooseCardView(INavigateableView view , EventBus eventBus, Connection connection , CommonLobby lobby){
+  public ChooseCardView(IView view , EventBus eventBus, Connection connection , ArrayList<CardView> cardViews, CommonLobby lobby){
     this.parentview = view;
     this.eventBus = eventBus;
+    this.cardViews = cardViews;
     this.connection = connection;
-    mainPresenter = new ChooseCardPresenter(this, eventBus, connection, lobby.getLobbyId() );
+    mainPresenter = new ChooseCardPresenter(this, eventBus, connection, lobby.getLobbyId());
     initOwnView();
+  }
+
+  @FXML
+  private void initialize(){
+    int card = 0;
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 2; j++) {
+        cardGrid.add(cardViews.get(card).getRootParent() , i , j);
+        card++;
+      }
+    }
   }
 
   @FXML
@@ -44,11 +62,19 @@ public class ChooseCardView implements IChooseCardView{
     mainPresenter.sendChooseCard(card);
   }
 
+  public List<CardView> getCardViews() {
+    return cardViews;
+  }
+
+  public GridPane getCardGrid() {
+    return cardGrid;
+  }
+
 
   @Override
   public void initOwnView() {
     if (myParent == null)
-      myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/sites/ChooseCardView", this , eventBus);
+      myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/ChooseCardView.fxml", this , eventBus);
   }
 
   @Override

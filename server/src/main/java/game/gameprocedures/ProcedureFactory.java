@@ -14,10 +14,8 @@ public class ProcedureFactory {
     procedures.put(RequestType.LOAD_UP_SHIP, new LoadUpShip(game, playerId));
     procedures.put(RequestType.VOYAGE_TO_STONE_SITE, new VoyageToStoneSite(game, playerId));
     procedures.put(RequestType.LEAD_TOOL_CARD, new LeadToolCard(game, playerId));
-    procedures.put(RequestType.VOYAGE_TO_MARKET, new VoyageToMarket(game, playerId));
+    procedures.put(RequestType.VOYAGE_TO_MARKET, new VoyageToMarket(game));
   }
-
-
 
   public Procedure getProcedure(Move move) {
     Procedure p = procedures.get(move.getType());

@@ -33,11 +33,8 @@ public class VoyageToStoneSite implements Procedure {
   public Event exec() {
     Ship ship = game.getShipByID(move.getShipId());
     StoneSite site;
-    Method method;
-
     try {
-      method = game.getClass().getMethod("get" + move.getStoneSite().toString());
-      site = (StoneSite) method.invoke(game);
+      site = (StoneSite) game.getSiteByType(move.getStoneSite());
     } catch (Exception e) {
       return new DockingShipError();
     }

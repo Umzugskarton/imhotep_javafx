@@ -17,9 +17,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
-import requests.gamemoves.VoyageToStoneSiteMove;
+import requests.gamemoves.*;
 
 import java.util.ArrayList;
 
@@ -180,7 +178,12 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   void sendVoyageToStoneSiteMove(int ship, SiteType to) {
-    this.connection.send(new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId()));
+    Move move;
+    if (to.equals(SiteType.MARKET))
+      move = new VoyageToMarketMove(ship, lobby.getLobbyId());
+    else
+      move = new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId());
+    this.connection.send(move);
   }
 
   void sendLoadUpShipMove(int ship, int to) {

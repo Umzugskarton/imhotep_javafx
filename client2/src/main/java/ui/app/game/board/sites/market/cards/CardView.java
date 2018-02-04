@@ -58,7 +58,7 @@ public class CardView implements IDialogView{
 
   public void setCardType(CardType type){
     this.type = type;
-    cardBack.setId(getType(type));
+    cardBack.setId(getStyleType(type));
     cardClass.setText(getTypeClass());
     cardname.setText(type.toString().toLowerCase());
     cardDescription.setText(getString(type.toString()));
@@ -69,7 +69,11 @@ public class CardView implements IDialogView{
     return myParent;
   }
 
-  public String getType(CardType type){
+  public CardType getType() {
+    return type;
+  }
+
+  public String getStyleType(CardType type){
     switch (type){
       case SAIL:
       case LEVER:

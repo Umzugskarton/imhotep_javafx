@@ -10,6 +10,7 @@ import game.board.Stone;
 import game.board.cards.Card;
 import game.board.cards.LocationCard;
 import requests.gamemoves.CardType;
+import requests.gamemoves.ChooseCardMove;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToMarketMove;
 
@@ -20,11 +21,11 @@ import java.util.List;
 public class VoyageToMarket implements Procedure{
     private VoyageToMarketMove move;
     private Game game;
-    private int playerId;
+    private Market market;
 
-    VoyageToMarket(Game game, int playerId) {
+    VoyageToMarket(Game game) {
         this.game = game;
-        this.playerId = playerId;
+        this.market = (Market) game.getSiteByType(SiteType.MARKET);
     }
 
     public void put(Move move) {
@@ -33,47 +34,11 @@ public class VoyageToMarket implements Procedure{
 
     public Event exec() {
         Ship ship = game.getShipByID(move.getShipId());
-        Market market = game.getMARKET();
-        Card card;
-
         if (!ship.isDocked()) {
-            int loadedStones = 0;
-            for (Stone stone : ship.getStones()) {
-                if (stone != null) {
-                    loadedStones++;
-                }
-            }
-            Arrays.asList(ship.getStones()).size();
-
-            if (loadedStones >= ship.getMinimumStones()) {
+            if (ship.getLoadedStones() >= ship.getMinimumStones()) {
                 if (market.dockShip(ship)) {
                     ship.setDocked(true);
-                    ArrayList<Integer> marketStones = new ArrayList<>();
-
-                    for (Stone stone : ship.getStones()) {
-                        //Spieler, die eine Stein auf dem Boot haben, können pro Stein eine Karte vom Markt wählen
-                        //TODO: Make me beautiful~
-                        card = playerCardSelect(stone.getPlayer().getId());
-                        if (card instanceof LocationCard) {
-                            Stone newStone = new Stone(stone.getPlayer());
-                            //Je nach Karte wird ein Stein aus dem Steinbruch auf den entsprechnenden Ort gesetzt
-                            if (card.getType() == CardType.ENTRANCE) {
-                                //TODO: Event einfügen
-                                game.getPYRAMID().addStone(newStone);
-                                LocationCardEvent e = new LocationCardEvent(0);
-                            } else if (card.getType() == CardType.SARCOPHAGUS) {
-                                game.getBURIALCHAMBER().addStone(newStone);
-                                LocationCardEvent e = new LocationCardEvent(1);
-                            } else if (card.getType() == CardType.PAVEDPATH) {
-                                game.getOBELISKS().addStone(newStone);
-                                LocationCardEvent e = new LocationCardEvent(2);
-                            }
-                        } else {
-                            stone.getPlayer().getInventory().addCard(card);
-                        }
-                        marketStones.add(stone.getPlayer().getId());
-                    }
-                    return new ShipDockedEvent(move.getShipId(), SiteType.MARKET, marketStones);
+                    return new ShipDockedEvent(move.getShipId(), SiteType.MARKET, doMarketRotation(ship.getStones()));
                 } else {
                     return new SiteAlreadyDockedError(SiteType.MARKET);
                 }
@@ -85,15 +50,35 @@ public class VoyageToMarket implements Procedure{
         }
     }
 
-    private Card playerCardSelect(int playerId) {
-        List<Card> activeCards = game.getMARKET().getActiveCards();
-        //TODO: Player-ID sucht sich eine Karte aus
-        int choosenCard = 0;
-        ChooseCardEvent chooseCardEvent = new ChooseCardEvent(playerId, choosenCard);
-        game.sendAll(chooseCardEvent);
-        return activeCards.get(choosenCard);
+    private ArrayList<Integer> doMarketRotation(Stone[] stones){
+        List<Card> activeCards = market.getActiveCards();
+        ArrayList<Integer> chosenCards = new ArrayList<>();
+      for (Stone stone : stones) {
+        game.sendTo(game.getPlayer(stone.getPlayer().getId()).getUser(), new ChooseCardEvent(game.getGameID() , chosenCards));
+        Move move = acquireMove();
+        if ( move instanceof ChooseCardMove) {
+          ChooseCardMove chooseCard = (ChooseCardMove)move;
+          int cardId = chooseCard.getCardId();
+          chosenCards.add(cardId);
+          Card card = activeCards.get(cardId);
+          market.removeCard(cardId);
+          if (card instanceof LocationCard) {
+            ((LocationCard) card).exec(game , stone.getPlayer().getId());
+          } else {
+            stone.getPlayer().getInventory().addCard(card);
+          }
+        }
+      }
+      return chosenCards;
     }
 
+  private Move acquireMove() {
+    game.getExecutor().waitForMove();
+    if (game.getExecutor().getMove() != null) {
+      return game.getExecutor().getMove();
+    }
+    return null;
+  }
 }
 
 
