@@ -358,4 +358,34 @@ public class Game implements Runnable {
   public int getGameID() {
     return gameID;
   }
+
+private int testRound = 0;
+  public void runOneRoundTest(Move[] moves) {
+    testRound++;
+      this.market.newRound();
+      sendAll(getGameInfo());
+        for (int player = 0; player < this.players.length; player++) {
+          currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
+          pf = new ProcedureFactory(player, this);
+          nextMove = setTestMove(moves[player]);
+          if (this.nextMove != null) {
+            executeMove();
+          } else {
+            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
+                    + players[currentPlayer] + "! ");
+          }
+        }
+          addPointsEndOfRound();
+          addPointsEndOfGame();
+          if(testRound == 3) {
+            nominateWinner();
+            log.info("geschafft");
+          }
+
+
+  }
+
+  public Move setTestMove(Move move) {
+    return move;
+  }
 }

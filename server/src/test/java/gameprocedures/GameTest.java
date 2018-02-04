@@ -1,10 +1,12 @@
-package game.board;
+package gameprocedures;
 
 import data.user.User;
 import events.Event;
 import events.app.game.UpdatePointsEvent;
 import game.Game;
 import game.Player;
+import game.board.Pyramids;
+import game.board.Stone;
 import lobby.Lobby;
 import org.junit.Before;
 import org.junit.Test;

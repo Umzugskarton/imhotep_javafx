@@ -1,5 +1,6 @@
 import org.mockito.Mock;
 import socket.ClientAPI;
+import socket.ClientListener;
 import socket.Server;
 
 import java.io.ObjectInputStream;
@@ -18,4 +19,7 @@ public class ClientListenerTest {
 
     @Mock
     ClientAPI clientAPI;
+
+    public void runTest() {
+    }
 }
