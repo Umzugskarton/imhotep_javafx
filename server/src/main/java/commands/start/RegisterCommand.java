@@ -1,7 +1,10 @@
-package commands.main;
+package commands.start;
 
 import commands.Command;
+import events.EventReason;
 import events.start.registration.RegistrationEvent;
+import events.start.registration.RegistrationFailedEvent;
+import events.start.registration.RegistrationSuccessfulEvent;
 import requests.IRequest;
 import requests.start.registration.RegisterRequest;
 import socket.ClientAPI;
@@ -25,7 +28,16 @@ public class RegisterCommand implements Command {
   public void exec() {
     RegistrationEvent response = this.clientAPI.register(this.request);
     if (response != null) {
-      this.clientListener.send(response);
+      if(response.isSuccess()){
+        RegistrationSuccessfulEvent event = new RegistrationSuccessfulEvent();
+        event.setReason(response.getReason());
+        this.clientListener.send(event);
+      } else {
+        RegistrationFailedEvent event = new RegistrationFailedEvent(response.getReason());
+        this.clientListener.send(event);
+      }
+    } else {
+      this.clientListener.send(new RegistrationFailedEvent(EventReason.INVALID_REQUEST));
     }
   }
 }

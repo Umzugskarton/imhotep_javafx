@@ -23,6 +23,7 @@ public class LoginPresenter extends Presenter<ILoginView> {
       LoginRequest loginCommand = new LoginRequest(username, password);
       connection.send(loginCommand);
     } else {
+      getView().clearForm();
       getView().showLoginFailed("Falsche Anmeldung");
     }
   }

@@ -86,7 +86,7 @@ public class LoginView implements ILoginView {
         }
     }
 
-    //@Override
+    @Override
     public Parent getRootParent() {
         return this.myParent;
     }

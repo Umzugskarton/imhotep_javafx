@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<GridPane fx:id="rootParent" alignment="center" prefHeight="480.0" prefWidth="720.0" stylesheets="@../../../../css/style.css" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="rootParent" alignment="center" prefHeight="480.0" prefWidth="720.0" onKeyPressed="#handlePressedKeyAction" stylesheets="@../../../../css/style.css" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="10" left="25" right="25" top="25" />
    </padding>
@@ -26,7 +26,7 @@
    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
-      <Button onAction="#handleRegisterButtonAction" text="Register" />
+      <Button fx:id="registerButton" onAction="#handleRegisterButtonAction" text="Register" />
       <Button onAction="#handleToLoginButtonAction" text="To Login" />
    </HBox>
    <Label fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="8" />

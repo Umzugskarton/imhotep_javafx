@@ -6,7 +6,7 @@ import commands.lobby.*;
 import commands.main.UserlistCommand;
 import commands.start.LoginCommand;
 import commands.start.LogoutCommand;
-import commands.main.RegisterCommand;
+import commands.start.RegisterCommand;
 import commands.profil.ChangeCredentialCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

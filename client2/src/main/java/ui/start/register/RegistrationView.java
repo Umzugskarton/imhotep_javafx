@@ -6,9 +6,12 @@ import helper.fxml.GenerateFXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
@@ -43,6 +46,9 @@ public class RegistrationView implements IRegistrationView {
 
     @FXML
     private Label actiontarget;
+
+    @FXML
+    Button registerButton;
 
     private Parent myParent = rootParent;
 
@@ -80,6 +86,14 @@ public class RegistrationView implements IRegistrationView {
                 userField.getText(), passwordField.getText(), passwordRepeatField.getText(), emailField.getText());
     }
 
+    @FXML
+    private void handlePressedKeyAction(KeyEvent event) {
+        if(KeyCode.ENTER == event.getCode() ){
+            registerButton.fire();
+        }
+    }
+
+    @Override
     public void updateStatusLabel(String result) {
         actiontarget.setText(result);
     }
@@ -103,6 +117,14 @@ public class RegistrationView implements IRegistrationView {
     public void clearForm() {
         userField.setText("");
         passwordField.setText("");
+        passwordRepeatField.setText("");
+        emailField.setText("");
+    }
+
+    @Override
+    public void clearPasswordField() {
+        passwordField.setText("");
+        passwordRepeatField.setText("");
     }
 
     @Override
