@@ -7,13 +7,19 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.*;
+import game.board.BurialChamber;
+import game.board.Market;
+import game.board.Obelisks;
+import game.board.Pyramids;
+import game.board.Ship;
+import game.board.StoneSite;
+import game.board.Temple;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -214,7 +220,7 @@ public class Game implements Runnable {
             executeMove();
           } else {
             log.error("[ Game: {} ] Kein Spielzug gesetzt von Spieler {}!", gameID,
-                 players[currentPlayer] .getId());
+                    players[currentPlayer].getId());
           }
           nextMove = null;
           if (allshipsDocked()) {
@@ -247,7 +253,6 @@ public class Game implements Runnable {
     updatePoints();
   }
 
-  // TODO sichergehen, dass die Player ihre tatsächlichen Punkte am Spielende enthalten
   private void nominateWinner() {
     Player winner = null;
     String[][] playerResult = new String[2][players.length];
@@ -281,7 +286,7 @@ public class Game implements Runnable {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.players) {
       sendTo(p.getUser(),
-          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(),  gameID));
+              new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(), gameID));
     }
   }
 
@@ -354,25 +359,25 @@ public class Game implements Runnable {
 
   public void runOneRoundTest(Move[] moves) {
     testRound++;
-      this.market.newRound();
-      sendAll(getGameInfo());
-        for (int player = 0; player < this.players.length; player++) {
-          currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
-          pf = new ProcedureFactory(player, this);
-          nextMove = setTestMove(moves[player]);
-          if (this.nextMove != null) {
-            executeMove();
-          } else {
-            log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
-                    + players[currentPlayer] + "! ");
-          }
-        }
-          addPointsEndOfRound();
-          addPointsEndOfGame();
-          if(testRound == 3) {
-            nominateWinner();
-            log.info("geschafft");
-          }
+    this.market.newRound();
+    sendAll(getGameInfo());
+    for (int player = 0; player < this.players.length; player++) {
+      currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
+      pf = new ProcedureFactory(player, this);
+      nextMove = setTestMove(moves[player]);
+      if (this.nextMove != null) {
+        executeMove();
+      } else {
+        log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
+                + players[currentPlayer] + "! ");
+      }
+    }
+    addPointsEndOfRound();
+    addPointsEndOfGame();
+    if (testRound == 3) {
+      nominateWinner();
+      log.info("geschafft");
+    }
 
 
   }

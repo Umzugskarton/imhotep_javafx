@@ -2,21 +2,22 @@ package game.gameprocedures;
 
 import events.Event;
 import events.SiteType;
-import events.app.game.*;
+import events.app.game.ChooseCardEvent;
+import events.app.game.NotEnoughLoadError;
+import events.app.game.ShipAlreadyDockedError;
+import events.app.game.ShipDockedEvent;
+import events.app.game.SiteAlreadyDockedError;
 import game.Game;
 import game.board.Market;
 import game.board.Ship;
 import game.board.Stone;
 import game.board.cards.Card;
 import game.board.cards.LocationCard;
-import requests.gamemoves.CardType;
+import java.util.ArrayList;
+import java.util.List;
 import requests.gamemoves.ChooseCardMove;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToMarketMove;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class VoyageToMarket implements Procedure{
     private VoyageToMarketMove move;
@@ -28,9 +29,10 @@ public class VoyageToMarket implements Procedure{
         this.market = (Market) game.getSiteByType(SiteType.MARKET);
     }
 
-    public void put(Move move) {
-        this.move = (VoyageToMarketMove) move;
-    }
+  @Override
+  public void put(Move move) {
+    this.move = (VoyageToMarketMove) move;
+  }
 
     public Event exec() {
         Ship ship = game.getShipByID(move.getShipId());
@@ -80,5 +82,3 @@ public class VoyageToMarket implements Procedure{
     return null;
   }
 }
-
-
