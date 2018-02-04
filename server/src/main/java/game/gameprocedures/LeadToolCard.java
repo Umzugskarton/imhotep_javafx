@@ -35,7 +35,7 @@ public class LeadToolCard implements Procedure {
 
   public Event exec() {
     ToolCard dummy = new ToolCard(move.getToolType());
-    if (game.getPlayer(playerId).getInventory().ownsCard(dummy)) {
+    if (game.getPlayer(playerId).ownsCard(dummy)) {
       IProtocol protocol = protocolMap.get(move.getToolType());
       protocol.exec();
       return new ToolCardEvent(move.getToolType(), playerId, false);

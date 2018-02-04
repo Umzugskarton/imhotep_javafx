@@ -12,6 +12,7 @@ import requests.profil.ChangeCredentialRequest;
 import requests.start.login.LoginRequest;
 import requests.start.registration.RegisterRequest;
 import socket.ClientAPI;
+import socket.Server;
 import user.UserIdentifier;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class ClientAPITest {
     @Mock
     DBUserDataSource dbUserDataSource;
 
+    @Mock
+    Server server;
 
     @Before
     public void init() {
@@ -175,11 +178,11 @@ public class ClientAPITest {
         int size = 2;
         String name = "NewLobby";
         String password = "123";
-        Lobby lobby = new Lobby(size, u1, name, password);
+        Lobby lobby = new Lobby(size, u1, name, password, server);
         when(createRequest.getName()).thenReturn(name);
         when(createRequest.getPassword()).thenReturn(password);
         when(createRequest.getSize()).thenReturn(size);
-        assertEquals(lobby.getName(), clientAPI.createLobby(createRequest, u1).getName());
-        assertEquals(lobby.getSize(), clientAPI.createLobby(createRequest, u1).getSize());
+        assertEquals(lobby.getName(), clientAPI.createLobby(createRequest, u1, server).getName());
+        assertEquals(lobby.getSize(), clientAPI.createLobby(createRequest, u1, server).getSize());
     }
 }

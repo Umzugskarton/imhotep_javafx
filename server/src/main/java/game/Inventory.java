@@ -8,25 +8,25 @@ import game.board.cards.ToolCard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+class Inventory {
 
   private ArrayList<OrnamentCard> ornamentCards = new ArrayList<>();
   private ArrayList<ToolCard> toolCards = new ArrayList<>();
   private ArrayList<StatueCard> statueCards = new ArrayList<>();
 
-  public List<OrnamentCard> getOrnamentCards() {
+  List<OrnamentCard> getOrnamentCards() {
     return ornamentCards;
   }
 
-  public List<StatueCard> getStatueCards() {
+  List<StatueCard> getStatueCards() {
     return statueCards;
   }
 
-  public List<ToolCard> getToolCards() {
+  List<ToolCard> getToolCards() {
     return toolCards;
   }
 
-  public boolean ownsCard(Card card) {
+  boolean ownsCard(Card card) {
     if (card instanceof ToolCard) {
       for (ToolCard tool : toolCards) {
         if (tool.getType() == card.getType()) {
@@ -50,7 +50,7 @@ public class Inventory {
     }
   }
 
-  public void addCard(Card card) {
+  void addCard(Card card) {
     if (card instanceof OrnamentCard) {
       ornamentCards.add((OrnamentCard) card);
     } else if (card instanceof ToolCard) {

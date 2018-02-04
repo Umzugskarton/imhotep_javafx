@@ -2,6 +2,7 @@ package game;
 
 import data.user.User;
 import game.board.SupplySled;
+import game.board.cards.Card;
 
 /**
  * Repräsentiert einen Spieler. Enthält seine Punktanzahl, seine aktuellen Karten und seine Steine.
@@ -36,6 +37,14 @@ public class Player {
 
   public void addPoints(int points) {
     this.points += points;
+  }
+
+  public void addCard(Card card) {
+    this.inventory.addCard(card);
+  }
+
+  public boolean ownsCard(Card card) {
+    return this.inventory.ownsCard(card);
   }
 
   public int getPoints() {

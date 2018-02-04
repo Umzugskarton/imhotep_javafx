@@ -45,7 +45,6 @@ public class Market extends Site {
    * @return die gewählte Karte
    */
   public Card removeCard(int position) {
-    // TODO exception handling: activeCards[position] might not hold a card
     Card c = activeCards[position];
     activeCards[position] = null;
     return c;

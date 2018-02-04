@@ -9,7 +9,6 @@ public class WinEvent extends GameEvent {
   public WinEvent(String winner, String[][] playersResult) {
     this.winner = winner;
     this.playersResult = playersResult;
-
   }
 
   public String getWinner() {
