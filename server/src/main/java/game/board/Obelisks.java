@@ -104,7 +104,7 @@ public class Obelisks extends StoneSite {
     return 0;
   }
 
-  private class ObeliskHelper {
+  private final class ObeliskHelper {
 
     private int player;
     private int stones;

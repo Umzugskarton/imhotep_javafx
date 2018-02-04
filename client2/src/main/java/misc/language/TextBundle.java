@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class TextBundle {
+public final class TextBundle {
 
   private static final EnumMap<Language, Locale> languageMap;
   private static final Logger log = LoggerFactory.getLogger(TextBundle.class.getName());

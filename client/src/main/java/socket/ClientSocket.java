@@ -1,28 +1,27 @@
 package socket;
 
+import com.google.common.eventbus.EventBus;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import requests.IRequest;
-import com.google.common.eventbus.EventBus;
 import main.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import requests.IRequest;
 
 public class ClientSocket {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   // SceneController
-  private SceneController sceneController = null;
+  private SceneController sceneController;
   // Server
   private ServerListener serverListener = null;
   private Socket serverSocket = null;
 
   // Socketdaten
-  private String host = null;
+  private String host;
   private int port;
 
   // Writer
@@ -30,7 +29,6 @@ public class ClientSocket {
 
   // Eventbus
   private EventBus eventBus;
-
 
   public ClientSocket(SceneController sceneController, EventBus eventBus) {
     this.sceneController = sceneController;
@@ -60,11 +58,11 @@ public class ClientSocket {
   }
 
   public void send(IRequest request) {
-    try{
+    try {
       this.out.writeObject(request);
       this.out.flush();
     } catch (IOException e) {
-      log.error("IO-Fehler beim senden vom Request",e);
+      log.error("IO-Fehler beim senden vom Request", e);
     }
     log.debug("Nachricht gesendet: " + request.getType());
   }

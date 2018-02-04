@@ -4,7 +4,9 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import events.SiteType;
 import events.app.game.ShipDockedEvent;
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,24 +14,21 @@ import mvp.presenter.Presenter;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
 
-import java.util.ArrayList;
-
 
 public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePresenter {
+
   private final Connection connection;
   private CommonLobby lobby;
-  private final String site = "Obelisks";
 
-
-  public ObelisksPresenter(ISiteView view, EventBus eventBus, Connection connection, CommonLobby lobby) {
+  public ObelisksPresenter(ISiteView view, EventBus eventBus, Connection connection,
+      CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
   }
 
-
   @Subscribe
   public void setStones(ShipDockedEvent e) {
-    if (site.equals(e.getSite())) {
+    if (e.getSite() == SiteType.OBELISKS) {
       int[] playerStones = new int[lobby.getUsers().size()];
       for (Integer stone : e.getNewStones()) {
         playerStones[stone]++;

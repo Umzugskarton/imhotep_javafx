@@ -3,6 +3,7 @@ package ui.app.game.board.sites.defaultsites;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import events.SiteType;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -36,7 +37,7 @@ public class DefaultSiteView implements ISiteView {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.site = site;
-    if (site.equals("Obelisks")) {
+    if (site.equals(SiteType.OBELISKS.getFileString())) {
       mainPresenter = new ObelisksPresenter(this, eventBus, connection, lobby);
     } else {
       mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby, site);

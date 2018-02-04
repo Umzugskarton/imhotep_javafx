@@ -139,7 +139,12 @@ public class BoardView implements IBoardView {
       storageGridPane.add(storageView.getRootParent(),  0, i);
     }
 
-    String[] sitesString = {"Pyramids", "Temple", "BurialChamber", "Obelisks"};
+    String[] sitesString = {
+        SiteType.PYRAMID.getFileString(),
+        SiteType.TEMPLE.getFileString(),
+        SiteType.BURIAL_CHAMBER.getFileString(),
+        SiteType.OBELISKS.getFileString()
+    };
     this.marketView =  new MarketView(this, eventBus, connection);
     stoneSiteGrid.add(marketView.getRootParent(), 0, 0);
     int i = 1;
