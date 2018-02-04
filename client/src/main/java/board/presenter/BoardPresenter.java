@@ -1,11 +1,26 @@
 package board.presenter;
 
 import board.model.TurnTimerThread;
-import board.view.*;
+import board.view.BoardViewImplFx;
+import board.view.BurialChamberViewImplFx;
+import board.view.ObelisksViewImplFx;
+import board.view.PyramidViemImplFx;
+import board.view.ShipViewImplFx;
+import board.view.StorageViewImplFx;
+import board.view.TempleViewImplFx;
 import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import events.SiteType;
-import events.app.game.*;
+import events.app.game.FillUpStorageEvent;
+import events.app.game.GameInfoEvent;
+import events.app.game.ShipDockedEvent;
+import events.app.game.ShipLoadedEvent;
+import events.app.game.TurnEvent;
+import events.app.game.UpdatePointsEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -23,11 +38,6 @@ import requests.gamemoves.FillUpStorageMove;
 import requests.gamemoves.LoadUpShipMove;
 import requests.gamemoves.VoyageToStoneSiteMove;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class BoardPresenter {
 
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
@@ -44,7 +54,7 @@ public class BoardPresenter {
   private BurialChamberPresenter burialPresenter;
   private ObelisksPresenter obelisksPresenter;
 
-  private Map<String, StoneSitePresenter> sitePresenters = new HashMap<>();
+  private Map<SiteType, StoneSitePresenter> sitePresenters = new EnumMap<>(SiteType.class);
 
   //Board Variables
   private int myID = -1;
@@ -121,10 +131,10 @@ public class BoardPresenter {
       }
     }
 
-    sitePresenters.put("Pyramids", pyramidsPresenter);
-    sitePresenters.put("Temple", templePresenter);
-    sitePresenters.put("BurialChamber", burialPresenter);
-    sitePresenters.put("obelisks", obelisksPresenter);
+    sitePresenters.put(SiteType.PYRAMID, pyramidsPresenter);
+    sitePresenters.put(SiteType.TEMPLE, templePresenter);
+    sitePresenters.put(SiteType.BURIAL_CHAMBER, burialPresenter);
+    sitePresenters.put(SiteType.OBELISKS, obelisksPresenter);
   }
 
   // Moves
@@ -206,7 +216,7 @@ public class BoardPresenter {
     }
   }
 
-  public void updateStorages(FillUpStorageEvent event) {
+  private void updateStorages(FillUpStorageEvent event) {
     storagePresenters.get(event.getPlayerId()).setStoneCount(event.getStorage());
   }
 
@@ -236,16 +246,17 @@ public class BoardPresenter {
     }
   }
 
-    public void shipDocked(ShipDockedEvent event){
-      shipPresenters.get(event.getShipID()).setLocation(event.getSite());
-      view.getPierByName(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
-      StoneSitePresenter presenter = sitePresenters.get(event.getSite());
-      presenter.setStones(event.getNewStones());
-    }
+  public void shipDocked(ShipDockedEvent event) {
+    shipPresenters.get(event.getShipID()).setLocation(event.getSite());
+    view.getPierByName(event.getSite()).getChildren()
+        .add(view.removeShipPaneById(event.getShipID()));
+    StoneSitePresenter presenter = sitePresenters.get(event.getSite());
+    presenter.setStones(event.getNewStones());
+  }
 
-    public void updatePoints(UpdatePointsEvent event){
-      updatePointsView(event.getPoints());
-    }
+  public void updatePoints(UpdatePointsEvent event) {
+    updatePointsView(event.getPoints());
+  }
 
   public void updateShipCargoById(ShipLoadedEvent e) {
     storagePresenters.get(e.getPlayerId()).setStoneCount(e.getStorage());
@@ -354,15 +365,15 @@ public class BoardPresenter {
   }
 
   public void updatePointsView(int[] pointArray) {
-      int highestPoints = 0;
-      int playerWithHighestPoints = 0;
+    int highestPoints = 0;
+    int playerWithHighestPoints = 0;
 
-      // Punktestand aktualisieren
-      for (int i = 0; i < pointArray.length; i++) {
-          int points = pointArray[i];
-          if (points > highestPoints) {
-              highestPoints = points;
-              playerWithHighestPoints = i;
+    // Punktestand aktualisieren
+    for (int i = 0; i < pointArray.length; i++) {
+      int points = pointArray[i];
+      if (points > highestPoints) {
+        highestPoints = points;
+        playerWithHighestPoints = i;
       }
 
       storagePresenters.get(playerWithHighestPoints).highlightPointsLabel(false);
