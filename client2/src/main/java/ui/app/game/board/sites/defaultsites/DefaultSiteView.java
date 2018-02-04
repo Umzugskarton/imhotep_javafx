@@ -27,20 +27,19 @@ public class DefaultSiteView implements ISiteView {
   private final IView parentView;
   private final ISitePresenter mainPresenter;
   private final EventBus eventBus;
-  private String site;
-
+  private SiteType type;
   // Own Parent
   private Parent myParent;
 
-  public DefaultSiteView(IView parentView, EventBus eventBus, Connection connection, String site,
-      CommonLobby lobby) {
+  public DefaultSiteView(IView parentView, EventBus eventBus, Connection connection,
+      CommonLobby lobby, SiteType type) {
+    this.type = type;
     this.parentView = parentView;
     this.eventBus = eventBus;
-    this.site = site;
-    if (site.equals(SiteType.OBELISKS.getFileString())) {
+    if (type.equals(SiteType.OBELISKS)) {
       mainPresenter = new ObelisksPresenter(this, eventBus, connection, lobby);
     } else {
-      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby, site);
+      mainPresenter = new DefaultSitePresenter(this, eventBus, connection, lobby, type);
     }
     initOwnView();
   }
@@ -48,8 +47,10 @@ public class DefaultSiteView implements ISiteView {
   @Override
   public void initOwnView() {
     if (this.myParent == null) {
+      String path = "/ui/fxml/app/game/sites/" + toTitleCase(type.toString().toLowerCase()) + "View.fxml";
+      System.out.println(path);
       this.myParent = GenerateFXMLView.getINSTANCE()
-          .loadView("/ui/fxml/app/game/sites/" + site + "View.fxml", this, eventBus);
+          .loadView( path,this, eventBus);
     }
   }
 
@@ -72,5 +73,22 @@ public class DefaultSiteView implements ISiteView {
     return myParent;
   }
 
+  public static String toTitleCase(String input) {
+    StringBuilder titleCase = new StringBuilder();
+    boolean nextTitleCase = true;
+
+    for (char c : input.toCharArray()) {
+      if (Character.isSpaceChar(c)) {
+        nextTitleCase = true;
+      } else if (nextTitleCase) {
+        c = Character.toTitleCase(c);
+        nextTitleCase = false;
+      }
+
+      titleCase.append(c);
+    }
+
+    return titleCase.toString();
+  }
 
 }

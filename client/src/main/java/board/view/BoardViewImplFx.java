@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class BoardViewImplFx {
@@ -157,7 +156,7 @@ public class BoardViewImplFx {
     piers.put(SiteType.OBELISKS, obelisksPier);
     piers.put(SiteType.PYRAMID, pyramidsPier);
     piers.put(SiteType.TEMPLE, templePier);
-    piers.put(SiteType.BURIAL_CHAMBER, burialChamberPier);
+    piers.put(SiteType.BURIALCHAMBER, burialChamberPier);
   }
 
   public ArrayList<ComboBox<Integer>> getShipCBoxes() {

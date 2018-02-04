@@ -323,7 +323,7 @@ public class DebugApp {
         GameInfoEvent gameInfo = new GameInfoEvent();
         int[] sitesAllo = {-1, -1, -1, -1, -1};
         SiteType[] st = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
-            SiteType.BURIAL_CHAMBER, SiteType.OBELISKS};
+            SiteType.BURIALCHAMBER, SiteType.OBELISKS};
         List<SiteType> x = new ArrayList<>(Arrays.asList(st));
         Arrays.asList();
         String[] y = {"test", "test2"};

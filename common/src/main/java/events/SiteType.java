@@ -2,7 +2,7 @@ package events;
 
 public enum SiteType {
   MARKET,
-  BURIAL_CHAMBER,
+  BURIALCHAMBER,
   TEMPLE,
   OBELISKS,
   PYRAMID;
@@ -11,7 +11,7 @@ public enum SiteType {
 
   static {
     MARKET.fileString = "Market";
-    BURIAL_CHAMBER.fileString = "BurialChamber";
+    BURIALCHAMBER.fileString = "BurialChamber";
     TEMPLE.fileString = "Temple";
     OBELISKS.fileString = "Obelisks";
     PYRAMID.fileString = "Pyramids";

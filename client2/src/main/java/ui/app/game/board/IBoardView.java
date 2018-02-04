@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import mvp.view.IView;
 import ui.app.game.board.ship.ShipView;
+import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.storage.StorageView;
 
 import java.util.ArrayList;

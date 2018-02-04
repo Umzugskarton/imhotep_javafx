@@ -9,6 +9,8 @@ import events.app.game.GameInfoEvent;
 import events.app.game.ShipDockedEvent;
 import events.app.game.UpdatePointsEvent;
 import javafx.application.Platform;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import mvp.presenter.Presenter;
 
 public class BoardPresenter extends Presenter<IBoardView> {
@@ -44,7 +46,7 @@ public class BoardPresenter extends Presenter<IBoardView> {
 
   @Subscribe
   private void onShipDockedEvent(ShipDockedEvent event){
-      view.getPierByType(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
+    view.getPierByType(event.getSite()).getChildren().add(view.removeShipPaneById(event.getShipID()));
   }
 
   @Subscribe

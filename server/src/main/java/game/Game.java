@@ -12,7 +12,7 @@ import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
 import java.util.Arrays;
-import java.util.List;
+
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,6 @@ import requests.gamemoves.Move;
 import socket.ClientListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Runnable {
 
@@ -45,7 +44,7 @@ public class Game implements Runnable {
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
   private SiteType[] siteTypesArray = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
-      SiteType.BURIAL_CHAMBER, SiteType.OBELISKS};
+      SiteType.BURIALCHAMBER, SiteType.OBELISKS};
   private ArrayList<SiteType> siteTypes = new ArrayList<>(Arrays.asList(siteTypesArray));
 
   private ClientListener clientListener;

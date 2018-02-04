@@ -133,7 +133,7 @@ public class BoardPresenter {
 
     sitePresenters.put(SiteType.PYRAMID, pyramidsPresenter);
     sitePresenters.put(SiteType.TEMPLE, templePresenter);
-    sitePresenters.put(SiteType.BURIAL_CHAMBER, burialPresenter);
+    sitePresenters.put(SiteType.BURIALCHAMBER, burialPresenter);
     sitePresenters.put(SiteType.OBELISKS, obelisksPresenter);
   }
 

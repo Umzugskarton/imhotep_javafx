@@ -112,17 +112,16 @@ public class BoardView implements IBoardView {
     this.connection = connection;
     this.user = user;
     this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
-    initPiers();
     bind();
     initOwnView();
   }
 
-  public void initPiers() {
+  private void initPiers() {
     piers.put(SiteType.MARKET, marketPier);
     piers.put(SiteType.OBELISKS, obelisksPier);
     piers.put(SiteType.PYRAMID, pyramidsPier);
     piers.put(SiteType.TEMPLE, templePier);
-    piers.put(SiteType.BURIAL_CHAMBER, burialChamberPier);
+    piers.put(SiteType.BURIALCHAMBER, burialChamberPier);
   }
 
   private void bind(){
@@ -131,6 +130,7 @@ public class BoardView implements IBoardView {
 
   @FXML
   void initialize(){
+    initPiers();
     for (int i = 0 ; i < lobby.getUsers().size(); i++){
       StorageView storageView = new StorageView(this, eventBus, connection, lobby.getUsers().get(i),
               lobby.getUsers().get(i).getUser().getId() == this.user.getId(), i);
@@ -139,17 +139,12 @@ public class BoardView implements IBoardView {
       storageGridPane.add(storageView.getRootParent(),  0, i);
     }
 
-    String[] sitesString = {
-        SiteType.PYRAMID.getFileString(),
-        SiteType.TEMPLE.getFileString(),
-        SiteType.BURIAL_CHAMBER.getFileString(),
-        SiteType.OBELISKS.getFileString()
-    };
+    SiteType[] sites = {SiteType.PYRAMID, SiteType.TEMPLE, SiteType.BURIALCHAMBER, SiteType.OBELISKS};
     this.marketView =  new MarketView(this, eventBus, connection);
     stoneSiteGrid.add(marketView.getRootParent(), 0, 0);
     int i = 1;
-    for (String site : sitesString){
-      DefaultSiteView siteView = new DefaultSiteView(this, eventBus, connection,site,lobby);
+    for (SiteType site : sites){
+      DefaultSiteView siteView = new DefaultSiteView(this, eventBus, connection,lobby, site );
       siteViews.add(siteView);
       stoneSiteGrid.add(siteView.getRootParent(), 0, i);
       i++;

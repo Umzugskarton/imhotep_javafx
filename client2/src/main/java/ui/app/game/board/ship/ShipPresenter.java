@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import events.app.game.GameInfoEvent;
+import events.app.game.ShipDockedEvent;
 import events.app.game.ShipLoadedEvent;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -37,10 +38,18 @@ public class ShipPresenter extends Presenter<IShipView> {
   @Subscribe
   public void setCargo(ShipLoadedEvent e) {
     if (shipId == e.getShipID()) {
-      Platform.runLater(() -> {
         this.cargo = e.getCargo();
         updateCargo();
-      });
+    }
+  }
+
+  @Subscribe
+  public void dumpCargo(ShipDockedEvent e) {
+    if (shipId == e.getShipID()) {
+      for (Group p : view.getStones()) {
+        p.setVisible(false);
+      }
+      docked = true;
     }
   }
 

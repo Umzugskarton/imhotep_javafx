@@ -4,11 +4,13 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import events.SiteType;
 import events.app.game.ShipDockedEvent;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
 
@@ -17,17 +19,23 @@ import java.util.ArrayList;
 public class DefaultSitePresenter extends Presenter<ISiteView> implements ISitePresenter {
   private final Connection connection;
   private CommonLobby lobby;
-  private final  String site;
+  private final  SiteType site;
 
-  public DefaultSitePresenter(ISiteView view, EventBus eventBus, Connection connection, CommonLobby lobby, String site) {
+  public DefaultSitePresenter(ISiteView view, EventBus eventBus, Connection connection, CommonLobby lobby, SiteType site) {
     super(view, eventBus);
     this.site = site;
     this.connection = connection;
     this.lobby = lobby;
+    bind();
+  }
+
+  private void bind(){
+    eventBus.register(this);
   }
 
   @Subscribe
   public void setStones(ShipDockedEvent e) {
+    System.out.println("ASDASDASDASDASDASDASDASDASDASDASD");
     if (site.equals(e.getSite())) {
       ArrayList<Group> stoneGroups = getView().getStones();
       for (int i = 0; i < e.getNewStones().size(); i++) {
