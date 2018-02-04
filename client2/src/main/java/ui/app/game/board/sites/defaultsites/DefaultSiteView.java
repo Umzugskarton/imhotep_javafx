@@ -44,7 +44,6 @@ public class DefaultSiteView implements ISiteView {
     initOwnView();
   }
 
-
   @Override
   public void initOwnView() {
     if (this.myParent == null) {

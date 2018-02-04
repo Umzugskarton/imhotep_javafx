@@ -19,15 +19,6 @@ public class Market extends Site {
   private Card[] activeCards = new Card[VISIBLE_CARDS];
 
   /**
-   * Erstellt einen neuen Markt und gibt ihn zurück.
-   *
-   * @param playerCount die Anzahl der Spieler im Spiel.
-   */
-  public Market(int playerCount) {
-    super(playerCount);
-  }
-
-  /**
    * Erstellt einen neuen Markt mit den gegebenen Karten und gibt ihn zurück.
    * @param playerCount die Anzahl der Spieler im Spiel.
    * @param cards die Karten, die der Markt als Nachziehstapel nutzt.
@@ -42,7 +33,7 @@ public class Market extends Site {
    *
    * @param cards die Karten, die der Markt seinem Kartenvorrat hinzufügt
    */
-  public void addCards(List<Card> cards) {
+  private void addCards(List<Card> cards) {
     drawPile.addAll(cards);
     Collections.shuffle(drawPile);
   }
@@ -91,11 +82,6 @@ public class Market extends Site {
     this.setDockedShip(ship);
     return true;
   }
-
-  public List<Card> getDrawpile() {
-    return this.drawPile;
-  }
-
 }
 
 

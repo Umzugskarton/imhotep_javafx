@@ -100,9 +100,6 @@ public class GameTest {
 
         Stone[] newStones = {s1 ,s2, s3, s4};
         pyramids.addStones(newStones);
-
-
-
     }
 
     @Test

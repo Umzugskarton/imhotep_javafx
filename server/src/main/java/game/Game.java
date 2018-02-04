@@ -64,7 +64,7 @@ public class Game implements Runnable {
     this.players = new Player[lobby.getSize()];
     setGame();
     executor = new MoveExecutor();
-    this.market = new Market(lobby.getSize());
+    this.market = new Market(lobby.getSize(), cardDeck.getDeck());
     this.pyramids = new Pyramids(lobby.getSize());
     this.obelisks = new Obelisks(lobby.getSize());
     this.temple = new Temple(lobby.getSize());
@@ -75,8 +75,6 @@ public class Game implements Runnable {
     sites.add(temple);
     sites.add(burialChamber);
     sites.add(obelisks);
-
-    market.addCards(cardDeck.getDeck());
   }
 
   private void resetCurrentShips() {
