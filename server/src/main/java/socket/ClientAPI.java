@@ -22,6 +22,11 @@ public class ClientAPI {
     this.dbUserDataSource = new DBUserDataSource();
   }
 
+  //Nur zum Testen. Verwendung von mock in JUnit
+  public ClientAPI(DBUserDataSource dbUserDataSource) {
+    this.dbUserDataSource = dbUserDataSource;
+  }
+
   /**
    * Wenn Client eine Login-Anfrage sendet, werden die Logindaten
    * via validateLogin überprüft. Wenn die Daten korrekt sind, wird
@@ -106,6 +111,7 @@ public class ClientAPI {
         what = UserIdentifier.PASSWORD.toString();
         changeCredential = changeCredential(user, UserIdentifier.PASSWORD, newCred);
       }
+      //TODO: Unzulässig machen, es würde das Spiel kaputtmachen, wenn der User seinen Namen ändern kann
       if (type == 3) {
         what = UserIdentifier.USERNAME.toString();
         changeCredential = changeCredential(user, UserIdentifier.USERNAME, newCred);
