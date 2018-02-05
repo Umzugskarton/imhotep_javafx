@@ -1,5 +1,6 @@
 package game.board.cards;
 
+import java.util.Objects;
 import requests.gamemoves.CardType;
 
 public abstract class Card {
@@ -10,7 +11,7 @@ public abstract class Card {
     return cardType;
   }
 
-  public void setType(CardType cardType) {
+  void setType(CardType cardType) {
     this.cardType = cardType;
   }
 
@@ -26,5 +27,10 @@ public abstract class Card {
       return false;
     }
     return ((Card) o).getType() == this.getType();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(cardType);
   }
 }
