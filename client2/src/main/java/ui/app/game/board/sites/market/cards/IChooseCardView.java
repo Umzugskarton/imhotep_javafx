@@ -1,8 +1,9 @@
 package ui.app.game.board.sites.market.cards;
 
-import java.util.List;
 import javafx.scene.layout.GridPane;
 import ui.dialog.IDialogView;
+
+import java.util.List;
 
 public interface IChooseCardView extends IDialogView {
 
@@ -10,5 +11,6 @@ public interface IChooseCardView extends IDialogView {
 
   GridPane getCardGrid();
 
+  void resetCards();
   void setCards();
 }

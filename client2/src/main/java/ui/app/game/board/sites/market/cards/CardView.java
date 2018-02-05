@@ -1,7 +1,5 @@
 package ui.app.game.board.sites.market.cards;
 
-import static misc.language.TextBundle.getString;
-
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
@@ -15,6 +13,8 @@ import requests.gamemoves.CardType;
 import requests.gamemoves.ChooseCardMove;
 import ui.app.game.HideDialogEvent;
 import ui.dialog.IDialogView;
+
+import static misc.language.TextBundle.getString;
 
 public class CardView implements IDialogView {
 
@@ -159,6 +159,11 @@ public class CardView implements IDialogView {
   @Override
   public String getTitle() {
     return type.toString();
+  }
+
+  @Override
+  public void closeDialog() {
+
   }
 
   @FXML

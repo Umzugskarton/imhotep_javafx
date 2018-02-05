@@ -4,10 +4,11 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.app.game.ChooseCardEvent;
-import java.util.ArrayList;
-import java.util.List;
 import mvp.presenter.Presenter;
 import requests.gamemoves.ChooseCardMove;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChooseCardPresenter extends Presenter<IChooseCardView> {
 
@@ -43,6 +44,7 @@ public class ChooseCardPresenter extends Presenter<IChooseCardView> {
       cardViews.get((card)).setAvailable(false);
     });
     cardViews.forEach(cardView -> cardView.setClickable(true));
+    view.resetCards();
     view.setCards();
     eventBus.post(view);
   }

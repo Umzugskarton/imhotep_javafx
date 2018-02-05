@@ -5,7 +5,6 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,6 +13,8 @@ import mvp.view.IView;
 import ui.app.game.board.sites.market.cards.CardView;
 import ui.app.game.board.sites.market.cards.ChooseCardView;
 import ui.dialog.IDialogView;
+
+import java.util.ArrayList;
 
 public class MarketView implements IMarketView {
 
@@ -80,6 +81,12 @@ public class MarketView implements IMarketView {
 
   public void initChooseCardView() {
     chooseCardView = new ChooseCardView(this, eventBus, connection, cardViews, lobby);
+  }
+
+  @FXML
+  public void setCardVisibility(int cardId, boolean visible){
+    Pane card = getCards().get(cardId);
+    card.setVisible(visible);
   }
 
   @Override

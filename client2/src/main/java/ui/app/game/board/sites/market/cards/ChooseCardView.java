@@ -41,8 +41,14 @@ public class ChooseCardView implements IChooseCardView {
   }
 
   @Override
+  public void resetCards() {
+    cardGrid.getChildren().removeAll();
+  }
+
+  @Override
   public void setCards() {
     cardGrid.getChildren().clear();
+    cardViews.forEach(cardView -> cardGrid.getChildren().remove(cardView.getRootParent()));
     int cardId = 0;
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {

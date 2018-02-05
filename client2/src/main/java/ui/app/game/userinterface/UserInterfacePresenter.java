@@ -1,8 +1,6 @@
 package ui.app.game.userinterface;
 
 
-import static misc.language.TextBundle.getString;
-
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
@@ -13,19 +11,18 @@ import events.app.game.GameInfoEvent;
 import events.app.game.ShipDockedEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
-import requests.gamemoves.FillUpStorageMove;
-import requests.gamemoves.LoadUpShipMove;
-import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToMarketMove;
-import requests.gamemoves.VoyageToStoneSiteMove;
+import requests.gamemoves.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static misc.language.TextBundle.getString;
 
 public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
@@ -89,16 +86,18 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   @Subscribe
   public void newTurn(TurnEvent e) {
     if (e.getLobbyId() == lobby.getLobbyId()) {
-      // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-      this.toggleUserInterface(e.isMyTurn());
-      Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
-      this.changeBgGradient(userColor);
-      if (e.isMyTurn()) {
-        this.changeBannerLabels("", "", Color.TRANSPARENT);
-      } else {
-        this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
-      }
-      this.startTurnTimer();
+        stopTurnTimer();
+        // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
+        this.toggleUserInterface(e.isMyTurn());
+        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+        this.changeBgGradient(userColor);
+        if (e.isMyTurn()) {
+          this.changeBannerLabels("", "", Color.TRANSPARENT);
+        } else {
+          this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
+        }
+        this.startTurnTimer();
+
     }
   }
 
@@ -106,6 +105,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     view.getHoldingArea().setVisible(!show);
     view.getHoldingArea().toBack();
     view.getUserInterface().setVisible(show);
+    view.getUserInterface().toFront();
+    System.out.println(" USER INTERFACE IS " + view.getUserInterface().isVisible());
   }
 
   // Timer
