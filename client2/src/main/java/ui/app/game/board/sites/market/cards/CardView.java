@@ -53,6 +53,16 @@ public class CardView implements IDialogView{
     initOwnView();
   }
 
+  public CardView(IView parentView, EventBus eventBus, Connection connection,  int cardId){
+    this.parentView = parentView;
+    this.eventBus = eventBus;
+    this.connection = connection;
+    this.cardId = cardId;
+    available = true;
+    clickable = false;
+    initOwnView();
+  }
+
   public void setAvailable(boolean available) {
     this.available = available;
   }

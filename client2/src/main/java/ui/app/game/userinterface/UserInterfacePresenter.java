@@ -145,7 +145,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
     for (int i = 0; i < event.getShips().size(); i++)
       updateShipCargoBoxes(event.getShips().get(i), i);
-    setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteTypes());
+    setSelectShipLocationBox(event.getSiteTypes());
   }
 
   @Subscribe
@@ -156,23 +156,18 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   private void removeShip(int ship) {
     for (ComboBox<Integer> box : view.getShipCBoxes()) {
-      box.getItems().remove(ship);
+      box.getItems().remove((Integer) ship);
     }
   }
 
   private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
         view.getSelectShipLocationBox().getItems().remove(type.toString());
-
   }
 
-  private void setSelectShipLocationBox(int[] sitesAllocation, List<SiteType> sites) {
-    int i = 0;
+  private void setSelectShipLocationBox(List<SiteType> sites) {
     view.getSelectShipLocationBox().getItems().clear();
     for (SiteType site : sites) {
-      if (sitesAllocation[i] == -1) {
         view.getSelectShipLocationBox().getItems().add(site.toString());
-      }
-      i++;
     }
   }
 

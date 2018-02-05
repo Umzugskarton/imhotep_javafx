@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
+import ui.app.game.board.Inventory.InventoryView;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.defaultsites.DefaultSiteView;

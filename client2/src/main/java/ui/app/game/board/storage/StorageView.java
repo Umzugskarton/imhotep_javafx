@@ -18,6 +18,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.IView;
+import ui.app.game.board.Inventory.IInventoryView;
+import ui.app.game.board.Inventory.InventoryView;
 
 import java.util.ArrayList;
 
@@ -46,12 +48,15 @@ public class StorageView implements IStorageView{
   private final StoragePresenter mainPresenter;
   private final EventBus eventBus;
 
+  private InventoryView inventoryView;
+
   // Own Parent
   private Parent myParent;
 
   public StorageView(IView parentView, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId){
     this.parentView = parentView;
     this.eventBus = eventBus;
+    inventoryView = new InventoryView(this, eventBus, connection, lobbyId );
     this.mainPresenter = new StoragePresenter(this, eventBus, connection, user, myStorage, lobbyId);
     initOwnView();
   }
