@@ -64,11 +64,12 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
-    System.out.println("KOMMT HIER ÜBERHAUPT WAS AAAAAAAAAN?");
     if ((e.getLobbyId() != null)) {
       int i = e.getLobbyId();
       if (i == lobby.getLobbyId()) {
+        System.out.println("KOMMT HIER ÜBERHAUPT WAS AAAAAAAAAN?");
         getView().addChatMessage(e.getUser(), e.getMsg());
+        getView().addChatMessage("DANIELTEST", "TESTNACHRICHT");
       }
     }
   }
