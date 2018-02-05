@@ -65,11 +65,11 @@ public class ChatPresenter extends Presenter<IChatView> {
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
     if ((e.getLobbyId() != null)) {
+      System.out.println("e.getLobbyId() != null");
       int i = e.getLobbyId();
       if (i == lobby.getLobbyId()) {
-        System.out.println("KOMMT HIER ÜBERHAUPT WAS AAAAAAAAAN?");
+        System.out.println("i == lobby.getLobbyId");
         getView().addChatMessage(e.getUser(), e.getMsg());
-        getView().addChatMessage("DANIELTEST", "TESTNACHRICHT");
       }
     }
   }
