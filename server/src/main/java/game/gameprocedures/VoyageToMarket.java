@@ -56,7 +56,6 @@ public class VoyageToMarket implements Procedure {
     List<Card> activeCards = market.getActiveCards();
     ArrayList<Integer> chosenCards = new ArrayList<>();
     for (Stone stone : stones) {
-      if (stone != null) {
         game.sendTo(game.getPlayer(stone.getPlayer().getId()).getUser(),
                 new ChooseCardEvent(game.getGameID(), chosenCards, game.getGameID()));
         game.setCurrentPlayer(stone.getPlayer().getId());
@@ -72,7 +71,6 @@ public class VoyageToMarket implements Procedure {
           } else {
             stone.getPlayer().addCard(card);
           }
-        }
       }
     }
     return chosenCards;

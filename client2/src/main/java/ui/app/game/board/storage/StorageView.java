@@ -18,9 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.IView;
-import ui.app.game.board.Inventory.IInventoryView;
 import ui.app.game.board.Inventory.InventoryView;
-import ui.app.game.board.sites.market.cards.CardView;
 
 import java.util.ArrayList;
 
@@ -132,7 +130,6 @@ public class StorageView implements IStorageView{
   @FXML
   public void showCardStack(){
     System.out.println("Cardstack gedrückt");
-    this.inventoryView.addCard(new CardView(this, eventBus, new Connection(),  1231, 1));
     eventBus.post(this.inventoryView);
   }
 }
