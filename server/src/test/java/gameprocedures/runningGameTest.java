@@ -119,10 +119,10 @@ public class runningGameTest {
     assertEquals(4, ships.length);
 
     //Überprüfen ob alle Spieler ihre Steine bekommen haben
-    assertEquals(2, playersTest[0].getSupplySled().getStones());
-    assertEquals(3, playersTest[1].getSupplySled().getStones());
-    assertEquals(4, playersTest[2].getSupplySled().getStones());
-    assertEquals(5, playersTest[3].getSupplySled().getStones());
+    assertEquals(2, playersTest[0].getStones());
+    assertEquals(3, playersTest[1].getStones());
+    assertEquals(4, playersTest[2].getStones());
+    assertEquals(5, playersTest[3].getStones());
   }
 
   @Test
@@ -143,10 +143,10 @@ public class runningGameTest {
     assertEquals(false, game.getShipByID(2).isDocked());
     assertEquals(false, game.getShipByID(3).isDocked());
     //Stein-Anzahl überprüfen
-    assertEquals(5, game.getPlayer(0).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(1).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(2).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(3).getSupplySled().getStones());
+    assertEquals(5, game.getPlayer(0).getStones());
+    assertEquals(5, game.getPlayer(1).getStones());
+    assertEquals(5, game.getPlayer(2).getStones());
+    assertEquals(5, game.getPlayer(3).getStones());
 
     Move[] moves2 = {
         new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()),

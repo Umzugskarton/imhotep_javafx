@@ -21,7 +21,7 @@ public class FillUpStorage implements Procedure {
   }
 
   public FillUpStorageEvent exec() {
-    this.game.getPlayer(playerId).getSupplySled().addStones();
-    return new FillUpStorageEvent(playerId, game.getPlayer(playerId).getSupplySled().getStones());
+    this.game.getPlayer(playerId).addStones();
+    return new FillUpStorageEvent(playerId, game.getPlayer(playerId).getStones());
   }
 }

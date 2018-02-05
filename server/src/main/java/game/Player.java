@@ -1,7 +1,6 @@
 package game;
 
 import data.user.User;
-import game.board.SupplySled;
 import game.board.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +47,89 @@ public class Player {
     return cards.contains(card);
   }
 
+  /**
+   * Aktuelle Anzahl der Steine im Vorrat.
+   *
+   * @return Steinvorrat des besitzenden Spielers
+   */
+  public int getStones() {
+    return supplySled.getStones();
+  }
+
+  /**
+   * Fügt dem Vorrat die Standardanzahl neuer Steine hinzu.
+   */
+  public void addStones() {
+    supplySled.addStones();
+  }
+
+  /**
+   * @param amount die Anzahl der hinzuzufügenden Steine
+   */
+  public void addStones(int amount) {
+    supplySled.addStones(amount);
+  }
+
+  /**
+   * Entfernt einen Stein aus dem Vorrat.
+   *
+   * @return true, wenn noch mindestens ein Stein verfügbar war.
+   */
+  public boolean removeStone() {
+    return supplySled.removeStone();
+  }
+
   public int getPoints() {
     return points;
   }
 
   public SupplySled getSupplySled() {
     return supplySled;
+  }
+
+  /**
+   * Versorgungsplättchen mit dem Steinvorrat eines Players.
+   */
+  private static class SupplySled {
+
+    private static final int CAPACITY = 5;
+    private static final int STANDARD_RESUPPLY = 3;
+    private int stones = 0;
+
+    /**
+     * Aktuelle Anzahl der Steine auf dem Plättchen.
+     *
+     * @return Steinvorrat des besitzenden Spielers
+     */
+    int getStones() {
+      return stones;
+    }
+
+    /**
+     * @param amount die Anzahl der hinzuzufügenden Steine
+     */
+    void addStones(int amount) {
+      stones = Math.min(stones + amount, CAPACITY);
+    }
+
+    /**
+     * Fügt dem SupplySled die Standardanzahl neuer Steine hinzu.
+     */
+    void addStones() {
+      addStones(STANDARD_RESUPPLY);
+    }
+
+    /**
+     * Entfernt einen Stein vom SupplySled.
+     *
+     * @return true, wenn noch mindestens ein Stein verfügbar war.
+     */
+    boolean removeStone() {
+      if (this.stones > 0) {
+        this.stones--;
+        return true;
+      }
+      return false;
+    }
   }
 }

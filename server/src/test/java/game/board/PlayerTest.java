@@ -43,4 +43,25 @@ class PlayerTest {
     assertEquals(true, result4);
     assertEquals(true, result5);
   }
+
+  @Test
+  void addStonesTest() {
+    Player player = new Player(null, 0);
+    player.addStones();
+    int stones = player.getStones();
+
+    //Überprüfen ob zum Start des Spiels 3 Steine hinzugefügt wird
+    assertEquals(3, stones);
+
+    //Überprüfen ob die Kapazität nicht überschritten wird
+    player.addStones(3);
+    stones = player.getStones();
+    assertEquals(5, stones);
+  }
+
+  @Test
+  void removeStonesTest() {
+    Player player = new Player(null, 0);
+    assertEquals(false, player.removeStone());
+  }
 }
