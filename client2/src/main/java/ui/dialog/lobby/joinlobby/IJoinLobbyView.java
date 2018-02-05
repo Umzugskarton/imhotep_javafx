@@ -4,5 +4,5 @@ import ui.dialog.IDialogView;
 
 public interface IJoinLobbyView extends IDialogView {
 
-    void updateStatusLabel(String m);
+  void updateStatusLabel(String m);
 }

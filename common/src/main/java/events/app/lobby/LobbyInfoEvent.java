@@ -5,18 +5,18 @@ import events.Event;
 
 public class LobbyInfoEvent extends Event {
 
-    private CommonLobby lobby;
+  private CommonLobby lobby;
 
-    public LobbyInfoEvent() {
-    }
+  public LobbyInfoEvent() {
+  }
 
-    public LobbyInfoEvent(CommonLobby lobby) {
-        this.lobby = lobby;
-    }
+  public LobbyInfoEvent(CommonLobby lobby) {
+    this.lobby = lobby;
+  }
 
 
-    public CommonLobby getLobby() {
-        return lobby;
-    }
+  public CommonLobby getLobby() {
+    return lobby;
+  }
 
 }

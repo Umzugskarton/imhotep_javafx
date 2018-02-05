@@ -6,8 +6,8 @@ import ui.dialog.misc.ViewIdentifier;
 
 public class ShowCreateLobbyDialogEvent extends ShowDialogEvent {
 
-    public ShowCreateLobbyDialogEvent(ViewIdentifier viewIdentifier) {
-        super(viewIdentifier);
-    }
+  public ShowCreateLobbyDialogEvent(ViewIdentifier viewIdentifier) {
+    super(viewIdentifier);
+  }
 
 }

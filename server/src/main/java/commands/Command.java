@@ -4,7 +4,7 @@ import requests.IRequest;
 
 public interface Command {
 
-    void exec();
+  void exec();
 
-    void put(IRequest r);
+  void put(IRequest r);
 }

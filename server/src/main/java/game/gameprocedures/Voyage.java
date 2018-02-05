@@ -4,5 +4,5 @@ import game.Game;
 
 abstract class Voyage {
 
-    private Game game;
+  private Game game;
 }

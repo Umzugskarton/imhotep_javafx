@@ -5,7 +5,7 @@ import requests.gamemoves.Move;
 
 public interface Procedure {
 
-    Event exec();
+  Event exec();
 
-    void put(Move move);
+  void put(Move move);
 }

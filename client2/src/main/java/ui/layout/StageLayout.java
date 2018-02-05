@@ -14,88 +14,89 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class StageLayout {
-    private Stage stage;
-    private Scene scene;
-    private final EventBus eventBus;
 
-    private Rectangle edgeRect = new Rectangle();
+  private Stage stage;
+  private Scene scene;
+  private final EventBus eventBus;
 
-    public StageLayout(Stage stage, Scene scene, EventBus eventBus) {
-        this.stage = stage;
-        this.scene = scene;
-        this.eventBus = eventBus;
+  private Rectangle edgeRect = new Rectangle();
 
-        //Windows Navigation entfernen
-        stage.initStyle(StageStyle.TRANSPARENT);
+  public StageLayout(Stage stage, Scene scene, EventBus eventBus) {
+    this.stage = stage;
+    this.scene = scene;
+    this.eventBus = eventBus;
 
-        //Umrandung rund machen
-        this.edgeRect.setArcHeight(30.0);
-        this.edgeRect.setArcWidth(30.0);
+    //Windows Navigation entfernen
+    stage.initStyle(StageStyle.TRANSPARENT);
 
-        this.edgeRect.widthProperty().bind(this.stage.widthProperty());
-        this.edgeRect.heightProperty().bind(this.stage.heightProperty());
+    //Umrandung rund machen
+    this.edgeRect.setArcHeight(30.0);
+    this.edgeRect.setArcWidth(30.0);
 
-        this.scene.getRoot().setClip(this.edgeRect);
+    this.edgeRect.widthProperty().bind(this.stage.widthProperty());
+    this.edgeRect.heightProperty().bind(this.stage.heightProperty());
 
-        this.scene.setFill(Color.TRANSPARENT);
+    this.scene.getRoot().setClip(this.edgeRect);
 
-        setTitel("Imhotep");
-    }
+    this.scene.setFill(Color.TRANSPARENT);
 
-    public void configNavigation(HBox nav, Boolean withLogout) {
-        nav.setId("nav");
-        nav.setSpacing(5);
-        nav.setAlignment(Pos.CENTER_RIGHT);
+    setTitel("Imhotep");
+  }
 
-        final Delta dragDelta = new Delta();
-        nav.setOnMousePressed(mouseEvent -> {
-            dragDelta.x = this.stage.getX() - mouseEvent.getScreenX();
-            dragDelta.y = this.stage.getY() - mouseEvent.getScreenY();
-        });
+  public void configNavigation(HBox nav, Boolean withLogout) {
+    nav.setId("nav");
+    nav.setSpacing(5);
+    nav.setAlignment(Pos.CENTER_RIGHT);
 
-        nav.setOnMouseDragged(mouseEvent -> {
-            this.stage.setX(mouseEvent.getScreenX() + dragDelta.x);
-            this.stage.setY(mouseEvent.getScreenY() + dragDelta.y);
-        });
+    final Delta dragDelta = new Delta();
+    nav.setOnMousePressed(mouseEvent -> {
+      dragDelta.x = this.stage.getX() - mouseEvent.getScreenX();
+      dragDelta.y = this.stage.getY() - mouseEvent.getScreenY();
+    });
 
-        Button close = new Button("x");
-        close.setFocusTraversable(false);
-        close.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
+    nav.setOnMouseDragged(mouseEvent -> {
+      this.stage.setX(mouseEvent.getScreenX() + dragDelta.x);
+      this.stage.setY(mouseEvent.getScreenY() + dragDelta.y);
+    });
 
-        Button min = new Button("_");
-        min.setFocusTraversable(false);
-        min.addEventHandler(ActionEvent.ACTION, e ->
-                this.stage.setIconified(true));
+    Button close = new Button("x");
+    close.setFocusTraversable(false);
+    close.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
 
-        min.setMinWidth(20);
-        close.setMinWidth(20);
+    Button min = new Button("_");
+    min.setFocusTraversable(false);
+    min.addEventHandler(ActionEvent.ACTION, e ->
+        this.stage.setIconified(true));
 
-        if (withLogout) {
-            Button logoutButton = new Button();
-            logoutButton.setId("logout-button");
-            logoutButton.setFocusTraversable(false);
-            logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    eventBus.post(new LogoutEvent());
-                }
-            });
-            nav.getChildren().addAll(logoutButton, min, close);
-        } else {
-            nav.getChildren().addAll(min, close);
+    min.setMinWidth(20);
+    close.setMinWidth(20);
+
+    if (withLogout) {
+      Button logoutButton = new Button();
+      logoutButton.setId("logout-button");
+      logoutButton.setFocusTraversable(false);
+      logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent event) {
+          eventBus.post(new LogoutEvent());
         }
+      });
+      nav.getChildren().addAll(logoutButton, min, close);
+    } else {
+      nav.getChildren().addAll(min, close);
     }
+  }
 
 
-    public void setTitel(String titel) {
-        this.stage.setTitle(titel);
-    }
+  public void setTitel(String titel) {
+    this.stage.setTitle(titel);
+  }
 
-    public void setResizable(Boolean resizable) {
-        stage.setResizable(resizable);
-    }
+  public void setResizable(Boolean resizable) {
+    stage.setResizable(resizable);
+  }
 
-    public void setWindowSize(int width, int height) {
-        stage.setWidth(width);
-        stage.setHeight(height);
-    }
+  public void setWindowSize(int width, int height) {
+    stage.setWidth(width);
+    stage.setHeight(height);
+  }
 }

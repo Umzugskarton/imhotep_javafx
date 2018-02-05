@@ -3,6 +3,8 @@ package ui.start.login;
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -18,112 +20,111 @@ import mvp.view.ShowViewEvent;
 import ui.dialog.IDialogView;
 import ui.start.register.ShowRegisterViewEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 
 public class LoginView implements ILoginView {
 
-    @FXML
-    private ResourceBundle resources;
+  @FXML
+  private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+  @FXML
+  private URL location;
 
-    @FXML
-    private GridPane rootParent;
+  @FXML
+  private GridPane rootParent;
 
-    @FXML
-    private TextField userField;
+  @FXML
+  private TextField userField;
 
-    @FXML
-    private PasswordField passwordField;
+  @FXML
+  private PasswordField passwordField;
 
-    @FXML
-    Button signInButton;
+  @FXML
+  Button signInButton;
 
-    @FXML
-    private Text actiontarget;
+  @FXML
+  private Text actiontarget;
 
-    private Parent myParent = rootParent;
+  private Parent myParent = rootParent;
 
-    private final INavigateableView parentView;
-    private final LoginPresenter loginPresenter;
-    private final EventBus eventBus;
+  private final INavigateableView parentView;
+  private final LoginPresenter loginPresenter;
+  private final EventBus eventBus;
 
-    public LoginView(INavigateableView parentView, EventBus eventBus, Connection clientSocket) {
-        this.parentView = parentView;
-        this.loginPresenter = new LoginPresenter(this, eventBus, clientSocket);
-        this.eventBus = eventBus;
-        initOwnView();
+  public LoginView(INavigateableView parentView, EventBus eventBus, Connection clientSocket) {
+    this.parentView = parentView;
+    this.loginPresenter = new LoginPresenter(this, eventBus, clientSocket);
+    this.eventBus = eventBus;
+    initOwnView();
+  }
+
+  @Override
+  public void initOwnView() {
+    if (this.myParent == null) {
+      this.myParent = GenerateFXMLView.getINSTANCE()
+          .loadView("/ui/fxml/start/login/LoginView.fxml", this, eventBus);
     }
+  }
 
-    @Override
-    public void initOwnView() {
-        if (this.myParent == null) {
-            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/start/login/LoginView.fxml", this, eventBus);
-        }
+  @FXML
+  private void handleToRegisterButtonAction(ActionEvent event) {
+    eventBus
+        .post(new ShowRegisterViewEvent(this.userField.getText(), this.passwordField.getText()));
+    clearForm();
+  }
+
+  @FXML
+  private void handleSubmitButtonAction(ActionEvent event) {
+    String username = userField.getText();
+    String password = passwordField.getText();
+
+    loginPresenter.sendLoginRequest(username, password);
+  }
+
+  @FXML
+  private void handlePressedKeyAction(KeyEvent event) {
+    if (KeyCode.ENTER == event.getCode()) {
+      signInButton.fire();
     }
+  }
 
-    @FXML
-    private void handleToRegisterButtonAction(ActionEvent event) {
-        eventBus.post(new ShowRegisterViewEvent(this.userField.getText(), this.passwordField.getText()));
-        clearForm();
-    }
+  @Override
+  public Parent getRootParent() {
+    return this.myParent;
+  }
 
-    @FXML
-    private void handleSubmitButtonAction(ActionEvent event) {
-        String username = userField.getText();
-        String password = passwordField.getText();
+  @Override
+  public void showLoginFailed(String message) {
+    actiontarget.setText(message);
+  }
 
-        loginPresenter.sendLoginRequest(username, password);
-    }
+  @Override
+  public void clearForm() {
+    userField.setText("");
+    passwordField.setText("");
+  }
 
-    @FXML
-    private void handlePressedKeyAction(KeyEvent event) {
-        if (KeyCode.ENTER == event.getCode()) {
-            signInButton.fire();
-        }
-    }
+  @Override
+  public INavigateableView getParentView() {
+    return this.parentView;
+  }
 
-    @Override
-    public Parent getRootParent() {
-        return this.myParent;
-    }
+  @Override
+  public String getTitle() {
+    return "Login";
+  }
 
-    @Override
-    public void showLoginFailed(String message) {
-        actiontarget.setText(message);
-    }
+  @Override
+  public ShowViewEvent getEventToShowThisView() {
+    return new ShowLoginViewEvent();
+  }
 
-    @Override
-    public void clearForm() {
-        userField.setText("");
-        passwordField.setText("");
-    }
+  @Override
+  public void hideDialog() {
 
-    @Override
-    public INavigateableView getParentView() {
-        return this.parentView;
-    }
+  }
 
-    @Override
-    public String getTitle() {
-        return "Login";
-    }
+  @Override
+  public void showDialog(IDialogView view) {
 
-    @Override
-    public ShowViewEvent getEventToShowThisView() {
-        return new ShowLoginViewEvent();
-    }
-
-    @Override
-    public void hideDialog() {
-
-    }
-
-    @Override
-    public void showDialog(IDialogView view) {
-
-    }
+  }
 }

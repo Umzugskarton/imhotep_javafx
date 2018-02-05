@@ -5,7 +5,7 @@ import mvp.view.IView;
 
 public interface ILobbyTableView extends IView {
 
-    void setLobbyListViewData(ObservableList<LobbyTableData> datasource);
+  void setLobbyListViewData(ObservableList<LobbyTableData> datasource);
 
-    void joinLobby();
+  void joinLobby();
 }

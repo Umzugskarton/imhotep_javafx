@@ -1,8 +1,18 @@
 package commands;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import commands.chat.ChatCommand;
 import commands.chat.WhisperCommand;
-import commands.lobby.*;
+import commands.lobby.ChangeColorCommand;
+import commands.lobby.CreateCommand;
+import commands.lobby.JoinCommand;
+import commands.lobby.LeaveLobbyCommand;
+import commands.lobby.LobbylistCommand;
+import commands.lobby.SetReadyCommand;
+import commands.lobby.StartGameCommand;
 import commands.main.UserlistCommand;
 import commands.profil.ChangeCredentialCommand;
 import commands.start.LoginCommand;
@@ -16,7 +26,13 @@ import org.mockito.Mock;
 import requests.RequestType;
 import requests.chat.ChatRequest;
 import requests.chat.WhisperRequest;
-import requests.lobby.*;
+import requests.lobby.ChangeColorRequest;
+import requests.lobby.CreateRequest;
+import requests.lobby.JoinRequest;
+import requests.lobby.LeaveLobbyRequest;
+import requests.lobby.LobbylistRequest;
+import requests.lobby.SetReadyRequest;
+import requests.lobby.StartGameRequest;
 import requests.main.LogoutRequest;
 import requests.main.UserlistRequest;
 import requests.profil.ChangeCredentialRequest;
@@ -26,157 +42,154 @@ import socket.ClientAPI;
 import socket.ClientListener;
 import socket.Server;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class commandsTest {
-    @Mock
-    ClientAPI clientAPI;
 
-    @Mock
-    ClientListener cL;
+  @Mock
+  ClientAPI clientAPI;
 
-    @Mock
-    Server server;
+  @Mock
+  ClientListener cL;
 
-    @Mock
-    Lobby lobby;
+  @Mock
+  Server server;
 
-    @Mock
-    ChatRequest chatRequest;
+  @Mock
+  Lobby lobby;
 
-    @Mock
-    ChangeColorRequest changeColorRequest;
+  @Mock
+  ChatRequest chatRequest;
 
-    @Mock
-    ChangeCredentialRequest changeCredentialRequest;
+  @Mock
+  ChangeColorRequest changeColorRequest;
 
-    @Mock
-    CreateRequest createRequest;
+  @Mock
+  ChangeCredentialRequest changeCredentialRequest;
 
-    @Mock
-    JoinRequest joinRequest;
+  @Mock
+  CreateRequest createRequest;
 
-    @Mock
-    LeaveLobbyRequest leaveLobbyRequest;
+  @Mock
+  JoinRequest joinRequest;
 
-    @Mock
-    LobbylistRequest lobbylistRequest;
+  @Mock
+  LeaveLobbyRequest leaveLobbyRequest;
 
-    @Mock
-    LoginRequest loginRequest;
+  @Mock
+  LobbylistRequest lobbylistRequest;
 
-    @Mock
-    LogoutRequest logoutRequest;
+  @Mock
+  LoginRequest loginRequest;
 
-    @Mock
-    RegisterRequest registerRequest;
+  @Mock
+  LogoutRequest logoutRequest;
 
-    @Mock
-    SetReadyRequest setReadyRequest;
+  @Mock
+  RegisterRequest registerRequest;
 
-    @Mock
-    StartGameRequest startGameRequest;
+  @Mock
+  SetReadyRequest setReadyRequest;
 
-    @Mock
-    UserlistRequest userlistRequest;
+  @Mock
+  StartGameRequest startGameRequest;
 
-    @Mock
-    WhisperRequest whisperRequest;
+  @Mock
+  UserlistRequest userlistRequest;
 
-    @Mock
-    ChatMessageEvent chatMessageEvent;
+  @Mock
+  WhisperRequest whisperRequest;
 
-
-    ChatCommand chatCommand;
-    ChangeColorCommand changeColorCommand;
-    ChangeCredentialCommand changeCredentialCommand;
-    CreateCommand createCommand;
-    JoinCommand joinCommand;
-    LeaveLobbyCommand leaveLobbyCommand;
-    LobbylistCommand lobbylistCommand;
-    LoginCommand loginCommand;
-    LogoutCommand logoutCommand;
-    RegisterCommand registerCommand;
-    SetReadyCommand setReadyCommand;
-    StartGameCommand startGameCommand;
-    UserlistCommand userlistCommand;
-    WhisperCommand whisperCommand;
-
-    @Before
-    public void init() {
-        lobby = mock(Lobby.class);
-        chatMessageEvent = mock(ChatMessageEvent.class);
-    }
-
-    @Test
-    public void getCommand() {
-        server = mock(Server.class);
-        cL = mock(ClientListener.class);
-        chatRequest = mock(ChatRequest.class);
-        changeColorRequest = mock(ChangeColorRequest.class);
-        changeCredentialRequest = mock(ChangeCredentialRequest.class);
-        chatRequest = mock(ChatRequest.class);
-        createRequest = mock(CreateRequest.class);
-        joinRequest = mock(JoinRequest.class);
-        leaveLobbyRequest = mock(LeaveLobbyRequest.class);
-        lobbylistRequest = mock(LobbylistRequest.class);
-        loginRequest = mock(LoginRequest.class);
-        logoutRequest = mock(LogoutRequest.class);
-        registerRequest = mock(RegisterRequest.class);
-        setReadyRequest = mock(SetReadyRequest.class);
-        startGameRequest = mock(StartGameRequest.class);
-        userlistRequest = mock(UserlistRequest.class);
-        whisperRequest = mock(WhisperRequest.class);
+  @Mock
+  ChatMessageEvent chatMessageEvent;
 
 
-        clientAPI = mock(ClientAPI.class);
+  ChatCommand chatCommand;
+  ChangeColorCommand changeColorCommand;
+  ChangeCredentialCommand changeCredentialCommand;
+  CreateCommand createCommand;
+  JoinCommand joinCommand;
+  LeaveLobbyCommand leaveLobbyCommand;
+  LobbylistCommand lobbylistCommand;
+  LoginCommand loginCommand;
+  LogoutCommand logoutCommand;
+  RegisterCommand registerCommand;
+  SetReadyCommand setReadyCommand;
+  StartGameCommand startGameCommand;
+  UserlistCommand userlistCommand;
+  WhisperCommand whisperCommand;
 
-        CommandFactory commandFactory = new CommandFactory(cL);
-        when(cL.getClientAPI()).thenReturn(clientAPI);
-        when(cL.getServer()).thenReturn(server);
-        //Alle Commands prüfen
-        chatCommand = new ChatCommand(cL);
-        changeColorCommand = new ChangeColorCommand(cL);
-        changeCredentialCommand = new ChangeCredentialCommand(cL);
-        createCommand = new CreateCommand(cL);
-        joinCommand = new JoinCommand(cL);
-        leaveLobbyCommand = new LeaveLobbyCommand(cL);
-        lobbylistCommand = new LobbylistCommand(cL);
-        loginCommand = new LoginCommand(cL);
-        logoutCommand = new LogoutCommand(cL);
-        registerCommand = new RegisterCommand(cL);
-        setReadyCommand = new SetReadyCommand(cL);
-        startGameCommand = new StartGameCommand(cL);
-        userlistCommand = new UserlistCommand(cL);
-        whisperCommand = new WhisperCommand(cL);
+  @Before
+  public void init() {
+    lobby = mock(Lobby.class);
+    chatMessageEvent = mock(ChatMessageEvent.class);
+  }
 
-        when(chatRequest.getType()).thenReturn(RequestType.CHAT);
-        when(changeColorRequest.getType()).thenReturn(RequestType.CHANGE_COLOR);
-        when(changeCredentialRequest.getType()).thenReturn(RequestType.CHANGE_CREDENTIAL);
-        when(joinRequest.getType()).thenReturn(RequestType.JOIN);
-        when(createRequest.getType()).thenReturn(RequestType.CREATE);
-        when(leaveLobbyRequest.getType()).thenReturn(RequestType.LEAVE_LOBBY);
-        when(lobbylistRequest.getType()).thenReturn(RequestType.LOBBYLIST);
-        when(loginRequest.getType()).thenReturn(RequestType.LOGIN);
-        when(logoutRequest.getType()).thenReturn(RequestType.LOGOUT);
-        when(registerRequest.getType()).thenReturn(RequestType.REGISTER);
-        when(setReadyRequest.getType()).thenReturn(RequestType.SET_READY);
-        when(userlistRequest.getType()).thenReturn(RequestType.USERLIST);
-        when(whisperRequest.getType()).thenReturn(RequestType.WHISPER);
-        assertTrue(commandFactory.getCommand(chatRequest) instanceof ChatCommand);
-        assertTrue(commandFactory.getCommand(changeColorRequest) instanceof ChangeColorCommand);
-        assertTrue(commandFactory.getCommand(changeCredentialRequest) instanceof ChangeCredentialCommand);
-        assertTrue(commandFactory.getCommand(joinRequest) instanceof JoinCommand);
-        assertTrue(commandFactory.getCommand(createRequest) instanceof CreateCommand);
-        assertTrue(commandFactory.getCommand(leaveLobbyRequest) instanceof LeaveLobbyCommand);
-        assertTrue(commandFactory.getCommand(lobbylistRequest) instanceof LobbylistCommand);
-        assertTrue(commandFactory.getCommand(loginRequest) instanceof LoginCommand);
-        assertTrue(commandFactory.getCommand(logoutRequest) instanceof LogoutCommand);
-        assertTrue(commandFactory.getCommand(registerRequest) instanceof RegisterCommand);
-        assertTrue(commandFactory.getCommand(setReadyRequest) instanceof SetReadyCommand);
-        assertTrue(commandFactory.getCommand(userlistRequest) instanceof UserlistCommand);
-        assertTrue(commandFactory.getCommand(whisperRequest) instanceof WhisperCommand);
-    }
+  @Test
+  public void getCommand() {
+    server = mock(Server.class);
+    cL = mock(ClientListener.class);
+    chatRequest = mock(ChatRequest.class);
+    changeColorRequest = mock(ChangeColorRequest.class);
+    changeCredentialRequest = mock(ChangeCredentialRequest.class);
+    chatRequest = mock(ChatRequest.class);
+    createRequest = mock(CreateRequest.class);
+    joinRequest = mock(JoinRequest.class);
+    leaveLobbyRequest = mock(LeaveLobbyRequest.class);
+    lobbylistRequest = mock(LobbylistRequest.class);
+    loginRequest = mock(LoginRequest.class);
+    logoutRequest = mock(LogoutRequest.class);
+    registerRequest = mock(RegisterRequest.class);
+    setReadyRequest = mock(SetReadyRequest.class);
+    startGameRequest = mock(StartGameRequest.class);
+    userlistRequest = mock(UserlistRequest.class);
+    whisperRequest = mock(WhisperRequest.class);
+
+    clientAPI = mock(ClientAPI.class);
+
+    CommandFactory commandFactory = new CommandFactory(cL);
+    when(cL.getClientAPI()).thenReturn(clientAPI);
+    when(cL.getServer()).thenReturn(server);
+    //Alle Commands prüfen
+    chatCommand = new ChatCommand(cL);
+    changeColorCommand = new ChangeColorCommand(cL);
+    changeCredentialCommand = new ChangeCredentialCommand(cL);
+    createCommand = new CreateCommand(cL);
+    joinCommand = new JoinCommand(cL);
+    leaveLobbyCommand = new LeaveLobbyCommand(cL);
+    lobbylistCommand = new LobbylistCommand(cL);
+    loginCommand = new LoginCommand(cL);
+    logoutCommand = new LogoutCommand(cL);
+    registerCommand = new RegisterCommand(cL);
+    setReadyCommand = new SetReadyCommand(cL);
+    startGameCommand = new StartGameCommand(cL);
+    userlistCommand = new UserlistCommand(cL);
+    whisperCommand = new WhisperCommand(cL);
+
+    when(chatRequest.getType()).thenReturn(RequestType.CHAT);
+    when(changeColorRequest.getType()).thenReturn(RequestType.CHANGE_COLOR);
+    when(changeCredentialRequest.getType()).thenReturn(RequestType.CHANGE_CREDENTIAL);
+    when(joinRequest.getType()).thenReturn(RequestType.JOIN);
+    when(createRequest.getType()).thenReturn(RequestType.CREATE);
+    when(leaveLobbyRequest.getType()).thenReturn(RequestType.LEAVE_LOBBY);
+    when(lobbylistRequest.getType()).thenReturn(RequestType.LOBBYLIST);
+    when(loginRequest.getType()).thenReturn(RequestType.LOGIN);
+    when(logoutRequest.getType()).thenReturn(RequestType.LOGOUT);
+    when(registerRequest.getType()).thenReturn(RequestType.REGISTER);
+    when(setReadyRequest.getType()).thenReturn(RequestType.SET_READY);
+    when(userlistRequest.getType()).thenReturn(RequestType.USERLIST);
+    when(whisperRequest.getType()).thenReturn(RequestType.WHISPER);
+    assertTrue(commandFactory.getCommand(chatRequest) instanceof ChatCommand);
+    assertTrue(commandFactory.getCommand(changeColorRequest) instanceof ChangeColorCommand);
+    assertTrue(
+        commandFactory.getCommand(changeCredentialRequest) instanceof ChangeCredentialCommand);
+    assertTrue(commandFactory.getCommand(joinRequest) instanceof JoinCommand);
+    assertTrue(commandFactory.getCommand(createRequest) instanceof CreateCommand);
+    assertTrue(commandFactory.getCommand(leaveLobbyRequest) instanceof LeaveLobbyCommand);
+    assertTrue(commandFactory.getCommand(lobbylistRequest) instanceof LobbylistCommand);
+    assertTrue(commandFactory.getCommand(loginRequest) instanceof LoginCommand);
+    assertTrue(commandFactory.getCommand(logoutRequest) instanceof LogoutCommand);
+    assertTrue(commandFactory.getCommand(registerRequest) instanceof RegisterCommand);
+    assertTrue(commandFactory.getCommand(setReadyRequest) instanceof SetReadyCommand);
+    assertTrue(commandFactory.getCommand(userlistRequest) instanceof UserlistCommand);
+    assertTrue(commandFactory.getCommand(whisperRequest) instanceof WhisperCommand);
+  }
 }

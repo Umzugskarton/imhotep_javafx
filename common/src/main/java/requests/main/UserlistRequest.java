@@ -5,11 +5,11 @@ import requests.RequestType;
 
 public class UserlistRequest implements IRequest {
 
-    private RequestType request = RequestType.USERLIST;
+  private RequestType request = RequestType.USERLIST;
 
-    public RequestType getType() {
-        return this.request;
-    }
+  public RequestType getType() {
+    return this.request;
+  }
 
 }
 

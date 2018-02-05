@@ -6,14 +6,14 @@ import ui.dialog.misc.ViewIdentifier;
 
 public class ShowJoinLobbyDialogEvent extends ShowDialogEvent {
 
-    LobbyTableData lobbydata;
+  LobbyTableData lobbydata;
 
-    public ShowJoinLobbyDialogEvent(LobbyTableData lobbydata, ViewIdentifier viewIdentifier) {
-        super(viewIdentifier);
-        this.lobbydata = lobbydata;
-    }
+  public ShowJoinLobbyDialogEvent(LobbyTableData lobbydata, ViewIdentifier viewIdentifier) {
+    super(viewIdentifier);
+    this.lobbydata = lobbydata;
+  }
 
-    public LobbyTableData getLobbyData() {
-        return lobbydata;
-    }
+  public LobbyTableData getLobbyData() {
+    return lobbydata;
+  }
 }

@@ -1,30 +1,29 @@
 package ui.app.game.userinterface;
 
+import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.IView;
 
-import java.util.ArrayList;
-
 public interface IUserInterfaceView extends IView {
 
-    Label getCurrentPlayerLabel();
+  Label getCurrentPlayerLabel();
 
-    Rectangle getPlayerColorRectangle();
+  Rectangle getPlayerColorRectangle();
 
-    ComboBox<Integer> getSelectStoneLocationBox();
+  ComboBox<Integer> getSelectStoneLocationBox();
 
-    ComboBox<String> getSelectShipLocationBox();
+  ComboBox<String> getSelectShipLocationBox();
 
-    Label getUiBannerLabel();
+  Label getUiBannerLabel();
 
-    Label getUiBannerSmallLabel();
+  Label getUiBannerSmallLabel();
 
-    GridPane getUserInterface();
+  GridPane getUserInterface();
 
-    GridPane getHoldingArea();
+  GridPane getHoldingArea();
 
-    ArrayList<ComboBox<Integer>> getShipCBoxes();
+  ArrayList<ComboBox<Integer>> getShipCBoxes();
 }

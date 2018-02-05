@@ -5,17 +5,17 @@ import requests.IRequest;
 
 public class ConnectionDebug extends Connection {
 
-    private final EventBus eventBus;
+  private final EventBus eventBus;
 
-    public ConnectionDebug(EventBus eventBus) {
-        super();
-        this.eventBus = eventBus;
-    }
+  public ConnectionDebug(EventBus eventBus) {
+    super();
+    this.eventBus = eventBus;
+  }
 
-    @Override
-    public void send(IRequest request) {
-        //EventBus für Debug-Zwecke!
-        this.eventBus.post(request);
+  @Override
+  public void send(IRequest request) {
+    //EventBus für Debug-Zwecke!
+    this.eventBus.post(request);
         /*
 
         try {
@@ -25,5 +25,5 @@ public class ConnectionDebug extends Connection {
             closeConnection();
         }
         */
-    }
+  }
 }

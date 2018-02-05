@@ -11,43 +11,43 @@ import javafx.util.Callback;
 
 public class ColorTableColum extends TableColumn<LobbyUser, String> {
 
-    UserTablePresenter presenter;
+  UserTablePresenter presenter;
 
-    public ColorTableColum(String text, UserTablePresenter presenter) {
-        super(text);
-        this.presenter = presenter;
+  public ColorTableColum(String text, UserTablePresenter presenter) {
+    super(text);
+    this.presenter = presenter;
 
-        this.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
+    this.setCellValueFactory(new PropertyValueFactory<LobbyUser, String>("DUMMY"));
 
-        Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
-                = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
-            @Override
-            public TableCell call(final TableColumn<LobbyUser, String> param) {
-                final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
-                            HBox hbox = new HBox();
-                            Rectangle color = new Rectangle();
-                            color.setHeight(15);
-                            color.setWidth(15);
-                            hbox.setSpacing(5);
+    Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>> cellFactory
+        = new Callback<TableColumn<LobbyUser, String>, TableCell<LobbyUser, String>>() {
+      @Override
+      public TableCell call(final TableColumn<LobbyUser, String> param) {
+        final TableCell<LobbyUser, String> cell = new TableCell<LobbyUser, String>() {
+          @Override
+          public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+              setGraphic(null);
+              setText(null);
+            } else {
+              LobbyUser lobbyUser = getTableView().getItems().get(getIndex());
+              HBox hbox = new HBox();
+              Rectangle color = new Rectangle();
+              color.setHeight(15);
+              color.setWidth(15);
+              hbox.setSpacing(5);
 
-                            color.setFill(Color.web(lobbyUser.getColor()));
-                            hbox.getChildren().add(color);
-                            setGraphic(hbox);
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
+              color.setFill(Color.web(lobbyUser.getColor()));
+              hbox.getChildren().add(color);
+              setGraphic(hbox);
+              setText(null);
             }
+          }
         };
-        this.setCellFactory(cellFactory);
-    }
+        return cell;
+      }
+    };
+    this.setCellFactory(cellFactory);
+  }
 }

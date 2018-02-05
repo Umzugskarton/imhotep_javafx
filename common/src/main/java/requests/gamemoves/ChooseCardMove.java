@@ -4,25 +4,26 @@ package requests.gamemoves;
 import requests.RequestType;
 
 public class ChooseCardMove implements Move {
-    private int lobbyId;
-    private int cardId;
 
-    public ChooseCardMove(int lobbyId, int cardId) {
-        this.lobbyId = lobbyId;
-        this.cardId = cardId;
-    }
+  private int lobbyId;
+  private int cardId;
 
-    public int getCardId() {
-        return cardId;
-    }
+  public ChooseCardMove(int lobbyId, int cardId) {
+    this.lobbyId = lobbyId;
+    this.cardId = cardId;
+  }
 
-    @Override
-    public int getLobbyId() {
-        return lobbyId;
-    }
+  public int getCardId() {
+    return cardId;
+  }
 
-    @Override
-    public RequestType getType() {
-        return RequestType.CHOOSE_CARD;
-    }
+  @Override
+  public int getLobbyId() {
+    return lobbyId;
+  }
+
+  @Override
+  public RequestType getType() {
+    return RequestType.CHOOSE_CARD;
+  }
 }

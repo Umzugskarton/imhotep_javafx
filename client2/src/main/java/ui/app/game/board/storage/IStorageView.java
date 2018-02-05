@@ -1,15 +1,15 @@
 package ui.app.game.board.storage;
 
+import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import mvp.view.IView;
 
-import java.util.ArrayList;
-
 public interface IStorageView extends IView {
-    void setUserColor(String color);
 
-    ArrayList<Group> getStones();
+  void setUserColor(String color);
 
-    Label getPointsLabel();
+  ArrayList<Group> getStones();
+
+  Label getPointsLabel();
 }

@@ -7,18 +7,18 @@ import game.Player;
  */
 public class Stone {
 
-    private Player owner;
+  private Player owner;
 
-    /**
-     * Erstellt einen neuen Stein mit einem Besitzer.
-     *
-     * @param owner der besitzende Spieler
-     */
-    public Stone(Player owner) {
-        this.owner = owner;
-    }
+  /**
+   * Erstellt einen neuen Stein mit einem Besitzer.
+   *
+   * @param owner der besitzende Spieler
+   */
+  public Stone(Player owner) {
+    this.owner = owner;
+  }
 
-    public Player getPlayer() {
-        return this.owner;
-    }
+  public Player getPlayer() {
+    return this.owner;
+  }
 }

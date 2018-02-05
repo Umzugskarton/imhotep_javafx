@@ -1,6 +1,7 @@
 package ui.app.game.board;
 
 import events.SiteType;
+import java.util.ArrayList;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -8,18 +9,17 @@ import mvp.view.IView;
 import ui.app.game.board.ship.ShipView;
 import ui.app.game.board.storage.StorageView;
 
-import java.util.ArrayList;
-
 public interface IBoardView extends IView {
-    ProgressBar getTurnTimerProgress();
 
-    ArrayList<StorageView> getStorageViews();
+  ProgressBar getTurnTimerProgress();
 
-    ArrayList<ShipView> getShipViews();
+  ArrayList<StorageView> getStorageViews();
 
-    void setShips(ArrayList<int[]> ships);
+  ArrayList<ShipView> getShipViews();
 
-    AnchorPane removeShipPaneById(int id);
+  void setShips(ArrayList<int[]> ships);
 
-    Pane getPierByType(SiteType type);
+  AnchorPane removeShipPaneById(int id);
+
+  Pane getPierByType(SiteType type);
 }

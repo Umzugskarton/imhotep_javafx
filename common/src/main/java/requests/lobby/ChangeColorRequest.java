@@ -5,14 +5,14 @@ import requests.RequestType;
 
 public class ChangeColorRequest extends Request {
 
-    private RequestType request = RequestType.CHANGE_COLOR;
+  private RequestType request = RequestType.CHANGE_COLOR;
 
-    public ChangeColorRequest(int lobbyId) {
-        super(lobbyId);
-    }
+  public ChangeColorRequest(int lobbyId) {
+    super(lobbyId);
+  }
 
-    public RequestType getType() {
-        return this.request;
-    }
+  public RequestType getType() {
+    return this.request;
+  }
 
 }

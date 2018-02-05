@@ -8,21 +8,21 @@ import socket.ClientListener;
 
 public class UserlistCommand implements Command {
 
-    private UserlistRequest request;
-    private ClientListener clientListener;
+  private UserlistRequest request;
+  private ClientListener clientListener;
 
-    public UserlistCommand(ClientListener clientListener) {
-        this.clientListener = clientListener;
-    }
+  public UserlistCommand(ClientListener clientListener) {
+    this.clientListener = clientListener;
+  }
 
-    public void put(IRequest r) {
-        this.request = (UserlistRequest) r;
-    }
+  public void put(IRequest r) {
+    this.request = (UserlistRequest) r;
+  }
 
-    public void exec() {
-        UserListEvent response = this.clientListener.getServer().getLoggedUsers();
-        if (response != null) {
-            this.clientListener.send(response);
-        }
+  public void exec() {
+    UserListEvent response = this.clientListener.getServer().getLoggedUsers();
+    if (response != null) {
+      this.clientListener.send(response);
     }
+  }
 }

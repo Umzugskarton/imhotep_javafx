@@ -7,23 +7,23 @@ import requests.lobby.CreateRequest;
 
 public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
 
-    private final Connection connection;
+  private final Connection connection;
 
-    public CreateLobbyPresenter(ICreateLobbyView view, EventBus eventBus, Connection connection) {
-        super(view, eventBus);
-        this.connection = connection;
-    }
+  public CreateLobbyPresenter(ICreateLobbyView view, EventBus eventBus, Connection connection) {
+    super(view, eventBus);
+    this.connection = connection;
+  }
 
-    public Connection getConnection() {
-        return this.connection;
-    }
+  public Connection getConnection() {
+    return this.connection;
+  }
 
-    public void createLobby(String name, int size, String pass) {
-        if (name.isEmpty()) {
-            this.view.updateStatusLabel("Bitte geben Sie einen Namen für die Lobby ein!");
-        } else {
-            CreateRequest j = new CreateRequest(name, size, pass);
-            this.connection.send(j);
-        }
+  public void createLobby(String name, int size, String pass) {
+    if (name.isEmpty()) {
+      this.view.updateStatusLabel("Bitte geben Sie einen Namen für die Lobby ein!");
+    } else {
+      CreateRequest j = new CreateRequest(name, size, pass);
+      this.connection.send(j);
     }
+  }
 }

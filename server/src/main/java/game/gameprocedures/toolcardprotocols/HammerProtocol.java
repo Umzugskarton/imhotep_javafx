@@ -10,17 +10,18 @@ import requests.gamemoves.VoyageToStoneSiteMove;
 
 public class HammerProtocol extends Protocol {
 
-    public HammerProtocol(Game game, int playerId) {
-        super(game, playerId);
-    }
+  public HammerProtocol(Game game, int playerId) {
+    super(game, playerId);
+  }
 
-    public void exec() {
-        game.sendAll(new ToolCardEvent(CardType.HAMMER, playerId, true, game.getGameID()));
-        game.executeMove(new FillUpStorageMove(game.getGameID()));
-        game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent(game.getGameID()));
-        Move move = acquireMove();
-        if (move instanceof VoyageToStoneSiteMove) {
-            game.executeMove(move);
-        }
+  public void exec() {
+    game.sendAll(new ToolCardEvent(CardType.HAMMER, playerId, true, game.getGameID()));
+    game.executeMove(new FillUpStorageMove(game.getGameID()));
+    game.sendTo(game.getPlayer(playerId).getUser(),
+        new VoyageToStoneSiteExclusiveEvent(game.getGameID()));
+    Move move = acquireMove();
+    if (move instanceof VoyageToStoneSiteMove) {
+      game.executeMove(move);
     }
+  }
 }

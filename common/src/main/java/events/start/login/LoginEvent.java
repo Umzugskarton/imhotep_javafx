@@ -4,13 +4,13 @@ import events.Event;
 
 public class LoginEvent extends Event {
 
-    private boolean success;
+  private boolean success;
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
+  public void setSuccess(boolean success) {
+    this.success = success;
+  }
 
-    public boolean getSuccess() {
-        return this.success;
-    }
+  public boolean getSuccess() {
+    return this.success;
+  }
 }

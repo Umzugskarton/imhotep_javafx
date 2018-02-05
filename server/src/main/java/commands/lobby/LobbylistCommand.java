@@ -8,21 +8,21 @@ import socket.ClientListener;
 
 public class LobbylistCommand implements Command {
 
-    private LobbylistRequest request;
-    private ClientListener clientListener;
+  private LobbylistRequest request;
+  private ClientListener clientListener;
 
-    public LobbylistCommand(ClientListener clientListener) {
-        this.clientListener = clientListener;
-    }
+  public LobbylistCommand(ClientListener clientListener) {
+    this.clientListener = clientListener;
+  }
 
-    public void put(IRequest r) {
-        this.request = (LobbylistRequest) r;
-    }
+  public void put(IRequest r) {
+    this.request = (LobbylistRequest) r;
+  }
 
-    public void exec() {
-        LobbyListEvent response = this.clientListener.getServer().getLobbies(clientListener.getUser());
-        if (response != null) {
-            this.clientListener.send(response);
-        }
+  public void exec() {
+    LobbyListEvent response = this.clientListener.getServer().getLobbies(clientListener.getUser());
+    if (response != null) {
+      this.clientListener.send(response);
     }
+  }
 }

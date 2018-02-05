@@ -3,22 +3,23 @@ package events.start.registration;
 import events.Event;
 
 public class RegistrationEvent extends Event {
-    private String msg;
-    private boolean validate;
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+  private String msg;
+  private boolean validate;
 
-    public void setSuccess(boolean validate) {
-        this.validate = validate;
-    }
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
 
-    public Boolean isSuccess() {
-        return this.validate;
-    }
+  public void setSuccess(boolean validate) {
+    this.validate = validate;
+  }
 
-    public String getMsg() {
-        return this.msg;
-    }
+  public Boolean isSuccess() {
+    return this.validate;
+  }
+
+  public String getMsg() {
+    return this.msg;
+  }
 }

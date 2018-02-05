@@ -5,7 +5,7 @@ import events.EventReason;
 
 public class LoginFailedEvent extends Event {
 
-    public LoginFailedEvent(EventReason reason) {
-        this.setReason(reason);
-    }
+  public LoginFailedEvent(EventReason reason) {
+    this.setReason(reason);
+  }
 }

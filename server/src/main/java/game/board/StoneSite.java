@@ -8,44 +8,44 @@ import java.util.List;
  */
 public abstract class StoneSite extends Site implements IStoneSite {
 
-    ArrayList<Stone> stones = new ArrayList<>();
+  ArrayList<Stone> stones = new ArrayList<>();
 
-    StoneSite(int playerCount) {
-        super(playerCount);
-    }
+  StoneSite(int playerCount) {
+    super(playerCount);
+  }
 
-    @Override
-    public void addStones(Stone[] stones) {
-        for (Stone stone : stones) {
-            if (stone != null) {
-                this.stones.add(stone);
-            }
-        }
+  @Override
+  public void addStones(Stone[] stones) {
+    for (Stone stone : stones) {
+      if (stone != null) {
+        this.stones.add(stone);
+      }
     }
+  }
 
-    public void addStone(Stone stone) {
-        if (stone != null) {
-            stones.add(stone);
-        }
+  public void addStone(Stone stone) {
+    if (stone != null) {
+      stones.add(stone);
     }
+  }
 
-    @Override
-    public List<Stone> getStones() {
-        return stones;
-    }
+  @Override
+  public List<Stone> getStones() {
+    return stones;
+  }
 
-    @Override
-    public boolean dockShip(Ship ship) {
-        if (this.getDockedShip() != null) {
-            return false;
-        }
-        this.setDockedShip(ship);
-        addStones(ship.getStones());
-        return true;
+  @Override
+  public boolean dockShip(Ship ship) {
+    if (this.getDockedShip() != null) {
+      return false;
     }
+    this.setDockedShip(ship);
+    addStones(ship.getStones());
+    return true;
+  }
 
-    @Override
-    public boolean isDocked() {
-        return this.getDockedShip() != null;
-    }
+  @Override
+  public boolean isDocked() {
+    return this.getDockedShip() != null;
+  }
 }

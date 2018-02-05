@@ -11,36 +11,36 @@ import socket.Server;
 
 public class WhisperCommand implements Command {
 
-    private WhisperRequest request;
-    private ClientListener clientListener;
-    private Server server;
-    private ClientAPI clientAPI;
+  private WhisperRequest request;
+  private ClientListener clientListener;
+  private Server server;
+  private ClientAPI clientAPI;
 
-    public WhisperCommand(ClientListener clientListener) {
-        this.clientListener = clientListener;
-        this.server = clientListener.getServer();
-        this.clientAPI = clientListener.getClientAPI();
+  public WhisperCommand(ClientListener clientListener) {
+    this.clientListener = clientListener;
+    this.server = clientListener.getServer();
+    this.clientAPI = clientListener.getClientAPI();
+  }
+
+  public void put(IRequest r) {
+    this.request = (WhisperRequest) r;
+  }
+
+  public void exec() {
+    Event response = null;
+    String receiverUsername = this.server
+        .getLoggedInUsername(request.getTo());
+    if (receiverUsername != null) {
+      this.server
+          .sendTo(this.clientAPI.whisper(request, this.clientListener.getUser()), receiverUsername);
+    } else {
+      UserNotFoundErrorEvent error = new UserNotFoundErrorEvent();
+      error.setMsg(request.getTo());
+      response = error;
     }
 
-    public void put(IRequest r) {
-        this.request = (WhisperRequest) r;
+    if (response != null) {
+      this.clientListener.send(response);
     }
-
-    public void exec() {
-        Event response = null;
-        String receiverUsername = this.server
-                .getLoggedInUsername(request.getTo());
-        if (receiverUsername != null) {
-            this.server
-                    .sendTo(this.clientAPI.whisper(request, this.clientListener.getUser()), receiverUsername);
-        } else {
-            UserNotFoundErrorEvent error = new UserNotFoundErrorEvent();
-            error.setMsg(request.getTo());
-            response = error;
-        }
-
-        if (response != null) {
-            this.clientListener.send(response);
-        }
-    }
+  }
 }

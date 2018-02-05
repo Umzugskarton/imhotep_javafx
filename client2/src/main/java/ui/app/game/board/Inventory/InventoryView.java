@@ -11,49 +11,51 @@ import ui.app.game.board.sites.market.cards.CardView;
 
 public class InventoryView implements IInventoryView {
 
-    @FXML
-    private GridPane cardGridPane;
+  @FXML
+  private GridPane cardGridPane;
 
-    private final IView parentView;
-    private final InventoryPresenter mainPresenter;
-    private final EventBus eventBus;
+  private final IView parentView;
+  private final InventoryPresenter mainPresenter;
+  private final EventBus eventBus;
 
-    private Connection connection;
+  private Connection connection;
 
-    // Own Parent
-    private Parent myParent;
+  // Own Parent
+  private Parent myParent;
 
-    public InventoryView(IView parentView, EventBus eventBus, Connection connection, int user) {
-        this.parentView = parentView;
-        this.connection = connection;
-        this.eventBus = eventBus;
-        this.mainPresenter = new InventoryPresenter(this, eventBus, connection, user);
-        initOwnView();
+  public InventoryView(IView parentView, EventBus eventBus, Connection connection, int user) {
+    this.parentView = parentView;
+    this.connection = connection;
+    this.eventBus = eventBus;
+    this.mainPresenter = new InventoryPresenter(this, eventBus, connection, user);
+    initOwnView();
+  }
+
+  @Override
+  public String getTitle() {
+    return null;
+  }
+
+  @Override
+  public Parent getRootParent() {
+    return myParent;
+  }
+
+  @Override
+  public void initOwnView() {
+    if (myParent == null) {
+      myParent = GenerateFXMLView.getINSTANCE()
+          .loadView("/ui/fxml/app/game/board/InventoryView.fxml", this, eventBus);
     }
+  }
 
-    @Override
-    public String getTitle() {
-        return null;
-    }
+  @Override
+  public GridPane getCardGridPane() {
+    return cardGridPane;
+  }
 
-    @Override
-    public Parent getRootParent() {
-        return myParent;
-    }
-
-    @Override
-    public void initOwnView() {
-        if (myParent == null)
-            myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/InventoryView.fxml", this, eventBus);
-    }
-
-    @Override
-    public GridPane getCardGridPane() {
-        return cardGridPane;
-    }
-
-    @Override
-    public void addCard(CardView cardView) {
-        cardGridPane.getChildren().add(cardView.getRootParent());
-    }
+  @Override
+  public void addCard(CardView cardView) {
+    cardGridPane.getChildren().add(cardView.getRootParent());
+  }
 }

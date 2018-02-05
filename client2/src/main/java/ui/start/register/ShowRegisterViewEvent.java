@@ -4,22 +4,22 @@ import mvp.view.ShowViewEvent;
 
 public class ShowRegisterViewEvent extends ShowViewEvent {
 
-    private String username;
-    private String passwort;
+  private String username;
+  private String passwort;
 
-    public ShowRegisterViewEvent() {
-    }
+  public ShowRegisterViewEvent() {
+  }
 
-    public ShowRegisterViewEvent(String username, String passwort) {
-        this.username = username;
-        this.passwort = passwort;
-    }
+  public ShowRegisterViewEvent(String username, String passwort) {
+    this.username = username;
+    this.passwort = passwort;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getPasswort() {
-        return passwort;
-    }
+  public String getPasswort() {
+    return passwort;
+  }
 }
