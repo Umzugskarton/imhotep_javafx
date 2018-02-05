@@ -1,4 +1,4 @@
-package events.app.lobby;
+package events.app.lobby.changecolor;
 
 import events.Event;
 
@@ -10,7 +10,7 @@ public class ChangeLobbyUserColorEvent extends Event {
   public ChangeLobbyUserColorEvent(int userId, String color, int lobbyId) {
     this.color = color;
     this.userId = userId;
-    this.lobbyId = lobbyId;
+    setUserId(lobbyId);
   }
 
   public void setUserId(int userId) {

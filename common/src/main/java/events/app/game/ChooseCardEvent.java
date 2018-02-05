@@ -10,7 +10,7 @@ public class ChooseCardEvent extends GameEvent {
   public ChooseCardEvent(int playerId, ArrayList<Integer> choosenCardsId, int lobbyId) {
     this.playerId = playerId;
     this.choosenCardsId = choosenCardsId;
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public int getPlayerId() {

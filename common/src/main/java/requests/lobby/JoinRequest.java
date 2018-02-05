@@ -9,7 +9,7 @@ public class JoinRequest extends Request {
   private String pw;
 
   public JoinRequest(int lobbyId, String password) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
     this.pw = password;
   }
 

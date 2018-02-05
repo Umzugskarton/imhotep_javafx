@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
-import events.app.lobby.LobbyListEvent;
+import events.app.main.LobbyListEvent;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

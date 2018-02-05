@@ -3,7 +3,7 @@ package commands.lobby;
 import commands.Command;
 import data.lobby.CommonLobby;
 import data.user.User;
-import events.app.lobby.JoinLobbyEvent;
+import events.app.lobby.join.JoinLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
 import lobby.Lobby;
 import requests.IRequest;

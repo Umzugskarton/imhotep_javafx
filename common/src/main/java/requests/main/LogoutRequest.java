@@ -11,7 +11,7 @@ public class LogoutRequest extends Request {
   }
 
   public LogoutRequest(int lobbyId) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
   }
 
   @Override

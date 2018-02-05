@@ -12,7 +12,7 @@ public class ToolCardEvent extends GameEvent {
     this.toolCard = toolCard;
     this.playerId = playerId;
     this.active = active;
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public int getPlayerId() {

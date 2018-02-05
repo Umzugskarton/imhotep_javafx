@@ -1,7 +1,7 @@
 package commands.lobby;
 
 import commands.Command;
-import events.app.lobby.LobbyListEvent;
+import events.app.main.LobbyListEvent;
 import requests.IRequest;
 import requests.lobby.LobbylistRequest;
 import socket.ClientListener;

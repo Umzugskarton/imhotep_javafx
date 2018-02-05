@@ -9,7 +9,7 @@ public class StartGameRequest extends Request {
 
 
   public StartGameRequest(int lobbyId) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
   }
 
   public RequestType getType() {

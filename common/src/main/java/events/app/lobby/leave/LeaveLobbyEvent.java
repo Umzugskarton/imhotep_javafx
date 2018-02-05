@@ -1,4 +1,4 @@
-package events.app.lobby;
+package events.app.lobby.leave;
 
 import events.Event;
 
@@ -9,7 +9,7 @@ public class LeaveLobbyEvent extends Event {
 
   public LeaveLobbyEvent(boolean success, int lobbyId) {
     this.success = success;
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public String getMsg() {

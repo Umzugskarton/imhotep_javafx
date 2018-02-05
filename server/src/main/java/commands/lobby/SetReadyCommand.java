@@ -2,7 +2,7 @@ package commands.lobby;
 
 import commands.Command;
 import data.user.User;
-import events.app.lobby.SetReadyToPlayEvent;
+import events.app.lobby.setready.SetReadyToPlayEvent;
 import lobby.Lobby;
 import requests.IRequest;
 import requests.lobby.SetReadyRequest;

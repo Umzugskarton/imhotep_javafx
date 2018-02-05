@@ -162,7 +162,7 @@ public class MainView implements IMainView, IDialogableView {
   @Subscribe
   public void onShowCreateLoobyDialogEvent(ShowCreateLobbyDialogEvent e) {
     if (e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW) {
-      showDialog(new CreateLobbyView(this.eventBus, this.mainPresenter.getConnection()));
+      showDialog(new CreateLobbyView(this, this.eventBus, this.mainPresenter.getConnection()));
     }
   }
 

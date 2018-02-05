@@ -2,7 +2,7 @@ package commands.lobby;
 
 import commands.Command;
 import data.user.User;
-import events.app.lobby.ChangeLobbyUserColorEvent;
+import events.app.lobby.changecolor.ChangeLobbyUserColorEvent;
 import java.util.ArrayList;
 import lobby.Lobby;
 import requests.IRequest;

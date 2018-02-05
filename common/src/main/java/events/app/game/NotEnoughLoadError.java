@@ -6,7 +6,7 @@ public class NotEnoughLoadError extends GameEvent {
 
   public NotEnoughLoadError(int shipID, int lobbyId) {
     this.shipID = shipID;
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public int getShipID() {

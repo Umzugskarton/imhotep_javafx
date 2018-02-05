@@ -19,7 +19,7 @@ public class GameInfoEvent extends GameEvent {
 
 
   public GameInfoEvent(int lobbyId) {
-    this.lobbyId = lobbyId;
+   setLobbyId(lobbyId);
   }
 
   public void setMyId(int id) {

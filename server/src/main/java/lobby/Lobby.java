@@ -2,10 +2,10 @@ package lobby;
 
 import data.lobby.LobbyUser;
 import data.user.User;
-import events.app.lobby.ChangeLobbyUserColorEvent;
-import events.app.lobby.JoinLobbyEvent;
-import events.app.lobby.LeaveLobbyEvent;
-import events.app.lobby.SetReadyToPlayEvent;
+import events.app.lobby.changecolor.ChangeLobbyUserColorEvent;
+import events.app.lobby.join.JoinLobbyEvent;
+import events.app.lobby.leave.LeaveLobbyEvent;
+import events.app.lobby.setready.SetReadyToPlayEvent;
 import game.Game;
 import java.awt.Color;
 import java.util.ArrayList;

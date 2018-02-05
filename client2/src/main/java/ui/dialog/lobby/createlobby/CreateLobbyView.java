@@ -1,7 +1,9 @@
 package ui.dialog.lobby.createlobby;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.app.lobby.create.CreateLobbySuccessfulEvent;
 import helper.fxml.GenerateFXMLView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import ui.dialog.IDialogView;
+import ui.dialog.misc.IDialogableView;
 
 public class CreateLobbyView implements ICreateLobbyView {
 
@@ -40,12 +44,15 @@ public class CreateLobbyView implements ICreateLobbyView {
   private final CreateLobbyPresenter presenter;
   private final EventBus eventBus;
 
+  IDialogableView parentView;
+
   // Own Parent
   private Parent myParent;
 
-  public CreateLobbyView(EventBus eventBus, Connection connection) {
+  public CreateLobbyView(IDialogableView view, EventBus eventBus, Connection connection) {
     this.eventBus = eventBus;
     this.presenter = new CreateLobbyPresenter(this, eventBus, connection);
+    this.parentView = view;
     bind();
     initOwnView();
   }
@@ -79,6 +86,11 @@ public class CreateLobbyView implements ICreateLobbyView {
   @Override
   public void updateStatusLabel(String m) {
     this.statusMessageLabel.setText(m);
+  }
+
+  @Subscribe
+  public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
+    this.parentView.hideDialog();
   }
 
   @Override

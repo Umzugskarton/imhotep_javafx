@@ -1,4 +1,4 @@
-package events.app.lobby;
+package events.app.lobby.join;
 
 import events.Event;
 

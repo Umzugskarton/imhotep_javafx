@@ -5,7 +5,7 @@ import events.SiteType;
 public class SiteAlreadyDockedError extends GameEvent {
 
   public SiteAlreadyDockedError(int lobbyId) {
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   private SiteType site;

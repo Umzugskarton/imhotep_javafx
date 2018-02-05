@@ -1,14 +1,14 @@
 package requests;
 
+import java.util.Date;
+
 public abstract class Request implements IRequest {
 
-  protected int lobbyId;
+  private int lobbyId;
+  private Date date;
 
   public Request() {
-  }
-
-  public Request(int lobbyId) {
-    this.lobbyId = lobbyId;
+    this.date = new Date();
   }
 
   public int getLobbyId() {

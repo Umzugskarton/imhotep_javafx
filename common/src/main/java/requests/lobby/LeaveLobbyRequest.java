@@ -8,7 +8,7 @@ public class LeaveLobbyRequest extends Request {
   private RequestType request = RequestType.LEAVE_LOBBY;
 
   public LeaveLobbyRequest(int lobbyId) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
   }
 
   public RequestType getType() {

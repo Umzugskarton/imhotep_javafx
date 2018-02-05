@@ -1,4 +1,4 @@
-package events.app.lobby;
+package events.app.main;
 
 import data.lobby.CommonLobby;
 import events.Event;

@@ -8,7 +8,7 @@ public class StoneAddedToSiteEvent extends GameEvent {
   private SiteType siteType;
 
   public StoneAddedToSiteEvent(int lobbyId, int playerId, SiteType siteType) {
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
     this.playerId = playerId;
     this.siteType = siteType;
   }

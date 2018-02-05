@@ -1,4 +1,4 @@
-package events.app.lobby;
+package events.app.lobby.join;
 
 import events.Event;
 
@@ -10,7 +10,7 @@ public class JoinLobbyEvent extends Event {
   public JoinLobbyEvent(String msg, boolean success, int lobbyId) {
     this.msg = msg;
     this.success = success;
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public String getMsg() {

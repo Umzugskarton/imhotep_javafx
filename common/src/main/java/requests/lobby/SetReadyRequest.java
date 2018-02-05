@@ -9,7 +9,7 @@ public class SetReadyRequest extends Request {
 
 
   public SetReadyRequest(int lobbyId) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
   }
 
   public RequestType getType() {

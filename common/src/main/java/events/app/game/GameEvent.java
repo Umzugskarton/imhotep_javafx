@@ -5,7 +5,7 @@ import events.Event;
 public class GameEvent extends Event {
 
   public GameEvent(int lobbyId) {
-    this.lobbyId = lobbyId;
+    setLobbyId(lobbyId);
   }
 
   public GameEvent() {

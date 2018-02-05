@@ -8,7 +8,7 @@ public class ChangeColorRequest extends Request {
   private RequestType request = RequestType.CHANGE_COLOR;
 
   public ChangeColorRequest(int lobbyId) {
-    super(lobbyId);
+    setLobbyId(lobbyId);
   }
 
   public RequestType getType() {
