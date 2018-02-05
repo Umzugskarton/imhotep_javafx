@@ -1,6 +1,8 @@
 package ui.app.game.userinterface;
 
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
@@ -11,18 +13,19 @@ import events.app.game.GameInfoEvent;
 import events.app.game.ShipDockedEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
-import requests.gamemoves.*;
-
-import java.util.ArrayList;
+import requests.gamemoves.FillUpStorageMove;
+import requests.gamemoves.LoadUpShipMove;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageToMarketMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
@@ -40,7 +43,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
-                         User user, CommonLobby lobby) {
+      User user, CommonLobby lobby) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
@@ -62,17 +65,17 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     if (noTimeLeft) {
       this.stopTurnTimer();
       this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-              Color.web("#cdb39c"));
+          Color.web("#cdb39c"));
       this.changeBgGradient(Color.web("#cdb39c"));
     }
   }
 
   private void changeBgGradient(Color color) {
     Stop[] stops = new Stop[]{
-            new Stop(0, color),
-            new Stop(1, Color.TRANSPARENT)};
+        new Stop(0, color),
+        new Stop(1, Color.TRANSPARENT)};
     LinearGradient linearGradient =
-            new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
+        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
 
@@ -135,16 +138,19 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     storages = event.getStorages();
     round = event.getRound();
     turnTime = event.getTurnTime();
-    if (ships == null)
+    if (ships == null) {
       ships = event.getShips();
+    }
     for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
       shipBox.getItems().clear();
-      for (int i = 0; i <= ships.size() - 1; i++)
+      for (int i = 0; i <= ships.size() - 1; i++) {
         shipBox.getItems().add(i);
+      }
     }
 
-    for (int i = 0; i < event.getShips().size(); i++)
+    for (int i = 0; i < event.getShips().size(); i++) {
       updateShipCargoBoxes(event.getShips().get(i), i);
+    }
     setSelectShipLocationBox(event.getSiteTypes());
   }
 
@@ -161,13 +167,13 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
-        view.getSelectShipLocationBox().getItems().remove(type.toString());
+    view.getSelectShipLocationBox().getItems().remove(type.toString());
   }
 
   private void setSelectShipLocationBox(List<SiteType> sites) {
     view.getSelectShipLocationBox().getItems().clear();
     for (SiteType site : sites) {
-        view.getSelectShipLocationBox().getItems().add(site.toString());
+      view.getSelectShipLocationBox().getItems().add(getString("sitedescription." + site.name()));
     }
   }
 
@@ -187,10 +193,11 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1)
+      if (ships.get(ship)[i] == -1) {
         view.getSelectStoneLocationBox().getItems().add(i);
-      else
+      } else {
         System.out.println("Ship " + ship + " hat an stelle " + i + " : " + ships.get(ship)[i]);
+      }
     }
   }
 
@@ -201,10 +208,11 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   void sendVoyageToStoneSiteMove(int ship, SiteType to) {
     Move move;
-    if (to.equals(SiteType.MARKET))
+    if (to.equals(SiteType.MARKET)) {
       move = new VoyageToMarketMove(ship, lobby.getLobbyId());
-    else
+    } else {
       move = new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId());
+    }
     stopTurnTimer();
     toggleUserInterface(false);
     this.connection.send(move);

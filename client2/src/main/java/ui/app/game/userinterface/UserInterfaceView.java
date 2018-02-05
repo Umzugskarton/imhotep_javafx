@@ -1,11 +1,16 @@
 package ui.app.game.userinterface;
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.SiteType;
 import helper.fxml.GenerateFXMLView;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -14,9 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import ui.app.game.IGameView;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class UserInterfaceView implements IUserInterfaceView {
@@ -62,7 +64,8 @@ public class UserInterfaceView implements IUserInterfaceView {
   // Own Parent
   private Parent myParent;
 
-  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
+  public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection,
+      User user, CommonLobby lobby) {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
@@ -78,8 +81,10 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @Override
   public void initOwnView() {
-    if (this.myParent == null)
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/UserInterfaceView.fxml", this, eventBus);
+    if (this.myParent == null) {
+      this.myParent = GenerateFXMLView.getINSTANCE()
+          .loadView("/ui/fxml/app/game/board/UserInterfaceView.fxml", this, eventBus);
+    }
   }
 
   @Override
@@ -143,20 +148,29 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @FXML
   void sendVoyageToStoneSiteMove() {
-    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null)
-      // TODO SiteType.valueOf() gibt zu nem String die passende enum-Konstante. Aber:
-      // die LocationBox hat nicht den Names des enums, sondern das Ergebnis von toString().
-      // Daher kann es sein, dass hier kein enum gefunden wird, wenn die toString()-Methode überschrieben wird.
-      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(), SiteType.valueOf(selectShipLocationBox.getValue()));
-    else
-      System.out.println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+    HashMap<String, SiteType> findSiteType = new HashMap<>();
+    findSiteType.put(getString("sitedescription." + SiteType.OBELISKS.name()), SiteType.OBELISKS);
+    findSiteType.put(getString("sitedescription." + SiteType.MARKET.name()), SiteType.MARKET);
+    findSiteType
+        .put(getString("sitedescription." + SiteType.BURIALCHAMBER.name()), SiteType.BURIALCHAMBER);
+    findSiteType.put(getString("sitedescription." + SiteType.PYRAMID.name()), SiteType.PYRAMID);
+    findSiteType.put(getString("sitedescription." + SiteType.TEMPLE.name()), SiteType.TEMPLE);
+    if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
+      mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),
+          findSiteType.get(selectShipLocationBox.getValue()));
+    } else {
+      System.out
+          .println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
+    }
   }
 
   @FXML
   void sendLoadUpShipMove() {
     if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox.getValue() != null) {
-      System.out.println("A: " + selectShipToLocationBox.getValue() + "B: " + selectStoneLocationBox.getValue());
-      mainPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(), selectStoneLocationBox.getValue());
+      System.out.println(
+          "A: " + selectShipToLocationBox.getValue() + "B: " + selectStoneLocationBox.getValue());
+      mainPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(),
+          selectStoneLocationBox.getValue());
     }
   }
 
