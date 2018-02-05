@@ -93,7 +93,7 @@ public class Lobby {
 
   public JoinLobbyEvent join(User user, String password) {
     if (!this.password.equals(password)) {
-      return new JoinLobbyEvent("Das Passwort ist falsch.", false);
+      return new JoinLobbyEvent("Das Passwort ist falsch.", false, lobbyID);
     }
     if (vacancy) {
       for (int i = 0; i < users.length; i++) {
@@ -104,12 +104,12 @@ public class Lobby {
             c++;
           }
           userColor.add(c);
-          return new JoinLobbyEvent("Erfolgreich beigetreten!", true);
+          return new JoinLobbyEvent("Erfolgreich beigetreten!", true, lobbyID);
         }
       }
       this.vacancy = false;
     }
-    return new JoinLobbyEvent("Die Lobby ist voll.", false);
+    return new JoinLobbyEvent("Die Lobby ist voll.", false, lobbyID);
   }
 
   public boolean[] getReady() {
@@ -233,6 +233,6 @@ public class Lobby {
       this.server.delLobby(this);
     }
     this.vacancy = true;
-    return new LeaveLobbyEvent(true);
+    return new LeaveLobbyEvent(true, lobbyID);
   }
 }

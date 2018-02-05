@@ -6,9 +6,10 @@ public class WinEvent extends GameEvent {
   private boolean winning;
   private String[][] playersResult;
 
-  public WinEvent(String winner, String[][] playersResult) {
+  public WinEvent(String winner, String[][] playersResult, int lobbyId) {
     this.winner = winner;
     this.playersResult = playersResult;
+    this.lobbyId = lobbyId;
   }
 
   public String getWinner() {
@@ -26,6 +27,4 @@ public class WinEvent extends GameEvent {
   public String[][] getResults() {
     return playersResult;
   }
-
-
 }

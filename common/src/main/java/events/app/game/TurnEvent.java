@@ -4,7 +4,6 @@ public class TurnEvent extends GameEvent {
 
   private boolean myturn;
   private String username;
-  private int lobbyId;
 
   public TurnEvent(boolean myturn, String username, int lobbyId) {
     this.myturn = myturn;
@@ -12,18 +11,12 @@ public class TurnEvent extends GameEvent {
     this.lobbyId = lobbyId;
   }
 
-  public TurnEvent(){}
-
   public boolean isMyTurn() {
     return myturn;
   }
 
   public void setMyTurn(boolean myturn) {
     this.myturn = myturn;
-  }
-
-  public int getLobbyId() {
-    return lobbyId;
   }
 
   public String getUsername() {

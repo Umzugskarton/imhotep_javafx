@@ -9,10 +9,11 @@ public class ShipDockedEvent extends GameEvent {
   private int shipID;
   private ArrayList<Integer> newstones;
 
-  public ShipDockedEvent(int shipID, SiteType site, ArrayList<Integer> newstones) {
+  public ShipDockedEvent(int shipID, SiteType site, ArrayList<Integer> newstones, int lobbyId) {
     this.shipID = shipID;
     this.site = site;
     this.newstones = newstones;
+    this.lobbyId = lobbyId;
   }
 
   public ArrayList<Integer> getNewStones() {

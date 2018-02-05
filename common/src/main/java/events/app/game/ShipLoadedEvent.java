@@ -7,11 +7,12 @@ public class ShipLoadedEvent extends GameEvent {
   private int[] cargo;
   private int storage;
 
-  public ShipLoadedEvent(int playerId, int shipID, int[] cargo, int storage) {
+  public ShipLoadedEvent(int playerId, int shipID, int[] cargo, int storage, int lobbyId) {
     this.playerId = playerId;
     this.shipID = shipID;
     this.cargo = cargo;
     this.storage = storage;
+    this.lobbyId = lobbyId;
   }
 
   public int getPlayerId() {

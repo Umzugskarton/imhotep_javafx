@@ -4,7 +4,8 @@ public class OutOfStonesError extends GameEvent {
 
   private int playerId;
 
-  public OutOfStonesError(int playerId) {
+  public OutOfStonesError(int playerId, int lobbyId) {
     this.playerId = playerId;
+    this.lobbyId = lobbyId;
   }
 }

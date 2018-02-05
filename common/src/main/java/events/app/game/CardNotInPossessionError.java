@@ -4,8 +4,10 @@ import requests.gamemoves.CardType;
 
 public class CardNotInPossessionError extends GameEvent {
 
-  String card;
+  CardType card;
 
-  public CardNotInPossessionError(CardType card) {
+  public CardNotInPossessionError(CardType card, int lobbyId) {
+    this.lobbyId = lobbyId;
+    this.card = card;
   }
 }

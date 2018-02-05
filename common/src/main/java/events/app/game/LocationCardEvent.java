@@ -1,14 +1,15 @@
 package events.app.game;
 
-public class LocationCardEvent {
+public class LocationCardEvent extends GameEvent {
 
-    private int cardType;
+  private int cardType;
 
-    public LocationCardEvent(int cardType) {
-        this.cardType = cardType;
-    }
+  public LocationCardEvent(int cardType, int lobbyId) {
+    this.cardType = cardType;
+    this.lobbyId = lobbyId;
+  }
 
-    public int getCardType() {
-        return this.cardType;
-    }
+  public int getCardType() {
+    return this.cardType;
+  }
 }

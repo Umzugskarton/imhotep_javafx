@@ -12,10 +12,6 @@ public class ChatMessageEvent extends Event {
     lobbyId = null;
   }
 
-  public Integer getLobbyId() {
-    return lobbyId;
-  }
-
   public void setLobbyId(Integer lobbyId) {
     this.lobbyId = lobbyId;
   }

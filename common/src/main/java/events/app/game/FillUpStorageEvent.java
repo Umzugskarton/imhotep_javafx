@@ -5,7 +5,8 @@ public class FillUpStorageEvent extends GameEvent {
   private int playerId;
   private int storage;
 
-  public FillUpStorageEvent(int playerId, int storage) {
+  public FillUpStorageEvent(int playerId, int storage, int lobbyId) {
+    super(lobbyId);
     this.playerId = playerId;
     this.storage = storage;
   }

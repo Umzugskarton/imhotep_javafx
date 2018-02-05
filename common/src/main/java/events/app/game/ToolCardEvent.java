@@ -8,10 +8,11 @@ public class ToolCardEvent extends GameEvent {
   private boolean active;
   private int playerId;
 
-  public ToolCardEvent(CardType toolCard, int playerId, boolean active) {
+  public ToolCardEvent(CardType toolCard, int playerId, boolean active, int lobbyId) {
     this.toolCard = toolCard;
     this.playerId = playerId;
     this.active = active;
+    this.lobbyId = lobbyId;
   }
 
   public int getPlayerId() {
