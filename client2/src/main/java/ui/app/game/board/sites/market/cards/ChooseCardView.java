@@ -37,16 +37,7 @@ public class ChooseCardView implements IChooseCardView{
 
   @FXML
   private void initialize(){
-    int card = 0;
-    for (int i = 0; i < 2; i++) {
-      for (int j = 0; j < 2; j++) {
-        Node cardPane = cardViews.get(card).getRootParent();
-        cardPane.prefWidth(100);
-        cardPane.prefHeight(200);
-        cardGrid.add( cardPane, i ,j);
-        card++;
-      }
-    }
+        cardViews.forEach(cardView -> cardGrid.getChildren().add(cardView.getRootParent()));
   }
 
   @FXML
