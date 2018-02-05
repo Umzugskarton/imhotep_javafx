@@ -27,6 +27,7 @@ public class ChatRequest implements IRequest {
     return this.msg;
   }
 
+  @Override
   public RequestType getType() {
     return this.request;
   }

@@ -8,14 +8,13 @@ import data.user.User;
 import events.app.chat.ChatInfoEvent;
 import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
-import javafx.scene.paint.Color;
-import mvp.presenter.Presenter;
-import requests.chat.ChatRequest;
-import requests.IRequest;
-import requests.chat.WhisperRequest;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.paint.Color;
+import mvp.presenter.Presenter;
+import requests.IRequest;
+import requests.chat.ChatRequest;
+import requests.chat.WhisperRequest;
 
 public class ChatPresenter extends Presenter<IChatView> {
 
@@ -23,7 +22,8 @@ public class ChatPresenter extends Presenter<IChatView> {
   private User user;
   private CommonLobby lobby;
 
-  public ChatPresenter(IChatView view, EventBus eventBus, Connection connection, CommonLobby lobby, User user) {
+  public ChatPresenter(IChatView view, EventBus eventBus, Connection connection, CommonLobby lobby,
+      User user) {
     super(view, eventBus);
     this.connection = connection;
     this.user = user;
@@ -64,18 +64,18 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
-    if(!(e.getLobbyId() == null)){
-      if(e.getLobbyId().equals(lobby.getLobbyId()))
-        getView().addChatMessage(e.getUser(),e.getMsg());
+    if (lobby.getLobbyId() == e.getLobbyId()) {
+      getView().addChatMessage(e.getUser(), e.getMsg());
     }
   }
 
   @Subscribe
   public void onChatInfoEvent(ChatInfoEvent e) {
-    if(e.getTextColor() == null)
+    if (e.getTextColor() == null) {
       getView().addInfoMessage(e.getMsg(), Color.GRAY);
-    else
+    } else {
       getView().addInfoMessage(e.getMsg(), e.getTextColor());
+    }
   }
 
   @Subscribe
