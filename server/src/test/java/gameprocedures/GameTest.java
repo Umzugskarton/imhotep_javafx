@@ -1,7 +1,6 @@
 package gameprocedures;
 
 import data.user.User;
-import events.Event;
 import events.app.game.UpdatePointsEvent;
 import game.Game;
 import game.Player;

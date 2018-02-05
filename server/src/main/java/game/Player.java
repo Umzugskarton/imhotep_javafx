@@ -1,11 +1,7 @@
 package game;
 
 import data.user.User;
-import game.board.SupplySled;
 import game.board.cards.Card;
-import game.board.cards.OrnamentCard;
-import game.board.cards.StatueCard;
-import game.board.cards.ToolCard;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +13,7 @@ public class Player {
   private int id;
   private int points = 0;
   private User user;
-  private Inventory inventory = new Inventory();
+  private List<Card> cards = new ArrayList<>();
   private SupplySled supplySled = new SupplySled();
 
   /**
@@ -44,11 +40,43 @@ public class Player {
   }
 
   public void addCard(Card card) {
-    this.inventory.addCard(card);
+    cards.add(card);
   }
 
   public boolean ownsCard(Card card) {
-    return this.inventory.ownsCard(card);
+    return cards.contains(card);
+  }
+
+  /**
+   * Aktuelle Anzahl der Steine im Vorrat.
+   *
+   * @return Steinvorrat des besitzenden Spielers
+   */
+  public int getStones() {
+    return supplySled.getStones();
+  }
+
+  /**
+   * Fügt dem Vorrat die Standardanzahl neuer Steine hinzu.
+   */
+  public void addStones() {
+    supplySled.addStones();
+  }
+
+  /**
+   * @param amount die Anzahl der hinzuzufügenden Steine
+   */
+  public void addStones(int amount) {
+    supplySled.addStones(amount);
+  }
+
+  /**
+   * Entfernt einen Stein aus dem Vorrat.
+   *
+   * @return true, wenn noch mindestens ein Stein verfügbar war.
+   */
+  public boolean removeStone() {
+    return supplySled.removeStone();
   }
 
   public int getPoints() {
@@ -59,56 +87,49 @@ public class Player {
     return supplySled;
   }
 
-  private class Inventory {
+  /**
+   * Versorgungsplättchen mit dem Steinvorrat eines Players.
+   */
+  private static class SupplySled {
 
-    private ArrayList<OrnamentCard> ornamentCards = new ArrayList<>();
-    private ArrayList<ToolCard> toolCards = new ArrayList<>();
-    private ArrayList<StatueCard> statueCards = new ArrayList<>();
+    private static final int CAPACITY = 5;
+    private static final int STANDARD_RESUPPLY = 3;
+    private int stones = 0;
 
-    List<OrnamentCard> getOrnamentCards() {
-      return ornamentCards;
+    /**
+     * Aktuelle Anzahl der Steine auf dem Plättchen.
+     *
+     * @return Steinvorrat des besitzenden Spielers
+     */
+    int getStones() {
+      return stones;
     }
 
-    List<StatueCard> getStatueCards() {
-      return statueCards;
+    /**
+     * @param amount die Anzahl der hinzuzufügenden Steine
+     */
+    void addStones(int amount) {
+      stones = Math.min(stones + amount, CAPACITY);
     }
 
-    List<ToolCard> getToolCards() {
-      return toolCards;
+    /**
+     * Fügt dem SupplySled die Standardanzahl neuer Steine hinzu.
+     */
+    void addStones() {
+      addStones(STANDARD_RESUPPLY);
     }
 
-    boolean ownsCard(Card card) {
-      if (card instanceof ToolCard) {
-        for (ToolCard tool : toolCards) {
-          if (tool.getType() == card.getType()) {
-            return true;
-          }
-        }
-        return false;
-      } else {
-        ArrayList<? extends Card> temp = new ArrayList<>();
-        if (card instanceof OrnamentCard) {
-          temp = ornamentCards;
-        } else if (card instanceof StatueCard) {
-          temp = statueCards;
-        }
-        for (Card c : temp) {
-          if (c.getType() == card.getType()) {
-            return true;
-          }
-        }
-        return false;
+    /**
+     * Entfernt einen Stein vom SupplySled.
+     *
+     * @return true, wenn noch mindestens ein Stein verfügbar war.
+     */
+    boolean removeStone() {
+      if (this.stones > 0) {
+        this.stones--;
+        return true;
       }
-    }
-
-    void addCard(Card card) {
-      if (card instanceof OrnamentCard) {
-        ornamentCards.add((OrnamentCard) card);
-      } else if (card instanceof ToolCard) {
-        toolCards.add((ToolCard) card);
-      } else if (card instanceof StatueCard) {
-        statueCards.add((StatueCard) card);
-      }
+      return false;
     }
   }
 }

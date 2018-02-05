@@ -26,7 +26,7 @@ public class LoadUpShip implements Procedure {
   }
 
   public Event exec() {
-    if (game.getPlayer(playerId).getSupplySled().removeStone()) {
+    if (game.getPlayer(playerId).removeStone()) {
       Player player = game.getPlayer(playerId);
       Stone stone = new Stone(player);
       Ship ship = game.getShipByID(move.getShipId());

@@ -18,7 +18,7 @@ public class ChiselProtocol extends Protocol {
     game.sendAll(new ToolCardEvent(CardType.CHISEL, playerId, true));
     for (int i = 0; i < 2; i++) {
       game.sendTo(game.getPlayer(playerId).getUser(), new LoadUpShipExclusiveEvent());
-      if (game.getPlayer(playerId).getSupplySled().getStones() > 0) {
+      if (game.getPlayer(playerId).getStones() > 0) {
         game.getExecutor().waitForMove();
         Move move = acquireMove();
         if (move instanceof LoadUpShipMove) {

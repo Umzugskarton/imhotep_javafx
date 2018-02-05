@@ -70,16 +70,13 @@ public class Lobby {
 
   public void startGame(ClientListener cl) {
     game = new Game(this, cl);
+    this.show(false);
     Thread thread = new Thread(game);
     thread.start();
   }
 
   public Game getGame() {
     return game;
-  }
-
-  public boolean isShow() {
-    return show;
   }
 
   public String getHostName() {

@@ -9,7 +9,6 @@ import events.Event;
 import events.SiteType;
 import game.Game;
 import game.Player;
-import game.board.Market;
 import game.board.Ship;
 import java.util.stream.IntStream;
 import lobby.Lobby;
@@ -84,7 +83,7 @@ public class runningGameTest {
     when(u4.getUsername()).thenReturn("mehr");
 
     User[] users = {u1, u2, u3, u4};
-    lobby = new Lobby(4, u1, "LetzteHoffnung", "", null);
+    lobby = new Lobby(4, u1, "LetzteHoffnung", "", server);
     lobby.join(u2, "");
     lobby.join(u3, "");
     lobby.join(u4, "");
@@ -119,10 +118,10 @@ public class runningGameTest {
     assertEquals(4, ships.length);
 
     //Überprüfen ob alle Spieler ihre Steine bekommen haben
-    assertEquals(2, playersTest[0].getSupplySled().getStones());
-    assertEquals(3, playersTest[1].getSupplySled().getStones());
-    assertEquals(4, playersTest[2].getSupplySled().getStones());
-    assertEquals(5, playersTest[3].getSupplySled().getStones());
+    assertEquals(2, playersTest[0].getStones());
+    assertEquals(3, playersTest[1].getStones());
+    assertEquals(4, playersTest[2].getStones());
+    assertEquals(5, playersTest[3].getStones());
   }
 
   @Test
@@ -136,17 +135,17 @@ public class runningGameTest {
     //Niemand bekommt dadurch Punkte
     assertEquals(0, IntStream.of(game.getPointsSum()).sum());
     //Market-Karten wurde ausgespielt
-    assertEquals(4, ((Market) game.getSiteByType(SiteType.MARKET)).getActiveCards().size());
+    //assertEquals(4, game.getMARKET().getActiveCards().size());
     //Keine Schiffe sind gedockt
     assertEquals(false, game.getShipByID(0).isDocked());
     assertEquals(false, game.getShipByID(1).isDocked());
     assertEquals(false, game.getShipByID(2).isDocked());
     assertEquals(false, game.getShipByID(3).isDocked());
     //Stein-Anzahl überprüfen
-    assertEquals(5, game.getPlayer(0).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(1).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(2).getSupplySled().getStones());
-    assertEquals(5, game.getPlayer(3).getSupplySled().getStones());
+    assertEquals(5, game.getPlayer(0).getStones());
+    assertEquals(5, game.getPlayer(1).getStones());
+    assertEquals(5, game.getPlayer(2).getStones());
+    assertEquals(5, game.getPlayer(3).getStones());
 
     Move[] moves2 = {
         new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()),

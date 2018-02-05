@@ -7,13 +7,21 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.*;
+import game.board.BurialChamber;
+import game.board.Market;
+import game.board.Obelisks;
+import game.board.Pyramids;
+import game.board.Ship;
+import game.board.Site;
+import game.board.StoneSite;
+import game.board.Temple;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,77 +29,72 @@ import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import socket.ClientListener;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-
 public class Game implements Runnable {
 
+  private static final int NUMBER_OF_SHIPS = 4;
   private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
   private int gameID;
   private Lobby lobby;
-  private Ship[] ships;
+  private Ship[] ships = new Ship[NUMBER_OF_SHIPS];
   private Player[] players;
-  private int numberOfShips;
   private int currentPlayer;
   private int round;
   private CardDeck cardDeck = new CardDeck();
 
   //StoneSites
-  private ArrayList<StoneSite> sites;
+  private ArrayList<StoneSite> sites = new ArrayList<>();
   private Pyramids pyramids;
   private Market market;
   private Obelisks obelisks;
   private Temple temple;
   private BurialChamber burialChamber;
   // Reihenfolge wichtig , muss mit der dreingabe der Sites in den sites Array übereinstimmen!
-  private SiteType[] siteTypesArray = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
-          SiteType.BURIALCHAMBER, SiteType.OBELISKS};
+  private SiteType[] siteTypesArray = {
+      SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
+      SiteType.BURIALCHAMBER, SiteType.OBELISKS
+  };
   private ArrayList<SiteType> siteTypes = new ArrayList<>(Arrays.asList(siteTypesArray));
 
   private ClientListener clientListener;
   private Move nextMove = null;
-  ProcedureFactory pf;
-  private MoveExecutor executor;
+  private ProcedureFactory pf;
+  private MoveExecutor executor = new MoveExecutor();
 
   public Game(Lobby lobby, ClientListener clientListener) {
     this.lobby = lobby;
     this.gameID = this.lobby.getLobbyID();
     this.clientListener = clientListener;
-    lobby.show(false);
+    initialize();
+  }
 
-    this.numberOfShips = 4;
-    this.ships = new Ship[numberOfShips];
-    this.players = new Player[lobby.getSize()];
-    setGame();
-    executor = new MoveExecutor();
-    this.market = new Market(lobby.getSize(), cardDeck.getDeck());
-    this.pyramids = new Pyramids(lobby.getSize());
-    this.obelisks = new Obelisks(lobby.getSize());
-    this.temple = new Temple(lobby.getSize());
-    this.burialChamber = new BurialChamber(lobby.getSize());
-    sites = new ArrayList<>();
-    //Reihenfolge beachten!
+  private void initialize() {
+    int size = lobby.getSize();
+    players = new Player[size];
+    market = new Market(size, cardDeck.getDeck());
+    pyramids = new Pyramids(size);
+    obelisks = new Obelisks(size);
+    temple = new Temple(size);
+    burialChamber = new BurialChamber(size);
     sites.add(pyramids);
     sites.add(temple);
     sites.add(burialChamber);
     sites.add(obelisks);
+
+    for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
+      ships[i] = new Ship(i);
+    }
+    List<User> lobbyUsers = new ArrayList<>(Arrays.asList(lobby.getUsers()));
+    for (int i = 0; i < size; i++) {
+      players[i] = new Player(lobbyUsers.get(i), i);
+      players[i].addStones(i + 2);
+    }
   }
 
   private void resetCurrentShips() {
-    this.ships = new Ship[numberOfShips];
-    for (int i = 0; i < numberOfShips; i++) {
+    this.ships = new Ship[NUMBER_OF_SHIPS];
+    for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       this.ships[i] = new Ship(i);
-    }
-  }
-
-  private void setGame() {
-    for (int i = 0; i < numberOfShips; i++) {
-      this.ships[i] = new Ship(i);
-    }
-    for (int i = 0; i < lobby.getSize(); i++) {
-      this.players[i] = new Player(lobby.getUsers()[i], i);
-      this.players[i].getSupplySled().addStones(i + 2);
     }
   }
 
@@ -179,7 +182,7 @@ public class Game implements Runnable {
     gameInfo.setRound(this.round);
     ArrayList<Integer> storages = new ArrayList<>();
     for (Player p : players) {
-      storages.add(p.getSupplySled().getStones());
+      storages.add(p.getStones());
     }
     gameInfo.setStorages(storages);
     return gameInfo;
@@ -203,7 +206,7 @@ public class Game implements Runnable {
             executeMove();
           } else {
             log.error("[ Game: {} ] Kein Spielzug gesetzt von Spieler {}!", gameID,
-                    players[currentPlayer].getId());
+                players[currentPlayer].getId());
           }
           nextMove = null;
           if (allshipsDocked()) {
@@ -269,7 +272,8 @@ public class Game implements Runnable {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.players) {
       sendTo(p.getUser(),
-              new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(), gameID));
+          new TurnEvent(p == this.players[player], this.players[player].getUser().getUsername(),
+              gameID));
     }
   }
 
@@ -281,8 +285,8 @@ public class Game implements Runnable {
 
   private void executeProcedure(Procedure procedure) {
     log.info("[Game:" + gameID + "] führe Spielzug " + procedure.getClass().getName() + " aus für "
-            + currentPlayer + " (Spieler: " + this.players[currentPlayer].getUser().getUsername()
-            + ")");
+        + currentPlayer + " (Spieler: " + this.players[currentPlayer].getUser().getUsername()
+        + ")");
 
     //Informiert alle User über den/die ausgeführten Move/s
     sendAll(procedure.exec());
@@ -313,7 +317,7 @@ public class Game implements Runnable {
 
   private void waitForMove(int p) {
     log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: "
-            + this.players[p].getUser().getUsername() + ")");
+        + this.players[p].getUser().getUsername() + ")");
     executor.waitForMove();
     nextMove = executor.getMove();
   }
@@ -364,7 +368,7 @@ public class Game implements Runnable {
         executeMove();
       } else {
         log.error("[ Game: " + gameID + " ] Kein Spielzug gesetzt von Spieler "
-                + players[currentPlayer] + "! ");
+            + players[currentPlayer] + "! ");
       }
     }
     addPointsEndOfRound();
