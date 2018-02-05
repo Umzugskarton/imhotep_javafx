@@ -10,6 +10,7 @@ import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.create.CreateLobbySuccessfulEvent;
 import events.app.lobby.join.JoinLobbySuccessfulEvent;
+import events.app.lobby.leave.LeaveLobbyEvent;
 import helper.fxml.GenerateFXMLView;
 import java.net.URL;
 import java.util.ArrayList;
@@ -113,6 +114,21 @@ public class AppView implements IAppView {
     mainViewPane.getChildren().add(this.mainView.getRootParent());
   }
 
+  public boolean closeTab(int lobbyId) {
+    boolean found = false;
+    if (!found) {
+      found = false;
+      for (Tab t : this.appViewMainTabPane.getTabs() ){
+        if(t.getId().equals(lobbyId)) {
+          found = true;
+          t.closableProperty();
+          break;
+        }
+      }
+    }
+    return found;
+  }
+
   public Tab addTab(CommonLobby lobby) {
     Tab tab = null;
     boolean found = false;
@@ -133,7 +149,7 @@ public class AppView implements IAppView {
       tab = new Tab();
       tab.setText("Lobby #" + lobby.getLobbyId());
       tab.setContent(lobbyView.getRootParent());
-      tab.setId("lobbyTab");
+      tab.setId("getLobbyId()");
       lobby.setMyTab(tab);
 
       tab.setOnCloseRequest(new EventHandler<Event>() {
@@ -182,6 +198,12 @@ public class AppView implements IAppView {
   }
 
   @Subscribe
+  public void onLeaveLobbyEvent(LeaveLobbyEvent e) {
+    closeTab(e.getLobbyId());
+
+  }
+
+  @Subscribe
   public void onStartGameEvent(StartGameEvent e) {
     CommonLobby lobby = null;
     for (CommonLobby l : lobbies) {
@@ -196,7 +218,7 @@ public class AppView implements IAppView {
     Tab tab = lobby.getMyTab();
     tab.setText("Game #" + lobby.getLobbyId());
     tab.setContent(gameView.getRootParent());
-    tab.setId("gameTab");
+    tab.setId("getLobbyId()");
     gameViews.add(gameView);
     this.appViewMainTabPane.getSelectionModel().select(0);
     this.appViewMainTabPane.getSelectionModel().select(tab);
