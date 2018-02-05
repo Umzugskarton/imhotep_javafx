@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import org.omg.CORBA.OBJ_ADAPTER;
 import ui.app.game.IGameView;
 
 
@@ -149,12 +150,14 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   void sendVoyageToStoneSiteMove() {
     HashMap<String, SiteType> findSiteType = new HashMap<>();
-    findSiteType.put(getString("sitedescription." + SiteType.OBELISKS.name()), SiteType.OBELISKS);
-    findSiteType.put(getString("sitedescription." + SiteType.MARKET.name()), SiteType.MARKET);
+    System.out.println("USERINTERFACEVIEW:" + getString("site." + SiteType.OBELISKS.name()) + " "
+        + SiteType.OBELISKS.name());
+    findSiteType.put(getString("site." + SiteType.OBELISKS.name()), SiteType.OBELISKS);
+    findSiteType.put(getString("site." + SiteType.MARKET.name()), SiteType.MARKET);
     findSiteType
-        .put(getString("sitedescription." + SiteType.BURIALCHAMBER.name()), SiteType.BURIALCHAMBER);
-    findSiteType.put(getString("sitedescription." + SiteType.PYRAMID.name()), SiteType.PYRAMID);
-    findSiteType.put(getString("sitedescription." + SiteType.TEMPLE.name()), SiteType.TEMPLE);
+        .put(getString("site." + SiteType.BURIALCHAMBER.name()), SiteType.BURIALCHAMBER);
+    findSiteType.put(getString("site." + SiteType.PYRAMID.name()), SiteType.PYRAMID);
+    findSiteType.put(getString("site." + SiteType.TEMPLE.name()), SiteType.TEMPLE);
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
       mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),
           findSiteType.get(selectShipLocationBox.getValue()));
