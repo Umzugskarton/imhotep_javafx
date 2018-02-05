@@ -21,22 +21,22 @@ public class StoragePresenter extends Presenter<IStorageView> {
   private int stoneCount;
   private Connection connection;
   private boolean myStorage;
-  private final int lobbyId;
+  private final int playerId;
   private ArrayList<CardType> cards = new ArrayList<>();
 
 
-  public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int lobbyId) {
+  public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int playerId) {
     super(view, eventBus);
     this.myStorage = myStorage;
     this.user = user;
     this.connection = connection;
-    this.lobbyId = lobbyId;
+    this.playerId = playerId;
     bind();
   }
 
   @Subscribe
   public void onGameInfoEvent(GameInfoEvent e) {
-    setStoneCount(e.getStorages().get(lobbyId));
+    setStoneCount(e.getStorages().get(playerId));
   }
 
   public void bind() {
@@ -46,14 +46,14 @@ public class StoragePresenter extends Presenter<IStorageView> {
 
   @Subscribe
   private void onShiploadedEvent(ShipLoadedEvent e) {
-    if (lobbyId == e.getPlayerId()) {
+    if (playerId == e.getPlayerId()) {
       setStoneCount(e.getStorage());
     }
   }
 
   @Subscribe
   private void onFillUpStorageEvent(FillUpStorageEvent e) {
-    if (lobbyId == e.getPlayerId()) {
+    if (playerId == e.getPlayerId()) {
       setStoneCount(e.getStorage());
     }
   }
