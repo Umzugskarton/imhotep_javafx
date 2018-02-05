@@ -6,10 +6,13 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import data.user.User;
-import events.app.lobby.changecolor.ChangeLobbyUserColorEvent;
+
 import events.app.lobby.LobbyInfoEvent;
-import events.app.lobby.setready.SetReadyToPlayEvent;
+
 import java.util.Arrays;
+
+import events.app.lobby.changecolor.ChangeLobbyUserColorEvent;
+import events.app.lobby.setready.SetReadyToPlayEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;

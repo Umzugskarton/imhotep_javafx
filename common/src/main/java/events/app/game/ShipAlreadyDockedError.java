@@ -6,7 +6,7 @@ public class ShipAlreadyDockedError extends GameEvent {
 
   public ShipAlreadyDockedError(int shipID, int lobbyId) {
     this.shipID = shipID;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public int getShipID() {

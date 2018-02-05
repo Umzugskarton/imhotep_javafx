@@ -10,7 +10,7 @@ public class JoinLobbyEvent extends Event {
   public JoinLobbyEvent(String msg, boolean success, int lobbyId) {
     this.msg = msg;
     this.success = success;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public String getMsg() {

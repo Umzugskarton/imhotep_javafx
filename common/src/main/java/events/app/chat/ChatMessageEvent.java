@@ -8,7 +8,11 @@ public class ChatMessageEvent extends Event {
   private String msg;
 
   public ChatMessageEvent() {
-    setLobbyId(-1);
+    this.lobbyId=-1;
+  }
+
+  public void setLobbyId(int lobbyId) {
+    this.lobbyId = lobbyId;
   }
 
   public void setUser(String username) {

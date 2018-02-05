@@ -9,7 +9,7 @@ public class SetReadyToPlayEvent extends Event {
   public SetReadyToPlayEvent(boolean[] readyList, int lobbyid) {
     this.readyList = new boolean[readyList.length];
     System.arraycopy(readyList, 0, this.readyList, 0, readyList.length);
-    setLobbyId(lobbyid);
+    this.lobbyId = lobbyid;
   }
 
   public boolean[] getReady() {

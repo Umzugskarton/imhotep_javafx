@@ -10,7 +10,7 @@ public class ChangeLobbyUserColorEvent extends Event {
   public ChangeLobbyUserColorEvent(int userId, String color, int lobbyId) {
     this.color = color;
     this.userId = userId;
-    setUserId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public void setUserId(int userId) {

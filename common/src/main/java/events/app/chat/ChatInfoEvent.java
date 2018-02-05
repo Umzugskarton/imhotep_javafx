@@ -14,7 +14,7 @@ public class ChatInfoEvent extends Event {
   public ChatInfoEvent(String message, Color textColor) {
     this.setMsg(message);
     this.setTextColor(textColor);
-    this.setLobbyId(-1);
+    this.lobbyId = -1;
   }
 
   public Color getTextColor() {

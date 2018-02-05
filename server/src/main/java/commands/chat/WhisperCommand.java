@@ -43,7 +43,7 @@ public class WhisperCommand implements Command {
     }
 
     if (response != null) {
-      response.setLobbyId(request.getLobbyId());
+      //response.setLobbyId(request.getLobbyId());
       this.clientListener.send(response);
     }
   }

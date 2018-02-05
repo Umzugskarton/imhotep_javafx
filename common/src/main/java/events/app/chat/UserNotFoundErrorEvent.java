@@ -8,7 +8,11 @@ public class UserNotFoundErrorEvent extends Event {
   private String msg;
 
   public UserNotFoundErrorEvent(){
-    setLobbyId(-1);
+    this.lobbyId = -1;
+  }
+
+  public void setLobbyId(int lobbyId) {
+    this.lobbyId = lobbyId;
   }
 
   public void setMsg(String msg) {

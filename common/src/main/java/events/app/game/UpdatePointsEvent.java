@@ -6,7 +6,7 @@ public class UpdatePointsEvent extends GameEvent {
 
   public UpdatePointsEvent(int[] points, int lobbyId) {
     this.points = points;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public int[] getPoints() {

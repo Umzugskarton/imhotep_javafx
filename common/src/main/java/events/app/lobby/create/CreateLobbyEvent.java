@@ -9,7 +9,7 @@ public class CreateLobbyEvent extends Event {
 
   public CreateLobbyEvent(boolean success, int lobbyID, String msg) {
     this.success = success;
-    setLobbyId(lobbyID);
+    this.lobbyId = lobbyID;
     this.msg = msg;
   }
 

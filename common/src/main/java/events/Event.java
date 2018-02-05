@@ -1,17 +1,11 @@
 package events;
 
 import java.io.Serializable;
-import java.util.Date;
 
-public abstract class Event implements Serializable {
+public class Event implements Serializable {
 
   private EventReason reason;
-  private int lobbyId;
-  private final Date date;
-
-  public Event(){
-    this.date = new Date();
-  }
+  protected Integer lobbyId;
 
   public void setReason(EventReason reason) {
     this.reason = reason;
@@ -21,15 +15,7 @@ public abstract class Event implements Serializable {
     return this.reason;
   }
 
-  public int getLobbyId() {
+  public Integer getLobbyId() {
     return lobbyId;
-  }
-
-  public void setLobbyId(int lobbyId) {
-    this.lobbyId = lobbyId;
-  }
-
-  public Date getDate() {
-    return date;
   }
 }

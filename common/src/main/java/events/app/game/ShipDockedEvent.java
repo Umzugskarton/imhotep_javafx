@@ -13,7 +13,7 @@ public class ShipDockedEvent extends GameEvent {
     this.shipID = shipID;
     this.site = site;
     this.newstones = newstones;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public ArrayList<Integer> getNewStones() {

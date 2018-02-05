@@ -8,7 +8,7 @@ public class AlreadyAllocatedError extends GameEvent {
   public AlreadyAllocatedError(int shipID, int position, int lobbyId) {
     this.shipID = shipID;
     this.position = position;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public int getPosition() {

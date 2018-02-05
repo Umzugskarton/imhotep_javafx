@@ -6,7 +6,7 @@ public class LocationCardEvent extends GameEvent {
 
   public LocationCardEvent(int cardType, int lobbyId) {
     this.cardType = cardType;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public int getCardType() {

@@ -9,7 +9,7 @@ public class LeaveLobbyEvent extends Event {
 
   public LeaveLobbyEvent(boolean success, int lobbyId) {
     this.success = success;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public String getMsg() {

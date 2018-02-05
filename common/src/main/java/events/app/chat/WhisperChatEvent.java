@@ -9,7 +9,11 @@ public class WhisperChatEvent extends Event {
   private String to;
 
   public WhisperChatEvent(){
-    setLobbyId(-1);
+    this.lobbyId = -1;
+  }
+
+  public void setLobbyId(int lobbyId){
+    this.lobbyId = lobbyId;
   }
 
   public void setTo(String username) {

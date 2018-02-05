@@ -9,7 +9,7 @@ public class InventoryUpdateEvent extends GameEvent{
 
   public InventoryUpdateEvent(ArrayList<ArrayList<CardType>> cardTypes, int lobbyId){
     this.cardTypes = cardTypes;
-    setLobbyId(lobbyId);
+    this.lobbyId = lobbyId;
   }
 
   public ArrayList<ArrayList<CardType>> getCardTypes() {

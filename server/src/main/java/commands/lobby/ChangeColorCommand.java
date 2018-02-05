@@ -3,11 +3,12 @@ package commands.lobby;
 import commands.Command;
 import data.user.User;
 import events.app.lobby.changecolor.ChangeLobbyUserColorEvent;
-import java.util.ArrayList;
 import lobby.Lobby;
-import requests.IRequest;
 import requests.lobby.ChangeColorRequest;
+import requests.IRequest;
 import socket.ClientListener;
+
+import java.util.ArrayList;
 
 public class ChangeColorCommand implements Command {
 

@@ -2,11 +2,9 @@ package commands.lobby;
 
 import commands.Command;
 import data.lobby.CommonLobby;
-import events.EventReason;
-import events.app.lobby.create.CreateLobbyEvent;
+
 import events.app.lobby.LobbyInfoEvent;
-import events.app.lobby.create.CreateLobbyFailedEvent;
-import events.app.lobby.create.CreateLobbySuccessfulEvent;
+import events.app.lobby.create.CreateLobbyEvent;
 import events.app.main.LobbyListEvent;
 import lobby.Lobby;
 import requests.IRequest;
@@ -36,22 +34,17 @@ public class CreateCommand implements Command {
         .createLobby(request, this.clientListener.getUser(), this.clientListener.getServer());
     clientListener.addLobby(lobby);
     CreateLobbyEvent response = this.clientListener.getServer().addLobby(lobby);
-
+    this.clientListener.send(response);
     if (response.getSuccess()) {
       CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
           lobby.getLobbyUserArrayList(), lobby.hasPW(), lobby.getSize(),
           lobby.isHost(this.clientListener.getUser()), lobby.getHostName(), lobby.getReady(),
           lobby.getColors());
-
-      clientListener.send(new CreateLobbySuccessfulEvent(cltLobby));
-
+      LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
+      this.clientListener.send(lobbyInfo);
       LobbyListEvent lobbyList = this.clientListener.getServer()
           .getLobbies(clientListener.getUser());
       this.clientListener.getServer().sendToLoggedIn(lobbyList);
-    } else {
-      CreateLobbyFailedEvent event = new CreateLobbyFailedEvent();
-      event.setReason(EventReason.INVALID_REQUEST);
-      clientListener.send(new CreateLobbyFailedEvent());
     }
   }
 }

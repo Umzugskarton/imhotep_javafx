@@ -10,7 +10,7 @@ public class JoinLobbySuccessfulEvent extends Event {
     public JoinLobbySuccessfulEvent(CommonLobby commonLobby){
         super();
         this.lobby = commonLobby;
-        setLobbyId(commonLobby.getLobbyId());
+        this.lobbyId = commonLobby.getLobbyId();
     }
 
     public CommonLobby getLobby() {
