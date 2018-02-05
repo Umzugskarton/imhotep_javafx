@@ -11,6 +11,8 @@ import game.Game;
 import game.Player;
 import game.board.Ship;
 import java.util.stream.IntStream;
+
+import game.board.StoneSite;
 import lobby.Lobby;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +58,7 @@ public class runningGameTest {
   @Mock
   Game game;
 
+
   Player p1;
 
   Player p2;
@@ -63,6 +66,16 @@ public class runningGameTest {
   Player p3;
 
   Player p4;
+
+  Move[] moves = new Move[4];
+
+  Move[] moves2 = new Move[4];
+
+  Move[] repeatMoves2 = new Move[4];
+
+  Move[] moves3 = new Move[4];
+
+  Move[] moves4 = new Move[4];
 
   @Before
   public void init() {
@@ -95,16 +108,43 @@ public class runningGameTest {
 
     cl = mock(ClientListener.class);
     event = mock(Event.class);
+    move = mock(Move.class);
     when(cl.getLobbyByID(1)).thenReturn(lobby);
 
     server = mock(Server.class);
     when(cl.getServer()).thenReturn(server);
 
-    game = new Game(lobby, cl);
+    //Moves einzelner Spieler werden gesettet
+    moves[0] = new FillUpStorageMove(lobby.getLobbyID());
+    moves[1] = new FillUpStorageMove(lobby.getLobbyID());
+    moves[2] = new FillUpStorageMove(lobby.getLobbyID());
+    moves[3] = new FillUpStorageMove(lobby.getLobbyID());
+
+    moves2[0] = new LoadUpShipMove(0, 0, lobby.getLobbyID());
+    moves2[1] = new LoadUpShipMove(1, 0, lobby.getLobbyID());
+    moves2[2] = new LoadUpShipMove(2, 0, lobby.getLobbyID());
+    moves2[3] = new LoadUpShipMove(3, 0, lobby.getLobbyID());
+
+    repeatMoves2[0] = new LoadUpShipMove(0, 1, lobby.getLobbyID());
+    repeatMoves2[1] = new LoadUpShipMove(1, 1, lobby.getLobbyID());
+    repeatMoves2[2] = new LoadUpShipMove(2, 1, lobby.getLobbyID());
+    repeatMoves2[3] = new LoadUpShipMove(3, 1, lobby.getLobbyID());
+
+    moves3[0] = new VoyageToStoneSiteMove(2, SiteType.TEMPLE, lobby.getLobbyID());
+    moves3[1] = null;
+    moves3[2] = null;
+    moves3[3] = null;
+
+    moves4[0] = new VoyageToStoneSiteMove(1, SiteType.PYRAMID, lobby.getLobbyID());
+    moves4[1] = new VoyageToStoneSiteMove(2, SiteType.TEMPLE, lobby.getLobbyID());
+    moves4[2] = null;
+    moves4[3] = null;
+
   }
 
   @Test
   public void beforeGameRunsTest() {
+    game = new Game(lobby, cl);
     //Überprüfen, dass zubeginn alles richtig gesetzt wird (private void setgame)
     //Überprüfen ob alle Spieler im Spiel sind
     Player[] players = {p1, p2, p3, p4};
@@ -118,55 +158,41 @@ public class runningGameTest {
     assertEquals(4, ships.length);
 
     //Überprüfen ob alle Spieler ihre Steine bekommen haben
-    assertEquals(2, playersTest[0].getStones());
-    assertEquals(3, playersTest[1].getStones());
-    assertEquals(4, playersTest[2].getStones());
-    assertEquals(5, playersTest[3].getStones());
+    for(int i = 0; i <= 3; i++){
+      assertEquals(i+2, playersTest[i].getStones());
+    }
   }
 
   @Test
   public void runTest() {
-    Move[] moves = {
-        new FillUpStorageMove(lobby.getLobbyID()), new FillUpStorageMove(lobby.getLobbyID()),
-        new FillUpStorageMove(lobby.getLobbyID()), new FillUpStorageMove(lobby.getLobbyID())
-    };
+    //Game wird direkt gestartet
+    game = new Game(lobby, cl);
+
     game.runOneRoundTest(moves);
-    //Wenn alle Spieler nur FillUpStorageMove verwenden
-    //Niemand bekommt dadurch Punkte
+    /**
+    Wenn alle Spieler nur FillUpStorageMove verwenden, dann bekommt niemand Punkte (logisch)
+     **/
     assertEquals(0, IntStream.of(game.getPointsSum()).sum());
-    //Market-Karten wurde ausgespielt
-    //assertEquals(4, game.getMARKET().getActiveCards().size());
-    //Keine Schiffe sind gedockt
-    assertEquals(false, game.getShipByID(0).isDocked());
-    assertEquals(false, game.getShipByID(1).isDocked());
-    assertEquals(false, game.getShipByID(2).isDocked());
-    assertEquals(false, game.getShipByID(3).isDocked());
+    /**Market-Karten wurde ausgespielt
+    assertEquals(4, game.getMARKET().getActiveCards().size());
+    Keine Schiffe sind an StoneSites gedockt **/
+    for(int i = 0; i <= 3; i++) {
+      assertEquals(false, game.getShipByID(i).isDocked());
+    }
     //Stein-Anzahl überprüfen
-    assertEquals(5, game.getPlayer(0).getStones());
-    assertEquals(5, game.getPlayer(1).getStones());
-    assertEquals(5, game.getPlayer(2).getStones());
-    assertEquals(5, game.getPlayer(3).getStones());
+    for(int i = 0; i <= 3; i++) {
+      assertEquals(5, game.getPlayer(i).getStones());
+    }
 
-    Move[] moves2 = {
-        new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()),
-        new LoadUpShipMove(2, 0, lobby.getLobbyID()), new LoadUpShipMove(3, 0, lobby.getLobbyID())
-    };
     game.runOneRoundTest(moves2);
+    game.runOneRoundTest(repeatMoves2);
 
-    Move[] moves3 = {
-        new VoyageToStoneSiteMove(0, SiteType.MARKET, lobby.getLobbyID()),
-        new VoyageToStoneSiteMove(1, SiteType.PYRAMID, lobby.getLobbyID()),
-        new VoyageToStoneSiteMove(2, SiteType.OBELISKS, lobby.getLobbyID()),
-        new VoyageToStoneSiteMove(3, SiteType.BURIALCHAMBER, lobby.getLobbyID())
-    };
+    //Schiffe auf Steine überprüfen nachdem LoadUpShipMove auf alle Schiffe von allen Spieler ausgeführt worden sit
+    for(int i = 0; i <= 3; i++) {
+      assertEquals(2, game.getShipByID(i).getLoadedStones());
+    }
+
     game.runOneRoundTest(moves3);
-    //Eine Runde wurde vollzogen
-  }
-
-  public void runTest2() {
-    Move[] moves2 = {
-        new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()),
-        new LoadUpShipMove(2, 0, lobby.getLobbyID()), new LoadUpShipMove(3, 0, lobby.getLobbyID())
-    };
+    assertEquals(true, ((StoneSite) game.getSiteByType(SiteType.TEMPLE)).isDocked());
   }
 }

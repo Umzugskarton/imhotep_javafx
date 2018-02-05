@@ -358,11 +358,11 @@ public class Game implements Runnable {
     this.currentPlayer = currentPlayer;
   }
 
-  private int testRound = 0;
-
   public void runOneRoundTest(Move[] moves) {
-    testRound++;
-    this.sites.forEach(Site::prepareRound);
+    if(this.round == 0) {
+      this.sites.forEach(Site::prepareRound);
+      market.prepareRound();
+    }
     sendAll(getGameInfo());
     for (int player = 0; player < this.players.length; player++) {
       currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
@@ -375,14 +375,13 @@ public class Game implements Runnable {
             + players[currentPlayer] + "! ");
       }
     }
+    this.round++;
     addPointsEndOfRound();
     addPointsEndOfGame();
-    if (testRound == 3) {
+    if (allshipsDocked() == true) {
       nominateWinner();
       log.info("geschafft");
     }
-
-
   }
 
   public Move setTestMove(Move move) {
