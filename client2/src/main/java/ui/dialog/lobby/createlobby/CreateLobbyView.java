@@ -88,8 +88,7 @@ public class CreateLobbyView implements ICreateLobbyView {
     this.statusMessageLabel.setText(m);
   }
 
-  @Subscribe
-  public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
+  public void closeDialog(){
     this.parentView.hideDialog();
   }
 

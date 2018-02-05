@@ -1,7 +1,10 @@
 package ui.dialog.lobby.createlobby;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.app.lobby.create.CreateLobbyFailedEvent;
+import events.app.lobby.create.CreateLobbySuccessfulEvent;
 import mvp.presenter.Presenter;
 import requests.lobby.CreateRequest;
 
@@ -25,5 +28,15 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
       CreateRequest j = new CreateRequest(name, size, pass);
       this.connection.send(j);
     }
+  }
+
+  @Subscribe
+  public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
+    this.getView().closeDialog();
+  }
+
+  @Subscribe
+  public void onCreateLobbyFailedEvent(CreateLobbyFailedEvent e){
+    this.getView().updateStatusLabel(e.getReason().toString());
   }
 }
