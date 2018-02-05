@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Event implements Serializable {
 
   private EventReason reason;
-  protected Integer lobbyId;
+  protected int lobbyId;
 
   public void setReason(EventReason reason) {
     this.reason = reason;
@@ -15,7 +15,11 @@ public class Event implements Serializable {
     return this.reason;
   }
 
-  public Integer getLobbyId() {
+  public int getLobbyId() {
     return lobbyId;
+  }
+
+  public void setLobbyId(int lobbyId) {
+    this.lobbyId = lobbyId;
   }
 }

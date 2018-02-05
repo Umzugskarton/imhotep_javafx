@@ -5,15 +5,10 @@ import events.Event;
 public class ChatMessageEvent extends Event {
 
   private String user;
-  private Integer lobbyId;
   private String msg;
 
   public ChatMessageEvent() {
-    lobbyId = null;
-  }
-
-  public void setLobbyId(Integer lobbyId) {
-    this.lobbyId = lobbyId;
+    setLobbyId(-1);
   }
 
   public void setUser(String username) {

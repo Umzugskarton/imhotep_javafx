@@ -7,19 +7,19 @@ import requests.RequestType;
 public class ChatRequest implements IRequest {
 
   private RequestType request = RequestType.CHAT;
-  private Integer lobbyId;
+  private int lobbyId;
   private String msg;
 
   public ChatRequest(String msg) {
     this.msg = msg;
-    lobbyId = null;
+    lobbyId = -1;
   }
 
-  public Integer getLobbyId() {
+  public int getLobbyId() {
     return lobbyId;
   }
 
-  public void setLobbyId(Integer lobbyId) {
+  public void setLobbyId(int lobbyId) {
     this.lobbyId = lobbyId;
   }
 
