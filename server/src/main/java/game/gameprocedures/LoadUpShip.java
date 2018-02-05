@@ -33,7 +33,7 @@ public class LoadUpShip implements Procedure {
 
       if (ship.addStone(stone, move.getPosition())) {
         return new ShipLoadedEvent(playerId, move.getShipId(), ship.getCargoAsIntArrayByShip(),
-            game.getPlayer(playerId).getSupplySled().getStones());
+            game.getPlayer(playerId).getStones());
       }
     }
     // TODO kann auch ein anderer Fehler als AlreadyAllocated sein: z.B. Position nicht vorhanden
