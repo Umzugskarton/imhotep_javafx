@@ -195,7 +195,7 @@ public class EventListener {
         Platform.runLater(
                 () -> {
                     CommonLobby temp = sceneController.getLobbyPresenter().getCLTLobby();
-                    temp.getUserbyLobbyId(e.getId()).setColor(e.getColor());
+                    temp.getUserbyLobbyId(e.getUserId()).setColor(e.getColor());
                     sceneController.getLobbyPresenter().updateLobby(temp);
                 });
     }

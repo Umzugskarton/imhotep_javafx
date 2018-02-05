@@ -3,18 +3,22 @@ package events.app.lobby;
 import events.Event;
 
 public class ChangeLobbyUserColorEvent extends Event {
-
+  private int userId;
   private String color;
 
-  public ChangeLobbyUserColorEvent(int id, String color) {
+  public ChangeLobbyUserColorEvent(int userId, String color, int lobbyId) {
     this.color = color;
-    this.lobbyId = id;
+    this.userId = userId;
+    this.lobbyId = lobbyId;
   }
 
-  public void setId(int id) {
-    this.lobbyId = id;
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
+  public int getUserId() {
+    return userId;
+  }
 
   public String getColor() {
     return this.color;

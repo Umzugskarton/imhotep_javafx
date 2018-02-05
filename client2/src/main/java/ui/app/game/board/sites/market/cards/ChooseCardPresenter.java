@@ -39,11 +39,9 @@ public class ChooseCardPresenter extends Presenter<IChooseCardView> {
   private void onChooseCardEvent(ChooseCardEvent e){
     e.getChoosenCardsId().forEach(card -> {
       cardViews.get((card)).setAvailable(false);
-      view.getCardGrid().getChildren().remove(cardViews.get(card).getRootParent());
-      cardViews.remove((int)card);
     });
-
     cardViews.forEach(cardView -> cardView.setClickable(true));
+    view.setCards();
     eventBus.post(view);
   }
 

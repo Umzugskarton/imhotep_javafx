@@ -126,7 +126,7 @@ public class Game implements Runnable {
   }
 
   private void updatePoints() {
-    sendAll(new UpdatePointsEvent(getPointsSum()));
+    sendAll(new UpdatePointsEvent(getPointsSum(), gameID));
   }
 
   public void updatePyramids() {
@@ -251,7 +251,7 @@ public class Game implements Runnable {
       playerResult[1][i] = String.valueOf(p.getPoints());
       i++;
     }
-    sendAll(new WinEvent(winner.getUser().getUsername(), playerResult));
+    sendAll(new WinEvent(winner.getUser().getUsername(), playerResult, gameID));
   }
 
   public Site getSiteByType(SiteType siteType) {

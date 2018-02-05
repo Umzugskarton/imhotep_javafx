@@ -40,18 +40,13 @@ public class ChooseCardView implements IChooseCardView{
         cardViews.forEach(cardView -> cardGrid.getChildren().add(cardView.getRootParent()));
   }
 
-  @FXML
-  public void chooseCard(MouseEvent event){
-    Node s = (Node) event.getSource();
-    Integer col = GridPane.getColumnIndex(s);
-    Integer row = GridPane.getRowIndex(s);
-    String binary = row.toString() + col.toString();
-    int card = 0;
-    for (int i = 0; i< binary.length(); i++){
-      if (binary.charAt(i) == '1')
-        card+=Math.pow(2,binary.length()-1-i);
-    }
-    mainPresenter.sendChooseCard(card);
+  @Override
+  public void setCards() {
+    cardGrid.getChildren().clear();
+    cardViews.forEach(cardView -> {
+      if (cardView.isAvailable())
+        cardGrid.getChildren().add(cardView.getRootParent());
+    });
   }
 
   public List<CardView> getCardViews() {

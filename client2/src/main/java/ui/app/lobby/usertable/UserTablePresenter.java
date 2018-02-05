@@ -85,7 +85,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
 
     @Subscribe
     public void changeColorEventListener(ChangeLobbyUserColorEvent e) {
-        this.lobby.getUserbyLobbyId(e.getId()).setColor(e.getColor());
+        this.lobby.getUserbyLobbyId(e.getUserId()).setColor(e.getColor());
         updateLobby(lobby);
     }
 

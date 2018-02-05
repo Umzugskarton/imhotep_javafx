@@ -25,7 +25,7 @@ public class VoyageToStoneSiteManualDump extends Voyage {
   public Event exec() {
     Ship ship = game.getShipByID(move.getShipId());
     ship.sortStones(move.getDumpOrder());
-    return new VoyageToStoneSiteManualDumpEvent();
+    return new VoyageToStoneSiteManualDumpEvent(game.getGameID());
   }
 
 }

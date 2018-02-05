@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
@@ -19,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
+import requests.gamemoves.Move;
 import requests.lobby.LeaveLobbyRequest;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
@@ -30,6 +32,8 @@ import ui.start.ShowStartViewEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class AppView implements IAppView {
@@ -76,6 +80,7 @@ public class AppView implements IAppView {
   private MainView mainView;
   private ArrayList<LobbyView> lobbyViews = new ArrayList<>();
   private ArrayList<GameView> gameViews = new ArrayList<>();
+  Map<Integer, EventBus> gameEventbuses = new HashMap<>();
 
   //PopupView
   private DialogView popupView;
@@ -168,8 +173,9 @@ public class AppView implements IAppView {
         break;
       }
     }
-
-    GameView gameView = new GameView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
+    EventBus gameEventbus = new EventBus();
+    gameEventbuses.put(e.getLobbyId() , gameEventbus);
+    GameView gameView = new GameView(this, gameEventbus, this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
     tab.setText("Game #" + lobby.getLobbyId());
     tab.setContent(gameView.getRootParent());
@@ -189,6 +195,11 @@ public class AppView implements IAppView {
     dialogBackground.toBack();
     dialogBackground.setVisible(false);
     dialog.getChildren().clear();
+  }
+
+  @Subscribe
+  public void onGameEvent(GameEvent event){
+    gameEventbuses.get(event.getLobbyId()).post(event);
   }
 }
 

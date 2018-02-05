@@ -15,9 +15,9 @@ public class HammerProtocol extends Protocol {
   }
 
   public void exec() {
-    game.sendAll(new ToolCardEvent(CardType.HAMMER, playerId, true));
+    game.sendAll(new ToolCardEvent(CardType.HAMMER, playerId, true, game.getGameID()));
     game.executeMove(new FillUpStorageMove(game.getGameID()));
-    game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent());
+    game.sendTo(game.getPlayer(playerId).getUser(), new VoyageToStoneSiteExclusiveEvent(game.getGameID()));
     Move move = acquireMove();
     if (move instanceof VoyageToStoneSiteMove) {
       game.executeMove(move);

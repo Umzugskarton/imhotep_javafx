@@ -6,4 +6,5 @@ import java.util.List;
 public interface IChooseCardView extends IDialogView {
   List<CardView> getCardViews();
   GridPane getCardGrid();
+  void setCards();
 }

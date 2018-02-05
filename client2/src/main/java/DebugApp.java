@@ -372,7 +372,7 @@ public class DebugApp {
       @Override
       public void handle(ActionEvent event) {
         int[] cargo = {0};
-        ShipLoadedEvent e = new ShipLoadedEvent(0, 0, cargo ,0);
+        ShipLoadedEvent e = new ShipLoadedEvent(0, 0, cargo ,0,0);
         eventBus.post(e);
       }
     });

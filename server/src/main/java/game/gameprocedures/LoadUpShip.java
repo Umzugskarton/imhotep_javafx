@@ -29,7 +29,7 @@ public class LoadUpShip implements Procedure {
 
   public Event exec() {
     if (game.getPlayer(playerId).getStones() <= 0) {
-      return new OutOfStonesError(playerId);
+      return new OutOfStonesError(playerId, game.getGameID());
     }
     if (game.getPlayer(playerId).removeStone()) {
       Player player = game.getPlayer(playerId);
@@ -38,12 +38,12 @@ public class LoadUpShip implements Procedure {
 
       if (ship.addStone(stone, move.getPosition())) {
         return new ShipLoadedEvent(playerId, move.getShipId(), ship.getCargoAsIntArrayByShip(),
-            game.getPlayer(playerId).getStones());
+            game.getPlayer(playerId).getStones(), game.getGameID());
       } else {
         game.getPlayer(playerId).addStones(1);
-        return new PositionInvalidError();
+        return new PositionInvalidError(game.getGameID());
       }
     }
-    return new AlreadyAllocatedError(move.getShipId(), move.getPosition());
+    return new AlreadyAllocatedError(move.getShipId(), move.getPosition(), game.getGameID());
   }
 }

@@ -43,15 +43,15 @@ public class VoyageToMarket implements Procedure {
         if (market.dockShip(ship)) {
           ship.setDocked(true);
           return new ShipDockedEvent(move.getShipId(), SiteType.MARKET,
-              doMarketRotation(ship.getStones()));
+              doMarketRotation(ship.getStones()), game.getGameID());
         } else {
           return new SiteAlreadyDockedError(SiteType.MARKET);
         }
       } else {
-        return new NotEnoughLoadError(move.getShipId());
+        return new NotEnoughLoadError(move.getShipId(), game.getGameID());
       }
     } else {
-      return new ShipAlreadyDockedError(move.getShipId());
+      return new ShipAlreadyDockedError(move.getShipId(), game.getGameID());
     }
   }
 
@@ -60,7 +60,7 @@ public class VoyageToMarket implements Procedure {
     ArrayList<Integer> chosenCards = new ArrayList<>();
     for (Stone stone : stones) {
       game.sendTo(game.getPlayer(stone.getPlayer().getId()).getUser(),
-          new ChooseCardEvent(game.getGameID(), chosenCards));
+          new ChooseCardEvent(game.getGameID(), chosenCards, game.getGameID()));
       game.setCurrentPlayer(stone.getPlayer().getId());
       Move move = acquireMove();
       if (move instanceof ChooseCardMove) {
