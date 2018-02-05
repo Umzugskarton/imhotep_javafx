@@ -30,4 +30,7 @@ public abstract class Site {
     return dockedShip != null;
   }
 
+  public void prepareRound() {
+    dockedShip = null;
+  }
 }

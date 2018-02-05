@@ -92,7 +92,6 @@ public class Game implements Runnable {
   }
 
   private void resetCurrentShips() {
-    this.ships = new Ship[NUMBER_OF_SHIPS];
     for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       this.ships[i] = new Ship(i);
     }
@@ -194,8 +193,9 @@ public class Game implements Runnable {
   public void run() {
     int numberOfRounds = 6;
     for (int i = 1; i <= numberOfRounds; i++) {
+      log.info("[ Game {} Info ]\nCurrentRound:{}\n{}", gameID, i, getGameInfo());
       this.round = i;
-      this.market.newRound();
+      sites.forEach(Site::prepareRound);
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
         for (int player = 0; player < this.players.length; player++) {
@@ -358,7 +358,7 @@ public class Game implements Runnable {
 
   public void runOneRoundTest(Move[] moves) {
     testRound++;
-    this.market.newRound();
+    this.sites.forEach(Site::prepareRound);
     sendAll(getGameInfo());
     for (int player = 0; player < this.players.length; player++) {
       currentPlayer = player; //Leichterer Zugriff auf aktuellen Player

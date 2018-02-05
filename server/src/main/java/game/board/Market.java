@@ -64,12 +64,18 @@ public class Market extends Site {
    * Richtet den Markt für eine neue Runde ein. Noch vorhandene Karten werden entfernt
    * und aus dem Pool werden neue Karten gezogen.
    */
-  public void newRound() {
+  private void newRound() {
     for (int i = 0; i < VISIBLE_CARDS; i++) {
       if (!drawPile.isEmpty()) {
         activeCards[i] = drawPile.remove(0);
       }
     }
+  }
+
+  @Override
+  public void prepareRound() {
+    super.prepareRound();
+    newRound();
   }
 
   // TODO
