@@ -2,6 +2,8 @@ package game.gameprocedures;
 
 import events.Event;
 import events.app.game.AlreadyAllocatedError;
+import events.app.game.OutOfStonesError;
+import events.app.game.PositionInvalidError;
 import events.app.game.ShipLoadedEvent;
 import game.Game;
 import game.Player;
@@ -26,6 +28,9 @@ public class LoadUpShip implements Procedure {
   }
 
   public Event exec() {
+    if (game.getPlayer(playerId).getStones() <= 0) {
+      return new OutOfStonesError(playerId);
+    }
     if (game.getPlayer(playerId).removeStone()) {
       Player player = game.getPlayer(playerId);
       Stone stone = new Stone(player);
@@ -34,9 +39,11 @@ public class LoadUpShip implements Procedure {
       if (ship.addStone(stone, move.getPosition())) {
         return new ShipLoadedEvent(playerId, move.getShipId(), ship.getCargoAsIntArrayByShip(),
             game.getPlayer(playerId).getStones());
+      } else {
+        game.getPlayer(playerId).addStones(1);
+        return new PositionInvalidError();
       }
     }
-    // TODO kann auch ein anderer Fehler als AlreadyAllocated sein: z.B. Position nicht vorhanden
     return new AlreadyAllocatedError(move.getShipId(), move.getPosition());
   }
 }
