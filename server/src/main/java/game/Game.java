@@ -193,7 +193,6 @@ public class Game implements Runnable {
   public void run() {
     int numberOfRounds = 6;
     for (int i = 1; i <= numberOfRounds; i++) {
-      log.info("[ Game {} Info ]\nCurrentRound:{}\n{}", gameID, i, getGameInfo());
       this.round = i;
       sites.forEach(Site::prepareRound);
       sendAll(getGameInfo());

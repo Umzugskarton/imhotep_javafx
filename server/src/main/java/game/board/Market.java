@@ -88,5 +88,3 @@ public class Market extends Site {
     return true;
   }
 }
-
-
