@@ -83,12 +83,8 @@ public class Player {
     return points;
   }
 
-  public SupplySled getSupplySled() {
-    return supplySled;
-  }
-
   /**
-   * Versorgungsplättchen mit dem Steinvorrat eines Players.
+   * Der Steinvorrat eines Spielers.
    */
   private static class SupplySled {
 
