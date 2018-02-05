@@ -15,6 +15,11 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
   public CreateLobbyPresenter(ICreateLobbyView view, EventBus eventBus, Connection connection) {
     super(view, eventBus);
     this.connection = connection;
+    bind();
+  }
+
+  private void bind(){
+      this.eventBus.register(this);
   }
 
   public Connection getConnection() {
@@ -32,7 +37,7 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
 
   @Subscribe
   public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
-    this.getView().closeDialog();
+      this.getView().closeDialog();
   }
 
   @Subscribe

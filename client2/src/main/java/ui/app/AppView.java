@@ -9,6 +9,7 @@ import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.create.CreateLobbySuccessfulEvent;
+import events.app.lobby.join.JoinLobbySuccessfulEvent;
 import helper.fxml.GenerateFXMLView;
 import java.net.URL;
 import java.util.ArrayList;
@@ -175,8 +176,9 @@ public class AppView implements IAppView {
 
 
   @Subscribe
-  public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
-    addTab(e.getLobby());
+  public void onJoinLobbySuccessfulEvent(JoinLobbySuccessfulEvent e) {
+    Tab tab = addTab(e.getLobby());
+    this.appViewMainTabPane.getSelectionModel().select(tab);
   }
 
   @Subscribe

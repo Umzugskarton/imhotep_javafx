@@ -13,7 +13,7 @@ import events.app.game.ShipLoadedEvent;
 import events.app.game.StartGameEvent;
 import events.app.game.TurnEvent;
 import events.app.lobby.LobbyInfoEvent;
-import events.app.lobby.join.LobbyJoinSuccessfulEvent;
+import events.app.lobby.join.JoinLobbySuccessfulEvent;
 import events.app.main.LobbyListEvent;
 import events.app.main.UserListEvent;
 import events.start.login.LoginEvent;
@@ -245,13 +245,13 @@ public class DebugApp {
     });
 
     // Buttons 2
-    Button lobbyListButton2 = new Button("LobbyJoinSuccessfulEvent");
+    Button lobbyListButton2 = new Button("LobbyJoinSuccessfulEvent(Im dead)");
     lobbyListButton2.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        LobbyJoinSuccessfulEvent myEvent = new LobbyJoinSuccessfulEvent();
-        logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
-        getEventBus().post(myEvent);
+        //JoinLobbySuccessfulEvent myEvent = new JoinLobbySuccessfulEvent();
+        //logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
+        //getEventBus().post(myEvent);
       }
     });
 

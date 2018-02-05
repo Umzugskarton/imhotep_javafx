@@ -80,4 +80,8 @@ public class ChooseCardView implements IChooseCardView {
     return this.getClass().getSimpleName();
   }
 
+  @Override
+  public void closeDialog() {
+    //TODO hier sollte irgendwas passieren, weil ich ein Dialog bin
+  }
 }

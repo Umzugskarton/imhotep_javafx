@@ -59,4 +59,9 @@ public class InventoryView implements IInventoryView {
     Integer maxColIndex = cardGridPane.getChildren().stream().filter(node -> node.isManaged()).map(node -> GridPane.getColumnIndex(node)).max((o1, o2) -> (o1 > o2?o1:o2)).orElse(-1);
     cardGridPane.add(cardView.getRootParent() ,maxColIndex+1, maxColIndex/3);
   }
+
+  @Override
+  public void closeDialog() {
+    //TODO hier sollte irgendwas passieren, weil ich ein Dialog bin
+  }
 }
