@@ -5,11 +5,10 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import mvp.view.IView;
-import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +42,13 @@ public class ChooseCardView implements IChooseCardView{
   @Override
   public void setCards() {
     cardGrid.getChildren().clear();
-    cardViews.forEach(cardView -> {
-      if (cardView.isAvailable())
-        cardGrid.getChildren().add(cardView.getRootParent());
-    });
+    int cardId =0 ;
+    for (int i = 0 ; i < 2; i++){
+      for (int j = 0 ; j < 2; j++) {
+        cardGrid.add(cardViews.get(cardId).getRootParent(), i, j);
+        cardId++;
+      }
+    }
   }
 
   public List<CardView> getCardViews() {
