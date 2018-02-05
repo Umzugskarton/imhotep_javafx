@@ -82,7 +82,7 @@ public class CardView implements IDialogView{
     cardBack.setId(getStyleType(type));
     cardClass.setText(getTypeClass());
     cardname.setText(type.toString().toLowerCase());
-    cardDescription.setText(getString(type.toString()));
+    cardDescription.setText(getString("carddescription."+type.toString()));
   }
 
   public void setClickable(boolean clickable){

@@ -1,5 +1,7 @@
 package ui.app.game.userinterface;
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
@@ -147,15 +149,13 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   void sendVoyageToStoneSiteMove() {
     HashMap<String, SiteType> findSiteType = new HashMap<>();
-    findSiteType.put(SiteType.OBELISKS.toString(), SiteType.OBELISKS);
-    findSiteType.put(SiteType.MARKET.toString(), SiteType.MARKET);
-    findSiteType.put(SiteType.BURIALCHAMBER.toString(), SiteType.BURIALCHAMBER);
-    findSiteType.put(SiteType.PYRAMID.toString(), SiteType.PYRAMID);
-    findSiteType.put(SiteType.TEMPLE.toString(), SiteType.TEMPLE);
+    findSiteType.put(getString("sitedescription." + SiteType.OBELISKS.name()), SiteType.OBELISKS);
+    findSiteType.put(getString("sitedescription." + SiteType.MARKET.name()), SiteType.MARKET);
+    findSiteType
+        .put(getString("sitedescription." + SiteType.BURIALCHAMBER.name()), SiteType.BURIALCHAMBER);
+    findSiteType.put(getString("sitedescription." + SiteType.PYRAMID.name()), SiteType.PYRAMID);
+    findSiteType.put(getString("sitedescription." + SiteType.TEMPLE.name()), SiteType.TEMPLE);
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
-      // TODO SiteType.valueOf() gibt zu nem String die passende enum-Konstante. Aber:
-      // die LocationBox hat nicht den Names des enums, sondern das Ergebnis von toString().
-      // Daher kann es sein, dass hier kein enum gefunden wird, wenn die toString()-Methode überschrieben wird.
       mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),
           findSiteType.get(selectShipLocationBox.getValue()));
     } else {
