@@ -64,8 +64,10 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onChatEvent(ChatMessageEvent e) {
-    if (lobby.getLobbyId() == e.getLobbyId()) {
-      getView().addChatMessage(e.getUser(), e.getMsg());
+    if ((e.getLobbyId() != null)) {
+      if (e.getLobbyId() == lobby.getLobbyId()) {
+        getView().addChatMessage(e.getUser(), e.getMsg());
+      }
     }
   }
 
