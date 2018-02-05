@@ -8,7 +8,7 @@ public class ShowJoinLobbyDialogEvent extends ShowDialogEvent {
 
     LobbyTableData lobbydata;
 
-    public ShowJoinLobbyDialogEvent(LobbyTableData lobbydata, ViewIdentifier viewIdentifier){
+    public ShowJoinLobbyDialogEvent(LobbyTableData lobbydata, ViewIdentifier viewIdentifier) {
         super(viewIdentifier);
         this.lobbydata = lobbydata;
     }

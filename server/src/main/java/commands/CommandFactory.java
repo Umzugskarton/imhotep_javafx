@@ -4,10 +4,10 @@ import commands.chat.ChatCommand;
 import commands.chat.WhisperCommand;
 import commands.lobby.*;
 import commands.main.UserlistCommand;
+import commands.profil.ChangeCredentialCommand;
 import commands.start.LoginCommand;
 import commands.start.LogoutCommand;
 import commands.start.RegisterCommand;
-import commands.profil.ChangeCredentialCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.IRequest;
@@ -21,7 +21,7 @@ public class CommandFactory {
 
     private EnumMap<RequestType, Command> commandMap = new EnumMap<>(RequestType.class);
 
-    public CommandFactory(ClientListener clientListener){
+    public CommandFactory(ClientListener clientListener) {
         commandMap.put(RequestType.REGISTER, new RegisterCommand(clientListener));
         commandMap.put(RequestType.LOGIN, new LoginCommand(clientListener));
         commandMap.put(RequestType.LOGOUT, new LogoutCommand(clientListener));
@@ -38,7 +38,7 @@ public class CommandFactory {
         commandMap.put(RequestType.LEAVE_LOBBY, new LeaveLobbyCommand(clientListener));
     }
 
-    public Command getCommand(IRequest request){
+    public Command getCommand(IRequest request) {
         //log.debug("BIN BEI: " +request.getClass().getSimpleName());
         Command c = commandMap.get(request.getType());
         c.put(request);

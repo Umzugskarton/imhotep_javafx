@@ -49,7 +49,6 @@ public class LobbyTableView implements ILobbyTableView {
     private TableColumn<LobbyTableData, String> tableColumnBelegung;
 
 
-
     private Parent myParent;
 
     private final INavigateableView parentView;
@@ -71,7 +70,7 @@ public class LobbyTableView implements ILobbyTableView {
 
     @Override
     public void initOwnView() {
-        if (this.myParent == null){
+        if (this.myParent == null) {
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/lobbyList/LobbyListView.fxml", this, eventBus);
 
             this.tableColumnId.setCellValueFactory(new PropertyValueFactory<LobbyTableData, String>("lobbyIdString"));
@@ -105,17 +104,17 @@ public class LobbyTableView implements ILobbyTableView {
     }
 
 
-    public LobbyTablePresenter getPresenter(){
+    public LobbyTablePresenter getPresenter() {
         return this.presenter;
     }
 
     @FXML
-    private void handleLobbyViewClick(MouseEvent click){
+    private void handleLobbyViewClick(MouseEvent click) {
         System.out.println("Lobby doubleclick");
         CommonLobby selectedLobby = (CommonLobby) this.lobbyTableView.getFocusModel().getFocusedItem();
 
         if (click.getClickCount() == 2) {
-            this.presenter.joinLobby(selectedLobby.getLobbyId(),"");
+            this.presenter.joinLobby(selectedLobby.getLobbyId(), "");
         }
     }
 
@@ -131,7 +130,7 @@ public class LobbyTableView implements ILobbyTableView {
 
 
     @Override
-    public void setLobbyListViewData(ObservableList<LobbyTableData> datasource){
+    public void setLobbyListViewData(ObservableList<LobbyTableData> datasource) {
         this.lobbyTableView.setItems(datasource);
     }
 

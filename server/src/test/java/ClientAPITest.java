@@ -19,9 +19,7 @@ import java.util.ArrayList;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ClientAPITest {
 
@@ -70,11 +68,11 @@ public class ClientAPITest {
 
         ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
         log.print(clientAPI.login(lRequest, loggedUser).getReason());
-        assertEquals(true ,clientAPI.login(lRequest, loggedUser).getSuccess());
+        assertEquals(true, clientAPI.login(lRequest, loggedUser).getSuccess());
 
         //Bereits eingeloggter Nutzer
         loggedUser.add("Tom");
-        assertEquals(false ,clientAPI.login(lRequest, loggedUser).getSuccess());
+        assertEquals(false, clientAPI.login(lRequest, loggedUser).getSuccess());
     }
 
     @Test
@@ -89,13 +87,13 @@ public class ClientAPITest {
         when(lRequest.getUsername()).thenReturn("Tom");
         when(lRequest.getPassword()).thenReturn("123");
         ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
-        assertEquals(false ,clientAPI.login(lRequest, loggedUser).getSuccess());
+        assertEquals(false, clientAPI.login(lRequest, loggedUser).getSuccess());
     }
 
     @Test
     public void registerTest() {
         dbUserDataSource = mock(DBUserDataSource.class);
-        when(dbUserDataSource.createUser("Tom","123","email")).thenReturn(true);
+        when(dbUserDataSource.createUser("Tom", "123", "email")).thenReturn(true);
         ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
         rRequest = mock(RegisterRequest.class);
         //Testen, wenn null übermittelt wird
@@ -111,7 +109,7 @@ public class ClientAPITest {
     @Test
     public void registerTestAlreadyExists() {
         dbUserDataSource = mock(DBUserDataSource.class);
-        when(dbUserDataSource.createUser("Tom","123","email")).thenReturn(false);
+        when(dbUserDataSource.createUser("Tom", "123", "email")).thenReturn(false);
         ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
         rRequest = mock(RegisterRequest.class);
         //Übermitteln der Register-Daten
@@ -132,7 +130,7 @@ public class ClientAPITest {
         when(cRequest.getCredential()).thenReturn("neueMail");
         when(cRequest.getCrednr()).thenReturn(1);
         clientAPI.changeCredential(cRequest, u1);
-        verify(dbUserDataSource).changeUser(u1, UserIdentifier.EMAIL,"neueMail");
+        verify(dbUserDataSource).changeUser(u1, UserIdentifier.EMAIL, "neueMail");
     }
 
     @Test
@@ -145,7 +143,7 @@ public class ClientAPITest {
         when(cRequest.getCredential()).thenReturn("neuesPW");
         when(cRequest.getCrednr()).thenReturn(2);
         clientAPI.changeCredential(cRequest, u1);
-        verify(dbUserDataSource).changeUser(u1, UserIdentifier.PASSWORD,"neuesPW");
+        verify(dbUserDataSource).changeUser(u1, UserIdentifier.PASSWORD, "neuesPW");
     }
 
     @Test
@@ -171,7 +169,7 @@ public class ClientAPITest {
     }
 
     @Test
-    public void createLobbyTest(){
+    public void createLobbyTest() {
         u1 = mock(User.class);
         createRequest = mock(CreateRequest.class);
         ClientAPI clientAPI = new ClientAPI(dbUserDataSource);

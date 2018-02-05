@@ -5,18 +5,18 @@ import requests.RequestType;
 
 public class LogoutRequest extends Request {
 
-  private RequestType request = RequestType.LOGOUT;
+    private RequestType request = RequestType.LOGOUT;
 
-  public LogoutRequest() {
-  }
+    public LogoutRequest() {
+    }
 
-  public LogoutRequest(int lobbyId) {
-    super(lobbyId);
-  }
+    public LogoutRequest(int lobbyId) {
+        super(lobbyId);
+    }
 
-  @Override
-  public RequestType getType() {
-    return this.request;
-  }
+    @Override
+    public RequestType getType() {
+        return this.request;
+    }
 
 }

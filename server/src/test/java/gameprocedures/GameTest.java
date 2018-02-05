@@ -99,7 +99,7 @@ public class GameTest {
         game.updatePyramids();
         assertEquals(zeroPoints, game.getPointsSum());
 
-        Stone[] newStones = {s1 ,s2, s3, s4};
+        Stone[] newStones = {s1, s2, s3, s4};
         pyramids.addStones(newStones);
     }
 

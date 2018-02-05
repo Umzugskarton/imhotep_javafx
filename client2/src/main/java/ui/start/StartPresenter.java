@@ -12,7 +12,7 @@ public class StartPresenter extends Presenter<IStartView> {
         this.connection = connection;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return this.connection;
     }
 }

@@ -9,26 +9,26 @@ import java.net.Socket;
 
 public class ConnectionInput {
 
-  private Socket socket;
-  private ObjectInputStream objectInputStream;
+    private Socket socket;
+    private ObjectInputStream objectInputStream;
 
-  private ConnectionInputThread inputThread;
+    private ConnectionInputThread inputThread;
 
-  private final EventBus eventBus;
+    private final EventBus eventBus;
 
-  public ConnectionInput(Socket socket, EventBus eventBus) {
-    this.socket = socket;
-    this.eventBus = eventBus;
-    init();
-  }
-
-  private void init() {
-    try {
-      this.objectInputStream = new ObjectInputStream(socket.getInputStream());
-      this.inputThread = new ConnectionInputThread(this.objectInputStream, this.eventBus);
-      this.inputThread.start();
-    } catch (IOException e) {
-      this.eventBus.post(new ShowServerSettingsEvent());
+    public ConnectionInput(Socket socket, EventBus eventBus) {
+        this.socket = socket;
+        this.eventBus = eventBus;
+        init();
     }
-  }
+
+    private void init() {
+        try {
+            this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+            this.inputThread = new ConnectionInputThread(this.objectInputStream, this.eventBus);
+            this.inputThread.start();
+        } catch (IOException e) {
+            this.eventBus.post(new ShowServerSettingsEvent());
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class StageLayout {
 
     private Rectangle edgeRect = new Rectangle();
 
-    public StageLayout(Stage stage, Scene scene, EventBus eventBus){
+    public StageLayout(Stage stage, Scene scene, EventBus eventBus) {
         this.stage = stage;
         this.scene = scene;
         this.eventBus = eventBus;
@@ -42,7 +42,7 @@ public class StageLayout {
         setTitel("Imhotep");
     }
 
-    public void configNavigation(HBox nav, Boolean withLogout){
+    public void configNavigation(HBox nav, Boolean withLogout) {
         nav.setId("nav");
         nav.setSpacing(5);
         nav.setAlignment(Pos.CENTER_RIGHT);
@@ -70,7 +70,7 @@ public class StageLayout {
         min.setMinWidth(20);
         close.setMinWidth(20);
 
-        if(withLogout) {
+        if (withLogout) {
             Button logoutButton = new Button();
             logoutButton.setId("logout-button");
             logoutButton.setFocusTraversable(false);
@@ -86,15 +86,15 @@ public class StageLayout {
     }
 
 
-    public void setTitel(String titel){
+    public void setTitel(String titel) {
         this.stage.setTitle(titel);
     }
 
-    public void setResizable(Boolean resizable){
+    public void setResizable(Boolean resizable) {
         stage.setResizable(resizable);
     }
 
-    public void setWindowSize(int width, int height){
+    public void setWindowSize(int width, int height) {
         stage.setWidth(width);
         stage.setHeight(height);
     }

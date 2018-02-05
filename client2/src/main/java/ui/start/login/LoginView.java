@@ -51,7 +51,7 @@ public class LoginView implements ILoginView {
     private final LoginPresenter loginPresenter;
     private final EventBus eventBus;
 
-    public LoginView(INavigateableView parentView, EventBus eventBus, Connection clientSocket){
+    public LoginView(INavigateableView parentView, EventBus eventBus, Connection clientSocket) {
         this.parentView = parentView;
         this.loginPresenter = new LoginPresenter(this, eventBus, clientSocket);
         this.eventBus = eventBus;
@@ -60,7 +60,7 @@ public class LoginView implements ILoginView {
 
     @Override
     public void initOwnView() {
-        if(this.myParent == null) {
+        if (this.myParent == null) {
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/start/login/LoginView.fxml", this, eventBus);
         }
     }
@@ -81,7 +81,7 @@ public class LoginView implements ILoginView {
 
     @FXML
     private void handlePressedKeyAction(KeyEvent event) {
-        if(KeyCode.ENTER == event.getCode() ){
+        if (KeyCode.ENTER == event.getCode()) {
             signInButton.fire();
         }
     }

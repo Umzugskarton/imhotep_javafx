@@ -11,59 +11,58 @@ public class Soundtrack {
 
 
     public Soundtrack(String fileName) {
-      try {
-        AudioInputStream ais = AudioSystem.getAudioInputStream(Soundtrack.class.getResource(fileName));
-        soundtrack = AudioSystem.getClip();
-        soundtrack.open(ais);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    public void play() {
-      try {
-        if (soundtrack != null) {
-          new Thread() {
-            public void run() {
-              synchronized (soundtrack) {
-                soundtrack.stop();
-                soundtrack.setFramePosition(0);
-                soundtrack.start();
-              }
-            }
-          }.start();
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(Soundtrack.class.getResource(fileName));
+            soundtrack = AudioSystem.getClip();
+            soundtrack.open(ais);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
     }
 
-    public void stop(){
-      if(soundtrack == null) return;
-      soundtrack.stop();
+    public void play() {
+        try {
+            if (soundtrack != null) {
+                new Thread() {
+                    public void run() {
+                        synchronized (soundtrack) {
+                            soundtrack.stop();
+                            soundtrack.setFramePosition(0);
+                            soundtrack.start();
+                        }
+                    }
+                }.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stop() {
+        if (soundtrack == null) return;
+        soundtrack.stop();
     }
 
     public void loop() {
-      try {
-        if (soundtrack != null) {
-          new Thread() {
-            public void run() {
-              synchronized (soundtrack) {
-                soundtrack.stop();
-                soundtrack.setFramePosition(0);
-                soundtrack.loop(Clip.LOOP_CONTINUOUSLY);
-              }
+        try {
+            if (soundtrack != null) {
+                new Thread() {
+                    public void run() {
+                        synchronized (soundtrack) {
+                            soundtrack.stop();
+                            soundtrack.setFramePosition(0);
+                            soundtrack.loop(Clip.LOOP_CONTINUOUSLY);
+                        }
+                    }
+                }.start();
             }
-          }.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
     }
 
-    public boolean isPlaying(){
-      return soundtrack.isActive();
+    public boolean isPlaying() {
+        return soundtrack.isActive();
     }
 
 }

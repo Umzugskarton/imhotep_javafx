@@ -7,7 +7,9 @@ import mvp.view.IView;
 import java.util.ArrayList;
 
 public interface IStorageView extends IView {
-  void setUserColor(String color);
-  ArrayList<Group> getStones();
-  Label getPointsLabel();
+    void setUserColor(String color);
+
+    ArrayList<Group> getStones();
+
+    Label getPointsLabel();
 }

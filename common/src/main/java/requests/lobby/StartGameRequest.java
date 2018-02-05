@@ -5,15 +5,15 @@ import requests.RequestType;
 
 public class StartGameRequest extends Request {
 
-  private RequestType request = RequestType.START_GAME;
+    private RequestType request = RequestType.START_GAME;
 
 
-  public StartGameRequest(int lobbyId) {
-    super(lobbyId);
-  }
+    public StartGameRequest(int lobbyId) {
+        super(lobbyId);
+    }
 
-  public RequestType getType() {
-    return this.request;
-  }
+    public RequestType getType() {
+        return this.request;
+    }
 
 }

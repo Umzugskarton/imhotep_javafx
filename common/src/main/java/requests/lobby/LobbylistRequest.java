@@ -5,9 +5,9 @@ import requests.RequestType;
 
 public class LobbylistRequest implements IRequest {
 
-  private RequestType request = RequestType.LOBBYLIST;
+    private RequestType request = RequestType.LOBBYLIST;
 
-  public RequestType getType() {
-    return this.request;
-  }
+    public RequestType getType() {
+        return this.request;
+    }
 }

@@ -9,84 +9,112 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.*?>
-<AnchorPane prefHeight="114.0" prefWidth="255.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="114.0" prefWidth="255.0" stylesheets="@../../../../../css/style.css"
+            xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane layoutX="8.0" layoutY="-44.0" prefHeight="124.0" prefWidth="255.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane layoutX="8.0" layoutY="-44.0" prefHeight="124.0" prefWidth="255.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Rectangle fx:id="flag" fill="DODGERBLUE" height="47.0" layoutX="56.0" layoutY="21.0" stroke="TRANSPARENT" strokeType="INSIDE" width="18.0" />
+                <Rectangle fx:id="flag" fill="DODGERBLUE" height="47.0" layoutX="56.0" layoutY="21.0"
+                           stroke="TRANSPARENT" strokeType="INSIDE" width="18.0"/>
                 <Pane id="house" prefHeight="124.0" prefWidth="255.0">
                     <children>
-                        <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="113.0" layoutY="21.0" scaleX="0.21" scaleY="0.12" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="113.0" layoutY="21.0" scaleX="0.21"
+                                 scaleY="0.12" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                             <points>
-                                <Double fx:value="-50.0" />
-                                <Double fx:value="40.0" />
-                                <Double fx:value="50.0" />
-                                <Double fx:value="40.0" />
-                                <Double fx:value="0.0" />
-                                <Double fx:value="-60.0" />
+                                <Double fx:value="-50.0"/>
+                                <Double fx:value="40.0"/>
+                                <Double fx:value="50.0"/>
+                                <Double fx:value="40.0"/>
+                                <Double fx:value="0.0"/>
+                                <Double fx:value="-60.0"/>
                             </points>
                         </Polygon>
-                        <Polygon fill="#42424290" layoutX="113.0" layoutY="23.0" scaleX="0.1" scaleY="0.08" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fill="#42424290" layoutX="113.0" layoutY="23.0" scaleX="0.1" scaleY="0.08"
+                                 stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                             <points>
-                                <Double fx:value="-50.0" />
-                                <Double fx:value="40.0" />
-                                <Double fx:value="50.0" />
-                                <Double fx:value="40.0" />
-                                <Double fx:value="0.0" />
-                                <Double fx:value="-60.0" />
+                                <Double fx:value="-50.0"/>
+                                <Double fx:value="40.0"/>
+                                <Double fx:value="50.0"/>
+                                <Double fx:value="40.0"/>
+                                <Double fx:value="0.0"/>
+                                <Double fx:value="-60.0"/>
                             </points>
                         </Polygon>
-                        <Circle fill="WHITE" layoutX="113.0" layoutY="14.0" radius="1.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fill="WHITE" layoutX="113.0" layoutY="14.0" radius="1.7" stroke="BLACK"
+                                strokeType="INSIDE" strokeWidth="0.0"/>
                         <Pane fx:id="stonePane" layoutX="154.0" layoutY="20.0" prefHeight="55.0" prefWidth="62.0">
                             <children>
                                 <Group fx:id="stone0" layoutX="5.0" layoutY="8.0" visible="false">
                                     <children>
-                                        <Rectangle fx:id="stoneColor0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
+                                        <Rectangle fx:id="stoneColor0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0"
+                                                   layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
                                     </children>
                                 </Group>
                                 <Group fx:id="stone1" layoutX="23.0" layoutY="8.0" visible="false">
                                     <children>
-                                        <Rectangle fx:id="stoneColor1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
+                                        <Rectangle fx:id="stoneColor1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0"
+                                                   layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
                                     </children>
                                 </Group>
                                 <Group fx:id="stone2" layoutX="41.0" layoutY="8.0" visible="false">
                                     <children>
-                                        <Rectangle fx:id="stoneColor2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
+                                        <Rectangle fx:id="stoneColor2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0"
+                                                   layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
                                     </children>
                                 </Group>
                                 <Group fx:id="stone3" layoutX="13.0" layoutY="26.0" visible="false">
                                     <children>
-                                        <Rectangle fx:id="stoneColor3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
+                                        <Rectangle fx:id="stoneColor3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0"
+                                                   layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
                                     </children>
                                 </Group>
                                 <Group fx:id="stone4" layoutX="32.0" layoutY="26.0" visible="false">
                                     <children>
-                                        <Rectangle fx:id="stoneColor4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="16.0" />
+                                        <Rectangle fx:id="stoneColor4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="24.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="14.0"
+                                                   layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
+                                                   width="16.0"/>
                                     </children>
                                 </Group>
                             </children>
                         </Pane>
                         <GridPane layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="34.0">
                             <columnConstraints>
-                                <ColumnConstraints />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Circle fx:id="pointsCircle" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
-                                <Label fx:id="pointsLabel" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Circle fx:id="pointsCircle" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT"
+                                        strokeType="INSIDE" GridPane.columnIndex="1"/>
+                                <Label fx:id="pointsLabel" text="0" textFill="WHITE" GridPane.columnIndex="1"
+                                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
-                                        <Font name="Calibri" size="14.0" />
+                                        <Font name="Calibri" size="14.0"/>
                                     </font>
                                     <effect>
-                                        <DropShadow color="#00000080" />
+                                        <DropShadow color="#00000080"/>
                                     </effect>
                                 </Label>
                             </children>
@@ -95,14 +123,14 @@
                 </Pane>
             </children>
         </Pane>
-      <Pane layoutX="8.0" layoutY="47.0" onMouseClicked="#showCardStack">
-         <children>
-            <ImageView fx:id="cardStack" fitHeight="25.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../css/cardstack.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+        <Pane layoutX="8.0" layoutY="47.0" onMouseClicked="#showCardStack">
+            <children>
+                <ImageView fx:id="cardStack" fitHeight="25.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../css/cardstack.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
     </children>
 </AnchorPane>

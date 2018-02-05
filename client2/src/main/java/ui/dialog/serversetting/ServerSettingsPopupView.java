@@ -5,7 +5,7 @@ import connection.Connection;
 
 public class ServerSettingsPopupView {
 
-    public ServerSettingsPopupView(String msg, EventBus eventBus, Connection connection){
+    public ServerSettingsPopupView(String msg, EventBus eventBus, Connection connection) {
         //super(msg, eventBus, connection);
     }
 }

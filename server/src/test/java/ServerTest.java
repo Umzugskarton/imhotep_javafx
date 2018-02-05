@@ -1,7 +1,6 @@
 import data.user.User;
 import events.Event;
 import lobby.Lobby;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -46,7 +45,7 @@ public class ServerTest {
     User u4;
 
     @Before
-    public void init(){
+    public void init() {
         serverMock = mock(Server.class);
 
         u1 = mock(User.class);
@@ -94,14 +93,14 @@ public class ServerTest {
     }
 
     @Test
-    public void runTest() throws Exception{
+    public void runTest() throws Exception {
         Server server = new Server(clientAPI, 4);
         //?
     }
 
     @Test
-    public void addLobbyTest(){
-        Server server = new Server(clientAPI,5);
+    public void addLobbyTest() {
+        Server server = new Server(clientAPI, 5);
         server.addLobby(lobby);
         assertEquals(lobby, server.getLobbybyID(0));
     }
@@ -109,7 +108,7 @@ public class ServerTest {
     @Test
     public void getLobbybyIDTest() {
         Server server = new Server(clientAPI, 6);
-        assertEquals(null,server.getLobbybyID(1));
+        assertEquals(null, server.getLobbybyID(1));
     }
 
     @Test

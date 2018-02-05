@@ -3,7 +3,7 @@ package mvp.view;
 import ui.dialog.misc.IDialogableView;
 
 public interface INavigateableView extends IView, IDialogableView {
-  String getTitle();
+    String getTitle();
 
-  ShowViewEvent getEventToShowThisView();
+    ShowViewEvent getEventToShowThisView();
 }

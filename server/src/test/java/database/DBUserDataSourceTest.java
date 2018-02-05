@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import user.UserIdentifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 public class DBUserDataSourceTest {
 
@@ -48,7 +47,7 @@ public class DBUserDataSourceTest {
         assertEquals("hallo@test.de", dbUser.getEmail());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void failGetUserTest() {
         User failUser = dbUDS.getUser(UserIdentifier.USERNAME, "derNichtExistierendeUser");
         assertEquals(null, failUser.getId());

@@ -10,21 +10,21 @@ import java.util.ArrayList;
 
 public interface IUserInterfaceView extends IView {
 
-  Label getCurrentPlayerLabel();
+    Label getCurrentPlayerLabel();
 
-  Rectangle getPlayerColorRectangle();
+    Rectangle getPlayerColorRectangle();
 
-  ComboBox<Integer> getSelectStoneLocationBox();
+    ComboBox<Integer> getSelectStoneLocationBox();
 
-  ComboBox<String> getSelectShipLocationBox();
+    ComboBox<String> getSelectShipLocationBox();
 
-  Label getUiBannerLabel();
+    Label getUiBannerLabel();
 
-  Label getUiBannerSmallLabel();
+    Label getUiBannerSmallLabel();
 
-  GridPane getUserInterface();
+    GridPane getUserInterface();
 
-  GridPane getHoldingArea();
+    GridPane getHoldingArea();
 
-  ArrayList<ComboBox<Integer>> getShipCBoxes();
+    ArrayList<ComboBox<Integer>> getShipCBoxes();
 }

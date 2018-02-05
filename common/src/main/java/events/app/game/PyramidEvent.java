@@ -2,7 +2,7 @@ package events.app.game;
 
 //TODO
 public class PyramidEvent extends GameEvent {
-  // private Pyramid pyramid;
+    // private Pyramid pyramid;
 
   /* public PyramidEvent(Pyramid pyramid) {
      this.pyramid = pyramid;

@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 
 public interface IView {
 
-  Parent getRootParent();
+    Parent getRootParent();
 
-  void initOwnView();
+    void initOwnView();
 }

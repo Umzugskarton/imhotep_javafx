@@ -31,10 +31,10 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
         getEventBus().register(this);
     }
 
-    public void updateLobbylist(ArrayList<CommonLobby> lobbys){
+    public void updateLobbylist(ArrayList<CommonLobby> lobbys) {
         this.lobbys.clear();
 
-        for (CommonLobby lobby: lobbys){
+        for (CommonLobby lobby : lobbys) {
             LobbyTableData lobbyTableData = new LobbyTableData(
                     lobby.getLobbyId(),
                     lobby.getName(),
@@ -46,7 +46,7 @@ public class LobbyTablePresenter extends Presenter<ILobbyTableView> {
 
     }
 
-    public void joinLobby(int id, String pw){
+    public void joinLobby(int id, String pw) {
         JoinRequest join = new JoinRequest(id, pw);
         this.connection.send(join);
     }
