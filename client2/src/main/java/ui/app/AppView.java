@@ -20,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
-import requests.gamemoves.Move;
 import requests.lobby.LeaveLobbyRequest;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
@@ -157,7 +156,7 @@ public class AppView implements IAppView {
       CommonLobby lobby = e.getLobby();
       lobbies.add(lobby);
       EventBus gameEventbus = new EventBus();
-      gameEventbuses.put(e.getLobbyId() , gameEventbus);
+      gameEventbuses.put(lobby.getLobbyId() , gameEventbus);
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
       addTab(lobbyView, lobby);
       lobbyViews.add(lobbyView);
@@ -200,6 +199,7 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onGameEvent(GameEvent event){
+    System.out.println(event.getLobbyId());
     gameEventbuses.get(event.getLobbyId()).post(event);
   }
 }

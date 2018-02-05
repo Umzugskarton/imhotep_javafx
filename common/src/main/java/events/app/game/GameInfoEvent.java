@@ -18,6 +18,11 @@ public class GameInfoEvent extends GameEvent {
   private int[] sitesAllocation;
   private ArrayList<CardType> cards = new ArrayList<>();
 
+
+  public GameInfoEvent(int lobbyId){
+    this.lobbyId = lobbyId;
+  }
+  
   public void setMyId(int id) {
     this.myId = id;
   }

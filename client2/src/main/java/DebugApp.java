@@ -20,8 +20,6 @@ import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
 import events.start.login.LoginSuccessfulEvent;
 import events.start.registration.RegistrationEvent;
-import java.util.Arrays;
-import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,14 +35,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import requests.chat.ChatRequest;
 import requests.Request;
+import requests.chat.ChatRequest;
 import requests.gamemoves.CardType;
 import ui.dialog.lobby.createlobby.ShowCreateLobbyDialogEvent;
 import ui.dialog.misc.ViewIdentifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class DebugApp {
 
@@ -320,7 +320,7 @@ public class DebugApp {
     lobbyListButton6.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        GameInfoEvent gameInfo = new GameInfoEvent();
+        GameInfoEvent gameInfo = new GameInfoEvent(0);
         int[] sitesAllo = {-1, -1, -1, -1, -1};
         SiteType[] st = {SiteType.MARKET, SiteType.PYRAMID, SiteType.TEMPLE,
             SiteType.BURIALCHAMBER, SiteType.OBELISKS};
