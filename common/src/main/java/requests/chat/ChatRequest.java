@@ -2,25 +2,17 @@ package requests.chat;
 
 
 import requests.IRequest;
+import requests.Request;
 import requests.RequestType;
 
-public class ChatRequest implements IRequest {
+public class ChatRequest extends Request {
 
   private RequestType request = RequestType.CHAT;
-  private int lobbyId;
   private String msg;
 
   public ChatRequest(String msg) {
     this.msg = msg;
-    lobbyId = -1;
-  }
-
-  public int getLobbyId() {
-    return lobbyId;
-  }
-
-  public void setLobbyId(int lobbyId) {
-    this.lobbyId = lobbyId;
+    setLobbyId(-1);
   }
 
   public String getMsg() {

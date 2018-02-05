@@ -7,6 +7,10 @@ public class UserNotFoundErrorEvent extends Event {
   private String event = "userNotFoundError";
   private String msg;
 
+  public UserNotFoundErrorEvent(){
+    setLobbyId(-1);
+  }
+
   public void setMsg(String msg) {
     this.msg = "Der User " + msg + " ist momentan nicht eingeloggt.";
   }

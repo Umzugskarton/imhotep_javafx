@@ -8,6 +8,10 @@ public class WhisperChatEvent extends Event {
   private String msg;
   private String to;
 
+  public WhisperChatEvent(){
+    setLobbyId(-1);
+  }
+
   public void setTo(String username) {
     this.to = username;
   }

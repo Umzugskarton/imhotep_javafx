@@ -1,9 +1,10 @@
 package requests.chat;
 
 import requests.IRequest;
+import requests.Request;
 import requests.RequestType;
 
-public class WhisperRequest implements IRequest {
+public class WhisperRequest extends Request {
 
   RequestType request = RequestType.WHISPER;
   private String to;
@@ -12,6 +13,7 @@ public class WhisperRequest implements IRequest {
   public WhisperRequest(String to, String msg) {
     this.to = to;
     this.msg = msg;
+    setLobbyId(-1);
   }
 
   public RequestType getType() {

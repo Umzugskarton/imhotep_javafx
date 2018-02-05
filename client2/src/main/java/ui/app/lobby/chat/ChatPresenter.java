@@ -46,6 +46,8 @@ public class ChatPresenter extends Presenter<IChatView> {
         String message = whisperMatcher.group(3);
 
         chatCommand = new WhisperRequest(receiver, message);
+        ((WhisperRequest) chatCommand).setLobbyId(this.lobby.getLobbyId());
+
         getView().addWhisper(receiver, message, false);
       } else {
         getView().addInfoMessage("invalidWhisperSyntax", Color.GRAY);
@@ -80,7 +82,9 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onWhisperEvent(WhisperChatEvent e) {
-    getView().addWhisper(e.getFrom(), e.getMsg(), true);
+    if (e.getLobbyId() == lobby.getLobbyId()) {
+      getView().addWhisper(e.getFrom(), e.getMsg(), true);
+    }
   }
 
   public CommonLobby getLobby() {

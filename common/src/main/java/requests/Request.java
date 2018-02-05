@@ -14,4 +14,8 @@ public abstract class Request implements IRequest {
   public int getLobbyId() {
     return lobbyId;
   }
+
+  public void setLobbyId(int lobbyId) {
+    this.lobbyId = lobbyId;
+  }
 }

@@ -3,6 +3,7 @@ package commands.chat;
 import commands.Command;
 import events.Event;
 import events.app.chat.UserNotFoundErrorEvent;
+import events.app.chat.WhisperChatEvent;
 import requests.IRequest;
 import requests.chat.WhisperRequest;
 import socket.ClientAPI;
@@ -31,8 +32,10 @@ public class WhisperCommand implements Command {
     String receiverUsername = this.server
         .getLoggedInUsername(request.getTo());
     if (receiverUsername != null) {
+      WhisperChatEvent event = this.clientAPI.whisper(request, this.clientListener.getUser());
+      event.setLobbyId(request.getLobbyId());
       this.server
-          .sendTo(this.clientAPI.whisper(request, this.clientListener.getUser()), receiverUsername);
+          .sendTo(event, receiverUsername);
     } else {
       UserNotFoundErrorEvent error = new UserNotFoundErrorEvent();
       error.setMsg(request.getTo());
@@ -40,6 +43,7 @@ public class WhisperCommand implements Command {
     }
 
     if (response != null) {
+      response.setLobbyId(request.getLobbyId());
       this.clientListener.send(response);
     }
   }

@@ -75,6 +75,8 @@ public class ChatPresenter extends Presenter<IChatView> {
 
   @Subscribe
   public void onWhisperEvent(WhisperChatEvent e) {
-    getView().addWhisper(e.getFrom(), e.getMsg(), true);
+    if(e.getLobbyId() == -1){
+      getView().addWhisper(e.getFrom(), e.getMsg(), true);
+    }
   }
 }
