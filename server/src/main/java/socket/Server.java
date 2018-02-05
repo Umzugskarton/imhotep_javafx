@@ -26,6 +26,7 @@ public class Server {
   private ClientAPI clientAPI;
   private ArrayList<ClientListener> connectedClients = new ArrayList<>();
   private ArrayList<Lobby> openLobby = new ArrayList<>();
+  private int lobbyCount = 1;
 
   public Server(ClientAPI clientApi, int port) {
     this.port = port;
@@ -117,8 +118,9 @@ public class Server {
   public synchronized CreateLobbyEvent addLobby(Lobby lobby) {
     log.info("Eine neue Lobby wurde erstellt");
     this.openLobby.add(lobby);
-    lobby.setLobbyID(openLobby.size() - 1);
-    return new CreateLobbyEvent(true, openLobby.size() - 1, "Lobby Erfolgreich erstellt!");
+    lobby.setLobbyID(this.lobbyCount);
+    this.lobbyCount++;
+    return new CreateLobbyEvent(true, lobby.getLobbyID(), "Lobby Erfolgreich erstellt!");
   }
 
   public synchronized boolean delLobby(Lobby lobby) {

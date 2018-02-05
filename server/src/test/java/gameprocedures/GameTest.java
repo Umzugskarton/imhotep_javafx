@@ -107,14 +107,4 @@ public class GameTest {
   public void getCargoAsIntArrayByShipTest() {
 
   }
-
-  @Test
-  public void runTest() {
-
-  }
-
-  @Test
-  public void executeMoveTest() {
-
-  }
 }

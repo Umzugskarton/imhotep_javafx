@@ -7,9 +7,6 @@ public class LobbyInfoEvent extends Event {
 
   private CommonLobby lobby;
 
-  public LobbyInfoEvent() {
-  }
-
   public LobbyInfoEvent(CommonLobby lobby) {
     this.lobby = lobby;
   }

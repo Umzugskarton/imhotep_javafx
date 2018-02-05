@@ -6,23 +6,26 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import game.Player;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
 public class ShipTest {
-
-  //WunschSortierung der Steine
-  private int sortedstones[] = {1, 2, 0, 3};
-
   @Mock
   private Player p1;
   @Mock
   private Player p2;
 
+  Ship test;
+  int sortedstones[] = {1, 2, 0, 3};
+  @Before
+  public void init(){
+    //WunschSortierung der Steine
+    test = new Ship(1);
+  }
 
   @Test
   public void sortStonesTest() {
-    Ship test = new Ship(1);
     while (test.getSize() != 4) {
       test = new Ship(1);
     }
@@ -51,5 +54,10 @@ public class ShipTest {
       newOrder[i] = newStones[i].getPlayer().getId();
     }
     assertArrayEquals(testOrder, newOrder);
+  }
+
+  @Test
+  public void getCargoAsIntArrayByShipTest() {
+
   }
 }
