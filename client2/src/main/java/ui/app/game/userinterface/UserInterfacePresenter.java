@@ -8,9 +8,12 @@ import data.lobby.CommonLobby;
 import data.user.User;
 import events.SiteType;
 import events.app.game.GameInfoEvent;
+import events.app.game.ShipDockedEvent;
 import events.app.game.ShipLoadedEvent;
 import events.app.game.TurnEvent;
+
 import java.util.List;
+
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -132,16 +135,34 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     storages = event.getStorages();
     round = event.getRound();
     turnTime = event.getTurnTime();
-    if (ships == null) {
+    if (ships == null)
       ships = event.getShips();
-    }
     for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
       shipBox.getItems().clear();
-      for (int i = 0; i <= ships.size() - 1; i++) {
+      for (int i = 0; i <= ships.size() - 1; i++)
         shipBox.getItems().add(i);
-      }
     }
+
+    for (int i = 0; i < event.getShips().size(); i++)
+      updateShipCargoBoxes(event.getShips().get(i), i);
     setSelectShipLocationBox(event.getSitesAllocation(), event.getSiteTypes());
+  }
+
+  @Subscribe
+  private void onShipdockedEvent(ShipDockedEvent event) {
+    removeSiteByTypeFromShipToLocationBox(event.getSite());
+    removeShip(event.getShipID());
+  }
+
+  private void removeShip(int ship) {
+    for (ComboBox<Integer> box : view.getShipCBoxes()) {
+      box.getItems().remove(ship);
+    }
+  }
+
+  private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
+        view.getSelectShipLocationBox().getItems().remove(type.toString());
+
   }
 
   private void setSelectShipLocationBox(int[] sitesAllocation, List<SiteType> sites) {
@@ -156,19 +177,25 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   @Subscribe
-  public void updateShipCargoBoxes(ShipLoadedEvent e) {
-    for (int i = 0; i < e.getCargo().length; i++) {
-      this.ships.get(e.getShipID())[i] = e.getCargo()[i];
-    }
-    this.setStoneLocationCBox(e.getShipID());
+  private void onShipLoadedEvent(ShipLoadedEvent e) {
+    updateShipCargoBoxes(e.getCargo(), e.getShipID());
   }
+
+  private void updateShipCargoBoxes(int[] cargo, int shipId) {
+    for (int i = 0; i < cargo.length; i++) {
+      this.ships.get(shipId)[i] = cargo[i];
+    }
+    this.setStoneLocationCBox(shipId);
+  }
+
 
   void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1) {
+      if (ships.get(ship)[i] == -1)
         view.getSelectStoneLocationBox().getItems().add(i);
-      }
+      else
+        System.out.println("Ship " + ship + " hat an stelle " + i + " : " + ships.get(ship)[i]);
     }
   }
 
@@ -183,6 +210,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
       move = new VoyageToMarketMove(ship, lobby.getLobbyId());
     else
       move = new VoyageToStoneSiteMove(ship, to, lobby.getLobbyId());
+    stopTurnTimer();
+    toggleUserInterface(false);
     this.connection.send(move);
   }
 

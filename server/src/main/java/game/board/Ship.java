@@ -93,12 +93,10 @@ public class Ship {
   public int getLoadedStones() {
     int stoneCount = 0;
     for (Stone stone : stones) {
-      log.warn("Try to count");
       if (stone != null) {
         stoneCount++;
       }
     }
-    log.warn("Counted {} Stones on Ship {}",stoneCount,id);
     return stoneCount;
   }
 
@@ -110,5 +108,18 @@ public class Ship {
       stones[sortedStones[i]] = temp;
     }
     return stones;
+  }
+
+
+   public int[] getCargoAsIntArrayByShip() {
+    int[] shipInt = new int[stones.length];
+    for (int i = 0; i < stones.length; i++) {
+      if (stones[i] != null) {
+        shipInt[i] = stones[i].getPlayer().getId();
+      } else {
+        shipInt[i] = -1;
+      }
+    }
+    return shipInt;
   }
 }

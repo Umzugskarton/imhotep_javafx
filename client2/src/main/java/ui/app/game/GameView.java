@@ -14,6 +14,7 @@ import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
 import ui.app.game.board.sites.market.cards.CardView;
+import ui.app.game.board.sites.market.cards.ChooseCardView;
 import ui.app.game.chat.ChatView;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.dialog.IDialogView;
@@ -109,6 +110,11 @@ public class GameView implements IGameView {
   }
 
   @Subscribe
+  private void onIChooseCardView(ChooseCardView chooseCardView){
+    showDialog(chooseCardView);
+  }
+
+  @Subscribe
   private void showIViewInDialog(CardView view){
     showDialog(view);
   }
@@ -134,6 +140,11 @@ public class GameView implements IGameView {
   @Override
   public Parent getRootParent() {
     return this.myParent;
+  }
+
+  @Subscribe
+  private void onHideDialogEvent(HideDialogEvent e){
+    hideDialog();
   }
 
 

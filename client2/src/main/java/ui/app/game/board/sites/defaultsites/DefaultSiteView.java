@@ -48,7 +48,6 @@ public class DefaultSiteView implements ISiteView {
   public void initOwnView() {
     if (this.myParent == null) {
       String path = "/ui/fxml/app/game/sites/" + toTitleCase(type.toString().toLowerCase()) + "View.fxml";
-      System.out.println(path);
       this.myParent = GenerateFXMLView.getINSTANCE()
           .loadView( path,this, eventBus);
     }

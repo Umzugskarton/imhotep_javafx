@@ -61,6 +61,7 @@ public class VoyageToMarket implements Procedure {
     for (Stone stone : stones) {
       game.sendTo(game.getPlayer(stone.getPlayer().getId()).getUser(),
           new ChooseCardEvent(game.getGameID(), chosenCards));
+      game.setCurrentPlayer(stone.getPlayer().getId());
       Move move = acquireMove();
       if (move instanceof ChooseCardMove) {
         ChooseCardMove chooseCard = (ChooseCardMove) move;

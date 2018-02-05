@@ -39,7 +39,7 @@ public class CommandFactory {
     }
 
     public Command getCommand(IRequest request){
-        log.debug("BIN BEI: " +request.getClass().getSimpleName());
+        //log.debug("BIN BEI: " +request.getClass().getSimpleName());
         Command c = commandMap.get(request.getType());
         c.put(request);
         return c;

@@ -58,7 +58,8 @@ public class ClientListener implements Runnable {
             Move move = (Move) o;
             Lobby lobby = getLobbyByID(move.getLobbyId());
             if (lobby != null && !lobby.isVisible()) {
-              lobby.getGame().getExecutor().setMove(move);
+              if (lobby.getGame().getCurrentPlayer() == lobby.getGame().getPlayerByUser(user).getId())
+                lobby.getGame().getExecutor().setMove(move);
             }
           } else {
             IRequest request = (IRequest) o;

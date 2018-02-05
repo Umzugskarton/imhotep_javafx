@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
 
+import java.util.Arrays;
+
 public class ShipPresenter extends Presenter<IShipView> {
   private CommonLobby lobby;
   private int[] cargo;
@@ -56,7 +58,9 @@ public class ShipPresenter extends Presenter<IShipView> {
   @Subscribe
   public void initCargo(GameInfoEvent e) {
     cargo = e.getShips().get(shipId);
-    System.out.println(" done that " + cargo[0]);
+    for (int i = 0; i < cargo.length; i++) {
+      System.out.println("CARGO SHIP " + shipId + " : "+ cargo[i]);
+    }
 
     updateCargo();
   }

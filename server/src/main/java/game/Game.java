@@ -92,7 +92,8 @@ public class Game implements Runnable {
   }
 
   private void resetCurrentShips() {
-    for (int i = 0; i < lobby.getSize(); i++) {
+    this.ships = new Ship[NUMBER_OF_SHIPS];
+    for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       this.ships[i] = new Ship(i);
     }
   }
@@ -150,7 +151,7 @@ public class Game implements Runnable {
     }
 
     for (Ship ship : ships) {
-      gameInfo.setCurrentShips(getCargoAsIntArrayByShip(ship));
+      gameInfo.setCurrentShips(ship.getCargoAsIntArrayByShip());
     }
 
     int numberOfSites = 5;
@@ -187,17 +188,7 @@ public class Game implements Runnable {
     return gameInfo;
   }
 
-  public int[] getCargoAsIntArrayByShip(Ship ship) {
-    int[] shipInt = new int[ship.getStones().length];
-    for (int i = 0; i < ship.getStones().length; i++) {
-      if (ship.getStones()[i] != null) {
-        shipInt[i] = ship.getStones()[i].getPlayer().getId();
-      } else {
-        shipInt[i] = -1;
-      }
-    }
-    return shipInt;
-  }
+
 
   @Override
   public void run() {
@@ -316,6 +307,14 @@ public class Game implements Runnable {
     return true;
   }
 
+  public Player getPlayerByUser(User user){
+    for (Player player : players) {
+      if (player.getUser().equals(user))
+        return player;
+    }
+    return null;
+  }
+
   private void waitForMove(int p) {
     log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: "
         + this.players[p].getUser().getUsername() + ")");
@@ -349,6 +348,10 @@ public class Game implements Runnable {
 
   public int getGameID() {
     return gameID;
+  }
+
+  public void setCurrentPlayer(int currentPlayer) {
+    this.currentPlayer = currentPlayer;
   }
 
   private int testRound = 0;
