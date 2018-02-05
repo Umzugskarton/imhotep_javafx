@@ -125,14 +125,12 @@ public class ClientAPI {
   }
 
   public ChatMessageEvent chat(ChatRequest request, User user) {
-    System.out.println("ClientAPI - Message beginnt API" + request.getLobbyId());
     ChatMessageEvent event = new ChatMessageEvent();
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
       event.setLobbyId(request.getLobbyId());
     }
-    System.out.println("ClientAPI - Message Event hat " + event.getLobbyId());
     return event;
   }
 

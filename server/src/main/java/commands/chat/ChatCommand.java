@@ -29,10 +29,8 @@ public class ChatCommand implements Command {
     ChatMessageEvent chatMessage = this.clientAPI.chat(request, this.clientListener.getUser());
 
     if (request.getLobbyId() != -1) {
-      System.out.println("ChatCommand - Message sollte aus Lobby geschieckt werden" + request.getLobbyId());
       server.sendToLobby(chatMessage, server.getLobbybyID(request.getLobbyId()));
     } else {
-      System.out.println("ChatCommand - Message sollte aus Main geschieckt werden" + request.getLobbyId());
       this.server.sendToLoggedIn(chatMessage);
     }
   }
