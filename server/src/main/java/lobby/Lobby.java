@@ -169,7 +169,7 @@ public class Lobby {
       newcolor = (newcolor + 1) % 10;
     } while (userColor.contains(newcolor));
     userColor.set(userid, newcolor);
-    return new ChangeLobbyUserColorEvent(userid, colors.get(newcolor));
+    return new ChangeLobbyUserColorEvent(userid, colors.get(newcolor), lobbyID);
   }
 
   public ArrayList<LobbyUser> getLobbyUserArrayList() {

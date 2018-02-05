@@ -80,6 +80,12 @@ public class Game implements Runnable {
     sites.add(temple);
     sites.add(burialChamber);
     sites.add(obelisks);
+    try {
+      Thread.sleep(100);
+    }
+    catch (Exception e){
+
+    }
 
     for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       ships[i] = new Ship(i);

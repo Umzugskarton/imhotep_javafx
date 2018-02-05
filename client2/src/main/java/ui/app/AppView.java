@@ -156,6 +156,8 @@ public class AppView implements IAppView {
     if (!found) {
       CommonLobby lobby = e.getLobby();
       lobbies.add(lobby);
+      EventBus gameEventbus = new EventBus();
+      gameEventbuses.put(e.getLobbyId() , gameEventbus);
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(), this.user, lobby);
       addTab(lobbyView, lobby);
       lobbyViews.add(lobbyView);
@@ -173,9 +175,8 @@ public class AppView implements IAppView {
         break;
       }
     }
-    EventBus gameEventbus = new EventBus();
-    gameEventbuses.put(e.getLobbyId() , gameEventbus);
-    GameView gameView = new GameView(this, gameEventbus, this.presenter.getConnection(), this.user, lobby);
+
+    GameView gameView = new GameView(this, gameEventbuses.get(e.getLobbyId()), this.presenter.getConnection(), this.user, lobby);
     Tab tab = lobby.getMyTab();
     tab.setText("Game #" + lobby.getLobbyId());
     tab.setContent(gameView.getRootParent());
