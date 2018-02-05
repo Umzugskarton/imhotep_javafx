@@ -129,9 +129,7 @@ public class ClientAPI {
     if (request.getMsg() != null && user != null) {
       event.setMsg(request.getMsg());
       event.setUser(user.getUsername());
-      if (request.getLobbyId() != null) {
-        event.setLobbyId(request.getLobbyId());
-      }
+      event.setLobbyId(request.getLobbyId());
     }
     return event;
   }
