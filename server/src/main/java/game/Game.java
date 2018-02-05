@@ -7,27 +7,21 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.BurialChamber;
-import game.board.Market;
-import game.board.Obelisks;
-import game.board.Pyramids;
-import game.board.Ship;
-import game.board.Site;
-import game.board.StoneSite;
-import game.board.Temple;
+import game.board.*;
 import game.board.cards.CardDeck;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import socket.ClientListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
 
 public class Game implements Runnable {
 
@@ -41,6 +35,7 @@ public class Game implements Runnable {
   private int currentPlayer;
   private int round;
   private CardDeck cardDeck = new CardDeck();
+  private int size;
 
   //StoneSites
   private ArrayList<StoneSite> sites = new ArrayList<>();
@@ -69,7 +64,7 @@ public class Game implements Runnable {
   }
 
   private void initialize() {
-    int size = lobby.getSize();
+    size = lobby.getSize();
     players = new Player[size];
     market = new Market(size, cardDeck.getDeck());
     pyramids = new Pyramids(size);
@@ -94,6 +89,10 @@ public class Game implements Runnable {
       players[i] = new Player(lobbyUsers.get(i), i);
       players[i].addStones(i + 2);
     }
+  }
+
+  public int getSize() {
+    return size;
   }
 
   private void resetCurrentShips() {

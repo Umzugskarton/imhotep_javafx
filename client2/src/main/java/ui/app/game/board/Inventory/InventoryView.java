@@ -56,6 +56,7 @@ public class InventoryView implements IInventoryView {
 
   @Override
   public void addCard(CardView cardView) {
-    cardGridPane.getChildren().add(cardView.getRootParent());
+    Integer maxColIndex = cardGridPane.getChildren().stream().filter(node -> node.isManaged()).map(node -> GridPane.getColumnIndex(node)).max((o1, o2) -> (o1 > o2?o1:o2)).orElse(-1);
+    cardGridPane.add(cardView.getRootParent() ,maxColIndex+1, maxColIndex/3);
   }
 }

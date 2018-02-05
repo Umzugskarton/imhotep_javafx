@@ -5,7 +5,6 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import events.SiteType;
 import helper.fxml.GenerateFXMLView;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -16,6 +15,8 @@ import mvp.view.IView;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.obelisks.ObelisksPresenter;
+
+import java.util.ArrayList;
 
 
 public class DefaultSiteView implements ISiteView {
@@ -46,10 +47,9 @@ public class DefaultSiteView implements ISiteView {
   @Override
   public void initOwnView() {
     if (this.myParent == null) {
-      String path =
-          "/ui/fxml/app/game/sites/" + toTitleCase(type.toString().toLowerCase()) + "View.fxml";
+      String path = "/ui/fxml/app/game/sites/" + toTitleCase(type.toString().toLowerCase()) + "View.fxml";
       this.myParent = GenerateFXMLView.getINSTANCE()
-          .loadView(path, this, eventBus);
+          .loadView( path,this, eventBus);
     }
   }
 

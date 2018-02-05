@@ -1,17 +1,18 @@
 package events.app.game;
 
-import java.util.ArrayList;
 import requests.gamemoves.CardType;
 
-public class InventoryUpdateEvent extends GameEvent {
+import java.util.ArrayList;
 
-  private ArrayList<CardType[]> cardTypes = new ArrayList<>();
+public class InventoryUpdateEvent extends GameEvent{
+  private ArrayList<ArrayList<CardType>>  cardTypes;
 
-  public ArrayList<CardType[]> getCardTypes() {
-    return cardTypes;
+  public InventoryUpdateEvent(ArrayList<ArrayList<CardType>> cardTypes, int lobbyId){
+    this.cardTypes = cardTypes;
+    this.lobbyId = lobbyId;
   }
 
-  public void setCardTypes(ArrayList<CardType[]> cardTypes) {
-    this.cardTypes = cardTypes;
+  public ArrayList<ArrayList<CardType>> getCardTypes() {
+    return cardTypes;
   }
 }

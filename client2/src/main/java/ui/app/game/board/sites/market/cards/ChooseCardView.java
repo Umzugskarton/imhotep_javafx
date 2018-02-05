@@ -4,12 +4,13 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import mvp.view.IView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChooseCardView implements IChooseCardView {
 
@@ -45,7 +46,8 @@ public class ChooseCardView implements IChooseCardView {
     int cardId = 0;
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {
-        cardGrid.add(cardViews.get(cardId).getRootParent(), i, j);
+        if (cardViews.get(cardId).isAvailable())
+          cardGrid.add(cardViews.get(cardId).getRootParent(), i, j);
         cardId++;
       }
     }
