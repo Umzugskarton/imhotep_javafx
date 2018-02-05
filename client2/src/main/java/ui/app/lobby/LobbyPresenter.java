@@ -8,23 +8,23 @@ import mvp.presenter.Presenter;
 
 public class LobbyPresenter extends Presenter<ILobbyView> {
 
-  private final Connection connection;
-  private final User user;
-  private CommonLobby lobby;
+    private final Connection connection;
+    private final User user;
+    private CommonLobby lobby;
 
-  public LobbyPresenter(ILobbyView view, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
-    super(view, eventBus);
-    this.connection = connection;
-    this.user = user;
-    this.lobby = lobby;
-  }
+    public LobbyPresenter(ILobbyView view, EventBus eventBus, Connection connection, User user, CommonLobby lobby) {
+        super(view, eventBus);
+        this.connection = connection;
+        this.user = user;
+        this.lobby = lobby;
+    }
 
-  public Connection getClientSocket() {
-    return this.connection;
-  }
+    public Connection getClientSocket() {
+        return this.connection;
+    }
 
-  public CommonLobby getLobby() {
-    return lobby;
-  }
+    public CommonLobby getLobby() {
+        return lobby;
+    }
 
 }

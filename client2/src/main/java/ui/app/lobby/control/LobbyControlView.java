@@ -49,7 +49,7 @@ public class LobbyControlView implements ILobbyControlView {
     private final LobbyControlPresenter presenter;
     private final EventBus eventBus;
 
-    public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket, CommonLobby lobby){
+    public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket, CommonLobby lobby) {
         this.parentView = parentView;
         this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket, lobby);
         this.eventBus = eventBus;
@@ -58,7 +58,7 @@ public class LobbyControlView implements ILobbyControlView {
 
     @Override
     public void initOwnView() {
-        if(this.myParent == null) {
+        if (this.myParent == null) {
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/lobby/control/LobbyControlView.fxml", this, eventBus);
         }
     }
@@ -74,7 +74,7 @@ public class LobbyControlView implements ILobbyControlView {
     }
 
     @FXML
-    private void handlestartGameButtonAction(ActionEvent event){
+    private void handlestartGameButtonAction(ActionEvent event) {
         System.out.println("Ich starte das Spiel!");
         presenter.startGame();
     }

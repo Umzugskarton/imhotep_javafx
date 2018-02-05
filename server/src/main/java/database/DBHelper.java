@@ -29,7 +29,7 @@ public abstract class DBHelper {
     private static final String USERNAME = "safariman";
     private static final String PASSWORD = "blablabla";
 
-    public DBHelper(){
+    public DBHelper() {
         try {
             Class.forName(jdbcDriver);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public abstract class DBHelper {
         }
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         try {
             this.conn = DriverManager.getConnection(db, USERNAME, PASSWORD);
             if (this.onConnection()) {

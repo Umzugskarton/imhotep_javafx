@@ -4,7 +4,7 @@ public class LobbyTableData {
     private int lobbyId, userSize, lobbySize;
     private String lobbyIdString, name, belegung, userSizeString, lobbySizeString;
 
-    public LobbyTableData(int lobbyId, String name, int userSize, int lobbySize){
+    public LobbyTableData(int lobbyId, String name, int userSize, int lobbySize) {
         setLobbyId(lobbyId);
         this.name = name;
         setBelegung(userSize, lobbySize);
@@ -61,11 +61,11 @@ public class LobbyTableData {
         return lobbySizeString;
     }
 
-    private void setBelegung(String userSize, String lobbySize){
+    private void setBelegung(String userSize, String lobbySize) {
         this.belegung = userSize + " / " + lobbySize;
     }
 
-    private void setBelegung(int userSize, int lobbySize){
+    private void setBelegung(int userSize, int lobbySize) {
         this.belegung = String.valueOf(userSize) + " / " + String.valueOf(lobbySize);
     }
 

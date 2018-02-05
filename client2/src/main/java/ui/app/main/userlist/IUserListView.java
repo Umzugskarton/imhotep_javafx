@@ -5,5 +5,5 @@ import mvp.view.IView;
 
 public interface IUserListView extends IView {
 
-  void setUserListViewData(ObservableList<String> datasource);
+    void setUserListViewData(ObservableList<String> datasource);
 }

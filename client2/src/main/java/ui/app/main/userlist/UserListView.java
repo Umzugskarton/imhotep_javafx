@@ -60,7 +60,7 @@ public class UserListView implements IUserListView {
     }
 
     @FXML
-    void handleListViewClick(MouseEvent click){
+    void handleListViewClick(MouseEvent click) {
         if (click.getClickCount() == 2) {
             String selectedUser = (String) userListView.getSelectionModel().getSelectedItem();
             TextField messageInput = chatView.getChatTextField();
@@ -76,7 +76,7 @@ public class UserListView implements IUserListView {
     }
 
     @Override
-    public void setUserListViewData(ObservableList<String> datasource){
+    public void setUserListViewData(ObservableList<String> datasource) {
         this.userListView.setItems(datasource);
     }
 }

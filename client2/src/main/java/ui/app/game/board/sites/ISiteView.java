@@ -6,7 +6,8 @@ import mvp.view.IView;
 
 import java.util.ArrayList;
 
-public interface ISiteView extends IView{
-  ArrayList<Group> getStones();
-  Rectangle getColorStones(int i);
+public interface ISiteView extends IView {
+    ArrayList<Group> getStones();
+
+    Rectangle getColorStones(int i);
 }

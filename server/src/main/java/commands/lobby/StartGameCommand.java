@@ -11,28 +11,28 @@ import socket.ClientListener;
 
 public class StartGameCommand implements Command {
 
-  private final Logger log = LoggerFactory.getLogger(getClass().getName());
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
-  private StartGameRequest request;
-  private ClientListener clientListener;
+    private StartGameRequest request;
+    private ClientListener clientListener;
 
-  public StartGameCommand(ClientListener clientListener) {
-    this.clientListener = clientListener;
-  }
-
-  public void put(IRequest r) {
-    request = (StartGameRequest) r;
-  }
-
-  public void exec() {
-    Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
-    for (boolean b : lobby.getReady()) {
-      if (!b) {
-        log.info("Kann nicht starten: Nicht alle bereit");
-        return;
-      }
+    public StartGameCommand(ClientListener clientListener) {
+        this.clientListener = clientListener;
     }
-    clientListener.getServer().sendToLobby(new StartGameEvent(lobby.getLobbyID()), lobby);
-    lobby.startGame(clientListener);
-  }
+
+    public void put(IRequest r) {
+        request = (StartGameRequest) r;
+    }
+
+    public void exec() {
+        Lobby lobby = clientListener.getLobbyByID(request.getLobbyId());
+        for (boolean b : lobby.getReady()) {
+            if (!b) {
+                log.info("Kann nicht starten: Nicht alle bereit");
+                return;
+            }
+        }
+        clientListener.getServer().sendToLobby(new StartGameEvent(lobby.getLobbyID()), lobby);
+        lobby.startGame(clientListener);
+    }
 }

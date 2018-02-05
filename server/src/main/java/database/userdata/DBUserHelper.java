@@ -44,5 +44,4 @@ class DBUserHelper extends DBHelper {
     }
 
 
-
 }

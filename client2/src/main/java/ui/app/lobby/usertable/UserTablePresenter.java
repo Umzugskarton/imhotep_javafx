@@ -46,7 +46,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
     }
 
     public void updateLobby(CommonLobby lobby) {
-        this.lobby  = lobby;
+        this.lobby = lobby;
         view.updateTable();
     }
 
@@ -65,8 +65,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
             IRequest request = new StartGameRequest(lobby.getLobbyId());
             this.connection.send(request);
             // Soundtrack.imhotepTheme.loop();
-        }
-        else {
+        } else {
             //ToDo: Message ausgeben das noch nicht genug Spieler gejoined sind
         }
     }
@@ -91,7 +90,7 @@ public class UserTablePresenter extends Presenter<IUserTableView> {
 
     @Subscribe
     public void lobbyInfoEventListener(LobbyInfoEvent e) {
-        if(lobby.getLobbyId() == e.getLobby().getLobbyId()) {
+        if (lobby.getLobbyId() == e.getLobby().getLobbyId()) {
             updateLobby(e.getLobby());
         }
     }

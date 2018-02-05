@@ -5,5 +5,5 @@ public enum ViewIdentifier {
     START_VIEW,
     MAIN_VIEW,
     GAME_VIEW,
-    LOBBY,VIEW,
+    LOBBY, VIEW,
 }

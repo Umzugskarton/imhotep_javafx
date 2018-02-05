@@ -48,7 +48,7 @@ public class StartView implements IStartView {
     private RegistrationView registrationView;
 
 
-    public StartView(EventBus eventBus, Connection connection, StageLayout stageLayout){
+    public StartView(EventBus eventBus, Connection connection, StageLayout stageLayout) {
         this.eventBus = eventBus;
         this.presenter = new StartPresenter(this, eventBus, connection);
         bind();
@@ -61,18 +61,18 @@ public class StartView implements IStartView {
     }
 
     @Override
-    public void initOwnView(){
-        if(this.myParent == null)
+    public void initOwnView() {
+        if (this.myParent == null)
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/start/StartView.fxml", this, eventBus);
     }
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         this.loginView = new LoginView(this, eventBus, this.presenter.getConnection());
         setSubParent(loginView.getRootParent());
     }
 
-    public void setSubParent(Parent subParent){
+    public void setSubParent(Parent subParent) {
         this.subPane.getChildren().clear();
         this.subPane.getChildren().add(subParent);
     }

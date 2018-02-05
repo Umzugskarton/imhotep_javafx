@@ -3,13 +3,9 @@ package gameprocedures;
 import data.user.User;
 import events.Event;
 import events.SiteType;
-import events.app.game.ShipDockedEvent;
 import game.Game;
 import game.Player;
-import game.board.Pyramids;
 import game.board.Ship;
-import game.gameprocedures.VoyageToStoneSite;
-import game.gameprocedures.toolcardprotocols.HammerProtocol;
 import lobby.Lobby;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +19,9 @@ import socket.Server;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class runningGameTest {
     @Mock
@@ -67,6 +63,7 @@ public class runningGameTest {
     Player p3;
 
     Player p4;
+
     @Before
     public void init() {
         //Mock the Player
@@ -86,18 +83,16 @@ public class runningGameTest {
         when(u4.getUsername()).thenReturn("mehr");
 
 
-
         User[] users = {u1, u2, u3, u4};
         lobby = new Lobby(4, u1, "LetzteHoffnung", "", server);
-        lobby.join(u2,"");
-        lobby.join(u3,"");
-        lobby.join(u4,"");
+        lobby.join(u2, "");
+        lobby.join(u3, "");
+        lobby.join(u4, "");
 
         p1 = new Player(lobby.getUsers()[0], 0);
         p2 = new Player(lobby.getUsers()[0], 1);
         p3 = new Player(lobby.getUsers()[0], 2);
         p4 = new Player(lobby.getUsers()[0], 3);
-
 
 
         cl = mock(ClientListener.class);
@@ -152,12 +147,12 @@ public class runningGameTest {
         assertEquals(5, game.getPlayer(3).getStones());
 
         Move[] moves2 = {
-                new LoadUpShipMove(0,0, lobby.getLobbyID()), new LoadUpShipMove(1,0, lobby.getLobbyID()), new LoadUpShipMove(2,0, lobby.getLobbyID()), new LoadUpShipMove(3,0, lobby.getLobbyID())
+                new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()), new LoadUpShipMove(2, 0, lobby.getLobbyID()), new LoadUpShipMove(3, 0, lobby.getLobbyID())
         };
         game.runOneRoundTest(moves2);
 
         Move[] moves3 = {
-                new VoyageToStoneSiteMove(0, SiteType.MARKET, lobby.getLobbyID()),new VoyageToStoneSiteMove(1, SiteType.PYRAMID, lobby.getLobbyID()), new VoyageToStoneSiteMove(2, SiteType.OBELISKS, lobby.getLobbyID()),new VoyageToStoneSiteMove(3, SiteType.BURIALCHAMBER,lobby.getLobbyID())
+                new VoyageToStoneSiteMove(0, SiteType.MARKET, lobby.getLobbyID()), new VoyageToStoneSiteMove(1, SiteType.PYRAMID, lobby.getLobbyID()), new VoyageToStoneSiteMove(2, SiteType.OBELISKS, lobby.getLobbyID()), new VoyageToStoneSiteMove(3, SiteType.BURIALCHAMBER, lobby.getLobbyID())
         };
         game.runOneRoundTest(moves3);
         //Eine Runde wurde vollzogen
@@ -165,7 +160,7 @@ public class runningGameTest {
 
     public void runTest2() {
         Move[] moves2 = {
-                new LoadUpShipMove(0,0, lobby.getLobbyID()), new LoadUpShipMove(1,0, lobby.getLobbyID()), new LoadUpShipMove(2,0, lobby.getLobbyID()), new LoadUpShipMove(3,0, lobby.getLobbyID())
+                new LoadUpShipMove(0, 0, lobby.getLobbyID()), new LoadUpShipMove(1, 0, lobby.getLobbyID()), new LoadUpShipMove(2, 0, lobby.getLobbyID()), new LoadUpShipMove(3, 0, lobby.getLobbyID())
         };
     }
 }

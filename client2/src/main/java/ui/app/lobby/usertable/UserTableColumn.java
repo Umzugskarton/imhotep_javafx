@@ -13,7 +13,7 @@ public class UserTableColumn extends TableColumn<LobbyUser, String> {
 
     UserTablePresenter presenter;
 
-    public UserTableColumn(String text, UserTablePresenter presenter){
+    public UserTableColumn(String text, UserTablePresenter presenter) {
         super(text);
         this.presenter = presenter;
 

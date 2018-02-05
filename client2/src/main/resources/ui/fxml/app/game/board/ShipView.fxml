@@ -3,32 +3,47 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<AnchorPane prefHeight="106.0" prefWidth="190.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="106.0" prefWidth="190.0" stylesheets="@../../../../../css/style.css"
+            xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane id="ship" fx:id="sprite" layoutX="14.0" layoutY="-42.0" prefHeight="75.0" prefWidth="125.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane id="ship" fx:id="sprite" layoutX="14.0" layoutY="-42.0" prefHeight="75.0" prefWidth="125.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
-                <Group visible="false" fx:id="stone0" layoutX="165.0" layoutY="98.0" scaleX="0.7" scaleY="0.7" translateX="-49.0" translateY="-45.0">
+                <Group visible="false" fx:id="stone0" layoutX="165.0" layoutY="98.0" scaleX="0.7" scaleY="0.7"
+                       translateX="-49.0" translateY="-45.0">
                     <children>
-                        <Rectangle fx:id="stoneColor0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+                        <Rectangle fx:id="stoneColor0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
+                                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="20.0"
+                                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
                     </children>
                 </Group>
-                <Group  visible="false" fx:id="stone1" layoutX="137.0" layoutY="98.0" scaleX="0.7" scaleY="0.7" translateX="-42.0" translateY="-45.0">
+                <Group visible="false" fx:id="stone1" layoutX="137.0" layoutY="98.0" scaleX="0.7" scaleY="0.7"
+                       translateX="-42.0" translateY="-45.0">
                     <children>
-                        <Rectangle fx:id="stoneColor1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
-                        <Rectangle fx:id="shadow1" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+                        <Rectangle fx:id="stoneColor1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
+                                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
+                        <Rectangle fx:id="shadow1" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0"
+                                   layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
                     </children>
                 </Group>
-                <Group visible="false" fx:id="stone2" layoutX="93.0" layoutY="98.0" scaleX="0.7" scaleY="0.7" translateX="-28.0" translateY="-45.0">
+                <Group visible="false" fx:id="stone2" layoutX="93.0" layoutY="98.0" scaleX="0.7" scaleY="0.7"
+                       translateX="-28.0" translateY="-45.0">
                     <children>
-                        <Rectangle fx:id="stoneColor2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
-                        <Rectangle fx:id="shadow2" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+                        <Rectangle fx:id="stoneColor2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
+                                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
+                        <Rectangle fx:id="shadow2" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0"
+                                   layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
                     </children>
                 </Group>
-                <Group visible="false" fx:id="stone3" layoutX="64.0" layoutY="98.0" scaleX="0.7" scaleY="0.7" translateX="-20.0" translateY="-45.0">
+                <Group visible="false" fx:id="stone3" layoutX="64.0" layoutY="98.0" scaleX="0.7" scaleY="0.7"
+                       translateX="-20.0" translateY="-45.0">
                     <children>
-                        <Rectangle fx:id="stoneColor3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
-                        <Rectangle fx:id="shadow3" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+                        <Rectangle fx:id="stoneColor3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0"
+                                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
+                        <Rectangle fx:id="shadow3" arcHeight="5.0" arcWidth="5.0" fill="#0000003a" height="21.0"
+                                   layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0"/>
                     </children>
                 </Group>
             </children>

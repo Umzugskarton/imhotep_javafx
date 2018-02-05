@@ -8,90 +8,90 @@ import java.util.List;
 
 public class GameInfoEvent extends GameEvent {
 
-  private int myId;
-  private ArrayList<int[]> ships = new ArrayList<>();
-  private int round;
-  private ArrayList<Integer> storages;
-  private String[] order;
-  private List<SiteType> siteTypes;
-  private int turnTime;
-  private int[] sitesAllocation;
-  private ArrayList<CardType> cards = new ArrayList<>();
+    private int myId;
+    private ArrayList<int[]> ships = new ArrayList<>();
+    private int round;
+    private ArrayList<Integer> storages;
+    private String[] order;
+    private List<SiteType> siteTypes;
+    private int turnTime;
+    private int[] sitesAllocation;
+    private ArrayList<CardType> cards = new ArrayList<>();
 
 
-  public GameInfoEvent(int lobbyId){
-    this.lobbyId = lobbyId;
-  }
-  
-  public void setMyId(int id) {
-    this.myId = id;
-  }
+    public GameInfoEvent(int lobbyId) {
+        this.lobbyId = lobbyId;
+    }
 
-  public int getMyId() {
-    return myId;
-  }
+    public void setMyId(int id) {
+        this.myId = id;
+    }
 
-  public int[] getSitesAllocation() {
-    return sitesAllocation;
-  }
+    public int getMyId() {
+        return myId;
+    }
 
-  public void setSitesAllocation(int[] sitesAllocation) {
-    this.sitesAllocation = sitesAllocation;
-  }
+    public int[] getSitesAllocation() {
+        return sitesAllocation;
+    }
 
-  public List<SiteType> getSiteTypes() {
-    return siteTypes;
-  }
+    public void setSitesAllocation(int[] sitesAllocation) {
+        this.sitesAllocation = sitesAllocation;
+    }
 
-  public void setSiteTypes(List<SiteType> siteTypes) {
-    this.siteTypes = siteTypes;
-  }
+    public List<SiteType> getSiteTypes() {
+        return siteTypes;
+    }
 
-  public void setCurrentShips(int[] ship) {
-    ships.add(ship);
-  }
+    public void setSiteTypes(List<SiteType> siteTypes) {
+        this.siteTypes = siteTypes;
+    }
 
-  public ArrayList<Integer> getStorages() {
-    return storages;
-  }
+    public void setCurrentShips(int[] ship) {
+        ships.add(ship);
+    }
 
-  public void setCards(List<CardType> type){
-    cards = (ArrayList<CardType>) type;
-  }
+    public ArrayList<Integer> getStorages() {
+        return storages;
+    }
 
-  public List<CardType> getCards(){
-    return cards;
-  }
+    public void setCards(List<CardType> type) {
+        cards = (ArrayList<CardType>) type;
+    }
 
-  public int getRound() {
-    return round;
-  }
+    public List<CardType> getCards() {
+        return cards;
+    }
 
-  public void setTurnTime(int seconds) {
-    this.turnTime = seconds;
-  }
+    public int getRound() {
+        return round;
+    }
 
-  public int getTurnTime() {
-    return turnTime;
-  }
+    public void setTurnTime(int seconds) {
+        this.turnTime = seconds;
+    }
 
-  public ArrayList<int[]> getShips() {
-    return ships;
-  }
+    public int getTurnTime() {
+        return turnTime;
+    }
 
-  public String[] getOrder() {
-    return order;
-  }
+    public ArrayList<int[]> getShips() {
+        return ships;
+    }
 
-  public void setOrder(String[] order) {
-    this.order = order;
-  }
+    public String[] getOrder() {
+        return order;
+    }
 
-  public void setRound(int round) {
-    this.round = round;
-  }
+    public void setOrder(String[] order) {
+        this.order = order;
+    }
 
-  public void setStorages(ArrayList<Integer> storages) {
-    this.storages = storages;
-  }
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public void setStorages(ArrayList<Integer> storages) {
+        this.storages = storages;
+    }
 }

@@ -18,79 +18,79 @@ import java.util.Collections;
 
 public class ShipView implements IShipView {
 
-  @FXML
-  private Group stone0;
+    @FXML
+    private Group stone0;
 
-  @FXML
-  private Group stone1;
+    @FXML
+    private Group stone1;
 
-  @FXML
-  private Group stone2;
+    @FXML
+    private Group stone2;
 
-  @FXML
-  private Group stone3;
+    @FXML
+    private Group stone3;
 
-  @FXML
-  private Pane sprite;
+    @FXML
+    private Pane sprite;
 
 
-  private final IView parentView;
-  private final ShipPresenter mainPresenter;
-  private final EventBus eventBus;
+    private final IView parentView;
+    private final ShipPresenter mainPresenter;
+    private final EventBus eventBus;
 
-  private CommonLobby lobby;
-  private int[] cargo;
+    private CommonLobby lobby;
+    private int[] cargo;
 
-  // Own Parent
-  private Parent myParent;
+    // Own Parent
+    private Parent myParent;
 
-  public ShipView(IView parentView, EventBus eventBus, Connection connection, CommonLobby lobby , int[] cargo, int shipId){
-    this.parentView = parentView;
-    this.lobby = lobby;
-    this.cargo = cargo;
-    this.eventBus = eventBus;
-    this.mainPresenter = new ShipPresenter(this, eventBus, connection, cargo, lobby, shipId);
-    initOwnView();
-  }
-
-  @Override
-  public void initOwnView() {
-    if(this.myParent == null) {
-      this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/ShipView.fxml", this, eventBus);
-      sprite.setId("ship" + cargo.length);
-      ArrayList<Group> stones = getStones();
-      //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen
-      for (Group g : stones) {
-        g.setLayoutX(g.getLayoutX() - (4 - cargo.length) * 2.5);
-        g.setLayoutY(g.getLayoutY()- (4 - cargo.length) * 3);
-      }
+    public ShipView(IView parentView, EventBus eventBus, Connection connection, CommonLobby lobby, int[] cargo, int shipId) {
+        this.parentView = parentView;
+        this.lobby = lobby;
+        this.cargo = cargo;
+        this.eventBus = eventBus;
+        this.mainPresenter = new ShipPresenter(this, eventBus, connection, cargo, lobby, shipId);
+        initOwnView();
     }
-  }
 
-  @Override
-  public Parent getRootParent() {
-    return myParent;
-  }
-
-  public ArrayList<Group> getStones() {
-    ArrayList<Group> a = new ArrayList<>();
-    Collections.addAll(a, stone0, stone1,stone2,stone3);
-    return a;
-  }
-
-
-  // TODO Auslagerung in allen Spielgegenständen
-  public  ArrayList<Rectangle> getColorStones(){
-    ArrayList<Rectangle> a = new ArrayList<>();
-    for (Group g : getStones()){
-      int i = 0;
-      for(Node x : g.getChildren()){
-        if (i==0){
-          a.add( (Rectangle) x);
+    @Override
+    public void initOwnView() {
+        if (this.myParent == null) {
+            this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/board/ShipView.fxml", this, eventBus);
+            sprite.setId("ship" + cargo.length);
+            ArrayList<Group> stones = getStones();
+            //todo bessere Methode um neue pos der Steine zu bestimmen bei verschiedenen Schiffgrößen
+            for (Group g : stones) {
+                g.setLayoutX(g.getLayoutX() - (4 - cargo.length) * 2.5);
+                g.setLayoutY(g.getLayoutY() - (4 - cargo.length) * 3);
+            }
         }
-        i++;
-      }
     }
-    return a;
-  }
+
+    @Override
+    public Parent getRootParent() {
+        return myParent;
+    }
+
+    public ArrayList<Group> getStones() {
+        ArrayList<Group> a = new ArrayList<>();
+        Collections.addAll(a, stone0, stone1, stone2, stone3);
+        return a;
+    }
+
+
+    // TODO Auslagerung in allen Spielgegenständen
+    public ArrayList<Rectangle> getColorStones() {
+        ArrayList<Rectangle> a = new ArrayList<>();
+        for (Group g : getStones()) {
+            int i = 0;
+            for (Node x : g.getChildren()) {
+                if (i == 0) {
+                    a.add((Rectangle) x);
+                }
+                i++;
+            }
+        }
+        return a;
+    }
 }

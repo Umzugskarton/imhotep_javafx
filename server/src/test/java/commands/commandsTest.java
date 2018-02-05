@@ -8,12 +8,10 @@ import commands.profil.ChangeCredentialCommand;
 import commands.start.LoginCommand;
 import commands.start.LogoutCommand;
 import commands.start.RegisterCommand;
-import events.Event;
 import events.app.chat.ChatMessageEvent;
 import lobby.Lobby;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.mockito.Mock;
 import requests.RequestType;
 import requests.chat.ChatRequest;
@@ -29,9 +27,8 @@ import socket.ClientListener;
 import socket.Server;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.refEq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class commandsTest {
     @Mock

@@ -10,17 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import mvp.view.INavigateableView;
 import ui.app.lobby.chat.ChatView;
 import ui.app.lobby.control.LobbyControlView;
@@ -76,7 +69,7 @@ public class UserTableView implements IUserTableView {
         //TODO Ersteinmal kommplette Lobby übernommen
         //setUserListViewData(this.presenter.getLobbyList());
 
-        UserTableColumn userTableColumn = new UserTableColumn("User",this.presenter);
+        UserTableColumn userTableColumn = new UserTableColumn("User", this.presenter);
         ColorTableColum colorTableColum = new ColorTableColum("Color", this.presenter);
         ReadyTableColum readyTableColum = new ReadyTableColum("Ready", this.presenter);
 
@@ -84,7 +77,7 @@ public class UserTableView implements IUserTableView {
     }
 
     @FXML
-    void handleUserTableViewClick(MouseEvent click){
+    void handleUserTableViewClick(MouseEvent click) {
         if (click.getClickCount() == 2) {
             System.out.println("Doubleclick");
         }
@@ -96,7 +89,7 @@ public class UserTableView implements IUserTableView {
     }
 
     @Override
-    public void setUserListViewData(ObservableList<LobbyUser> datasource){
+    public void setUserListViewData(ObservableList<LobbyUser> datasource) {
         this.userTableView.setItems(datasource);
     }
 
@@ -123,10 +116,10 @@ public class UserTableView implements IUserTableView {
         }
 
         userTableView.setItems(presenter.getLobby().getObservableUsers());
-        this.controlView.getUserSizeLabel().setText("Players:" +  String.valueOf(presenter.getLobby().getObservableUsers().size()) + " / " + this.presenter.getLobby().getSize());
+        this.controlView.getUserSizeLabel().setText("Players:" + String.valueOf(presenter.getLobby().getObservableUsers().size()) + " / " + this.presenter.getLobby().getSize());
     }
 
-    public void updateLobby(CommonLobby lobby){
+    public void updateLobby(CommonLobby lobby) {
         presenter.updateLobby(lobby);
     }
 }

@@ -25,11 +25,11 @@ public class Connection {
     private String host = null;
     private int port;
 
-    public Connection(){
+    public Connection() {
         this.eventBus = new EventBus();
     }
 
-    public Connection(String host, Integer port, EventBus eventBus){
+    public Connection(String host, Integer port, EventBus eventBus) {
         this.host = host;
         this.port = port;
         this.eventBus = eventBus;
@@ -37,11 +37,11 @@ public class Connection {
         init();
     }
 
-    public Connection(EventBus eventBus){
+    public Connection(EventBus eventBus) {
         this("localhost", 47096, eventBus);
     }
 
-    private void bind(){
+    private void bind() {
         this.eventBus.register(this);
     }
 
@@ -67,15 +67,15 @@ public class Connection {
         }
     }
 
-    private void closeConnection(){
+    private void closeConnection() {
         this.input = null;
         this.output = null;
     }
 
-    public void send(IRequest request){
+    public void send(IRequest request) {
         try {
             this.output.send(request);
-        }catch (ConnectionErrorExeption e){
+        } catch (ConnectionErrorExeption e) {
             logger.error("Verbindung unterbrochen");
             closeConnection();
         }

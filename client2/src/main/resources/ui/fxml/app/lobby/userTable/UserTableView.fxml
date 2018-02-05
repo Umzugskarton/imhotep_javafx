@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-
 <VBox fx:id="userTableRoot" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
-   <opaqueInsets>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-   <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LobbyUser" />
-      <TableView fx:id="userTableView" prefHeight="250.0" prefWidth="485.0" onMouseClicked="#handleUserTableViewClick" />
-   </children>
+    <opaqueInsets>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </opaqueInsets>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+    <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LobbyUser"/>
+        <TableView fx:id="userTableView" prefHeight="250.0" prefWidth="485.0"
+                   onMouseClicked="#handleUserTableViewClick"/>
+    </children>
 </VBox>

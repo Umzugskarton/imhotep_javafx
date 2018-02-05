@@ -72,7 +72,7 @@ public class MainView implements IMainView, IDialogableView {
 
     private final User user;
 
-    public MainView(INavigateableView parentView, EventBus eventBus, Connection connection, User user){
+    public MainView(INavigateableView parentView, EventBus eventBus, Connection connection, User user) {
         this.parentView = parentView;
         this.eventBus = eventBus;
         this.user = user;
@@ -87,15 +87,15 @@ public class MainView implements IMainView, IDialogableView {
 
     @Override
     public void initOwnView() {
-        if(this.myParent == null)
+        if (this.myParent == null)
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/main/MainView.fxml", this, eventBus);
     }
 
     @FXML
     private void initialize() {
-        this.chatView = new ChatView(this,eventBus, mainPresenter.getConnection(), user);
+        this.chatView = new ChatView(this, eventBus, mainPresenter.getConnection(), user);
         this.lobbyListView = new LobbyTableView(this, eventBus, mainPresenter.getConnection(), user);
-        this.userListView = new UserListView(this,this.chatView, eventBus, mainPresenter.getConnection(), user);
+        this.userListView = new UserListView(this, this.chatView, eventBus, mainPresenter.getConnection(), user);
 
         setSubParentChat(this.chatView.getRootParent());
         setSubParentUserList(this.lobbyListView.getRootParent());
@@ -105,17 +105,17 @@ public class MainView implements IMainView, IDialogableView {
         this.dialog.getChildren().add(this.dialogView.getRootParent());
     }
 
-    public void setSubParentChat(Parent subParent){
+    public void setSubParentChat(Parent subParent) {
         this.subParentChat.getChildren().clear();
         this.subParentChat.getChildren().add(subParent);
     }
 
-    public void setSubParentUserList(Parent subParent){
+    public void setSubParentUserList(Parent subParent) {
         this.subParentUserList.getChildren().clear();
         this.subParentUserList.getChildren().add(subParent);
     }
 
-    public void setSubParentLobbyList(Parent subParent){
+    public void setSubParentLobbyList(Parent subParent) {
         this.subParentLobbyList.getChildren().clear();
         this.subParentLobbyList.getChildren().add(subParent);
     }
@@ -144,28 +144,28 @@ public class MainView implements IMainView, IDialogableView {
 
 
     @Override
-    public void showDialog(IDialogView view){
+    public void showDialog(IDialogView view) {
         this.dialogView.showDialog(view);
         dialogBackground.toFront();
         dialogBackground.setVisible(true);
     }
 
     @Override
-    public void hideDialog(){
+    public void hideDialog() {
         dialogBackground.toBack();
         dialogBackground.setVisible(false);
     }
 
     @Subscribe
     public void onShowCreateLoobyDialogEvent(ShowCreateLobbyDialogEvent e) {
-        if(e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW){
+        if (e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW) {
             showDialog(new CreateLobbyView(this.eventBus, this.mainPresenter.getConnection()));
         }
     }
 
     @Subscribe
     public void onShowJoinLobbyDialogEvent(ShowJoinLobbyDialogEvent e) {
-        if(e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW){
+        if (e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW) {
             showDialog(new JoinLobbyView(this.eventBus, e.getLobbyData(), this.mainPresenter.getConnection()));
         }
     }

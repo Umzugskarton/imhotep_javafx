@@ -1,6 +1,5 @@
 package ui.app.lobby.usertable;
 
-import data.lobby.CommonLobby;
 import data.lobby.LobbyUser;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;

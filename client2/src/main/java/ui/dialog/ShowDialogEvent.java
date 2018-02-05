@@ -6,11 +6,11 @@ public class ShowDialogEvent {
 
     private ViewIdentifier viewIdentifier;
 
-    public ShowDialogEvent(ViewIdentifier viewIdentifier){
+    public ShowDialogEvent(ViewIdentifier viewIdentifier) {
         this.viewIdentifier = viewIdentifier;
     }
 
-    public ViewIdentifier getViewIdentifier(){
+    public ViewIdentifier getViewIdentifier() {
         return this.viewIdentifier;
     }
 }

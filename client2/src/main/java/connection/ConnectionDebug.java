@@ -7,13 +7,13 @@ public class ConnectionDebug extends Connection {
 
     private final EventBus eventBus;
 
-    public ConnectionDebug(EventBus eventBus){
+    public ConnectionDebug(EventBus eventBus) {
         super();
         this.eventBus = eventBus;
     }
 
     @Override
-    public void send(IRequest request){
+    public void send(IRequest request) {
         //EventBus für Debug-Zwecke!
         this.eventBus.post(request);
         /*

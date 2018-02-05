@@ -3,18 +3,18 @@ package events;
 import java.io.Serializable;
 
 public class Event implements Serializable {
-  private EventReason reason;
-  protected Integer lobbyId;
+    private EventReason reason;
+    protected Integer lobbyId;
 
-  public void setReason(EventReason reason) {
-    this.reason = reason;
-  }
+    public void setReason(EventReason reason) {
+        this.reason = reason;
+    }
 
-  public EventReason getReason() {
-    return this.reason;
-  }
+    public EventReason getReason() {
+        return this.reason;
+    }
 
-  public Integer getLobbyId() {
-    return lobbyId;
-  }
+    public Integer getLobbyId() {
+        return lobbyId;
+    }
 }

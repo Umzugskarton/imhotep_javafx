@@ -10,7 +10,7 @@ public class ReadyTableColum extends TableColumn<LobbyUser, String> {
 
     UserTablePresenter presenter;
 
-    public ReadyTableColum(String text, UserTablePresenter presenter){
+    public ReadyTableColum(String text, UserTablePresenter presenter) {
         super(text);
         this.presenter = presenter;
 

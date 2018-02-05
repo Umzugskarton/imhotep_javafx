@@ -11,40 +11,41 @@ import java.util.ResourceBundle;
 
 public final class TextBundle {
 
-  private static final EnumMap<Language, Locale> languageMap;
-  private static final Logger log = LoggerFactory.getLogger(TextBundle.class.getName());
+    private static final EnumMap<Language, Locale> languageMap;
+    private static final Logger log = LoggerFactory.getLogger(TextBundle.class.getName());
 
-  private TextBundle(){}
-
-  static {
-    languageMap = new EnumMap<>(Language.class);
-    languageMap.put(Language.ENGLISH, new Locale("en", "US"));
-    languageMap.put(Language.GERMAN, new Locale("de", "DE"));
-  }
-
-  private static Locale currentLocale = languageMap.get(Language.GERMAN);
-  private static ResourceBundle resourceBundle = ResourceBundle
-      .getBundle("TextBundle", currentLocale);
-
-  public static String getString(String string) {
-    String result = "missing String: " + string;
-    try {
-      result = resourceBundle.getString(string);
-    } catch (MissingResourceException mre) {
-      log.error("MissingResourceException aufgetreten für Key " + string, mre);
+    private TextBundle() {
     }
-    return result;
-  }
 
-  public static String getCompoundString(String string, Object[] arguments) {
-    MessageFormat formatter = new MessageFormat("");
-    formatter.setLocale(currentLocale);
-    formatter.applyPattern(getString(string));
-    return formatter.format(arguments);
-  }
+    static {
+        languageMap = new EnumMap<>(Language.class);
+        languageMap.put(Language.ENGLISH, new Locale("en", "US"));
+        languageMap.put(Language.GERMAN, new Locale("de", "DE"));
+    }
 
-  public static void setLanguage(Language language) {
-    currentLocale = languageMap.get(language);
-    resourceBundle = ResourceBundle.getBundle("TextBundle", currentLocale);
-  }
+    private static Locale currentLocale = languageMap.get(Language.GERMAN);
+    private static ResourceBundle resourceBundle = ResourceBundle
+            .getBundle("TextBundle", currentLocale);
+
+    public static String getString(String string) {
+        String result = "missing String: " + string;
+        try {
+            result = resourceBundle.getString(string);
+        } catch (MissingResourceException mre) {
+            log.error("MissingResourceException aufgetreten für Key " + string, mre);
+        }
+        return result;
+    }
+
+    public static String getCompoundString(String string, Object[] arguments) {
+        MessageFormat formatter = new MessageFormat("");
+        formatter.setLocale(currentLocale);
+        formatter.applyPattern(getString(string));
+        return formatter.format(arguments);
+    }
+
+    public static void setLanguage(Language language) {
+        currentLocale = languageMap.get(language);
+        resourceBundle = ResourceBundle.getBundle("TextBundle", currentLocale);
+    }
 }

@@ -17,85 +17,85 @@ import requests.gamemoves.LoadUpShipMove;
 import java.util.ArrayList;
 
 public class StoragePresenter extends Presenter<IStorageView> {
-  private LobbyUser user;
-  private int stoneCount;
-  private Connection connection;
-  private boolean myStorage;
-  private final int playerId;
-  private ArrayList<CardType> cards = new ArrayList<>();
+    private LobbyUser user;
+    private int stoneCount;
+    private Connection connection;
+    private boolean myStorage;
+    private final int playerId;
+    private ArrayList<CardType> cards = new ArrayList<>();
 
 
-  public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int playerId) {
-    super(view, eventBus);
-    this.myStorage = myStorage;
-    this.user = user;
-    this.connection = connection;
-    this.playerId = playerId;
-    bind();
-  }
-
-  @Subscribe
-  public void onGameInfoEvent(GameInfoEvent e) {
-    setStoneCount(e.getStorages().get(playerId));
-  }
-
-  public void bind() {
-    eventBus.register(this);
-  }
-
-
-  @Subscribe
-  private void onShiploadedEvent(ShipLoadedEvent e) {
-    if (playerId == e.getPlayerId()) {
-      setStoneCount(e.getStorage());
+    public StoragePresenter(IStorageView view, EventBus eventBus, Connection connection, LobbyUser user, boolean myStorage, int playerId) {
+        super(view, eventBus);
+        this.myStorage = myStorage;
+        this.user = user;
+        this.connection = connection;
+        this.playerId = playerId;
+        bind();
     }
-  }
 
-  @Subscribe
-  private void onFillUpStorageEvent(FillUpStorageEvent e) {
-    if (playerId == e.getPlayerId()) {
-      setStoneCount(e.getStorage());
+    @Subscribe
+    public void onGameInfoEvent(GameInfoEvent e) {
+        setStoneCount(e.getStorages().get(playerId));
     }
-  }
+
+    public void bind() {
+        eventBus.register(this);
+    }
 
 
-  public void setStoneCount(int stones) {
-    Platform.runLater(
-            () -> {
-              stoneCount = stones;
-              ArrayList<Group> stoneGroup = view.getStones();
-              for (int i = 0; i < stoneGroup.size(); i++) {
-                stoneGroup.get(i).setVisible(false);
-              }
-              for (int i = 0; i < stones; i++) {
-                stoneGroup.get(i).setVisible(true);
-              }
-            });
-  }
+    @Subscribe
+    private void onShiploadedEvent(ShipLoadedEvent e) {
+        if (playerId == e.getPlayerId()) {
+            setStoneCount(e.getStorage());
+        }
+    }
+
+    @Subscribe
+    private void onFillUpStorageEvent(FillUpStorageEvent e) {
+        if (playerId == e.getPlayerId()) {
+            setStoneCount(e.getStorage());
+        }
+    }
 
 
-  public LobbyUser getUser() {
-    return user;
-  }
+    public void setStoneCount(int stones) {
+        Platform.runLater(
+                () -> {
+                    stoneCount = stones;
+                    ArrayList<Group> stoneGroup = view.getStones();
+                    for (int i = 0; i < stoneGroup.size(); i++) {
+                        stoneGroup.get(i).setVisible(false);
+                    }
+                    for (int i = 0; i < stones; i++) {
+                        stoneGroup.get(i).setVisible(true);
+                    }
+                });
+    }
 
 
-  public int getStoneCount() {
-    return stoneCount;
-  }
+    public LobbyUser getUser() {
+        return user;
+    }
 
-  //Todo Connection
 
-  @Subscribe
-  public void sendFillUpStorageMove(FillUpStorageMove move) {
-    if (myStorage && stoneCount < 5)
-      connection.send(move);
-  }
+    public int getStoneCount() {
+        return stoneCount;
+    }
 
-  @Subscribe
-  public void sendLoadUpShipMove(LoadUpShipMove move) {
-    if (myStorage && stoneCount > 0)
-      System.out.println("Load : "  +move.getShipId());
-      connection.send(move);
-  }
+    //Todo Connection
+
+    @Subscribe
+    public void sendFillUpStorageMove(FillUpStorageMove move) {
+        if (myStorage && stoneCount < 5)
+            connection.send(move);
+    }
+
+    @Subscribe
+    public void sendLoadUpShipMove(LoadUpShipMove move) {
+        if (myStorage && stoneCount > 0)
+            System.out.println("Load : " + move.getShipId());
+        connection.send(move);
+    }
 
 }

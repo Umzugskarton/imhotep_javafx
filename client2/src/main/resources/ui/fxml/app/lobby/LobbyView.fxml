@@ -2,40 +2,41 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
-<AnchorPane id="mainroot" fx:id="lobbyViewRoot" prefHeight="730.0" prefWidth="1235.0" stylesheets="@../../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1">
-<children>
-  <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">
+<AnchorPane id="mainroot" fx:id="lobbyViewRoot" prefHeight="730.0" prefWidth="1235.0"
+            stylesheets="@../../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Pane opacity="0.48" prefHeight="730.0" prefWidth="1235.0" style="-fx-background-color: #000;" />
-      <Pane fx:id="dialog" layoutX="500" layoutY="250" />
-    </children>
-  </Pane>
+        <Pane fx:id="dialogBackground" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+                <Pane opacity="0.48" prefHeight="730.0" prefWidth="1235.0" style="-fx-background-color: #000;"/>
+                <Pane fx:id="dialog" layoutX="500" layoutY="250"/>
+            </children>
+        </Pane>
 
-  <HBox>
-  <children>
-    <Pane fx:id="subParentLobbyChat">
-      <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </padding>
-    </Pane>
-    <AnchorPane>
-      <children>
-        <VBox>
-          <children>
-            <Pane fx:id="subParentLobbyUserList" />
-            <Pane fx:id="subParentLobbyControl" />
-          </children>
-        </VBox>
-      </children>
-    </AnchorPane>
-  </children>
-  <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-  </padding>
-</HBox>
-</children>
-<padding>
-  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-</padding>
+        <HBox>
+            <children>
+                <Pane fx:id="subParentLobbyChat">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </Pane>
+                <AnchorPane>
+                    <children>
+                        <VBox>
+                            <children>
+                                <Pane fx:id="subParentLobbyUserList"/>
+                                <Pane fx:id="subParentLobbyControl"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
 
 </AnchorPane>

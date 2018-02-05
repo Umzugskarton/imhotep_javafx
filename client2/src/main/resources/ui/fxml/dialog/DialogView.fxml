@@ -3,12 +3,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-
-<BorderPane fx:id="dialogViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #fa65;" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleCloseButton" style="-fx-background-color: #753b64;" text="x" BorderPane.alignment="CENTER_RIGHT" />
-   </top>
-   <center>
-      <Pane fx:id="dialogView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fa65;" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:id="dialogViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #fa65;" xmlns="whatever"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleCloseButton"
+                style="-fx-background-color: #753b64;" text="x" BorderPane.alignment="CENTER_RIGHT"/>
+    </top>
+    <center>
+        <Pane fx:id="dialogView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fa65;"
+              BorderPane.alignment="CENTER"/>
+    </center>
 </BorderPane>

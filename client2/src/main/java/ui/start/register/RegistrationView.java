@@ -57,7 +57,7 @@ public class RegistrationView implements IRegistrationView {
     private final RegistrationPresenter registrationPresenter;
     private final EventBus eventBus;
 
-    public RegistrationView(INavigateableView parentView, EventBus eventBus, Connection connection){
+    public RegistrationView(INavigateableView parentView, EventBus eventBus, Connection connection) {
         this.parentView = parentView;
         this.registrationPresenter = new RegistrationPresenter(this, eventBus, connection);
         this.eventBus = eventBus;
@@ -66,7 +66,7 @@ public class RegistrationView implements IRegistrationView {
 
     @Override
     public void initOwnView() {
-        if(this.myParent == null)
+        if (this.myParent == null)
             this.myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/start/register/RegistrationView.fxml", this, eventBus);
     }
 
@@ -88,7 +88,7 @@ public class RegistrationView implements IRegistrationView {
 
     @FXML
     private void handlePressedKeyAction(KeyEvent event) {
-        if(KeyCode.ENTER == event.getCode() ){
+        if (KeyCode.ENTER == event.getCode()) {
             registerButton.fire();
         }
     }
