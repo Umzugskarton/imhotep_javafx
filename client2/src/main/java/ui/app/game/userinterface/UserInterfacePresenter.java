@@ -167,14 +167,13 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
-    view.getSelectShipLocationBox().getItems().remove(type.toString());
+    view.getSelectShipLocationBox().getItems().remove(getString("site."+type.toString()));
   }
 
   private void setSelectShipLocationBox(List<SiteType> sites) {
     view.getSelectShipLocationBox().getItems().clear();
     for (SiteType site : sites) {
       view.getSelectShipLocationBox().getItems().add(getString("site." + site.name()));
-      System.out.println("getSelectShipLocationBox:"+site.name());
     }
   }
 

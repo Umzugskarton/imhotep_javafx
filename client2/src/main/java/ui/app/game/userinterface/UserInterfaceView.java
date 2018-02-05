@@ -18,7 +18,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import org.omg.CORBA.OBJ_ADAPTER;
 import ui.app.game.IGameView;
 
 
@@ -150,8 +149,6 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   void sendVoyageToStoneSiteMove() {
     HashMap<String, SiteType> findSiteType = new HashMap<>();
-    System.out.println("USERINTERFACEVIEW:" + getString("site." + SiteType.OBELISKS.name()) + " "
-        + SiteType.OBELISKS.name());
     findSiteType.put(getString("site." + SiteType.OBELISKS.name()), SiteType.OBELISKS);
     findSiteType.put(getString("site." + SiteType.MARKET.name()), SiteType.MARKET);
     findSiteType
