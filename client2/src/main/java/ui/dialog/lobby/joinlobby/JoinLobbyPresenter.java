@@ -22,6 +22,11 @@ public class JoinLobbyPresenter extends Presenter<IJoinLobbyView> {
     super(view, eventBus);
     this.connection = connection;
     this.lobbydata = lobbydata;
+    bind();
+  }
+
+  private void bind(){
+    getEventBus().register(this);
   }
 
   public Connection getConnection() {

@@ -170,7 +170,7 @@ public class MainView implements IMainView, IDialogableView {
   public void onShowJoinLobbyDialogEvent(ShowJoinLobbyDialogEvent e) {
     if (e.getViewIdentifier() == ViewIdentifier.MAIN_VIEW) {
       showDialog(
-          new JoinLobbyView(this.eventBus, e.getLobbyData(), this.mainPresenter.getConnection()));
+          new JoinLobbyView(this, this.eventBus, e.getLobbyData(), this.mainPresenter.getConnection()));
     }
   }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import ui.app.main.lobbylist.LobbyTableData;
+import ui.dialog.misc.IDialogableView;
 
 public class JoinLobbyView implements IJoinLobbyView {
 
@@ -40,9 +41,12 @@ public class JoinLobbyView implements IJoinLobbyView {
   // Own Parent
   private Parent myParent;
 
-  public JoinLobbyView(EventBus eventBus, LobbyTableData lobbydata, Connection connection) {
+  private IDialogableView parentView;
+
+  public JoinLobbyView(IDialogableView view, EventBus eventBus, LobbyTableData lobbydata, Connection connection) {
     this.eventBus = eventBus;
     this.presenter = new JoinLobbyPresenter(this, lobbydata, eventBus, connection);
+    this.parentView = view;
     bind();
     initOwnView();
   }
@@ -85,5 +89,10 @@ public class JoinLobbyView implements IJoinLobbyView {
   @Override
   public Parent getRootParent() {
     return this.myParent;
+  }
+
+  @Override
+  public void closeDialog() {
+    this.parentView.hideDialog();
   }
 }
