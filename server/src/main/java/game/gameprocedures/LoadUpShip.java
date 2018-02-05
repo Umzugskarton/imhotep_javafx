@@ -32,7 +32,7 @@ public class LoadUpShip implements Procedure {
       Ship ship = game.getShipByID(move.getShipId());
 
       if (ship.addStone(stone, move.getPosition())) {
-        return new ShipLoadedEvent(playerId, move.getShipId(), game.getCargoAsIntArrayByShip(ship),
+        return new ShipLoadedEvent(playerId, move.getShipId(), ship.getCargoAsIntArrayByShip(),
             game.getPlayer(playerId).getSupplySled().getStones());
       }
     }

@@ -9,8 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import mvp.view.IView;
-import ui.dialog.IDialogView;
-
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,10 @@ public class ChooseCardView implements IChooseCardView{
     int card = 0;
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {
-        cardGrid.add(cardViews.get(card).getRootParent() , i , j);
+        Node cardPane = cardViews.get(card).getRootParent();
+        cardPane.prefWidth(100);
+        cardPane.prefHeight(200);
+        cardGrid.add( cardPane, i ,j);
         card++;
       }
     }

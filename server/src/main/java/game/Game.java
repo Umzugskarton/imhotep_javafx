@@ -79,20 +79,19 @@ public class Game implements Runnable {
   }
 
   private void resetCurrentShips() {
-    for (int i = 0; i < lobby.getSize(); i++) {
+    this.ships = new Ship[numberOfShips];
+    for (int i = 0; i < numberOfShips; i++) {
       this.ships[i] = new Ship(i);
     }
   }
 
   private void setGame() {
-    //int seq = ThreadLocalRandom.current().nextInt(0, this.lobby.getSize());
     for (int i = 0; i < numberOfShips; i++) {
       this.ships[i] = new Ship(i);
     }
     for (int i = 0; i < lobby.getSize(); i++) {
       this.players[i] = new Player(lobby.getUsers()[i], i);
       this.players[i].getSupplySled().addStones(i + 2);
-      //seq = (seq + 1) % lobby.getSize();
     }
   }
 
@@ -149,7 +148,7 @@ public class Game implements Runnable {
     }
 
     for (Ship ship : ships) {
-      gameInfo.setCurrentShips(getCargoAsIntArrayByShip(ship));
+      gameInfo.setCurrentShips(ship.getCargoAsIntArrayByShip());
     }
 
     int numberOfSites = 5;
@@ -186,17 +185,7 @@ public class Game implements Runnable {
     return gameInfo;
   }
 
-  public int[] getCargoAsIntArrayByShip(Ship ship) {
-    int[] shipInt = new int[ship.getStones().length];
-    for (int i = 0; i < ship.getStones().length; i++) {
-      if (ship.getStones()[i] != null) {
-        shipInt[i] = ship.getStones()[i].getPlayer().getId();
-      } else {
-        shipInt[i] = -1;
-      }
-    }
-    return shipInt;
-  }
+
 
   @Override
   public void run() {
@@ -314,6 +303,14 @@ public class Game implements Runnable {
     return true;
   }
 
+  public Player getPlayerByUser(User user){
+    for (Player player : players) {
+      if (player.getUser().equals(user))
+        return player;
+    }
+    return null;
+  }
+
   private void waitForMove(int p) {
     log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: "
             + this.players[p].getUser().getUsername() + ")");
@@ -347,6 +344,10 @@ public class Game implements Runnable {
 
   public int getGameID() {
     return gameID;
+  }
+
+  public void setCurrentPlayer(int currentPlayer) {
+    this.currentPlayer = currentPlayer;
   }
 
   private int testRound = 0;

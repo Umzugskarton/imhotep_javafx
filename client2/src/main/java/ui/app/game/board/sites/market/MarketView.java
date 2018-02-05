@@ -53,7 +53,7 @@ public class MarketView implements IMarketView {
   @FXML
   private void initialize() {
     for (int i = 0; i < 4; i++)
-      cardViews.add(new CardView(this, eventBus));
+      cardViews.add(new CardView(this, eventBus, connection, i, lobby.getLobbyId()));
   }
 
   @FXML
