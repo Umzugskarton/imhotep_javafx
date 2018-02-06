@@ -75,11 +75,6 @@ public class Game implements Runnable {
     sites.add(temple);
     sites.add(burialChamber);
     sites.add(obelisks);
-    try {
-      Thread.sleep(100);
-    } catch (Exception e) {
-
-    }
 
     for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       ships[i] = new Ship(i);
@@ -96,6 +91,7 @@ public class Game implements Runnable {
   }
 
   private void resetCurrentShips() {
+    ships = new Ship[NUMBER_OF_SHIPS]; // Bitte da lasssen sonst werden die Schiffe nicht richtig zurückgesetzt !
     for (int i = 0; i < NUMBER_OF_SHIPS; i++) {
       this.ships[i] = new Ship(i);
     }

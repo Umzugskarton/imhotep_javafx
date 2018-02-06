@@ -233,3 +233,10 @@
 .table-view .column-header {
   -fx-background-color: linear-gradient(to bottom, #753b64 0%, #623e66 100%);
 }
+
+
+#manualdump{
+  -fx-background-image: url("ManualDump.png");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 100% 100%;
+}

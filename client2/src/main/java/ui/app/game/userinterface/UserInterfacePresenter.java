@@ -106,7 +106,6 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     view.getHoldingArea().toBack();
     view.getUserInterface().setVisible(show);
     view.getUserInterface().toFront();
-    System.out.println(" USER INTERFACE IS " + view.getUserInterface().isVisible());
   }
 
   // Timer
@@ -194,11 +193,8 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   void setStoneLocationCBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1) {
+      if (ships.get(ship)[i] == -1)
         view.getSelectStoneLocationBox().getItems().add(i);
-      } else {
-        System.out.println("Ship " + ship + " hat an stelle " + i + " : " + ships.get(ship)[i]);
-      }
     }
   }
 

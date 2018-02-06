@@ -5,12 +5,16 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.app.game.InventoryUpdateEvent;
 import mvp.presenter.Presenter;
+import requests.gamemoves.CardType;
 import ui.app.game.board.sites.market.cards.CardView;
+
+import java.util.ArrayList;
 
 public class InventoryPresenter extends Presenter<IInventoryView> {
 
   private final Connection connection;
   private final int userId;
+  private ArrayList<CardType> myCardTypes;
 
   public InventoryPresenter(IInventoryView view, EventBus eventBus, Connection connection,
       int userId) {
@@ -28,7 +32,7 @@ public class InventoryPresenter extends Presenter<IInventoryView> {
   @Subscribe
   private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
     view.getCardGridPane().getChildren().clear();
-
+    myCardTypes = event.getCardTypes().get(userId);
     event.getCardTypes().get(userId).forEach(cardType -> {
       CardView cardView = new CardView(view, eventBus, connection, userId);
       cardView.setCardType(cardType);

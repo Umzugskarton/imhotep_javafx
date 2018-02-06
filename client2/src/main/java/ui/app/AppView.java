@@ -9,11 +9,6 @@ import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +28,12 @@ import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
 import ui.layout.StageLayout;
 import ui.start.ShowStartViewEvent;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class AppView implements IAppView {
 
@@ -203,7 +204,7 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onGameEvent(GameEvent event) {
-    System.out.println(event.getLobbyId());
+    System.out.println("LOBBYID IM APPVIEW  : "+  event.getLobbyId() + " bei event ");
     gameEventbuses.get(event.getLobbyId()).post(event);
   }
 }

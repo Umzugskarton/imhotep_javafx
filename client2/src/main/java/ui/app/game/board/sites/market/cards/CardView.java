@@ -166,9 +166,5 @@ public class CardView implements IDialogView {
 
   }
 
-  @FXML
-  public void showCard() {
-    System.out.println("Cardstack gedrückt");
-  }
 }
 

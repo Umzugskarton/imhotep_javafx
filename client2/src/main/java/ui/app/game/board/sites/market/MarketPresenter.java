@@ -9,10 +9,13 @@ import events.app.game.ShipDockedEvent;
 import mvp.presenter.Presenter;
 import ui.app.game.board.sites.ISitePresenter;
 
+import java.util.ArrayList;
+
 
 public class MarketPresenter extends Presenter<IMarketView> implements ISitePresenter {
 
   private final Connection connection;
+
 
 
   public MarketPresenter(IMarketView view, EventBus eventBus, Connection connection) {
@@ -38,12 +41,27 @@ public class MarketPresenter extends Presenter<IMarketView> implements ISitePres
   @Subscribe
   private void onShipDockedEvent(ShipDockedEvent event){
     if (event.getSite().equals(SiteType.MARKET)) {
+      print(event.getNewStones());
       event.getNewStones().forEach(id -> {
-        System.out.println("Hab " + id);
         view.setCardVisibility(id, false);
         view.getCards().get(id).setOpacity(0);
       });
     }
+    else{
+
+    }
+  }
+
+  private void print(ArrayList<Integer> integers){
+    StringBuilder a = new StringBuilder();
+    String c= "CARDS {";
+    a.append(c);
+    for (Integer i : integers){
+      a.append("  " + i + "  ");
+    }
+
+    a.append("}");
+    System.out.println(a.toString());
   }
 
 }
