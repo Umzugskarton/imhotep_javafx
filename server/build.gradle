@@ -19,7 +19,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Imhotep Server',
                 'Implementation-Version': version,
-                'Main-Class': 'app.ServerApplication'
+                'Main-Class': 'ServerApplication'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

@@ -14,7 +14,7 @@ class OrnamentCardTest {
     OrnamentCard ocb = new OrnamentCard(CardType.BURIALCHAMBER);
     OrnamentCard oco = new OrnamentCard(CardType.OBELISK);
 
-    int[] arr = {13, 0, 4, 21};
+    Integer[] arr = {13, 0, 4, 21};
     int pp = ocp.calc(arr);
     assertEquals(4, pp);
     int pt = oct.calc(arr);
