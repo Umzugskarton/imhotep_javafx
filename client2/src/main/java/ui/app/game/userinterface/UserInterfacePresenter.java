@@ -97,14 +97,12 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private void onVoyageToStoneSiteExclusiveMove(VoyageToStoneSiteExclusiveEvent e) {
     // Alle Interfaces deaktivieren ausser Schiffe versenden
     toggleInterfaceSectionsEnabled(false, true, false, false);
-    this.clearSelections();
   }
 
   @Subscribe
   private void onLoadUpShipExclusiveMove(LoadUpShipExclusiveEvent e) {
     // Alle Interfaces deaktivieren ausser Steine auf Schiffe laden
     toggleInterfaceSectionsEnabled(false, false, true, false);
-    this.clearSelections();
   }
 
   @Subscribe
@@ -138,9 +136,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     storages = event.getStorages();
     round = event.getRound();
     turnTime = event.getTurnTime();
-    if (ships == null) {
-      ships = event.getShips();
-    }
+    ships = event.getShips();
     for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
       shipBox.getItems().clear();
       for (int i = 0; i <= ships.size() - 1; i++) {
@@ -277,10 +273,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     for (int i = 0; i < cargo.length; i++) {
       this.ships.get(shipId)[i] = cargo[i];
     }
-    this.setStoneLocationCBox(shipId);
+    this.setStoneLocationComboBox(shipId);
   }
 
-  void setStoneLocationCBox(int ship) {
+  void setStoneLocationComboBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
       if (ships.get(ship)[i] == -1)
