@@ -70,8 +70,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     if(card != null) {
       try {
         CardType cardType = CardType.valueOf(card.toUpperCase());
-        Move move = new ToolCardMove(cardType, lobby.getLobbyId());
-        this.connection.send(move);
+        if(cardType == CardType.CHISEL || cardType == CardType.HAMMER || cardType == CardType.LEVER || cardType == CardType.SAIL) {
+          Move move = new ToolCardMove(cardType, lobby.getLobbyId());
+          this.connection.send(move);
+        }
       } catch(IllegalArgumentException ex) {
         // TODO Gotta catch'em all
       }
@@ -127,7 +129,9 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     selectCardBox.getItems().clear();
 
     for(CardType cardType : myCardTypes) {
-      selectCardBox.getItems().add(cardType.name());
+      if(cardType == CardType.CHISEL || cardType == CardType.HAMMER || cardType == CardType.LEVER || cardType == CardType.SAIL) {
+        selectCardBox.getItems().add(cardType.name());
+      }
     }
   }
 
