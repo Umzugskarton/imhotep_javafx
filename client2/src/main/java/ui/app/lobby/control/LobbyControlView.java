@@ -1,8 +1,11 @@
 package ui.app.lobby.control;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
+import data.user.User;
+import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mvp.view.INavigateableView;
+import ui.app.lobby.usertable.UserTableView;
 
 
 public class LobbyControlView implements ILobbyControlView {
@@ -49,10 +53,11 @@ public class LobbyControlView implements ILobbyControlView {
   private final EventBus eventBus;
 
   public LobbyControlView(INavigateableView parentView, EventBus eventBus, Connection clientSocket,
-      CommonLobby lobby) {
+                          CommonLobby lobby, User user) {
     this.parentView = parentView;
-    this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket, lobby);
+    this.presenter = new LobbyControlPresenter(this, eventBus, clientSocket, lobby, user);
     this.eventBus = eventBus;
+    this.eventBus.register(this);
     initOwnView();
   }
 
@@ -62,6 +67,9 @@ public class LobbyControlView implements ILobbyControlView {
       this.myParent = GenerateFXMLView.getINSTANCE()
           .loadView("/ui/fxml/app/lobby/control/LobbyControlView.fxml", this, eventBus);
     }
+
+    this.showStartGameButton(this.presenter.isLobbyHost());
+    this.updateUserSizeLabel(this.presenter.getUserSize());
   }
 
   @Override
@@ -71,33 +79,42 @@ public class LobbyControlView implements ILobbyControlView {
 
   @FXML
   private void handlesetReadyButtonAction(ActionEvent event) {
+    clearStatusLabel();
     presenter.sendSetReadyRequest();
   }
 
   @FXML
   private void handlestartGameButtonAction(ActionEvent event) {
-    System.out.println("Ich starte das Spiel!");
     presenter.startGame();
   }
 
   @FXML
   private void handlechangeColorButtonAction(ActionEvent event) {
+    clearStatusLabel();
     presenter.sendChangeColorRequest();
-  }
-
-  public Button getSetReadyButton() {
-    return setReadyButton;
-  }
-
-  public Button getStartGameButton() {
-    return startGameButton;
-  }
-
-  public Button getChangeColorButton() {
-    return changeColorButton;
   }
 
   public Label getUserSizeLabel() {
     return userSizeLabel;
+  }
+
+  @Override
+  public void updateStatusLabel(String m) {
+    this.actiontarget.setText(m);
+  }
+
+  @Override
+  public void showStartGameButton(boolean show) {
+    this.startGameButton.setVisible(show);
+  }
+
+  @Override
+  public void clearStatusLabel(){
+    this.actiontarget.setText("");
+  }
+
+  @Override
+  public void updateUserSizeLabel(String m) {
+    this.userSizeLabel.setText("Belegung: " + m);
   }
 }

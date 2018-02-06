@@ -2,6 +2,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.user.User;
+import events.start.LogoutEvent;
 import events.start.login.LoginSuccessfulEvent;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -43,16 +44,13 @@ public class ClientApp extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    this.stageLayout = new StageLayout(primaryStage, this.scene, this.eventBus);
+    this.stageLayout = new StageLayout(primaryStage, this.scene, this.eventBus, this.connection);
 
     this.primaryStage = primaryStage;
 
-    this.startView = new StartView(eventBus, connection, stageLayout);
+    showStartView();
 
-    setContent(this.startView.getRootParent());
-
-    this.stageLayout.setWindowSize(720, 480);
-    this.stageLayout.setResizable(true);
+    this.stageLayout.setResizable(false);
 
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -63,16 +61,15 @@ public class ClientApp extends Application {
 
   }
 
-  private void setContent(Parent parent) {
-    group.getChildren().clear();
-    group.getChildren().add(parent);
+  private void showStartView(){
+    if(this.startView == null) {
+      this.startView = new StartView(eventBus, connection, stageLayout);
+    }
+    setContent(this.startView.getRootParent());
+    this.stageLayout.setWindowSize(720, 480);
   }
 
-
-  @Subscribe
-  public void onLoginSuccessfulEvent(LoginSuccessfulEvent e) {
-    this.authenticatedUser = e.getUser();
-
+  private void showAppView(){
     if (this.appView == null) {
       this.appView = new AppView(eventBus, connection, authenticatedUser, stageLayout);
     }
@@ -84,5 +81,25 @@ public class ClientApp extends Application {
     this.primaryStage.setY(100);
     this.connection.send(new UserlistRequest());
     this.connection.send(new LobbylistRequest());
+  }
+
+  private void setContent(Parent parent) {
+    group.getChildren().clear();
+    group.getChildren().add(parent);
+  }
+
+
+  @Subscribe
+  public void onLoginSuccessfulEvent(LoginSuccessfulEvent e) {
+    this.authenticatedUser = e.getUser();
+    showAppView();
+  }
+
+  @Subscribe
+  public void onLogoutEvent(LogoutEvent e) {
+    this.authenticatedUser = null;
+    this.appView = null;
+
+    showStartView();
   }
 }

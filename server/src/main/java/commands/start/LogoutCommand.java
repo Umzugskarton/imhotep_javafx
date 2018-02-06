@@ -1,6 +1,8 @@
 package commands.start;
 
 import commands.Command;
+import events.start.LogoutEvent;
+import lobby.Lobby;
 import requests.IRequest;
 import requests.main.LogoutRequest;
 import socket.ClientListener;
@@ -20,11 +22,13 @@ public class LogoutCommand implements Command {
 
   public void exec() {
     if (clientListener.getLobbies() != null) {
-      clientListener.getLobbyByID(request.getLobbyId()).leave(clientListener.getUser());
+      for (Lobby l : clientListener.getLobbies()){
+        l.leave(clientListener.getUser());
+      }
     }
+    clientListener.send(new LogoutEvent());
     this.clientListener.setUser(null);
     this.clientListener.getServer().sendToAll(this.clientListener.getServer().getLoggedUsers());
-
   }
 }
 

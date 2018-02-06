@@ -31,6 +31,7 @@ public class CommonLobby implements Serializable {
     this.host = host;
     this.ready = ready;
     this.colors = colors;
+    setBelegung(users.size());
   }
 
   public void setMyTab(Tab tab) {
