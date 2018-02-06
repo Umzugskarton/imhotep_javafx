@@ -4,7 +4,6 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.LobbyUser;
 import helper.fxml.GenerateFXMLView;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -20,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.IView;
 import ui.app.game.board.Inventory.InventoryView;
+
+import java.util.ArrayList;
 
 
 public class StorageView implements IStorageView {
@@ -131,7 +132,6 @@ public class StorageView implements IStorageView {
 
   @FXML
   public void showCardStack() {
-    System.out.println("Cardstack gedrückt");
     eventBus.post(this.inventoryView);
   }
 }

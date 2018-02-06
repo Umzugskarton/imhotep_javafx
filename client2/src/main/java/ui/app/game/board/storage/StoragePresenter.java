@@ -7,13 +7,14 @@ import data.lobby.LobbyUser;
 import events.app.game.FillUpStorageEvent;
 import events.app.game.GameInfoEvent;
 import events.app.game.ShipLoadedEvent;
-import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import mvp.presenter.Presenter;
 import requests.gamemoves.CardType;
 import requests.gamemoves.FillUpStorageMove;
 import requests.gamemoves.LoadUpShipMove;
+
+import java.util.ArrayList;
 
 public class StoragePresenter extends Presenter<IStorageView> {
 
@@ -96,9 +97,8 @@ public class StoragePresenter extends Presenter<IStorageView> {
   @Subscribe
   public void sendLoadUpShipMove(LoadUpShipMove move) {
     if (myStorage && stoneCount > 0) {
-      System.out.println("Load : " + move.getShipId());
+      connection.send(move);
     }
-    connection.send(move);
   }
 
 }

@@ -57,10 +57,6 @@ public class ShipPresenter extends Presenter<IShipView> {
   @Subscribe
   public void initCargo(GameInfoEvent e) {
     cargo = e.getShips().get(shipId);
-    for (int i = 0; i < cargo.length; i++) {
-      System.out.println("CARGO SHIP " + shipId + " : " + cargo[i]);
-    }
-
     updateCargo();
   }
 
@@ -82,7 +78,6 @@ public class ShipPresenter extends Presenter<IShipView> {
 
   private void updateCargo() {
     int i = 0;
-    System.out.println("Been there done that");
     for (int owner : cargo) {
       if (owner != -1) {
         Group p = view.getStones().get(i);
