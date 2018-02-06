@@ -40,6 +40,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private int turnTime;
   private Thread turnTimerThread;
   private TurnTimerThread turnTimer;
+  private boolean isTurnFinished = true;
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
       User user, CommonLobby lobby) {
@@ -47,6 +48,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.connection = connection;
     this.user = user;
     this.lobby = lobby;
+    this.isTurnFinished = true;
     bind();
   }
 
@@ -68,8 +70,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     if(card != null) {
       try {
         CardType cardType = CardType.valueOf(card.toUpperCase());
-        Move move = new ToolCardMove(cardType, lobby.getLobbyId());
-        this.connection.send(move);
+        if(cardType == CardType.CHISEL || cardType == CardType.HAMMER || cardType == CardType.LEVER || cardType == CardType.SAIL) {
+          Move move = new ToolCardMove(cardType, lobby.getLobbyId());
+          this.connection.send(move);
+        }
       } catch(IllegalArgumentException ex) {
         // TODO Gotta catch'em all
       }
@@ -125,7 +129,9 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     selectCardBox.getItems().clear();
 
     for(CardType cardType : myCardTypes) {
-      selectCardBox.getItems().add(cardType.name());
+      if(cardType == CardType.CHISEL || cardType == CardType.HAMMER || cardType == CardType.LEVER || cardType == CardType.SAIL) {
+        selectCardBox.getItems().add(cardType.name());
+      }
     }
   }
 
@@ -160,6 +166,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
       this.changeBgGradient(userColor);
       if (e.isMyTurn()) {
         this.changeBannerLabels("", "", Color.TRANSPARENT);
+        this.isTurnFinished = false;
       } else {
         this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
       }
@@ -169,12 +176,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   // UI
   private void endTurn(boolean noTimeLeft) {
-    this.toggleUserInterface(false);
-    if (noTimeLeft) {
-      this.stopTurnTimer();
-      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-          Color.web("#cdb39c"));
-      this.changeBgGradient(Color.web("#cdb39c"));
+    if(!this.isTurnFinished) {
+      this.isTurnFinished = true;
+      this.toggleUserInterface(false);
+      if (noTimeLeft) {
+        this.stopTurnTimer();
+        this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
+                Color.web("#cdb39c"));
+        this.changeBgGradient(Color.web("#cdb39c"));
+      }
     }
   }
 
@@ -186,7 +196,6 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
         new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
-
 
   private void changeBannerLabels(String text, String subText, Color textColor) {
     this.view.getUiBannerLabel().setText(text);
@@ -216,6 +225,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
     // Place stones
     this.view.getSelectShipToLocationBox().setDisable(!placeStonesEnabled);
+    this.view.getSelectStoneLocationBox().setDisable(!placeStonesEnabled);
     this.view.getPlaceStonesButton().setDisable(!placeStonesEnabled);
 
     // Play cards
