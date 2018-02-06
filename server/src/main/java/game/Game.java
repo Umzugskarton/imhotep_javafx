@@ -194,6 +194,7 @@ public class Game implements Runnable {
   @Override
   public void run() {
     int numberOfRounds = 6;
+    boolean endOfRound = false;
     for (int i = 1; i <= numberOfRounds; i++) {
       this.round = i;
       sites.forEach(Site::prepareRound);
@@ -201,6 +202,10 @@ public class Game implements Runnable {
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
         int playerRound = 0;
+        if(endOfRound){ //beginnt neue Runde mit dem Spieler, der als Naechster an der Reihe gewesen waere
+          playerRound = (currentPlayer +1) % this.players.length;
+          endOfRound = false;
+        }
         for (int player = playerRound; player < this.players.length; player++) {
           currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
@@ -220,6 +225,7 @@ public class Game implements Runnable {
       }
       resetCurrentShips();
       addPointsEndOfRound();
+      endOfRound = true;
     }
     addPointsEndOfGame();
     nominateWinner();
