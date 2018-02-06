@@ -119,4 +119,12 @@ public class LobbyControlView implements ILobbyControlView {
   }
 
   public Button getStartGameButton() { return this.startGameButton; }
+
+  public Button getSetReadyButton() {
+    return setReadyButton;
+  }
+
+  public Button getChangeColorButton() {
+    return changeColorButton;
+  }
 }
