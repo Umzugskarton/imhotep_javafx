@@ -20,7 +20,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Imhotep Client2',
                 'Implementation-Version': version,
-                'Main-Class': 'app.ServerApplication'
+                'Main-Class': 'ClientApp'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
