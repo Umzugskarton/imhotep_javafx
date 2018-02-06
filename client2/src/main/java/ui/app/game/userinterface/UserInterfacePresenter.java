@@ -207,20 +207,20 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   private void toggleInterfaceSectionsEnabled(boolean newStonesEnabled, boolean moveShipEnabled, boolean placeStonesEnabled, boolean playCardEnabled) {
     // Get new stones
-    this.view.getGetNewStonesButton().setDisable(newStonesEnabled);
+    this.view.getGetNewStonesButton().setDisable(!newStonesEnabled);
 
     // Move ship
-    this.view.getSelectShipBox().setDisable(moveShipEnabled);
-    this.view.getSelectShipLocationBox().setDisable(moveShipEnabled);
-    this.view.getMoveShipToLocationButton().setDisable(moveShipEnabled);
+    this.view.getSelectShipBox().setDisable(!moveShipEnabled);
+    this.view.getSelectShipLocationBox().setDisable(!moveShipEnabled);
+    this.view.getMoveShipToLocationButton().setDisable(!moveShipEnabled);
 
     // Place stones
-    this.view.getSelectShipToLocationBox().setDisable(placeStonesEnabled);
-    this.view.getPlaceStonesButton().setDisable(placeStonesEnabled);
+    this.view.getSelectShipToLocationBox().setDisable(!placeStonesEnabled);
+    this.view.getPlaceStonesButton().setDisable(!placeStonesEnabled);
 
     // Play cards
-    this.view.getSelectCardBox().setDisable(playCardEnabled);
-    this.view.getPlayCardButton().setDisable(playCardEnabled);
+    this.view.getSelectCardBox().setDisable(!playCardEnabled);
+    this.view.getPlayCardButton().setDisable(!playCardEnabled);
   }
 
   private void startTurnTimer() {
