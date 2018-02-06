@@ -240,3 +240,10 @@
   -fx-background-repeat: stretch;
   -fx-background-size: 100% 100%;
 }
+
+#logoMenuButton{
+  -fx-graphic: url('logo.png');
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-background-radius: 20,20,20,20;
+}
