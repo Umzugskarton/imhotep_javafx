@@ -4,7 +4,6 @@ import events.app.game.ToolCardEvent;
 import events.app.game.VoyageToStoneSiteExclusiveEvent;
 import events.app.game.VoyageToStoneSiteManualDumpEvent;
 import game.Game;
-import game.gameprocedures.VoyageToStoneSite;
 import game.gameprocedures.VoyageToStoneSiteManualDump;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
@@ -22,9 +21,8 @@ public class LeverProtocol extends Protocol {
     game.sendTo(game.getPlayer(playerId).getUser(),
         new VoyageToStoneSiteExclusiveEvent(game.getGameID()));
     Move move = acquireMove();
-    if (move instanceof VoyageToStoneSite) {
-      game.sendTo(game.getPlayer(playerId).getUser(),
-              new VoyageToStoneSiteManualDumpEvent(game.getGameID(), ((VoyageToStoneSiteMove)move).getShipId()));
+    if (move instanceof VoyageToStoneSiteMove) {
+      game.sendTo(game.getPlayer(playerId).getUser(),new VoyageToStoneSiteManualDumpEvent(game.getGameID(), ((VoyageToStoneSiteMove)move).getShipId()));
       Move voyManMove = acquireMove();
       if (voyManMove instanceof VoyageToStoneSiteManualDumpMove) {
         VoyageToStoneSiteManualDumpMove voy = (VoyageToStoneSiteManualDumpMove) voyManMove;

@@ -58,6 +58,9 @@ public class VoyageToMarket implements Procedure {
     List<Card> activeCards = market.getActiveCards();
     ArrayList<ArrayList<CardType>> cardTypes = new ArrayList<>();
     int[] chosenCards= new int[stones.length];
+    for (int i = 0; i < chosenCards.length; i++) {
+      chosenCards[i]= -1;
+    }
     for (int i = 0; i < game.getSize(); i++) {
       cardTypes.add(i ,new ArrayList<>());
     }

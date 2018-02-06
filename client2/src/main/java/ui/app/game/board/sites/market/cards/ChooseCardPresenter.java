@@ -39,7 +39,8 @@ public class ChooseCardPresenter extends Presenter<IChooseCardView> {
   @Subscribe
   private void onChooseCardEvent(ChooseCardEvent e) {
     for (int i : e.getChoosenCardsId()) {
-      cardViews.get(i).setAvailable(false);
+      if(i != -1)
+        cardViews.get(i).setAvailable(false);
     }
     cardViews.forEach(cardView -> cardView.setClickable(true));
     view.resetCards();
