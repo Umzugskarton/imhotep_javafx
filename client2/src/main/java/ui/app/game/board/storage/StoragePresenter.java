@@ -88,17 +88,19 @@ public class StoragePresenter extends Presenter<IStorageView> {
   //Todo Connection
 
   @Subscribe
-  public void sendFillUpStorageMove(FillUpStorageMove move) {
+  public void onSendFillUpStorageMove(FillUpStorageMove move) {
     if (myStorage && stoneCount < 5) {
       connection.send(move);
     }
   }
 
   @Subscribe
-  public void sendLoadUpShipMove(LoadUpShipMove move) {
+  public void onSendLoadUpShipMove(LoadUpShipMove move) {
     if (myStorage && stoneCount > 0) {
       connection.send(move);
     }
   }
+
+
 
 }

@@ -1,7 +1,8 @@
 package game.board.cards;
 
-import java.util.EnumMap;
 import requests.gamemoves.CardType;
+
+import java.util.EnumMap;
 
 public class OrnamentCard extends Card {
 
@@ -33,7 +34,7 @@ public class OrnamentCard extends Card {
    * @param stones die Anzahl der Steine der jeweiligen StoneSites.
    * @return Punkte, die der Spieler durch die Karte erhält
    */
-  public int calc(int[] stones) {
+  public int calc(Integer[] stones) {
     return stones[typeMap.get(this.getType())] / 3;
   }
 }
