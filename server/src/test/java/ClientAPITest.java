@@ -1,8 +1,10 @@
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
 
 import data.user.User;
 import database.userdata.DBUserDataSource;
@@ -53,14 +55,13 @@ public class ClientAPITest {
 
   @Before
   public void init() {
-
+    dbUserDataSource = mock(DBUserDataSource.class);
   }
 
   @Test
   public void loginTestWhenCorrect() {
     ArrayList<String> loggedUser = new ArrayList<>();
 
-    dbUserDataSource = mock(DBUserDataSource.class);
     when(dbUserDataSource.validateLogin("Tom", "123")).thenReturn(true);
     //Übermitteln der Login-Daten
     lRequest = mock(LoginRequest.class);
@@ -80,8 +81,6 @@ public class ClientAPITest {
   public void loginTestWhenFalse() {
     //Test bei falschen Eingaben
     ArrayList<String> loggedUser = new ArrayList<>();
-
-    dbUserDataSource = mock(DBUserDataSource.class);
     when(dbUserDataSource.validateLogin("Tom2", "1234")).thenReturn(false);
     //Übermitteln der Login-Daten
     lRequest = mock(LoginRequest.class);
@@ -92,8 +91,17 @@ public class ClientAPITest {
   }
 
   @Test
+  public void loginTestWhenInvalid() {
+    ArrayList<String> loggedUser = new ArrayList<>();
+    lRequest = mock(LoginRequest.class);
+    when(lRequest.getUsername()).thenReturn(null);
+    when(lRequest.getPassword()).thenReturn(null);
+    ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
+    assertEquals(EventReason.INVALID_REQUEST, clientAPI.login(lRequest, loggedUser).getReason());
+  }
+
+  @Test
   public void registerTest() {
-    dbUserDataSource = mock(DBUserDataSource.class);
     when(dbUserDataSource.createUser("Tom", "123", "email")).thenReturn(true);
     ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
     rRequest = mock(RegisterRequest.class);
@@ -109,7 +117,6 @@ public class ClientAPITest {
 
   @Test
   public void registerTestAlreadyExists() {
-    dbUserDataSource = mock(DBUserDataSource.class);
     when(dbUserDataSource.createUser("Tom", "123", "email")).thenReturn(false);
     ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
     rRequest = mock(RegisterRequest.class);
@@ -124,7 +131,6 @@ public class ClientAPITest {
 
   @Test
   public void changeEMailTest() {
-    dbUserDataSource = mock(DBUserDataSource.class);
     ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
     u1 = mock(User.class);
 
@@ -137,7 +143,6 @@ public class ClientAPITest {
 
   @Test
   public void changePasswordTest() {
-    dbUserDataSource = mock(DBUserDataSource.class);
     ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
     u1 = mock(User.class);
 
@@ -146,6 +151,17 @@ public class ClientAPITest {
     when(cRequest.getCrednr()).thenReturn(2);
     clientAPI.changeCredential(cRequest, u1);
     verify(dbUserDataSource).changeUser(u1, UserIdentifier.PASSWORD, "neuesPW");
+  }
+
+  @Test
+  public void changeCredentialFail() {
+    ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
+    u1 = mock(User.class);
+    cRequest = mock(ChangeCredentialRequest.class);
+    when(cRequest.getCredential()).thenReturn("neueCred");
+    when(cRequest.getCrednr()).thenReturn(3);
+    assertEquals("Fehler aufgetreten", clientAPI.changeCredential(cRequest, u1).getMsg());
+
   }
 
   @Test
@@ -184,5 +200,20 @@ public class ClientAPITest {
     when(createRequest.getSize()).thenReturn(size);
     assertEquals(lobby.getName(), clientAPI.createLobby(createRequest, u1, server).getName());
     assertEquals(lobby.getSize(), clientAPI.createLobby(createRequest, u1, server).getSize());
+  }
+
+  @Test
+  public void createLobbyTestWithoutPass() {
+    u1 = mock(User.class);
+    createRequest = mock(CreateRequest.class);
+    ClientAPI clientAPI = new ClientAPI(dbUserDataSource);
+    int size = 2;
+    String name = "NewLobby";
+    String password = null;
+    Lobby lobby = new Lobby(size, u1, name, password, server);
+    when(createRequest.getName()).thenReturn(name);
+    when(createRequest.getPassword()).thenReturn(null);
+    when(createRequest.getSize()).thenReturn(size);
+    assertThat(clientAPI.createLobby(createRequest, u1, server), instanceOf(Lobby.class));
   }
 }
