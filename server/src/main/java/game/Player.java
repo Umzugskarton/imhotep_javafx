@@ -2,8 +2,9 @@ package game;
 
 import data.user.User;
 import game.board.cards.Card;
+import requests.gamemoves.CardType;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,12 +45,20 @@ public class Player {
     cards.add(card);
   }
 
+  public void removeCard(Card card){ cards.remove(card);}
+
   public boolean ownsCard(Card card) {
     return cards.contains(card);
   }
 
   public List<Card> getCards() {
     return cards;
+  }
+
+  public ArrayList<CardType> getCardTypes(){
+    ArrayList<CardType> cardTypes = new ArrayList<>();
+    cards.forEach(card -> cardTypes.add(card.getType()));
+    return cardTypes;
   }
 
   /**

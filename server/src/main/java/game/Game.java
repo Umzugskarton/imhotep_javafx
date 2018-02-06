@@ -315,6 +315,10 @@ public class Game implements Runnable {
     return null;
   }
 
+  public Player[] getPlayers() {
+    return players;
+  }
+
   private void waitForMove(int p) {
     log.info("[Game:" + gameID + "] Warte auf Spielzug von Spieler " + (p + 1) + " (Name: "
         + this.players[p].getUser().getUsername() + ")");
