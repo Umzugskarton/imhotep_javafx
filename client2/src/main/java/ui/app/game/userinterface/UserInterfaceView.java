@@ -186,12 +186,8 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @FXML
   void sendToolCardMove() {
-    System.out.println("kartenmove senden gedrückt");
     if(this.selectCardBox.getValue() != null) {
       this.mainPresenter.sendToolCardMove();
-      System.out.println("Kartenmove senden");
-    } else {
-      System.out.println("ist null bruda");
     }
   }
 
