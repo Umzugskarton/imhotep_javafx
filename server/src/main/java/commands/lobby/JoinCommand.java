@@ -31,12 +31,11 @@ public class JoinCommand implements Command {
   public void exec() {
     User user = this.clientListener.getUser();
     Lobby lobby = this.clientListener.getServer().getLobbybyID(request.getLobbyId());
+    JoinLobbyEvent response;
     if (!clientListener.getLobbies().contains(lobby)) {
-      JoinLobbyEvent response;
       response = lobby.join(user, request.getPassword());
-      System.out.print(this.clientListener.getUser().getUsername()+ " bereits drin in "+clientListener.getLobbyByID(request.getLobbyId()));
-
       if (response.getSuccess()) {
+        this.clientListener.send(response);
         clientListener.addLobby(lobby);
         clientListener.getServer()
             .sendToLoggedIn(this.server.getLobbies(clientListener.getUser()));
@@ -45,8 +44,12 @@ public class JoinCommand implements Command {
             lobby.getHostName(), lobby.getReady(), lobby.getColors());
         LobbyInfoEvent lobbyInfo = new LobbyInfoEvent(cltLobby);
         server.sendToLobby(lobbyInfo, lobby);
+      } else{
+        this.clientListener.send(response);
       }
+    } else {
+      response = new JoinLobbyEvent("Join nicht möglich!",false,this.request.getLobbyId());
+      this.clientListener.send(response);
     }
-    System.out.print(this.clientListener.getUser().getUsername()+ " bereits drin in "+clientListener.getLobbyByID(request.getLobbyId()));
   }
 }

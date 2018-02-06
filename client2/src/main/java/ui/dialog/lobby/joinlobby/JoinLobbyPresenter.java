@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import events.app.lobby.create.CreateLobbyFailedEvent;
 import events.app.lobby.create.CreateLobbySuccessfulEvent;
+import events.app.lobby.join.JoinLobbyEvent;
 import events.app.lobby.join.JoinLobbyFailedEvent;
 import events.app.lobby.join.JoinLobbySuccessfulEvent;
 import mvp.presenter.Presenter;
@@ -47,12 +48,11 @@ public class JoinLobbyPresenter extends Presenter<IJoinLobbyView> {
   }
 
   @Subscribe
-  public void onJoinLobbySuccessfulEvent(JoinLobbySuccessfulEvent e){
-    this.getView().closeDialog();
-  }
-
-  @Subscribe
-  public void onJoinLobbyFailedEvent(JoinLobbyFailedEvent e){
-    this.getView().updateStatusLabel(e.getReason().toString());
+  public void onJoinLobbySuccessfulEvent(JoinLobbyEvent e){
+    if(e.getSuccess()){
+      this.getView().closeDialog();
+    } else{
+      this.getView().updateStatusLabel(e.getMsg());
+    }
   }
 }

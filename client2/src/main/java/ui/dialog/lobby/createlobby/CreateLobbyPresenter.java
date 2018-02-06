@@ -3,6 +3,7 @@ package ui.dialog.lobby.createlobby;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.app.lobby.create.CreateLobbyEvent;
 import events.app.lobby.create.CreateLobbyFailedEvent;
 import events.app.lobby.create.CreateLobbySuccessfulEvent;
 import mvp.presenter.Presenter;
@@ -36,12 +37,11 @@ public class CreateLobbyPresenter extends Presenter<ICreateLobbyView> {
   }
 
   @Subscribe
-  public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
+  public void onCreateLobbySuccessfulEvent(CreateLobbyEvent e){
+    if(e.getSuccess()){
       this.getView().closeDialog();
-  }
-
-  @Subscribe
-  public void onCreateLobbyFailedEvent(CreateLobbyFailedEvent e){
-    this.getView().updateStatusLabel(e.getReason().toString());
+    } else {
+      this.getView().updateStatusLabel(e.getReason().toString());
+    }
   }
 }

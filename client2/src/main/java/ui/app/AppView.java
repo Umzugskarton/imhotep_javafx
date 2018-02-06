@@ -111,7 +111,7 @@ public class AppView implements IAppView {
     mainViewPane.getChildren().add(this.mainView.getRootParent());
   }
 
-  public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
+  public Tab addTab(LobbyView lobbyView, CommonLobby lobby) {
     Tab tab = new Tab();
     tab.setText("Lobby #" + lobby.getLobbyId());
     tab.setContent(lobbyView.getRootParent());
@@ -124,8 +124,8 @@ public class AppView implements IAppView {
         presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
       }
     });
-
-    return this.appViewMainTabPane.getTabs().add(tab);
+    this.appViewMainTabPane.getTabs().add(tab);
+    return tab;
   }
 
   @Override
@@ -160,10 +160,11 @@ public class AppView implements IAppView {
       gameEventbuses.put(lobby.getLobbyId(), gameEventbus);
       LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(),
           this.user, lobby);
-      addTab(lobbyView, lobby);
+      Tab tab = addTab(lobbyView, lobby);
       lobbyViews.add(lobbyView);
 
       lobbyView.updateUserTableView(lobby);
+      this.appViewMainTabPane.getSelectionModel().select(tab);
     }
   }
 
