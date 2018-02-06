@@ -16,40 +16,42 @@ public class LobbyTest {
   @Mock
   Server server;
 
+  User host;
+  User user1;
+  User user2;
+  User user3;
+
   @Before
   public void init() {
     server = mock(Server.class);
+    host = new User(1, "host", "123", "email");
+    user1 = new User(2, "test2", "123", "email");
+    user2 = new User(3, "user2", "123", "email");
+    user3 = new User(4, "user3", "123", "email");
   }
 
 
   @Test
   public void swapHostTest() {
-    User host = new User(1, "host", "123", "email");
-    User test = new User(2, "test2", "123", "email");
     Lobby lobby = new Lobby(2, host, "", "", server);
-    lobby.join(test, "");
+    lobby.join(user1, "");
     lobby.leave(host);
     assertEquals("test2", lobby.getHostName());
   }
 
   @Test
   public void getHostNameTest() {
-    User host = new User(1, "host", "123", "email");
     Lobby lobby = new Lobby(2, host, "", "", server);
     assertEquals("host", lobby.getHostName());
   }
 
   @Test
   public void joinTest() {
-    User host = new User(1, "host", "123", "email");
-    User user1 = new User(2, "user1", "123", "email");
-    User user2 = new User(3, "user2", "123", "email");
-    User user3 = new User(4, "user3", "123", "email");
     Lobby lobby = new Lobby(2, host, "", "123", server);
 
     //User1 joint mit richtigem Passwort
     lobby.join(user1, "123");
-    assertEquals("user1", lobby.getUsers()[1].getUsername());
+    assertEquals("test2", lobby.getUsers()[1].getUsername());
     //User2 gibt falsches Passwort bei Eintritt in die Lobby ein
     User[] userList = lobby.getUsers();
     lobby.join(user2, "1234");
@@ -64,10 +66,6 @@ public class LobbyTest {
 
   @Test
   public void getColorsTest() {
-    User host = new User(1, "host", "123", "email");
-    User user1 = new User(2, "user1", "123", "email");
-    User user2 = new User(3, "user2", "123", "email");
-    User user3 = new User(4, "user3", "123", "email");
     Lobby lobby = new Lobby(4, host, "", "", server);
     lobby.join(user1, "");
     lobby.join(user2, "");
@@ -103,8 +101,6 @@ public class LobbyTest {
 
   @Test
   public void setReadyTest() {
-    User host = new User(1, "host", "123", "email");
-    User user1 = new User(2, "user1", "123", "email");
     Lobby lobby = new Lobby(4, host, "", "", server);
     lobby.join(user1, "");
     //Ausgangs-ready-Status
@@ -124,8 +120,6 @@ public class LobbyTest {
 
   @Test
   public void replaceColorTest() {
-    User host = new User(1, "host", "123", "email");
-    User user1 = new User(2, "user1", "123", "email");
     Lobby lobby = new Lobby(4, host, "", "", server);
     lobby.join(user1, "");
     ArrayList<String> colors = lobby.getColors();
@@ -137,8 +131,6 @@ public class LobbyTest {
 
   @Test
   public void getUserCountTest() {
-    User host = new User(1, "host", "123", "email");
-    User user1 = new User(2, "user1", "123", "email");
     Lobby lobby = new Lobby(4, host, "", "", server);
     lobby.join(user1, "");
     assertEquals(2, lobby.getLobbyUserArrayList().size());
@@ -147,7 +139,6 @@ public class LobbyTest {
 
   @Test
   public void generateColorsTest() {
-    User host = new User(1, "host", "123", "email");
     Lobby lobby = new Lobby(4, host, "", "", server);
   }
 

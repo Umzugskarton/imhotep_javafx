@@ -37,6 +37,8 @@ public class JoinCommand implements Command {
     if (!clientListener.getLobbies().contains(lobby)) {
       JoinLobbyEvent response;
       response = lobby.join(user, request.getPassword());
+      System.out.print(this.clientListener.getUser().getUsername()+ " bereits drin in "+clientListener.getLobbyByID(request.getLobbyId()));
+
       if (response.getSuccess()) {
         clientListener.addLobby(lobby);
         CommonLobby cltLobby = new CommonLobby(lobby.getLobbyID(), lobby.getName(),
@@ -54,5 +56,6 @@ public class JoinCommand implements Command {
       event.setReason(EventReason.INVALID_REQUEST);
       clientListener.send(event);
     }
+    System.out.print(this.clientListener.getUser().getUsername()+ " bereits drin in "+clientListener.getLobbyByID(request.getLobbyId()));
   }
 }

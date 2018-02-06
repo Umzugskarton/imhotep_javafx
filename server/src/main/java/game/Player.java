@@ -3,6 +3,7 @@ package game;
 import data.user.User;
 import game.board.cards.Card;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,6 +46,10 @@ public class Player {
 
   public boolean ownsCard(Card card) {
     return cards.contains(card);
+  }
+
+  public List<Card> getCards() {
+    return cards;
   }
 
   /**

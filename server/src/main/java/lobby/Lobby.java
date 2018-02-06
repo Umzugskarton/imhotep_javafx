@@ -59,6 +59,7 @@ public class Lobby {
     }
   }
 
+  //Möglicherweise schaffen wir nicht mehr gezielten Host-Wechsel
   private void swapHost(User user) {
     if (user != null && user != users[0]) {
       User temp = users[0];
@@ -183,7 +184,7 @@ public class Lobby {
     return temp;
   }
 
-  private int getUserCount() {
+  public int getUserCount() {
     int users = 0;
     for (User user : this.users) {
       if (user != null) {
