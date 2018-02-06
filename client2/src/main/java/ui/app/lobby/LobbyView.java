@@ -85,7 +85,7 @@ public class LobbyView implements ILobbyView {
     this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(),
         mainPresenter.getLobby(), user);
     this.lobbyControlView = new LobbyControlView(this, this.eventBus,
-        mainPresenter.getClientSocket(), mainPresenter.getLobby());
+        mainPresenter.getClientSocket(), mainPresenter.getLobby(), user);
     this.userTableView = new UserTableView(this, this.chatView, this.mainPresenter.getLobby(),
         this.lobbyControlView, eventBus, mainPresenter.getClientSocket(), user);
 
