@@ -59,7 +59,7 @@ public class WinView implements IDialogView {
   @Override
   public void initOwnView() {
     if (myParent == null)
-      myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/GameView.fxml", this, eventBus);
+      myParent = GenerateFXMLView.getINSTANCE().loadView("/ui/fxml/app/game/WinView.fxml", this, eventBus);
   }
 
   @FXML
@@ -82,7 +82,7 @@ public class WinView implements IDialogView {
       pointTable = table;
 
       announceLabel.setText(myWinEvent.getWinner());
-      announceLabel.setTextFill(Color.web(lobby.getUserByName(myWinEvent.getWinner()).getColor()));
+      //announceLabel.setTextFill(Color.web(lobby.getUserByName(myWinEvent.getWinner()).getColor()));
 
   }
 

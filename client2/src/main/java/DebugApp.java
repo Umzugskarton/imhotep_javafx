@@ -8,10 +8,7 @@ import events.Event;
 import events.EventReason;
 import events.SiteType;
 import events.app.chat.ChatMessageEvent;
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipLoadedEvent;
-import events.app.game.StartGameEvent;
-import events.app.game.TurnEvent;
+import events.app.game.*;
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.join.JoinLobbySuccessfulEvent;
 import events.app.main.LobbyListEvent;
@@ -255,6 +252,19 @@ public class DebugApp {
       }
     });
 
+    // Buttons 9
+    Button lobbyListButton9 = new Button("WinEvent");
+    lobbyListButton9.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        String[][] player = new String[10][10];
+        WinEvent winEvent = new WinEvent("Hans",player,0);
+        getEventBus().post(winEvent);
+        //logger.debug("Sende " + myEvent.getClass().getSimpleName() + " an EventBus!");
+        //getEventBus().post(myEvent);
+      }
+    });
+
     // Buttons 3
     Button lobbyListButton3 = new Button("LobbyInfo 0");
     lobbyListButton3.setOnAction(new EventHandler<ActionEvent>() {
@@ -382,6 +392,7 @@ public class DebugApp {
     vBox.getChildren().add(lobbyListButton6);
     vBox.getChildren().add(lobbyListButton7);
     vBox.getChildren().add(lobbyListButton8);
+    vBox.getChildren().add(lobbyListButton9);
   }
 
   private void initPopup() {
