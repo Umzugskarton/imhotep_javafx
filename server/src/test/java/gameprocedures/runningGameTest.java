@@ -1,6 +1,7 @@
 package gameprocedures;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.longThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,12 +14,15 @@ import game.board.Market;
 import game.board.Ship;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+import game.board.Stone;
 import game.board.StoneSite;
 import game.board.cards.Card;
 import game.board.cards.OrnamentCard;
+import game.board.cards.ToolCard;
 import game.gameprocedures.VoyageToStoneSite;
 import lobby.Lobby;
 import org.junit.Before;
@@ -257,6 +261,11 @@ public class runningGameTest {
     }
     game.runOneRoundTest(marketMove);
     for(int i = 0; i <= 3; i++) {
+      System.out.println(game.getPlayer(i).getCards().size());
+    }
+
+    //assertEquals(0,((Market) game.getSiteByType(SiteType.MARKET)).getActiveCards().size());
+    for(int i = 0; i <= 3; i++) {
       assertEquals(1, game.getPlayer(i).getCards().size());
     }
   }
@@ -292,7 +301,7 @@ public class runningGameTest {
   public void toolCardsTest() {
     game = new Game(lobby, cl);
     Move[] hammerMove = {
-      new ToolCardMove(CardType.HAMMER, lobbyID), null, null, null
+      new ToolCardMove(CardType.HAMMER, lobbyID), new ToolCardMove(CardType.HAMMER, lobbyID), null, null
     };
 
     Move[] leverMove = {
@@ -302,11 +311,58 @@ public class runningGameTest {
             new ToolCardMove(CardType.CHISEL, lobbyID), null, null, null
     };
 
+    CardType card = CardType.HAMMER;
+    ToolCard card1 = new ToolCard(card);
+    game.getPlayer(0).addCard(card1);
 
     game.runOneRoundTest(hammerMove);
     //game.runOneRoundTest(leverMove);
     //game.runOneRoundTest(chiselMove);
     assertEquals(5, game.getPlayer(0).getStones());
+  }
+
+  @Test
+  public void cardChoosenTest() {
+    game = new Game(lobby, cl);
+    Card activeCard1 = ((Market)game.getSiteByType(SiteType.MARKET)).getActiveCards().get(0);
+    Card activeCard2 = ((Market)game.getSiteByType(SiteType.MARKET)).getActiveCards().get(1);
+    Card activeCard3 = ((Market)game.getSiteByType(SiteType.MARKET)).getActiveCards().get(2);
+    Card activeCard4 = ((Market)game.getSiteByType(SiteType.MARKET)).getActiveCards().get(3);
+    Move[] chooseMove = {
+            new ChooseCardMove(lobbyID, 0), new ChooseCardMove(lobbyID, 1),
+                    new ChooseCardMove(lobbyID, 2), new ChooseCardMove(lobbyID, 3)
+    };
+    game.runOneRoundTest(chooseMove);
+    assertEquals(activeCard1, game.getPlayer(0).getCards().get(0));
+
+  }
+
+  @Test
+  public void VTSMDM() {
+    game = new Game(lobby, cl);
+    game.runOneRoundTest(moves);
+    game.runOneRoundTest(moves2);
+    game.runOneRoundTest(repeatMoves2);
+    game.runOneRoundTest(repeatMoves2);
+    Stone[] j = game.getShipByID(2).getStones();
+    int i = game.getShipByID(2).getSize();
+    if(i == 3) {
+      int[] dumpOrder = {1,2,0};
+      Move[] manualDumpMove = {
+              new ToolCardMove(CardType.LEVER, lobbyID), null, null, null
+      };
+      game.runOneRoundTest(manualDumpMove);
+      assertEquals(j,game.getShipByID(2).getStones());
+    }
+    if(i == 4) {
+       int[] dumpOrder = {1,2,0,3};
+      Move[] manualDumpMove = {
+              new ToolCardMove(CardType.LEVER, lobbyID), null, null, null
+      };
+      game.runOneRoundTest(manualDumpMove);
+      assertEquals(j,game.getShipByID(2).getStones());
+    }
+
 
   }
 
