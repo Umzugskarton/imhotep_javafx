@@ -11,6 +11,7 @@ import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,9 +24,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mvp.view.ShowViewEvent;
 import requests.lobby.LeaveLobbyRequest;
+import requests.main.LogoutRequest;
 import ui.app.game.GameView;
 import ui.app.lobby.LobbyView;
 import ui.app.main.MainView;
+import ui.app.profil.ProfilView;
+import ui.app.profil.ShowProfilViewEvent;
 import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
 import ui.layout.StageLayout;
@@ -69,6 +73,7 @@ public class AppView implements IAppView {
   @FXML
   private Pane appViewBottomPane;
 
+
   private final AppPresenter presenter;
   private final EventBus eventBus;
   private final User user;
@@ -82,6 +87,8 @@ public class AppView implements IAppView {
   private ArrayList<LobbyView> lobbyViews = new ArrayList<>();
   private ArrayList<GameView> gameViews = new ArrayList<>();
   Map<Integer, EventBus> gameEventbuses = new HashMap<>();
+  private ProfilView profilView;
+  private Tab profilTab;
 
   //PopupView
   private DialogView popupView;
@@ -112,6 +119,16 @@ public class AppView implements IAppView {
     this.mainView = new MainView(this, eventBus, this.presenter.getConnection(), this.user);
     Pane mainViewPane = (Pane) this.appViewMainTab.getContent();
     mainViewPane.getChildren().add(this.mainView.getRootParent());
+  }
+
+  @FXML
+  private void handleYourProfilClick(ActionEvent event) {
+    this.eventBus.post(new ShowProfilViewEvent());
+  }
+
+  @FXML
+  private void handleLogoutClick(ActionEvent event){
+    this.presenter.getConnection().send(new LogoutRequest());
   }
 
   public Tab addTab(LobbyView lobbyView, CommonLobby lobby) {
@@ -168,6 +185,29 @@ public class AppView implements IAppView {
 
       lobbyView.updateUserTableView(lobby);
       this.appViewMainTabPane.getSelectionModel().select(tab);
+    }
+  }
+
+  @Subscribe
+  public void onShowProfilEvent(ShowProfilViewEvent e) {
+    if(this.profilView == null) {
+      this.profilView = new ProfilView(this,this.eventBus,this.presenter.getConnection(),this.user);
+    profilTab = new Tab();
+    profilTab.setText("Profil");
+    profilTab.setContent(profilView.getRootParent());
+    profilTab.setId("profil");
+
+    profilTab.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        profilTab = null;
+        profilView = null;
+      }
+    });
+    this.appViewMainTabPane.getTabs().add(profilTab);
+    this.appViewMainTabPane.getSelectionModel().select(profilTab);
+    } else {
+      this.appViewMainTabPane.getSelectionModel().select(profilTab);
     }
   }
 
