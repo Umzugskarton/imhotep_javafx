@@ -1,6 +1,6 @@
 package events.app.game;
 
-public class ShipAlreadyDockedError extends GameEvent {
+public class ShipAlreadyDockedError extends GameError {
 
   private int shipID;
 

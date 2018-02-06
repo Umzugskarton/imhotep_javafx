@@ -1,6 +1,6 @@
 package events.app.game;
 
-public class NotEnoughLoadError extends GameEvent {
+public class NotEnoughLoadError extends GameError {
 
   private int shipID;
 
