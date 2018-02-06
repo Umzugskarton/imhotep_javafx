@@ -6,61 +6,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="Market" prefHeight="113.0" prefWidth="319.0" styleClass="site"
-  stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9"
-  xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane id="Market" prefHeight="113.0" prefWidth="319.0" styleClass="site" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <Label layoutX="43.0" layoutY="79.0" text="Market">
+    <Label layoutX="43.0" layoutY="85.0" text="Markt">
       <font>
-        <Font name="Calibri" size="21.0"/>
+        <Font name="Calibri" size="21.0" />
       </font>
     </Label>
     <Pane fx:id="cardPane" layoutX="101.0" prefHeight="113.0" prefWidth="319.0">
       <children>
-        <Pane id="blue" layoutX="40.0" layoutY="72.0" prefHeight="22.0" prefWidth="36.0"
-          translateX="1.0"
-          onMouseClicked="#showCard0">
+        <Pane id="blue" layoutX="40.0" layoutY="72.0" onMouseClicked="#showCard0" prefHeight="22.0" prefWidth="36.0" translateX="1.0">
           <children>
-            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true"
-              preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="@../../../../../css/markt.png"/>
+                <Image url="@../../../../../css/markt.png" />
               </image>
             </ImageView>
           </children>
         </Pane>
-        <Pane id="blue" layoutX="89.0" layoutY="72.0" prefHeight="22.0" prefWidth="36.0"
-          translateX="1.0"
-          onMouseClicked="#showCard1">
+        <Pane id="blue" layoutX="89.0" layoutY="72.0" onMouseClicked="#showCard1" prefHeight="22.0" prefWidth="36.0" translateX="1.0">
           <children>
-            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true"
-              preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="@../../../../../css/markt.png"/>
+                <Image url="@../../../../../css/markt.png" />
               </image>
             </ImageView>
           </children>
         </Pane>
-        <Pane id="blue" layoutX="195.0" layoutY="72.0" prefHeight="22.0" prefWidth="36.0"
-          translateX="1.0"
-          onMouseClicked="#showCard2">
+        <Pane id="blue" layoutX="195.0" layoutY="72.0" onMouseClicked="#showCard2" prefHeight="22.0" prefWidth="36.0" translateX="1.0">
           <children>
-            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true"
-              preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="@../../../../../css/markt.png"/>
+                <Image url="@../../../../../css/markt.png" />
               </image>
             </ImageView>
           </children>
         </Pane>
-        <Pane id="blue" layoutX="243.0" layoutY="72.0" prefHeight="22.0" prefWidth="36.0"
-          translateX="1.0"
-          onMouseClicked="#showCard3">
+        <Pane id="blue" layoutX="243.0" layoutY="72.0" onMouseClicked="#showCard3" prefHeight="22.0" prefWidth="36.0" translateX="1.0">
           <children>
-            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true"
-              preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="39.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="@../../../../../css/markt.png"/>
+                <Image url="@../../../../../css/markt.png" />
               </image>
             </ImageView>
           </children>

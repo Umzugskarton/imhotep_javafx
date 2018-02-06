@@ -3,26 +3,35 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
-<GridPane fx:id="rootParent" alignment="center" prefHeight="250.0" prefWidth="485.0"
-  scaleShape="false"
-  stylesheets="@../../../../css/style.css" xmlns="whatever" xmlns:fx="http://javafx.com/fxml/1">
+
+<GridPane fx:id="rootParent" alignment="center" hgap="5.0" prefHeight="250.0" prefWidth="485.0" scaleShape="false" stylesheets="@../../../../css/style.css" vgap="5.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <padding>
-    <Insets bottom="10" left="25" right="25" top="25"/>
+    <Insets bottom="10" left="25" right="25" top="25" />
   </padding>
 
-  <Label fx:id="userSizeLabel" text="belegung" GridPane.columnIndex="1" GridPane.columnSpan="1"
-    GridPane.rowIndex="1"/>
+  <Label fx:id="userSizeLabel" text="belegung" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="1" />
 
   <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <Button fx:id="changeColorButton" onAction="#handlechangeColorButtonAction"
-      text="%change_color"/>
-    <Button fx:id="setReadyButton" onAction="#handlesetReadyButtonAction" text="%ready"/>
-    <Button fx:id="startGameButton" onAction="#handlestartGameButtonAction" text="%start_game"/>
+    <Button fx:id="changeColorButton" onAction="#handlechangeColorButtonAction" text="%change_color" />
+    <Button fx:id="setReadyButton" onAction="#handlesetReadyButtonAction" text="%ready" />
+    <Button fx:id="startGameButton" onAction="#handlestartGameButtonAction" text="%start_game" />
   </HBox>
 
-  <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+  <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>
