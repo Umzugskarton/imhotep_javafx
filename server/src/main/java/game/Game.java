@@ -128,9 +128,18 @@ public class Game implements Runnable {
     return points;
   }
 
+  /**
+   * Sendet die aktuelle Punktezahl an alle Spieler
+   *
+   */
+
   private void updatePoints() {
     sendAll(new UpdatePointsEvent(getPointsSum(), gameID));
   }
+
+  /**
+   * Berechnet die aktuellen Punkte aller Spieler für die Pyramide und führt updatePoints aus
+   */
 
   public void updatePyramids() {
     int[] newPoints = pyramids.getPointsAndFinishTurn();
@@ -140,9 +149,24 @@ public class Game implements Runnable {
     updatePoints();
   }
 
+  /**
+   * Sendet ein Event an einen User
+   *
+   * @param user der User an den das Event geschickt werden soll
+   * @param event das Event das an den User gesschickt werden soll
+   */
+
   public void sendTo(User user, Event event) {
     this.clientListener.getServer().sendTo(event, user.getUsername());
   }
+
+  /**
+   *
+   * Erstellt ein GameInfoEvent das an den Client gesendet wird, dies enthält alle wichtigen Informationen
+   * zu dem aktuellen Zustand des Spieles
+   *
+   * @return GameInfoEvent, mit allen Informationen zum Stand des Spieles
+   */
 
   private GameInfoEvent getGameInfo() {
     GameInfoEvent gameInfo = new GameInfoEvent(gameID);
@@ -190,6 +214,11 @@ public class Game implements Runnable {
     return gameInfo;
   }
 
+  /**
+   * Die Spielschleife , die die Grundstruktur des Spiels darstellt, von hier aus werden alle Parameter für eine Runde initiert
+   * und gestartet
+   *
+   */
 
   @Override
   public void run() {
@@ -231,6 +260,12 @@ public class Game implements Runnable {
     nominateWinner();
   }
 
+  /**
+   * Berechnet alle Punkte, die am Ende eines Spiels abgerechnet werden , und führt alle Punkte aus den StoneSites und
+   * Karten zusammen und führt darauf hin updatePoints aus
+   *
+   */
+
   private void addPointsEndOfGame() {
     int[] burialChamberPoints = burialChamber.getPoints();
     int[] obelisksPoints = obelisks.getPoints();
@@ -243,6 +278,14 @@ public class Game implements Runnable {
     updatePoints();
   }
 
+  /**
+   * Berechnet die Punkte, der OrnamentCards, besitzt ein Spieler eine OrnamentCard
+   * so wird über dessen Typ und mit dem stones Integer Array die Punktezahl zusammen gerechnet die dieser
+   * für jene OrnamentCard erhält , sollte er mehrere besitzen werden die punkte kumuliert und zurückgegeben
+   *
+   * @param player die Id des Spielers im Game
+   * @return points, die der Spieler durch die OrnamentCards erhält
+   */
 
   private int getOrnamentPoints(int player){
     ArrayList<Integer> stonesList = new ArrayList<>();
@@ -259,6 +302,14 @@ public class Game implements Runnable {
     return points;
   }
 
+  /**
+   * Berechnet die Punkte, die ein Spieler am Ende des Spiels für das sammeln von StatueCards erhält
+   * über die auf einerStatueCard implementierten calc funktion wird pber die Anzahl  die Punktezahl erechnet
+   *
+   * @param player die Id des Spielers im Game
+   * @return Punkte, die der Spieler durch die StatueCards erhält
+   */
+
   private int getStatueCardPoints(int player){
     int statue = 0;
     for (Card card : players[player].getCards()){
@@ -272,6 +323,12 @@ public class Game implements Runnable {
       return 0;
   }
 
+
+  /**
+   * Berechnet die Punkte, die am Ende einer jeden Runde berechnet werden sollen und führt update Points aus
+   *
+   */
+
   private void addPointsEndOfRound() {
     int[] templePoints = temple.getPoints();
     for (int player = 0; player < this.players.length; player++) {
@@ -279,6 +336,12 @@ public class Game implements Runnable {
     }
     updatePoints();
   }
+
+
+  /**
+   * Bestimmt den Gewinner des Spiels , erstellt einen String[][] der Usernamen und die dazugehörige
+   * Punktezahl enthält und sendet ein WinEvent an alle Spieler im Spiel , welches die zuvor bestimmten Information enthält
+   */
 
   private void nominateWinner() {
     Player winner = null;
@@ -309,6 +372,13 @@ public class Game implements Runnable {
     return ships;
   }
 
+  /**
+   * Setzt den aktuellen Spieler , dazu wird die ProcedureFactory mit der id des aktuellen Spielers neuinitiiert und
+   * ein TurnEvent an alle Spieler sendet welches die information enthält ob dieser nun an der Reihe ist
+   *
+   * @param player die Id des Spielers im Game
+   */
+
   private void setActivePlayer(int player) {
     pf = new ProcedureFactory(player, this);
     for (Player p : this.players) {
@@ -318,11 +388,22 @@ public class Game implements Runnable {
     }
   }
 
-  private boolean executeMove() {
+  /**
+   * Initiert die passende Procedure zum gesetzten Spielzug und führt executeProcedure aus
+   *
+   *
+   * @return points, die der Spieler durch die OrnamentCards erhält
+   */
+  private void executeMove() {
     Procedure nextProcedure = pf.getProcedure(nextMove);
     executeProcedure(nextProcedure);
-    return true;
   }
+
+  /**
+   * Führt die übergebene Procedure aus und sendet allen Usern ein Event das die Procedure zurückwirft
+   *
+   * @param procedure die Id des Spielers im Game
+   */
 
   private void executeProcedure(Procedure procedure) {
     log.info("[Game:" + gameID + "] führe Spielzug " + procedure.getClass().getName() + " aus für "
@@ -333,11 +414,23 @@ public class Game implements Runnable {
     sendAll(procedure.exec());
   }
 
-  public boolean executeMove(Move move) {
+  /**
+   * Initiirt die zu einem übergebenem Spielzug passende Procedure und führt
+   * execute Procedure aus
+   *
+   * @param move der Spielzug der ausgeführt werden soll
+   */
+
+  public void executeMove(Move move) {
     Procedure nextProcedure = pf.getProcedure(move);
     executeProcedure(nextProcedure);
-    return true;
   }
+
+  /**
+   * Überprüft ob alle Schiffe an einen Hafen angedockt wurden
+   *
+   * @return boolean, der anzeigt ob alle Schiffe an einen Hafen angedockt haben
+   */
 
   private boolean allshipsDocked() {
     for (Ship ship : this.ships) {
@@ -347,6 +440,8 @@ public class Game implements Runnable {
     }
     return true;
   }
+
+
 
   public Player getPlayerByUser(User user) {
     for (Player player : players) {
