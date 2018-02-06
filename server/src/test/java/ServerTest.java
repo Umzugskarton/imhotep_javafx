@@ -82,10 +82,10 @@ public class ServerTest {
   public void sendToLobbyTest() {
     Server server = new Server(clientAPI, 2);
     server.sendToLobby(null, lobby);
-    verify(u1, times(2)).getUsername();
-    verify(u2, times(2)).getUsername();
-    verify(u3, times(2)).getUsername();
-    verify(u4, times(2)).getUsername();
+    verify(u1, times(1)).getUsername();
+    verify(u2, times(1)).getUsername();
+    verify(u3, times(1)).getUsername();
+    verify(u4, times(1)).getUsername();
   }
 
   @Test
@@ -93,12 +93,6 @@ public class ServerTest {
     Server server = new Server(clientAPI, 3);
     server.sendToAll(null);
     when(cL.getUser()).thenReturn(u1);
-  }
-
-  @Test
-  public void runTest() throws Exception {
-    Server server = new Server(clientAPI, 4);
-    //?
   }
 
   @Test
@@ -112,20 +106,5 @@ public class ServerTest {
   public void getLobbybyIDTest() {
     Server server = new Server(clientAPI, 6);
     assertEquals(null, server.getLobbybyID(1));
-  }
-
-  @Test
-  public void getLobbiesTest() {
-    Server server = new Server(clientAPI, 7);
-    server.addLobby(lobby);
-    server.addLobby(lobby);
-
-
-  }
-
-  @Test
-  public void sendToLoggedInTest() {
-    Server server = new Server(clientAPI, 8);
-    server.sendToLoggedIn(null);
   }
 }
