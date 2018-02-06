@@ -1,5 +1,7 @@
 package ui.app.game.chat;
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
@@ -69,7 +71,7 @@ public class ChatView implements IChatView {
   void initialize() {
     this.chatTextField.requestFocus();
     this.chatFlow.setId("#msg");
-    addInfoMessage("Willkommen " + this.user.getUsername(), Color.GRAY);
+    addInfoMessage(getString("welcome")+ " " + this.user.getUsername(), Color.GRAY);
   }
 
   @FXML
