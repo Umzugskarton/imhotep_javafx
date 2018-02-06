@@ -162,8 +162,16 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
     myCardTypes = event.getCardTypes().get(this.view.getPlayerId());
 
-    System.out.println("Inventory geupdated, karten sind da für dich, ole.");
-    // TODO Dropdown ändern
+    // Karten im Dropdown aktualisieren
+    ComboBox<String> selectCardBox = this.view.getSelectCardBox();
+    selectCardBox.getItems().clear();
+
+    for(CardType cardType : myCardTypes) {
+      selectCardBox.getItems().add(cardType.name());
+    }
+
+    // Debug
+    System.out.println("Karten angekommen, aktualisieren User-Interface");
   }
 
   private void removeShip(int ship) {
