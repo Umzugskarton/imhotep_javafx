@@ -53,6 +53,8 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   private ComboBox<Integer> selectStoneLocationBox;
 
+  @FXML
+  private ComboBox<String> selectCardBox;
 
   private final IGameView parentView;
   private final UserInterfacePresenter mainPresenter;
@@ -60,16 +62,19 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   private final User user;
   private CommonLobby lobby;
+  private int playerId;
 
   // Own Parent
   private Parent myParent;
 
   public UserInterfaceView(IGameView parentView, EventBus eventBus, Connection connection,
-      User user, CommonLobby lobby) {
+      User user, CommonLobby lobby, int playerId) {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
     this.user = user;
+    this.playerId = playerId;
+    System.out.println("PlayerID ist " + playerId);
     this.mainPresenter = new UserInterfacePresenter(this, eventBus, connection, user, lobby);
     bind();
     initOwnView();
@@ -124,6 +129,10 @@ public class UserInterfaceView implements IUserInterfaceView {
     return selectShipLocationBox;
   }
 
+  public ComboBox<String> getSelectCardBox() { return selectCardBox; }
+
+  public int getPlayerId() { return playerId; }
+
 // TODO Moves richtig mit Parent ausführen
 
   @FXML
@@ -135,8 +144,6 @@ public class UserInterfaceView implements IUserInterfaceView {
   void setStoneLocationCBox(ActionEvent event) {
     if (selectShipToLocationBox.getValue() != null) {
       mainPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
-    } else {
-      System.out.println("Null");
     }
   }
 
@@ -144,6 +151,14 @@ public class UserInterfaceView implements IUserInterfaceView {
     ArrayList<ComboBox<Integer>> a = new ArrayList<>();
     Collections.addAll(a, selectShipBox, selectShipToLocationBox);
     return a;
+  }
+
+  @FXML
+  void sendToolCardMove() {
+    if(this.selectCardBox.getValue() != null) {
+      //this.mainPresenter.sendToolCardMove();
+      System.out.println("Kartenmove senden");
+    }
   }
 
   @FXML
@@ -158,17 +173,12 @@ public class UserInterfaceView implements IUserInterfaceView {
     if (selectShipBox.getValue() != null && selectShipLocationBox.getValue() != null) {
       mainPresenter.sendVoyageToStoneSiteMove(selectShipBox.getValue(),
           findSiteType.get(selectShipLocationBox.getValue()));
-    } else {
-      System.out
-          .println("A: " + selectShipBox.getValue() + " B: " + selectShipLocationBox.getValue());
     }
   }
 
   @FXML
   void sendLoadUpShipMove() {
     if (selectShipToLocationBox.getValue() != null && selectStoneLocationBox.getValue() != null) {
-      System.out.println(
-          "A: " + selectShipToLocationBox.getValue() + "B: " + selectStoneLocationBox.getValue());
       mainPresenter.sendLoadUpShipMove(selectShipToLocationBox.getValue(),
           selectStoneLocationBox.getValue());
     }

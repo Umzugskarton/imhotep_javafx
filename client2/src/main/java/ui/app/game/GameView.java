@@ -88,10 +88,23 @@ public class GameView implements IGameView {
 
   @FXML
   void initialize() {
+    // Ich schäme mich, dass ich das hier so hinschreiben musste, sorry
+    int playerId = -1;
+    for (int i = 0; i < lobby.getUsers().size(); i++) {
+      if(lobby.getUsers().get(i).getUser().getId() == this.user.getId()) {
+        playerId = i;
+      }
+    }
+
+    if(playerId == -1) {
+      // Hier ist irgendetwas ganz schlimmes passiert
+      System.exit(-1);
+    }
+
     this.chatView = new ChatView(this, eventBus, mainPresenter.getClientSocket(), this.lobby, user);
     this.boardView = new BoardView(this, eventBus, mainPresenter.getClientSocket(), user, lobby);
     this.userInterfaceView = new UserInterfaceView(this, eventBus, mainPresenter.getClientSocket(),
-        user, lobby);
+        user, lobby, playerId);
 
     setSubParentChat(this.chatView.getRootParent());
     setSubParentBoard(this.boardView.getRootParent());

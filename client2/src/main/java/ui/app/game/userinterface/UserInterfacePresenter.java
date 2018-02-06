@@ -7,10 +7,7 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
 import events.SiteType;
-import events.app.game.GameInfoEvent;
-import events.app.game.ShipDockedEvent;
-import events.app.game.ShipLoadedEvent;
-import events.app.game.TurnEvent;
+import events.app.game.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -18,6 +15,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
 import requests.gamemoves.*;
+import ui.app.game.board.sites.market.cards.CardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +31,11 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private ArrayList<int[]> ships;
   private int round;
   private ArrayList<Integer> storages;
+  private ArrayList<CardType> myCardTypes;
 
   private int turnTime;
   private Thread turnTimerThread;
   private TurnTimerThread turnTimer;
-
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
       User user, CommonLobby lobby) {
@@ -160,6 +158,14 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     removeShip(event.getShipID());
   }
 
+  @Subscribe
+  private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
+    myCardTypes = event.getCardTypes().get(this.view.getPlayerId());
+
+    System.out.println("Inventory geupdated, karten sind da für dich, ole.");
+    // TODO Dropdown ändern
+  }
+
   private void removeShip(int ship) {
     for (ComboBox<Integer> box : view.getShipCBoxes()) {
       box.getItems().remove((Integer) ship);
@@ -201,6 +207,19 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   //Moves
   void sendFillUpStorageMove() {
     eventBus.post(new FillUpStorageMove(lobby.getLobbyId()));
+  }
+
+  void sendToolCardMove() {
+    String card = this.view.getSelectCardBox().getValue();
+    if(card != null) {
+      try {
+        CardType cardType = CardType.valueOf(card.toUpperCase());
+        Move move = new ToolCardMove(cardType, lobby.getLobbyId());
+        this.connection.send(move);
+      } catch(IllegalArgumentException ex) {
+        // TODO Gotta catch'em all
+      }
+    }
   }
 
   void sendVoyageToStoneSiteMove(int ship, SiteType to) {

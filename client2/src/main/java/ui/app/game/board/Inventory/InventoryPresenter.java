@@ -13,15 +13,15 @@ import java.util.ArrayList;
 public class InventoryPresenter extends Presenter<IInventoryView> {
 
   private final Connection connection;
-  private final int userId;
+  private final int playerId;
   private ArrayList<CardType> myCardTypes;
 
   public InventoryPresenter(IInventoryView view, EventBus eventBus, Connection connection,
-      int userId) {
+      int playerId) {
     this.connection = connection;
     this.eventBus = eventBus;
     this.view = view;
-    this.userId = userId;
+    this.playerId = playerId;
     bind();
   }
 
@@ -32,9 +32,9 @@ public class InventoryPresenter extends Presenter<IInventoryView> {
   @Subscribe
   private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
     view.getCardGridPane().getChildren().clear();
-    myCardTypes = event.getCardTypes().get(userId);
-    event.getCardTypes().get(userId).forEach(cardType -> {
-      CardView cardView = new CardView(view, eventBus, connection, userId);
+    myCardTypes = event.getCardTypes().get(playerId);
+    event.getCardTypes().get(playerId).forEach(cardType -> {
+      CardView cardView = new CardView(view, eventBus, connection, playerId);
       cardView.setCardType(cardType);
       view.addCard(cardView);
     });

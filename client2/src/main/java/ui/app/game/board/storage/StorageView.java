@@ -53,11 +53,11 @@ public class StorageView implements IStorageView {
   private Parent myParent;
 
   public StorageView(IView parentView, EventBus eventBus, Connection connection, LobbyUser user,
-      boolean myStorage, int lobbyId) {
+      boolean myStorage, int playerId) {
     this.parentView = parentView;
     this.eventBus = eventBus;
-    inventoryView = new InventoryView(this, eventBus, connection, lobbyId);
-    this.mainPresenter = new StoragePresenter(this, eventBus, connection, user, myStorage, lobbyId);
+    inventoryView = new InventoryView(this, eventBus, connection, playerId);
+    this.mainPresenter = new StoragePresenter(this, eventBus, connection, user, myStorage, playerId);
     initOwnView();
   }
 

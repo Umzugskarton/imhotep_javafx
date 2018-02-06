@@ -26,4 +26,8 @@ public interface IUserInterfaceView extends IView {
   GridPane getHoldingArea();
 
   ArrayList<ComboBox<Integer>> getShipCBoxes();
+
+  ComboBox<String> getSelectCardBox();
+
+  int getPlayerId();
 }
