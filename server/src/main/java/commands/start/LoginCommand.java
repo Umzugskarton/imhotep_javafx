@@ -1,6 +1,7 @@
 package commands.start;
 
 import commands.Command;
+import commands.lobby.LobbylistCommand;
 import data.user.User;
 import events.start.login.LoginEvent;
 import events.start.login.LoginFailedEvent;
@@ -36,11 +37,10 @@ public class LoginCommand implements Command {
       this.clientListener.setUser(user);
       this.clientListener.send(new LoginSuccessfulEvent(user));
 
-      // SOllte der Client über UserListRequest oder LobbyListRequest
-      // selber anfordern.
-      //this.server.sendToLoggedIn(this.server.getLoggedUsers());
-      //LobbylistCommand command = new LobbylistCommand(this.clientListener);
-      //command.exec();
+
+      this.server.sendToLoggedIn(this.server.getLoggedUsers());
+      LobbylistCommand command = new LobbylistCommand(this.clientListener);
+      command.exec();
     } else {
       this.clientListener.send(new LoginFailedEvent(response.getReason()));
     }

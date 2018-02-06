@@ -11,6 +11,8 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
+import requests.gamemoves.VoyageToMarketMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 public class ShipPresenter extends Presenter<IShipView> {
 
@@ -87,6 +89,34 @@ public class ShipPresenter extends Presenter<IShipView> {
       }
       i++;
     }
+  }
+
+  @Subscribe
+  public void onSendVoyageToStoneSiteMove(VoyageToStoneSiteMove move){
+    if (move.getShipId() == shipId){
+      if (cargo.length > getLoadedCargo()-1){
+        this.connection.send(move);
+      }
+    }
+  }
+
+  @Subscribe
+  public void onSendVoyageToMarket(VoyageToMarketMove move){
+    if (move.getShipId() == shipId){
+      if (cargo.length > getLoadedCargo()-1){
+        this.connection.send(move);
+      }
+    }
+  }
+
+  public int getLoadedCargo(){
+    int loaded = 0;
+    for (int i = 0; i <cargo.length ; i++) {
+      if (cargo[i] != -1){
+        loaded++;
+      }
+    }
+    return loaded;
   }
 
 }

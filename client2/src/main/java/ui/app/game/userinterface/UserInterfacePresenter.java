@@ -77,7 +77,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     }
     stopTurnTimer();
     toggleUserInterface(false);
-    this.connection.send(move);
+    eventBus.post(move);
   }
 
   void sendLoadUpShipMove(int ship, int to) {
