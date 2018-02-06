@@ -40,6 +40,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private int turnTime;
   private Thread turnTimerThread;
   private TurnTimerThread turnTimer;
+  private boolean isTurnFinished = true;
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
       User user, CommonLobby lobby) {
@@ -47,6 +48,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.connection = connection;
     this.user = user;
     this.lobby = lobby;
+    this.isTurnFinished = true;
     bind();
   }
 
@@ -160,6 +162,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
       this.changeBgGradient(userColor);
       if (e.isMyTurn()) {
         this.changeBannerLabels("", "", Color.TRANSPARENT);
+        this.isTurnFinished = false;
       } else {
         this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
       }
@@ -169,12 +172,15 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   // UI
   private void endTurn(boolean noTimeLeft) {
-    this.toggleUserInterface(false);
-    if (noTimeLeft) {
-      this.stopTurnTimer();
-      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-          Color.web("#cdb39c"));
-      this.changeBgGradient(Color.web("#cdb39c"));
+    if(!this.isTurnFinished) {
+      this.isTurnFinished = true;
+      this.toggleUserInterface(false);
+      if (noTimeLeft) {
+        this.stopTurnTimer();
+        this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
+                Color.web("#cdb39c"));
+        this.changeBgGradient(Color.web("#cdb39c"));
+      }
     }
   }
 
