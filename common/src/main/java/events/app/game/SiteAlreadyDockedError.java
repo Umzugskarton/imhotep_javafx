@@ -2,7 +2,7 @@ package events.app.game;
 
 import events.SiteType;
 
-public class SiteAlreadyDockedError extends GameEvent {
+public class SiteAlreadyDockedError extends GameError {
 
   public SiteAlreadyDockedError(int lobbyId) {
     this.lobbyId = lobbyId;

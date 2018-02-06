@@ -1,6 +1,6 @@
 package events.app.game;
 
-public class OutOfStonesError extends GameEvent {
+public class OutOfStonesError extends GameError {
 
   private int playerId;
 

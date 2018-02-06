@@ -1,6 +1,6 @@
 package events.app.game;
 
-public class AlreadyAllocatedError extends GameEvent {
+public class AlreadyAllocatedError extends GameError {
 
   private int shipID;
   private int position;

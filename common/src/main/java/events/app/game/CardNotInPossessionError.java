@@ -2,7 +2,7 @@ package events.app.game;
 
 import requests.gamemoves.CardType;
 
-public class CardNotInPossessionError extends GameEvent {
+public class CardNotInPossessionError extends GameError {
 
   CardType card;
 

@@ -10,6 +10,8 @@ import events.app.chat.ChatMessageEvent;
 import events.app.chat.WhisperChatEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import events.app.game.GameError;
 import javafx.scene.paint.Color;
 import mvp.presenter.Presenter;
 import requests.IRequest;
@@ -85,5 +87,10 @@ public class ChatPresenter extends Presenter<IChatView> {
     if (e.getLobbyId() == this.lobby.getLobbyId()) {
       getView().addWhisper(e.getFrom(), e.getMsg(), true);
     }
+  }
+
+  @Subscribe
+  public void onGameError(GameError error) {
+    getView().addInfoMessage(error.getClass().getSimpleName() + " Error",Color.RED);
   }
 }
