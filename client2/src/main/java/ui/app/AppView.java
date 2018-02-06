@@ -246,7 +246,6 @@ public class AppView implements IAppView {
 
   @Subscribe
   public void onGameEvent(GameEvent event) {
-    System.out.println("LOBBYID IM APPVIEW  : "+  event.getLobbyId() + " bei event ");
     gameEventbuses.get(event.getLobbyId()).post(event);
   }
 

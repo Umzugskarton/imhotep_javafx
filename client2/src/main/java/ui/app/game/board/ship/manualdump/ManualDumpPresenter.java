@@ -6,6 +6,7 @@ import data.lobby.CommonLobby;
 import mvp.presenter.Presenter;
 import requests.gamemoves.CardType;
 import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
+import ui.app.game.HideDialogEvent;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,10 @@ public class ManualDumpPresenter extends Presenter<IManualDumpView> {
   public void setPlace(int id){
     newOrder[place] = id;
     place++;
-    if (place +1 == view.getCargo().length)
+    if (place +1 == view.getCargo().length) {
       connection.send(new VoyageToStoneSiteManualDumpMove(newOrder, lobby.getLobbyId()));
+      eventBus.post(new HideDialogEvent());
+    }
+
   }
 }

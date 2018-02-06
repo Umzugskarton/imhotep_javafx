@@ -5,9 +5,8 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.game.WinEvent;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +20,9 @@ import ui.app.game.board.sites.market.cards.ChooseCardView;
 import ui.app.game.chat.ChatView;
 import ui.app.game.userinterface.UserInterfaceView;
 import ui.dialog.IDialogView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class GameView implements IGameView {
 
@@ -169,6 +171,11 @@ public class GameView implements IGameView {
     hideDialog();
   }
 
+  @Subscribe
+  private void onWinEvent(WinEvent event){
+    WinView winView = new WinView(this, eventBus, mainPresenter.getClientSocket(), lobby, event);
+    showDialog(winView);
+  }
 
   public void showDialog(IDialogView view) {
     dialogBackground.toFront();

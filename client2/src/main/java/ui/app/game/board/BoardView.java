@@ -209,6 +209,10 @@ public class BoardView implements IBoardView {
     }
   }
 
+
+
+
+  @Subscribe
   public void onVoyageToStoneSiteManualDumpEvent(VoyageToStoneSiteManualDumpEvent event){
     manualDumpView.setCargo(shipViews.get(event.getShipid()).getCargo());
     eventBus.post(manualDumpView);

@@ -266,7 +266,10 @@ public class Game implements Runnable {
       statue++;
       }
     }
+    if (statue > 0)
     return new StatueCard().calc(statue);
+    else
+      return 0;
   }
 
   private void addPointsEndOfRound() {

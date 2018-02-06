@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox layoutX="1.0" layoutY="285.0">
+               <children>
+                  <HBox alignment="TOP_CENTER" prefHeight="27.0" prefWidth="600.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#leave" text="Verlassen" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutY="43.0" prefHeight="100.0" prefWidth="600.0">
+               <children>
+                  <TableView fx:id="pointTable" prefHeight="103.0" prefWidth="203.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutY="200.0" prefHeight="40.0" prefWidth="600.0">
+               <children>
+                  <Label fx:id="announceLabel" text="XY gewinnt das Spiel!">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
