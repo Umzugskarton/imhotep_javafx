@@ -514,7 +514,6 @@ public class Game implements Runnable {
     }
     this.round++;
     addPointsEndOfRound();
-    addPointsEndOfGame();
     if (allshipsDocked() == true) {
       nominateWinner();
       log.info("geschafft");
