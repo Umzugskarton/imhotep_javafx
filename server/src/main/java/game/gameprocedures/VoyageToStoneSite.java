@@ -2,18 +2,15 @@ package game.gameprocedures;
 
 import events.Event;
 import events.SiteType;
-import events.app.game.DockingShipError;
-import events.app.game.NotEnoughLoadError;
-import events.app.game.ShipAlreadyDockedError;
-import events.app.game.ShipDockedEvent;
-import events.app.game.SiteAlreadyDockedError;
+import events.app.game.*;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;
 import game.board.StoneSite;
-import java.util.ArrayList;
 import requests.gamemoves.Move;
 import requests.gamemoves.VoyageToStoneSiteMove;
+
+import java.util.ArrayList;
 
 public class VoyageToStoneSite implements Procedure {
 
@@ -29,6 +26,15 @@ public class VoyageToStoneSite implements Procedure {
   public void put(Move move) {
     this.move = (VoyageToStoneSiteMove) move;
   }
+
+  /**
+   * Berechnet die Punkte, der OrnamentCards, besitzt ein Spieler eine OrnamentCard
+   * so wird über dessen Typ und mit dem stones Integer Array die Punktezahl zusammen gerechnet die dieser
+   * für jene OrnamentCard erhält , sollte er mehrere besitzen werden die punkte kumuliert und zurückgegeben
+   *
+   * @param player die Id des Spielers im Game
+   * @return points, die der Spieler durch die OrnamentCards erhält
+   */
 
   public Event exec() {
     Ship ship = game.getShipByID(move.getShipId());

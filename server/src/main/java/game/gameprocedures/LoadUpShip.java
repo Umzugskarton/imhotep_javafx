@@ -27,6 +27,13 @@ public class LoadUpShip implements Procedure {
     this.move = (LoadUpShipMove) move;
   }
 
+  /**
+   * Belädt ein Schiff und entfernt einen Stein aus dem Vorrat des anfragenden Spielers sollte dieser genug Steine besitzen
+   * uund der Platz auf dem Schiff nicht schon belegt sein
+   *
+   * @return Event, der den jeweieligen Status des Spielzugs beschreibt
+   */
+
   public Event exec() {
     if (game.getPlayer(playerId).getStones() <= 0) {
       return new OutOfStonesError(playerId, game.getGameID());

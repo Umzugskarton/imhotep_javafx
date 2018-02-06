@@ -19,6 +19,11 @@ public class UserlistCommand implements Command {
     this.request = (UserlistRequest) r;
   }
 
+  /**
+   * Beschafft sich ein UserListEvent aus dem clientListener, welches alle eingeloggten User enthält
+   * und sendet es an den Anfragenden Client
+   */
+
   public void exec() {
     UserListEvent response = this.clientListener.getServer().getLoggedUsers();
     if (response != null) {

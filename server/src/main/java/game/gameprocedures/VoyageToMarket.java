@@ -54,6 +54,13 @@ public class VoyageToMarket implements Procedure {
     }
   }
 
+  /**
+   * Lässt für jeden Stein auf einem Schiff den Besitzer des Steins eine Karte aus dem Markt wählen
+   * und benachrichtigt alle Spieler über die gewählten Karten
+   *
+   * @param stones, enthält die Steine eines Schiffs
+   */
+
   private void doMarketRotation(Stone[] stones) {
     List<Card> activeCards = market.getActiveCards();
     ArrayList<ArrayList<CardType>> cardTypes = new ArrayList<>();
@@ -94,6 +101,12 @@ public class VoyageToMarket implements Procedure {
   public void sendNewInventories(ArrayList<ArrayList<CardType>> cardTypes){
     game.sendAll(new InventoryUpdateEvent(cardTypes, game.getGameID()));
   }
+
+  /**
+   * Überführt den Thread in den wartenden Zustand bis der Client eine Rückmeldung schickt oder die Zeit im Executor abläuft
+   *
+   * @return Move , der vom Spieler gesetzt wurde
+   */
 
   private Move acquireMove() {
     game.getExecutor().waitForMove();

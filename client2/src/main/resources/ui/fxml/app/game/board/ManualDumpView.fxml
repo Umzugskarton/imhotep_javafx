@@ -6,12 +6,12 @@
    <children>
       <Pane layoutX="-20.0" layoutY="9.0" prefHeight="447.0" prefWidth="600.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="9.0">
          <children>
-            <Pane id="manualdump" layoutX="91.0" layoutY="8.0" prefHeight="243.0" prefWidth="427.0">
+            <Pane id="manualdump" fx:id="manualdump" layoutX="91.0" layoutY="8.0" prefHeight="243.0" prefWidth="427.0">
                <children>
-                  <Rectangle fx:id="stone0" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="266.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
-                  <Rectangle fx:id="stone1" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="210.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
-                  <Rectangle fx:id="stone2" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="143.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
-                  <Rectangle fx:id="stone3" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="86.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone0" onMouseClicked="#onStone0" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="266.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone1" onMouseClicked="#onStone1" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="210.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone2" onMouseClicked="#onStone2" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="143.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone3"  onMouseClicked="#onStone3" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="86.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
                </children></Pane>
             <GridPane fx:id="chooseBox" layoutX="159.0" layoutY="298.0" prefHeight="86.0" prefWidth="368.0" style="-fx-background-color: E6E6E6;">
               <columnConstraints>

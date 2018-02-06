@@ -36,6 +36,13 @@ public class LeadToolCard implements Procedure {
     this.move = (ToolCardMove) move;
   }
 
+  /**
+   * Iniitiert beim ausspielen einer Marktkarte das dazugehörige PRotocol sollte der Spieler die Karte besitzen
+   *
+   * @return Event, entweder ein ToolCardEvent das die ausgeführte Blaue marktkarte enthält oder ein CardNotInPossessionError
+   *                sollte der User die Karte nicht besitzen
+   */
+
   public Event exec() {
     Player player = game.getPlayer(playerId);
     ToolCard dummy = new ToolCard(move.getToolType());

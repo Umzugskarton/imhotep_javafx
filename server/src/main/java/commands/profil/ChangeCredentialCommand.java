@@ -22,6 +22,12 @@ public class ChangeCredentialCommand implements Command {
     this.request = (ChangeCredentialRequest) r;
   }
 
+  /**
+   * Ändert mithilfe der ClientAPI auf Anfrage Passwort, oder E-mail
+   * und erstelt ein ChangeProfilDataEvent das Information über den Status der Änderung enthält
+   * und sendet dieses an den anfragenden Client
+   */
+
   public void exec() {
     ChangeProfilDataEvent response = this.clientAPI
         .changeCredential(this.request, this.clientListener.getUser());

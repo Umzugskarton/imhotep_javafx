@@ -20,6 +20,12 @@ public class FillUpStorage implements Procedure {
     this.move = (FillUpStorageMove) move;
   }
 
+  /**
+   * Befüllt den SteinVorrat eines Spielers
+   *
+   * @return FillupStorageEvent, welches die geupdatete Vorratsgröße des Spielers enthält
+   */
+
   public FillUpStorageEvent exec() {
     this.game.getPlayer(playerId).addStones();
     return new FillUpStorageEvent(playerId, game.getPlayer(playerId).getStones(), game.getGameID());

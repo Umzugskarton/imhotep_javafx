@@ -3,8 +3,8 @@ package commands.lobby;
 import commands.Command;
 import data.lobby.CommonLobby;
 import data.user.User;
-import events.app.lobby.leave.LeaveLobbyEvent;
 import events.app.lobby.LobbyInfoEvent;
+import events.app.lobby.leave.LeaveLobbyEvent;
 import lobby.Lobby;
 import requests.IRequest;
 import requests.lobby.LeaveLobbyRequest;
@@ -26,6 +26,10 @@ public class LeaveLobbyCommand implements Command {
   public void put(IRequest r) {
     this.request = (LeaveLobbyRequest) r;
   }
+
+  /**
+   * Trägt den anfragenden User aus einer Lobby aus
+   */
 
   @Override
   public void exec() {

@@ -27,6 +27,13 @@ public class JoinCommand implements Command {
     this.request = (JoinRequest) r;
   }
 
+  /**
+   * Fügt den anfragenden Client in eine Lobby, sollte dieser jene noch nicht betreten haben.
+   * Die Information über Status der beitritts Anfrage wird an den Anfragenden Client zurückgeschickt,
+   * bei Erfolg wird an alle Lobbyteilnehmer die neue Information über die Lobby geschickt
+   *
+   */
+
   @Override
   public void exec() {
     User user = this.clientListener.getUser();

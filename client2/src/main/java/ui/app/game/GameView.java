@@ -15,6 +15,7 @@ import mvp.view.INavigateableView;
 import mvp.view.ShowViewEvent;
 import ui.app.game.board.BoardView;
 import ui.app.game.board.Inventory.IInventoryView;
+import ui.app.game.board.ship.manualdump.IManualDumpView;
 import ui.app.game.board.sites.market.cards.CardView;
 import ui.app.game.board.sites.market.cards.ChooseCardView;
 import ui.app.game.chat.ChatView;
@@ -140,6 +141,11 @@ public class GameView implements IGameView {
 
   @Subscribe
   private void showIInventoryViewInDialog(IInventoryView view) {
+    showDialog(view);
+  }
+
+  @Subscribe
+  private void showIManualDumpView(IManualDumpView view) {
     showDialog(view);
   }
 

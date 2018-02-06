@@ -2,7 +2,6 @@ package commands.lobby;
 
 import commands.Command;
 import data.lobby.CommonLobby;
-
 import events.app.lobby.LobbyInfoEvent;
 import events.app.lobby.create.CreateLobbyEvent;
 import events.app.main.LobbyListEvent;
@@ -27,6 +26,13 @@ public class CreateCommand implements Command {
   public void put(IRequest r) {
     this.request = (CreateRequest) r;
   }
+
+  /**
+   * Erstellt eine Lobby und setzt diese in den Server und in den Clienlistener des anfragenden Clients
+   * zusätzlich wird ein CommonLobby Abbild mit allen für den Client essentiellen Informationen zur Lobby,
+   * erstellt welches in einem LobbyInfoEvent verpackt an
+   *
+   */
 
   @Override
   public void exec() {
