@@ -6,6 +6,7 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import events.SiteType;
 import events.app.game.ShipDockedEvent;
+import events.app.game.StoneAddedToSiteEvent;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -32,15 +33,27 @@ public class DefaultSitePresenter extends Presenter<ISiteView> implements ISiteP
     eventBus.register(this);
   }
 
-  @Subscribe
-  public void setStones(ShipDockedEvent e) {
-    if (site.equals(e.getSite())) {
+  public void setStones(ArrayList<Integer> newStones){
+
       ArrayList<Group> stoneGroups = getView().getStones();
-      for (int i = 0; i < e.getNewStones().size(); i++) {
+      for (int i = 0; i <newStones.size(); i++) {
         stoneGroups.get(i).setVisible(true);
         Rectangle r = getView().getColorStones(i);
-        r.setFill(Color.web(lobby.getUserbyLobbyId(e.getNewStones().get(i)).getColor()));
+        r.setFill(Color.web(lobby.getUserbyLobbyId(newStones.get(i)).getColor()));
       }
+  }
+
+  @Subscribe
+  public void onStoneDockedEvent(ShipDockedEvent event) {
+    if (site.equals(event.getSite()) ){
+      setStones(event.getNewStones());
+    }
+  }
+
+  @Subscribe
+  public void onSoneAddedEvent(StoneAddedToSiteEvent event){
+    if (site.equals(event.getSiteType()) ){
+      setStones(event.getNewStones());
     }
   }
 }

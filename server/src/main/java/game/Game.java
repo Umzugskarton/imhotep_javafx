@@ -8,7 +8,10 @@ import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
 import game.board.*;
+import game.board.cards.Card;
 import game.board.cards.CardDeck;
+import game.board.cards.OrnamentCard;
+import game.board.cards.StatueCard;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
 import lobby.Lobby;
@@ -197,7 +200,8 @@ public class Game implements Runnable {
       market.prepareRound();
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
-        for (int player = 0; player < this.players.length; player++) {
+        int playerRound = 0;
+        for (int player = playerRound; player < this.players.length; player++) {
           currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
           waitForMove(player);
@@ -211,6 +215,7 @@ public class Game implements Runnable {
           if (allshipsDocked()) {
             break;
           }
+          playerRound++;
         }
       }
       resetCurrentShips();
@@ -224,10 +229,38 @@ public class Game implements Runnable {
     int[] burialChamberPoints = burialChamber.getPoints();
     int[] obelisksPoints = obelisks.getPoints();
     for (int player = 0; player < this.players.length; player++) {
+      this.players[player].addPoints(getStatueCardPoints(player));
+      this.players[player].addPoints(getOrnamentPoints(player));
       this.players[player].addPoints(burialChamberPoints[player]);
       this.players[player].addPoints(obelisksPoints[player]);
     }
     updatePoints();
+  }
+
+
+  private int getOrnamentPoints(int player){
+    ArrayList<Integer> stonesList = new ArrayList<>();
+    sites.forEach(stoneSite -> stonesList.add(stoneSite.getStones().size()));
+    Integer[] stones = new Integer[stonesList.size()];
+    stones = stonesList.toArray(stones);
+    int points = 0;
+    for (Card card : players[player].getCards()){
+      if(card instanceof OrnamentCard) {
+        OrnamentCard ornamentCard = (OrnamentCard) card;
+        points += ornamentCard.calc(stones);
+      }
+    }
+    return points;
+  }
+
+  private int getStatueCardPoints(int player){
+    int statue = 0;
+    for (Card card : players[player].getCards()){
+      if (card.getType().equals(CardType.STATUE)) {
+      statue++;
+      }
+    }
+    return new StatueCard().calc(statue);
   }
 
   private void addPointsEndOfRound() {

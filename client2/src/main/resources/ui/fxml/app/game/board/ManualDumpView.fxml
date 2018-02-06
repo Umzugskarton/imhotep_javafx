@@ -8,12 +8,12 @@
          <children>
             <Pane id="manualdump" layoutX="91.0" layoutY="8.0" prefHeight="243.0" prefWidth="427.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" layoutX="266.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" layoutX="210.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" layoutX="143.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" layoutX="86.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+                  <Rectangle fx:id="stone0" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="266.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone1" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="210.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone2" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="143.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
+                  <Rectangle fx:id="stone3" arcHeight="5.0" fill="DODGERBLUE" height="49.0" layoutX="86.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="49.0" />
                </children></Pane>
-            <GridPane layoutX="159.0" layoutY="298.0" prefHeight="86.0" prefWidth="368.0">
+            <GridPane fx:id="chooseBox" layoutX="159.0" layoutY="298.0" prefHeight="86.0" prefWidth="368.0" style="-fx-background-color: E6E6E6;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -23,6 +23,12 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+               </children>
             </GridPane>
          </children>
       </Pane>

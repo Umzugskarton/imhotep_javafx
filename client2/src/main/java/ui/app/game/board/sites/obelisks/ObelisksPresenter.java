@@ -6,13 +6,15 @@ import connection.Connection;
 import data.lobby.CommonLobby;
 import events.SiteType;
 import events.app.game.ShipDockedEvent;
-import java.util.ArrayList;
+import events.app.game.StoneAddedToSiteEvent;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvp.presenter.Presenter;
 import ui.app.game.board.sites.ISitePresenter;
 import ui.app.game.board.sites.ISiteView;
+
+import java.util.ArrayList;
 
 
 public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePresenter {
@@ -32,24 +34,37 @@ public class ObelisksPresenter extends Presenter<ISiteView> implements ISitePres
     eventBus.register(this);
   }
 
+
+  public void setStones(ArrayList<Integer> newStones) {
+    int[] playerStones = new int[lobby.getUsers().size()];
+    for (Integer stone : newStones) {
+      playerStones[stone]++;
+    }
+    int k = 0;
+    for (int player : playerStones) {
+      ArrayList<Group> stoneGroups = getView().getStones();
+      int playerroot = (player * 5);
+      for (int i = 0; i < player; i++) {
+        stoneGroups.get(playerroot + i).setVisible(true);
+        Rectangle r = getView().getColorStones(playerroot + i);
+        r.setFill(Color.web(lobby.getUserbyLobbyId(k).getColor()));
+      }
+      k++;
+    }
+
+  }
+
   @Subscribe
-  public void setStones(ShipDockedEvent e) {
-    if (e.getSite() == SiteType.OBELISKS) {
-      int[] playerStones = new int[lobby.getUsers().size()];
-      for (Integer stone : e.getNewStones()) {
-        playerStones[stone]++;
-      }
-      int k = 0;
-      for (int player : playerStones) {
-        ArrayList<Group> stoneGroups = getView().getStones();
-        int playerroot = (player * 5);
-        for (int i = 0; i < player; i++) {
-          stoneGroups.get(playerroot + i).setVisible(true);
-          Rectangle r = getView().getColorStones(playerroot + i);
-          r.setFill(Color.web(lobby.getUserbyLobbyId(k).getColor()));
-        }
-        k++;
-      }
+  public void onStoneAddedEvent(StoneAddedToSiteEvent event){
+    if (event.getSiteType().equals(SiteType.OBELISKS) ){
+      setStones(event.getNewStones());
+    }
+  }
+
+  @Subscribe
+  public void onShiplDockedEvent(ShipDockedEvent event) {
+    if (event.getSite().equals(SiteType.OBELISKS) ){
+      setStones(event.getNewStones());
     }
   }
 }

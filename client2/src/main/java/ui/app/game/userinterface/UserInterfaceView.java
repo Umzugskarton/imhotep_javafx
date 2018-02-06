@@ -174,7 +174,7 @@ public class UserInterfaceView implements IUserInterfaceView {
   @FXML
   void setStoneLocationCBox(ActionEvent event) {
     if (selectShipToLocationBox.getValue() != null) {
-      mainPresenter.setStoneLocationCBox(selectShipToLocationBox.getValue());
+      mainPresenter.setStoneLocationComboBox(selectShipToLocationBox.getValue());
     }
   }
 

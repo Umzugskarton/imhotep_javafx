@@ -7,35 +7,29 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<VBox fx:id="lobbyListViewRoot" focusTraversable="false" stylesheets="@../../../../../css/style.css"
-  xmlns="whatever"
-  xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox fx:id="lobbyListViewRoot" focusTraversable="false" spacing="5.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <opaqueInsets>
-    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </opaqueInsets>
   <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="60.0"/>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="60.0" />
   </padding>
   <children>
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LobbyList"/>
-    <TableView fx:id="lobbyTableView" maxHeight="-Infinity" maxWidth="-Infinity"
-      onMouseClicked="#handleLobbyViewClick" prefHeight="250.0" prefWidth="485.0"
-      stylesheets="@../../../../../css/style.css">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lobbies" />
+    <TableView fx:id="lobbyTableView" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleLobbyViewClick" prefHeight="250.0" prefWidth="485.0" stylesheets="@../../../../../css/style.css">
       <VBox.margin>
-        <Insets/>
+        <Insets />
       </VBox.margin>
       <columns>
-        <TableColumn fx:id="tableColumnId" editable="false" prefWidth="45.0" resizable="false"
-          text="Id"/>
-        <TableColumn fx:id="tableColumnName" editable="false" prefWidth="266.0" resizable="false"
-          text="Name"/>
-        <TableColumn fx:id="tableColumnBelegung" editable="false" minWidth="0.0" prefWidth="90.0"
-          resizable="false" text="Belegung"/>
+        <TableColumn fx:id="tableColumnId" editable="false" prefWidth="45.0" resizable="false" text="ID" />
+        <TableColumn fx:id="tableColumnName" editable="false" prefWidth="266.0" resizable="false" text="Name" />
+        <TableColumn fx:id="tableColumnBelegung" editable="false" minWidth="0.0" prefWidth="90.0" resizable="false" text="Belegung" />
       </columns>
     </TableView>
     <Pane>
       <children>
-        <Button mnemonicParsing="false" onAction="#handleCreateLobbyButton" text="createLobby"/>
+        <Button mnemonicParsing="false" onAction="#handleCreateLobbyButton" text="Lobby erstellen" />
       </children>
     </Pane>
   </children>

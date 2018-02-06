@@ -1,6 +1,5 @@
 package ui.app.game.userinterface;
 
-
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
@@ -8,18 +7,13 @@ import data.lobby.CommonLobby;
 import data.user.User;
 import events.SiteType;
 import events.app.game.*;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import mvp.presenter.Presenter;
 import requests.gamemoves.*;
-import ui.app.game.board.sites.market.cards.CardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +34,6 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private int turnTime;
   private Thread turnTimerThread;
   private TurnTimerThread turnTimer;
-  private boolean isTurnFinished = true;
 
   UserInterfacePresenter(IUserInterfaceView view, EventBus eventBus, Connection connection,
       User user, CommonLobby lobby) {
@@ -48,16 +41,11 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.connection = connection;
     this.user = user;
     this.lobby = lobby;
-    this.isTurnFinished = true;
     bind();
   }
 
   public void bind() {
     eventBus.register(this);
-  }
-
-  public Connection getClientSocket() {
-    return this.connection;
   }
 
   // Moves
@@ -89,7 +77,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     }
     stopTurnTimer();
     toggleUserInterface(false);
-    this.connection.send(move);
+    eventBus.post(move);
   }
 
   void sendLoadUpShipMove(int ship, int to) {
@@ -97,6 +85,14 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   }
 
   // Server-Events
+  @Subscribe
+  private void onToolCardEvent(ToolCardEvent e) {
+    // Zeit clientseitig zum Timer hinzufügen
+    if(this.turnTimer != null) {
+      this.turnTimer.addSeconds(20.0D);
+    }
+  }
+
   @Subscribe
   private void onVoyageToStoneSiteExclusiveMove(VoyageToStoneSiteExclusiveEvent e) {
     // Alle Interfaces deaktivieren ausser Schiffe versenden
@@ -140,9 +136,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     storages = event.getStorages();
     round = event.getRound();
     turnTime = event.getTurnTime();
-    if (ships == null) {
-      ships = event.getShips();
-    }
+    ships = event.getShips();
     for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
       shipBox.getItems().clear();
       for (int i = 0; i <= ships.size() - 1; i++) {
@@ -159,33 +153,28 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   @Subscribe
   public void newTurn(TurnEvent e) {
     if (e.getLobbyId() == lobby.getLobbyId()) {
-      stopTurnTimer();
+      this.endTurn(false);
+
       // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-      this.toggleUserInterface(e.isMyTurn());
       Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+
       this.changeBgGradient(userColor);
       if (e.isMyTurn()) {
+        this.toggleUserInterface(true);
         this.changeBannerLabels("", "", Color.TRANSPARENT);
-        this.isTurnFinished = false;
       } else {
+        this.toggleUserInterface(false);
         this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
       }
+
       this.startTurnTimer();
     }
   }
 
   // UI
-  private void endTurn(boolean noTimeLeft) {
-    if(!this.isTurnFinished) {
-      this.isTurnFinished = true;
-      this.toggleUserInterface(false);
-      if (noTimeLeft) {
-        this.stopTurnTimer();
-        this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-                Color.web("#cdb39c"));
-        this.changeBgGradient(Color.web("#cdb39c"));
-      }
-    }
+  public void endTurn(boolean noTimeLeft) {
+    this.toggleInterfaceSectionsEnabled(false, false, false, false);
+    this.stopTurnTimer();
   }
 
   private void changeBgGradient(Color color) {
@@ -208,6 +197,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
       toggleInterfaceSectionsEnabled(true, true, true, true);
     }
 
+    this.clearSelections();
     view.getHoldingArea().setVisible(!show);
     view.getHoldingArea().toBack();
     view.getUserInterface().setVisible(show);
@@ -242,19 +232,24 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
   private void stopTurnTimer() {
     Double reset = 0.0;
     eventBus.post(reset);
-    if (this.turnTimerThread != null) {
+
+    if (this.turnTimer != null) {
       this.turnTimer.forceEnd();
-      this.turnTimer = null;
-      this.turnTimerThread = null;
     }
+    this.turnTimer = null;
+    this.turnTimerThread = null;
+  }
+
+  private void clearSelections() {
+    this.view.getSelectStoneLocationBox().getSelectionModel().clearSelection();
+    this.view.getSelectShipToLocationBox().getSelectionModel().clearSelection();
+    this.view.getSelectShipLocationBox().getSelectionModel().clearSelection();
+    this.view.getSelectShipBox().getSelectionModel().clearSelection();
+    this.view.getSelectCardBox().getSelectionModel().clearSelection();
   }
 
   void updateTurnTimer(double seconds) {
     eventBus.post(seconds / (double) turnTime);
-
-    if (seconds <= 0.0) {
-      this.endTurn(true);
-    }
   }
 
   private void removeShip(int ship) {
@@ -278,10 +273,10 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     for (int i = 0; i < cargo.length; i++) {
       this.ships.get(shipId)[i] = cargo[i];
     }
-    this.setStoneLocationCBox(shipId);
+    this.setStoneLocationComboBox(shipId);
   }
 
-  void setStoneLocationCBox(int ship) {
+  void setStoneLocationComboBox(int ship) {
     view.getSelectStoneLocationBox().getItems().clear();
     for (int i = 0; i <= ships.get(ship).length - 1; i++) {
       if (ships.get(ship)[i] == -1)

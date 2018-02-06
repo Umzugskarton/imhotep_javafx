@@ -58,6 +58,9 @@ public class VoyageToMarket implements Procedure {
     List<Card> activeCards = market.getActiveCards();
     ArrayList<ArrayList<CardType>> cardTypes = new ArrayList<>();
     int[] chosenCards= new int[stones.length];
+    for (int i = 0; i < chosenCards.length; i++) {
+      chosenCards[i]= -1;
+    }
     for (int i = 0; i < game.getSize(); i++) {
       cardTypes.add(i ,new ArrayList<>());
     }
@@ -76,7 +79,7 @@ public class VoyageToMarket implements Procedure {
           Card card = activeCards.get(cardId);
           market.removeCard(cardId);
           if (card instanceof LocationCard) {
-            ((LocationCard) card).exec(game, stones[i].getPlayer().getId());
+            game.sendAll(((LocationCard) card).exec(game, stones[i].getPlayer().getId()));
           } else {
             stones[i].getPlayer().addCard(card);
             cardTypes.get(stones[i].getPlayer().getId()).add(card.getType());

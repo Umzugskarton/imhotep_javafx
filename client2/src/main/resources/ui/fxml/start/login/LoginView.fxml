@@ -10,43 +10,40 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
-<GridPane fx:id="rootParent" alignment="center" onKeyPressed="#handlePressedKeyAction"
-  prefHeight="480.0"
-  prefWidth="720.0" scaleShape="false" stylesheets="@../../../../css/style.css" xmlns="whatever"
-  xmlns:fx="http://javafx.com/fxml/1">
+
+<GridPane fx:id="rootParent" alignment="center" hgap="5.0" onKeyPressed="#handlePressedKeyAction" prefHeight="480.0" prefWidth="720.0" scaleShape="false" stylesheets="@../../../../css/style.css" vgap="5.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <padding>
-    <Insets bottom="10" left="25" right="25" top="25"/>
+    <Insets bottom="10" left="25" right="25" top="25" />
   </padding>
 
-  <Text id="welcome-text" text="%welcome" GridPane.columnIndex="0" GridPane.columnSpan="2"
-    GridPane.rowIndex="0"/>
+  <Text id="welcome-text" text="%welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-  <Label text="%username" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+  <Label text="%username" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-  <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+  <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-  <Label text="%password" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+  <Label text="%password" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-  <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+  <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
   <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
-    <Button fx:id="signInButton" onAction="#handleSubmitButtonAction" text="%login"/>
-    <Button fx:id="toRegisterButton" onAction="#handleToRegisterButtonAction" text="%goToRegister"/>
+    <Button fx:id="signInButton" onAction="#handleSubmitButtonAction" text="%login" />
+    <Button fx:id="toRegisterButton" onAction="#handleToRegisterButtonAction" text="%goToRegister" />
   </HBox>
 
-  <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+  <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="6" />
   <columnConstraints>
-    <ColumnConstraints/>
-    <ColumnConstraints/>
+    <ColumnConstraints />
+    <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
   </rowConstraints>
 
 </GridPane>
