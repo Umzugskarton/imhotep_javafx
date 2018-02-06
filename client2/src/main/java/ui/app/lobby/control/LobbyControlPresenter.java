@@ -1,5 +1,7 @@
 package ui.app.lobby.control;
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
@@ -60,7 +62,7 @@ public class LobbyControlPresenter extends Presenter<ILobbyControlView> {
       connection.send(request);
 //      Soundtrack.imhotepTheme.loop();
     } else {
-      this.getView().updateStatusLabel("Nicht genug Spieler sind in der Lobby");
+      this.getView().updateStatusLabel(getString("notEnoughPlayersInLobby"));
     }
   }
 

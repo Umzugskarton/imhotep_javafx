@@ -1,17 +1,18 @@
 package requests.gamemoves;
 
 
+import events.SiteType;
 import requests.RequestType;
 
 public class VoyageToStoneSiteManualDumpMove implements Move {
 
   private RequestType move = RequestType.VOYAGE_TO_STONE_SITE_MANUAL_DUMP;
   private int shipId;
-  private String stonesite;
+  private SiteType stonesite;
   private int[] dumpOrder;
   private int lobbyId;
 
-  public VoyageToStoneSiteManualDumpMove(int shipId, String stonesite, int[] dumpOrder,
+  public VoyageToStoneSiteManualDumpMove(int shipId, SiteType stonesite, int[] dumpOrder,
       int lobbyId) {
     this.lobbyId = lobbyId;
     this.shipId = shipId;
@@ -30,6 +31,10 @@ public class VoyageToStoneSiteManualDumpMove implements Move {
 
   public int getShipId() {
     return shipId;
+  }
+
+  public SiteType getStoneSite() {
+    return stonesite;
   }
 
   @Override

@@ -1,5 +1,7 @@
 package ui.app.main.lobbylist;
 
+import static misc.language.TextBundle.getString;
+
 import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
@@ -88,7 +90,7 @@ public class LobbyTableView implements ILobbyTableView {
           .setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
       tableColumnJoinButton
           .setCellFactory(param -> new TableCell<LobbyTableData, LobbyTableData>() {
-            private final Button joinButton = new Button("Join");
+            private final Button joinButton = new Button(getString("join"));
 
             @Override
             protected void updateItem(LobbyTableData data, boolean empty) {
@@ -117,12 +119,7 @@ public class LobbyTableView implements ILobbyTableView {
 
   @FXML
   private void handleLobbyViewClick(MouseEvent click) {
-    System.out.println("Lobby doubleclick");
-    CommonLobby selectedLobby = (CommonLobby) this.lobbyTableView.getFocusModel().getFocusedItem();
 
-    if (click.getClickCount() == 2) {
-      this.presenter.joinLobby(selectedLobby.getLobbyId(), "");
-    }
   }
 
   @FXML

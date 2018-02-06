@@ -5,6 +5,8 @@ import com.google.common.eventbus.Subscribe;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import data.user.User;
+import events.app.chat.ChatMessageEvent;
+import events.app.chat.WhisperChatEvent;
 import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
@@ -206,6 +208,16 @@ public class AppView implements IAppView {
   public void onGameEvent(GameEvent event) {
     System.out.println("LOBBYID IM APPVIEW  : "+  event.getLobbyId() + " bei event ");
     gameEventbuses.get(event.getLobbyId()).post(event);
+  }
+
+  @Subscribe
+  public void onChatMessageEvent(ChatMessageEvent event) {
+    this.gameEventbuses.get(event.getLobbyId()).post(event);
+  }
+
+  @Subscribe
+  public void onWhisperChatEvent(WhisperChatEvent event) {
+    this.gameEventbuses.get(event.getLobbyId()).post(event);
   }
 }
 
