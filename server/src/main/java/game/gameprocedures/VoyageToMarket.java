@@ -82,12 +82,12 @@ public class VoyageToMarket implements Procedure {
         }
       }
     }
-    sendNewInventories(cardTypes);
+    sendNewInventories(cardTypes , chosenCards);
     return chosenCards;
   }
 
-  public void sendNewInventories(ArrayList<ArrayList<CardType>> cardTypes){
-    game.sendAll(new InventoryUpdateEvent(cardTypes, game.getGameID()));
+  public void sendNewInventories(ArrayList<ArrayList<CardType>> cardTypes , ArrayList<Integer> chosenCards){
+    game.sendAll(new InventoryUpdateEvent(cardTypes, chosenCards, game.getGameID()));
   }
 
   private Move acquireMove() {

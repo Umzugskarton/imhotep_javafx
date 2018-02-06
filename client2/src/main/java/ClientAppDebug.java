@@ -44,7 +44,7 @@ public class ClientAppDebug extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    this.stageLayout = new StageLayout(primaryStage, this.scene, this.eventBus, this.connection);
+    this.stageLayout = new StageLayout(primaryStage, this.scene, this.eventBus , connection);
 
     this.primaryStage = primaryStage;
 
