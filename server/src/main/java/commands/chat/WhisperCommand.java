@@ -39,11 +39,11 @@ public class WhisperCommand implements Command {
     } else {
       UserNotFoundErrorEvent error = new UserNotFoundErrorEvent();
       error.setMsg(request.getTo());
+      error.setLobbyId(request.getLobbyId());
       response = error;
     }
 
     if (response != null) {
-      //response.setLobbyId(request.getLobbyId());
       this.clientListener.send(response);
     }
   }

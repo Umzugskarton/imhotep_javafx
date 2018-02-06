@@ -8,6 +8,9 @@ import data.user.User;
 import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
+import events.app.lobby.create.CreateLobbySuccessfulEvent;
+import events.app.lobby.join.JoinLobbySuccessfulEvent;
+import events.app.lobby.leave.LeaveLobbyEvent;
 import helper.fxml.GenerateFXMLView;
 import java.net.URL;
 import java.util.ArrayList;
@@ -111,21 +114,58 @@ public class AppView implements IAppView {
     mainViewPane.getChildren().add(this.mainView.getRootParent());
   }
 
-  public boolean addTab(LobbyView lobbyView, CommonLobby lobby) {
-    Tab tab = new Tab();
-    tab.setText("Lobby #" + lobby.getLobbyId());
-    tab.setContent(lobbyView.getRootParent());
-    tab.setId("lobbyTab");
-    lobby.setMyTab(tab);
-
-    tab.setOnCloseRequest(new EventHandler<Event>() {
-      @Override
-      public void handle(Event event) {
-        presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
+  public boolean closeTab(int lobbyId) {
+    boolean found = false;
+    if (!found) {
+      found = false;
+      for (Tab t : this.appViewMainTabPane.getTabs() ){
+        if(t.getId().equals(lobbyId)) {
+          found = true;
+          t.closableProperty();
+          break;
+        }
       }
-    });
+    }
+    return found;
+  }
 
-    return this.appViewMainTabPane.getTabs().add(tab);
+  public Tab addTab(CommonLobby lobby) {
+    Tab tab = null;
+    boolean found = false;
+    for (CommonLobby l : lobbies) {
+      if (l.getLobbyId() == lobby.getLobbyId()) {
+        found = true;
+        l.setUsers(lobby.getUsers(), lobby.getReady(), lobby.getColors());
+        break;
+      }
+    }
+    if (!found) {
+      lobbies.add(lobby);
+      EventBus gameEventbus = new EventBus();
+      gameEventbuses.put(lobby.getLobbyId(), gameEventbus);
+      LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(),
+              this.user, lobby);
+
+      tab = new Tab();
+      tab.setText("Lobby #" + lobby.getLobbyId());
+      tab.setContent(lobbyView.getRootParent());
+      tab.setId("getLobbyId()");
+      lobby.setMyTab(tab);
+
+      tab.setOnCloseRequest(new EventHandler<Event>() {
+        @Override
+        public void handle(Event event) {
+          presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
+        }
+      });
+
+      lobbyViews.add(lobbyView);
+
+      lobbyView.updateUserTableView(lobby);
+
+      this.appViewMainTabPane.getTabs().add(tab);
+    }
+    return tab;
   }
 
   @Override
@@ -143,28 +183,24 @@ public class AppView implements IAppView {
     return this.myParent;
   }
 
-  @Subscribe
-  public void onLobbyJoinSuccessfulEvent(LobbyInfoEvent e) {
-    boolean found = false;
-    for (CommonLobby l : lobbies) {
-      if (l.getLobbyId() == e.getLobby().getLobbyId()) {
-        found = true;
-        l.setUsers(e.getLobby().getUsers(), e.getLobby().getReady(), e.getLobby().getColors());
-        break;
-      }
-    }
-    if (!found) {
-      CommonLobby lobby = e.getLobby();
-      lobbies.add(lobby);
-      EventBus gameEventbus = new EventBus();
-      gameEventbuses.put(lobby.getLobbyId(), gameEventbus);
-      LobbyView lobbyView = new LobbyView(this, this.eventBus, this.presenter.getConnection(),
-          this.user, lobby);
-      addTab(lobbyView, lobby);
-      lobbyViews.add(lobbyView);
 
-      lobbyView.updateUserTableView(lobby);
-    }
+  @Subscribe
+  public void onCreateLobbySuccessfulEvent(CreateLobbySuccessfulEvent e){
+    Tab tab = addTab(e.getLobby());
+    this.appViewMainTabPane.getSelectionModel().select(tab);
+  }
+
+
+  @Subscribe
+  public void onJoinLobbySuccessfulEvent(JoinLobbySuccessfulEvent e) {
+    Tab tab = addTab(e.getLobby());
+    this.appViewMainTabPane.getSelectionModel().select(tab);
+  }
+
+  @Subscribe
+  public void onLeaveLobbyEvent(LeaveLobbyEvent e) {
+    closeTab(e.getLobbyId());
+
   }
 
   @Subscribe
@@ -182,7 +218,7 @@ public class AppView implements IAppView {
     Tab tab = lobby.getMyTab();
     tab.setText("Game #" + lobby.getLobbyId());
     tab.setContent(gameView.getRootParent());
-    tab.setId("gameTab");
+    tab.setId("getLobbyId()");
     gameViews.add(gameView);
     this.appViewMainTabPane.getSelectionModel().select(0);
     this.appViewMainTabPane.getSelectionModel().select(tab);
