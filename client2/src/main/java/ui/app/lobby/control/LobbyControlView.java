@@ -117,4 +117,6 @@ public class LobbyControlView implements ILobbyControlView {
   public void updateUserSizeLabel(String m) {
     this.userSizeLabel.setText("Belegung: " + m);
   }
+
+  public Button getStartGameButton() { return this.startGameButton; }
 }
