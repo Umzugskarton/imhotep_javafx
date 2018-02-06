@@ -187,7 +187,6 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     this.view.getPlayerColorRectangle().setFill(linearGradient);
   }
 
-
   private void changeBannerLabels(String text, String subText, Color textColor) {
     this.view.getUiBannerLabel().setText(text);
     this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
@@ -216,6 +215,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
     // Place stones
     this.view.getSelectShipToLocationBox().setDisable(!placeStonesEnabled);
+    this.view.getSelectStoneLocationBox().setDisable(!placeStonesEnabled);
     this.view.getPlaceStonesButton().setDisable(!placeStonesEnabled);
 
     // Play cards
