@@ -4,19 +4,16 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<VBox fx:id="userListRoot" focusTraversable="false" stylesheets="@../../../../../css/style.css"
-  xmlns="whatever"
-  xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox fx:id="userListRoot" focusTraversable="false" spacing="5.0" stylesheets="@../../../../../css/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <opaqueInsets>
-    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </opaqueInsets>
   <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="10.0"/>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
   </padding>
   <children>
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UserList"/>
-    <ListView fx:id="userListView" maxHeight="-Infinity" maxWidth="-Infinity"
-      onMouseClicked="#handleListViewClick"
-      prefHeight="250.0" prefWidth="485.0"/>
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielerliste" />
+    <ListView fx:id="userListView" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleListViewClick" prefHeight="250.0" prefWidth="485.0" />
   </children>
 </VBox>
