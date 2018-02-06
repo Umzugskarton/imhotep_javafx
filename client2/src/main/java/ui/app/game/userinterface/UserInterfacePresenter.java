@@ -8,7 +8,11 @@ import data.lobby.CommonLobby;
 import data.user.User;
 import events.SiteType;
 import events.app.game.*;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -54,165 +58,7 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
     return this.connection;
   }
 
-  // Turns
-  private void endTurn(boolean noTimeLeft) {
-    this.toggleUserInterface(false);
-    if (noTimeLeft) {
-      this.stopTurnTimer();
-      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
-          Color.web("#cdb39c"));
-      this.changeBgGradient(Color.web("#cdb39c"));
-    }
-  }
-
-  private void changeBgGradient(Color color) {
-    Stop[] stops = new Stop[]{
-        new Stop(0, color),
-        new Stop(1, Color.TRANSPARENT)};
-    LinearGradient linearGradient =
-        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
-    this.view.getPlayerColorRectangle().setFill(linearGradient);
-  }
-
-
-  private void changeBannerLabels(String text, String subText, Color textColor) {
-    this.view.getUiBannerLabel().setText(text);
-    this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
-    this.view.getUiBannerLabel().setTextFill(textColor);
-  }
-
-  @Subscribe
-  public void newTurn(TurnEvent e) {
-    if (e.getLobbyId() == lobby.getLobbyId()) {
-        stopTurnTimer();
-        // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
-        this.toggleUserInterface(e.isMyTurn());
-        Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
-        this.changeBgGradient(userColor);
-        if (e.isMyTurn()) {
-          this.changeBannerLabels("", "", Color.TRANSPARENT);
-        } else {
-          this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
-        }
-        this.startTurnTimer();
-
-    }
-  }
-
-  private void toggleUserInterface(boolean show) {
-    view.getHoldingArea().setVisible(!show);
-    view.getHoldingArea().toBack();
-    view.getUserInterface().setVisible(show);
-    view.getUserInterface().toFront();
-  }
-
-  // Timer
-  private void startTurnTimer() {
-    this.stopTurnTimer();
-    this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
-    this.turnTimerThread.start();
-  }
-
-  private void stopTurnTimer() {
-    Double reset = 0.0;
-    eventBus.post(reset);
-    if (this.turnTimerThread != null) {
-      this.turnTimer.forceEnd();
-      this.turnTimer = null;
-      this.turnTimerThread = null;
-    }
-  }
-
-  void updateTurnTimer(double seconds) {
-    eventBus.post(seconds / (double) turnTime);
-
-    if (seconds <= 0.0) {
-      this.endTurn(true);
-    }
-  }
-
-  @Subscribe
-  private void update(GameInfoEvent event) {
-    storages = event.getStorages();
-    round = event.getRound();
-    turnTime = event.getTurnTime();
-    if (ships == null) {
-      ships = event.getShips();
-    }
-    for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
-      shipBox.getItems().clear();
-      for (int i = 0; i <= ships.size() - 1; i++) {
-        shipBox.getItems().add(i);
-      }
-    }
-
-    for (int i = 0; i < event.getShips().size(); i++) {
-      updateShipCargoBoxes(event.getShips().get(i), i);
-    }
-    setSelectShipLocationBox(event.getSiteTypes());
-  }
-
-  @Subscribe
-  private void onShipdockedEvent(ShipDockedEvent event) {
-    removeSiteByTypeFromShipToLocationBox(event.getSite());
-    removeShip(event.getShipID());
-  }
-
-  @Subscribe
-  private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
-    myCardTypes = event.getCardTypes().get(this.view.getPlayerId());
-
-    // Karten im Dropdown aktualisieren
-    ComboBox<String> selectCardBox = this.view.getSelectCardBox();
-    selectCardBox.getItems().clear();
-
-    for(CardType cardType : myCardTypes) {
-      selectCardBox.getItems().add(cardType.name());
-    }
-
-    // Debug
-    System.out.println("Karten angekommen, aktualisieren User-Interface");
-  }
-
-  private void removeShip(int ship) {
-    for (ComboBox<Integer> box : view.getShipCBoxes()) {
-      box.getItems().remove((Integer) ship);
-    }
-  }
-
-  private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
-    view.getSelectShipLocationBox().getItems().remove(getString("site." + type.toString()));
-  }
-
-  private void setSelectShipLocationBox(List<SiteType> sites) {
-    view.getSelectShipLocationBox().getItems().clear();
-    for (SiteType site : sites) {
-      view.getSelectShipLocationBox().getItems().add(getString("site." + site.name()));
-    }
-  }
-
-  @Subscribe
-  private void onShipLoadedEvent(ShipLoadedEvent e) {
-    updateShipCargoBoxes(e.getCargo(), e.getShipID());
-  }
-
-  private void updateShipCargoBoxes(int[] cargo, int shipId) {
-    for (int i = 0; i < cargo.length; i++) {
-      this.ships.get(shipId)[i] = cargo[i];
-    }
-    this.setStoneLocationCBox(shipId);
-  }
-
-
-  void setStoneLocationCBox(int ship) {
-    view.getSelectStoneLocationBox().getItems().clear();
-    for (int i = 0; i <= ships.get(ship).length - 1; i++) {
-      if (ships.get(ship)[i] == -1)
-        view.getSelectStoneLocationBox().getItems().add(i);
-    }
-  }
-
-  //Moves
+  // Moves
   void sendFillUpStorageMove() {
     eventBus.post(new FillUpStorageMove(lobby.getLobbyId()));
   }
@@ -244,5 +90,192 @@ public class UserInterfacePresenter extends Presenter<IUserInterfaceView> {
 
   void sendLoadUpShipMove(int ship, int to) {
     eventBus.post(new LoadUpShipMove(ship, to, lobby.getLobbyId()));
+  }
+
+  // Server-Events
+  @Subscribe
+  private void onVoyageToStoneSiteExclusiveMove(VoyageToStoneSiteExclusiveEvent e) {
+    // Alle Interfaces deaktivieren ausser Schiffe versenden
+    toggleInterfaceSectionsEnabled(false, true, false, false);
+  }
+
+  @Subscribe
+  private void onLoadUpShipExclusiveMove(LoadUpShipExclusiveEvent e) {
+    // Alle Interfaces deaktivieren ausser Steine auf Schiffe laden
+    toggleInterfaceSectionsEnabled(false, false, true, false);
+  }
+
+  @Subscribe
+  private void onShipLoadedEvent(ShipLoadedEvent e) {
+    updateShipCargoBoxes(e.getCargo(), e.getShipID());
+  }
+
+  @Subscribe
+  private void onShipDockedEvent(ShipDockedEvent event) {
+    removeSiteByTypeFromShipToLocationBox(event.getSite());
+    removeShip(event.getShipID());
+  }
+
+  @Subscribe
+  private void onInventoryUpdateEvent(InventoryUpdateEvent event) {
+    myCardTypes = event.getCardTypes().get(this.view.getPlayerId());
+
+    // Karten im Dropdown aktualisieren
+    ComboBox<String> selectCardBox = this.view.getSelectCardBox();
+    selectCardBox.getItems().clear();
+
+    for(CardType cardType : myCardTypes) {
+      selectCardBox.getItems().add(cardType.name());
+    }
+  }
+
+  @Subscribe
+  private void update(GameInfoEvent event) {
+    storages = event.getStorages();
+    round = event.getRound();
+    turnTime = event.getTurnTime();
+    if (ships == null) {
+      ships = event.getShips();
+    }
+    for (ComboBox<Integer> shipBox : view.getShipCBoxes()) {
+      shipBox.getItems().clear();
+      for (int i = 0; i <= ships.size() - 1; i++) {
+        shipBox.getItems().add(i);
+      }
+    }
+
+    for (int i = 0; i < event.getShips().size(); i++) {
+      updateShipCargoBoxes(event.getShips().get(i), i);
+    }
+    setSelectShipLocationBox(event.getSiteTypes());
+  }
+
+  @Subscribe
+  public void newTurn(TurnEvent e) {
+    if (e.getLobbyId() == lobby.getLobbyId()) {
+      stopTurnTimer();
+      // Buttons anzeigen, wenn Spieler aktuell an der Reihe ist
+      this.toggleUserInterface(e.isMyTurn());
+      Color userColor = Color.web(lobby.getUserByName(e.getUsername()).getColor(), 0.75F);
+      this.changeBgGradient(userColor);
+      if (e.isMyTurn()) {
+        this.changeBannerLabels("", "", Color.TRANSPARENT);
+      } else {
+        this.changeBannerLabels(e.getUsername(), "ist gerade am Zug...", userColor);
+      }
+      this.startTurnTimer();
+    }
+  }
+
+  // UI
+  private void endTurn(boolean noTimeLeft) {
+    this.toggleUserInterface(false);
+    if (noTimeLeft) {
+      this.stopTurnTimer();
+      this.changeBannerLabels("Zug beendet!", "Nächster Zug wird vorbereitet...",
+          Color.web("#cdb39c"));
+      this.changeBgGradient(Color.web("#cdb39c"));
+    }
+  }
+
+  private void changeBgGradient(Color color) {
+    Stop[] stops = new Stop[]{
+        new Stop(0, color),
+        new Stop(1, Color.TRANSPARENT)};
+    LinearGradient linearGradient =
+        new LinearGradient(0, 0, 0, 0.1, true, CycleMethod.NO_CYCLE, stops);
+    this.view.getPlayerColorRectangle().setFill(linearGradient);
+  }
+
+
+  private void changeBannerLabels(String text, String subText, Color textColor) {
+    this.view.getUiBannerLabel().setText(text);
+    this.view.getUiBannerSmallLabel().setText(subText.toUpperCase());
+    this.view.getUiBannerLabel().setTextFill(textColor);
+  }
+
+  private void toggleUserInterface(boolean show) {
+    if(show) {
+      toggleInterfaceSectionsEnabled(true, true, true, true);
+    }
+
+    view.getHoldingArea().setVisible(!show);
+    view.getHoldingArea().toBack();
+    view.getUserInterface().setVisible(show);
+    view.getUserInterface().toFront();
+  }
+
+  private void toggleInterfaceSectionsEnabled(boolean newStonesEnabled, boolean moveShipEnabled, boolean placeStonesEnabled, boolean playCardEnabled) {
+    // Get new stones
+    this.view.getGetNewStonesButton().setDisable(newStonesEnabled);
+
+    // Move ship
+    this.view.getSelectShipBox().setDisable(moveShipEnabled);
+    this.view.getSelectShipLocationBox().setDisable(moveShipEnabled);
+    this.view.getMoveShipToLocationButton().setDisable(moveShipEnabled);
+
+    // Place stones
+    this.view.getSelectShipToLocationBox().setDisable(placeStonesEnabled);
+    this.view.getPlaceStonesButton().setDisable(placeStonesEnabled);
+
+    // Play cards
+    this.view.getSelectCardBox().setDisable(playCardEnabled);
+    this.view.getPlayCardButton().setDisable(playCardEnabled);
+  }
+
+  private void startTurnTimer() {
+    this.stopTurnTimer();
+    this.turnTimerThread = new Thread(turnTimer = new TurnTimerThread(this, this.turnTime));
+    this.turnTimerThread.start();
+  }
+
+  private void stopTurnTimer() {
+    Double reset = 0.0;
+    eventBus.post(reset);
+    if (this.turnTimerThread != null) {
+      this.turnTimer.forceEnd();
+      this.turnTimer = null;
+      this.turnTimerThread = null;
+    }
+  }
+
+  void updateTurnTimer(double seconds) {
+    eventBus.post(seconds / (double) turnTime);
+
+    if (seconds <= 0.0) {
+      this.endTurn(true);
+    }
+  }
+
+  private void removeShip(int ship) {
+    for (ComboBox<Integer> box : view.getShipCBoxes()) {
+      box.getItems().remove((Integer) ship);
+    }
+  }
+
+  private void removeSiteByTypeFromShipToLocationBox(SiteType type) {
+    view.getSelectShipLocationBox().getItems().remove(getString("site." + type.toString()));
+  }
+
+  private void setSelectShipLocationBox(List<SiteType> sites) {
+    view.getSelectShipLocationBox().getItems().clear();
+    for (SiteType site : sites) {
+      view.getSelectShipLocationBox().getItems().add(getString("site." + site.name()));
+    }
+  }
+
+  private void updateShipCargoBoxes(int[] cargo, int shipId) {
+    for (int i = 0; i < cargo.length; i++) {
+      this.ships.get(shipId)[i] = cargo[i];
+    }
+    this.setStoneLocationCBox(shipId);
+  }
+
+  void setStoneLocationCBox(int ship) {
+    view.getSelectStoneLocationBox().getItems().clear();
+    for (int i = 0; i <= ships.get(ship).length - 1; i++) {
+      if (ships.get(ship)[i] == -1)
+        view.getSelectStoneLocationBox().getItems().add(i);
+    }
   }
 }

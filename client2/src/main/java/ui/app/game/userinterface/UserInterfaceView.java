@@ -14,6 +14,7 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -55,6 +56,18 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @FXML
   private ComboBox<String> selectCardBox;
+
+  @FXML
+  private Button getNewStonesButton;
+
+  @FXML
+  private Button moveShipToLocationButton;
+
+  @FXML
+  private Button placeStonesButton;
+
+  @FXML
+  private Button playCardButton;
 
   private final IGameView parentView;
   private final UserInterfacePresenter mainPresenter;
@@ -129,7 +142,25 @@ public class UserInterfaceView implements IUserInterfaceView {
     return selectShipLocationBox;
   }
 
+  public ComboBox<Integer> getSelectShipBox() { return selectShipBox; }
+
+  public ComboBox<Integer> getSelectShipToLocationBox() { return selectShipToLocationBox; }
+
   public ComboBox<String> getSelectCardBox() { return selectCardBox; }
+
+  public Button getGetNewStonesButton() { return getNewStonesButton; }
+
+  public Button getMoveShipToLocationButton() {
+    return moveShipToLocationButton;
+  }
+
+  public Button getPlaceStonesButton() {
+    return placeStonesButton;
+  }
+
+  public Button getPlayCardButton() {
+    return playCardButton;
+  }
 
   public int getPlayerId() { return playerId; }
 
@@ -155,9 +186,12 @@ public class UserInterfaceView implements IUserInterfaceView {
 
   @FXML
   void sendToolCardMove() {
+    System.out.println("kartenmove senden gedrückt");
     if(this.selectCardBox.getValue() != null) {
-      //this.mainPresenter.sendToolCardMove();
+      this.mainPresenter.sendToolCardMove();
       System.out.println("Kartenmove senden");
+    } else {
+      System.out.println("ist null bruda");
     }
   }
 

@@ -1,6 +1,8 @@
 package ui.app.game.userinterface;
 
 import java.util.ArrayList;
+
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -28,6 +30,18 @@ public interface IUserInterfaceView extends IView {
   ArrayList<ComboBox<Integer>> getShipCBoxes();
 
   ComboBox<String> getSelectCardBox();
+
+  Button getGetNewStonesButton();
+
+  Button getMoveShipToLocationButton();
+
+  Button getPlaceStonesButton();
+
+  Button getPlayCardButton();
+
+  ComboBox<Integer> getSelectShipBox();
+
+  ComboBox<Integer> getSelectShipToLocationBox();
 
   int getPlayerId();
 }
