@@ -1,6 +1,7 @@
 package ui.layout;
 
 import com.google.common.eventbus.EventBus;
+import connection.Connection;
 import events.start.LogoutEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,19 +13,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import requests.main.LogoutRequest;
 
 public class StageLayout {
 
   private Stage stage;
   private Scene scene;
   private final EventBus eventBus;
+  private Connection connection;
 
   private Rectangle edgeRect = new Rectangle();
 
-  public StageLayout(Stage stage, Scene scene, EventBus eventBus) {
+  public StageLayout(Stage stage, Scene scene, EventBus eventBus, Connection connection) {
     this.stage = stage;
     this.scene = scene;
     this.eventBus = eventBus;
+    this.connection = connection;
 
     //Windows Navigation entfernen
     stage.initStyle(StageStyle.TRANSPARENT);
@@ -77,7 +81,7 @@ public class StageLayout {
       logoutButton.setFocusTraversable(false);
       logoutButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
         public void handle(ActionEvent event) {
-          eventBus.post(new LogoutEvent());
+          connection.send(new LogoutRequest());
         }
       });
       nav.getChildren().addAll(logoutButton, min, close);
