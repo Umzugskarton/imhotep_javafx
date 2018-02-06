@@ -197,7 +197,8 @@ public class Game implements Runnable {
       market.prepareRound();
       sendAll(getGameInfo());
       while (!allshipsDocked()) {
-        for (int player = 0; player < this.players.length; player++) {
+        int playerRound = 0;
+        for (int player = playerRound; player < this.players.length; player++) {
           currentPlayer = player; //Leichterer Zugriff auf aktuellen Player
           setActivePlayer(player);
           waitForMove(player);
@@ -211,6 +212,7 @@ public class Game implements Runnable {
           if (allshipsDocked()) {
             break;
           }
+          playerRound++;
         }
       }
       resetCurrentShips();

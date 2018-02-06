@@ -5,8 +5,10 @@ import events.app.game.StoneAddedToSiteEvent;
 import game.Game;
 import game.board.Stone;
 import game.board.StoneSite;
-import java.util.EnumMap;
 import requests.gamemoves.CardType;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
 
 public class LocationCard extends Card {
 
@@ -23,6 +25,12 @@ public class LocationCard extends Card {
     SiteType type = typeEnumMap.get(getType());
     StoneSite stoneSite = (StoneSite) game.getSiteByType(type);
     stoneSite.addStone(new Stone(game.getPlayer(playerid)));
-    return new StoneAddedToSiteEvent(game.getGameID(), playerid, type);
+    ArrayList<Integer> siteStones = new ArrayList<>();
+    for (Stone stone : stoneSite.getStones()) {
+      if (stone != null) {
+        siteStones.add(stone.getPlayer().getId());
+      }
+    }
+    return new StoneAddedToSiteEvent(game.getGameID(), type, siteStones);
   }
 }

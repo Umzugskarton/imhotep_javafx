@@ -2,14 +2,17 @@ package events.app.game;
 
 import events.SiteType;
 
+import java.util.ArrayList;
+
 public class StoneAddedToSiteEvent extends GameEvent {
 
   private int playerId;
   private SiteType siteType;
+  private ArrayList<Integer> newStones;
 
-  public StoneAddedToSiteEvent(int lobbyId, int playerId, SiteType siteType) {
+  public StoneAddedToSiteEvent(int lobbyId, SiteType siteType, ArrayList<Integer> newStones) {
     this.lobbyId = lobbyId;
-    this.playerId = playerId;
+    this.newStones = newStones;
     this.siteType = siteType;
   }
 
@@ -21,4 +24,7 @@ public class StoneAddedToSiteEvent extends GameEvent {
     return siteType;
   }
 
+  public ArrayList<Integer> getNewStones() {
+    return newStones;
+  }
 }

@@ -76,7 +76,7 @@ public class VoyageToMarket implements Procedure {
           Card card = activeCards.get(cardId);
           market.removeCard(cardId);
           if (card instanceof LocationCard) {
-            ((LocationCard) card).exec(game, stones[i].getPlayer().getId());
+            game.sendAll(((LocationCard) card).exec(game, stones[i].getPlayer().getId()));
           } else {
             stones[i].getPlayer().addCard(card);
             cardTypes.get(stones[i].getPlayer().getId()).add(card.getType());
