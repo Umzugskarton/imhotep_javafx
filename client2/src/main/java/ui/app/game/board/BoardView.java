@@ -8,13 +8,8 @@ import data.user.User;
 import events.SiteType;
 import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
+import events.app.game.VoyageToStoneSiteManualDumpEvent;
 import helper.fxml.GenerateFXMLView;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -26,10 +21,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import mvp.view.INavigateableView;
 import ui.app.game.board.ship.ShipView;
+import ui.app.game.board.ship.manualdump.ManualDumpView;
 import ui.app.game.board.sites.ISiteView;
 import ui.app.game.board.sites.defaultsites.DefaultSiteView;
 import ui.app.game.board.sites.market.MarketView;
 import ui.app.game.board.storage.StorageView;
+
+import java.net.URL;
+import java.util.*;
 
 
 public class BoardView implements IBoardView {
@@ -88,7 +87,7 @@ public class BoardView implements IBoardView {
   @FXML
   private GridPane stoneSiteGrid;
 
-
+  private ManualDumpView manualDumpView;
   private final INavigateableView parentView;
   private final BoardPresenter mainPresenter;
   private final EventBus eventBus;
@@ -110,6 +109,7 @@ public class BoardView implements IBoardView {
     this.parentView = parentView;
     this.eventBus = eventBus;
     this.lobby = lobby;
+    manualDumpView = new ManualDumpView(this, eventBus, connection, lobby);
     this.connection = connection;
     this.user = user;
     this.mainPresenter = new BoardPresenter(this, eventBus, connection, user, lobby);
@@ -207,6 +207,11 @@ public class BoardView implements IBoardView {
     } else {
       currentPlayerLabel.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
     }
+  }
+
+  public void onVoyageToStoneSiteManualDumpEvent(VoyageToStoneSiteManualDumpEvent event){
+    manualDumpView.setCargo(shipViews.get(event.getShipid()).getCargo());
+    eventBus.post(manualDumpView);
   }
 
   @Subscribe

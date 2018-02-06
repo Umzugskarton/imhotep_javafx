@@ -4,8 +4,6 @@ import com.google.common.eventbus.EventBus;
 import connection.Connection;
 import data.lobby.CommonLobby;
 import helper.fxml.GenerateFXMLView;
-import java.util.ArrayList;
-import java.util.Collections;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -13,6 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import mvp.view.IView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class ShipView implements IShipView {
@@ -51,6 +52,11 @@ public class ShipView implements IShipView {
     this.eventBus = eventBus;
     this.mainPresenter = new ShipPresenter(this, eventBus, connection, cargo, lobby, shipId);
     initOwnView();
+  }
+
+
+  public int[] getCargo() {
+    return cargo;
   }
 
   @Override

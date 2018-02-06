@@ -1,34 +1,36 @@
 package game.gameprocedures;
 
 import events.Event;
-import events.SiteType;
 import events.app.game.*;
 import game.Game;
 import game.board.Ship;
 import game.board.Stone;
 import game.board.StoneSite;
 import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 import java.util.ArrayList;
 
 public class VoyageToStoneSiteManualDump extends Voyage {
 
-  private VoyageToStoneSiteManualDumpMove move;
+  private VoyageToStoneSiteMove move;
   private Game game;
   private int playerId;
   private int lobbyId;
+  private int[] dumpOrder;
 
-  VoyageToStoneSiteManualDump(Game game, int playerId) {
+  public VoyageToStoneSiteManualDump(Game game, int playerId, int[] dumpOrder) {
     this.game = game;
     this.playerId = playerId;
+    this.dumpOrder=dumpOrder;
   }
 
   public void put(Move move) {
-    this.move = (VoyageToStoneSiteManualDumpMove) move;
+    this.move = (VoyageToStoneSiteMove) move;
   }
 
   public Event exec() {
+
     Ship ship = game.getShipByID(move.getShipId());
     StoneSite site;
     try {
@@ -42,7 +44,7 @@ public class VoyageToStoneSiteManualDump extends Voyage {
         if (site.dockShip(ship)) {
           ship.setDocked(true);
           ArrayList<Integer> siteStones = new ArrayList<>();
-          Stone[] stones = ship.sortStones(move.getDumpOrder());
+          Stone[] stones = ship.sortStones(dumpOrder);
           for(int i = 0; i < stones.length; i++) {
             siteStones.add(stones[i].getPlayer().getId());
           }
