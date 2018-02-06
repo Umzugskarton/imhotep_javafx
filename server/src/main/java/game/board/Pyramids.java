@@ -60,7 +60,7 @@ public class Pyramids extends StoneSite {
     int[] points = new int[playerCount];
     for (int i = stones.size() - currentTurnStones; i < stones.size(); i++) {
       if (i < positionValues.length) {
-        points[stones.get(i).getPlayer().getId()] += positionValues[i++];
+        points[stones.get(i).getPlayer().getId()] += positionValues[i];
       } else {
         points[stones.get(i).getPlayer().getId()] += STANDARD_VALUE;
       }
