@@ -288,4 +288,26 @@ public class runningGameTest {
 
   }
 
+  @Test
+  public void toolCardsTest() {
+    game = new Game(lobby, cl);
+    Move[] hammerMove = {
+      new ToolCardMove(CardType.HAMMER, lobbyID), null, null, null
+    };
+
+    Move[] leverMove = {
+            new ToolCardMove(CardType.LEVER, lobbyID), null, null, null
+    };
+    Move[] chiselMove = {
+            new ToolCardMove(CardType.CHISEL, lobbyID), null, null, null
+    };
+
+
+    game.runOneRoundTest(hammerMove);
+    //game.runOneRoundTest(leverMove);
+    //game.runOneRoundTest(chiselMove);
+    assertEquals(5, game.getPlayer(0).getStones());
+
+  }
+
 }
