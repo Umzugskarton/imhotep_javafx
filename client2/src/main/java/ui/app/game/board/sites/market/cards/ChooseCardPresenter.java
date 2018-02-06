@@ -7,7 +7,6 @@ import events.app.game.ChooseCardEvent;
 import mvp.presenter.Presenter;
 import requests.gamemoves.ChooseCardMove;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseCardPresenter extends Presenter<IChooseCardView> {
@@ -18,13 +17,12 @@ public class ChooseCardPresenter extends Presenter<IChooseCardView> {
 
 
   public ChooseCardPresenter(IChooseCardView view, EventBus eventBus, Connection connection,
-      int lobbyId) {
+      int lobbyId, List<CardView> cardViews) {
     super(view, eventBus);
     this.lobbyId = lobbyId;
-    cardViews = new ArrayList<>();
+    this.cardViews = cardViews;
     this.connection = connection;
     this.lobbyId = lobbyId;
-    cardViews = view.getCardViews();
     bind();
   }
 
@@ -40,9 +38,9 @@ public class ChooseCardPresenter extends Presenter<IChooseCardView> {
 
   @Subscribe
   private void onChooseCardEvent(ChooseCardEvent e) {
-    e.getChoosenCardsId().forEach(card -> {
-      cardViews.get((card)).setAvailable(false);
-    });
+    for (int i : e.getChoosenCardsId()) {
+      cardViews.get(i).setAvailable(false);
+    }
     cardViews.forEach(cardView -> cardView.setClickable(true));
     view.resetCards();
     view.setCards();

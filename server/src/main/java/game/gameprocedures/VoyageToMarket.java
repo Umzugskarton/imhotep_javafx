@@ -40,8 +40,9 @@ public class VoyageToMarket implements Procedure {
       if (ship.getLoadedStones() >= ship.getMinimumStones()) {
         if (market.dockShip(ship)) {
           ship.setDocked(true);
+          doMarketRotation(ship.getStones());
           return new ShipDockedEvent(move.getShipId(), SiteType.MARKET,
-              doMarketRotation(ship.getStones()), game.getGameID());
+              null, game.getGameID());
         } else {
           return new SiteAlreadyDockedError(SiteType.MARKET);
         }
@@ -53,41 +54,42 @@ public class VoyageToMarket implements Procedure {
     }
   }
 
-  private ArrayList<Integer> doMarketRotation(Stone[] stones) {
+  private void doMarketRotation(Stone[] stones) {
     List<Card> activeCards = market.getActiveCards();
     ArrayList<ArrayList<CardType>> cardTypes = new ArrayList<>();
-    ArrayList<Integer> chosenCards = new ArrayList<>();
+    int[] chosenCards= new int[stones.length];
     for (int i = 0; i < game.getSize(); i++) {
       cardTypes.add(i ,new ArrayList<>());
     }
 
-    for (Stone stone : stones) {
-      if (stone != null && stone.getPlayer() != null){
-        game.sendTo(game.getPlayer(stone.getPlayer().getId()).getUser(),
+    for (int i = 0; i < stones.length; i++) {
+
+      if (stones[i] != null && stones[i].getPlayer() != null){
+        game.sendTo(game.getPlayer(stones[i].getPlayer().getId()).getUser(),
                 new ChooseCardEvent(game.getGameID(), chosenCards, game.getGameID()));
-        game.setCurrentPlayer(stone.getPlayer().getId());
+        game.setCurrentPlayer(stones[i].getPlayer().getId());
         Move move = acquireMove();
         if (move instanceof ChooseCardMove) {
           ChooseCardMove chooseCard = (ChooseCardMove) move;
           int cardId = chooseCard.getCardId();
-          chosenCards.add(cardId);
+          chosenCards[i]= cardId;
           Card card = activeCards.get(cardId);
           market.removeCard(cardId);
           if (card instanceof LocationCard) {
-            ((LocationCard) card).exec(game, stone.getPlayer().getId());
+            ((LocationCard) card).exec(game, stones[i].getPlayer().getId());
           } else {
-            stone.getPlayer().addCard(card);
-            cardTypes.get(stone.getPlayer().getId()).add(card.getType());
+            stones[i].getPlayer().addCard(card);
+            cardTypes.get(stones[i].getPlayer().getId()).add(card.getType());
           }
         }
       }
     }
-    sendNewInventories(cardTypes , chosenCards);
-    return chosenCards;
+    game.sendAll(new AllChosenCardsEvent(chosenCards, game.getGameID()));
+    sendNewInventories(cardTypes );
   }
 
-  public void sendNewInventories(ArrayList<ArrayList<CardType>> cardTypes , ArrayList<Integer> chosenCards){
-    game.sendAll(new InventoryUpdateEvent(cardTypes, chosenCards, game.getGameID()));
+  public void sendNewInventories(ArrayList<ArrayList<CardType>> cardTypes){
+    game.sendAll(new InventoryUpdateEvent(cardTypes, game.getGameID()));
   }
 
   private Move acquireMove() {

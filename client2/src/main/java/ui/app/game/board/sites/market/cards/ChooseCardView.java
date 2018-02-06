@@ -31,7 +31,7 @@ public class ChooseCardView implements IChooseCardView {
     this.eventBus = eventBus;
     this.cardViews = cardViews;
     this.connection = connection;
-    mainPresenter = new ChooseCardPresenter(this, eventBus, connection, lobby.getLobbyId());
+    mainPresenter = new ChooseCardPresenter(this, eventBus, connection, lobby.getLobbyId(), cardViews);
     initOwnView();
   }
 

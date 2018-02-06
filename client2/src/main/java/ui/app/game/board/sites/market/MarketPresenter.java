@@ -3,8 +3,8 @@ package ui.app.game.board.sites.market;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import connection.Connection;
+import events.app.game.AllChosenCardsEvent;
 import events.app.game.GameInfoEvent;
-import events.app.game.InventoryUpdateEvent;
 import mvp.presenter.Presenter;
 import ui.app.game.board.sites.ISitePresenter;
 
@@ -40,12 +40,10 @@ public class MarketPresenter extends Presenter<IMarketView> implements ISitePres
   }
 
   @Subscribe
-  private void onInventoryUpdateEvent(InventoryUpdateEvent event){
-    if (event.getChosenCards().size() > 0 ) {
-      event.getChosenCards().forEach(id -> {
+  private void onAllChosenCardsEvent(AllChosenCardsEvent event){
+     for (int id : event.getChosenCards()){
         view.setCardVisibility(id, false);
         view.getCards().get(id).setOpacity(0);
-      });
     }
   }
 

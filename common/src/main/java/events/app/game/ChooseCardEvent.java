@@ -1,15 +1,14 @@
 package events.app.game;
 
-import java.util.ArrayList;
-
 public class ChooseCardEvent extends GameEvent {
 
   private int playerId;
-  private ArrayList<Integer> choosenCardsId;
+  private int[] chosenCards;
 
-  public ChooseCardEvent(int playerId, ArrayList<Integer> choosenCardsId, int lobbyId) {
+  public ChooseCardEvent(int playerId, int[] chosenCards, int lobbyId) {
+    this.chosenCards = new int[chosenCards.length];
     this.playerId = playerId;
-    this.choosenCardsId = choosenCardsId;
+    System.arraycopy(chosenCards, 0 , this.chosenCards, 0 , chosenCards.length);
     this.lobbyId = lobbyId;
   }
 
@@ -17,7 +16,7 @@ public class ChooseCardEvent extends GameEvent {
     return playerId;
   }
 
-  public ArrayList<Integer> getChoosenCardsId() {
-    return choosenCardsId;
+  public int[] getChoosenCardsId() {
+    return chosenCards;
   }
 }
