@@ -31,6 +31,7 @@ public class Lobby {
   private ArrayList<Integer> userColor = new ArrayList<>();
   private ArrayList<String> colors = new ArrayList<>();
   private Game game;
+  private Thread gameThread;
 
   public Lobby(int size, User host, String name, String password, Server server) {
     readyList = new boolean[size];
@@ -71,8 +72,8 @@ public class Lobby {
   public void startGame(ClientListener cl) {
     game = new Game(this, cl);
     this.show(false);
-    Thread thread = new Thread(game);
-    thread.start();
+    gameThread= new Thread(game);
+    gameThread.start();
   }
 
   public Game getGame() {
@@ -216,6 +217,9 @@ public class Lobby {
     if (user == users[0] && getUserCount() != 1) {
       swapHost();
     }
+    if (game !=null){
+      game.delUser(user);
+    }
     for (int i = 0; i < users.length; i++) {
       if (users[i] == user) {
         users[i] = null;
@@ -224,13 +228,21 @@ public class Lobby {
       }
     }
     log.info(
-        "[Lobby " + this.getLobbyID() + "] " + user.getUsername() + " hat die Lobby verlassen.");
+        "[Lobby " + lobbyID + "] " + user.getUsername() + " hat die Lobby verlassen. Anzahl verbleibender User: " + getUserCount());
     Arrays.fill(readyList, false);
+
     if (getUserCount() == 0) {
+      log.info("[Lobby " + lobbyID+ "] wird geschlossen da sich kein User mehr darin befindet");
       //Lobby wird unsichtbar gesetzt, wenn alle diese verlassen haben
       this.show = false;
       //Löschen der Lobby
+      if (gameThread.isAlive()){
+        log.info("[Game " + lobbyID+ "] wird geschlossen da sich kein User mehr darin befindet");
+        gameThread.stop(); // Todo: austauschen gegen Thread.interrupt
+
+      }
       this.server.delLobby(this);
+
     }
     this.vacancy = true;
     return new LeaveLobbyEvent(true, lobbyID);

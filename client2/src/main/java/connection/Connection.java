@@ -37,7 +37,7 @@ public class Connection {
   }
 
   public Connection(EventBus eventBus) {
-    this("duemmer.informatik.uni-oldenburg.de", 47096, eventBus);
+    this("localhost", 47096, eventBus);
   }
 
   private void bind() {

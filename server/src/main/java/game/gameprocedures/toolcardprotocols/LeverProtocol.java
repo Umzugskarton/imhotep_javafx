@@ -28,7 +28,7 @@ public class LeverProtocol extends Protocol {
         VoyageToStoneSiteManualDumpMove voy = (VoyageToStoneSiteManualDumpMove) voyManMove;
         VoyageToStoneSiteManualDump voyageToStoneSiteManualDump = new VoyageToStoneSiteManualDump(game, playerId,voy.getDumpOrder());
         voyageToStoneSiteManualDump.put(move);
-        game.executeMove(move);
+        game.sendAll(voyageToStoneSiteManualDump.exec());
       }
     }
   }

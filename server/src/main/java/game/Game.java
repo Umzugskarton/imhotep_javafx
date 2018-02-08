@@ -7,24 +7,30 @@ import events.app.game.GameInfoEvent;
 import events.app.game.TurnEvent;
 import events.app.game.UpdatePointsEvent;
 import events.app.game.WinEvent;
-import game.board.*;
+import game.board.BurialChamber;
+import game.board.Market;
+import game.board.Obelisks;
+import game.board.Pyramids;
+import game.board.Ship;
+import game.board.Site;
+import game.board.StoneSite;
+import game.board.Temple;
 import game.board.cards.Card;
 import game.board.cards.CardDeck;
 import game.board.cards.OrnamentCard;
 import game.board.cards.StatueCard;
 import game.gameprocedures.Procedure;
 import game.gameprocedures.ProcedureFactory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
 import lobby.Lobby;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
 import socket.ClientListener;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
 
 public class Game implements Runnable {
 
@@ -520,6 +526,9 @@ public class Game implements Runnable {
     }
   }
 
+  public void delUser(User user){
+    Arrays.asList(players).remove(user);
+  }
   public Move setTestMove(Move move) {
     return move;
   }

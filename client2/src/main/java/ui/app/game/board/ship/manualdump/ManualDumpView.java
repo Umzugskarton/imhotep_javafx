@@ -9,11 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import mvp.view.IView;
 
 public class ManualDumpView implements IManualDumpView{
   @FXML
-  private GridPane cardGridPane;
+  private GridPane chooseBox;
 
   private final IView parentView;
   private final ManualDumpPresenter mainPresenter;
@@ -33,7 +35,6 @@ public class ManualDumpView implements IManualDumpView{
       this.parentView = parentView;
       this.lobby =lobby;
       mainPresenter = new ManualDumpPresenter(this , eventBus, connection, lobby);
-      this.cargo = cargo;
       this.eventBus = eventBus;
       this.connection =connection;
       initOwnView();
@@ -57,36 +58,35 @@ public class ManualDumpView implements IManualDumpView{
 
   @FXML
   private void onStone0(){
+    System.out.println("Pushed Stone 0");
     setPlace(0);
-    manualdump.getChildren().get(0).setVisible(false);
   }
 
   @FXML
   private void onStone1(){
     setPlace(1);
-    manualdump.getChildren().get(1).setVisible(false);
-
   }
 
   @FXML
   private void onStone2(){
     setPlace(2);
-    manualdump.getChildren().get(2).setVisible(false);
-
   }
 
   @FXML
   private void onStone3(){
     setPlace(3);
-    manualdump.getChildren().get(3).setVisible(false);
-
   }
 
   public void setCargo(int[] cargo) {
     this.cargo = cargo;
     for (int i = 0; i < cargo.length ;i++) {
-      manualdump.getChildren().get(i).setVisible(true);
+      if (cargo[i] != -1) {
+        Rectangle rectangle = (Rectangle) manualdump.getChildren().get(i);
+        rectangle.setVisible(true);
+        rectangle.setFill(Color.web(lobby.getUserbyLobbyId(cargo[i]).getColor()));
+      }
     }
+    mainPresenter.setNewCargoSize(cargo.length);
   }
 
   public int[] getCargo() {
@@ -94,6 +94,8 @@ public class ManualDumpView implements IManualDumpView{
   }
 
   private void setPlace(int id){
+    manualdump.getChildren().get(id).setVisible(false);
+    chooseBox.getChildren().get(3-mainPresenter.getPlace()).setStyle("-fx-background-color: " + lobby.getUserbyLobbyId(cargo[id]).getColor());
     mainPresenter.setPlace(id);
   }
 

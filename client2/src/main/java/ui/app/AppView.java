@@ -11,6 +11,11 @@ import events.app.game.GameEvent;
 import events.app.game.StartGameEvent;
 import events.app.lobby.LobbyInfoEvent;
 import helper.fxml.GenerateFXMLView;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -34,12 +39,6 @@ import ui.dialog.DialogView;
 import ui.dialog.IDialogView;
 import ui.layout.StageLayout;
 import ui.start.ShowStartViewEvent;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class AppView implements IAppView {
 
@@ -137,13 +136,7 @@ public class AppView implements IAppView {
     tab.setContent(lobbyView.getRootParent());
     tab.setId("lobbyTab");
     lobby.setMyTab(tab);
-
-    tab.setOnCloseRequest(new EventHandler<Event>() {
-      @Override
-      public void handle(Event event) {
-        presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId()));
-      }
-    });
+    tab.setOnClosed((event) -> presenter.getConnection().send(new LeaveLobbyRequest(lobby.getLobbyId())));
     this.appViewMainTabPane.getTabs().add(tab);
     return tab;
   }

@@ -29,6 +29,7 @@ public class MarketPresenter extends Presenter<IMarketView> implements ISitePres
   private void onGameInfoEvent(GameInfoEvent event) {
     for (int i = 0; i < event.getCards().size(); i++) {
       view.getCardViews().get(i).setCardType(event.getCards().get(i));
+      view.getCardViews().get(i).setAvailable(true);
       view.getCards().get(i)
           .setId(view.getCardViews().get(i).getStyleType(event.getCards().get(i)));
       view.getCards().get(i).setOpacity(1);

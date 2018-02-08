@@ -101,13 +101,25 @@ public class Ship {
   }
 
   public Stone[] sortStones(int[] sortedStones) {
+    printArray(sortedStones);
+    Stone[] tempStones = stones;
     for (int i = 0; i < stones.length; i++) {
-      Stone temp;
-      temp = stones[i];
-      stones[i] = stones[sortedStones[i]];
-      stones[sortedStones[i]] = temp;
+      if (sortedStones[i] != -1) {
+        stones[i] = tempStones[sortedStones[i]];
+      }
     }
     return stones;
+  }
+
+  private void printArray(int[] a ){
+    StringBuilder x = new StringBuilder();
+    x.append("Array = { ");
+    for (int i = 0; i < a.length ; i++) {
+      x.append(a[i] + " ,");
+    }
+    x.append("}");
+    System.out.println(x.toString());
+
   }
 
 
