@@ -1,6 +1,7 @@
 package game.board.cards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import requests.gamemoves.CardType;
 
@@ -21,7 +22,7 @@ public class CardDeck {
   }
 
   private void createCards() {
-   /* Arrays.stream(ornamentCards).forEach(type -> {
+   Arrays.stream(ornamentCards).forEach(type -> {
       deck.add(new OrnamentCard(type));
       deck.add(new OrnamentCard(type));
     });
@@ -37,10 +38,6 @@ public class CardDeck {
       if (type == CardType.CHISEL || type == CardType.SAIL) {
         deck.add(new ToolCard(type));
       }
-    });*/
-    for (int i = 0; i < 10; i++) {
-      deck.add(new ToolCard(CardType.LEVER));
-    }
-
+    });
   }
 }

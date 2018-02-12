@@ -101,26 +101,16 @@ public class Ship {
   }
 
   public Stone[] sortStones(int[] sortedStones) {
-    printArray(sortedStones);
-    Stone[] tempStones = stones;
+    Stone[] tempStones = new Stone[stones.length];
     for (int i = 0; i < stones.length; i++) {
       if (sortedStones[i] != -1) {
-        stones[i] = tempStones[sortedStones[i]];
+        tempStones[i] = stones[sortedStones[i]];
       }
     }
+    System.arraycopy(tempStones, 0 , stones, 0 , tempStones.length );
     return stones;
   }
 
-  private void printArray(int[] a ){
-    StringBuilder x = new StringBuilder();
-    x.append("Array = { ");
-    for (int i = 0; i < a.length ; i++) {
-      x.append(a[i] + " ,");
-    }
-    x.append("}");
-    System.out.println(x.toString());
-
-  }
 
 
   public int[] getCargoAsIntArrayByShip() {
