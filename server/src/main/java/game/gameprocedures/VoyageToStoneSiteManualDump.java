@@ -48,8 +48,9 @@ public class VoyageToStoneSiteManualDump extends Voyage {
           if (site.dockShip(ship)) {
             ship.setDocked(true);
             ArrayList<Integer> siteStones = new ArrayList<>();
-            for (int i = 0; i < stones.length; i++) {
-              siteStones.add(stones[i].getPlayer().getId());
+            for (Stone stone : stones){
+              if (stone != null)
+                siteStones.add(stone.getPlayer().getId());
             }
             return new ShipDockedEvent(move.getShipId(), move.getSiteType(),
                 siteStones, game.getGameID());
