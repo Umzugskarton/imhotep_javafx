@@ -34,7 +34,7 @@ public class VoyageToStoneSite implements Procedure {
     Ship ship = game.getShipByID(move.getShipId());
     StoneSite site;
     try {
-      site = (StoneSite) game.getSiteByType(move.getStoneSite());
+      site = (StoneSite) game.getSiteByType(move.getSiteType());
     } catch (Exception e) {
       return new DockingShipError(game.getGameID());
     }
@@ -50,13 +50,13 @@ public class VoyageToStoneSite implements Procedure {
               siteStones.add(stone.getPlayer().getId());
             }
           }
-          if (move.getStoneSite() == SiteType.PYRAMID) {
+          if (move.getSiteType() == SiteType.PYRAMID) {
             game.updatePyramids();
           }
-          return new ShipDockedEvent(move.getShipId(), move.getStoneSite(), siteStones,
+          return new ShipDockedEvent(move.getShipId(), move.getSiteType(), siteStones,
               game.getGameID());
         } else {
-          return new SiteAlreadyDockedError(move.getStoneSite());
+          return new SiteAlreadyDockedError(move.getSiteType());
         }
       } else {
         return new NotEnoughLoadError(move.getShipId(), game.getGameID());

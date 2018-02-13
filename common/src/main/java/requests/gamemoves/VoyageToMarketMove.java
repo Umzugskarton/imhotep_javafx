@@ -1,15 +1,16 @@
 package requests.gamemoves;
 
+import events.SiteType;
 import requests.RequestType;
 
-public class VoyageToMarketMove implements Move {
+public class VoyageToMarketMove extends VoyageMove {
 
   private RequestType move = RequestType.VOYAGE_TO_MARKET;
-  private int shipId;
   private int lobbyId;
 
   public VoyageToMarketMove(int shipId, int lobbyId) {
     this.shipId = shipId;
+    this.siteType = SiteType.MARKET;
     this.lobbyId = lobbyId;
   }
 
@@ -17,9 +18,6 @@ public class VoyageToMarketMove implements Move {
     return lobbyId;
   }
 
-  public int getShipId() {
-    return shipId;
-  }
 
   @Override
   public RequestType getType() {

@@ -1,57 +1,68 @@
 package game.gameprocedures;
 
 import events.Event;
-import events.app.game.*;
+import events.app.game.DockingShipError;
+import events.app.game.NotEnoughLoadError;
+import events.app.game.ShipAlreadyDockedError;
+import events.app.game.ShipDockedEvent;
+import events.app.game.SiteAlreadyDockedError;
 import game.Game;
 import game.board.Ship;
+import game.board.Site;
 import game.board.Stone;
-import game.board.StoneSite;
-import requests.gamemoves.Move;
-import requests.gamemoves.VoyageToStoneSiteMove;
-
 import java.util.ArrayList;
+import requests.gamemoves.Move;
+import requests.gamemoves.VoyageMove;
+import requests.gamemoves.VoyageToMarketMove;
+import requests.gamemoves.VoyageToStoneSiteMove;
 
 public class VoyageToStoneSiteManualDump extends Voyage {
 
-  private VoyageToStoneSiteMove move;
+  private VoyageMove move;
   private Game game;
-  private int playerId;
-  private int lobbyId;
   private int[] dumpOrder;
 
-  public VoyageToStoneSiteManualDump(Game game, int playerId, int[] dumpOrder) {
+  public VoyageToStoneSiteManualDump(Game game, int[] dumpOrder) {
     this.game = game;
-    this.playerId = playerId;
-    this.dumpOrder=dumpOrder;
+    this.dumpOrder = dumpOrder;
   }
 
   public void put(Move move) {
-    this.move = (VoyageToStoneSiteMove) move;
+    this.move = (VoyageMove) move;
   }
 
   public Event exec() {
 
     Ship ship = game.getShipByID(move.getShipId());
-    StoneSite site;
+    Site site;
     try {
-      site = (StoneSite) game.getSiteByType(move.getStoneSite());
+      site = game.getSiteByType(move.getSiteType());
     } catch (Exception e) {
       return new DockingShipError(game.getGameID());
     }
 
     if (!ship.isDocked()) {
       if (ship.getLoadedStones() >= ship.getMinimumStones()) {
-        if (site.dockShip(ship)) {
-          ship.setDocked(true);
-          ArrayList<Integer> siteStones = new ArrayList<>();
-          Stone[] stones = ship.sortStones(dumpOrder);
-          for(int i = 0; i < stones.length; i++) {
-            siteStones.add(stones[i].getPlayer().getId());
+        Stone[] stones = ship.sortStones(dumpOrder);
+        if (move instanceof VoyageToStoneSiteMove) {
+          if (site.dockShip(ship)) {
+            ship.setDocked(true);
+            ArrayList<Integer> siteStones = new ArrayList<>();
+            for (int i = 0; i < stones.length; i++) {
+              siteStones.add(stones[i].getPlayer().getId());
+            }
+            return new ShipDockedEvent(move.getShipId(), move.getSiteType(),
+                siteStones, game.getGameID());
+          } else {
+            return new SiteAlreadyDockedError(move.getSiteType());
           }
-          return new ShipDockedEvent(move.getShipId(), move.getStoneSite(),
-                  siteStones, game.getGameID());
-        } else {
-          return new SiteAlreadyDockedError(move.getStoneSite());
+        } else if (move instanceof VoyageToMarketMove) {
+          VoyageToMarket voyageToMarket = new VoyageToMarket(game);
+          voyageToMarket.put(move);
+          return voyageToMarket.exec();
+        }
+        else{
+          return new NotEnoughLoadError(move.getShipId(), game.getGameID());
         }
       } else {
         return new NotEnoughLoadError(move.getShipId(), game.getGameID());
@@ -60,5 +71,4 @@ public class VoyageToStoneSiteManualDump extends Voyage {
       return new ShipAlreadyDockedError(move.getShipId(), game.getGameID());
     }
   }
-
 }

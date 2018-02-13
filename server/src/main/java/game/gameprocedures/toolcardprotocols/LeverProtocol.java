@@ -7,8 +7,8 @@ import game.Game;
 import game.gameprocedures.VoyageToStoneSiteManualDump;
 import requests.gamemoves.CardType;
 import requests.gamemoves.Move;
+import requests.gamemoves.VoyageMove;
 import requests.gamemoves.VoyageToStoneSiteManualDumpMove;
-import requests.gamemoves.VoyageToStoneSiteMove;
 
 public class LeverProtocol extends Protocol {
 
@@ -21,12 +21,13 @@ public class LeverProtocol extends Protocol {
     game.sendTo(game.getPlayer(playerId).getUser(),
         new VoyageToStoneSiteExclusiveEvent(game.getGameID()));
     Move move = acquireMove();
-    if (move instanceof VoyageToStoneSiteMove) {
-      game.sendTo(game.getPlayer(playerId).getUser(),new VoyageToStoneSiteManualDumpEvent(game.getGameID(), ((VoyageToStoneSiteMove)move).getShipId()));
+    if (move instanceof VoyageMove) {
+      int shipId = ((VoyageMove) move).getShipId();
+      game.sendTo(game.getPlayer(playerId).getUser(),new VoyageToStoneSiteManualDumpEvent(game.getGameID(), shipId));
       Move voyManMove = acquireMove();
       if (voyManMove instanceof VoyageToStoneSiteManualDumpMove) {
         VoyageToStoneSiteManualDumpMove voy = (VoyageToStoneSiteManualDumpMove) voyManMove;
-        VoyageToStoneSiteManualDump voyageToStoneSiteManualDump = new VoyageToStoneSiteManualDump(game, playerId,voy.getDumpOrder());
+        VoyageToStoneSiteManualDump voyageToStoneSiteManualDump = new VoyageToStoneSiteManualDump(game,voy.getDumpOrder());
         voyageToStoneSiteManualDump.put(move);
         game.sendAll(voyageToStoneSiteManualDump.exec());
       }

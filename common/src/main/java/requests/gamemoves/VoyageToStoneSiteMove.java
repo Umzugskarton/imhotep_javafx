@@ -3,16 +3,14 @@ package requests.gamemoves;
 import events.SiteType;
 import requests.RequestType;
 
-public class VoyageToStoneSiteMove implements Move {
+public class VoyageToStoneSiteMove extends VoyageMove {
 
   private RequestType move = RequestType.VOYAGE_TO_STONE_SITE;
-  private int shipId;
-  private SiteType stoneSite;
   private int lobbyId;
 
-  public VoyageToStoneSiteMove(int shipId, SiteType stoneSite, int lobbyId) {
+  public VoyageToStoneSiteMove(int shipId, SiteType siteType, int lobbyId) {
     this.shipId = shipId;
-    this.stoneSite = stoneSite;
+    this.siteType= siteType;
     this.lobbyId = lobbyId;
   }
 
@@ -22,10 +20,6 @@ public class VoyageToStoneSiteMove implements Move {
 
   public int getShipId() {
     return shipId;
-  }
-
-  public SiteType getStoneSite() {
-    return stoneSite;
   }
 
   @Override
